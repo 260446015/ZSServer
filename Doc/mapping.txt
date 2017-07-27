@@ -1,0 +1,83 @@
+"mappings": {
+"aitinfo": {
+"properties": {
+"hitCount": {
+"type": "long"
+},
+"publishDate": {
+"format": "strict_date_optional_time||epoch_millis",
+"type": "date"
+},
+"sourceLink": {
+"type": "string"
+},
+"industry": {
+"type": "string"
+},
+"hasWarn": {
+"type": "boolean"
+},
+"source": {
+"type": "string"
+},
+"title": {
+"type": "string"
+},
+"content": {
+"type": "string"
+},
+"industryType": {
+"type": "string"
+},
+"articleType": {
+"type": "string"
+},
+"from": {
+"type": "long"
+},
+"vector": {
+"type": "string"
+},
+"first_name": {
+"type": "string"
+},
+"park": {
+"type": "string"
+},
+"area": {
+"type": "string"
+},
+"business": {
+"type": "string"
+},
+"supportCount": {
+"type": "long"
+},
+"author": {
+"type": "string"
+},
+"industryLabel": {
+"type": "string"
+},
+"replyCount": {
+"type": "long"
+},
+"emotion": {
+"type": "string"
+},
+"size": {
+"type": "long"
+},
+"businessType": {
+"type": "string"
+},
+"aggs": {
+"type": "object"
+}
+}
+}
+},
+"aliases": [
+"aitserver_alias"
+]
+}
