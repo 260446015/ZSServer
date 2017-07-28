@@ -24,6 +24,9 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
      */
     @Override
     public AITInfo getIndustrialPolicyDetailById(String id) {
+        /**
+         * 直接调用ElasticsearchRepository 中的 findOne方法
+         */
         return industriaPolicyRepository.findOne(id);
     }
 

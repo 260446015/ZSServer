@@ -56,6 +56,12 @@ public class ConcersUtils {
 	public final static String ES_AUTHOR = "author";
 	
 	public final static String ES_PUBLISHDATE = "publishDate";
+	// hitCount 点击量/阅读量
+    public final static String ES_HITCOUNT = "hitCount";
+    // supportCount 点赞量/支持数
+    public final static String ES_SUPPORTCOUNT = "supportCount";
+    // replyCount 回复量/评论数
+    public final static String ES_REPLYCOUNT = "replyCount";
 
 	public final static String VECTOR_WECHAT = "微信";
 
