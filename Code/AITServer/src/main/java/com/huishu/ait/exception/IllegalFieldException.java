@@ -1,6 +1,6 @@
 package com.huishu.ait.exception;
 
-/**
+ /*
  * 属性不合法异常
  * @author yuwei
  */
