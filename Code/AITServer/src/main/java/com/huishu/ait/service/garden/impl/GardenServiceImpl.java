@@ -19,9 +19,10 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.conf.ConfConstant;
 import com.huishu.ait.common.conf.DBConstant;
+import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.service.garden.GardenService;
 
 @Service
@@ -29,9 +30,10 @@ public class GardenServiceImpl implements GardenService {
 	@Autowired
 	private Client client;
 	@Override
-	public JSONObject getGardenPolicyList(String park) {
+	public JSONObject getGardenPolicyList(SearchModel searchModel) {
+		checkPage(searchModel);
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
-		bq.must(QueryBuilders.termQuery("park", park));
+		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		bq.must(QueryBuilders.termQuery("articleType", "政策解读"));
 		//按时间和点击量降序排列
 		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
@@ -40,26 +42,30 @@ public class GardenServiceImpl implements GardenService {
 		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX);
 		srb.setTypes(DBConstant.EsConfig.TYPE);
 		srb.addSort(dateBuilder).addSort(countBuilder);
-		SearchResponse searchResponse = srb.setQuery(bq).execute().actionGet();
+		Integer pageSize = searchModel.getPageSize();
+		Integer pageNumber = searchModel.getPageNumber();
+		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize*pageNumber).execute().actionGet();
 		
-		List<JSONObject> rows=null;
+		List<JSONObject> rows=new ArrayList<JSONObject>();
+		List<JSONObject> data=new ArrayList<JSONObject>();
 		long total=0; 
 		if(null!=searchResponse&&null!=searchResponse.getHits()){
 			SearchHits hits = searchResponse.getHits();
-			rows = new ArrayList<JSONObject>();
 			for (SearchHit searchHit : hits) {
 				total = hits.getTotalHits();
 				Map<String, Object> map = searchHit.getSource();
 				JSONObject obj = new JSONObject();
 				obj.put("id",searchHit.getId());
-		        obj.put("park",map.get("park"));
 		        obj.put("title",map.get("title"));
 		        obj.put("content",map.get("content"));
 				rows.add(obj);
 			}
 		}
+		for (int i = pageSize*pageNumber-pageSize; i < rows.size(); i++) {
+			data.add(rows.get(i));
+		}
 		JSONObject result = new JSONObject();
-		result.put("list",rows);
+		result.put("list",data);
 		result.put("total",total);
 		return result;
 	}
@@ -85,7 +91,7 @@ public class GardenServiceImpl implements GardenService {
 		return result;
 	}
 	@Override
-	public JSONObject getGardenInformationList(String park) {
+	public JSONObject getGardenInformationList(SearchModel searchModel) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -94,6 +100,19 @@ public class GardenServiceImpl implements GardenService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	private void checkPage(SearchModel searchModel){
+		if(null == searchModel.getPageSize()){
+			searchModel.setPageSize(ConfConstant.DEFAULT_PAGE_SIZE);
+		}
+		if(null == searchModel.getPageNumber()){
+			searchModel.setPageNumber(ConfConstant.MIN_PAGE_NUMBER);
+		}else if (searchModel.getPageNumber()>ConfConstant.MAX_PAGE_NUMBER){
+			searchModel.setPageNumber(ConfConstant.MAX_PAGE_NUMBER);
+		}else if (searchModel.getPageNumber()<ConfConstant.MIN_PAGE_NUMBER){
+			searchModel.setPageNumber(ConfConstant.MIN_PAGE_NUMBER);
+		}
+		
+	}
 	
 }

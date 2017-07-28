@@ -1,6 +1,7 @@
 package com.huishu.ait.service.garden;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.entity.common.SearchModel;
 
 /**
  * 全景辖区概览service
@@ -13,7 +14,7 @@ public interface GardenService {
 	 * @param park    园区名称
 	 * @return
 	 */
-	JSONObject getGardenPolicyList(String park);
+	JSONObject getGardenPolicyList(SearchModel searchModel);
 	/**
 	 * 根据政策ID获取政策详情
 	 * @param id     政策ID
@@ -25,7 +26,7 @@ public interface GardenService {
 	 * @param park    园区名称
 	 * @return
 	 */
-	JSONObject getGardenInformationList(String park);
+	JSONObject getGardenInformationList(SearchModel searchModel);
 	/**
 	 * 根据动态ID获取动态详情
 	 * @param id     动态ID

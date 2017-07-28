@@ -8,7 +8,7 @@ package com.huishu.ait.common.conf;
 public class ConfConstant {
 	
 	/**最小页码*/
-	public static final int MIN_PAGE_NUMBER = 0;
+	public static final int MIN_PAGE_NUMBER = 1;
 	
 	/**最大页码*/
 	public static final int MAX_PAGE_NUMBER = 1000;

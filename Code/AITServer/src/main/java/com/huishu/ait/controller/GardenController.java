@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.service.garden.GardenService;
 
 
@@ -31,16 +32,17 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping("getGardenPolicyList.do")
 	@ResponseBody
-	public AjaxResult getGardenPolicyList(String park){
+	public AjaxResult getGardenPolicyList(SearchModel searchModel){
 		try {
-			JSONObject data = gardenService.getGardenPolicyList(park);
+			JSONObject data = gardenService.getGardenPolicyList(searchModel);
 			JSONObject object = new JSONObject();
-			object.put("park", park);
+			object.put("park", searchModel.getPark());
 			object.put("totalSize", data.get("total"));
 			object.put("list", data.get("list"));
 			return success(object);
 		} catch (Exception e) {
 			LOGGER.error("getGardenPolicyList查询失败！"+e);
+			e.printStackTrace();
 			return error("查询政策列表失败！");
 		}
 	}
@@ -68,11 +70,11 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping("getGardenInformationList.do")
 	@ResponseBody
-	public AjaxResult getGardenInformationList(String park){
+	public AjaxResult getGardenInformationList(SearchModel searchModel){
 		try {
-			JSONObject data = gardenService.getGardenInformationList(park);
+			JSONObject data = gardenService.getGardenInformationList(searchModel);
 			JSONObject object = new JSONObject();
-			object.put("park", park);
+			object.put("park", searchModel.getPark());
 			object.put("totalSize", data.get("total"));
 			object.put("list", data.get("list"));
 			return success(object);
