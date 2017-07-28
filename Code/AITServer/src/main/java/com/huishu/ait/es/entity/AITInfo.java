@@ -1,99 +1,109 @@
-/*package com.huishu.ait.es.entity;
+package com.huishu.ait.es.entity;
 
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
-*//**
+/**
  * @author hhy
  * @date 2017年7月25日
  * @Parem
  * @return
  * 
- *//*
+ */
 @Document(indexName = INDEX, type = TYPE)
 public class AITInfo {
-
-	*//** 发布时间 yyyy-MM-dd HH:mm:ss *//*
+    
+    private String id;
+	/** 发布时间 yyyy-MM-dd HH:mm:ss */
 	private String publishDateTime;
 
-	*//** 发布时间 10 *//*
+	/** 发布时间 10 */
 	private String publishTime;
 
-	*//** 发布时间 yyyy-MM-dd *//*
+	/** 发布时间 yyyy-MM-dd */
 	private String publishDate;
 
 	private String ossLink;
 
-	*//** 文章地址 *//*
+	/** 文章地址 */
 	private String articleLink;
 
-	*//** 文章标题 *//*
+	/** 文章标题 */
 	private String title;
 
 	
 
-	*//** 文章内容 *//*
+	/** 文章内容 */
 	private String content;
 
-	*//** 作者 *//*
+	/** 作者 */
 	private String author;
 
-	*//** 原文链接 *//*
+	/** 原文链接 */
 	private String sourceLink;
 
-	*//** 来源 *//*
+	/** 来源 */
 	private String source;
 
-	*//** 文章类型 *//*
+	/** 文章类型 */
 	private String articleType;
 
-	*//** 地域 *//*
+	/** 地域 */
 	private String area;
 
-	*//** 产业 *//*
+	/** 产业 */
 	private String industry;
 
-	*//** 产业标签 网络游戏 *//*
+	/** 产业标签 网络游戏 */
 	private String industryLabel;
 
-	*//** 载体 *//*
+	/** 载体 */
 	private String vector;
 
-	*//** 产业类型 *//*
+	/** 产业类型 */
 	private String industryType;
 
-	*//** 所属园区 中关村软件园 *//*
+	/** 所属园区 中关村软件园 */
 
 	private String park;
 
-	*//** 企业名称 *//*
+	/** 企业名称 */
 	private String business;
-	*//**企业法人*//*
+	/**企业法人*/
 	private String businessLegal;
-	*//** 企业类型 *//*
+	/** 企业类型 */
 	private String businessType;
 
-	*//** 情感 *//*
+	/** 情感 */
 	private String emotion;
 
-	*//** 点击量 *//*
+	/** 点击量 */
 	private Long hitCount;
 
-	*//** 支持数 *//*
+	/** 支持数 */
 	private Long supportCount;
 
-	*//** 回复量 *//*
+	/** 回复量 */
 	private Long replyCount;
 
-	*//** 是否已经预警 *//*
+	/** 是否已经预警 */
 	private Boolean hasWarn;
 
-	*//** 维度 *//*
+	/** 维度 */
 	private String dimension;
+	
 
-	public String getDimension() {
+	public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDimension() {
 		return dimension;
 	}
 
@@ -315,4 +325,4 @@ public class AITInfo {
 	
 	
 }
-*/
+
