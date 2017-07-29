@@ -1,5 +1,6 @@
 package com.huishu.ait.es.repository.industria;
 
+
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import com.huishu.ait.es.entity.AITInfo;
