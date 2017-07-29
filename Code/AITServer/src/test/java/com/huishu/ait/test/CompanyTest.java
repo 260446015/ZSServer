@@ -40,6 +40,7 @@ import com.huishu.ait.company.service.impl.CompanyServiceImpl;
 @SpringBootTest(classes = Application.class)  
 @WebAppConfiguration 
 public class CompanyTest {
+	/***/
 	@Resource
 	private Client client;
 
