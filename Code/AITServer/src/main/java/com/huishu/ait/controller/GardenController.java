@@ -33,18 +33,19 @@ public class GardenController extends BaseController{
 	@RequestMapping("getGardenPolicyList.do")
 	@ResponseBody
 	public AjaxResult getGardenPolicyList(SearchModel searchModel){
+		if(null==searchModel || null==searchModel.getPark()){
+			return error("请传入完整的参数！");
+		}
 		try {
-			JSONObject data = gardenService.getGardenPolicyList(searchModel);
 			JSONObject object = new JSONObject();
 			object.put("park", searchModel.getPark());
-			object.put("totalSize", data.get("totalSize"));
-			object.put("totalPage", data.get("totalPage"));
-			object.put("pageNumber", data.get("pageNumber"));
-			object.put("list", data.get("list"));
+			object.put("list",gardenService.getGardenPolicyList(searchModel));
+			object.put("totalSize", searchModel.getTotalSize());
+			object.put("totalPage", searchModel.getTotalPage());
+			object.put("pageNumber", searchModel.getPageNumber());
 			return success(object);
 		} catch (Exception e) {
 			LOGGER.error("getGardenPolicyList查询失败！"+e.getMessage());
-			e.printStackTrace();
 			return error("查询政策列表失败！");
 		}
 	}
@@ -57,6 +58,9 @@ public class GardenController extends BaseController{
 	@RequestMapping("getGardenPolicyById.do")
 	@ResponseBody
 	public AjaxResult getGardenPolicyById(String id){
+		if(null==id){
+			return error("请传入完整的参数！");
+		}
 		try {
 			return success(gardenService.getGardenPolicyById(id));
 		} catch (Exception e) {
@@ -73,12 +77,16 @@ public class GardenController extends BaseController{
 	@RequestMapping("getGardenInformationList.do")
 	@ResponseBody
 	public AjaxResult getGardenInformationList(SearchModel searchModel){
+		if(null==searchModel || null==searchModel.getPark()){
+			return error("请传入完整的参数！");
+		}
 		try {
-			JSONObject data = gardenService.getGardenInformationList(searchModel);
 			JSONObject object = new JSONObject();
 			object.put("park", searchModel.getPark());
-			object.put("totalSize", data.get("total"));
-			object.put("list", data.get("list"));
+			object.put("list",gardenService.getGardenInformationList(searchModel));
+			object.put("totalSize", searchModel.getTotalSize());
+			object.put("totalPage", searchModel.getTotalPage());
+			object.put("pageNumber", searchModel.getPageNumber());
 			return success(object);
 		} catch (Exception e) {
 			LOGGER.error("getGardenInformationList查询失败！"+e.getMessage());
@@ -94,6 +102,9 @@ public class GardenController extends BaseController{
 	@RequestMapping("getGardenInformationById.do")
 	@ResponseBody
 	public AjaxResult getGardenInformationById(String id){
+		if(null==id){
+			return error("请传入完整的参数！");
+		}
 		try {
 			return success(gardenService.getGardenInformationById(id));
 		} catch (Exception e) {

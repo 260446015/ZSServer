@@ -1,5 +1,7 @@
 package com.huishu.ait.service.garden;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.es.entity.GardenInformation;
@@ -16,7 +18,7 @@ public interface GardenService {
 	 * @param park    园区名称
 	 * @return
 	 */
-	JSONObject getGardenPolicyList(SearchModel searchModel);
+	List<JSONObject> getGardenPolicyList(SearchModel searchModel);
 	/**
 	 * 根据政策ID获取政策详情
 	 * @param id     政策ID
@@ -28,7 +30,7 @@ public interface GardenService {
 	 * @param park    园区名称
 	 * @return
 	 */
-	JSONObject getGardenInformationList(SearchModel searchModel);
+	List<JSONObject> getGardenInformationList(SearchModel searchModel);
 	/**
 	 * 根据动态ID获取动态详情
 	 * @param id     动态ID

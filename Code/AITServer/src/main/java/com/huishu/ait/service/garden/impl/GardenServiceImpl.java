@@ -38,7 +38,7 @@ public class GardenServiceImpl implements GardenService {
     private GardenInformationRepository gardenInformationRepository;
 	
 	@Override
-	public JSONObject getGardenPolicyList(SearchModel searchModel) {
+	public List<JSONObject> getGardenPolicyList(SearchModel searchModel) {
 		checkPage(searchModel);
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
@@ -56,11 +56,11 @@ public class GardenServiceImpl implements GardenService {
 		
 		List<JSONObject> rows=new ArrayList<JSONObject>();
 		List<JSONObject> data=new ArrayList<JSONObject>();
-		long total=0; 
+		Long total=null; 
 		if(null!=searchResponse&&null!=searchResponse.getHits()){
 			SearchHits hits = searchResponse.getHits();
+			total = hits.getTotalHits();
 			for (SearchHit searchHit : hits) {
-				total = hits.getTotalHits();
 				Map<String, Object> map = searchHit.getSource();
 				JSONObject obj = new JSONObject();
 				obj.put("id",searchHit.getId());
@@ -69,29 +69,19 @@ public class GardenServiceImpl implements GardenService {
 				rows.add(obj);
 			}
 		}
-		JSONObject result = new JSONObject();
-		Long totalPage=(total/pageSize)+((total%pageSize)>0?1:0);
-		
-		result.put("totalSize",total);
-		result.put("totalPage",totalPage);
-		if(pageNumber>totalPage){
-			pageNumber=Integer.valueOf(totalPage.toString());
-		}
-		result.put("pageNumber",pageNumber);
-		
-		for (int i = pageSize*pageNumber-pageSize; i < rows.size(); i++) {
+		searchModel.setTotalSize(Integer.valueOf(total.toString()));
+		for (int i = searchModel.getPageFrom(); i < rows.size(); i++) {
 			data.add(rows.get(i));
 		}
-		result.put("list",data);
 		
-		return result;
+		return data;
 	}
 	@Override
 	public GardenPolicy getGardenPolicyById(String id) {
 		return gardenPolicyRepository.findOne(id);
 	}
 	@Override
-	public JSONObject getGardenInformationList(SearchModel searchModel) {
+	public List<JSONObject> getGardenInformationList(SearchModel searchModel) {
 		checkPage(searchModel);
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
@@ -109,11 +99,11 @@ public class GardenServiceImpl implements GardenService {
 		
 		List<JSONObject> rows=new ArrayList<JSONObject>();
 		List<JSONObject> data=new ArrayList<JSONObject>();
-		long total=0; 
+		Long total=null; 
 		if(null!=searchResponse&&null!=searchResponse.getHits()){
 			SearchHits hits = searchResponse.getHits();
+			total = hits.getTotalHits();
 			for (SearchHit searchHit : hits) {
-				total = hits.getTotalHits();
 				Map<String, Object> map = searchHit.getSource();
 				JSONObject obj = new JSONObject();
 				obj.put("id",searchHit.getId());
@@ -121,13 +111,12 @@ public class GardenServiceImpl implements GardenService {
 				rows.add(obj);
 			}
 		}
-		for (int i = pageSize*pageNumber-pageSize; i < rows.size(); i++) {
+		searchModel.setTotalSize(Integer.valueOf(total.toString()));
+		for (int i = searchModel.getPageFrom(); i < rows.size(); i++) {
 			data.add(rows.get(i));
 		}
-		JSONObject result = new JSONObject();
-		result.put("list",data);
-		result.put("total",total);
-		return result;
+		
+		return data;
 	}
 	@Override
 	public GardenInformation getGardenInformationById(String id) {
@@ -146,7 +135,6 @@ public class GardenServiceImpl implements GardenService {
 		}else if (searchModel.getPageSize()<ConfConstant.MIN_PAGE_SIZE){
 			searchModel.setPageSize(ConfConstant.MIN_PAGE_SIZE);
 		}
-		//对工具类中最小页码为0表示不理解
 		if(null == searchModel.getPageNumber()){
 			searchModel.setPageNumber(1);
 		}else if (searchModel.getPageNumber()>ConfConstant.MAX_PAGE_NUMBER){
