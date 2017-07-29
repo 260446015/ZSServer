@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import com.huishu.ait.entity.IndustrialPolicy;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.IndustriaPolicyDTO;
 import com.huishu.ait.es.entity.AITInfo;
@@ -88,7 +89,8 @@ public class IndustrialController extends BaseController {
             dto.setEndDate(new Date());
         }
         if(dto.getTimeBucket().equals("昨日")){
-                    
+            dto.setStartDate(DateUtil.getYesterAgoStartTime(new Date()));
+            dto.setEndDate(DateUtil.getStartTime());
         }
         if(dto.getTimeBucket().equals("近七天")){
             dto.setStartDate(DateUtil.getWeekAgoStartTime(new Date()));
@@ -152,11 +154,16 @@ public class IndustrialController extends BaseController {
             /**
              * 创建一个 indusPolList对象，用于存储产业政策文章列表
              */
-            Page<AITInfo> indusPolList = null; 
+            Page<IndustrialPolicy> indusPolList = null; 
             
+            //调用service中相应的实现方法，
+            /*indusPolList = industrialPolicyService.findByIndustryAndIndustryLabelAndAreaAndPublishdate(
+                    dto.getIndustry(), 
+                    dto.getIndustryLabel(), 
+                    dto.getArea(), 
+                    new PageRequest(currentPage,pageSize));*/
             
-            
-            return null;
+            return success(indusPolList);
         }catch(Exception e){
 //            e.printStackTrace();
             log.error("获取产业政策列表失败："+e.getMessage());
