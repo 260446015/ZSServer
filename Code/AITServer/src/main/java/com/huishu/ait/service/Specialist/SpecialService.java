@@ -1,16 +1,16 @@
-package com.huishu.ait.service.special;
+package com.huishu.ait.service.Specialist;
 
 import java.util.List;
 
 import com.huishu.ait.entity.Specialist;
 
 /**
- * @author hhy
- * @date 2017年7月28日
- * @Parem
- * @return 
- * 
+ * @author yxq
+ *
  */
 public interface SpecialService {
+	//查询所有的专家观点
 	List<Specialist> findAll();
+	
+	
 }
