@@ -119,47 +119,12 @@
 			<version>1.2.3</version>
 		</dependency>
 		<!-- shiro dependency end -->
-<!-- <dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
-			<version>${resteasy_version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-client</artifactId>
-			<version>${resteasy_version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-netty</artifactId>
-			<version>${resteasy_version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jdk-http</artifactId>
-			<version>${resteasy_version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jackson-provider</artifactId>
-			<version>${resteasy_version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxb-provider</artifactId>
-			<version>${resteasy_version}</version>
-		</dependency> -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.2.1</version>
 		</dependency>
-		<!-- swagger 
+		<!-- swagger--> 
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -169,7 +134,7 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.2.2</version>
-		</dependency> -->
+		</dependency> 
 	</dependencies>
 	<build>
 		<finalName>aitserver</finalName>
