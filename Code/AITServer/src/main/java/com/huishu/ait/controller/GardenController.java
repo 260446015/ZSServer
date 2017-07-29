@@ -20,7 +20,7 @@ import com.huishu.ait.service.garden.GardenService;
 @Controller
 @RequestMapping("garden")
 public class GardenController extends BaseController{
-	private static Logger LOGGER = Logger.getLogger(GardenController.class.getName());
+	private static Logger LOGGER = Logger.getLogger(GardenController.class);
 	
 	@Autowired
 	private GardenService gardenService;
@@ -37,11 +37,13 @@ public class GardenController extends BaseController{
 			JSONObject data = gardenService.getGardenPolicyList(searchModel);
 			JSONObject object = new JSONObject();
 			object.put("park", searchModel.getPark());
-			object.put("totalSize", data.get("total"));
+			object.put("totalSize", data.get("totalSize"));
+			object.put("totalPage", data.get("totalPage"));
+			object.put("pageNumber", data.get("pageNumber"));
 			object.put("list", data.get("list"));
 			return success(object);
 		} catch (Exception e) {
-			LOGGER.error("getGardenPolicyList查询失败！"+e);
+			LOGGER.error("getGardenPolicyList查询失败！"+e.getMessage());
 			e.printStackTrace();
 			return error("查询政策列表失败！");
 		}
@@ -58,7 +60,7 @@ public class GardenController extends BaseController{
 		try {
 			return success(gardenService.getGardenPolicyById(id));
 		} catch (Exception e) {
-			LOGGER.error("getGardenPolicyById查询失败！"+e);
+			LOGGER.error("getGardenPolicyById查询失败！"+e.getMessage());
 			return error("查询政策详情失败！");
 		}
 	}
@@ -79,7 +81,7 @@ public class GardenController extends BaseController{
 			object.put("list", data.get("list"));
 			return success(object);
 		} catch (Exception e) {
-			LOGGER.error("getGardenInformationList查询失败！"+e);
+			LOGGER.error("getGardenInformationList查询失败！"+e.getMessage());
 			return error("查询动态列表失败！");
 		}
 	}
@@ -95,7 +97,7 @@ public class GardenController extends BaseController{
 		try {
 			return success(gardenService.getGardenInformationById(id));
 		} catch (Exception e) {
-			LOGGER.error("getGardenInformationById查询失败！"+e);
+			LOGGER.error("getGardenInformationById查询失败！"+e.getMessage());
 			return error("查询动态详情失败！");
 		}
 	}
