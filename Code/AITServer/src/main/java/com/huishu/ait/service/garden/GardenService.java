@@ -37,4 +37,10 @@ public interface GardenService {
 	 * @return
 	 */
 	GardenInformation getGardenInformationById(String id);
+	/**
+	 * 获取园区的龙头企业列表
+	 * @param park    园区名称
+	 * @return
+	 */
+	List<JSONObject> getGardenBusinessList(SearchModel searchModel);
 }

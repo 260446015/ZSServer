@@ -2,6 +2,11 @@ package com.huishu.ait.entity.common;
 
 import com.huishu.ait.common.conf.ConfConstant;
 
+/**
+ * 
+ * @author yindq
+ * @date
+ */
 public class SearchModel {
 	/** 园区名称 */
 	private String park;   

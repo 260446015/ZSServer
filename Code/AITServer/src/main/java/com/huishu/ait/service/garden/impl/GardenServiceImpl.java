@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.conf.ConfConstant;
 import com.huishu.ait.common.conf.DBConstant;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.es.entity.GardenInformation;
@@ -83,7 +82,7 @@ public class GardenServiceImpl implements GardenService {
 	public List<JSONObject> getGardenInformationList(SearchModel searchModel) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
-		bq.must(QueryBuilders.termQuery("articleType", "园区动态"));
+		bq.must(QueryBuilders.termQuery("articleType", "园区情报"));
 		//按时间和点击量降序排列
 		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
 		SortBuilder dateBuilder = SortBuilders.fieldSort("publishDate").order(SortOrder.DESC);
@@ -105,6 +104,7 @@ public class GardenServiceImpl implements GardenService {
 				Map<String, Object> map = searchHit.getSource();
 				JSONObject obj = new JSONObject();
 				obj.put("id",searchHit.getId());
+				obj.put("vector",map.get("vector"));
 		        obj.put("title",map.get("title"));
 				rows.add(obj);
 			}
@@ -119,6 +119,10 @@ public class GardenServiceImpl implements GardenService {
 	@Override
 	public GardenInformation getGardenInformationById(String id) {
 		return gardenInformationRepository.findOne(id);
+	}
+	@Override
+	public List<JSONObject> getGardenBusinessList(SearchModel searchModel) {
+		return null;
 	}
 	
 }

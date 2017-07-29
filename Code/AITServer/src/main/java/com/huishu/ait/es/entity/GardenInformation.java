@@ -5,6 +5,11 @@ import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
+/**
+ * 
+ * @author yindq
+ * @date
+ */
 @Document(indexName = INDEX, type = TYPE)
 public class GardenInformation {
 	private String id;
