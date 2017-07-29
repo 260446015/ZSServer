@@ -39,7 +39,6 @@ public class GardenServiceImpl implements GardenService {
 	
 	@Override
 	public List<JSONObject> getGardenPolicyList(SearchModel searchModel) {
-		checkPage(searchModel);
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		bq.must(QueryBuilders.termQuery("articleType", "政策解读"));
@@ -82,7 +81,6 @@ public class GardenServiceImpl implements GardenService {
 	}
 	@Override
 	public List<JSONObject> getGardenInformationList(SearchModel searchModel) {
-		checkPage(searchModel);
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		bq.must(QueryBuilders.termQuery("articleType", "园区动态"));
@@ -121,28 +119,6 @@ public class GardenServiceImpl implements GardenService {
 	@Override
 	public GardenInformation getGardenInformationById(String id) {
 		return gardenInformationRepository.findOne(id);
-	}
-	
-	/**
-	 * 校验page是否有值,没有的话初始化成PageSize为10，PageNumber为1
-	 * @param searchModel
-	 */
-	private void checkPage(SearchModel searchModel){
-		if(null == searchModel.getPageSize()){
-			searchModel.setPageSize(ConfConstant.DEFAULT_PAGE_SIZE);
-		}else if (searchModel.getPageSize()>ConfConstant.MAX_PAGE_SIZE){
-			searchModel.setPageSize(ConfConstant.MAX_PAGE_SIZE);
-		}else if (searchModel.getPageSize()<ConfConstant.MIN_PAGE_SIZE){
-			searchModel.setPageSize(ConfConstant.MIN_PAGE_SIZE);
-		}
-		if(null == searchModel.getPageNumber()){
-			searchModel.setPageNumber(1);
-		}else if (searchModel.getPageNumber()>ConfConstant.MAX_PAGE_NUMBER){
-			searchModel.setPageNumber(ConfConstant.MAX_PAGE_NUMBER);
-		}else if (searchModel.getPageNumber()<1){
-			searchModel.setPageNumber(1);
-		}
-		
 	}
 	
 }

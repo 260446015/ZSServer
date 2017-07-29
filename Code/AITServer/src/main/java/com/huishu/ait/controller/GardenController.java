@@ -33,6 +33,8 @@ public class GardenController extends BaseController{
 	@RequestMapping("getGardenPolicyList.do")
 	@ResponseBody
 	public AjaxResult getGardenPolicyList(SearchModel searchModel){
+		System.out.println("--------------------");
+		System.out.println(searchModel);
 		if(null==searchModel || null==searchModel.getPark()){
 			return error("请传入完整的参数！");
 		}
@@ -46,6 +48,7 @@ public class GardenController extends BaseController{
 			return success(object);
 		} catch (Exception e) {
 			LOGGER.error("getGardenPolicyList查询失败！"+e.getMessage());
+			e.printStackTrace();
 			return error("查询政策列表失败！");
 		}
 	}
