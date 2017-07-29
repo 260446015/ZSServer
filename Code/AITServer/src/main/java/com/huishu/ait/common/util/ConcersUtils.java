@@ -244,6 +244,19 @@ public class ConcersUtils {
 			}
 		}
 
+		public static Date getYesterAgoStartTime(Date date){
+		    Calendar todayStart = Calendar.getInstance();
+		    todayStart.setTime(date);
+            todayStart.set(Calendar.HOUR, 0);
+            todayStart.set(Calendar.HOUR_OF_DAY, 0);
+            todayStart.set(Calendar.MINUTE, 0);
+            todayStart.set(Calendar.SECOND, 0);
+            todayStart.set(Calendar.MILLISECOND, 0);
+            todayStart.add(Calendar.DATE, -1);
+            return todayStart.getTime();
+		}
+		
+		
 		public static Date getWeekAgoStartTime(Date date) {
 			Calendar todayStart = Calendar.getInstance();
 			todayStart.setTime(date);
