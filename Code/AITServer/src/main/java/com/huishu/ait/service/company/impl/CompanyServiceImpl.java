@@ -36,7 +36,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Resource
 	private Client client;
-
+	/**
+	 * 查询企业排行
+	 */
 	@Override
 	public JSONArray findCompaniesOder(CompanyDTO dto) {
 		// TODO Auto-generated method stub
