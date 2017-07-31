@@ -1,6 +1,7 @@
 package com.huishu.ait.controller;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.GardenDTO;
@@ -24,7 +26,8 @@ import com.huishu.ait.service.garden.GardenService;
 @Controller
 @RequestMapping("garden")
 public class GardenController extends BaseController{
-	private static Logger LOGGER = Logger.getLogger(GardenController.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(GardenController.class);
+			
 	
 	@Autowired
 	private GardenService gardenService;
@@ -131,7 +134,8 @@ public class GardenController extends BaseController{
 	 * @param dto 传用户id
 	 * @return
 	 */
-	@RequestMapping("/findGardensList")
+	@RequestMapping("/findGardensList.do")
+	@ResponseBody
 	public AjaxResult findGardensList(GardenDTO dto){
 		if(null == dto){
 			 return error(MsgConstant.ILLEGAL_PARAM);
@@ -141,7 +145,7 @@ public class GardenController extends BaseController{
 			gardens = gardenService.findGardensList(dto);
 		}catch(Exception e){
 			e.printStackTrace();
-			LOGGER.info(e);
+			LOGGER.info(e.getMessage());
 			return error(e.getMessage()).setSuccess(false);
 		}
 		return success(gardens).setSuccess(true);
@@ -151,20 +155,21 @@ public class GardenController extends BaseController{
 	 * @param dto 
 	 * @return
 	 */
-	@RequestMapping("/findGardensCondition")
+	@RequestMapping("/findGardensCondition.do")
+	@ResponseBody
 	public AjaxResult findGardensCondition(GardenDTO dto){
 		if(null == dto){
-			 return error(MsgConstant.ILLEGAL_PARAM);
+			if(StringUtil.isEmpty(String.valueOf(dto.getUserId())))
+				return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		JSONArray aITInfos = null;
 		try{
 			aITInfos = gardenService.findGardensCondition(dto);
 		}catch(Exception e){
-			e.printStackTrace();
-			LOGGER.info(e);
+			LOGGER.info(e.getMessage());
 			return error(e.getMessage()).setSuccess(false);
 		}
-		return success("").setSuccess(true);
+		return success(aITInfos).setSuccess(true);
 	}
 	
 	private JSONObject changeObject(SearchModel searchModel,JSONArray data){

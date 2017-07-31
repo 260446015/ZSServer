@@ -2,6 +2,7 @@ package com.huishu.ait.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +28,7 @@ public class Garden implements Serializable{
 	private String description;
 	private String address;
 	private String area;
+	@Column(name="industrytype")
 	private String industryType;
 	public int getId() {
 		return id;
