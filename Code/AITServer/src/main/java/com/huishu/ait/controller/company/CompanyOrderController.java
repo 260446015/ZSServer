@@ -13,11 +13,12 @@ import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CompanyDTO;
 import com.huishu.ait.service.company.CompanyService;
 /**
- * 
- * @author yindawei
+ * 企业排行榜
+ * @author yindawei 
  *
  */
 @RestController
+@RequestMapping("/company")
 public class CompanyOrderController extends BaseController{
 
 	@Resource
@@ -27,7 +28,7 @@ public class CompanyOrderController extends BaseController{
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping(value="/findCompaniesDesc",method={RequestMethod.GET})
+	@RequestMapping(value="/findCompaniesDesc.do")
 	public AjaxResult findCompanies(CompanyDTO dto){
 		if(null == dto){
 			return error(MsgConstant.ILLEGAL_PARAM);

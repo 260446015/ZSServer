@@ -16,6 +16,8 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.DBConstant;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
+import com.huishu.ait.controller.GardenController;
 import com.huishu.ait.entity.Garden;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.GardenDTO;
@@ -48,6 +51,8 @@ public class GardenServiceImpl implements GardenService {
 	private GardenRepository gardenRepository;
 	@Resource
 	private GardenUserRepository gardenUserRepository;
+	
+	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
 	
 	@Override
 	public List<JSONObject> getGardenPolicyList(SearchModel searchModel) {
@@ -140,16 +145,15 @@ public class GardenServiceImpl implements GardenService {
 	
 	@Override
 	public JSONArray findGardensList(GardenDTO dto) {
-		// TODO Auto-generated method stub
 		String area = dto.getArea();
 		String industryType = dto.getIndustryType();
 		JSONArray data = new JSONArray();
 		try{
 			if(StringUtil.isEmpty(area)){
-				
+				area = "北京";
 			}
 			if(StringUtil.isEmpty(industryType)){
-				
+				industryType = "节能环保";
 			}
 			List<Garden> findGardensList = gardenRepository.findGardensList(area, industryType);
 			for (Garden garden : findGardensList) {
@@ -162,7 +166,7 @@ public class GardenServiceImpl implements GardenService {
 				data.add(obj);
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			LOGGER.error(e.getMessage());
 		}
 		return data;
 		
@@ -190,7 +194,6 @@ public class GardenServiceImpl implements GardenService {
 //			}
 //			result.setData(data).setSuccess(true);
 //		} catch (Exception e) {
-//			// TODO: handle exception
 //			e.printStackTrace();
 //			result.setData(data).setSuccess(false);
 //		}
@@ -199,21 +202,22 @@ public class GardenServiceImpl implements GardenService {
 	
 	@Override
 	public JSONArray findGardensCondition(GardenDTO dto) {
-		// TODO Auto-generated method stub
-		if(StringUtil.isEmpty(String.valueOf(dto.getUserId()))){
-			
-		}
 		JSONArray data = new JSONArray();
-		List<String> gardenName = gardenUserRepository.findGardensCondition(dto.getUserId());
-		SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
-		BoolQueryBuilder bq = new BoolQueryBuilder();
-		bq.must(QueryBuilders.termsQuery("park", gardenName));
-		SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).execute().actionGet();
-		System.out.println(requestBuilder);
-		SearchHits hits = response.getHits();
-		for (SearchHit searchHit : hits) {
-			data.add(searchHit.getSource());
+		try{
+			List<String> gardenName = gardenUserRepository.findGardensCondition(dto.getUserId());
+			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
+			BoolQueryBuilder bq = new BoolQueryBuilder();
+			bq.must(QueryBuilders.termsQuery("park", gardenName));
+			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).execute().actionGet();
+			System.out.println(requestBuilder);
+			SearchHits hits = response.getHits();
+			for (SearchHit searchHit : hits) {
+				data.add(searchHit.getSource());
+			}
+		}catch(Exception e){
+			LOGGER.error(e.getMessage());
 		}
+		LOGGER.info("园区动态查询结果:"+data.toJSONString());
 		return data;
 	}
 	
