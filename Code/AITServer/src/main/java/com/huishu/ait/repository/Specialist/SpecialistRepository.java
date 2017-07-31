@@ -1,4 +1,4 @@
-package com.huishu.ait.repository;
+package com.huishu.ait.repository.Specialist;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,6 +11,6 @@ import com.huishu.ait.entity.Specialist;
  * @return 
  * 
  */
-public interface SpecialRepository extends CrudRepository<Specialist, Long>  {
+public interface SpecialistRepository extends CrudRepository<Specialist, Long>  {
 
 }

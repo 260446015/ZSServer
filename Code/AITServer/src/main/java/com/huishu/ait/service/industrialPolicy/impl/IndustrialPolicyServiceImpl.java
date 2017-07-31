@@ -33,7 +33,8 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
     @Override
     public Page<IndustrialPolicy> findByIndustryAndIndustryLabelAndAreaAndPublishdate(String industry,
             String industryLabel, String area, Pageable pageable) {
-            return industrialPolicyListRepository.findByIndustryAndIndustryLabelAndAreaAndPublishdate(industry, industryLabel, area, pageable);
+				return null;
+            //return industrialPolicyListRepository.findByIndustryAndIndustryLabelAndAreaAndPublishdate(industry, industryLabel, area, pageable);
     }
     /**
      * 通过ES，根据id获取政策详情

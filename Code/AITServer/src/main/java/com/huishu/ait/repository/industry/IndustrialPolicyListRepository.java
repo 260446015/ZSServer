@@ -18,5 +18,5 @@ public interface IndustrialPolicyListRepository extends CrudRepository<Industria
     /**
      * 根据产业，产业标签，地区和（时间）获取产业政策列表
      */
-    Page<IndustrialPolicy> findByIndustryAndIndustryLabelAndAreaAndPublishdate(String industry,String industryLabel,String area,Pageable pageable);
+    //Page<IndustrialPolicy> findByIndustryAndIndustryLabelAndAreaAndPublishdate(String industry,String industryLabel,String area,Pageable pageable);
 }
