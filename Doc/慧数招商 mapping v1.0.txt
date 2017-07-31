@@ -1,0 +1,116 @@
+{
+  "settings": {
+       "number_of_shards": 7,
+       "number_of_replicas": 1
+   },
+  "mappings": {
+    "aitinfo": {
+		"properties":{
+			"source":{
+				"type":"string",
+				"index":"not_analyzed"
+			},
+			"publishDateTime":{
+				"format": "yyyy-MM-dd HH:mm:ss",
+				"type": "date"
+			},
+			"publishDate":{
+				"format": "yyyy-MM-dd",
+				"type": "date"
+			},
+			"industry": {
+				"type": "string",
+				"index":"not_analyzed"
+			},
+			"hasWarn": {
+				"type": "boolean",
+				"index":"not_analyzed"
+			},
+			"publishTime":{
+				"type":"string",
+				"index":"not_analyzed"
+			},
+			"vector":{
+				"type":"string",
+				"index":"not_analyzed"
+			},
+			"area":{
+				"type":"string",
+				"index":"not_analyzed"
+			},
+			"industryType": {
+				"type": "string",
+				"index":"not_analyzed"
+			},
+			"industryLabel": {
+                 "type": "string",
+				 "index":"not_analyzed"
+            },
+			"articleType": {
+				"type": "string",
+				"index":"not_analyzed"
+			},
+			"author":{
+				"type":"string",
+				"index":"not_analyzed"
+			},
+			"businessLegal":{
+				"type":"string",
+				"index":"not_analyzed"
+			},
+			"park": {
+				"type": "string",
+				"index":"not_analyzed"
+			},
+			"supportCount": {
+				"type": "long",
+				"index":"not_analyzed"
+			},
+			"title":{
+				"type":"string",
+				"index":"not_analyzed"
+			},
+			"business": {
+				"type": "string",
+				"index":"not_analyzed"
+			},
+			"businessType": {
+				"type": "string",
+				"index":"not_analyzed"
+			},
+			"hitCount": {
+				"type": "long",
+				"index":"not_analyzed"
+			},
+			"replyCount": {
+				"type": "long",
+				"index":"not_analyzed"
+			}, 
+			"sourceLink": {
+				"index": "not_analyzed",
+				"type": "string"
+			},
+			"ossLink": {
+				"index": "not_analyzed",
+				"type": "string"
+			},
+			"content": {
+				"index": "not_analyzed",
+				"type": "string"
+			},
+			"emotion": {
+				"index": "not_analyzed",
+				"type": "string"
+			},
+			"dimension": {
+				"index": "not_analyzed",
+				"type": "string"
+			},
+			"articleLink": {
+				"index": "not_analyzed",
+				"type": "string"
+			}
+		}
+	}
+  }
+}
