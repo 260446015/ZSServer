@@ -2,8 +2,10 @@ package com.huishu.ait.service.garden;
 
 import java.util.List;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.entity.common.SearchModel;
+import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.GardenInformation;
 import com.huishu.ait.es.entity.GardenPolicy;
 
@@ -43,4 +45,16 @@ public interface GardenService {
 	 * @return
 	 */
 	List<JSONObject> getGardenBusinessList(SearchModel searchModel);
+	/**
+	 * 获取园区列表
+	 * @param dto
+	 * @return
+	 */
+	JSONArray findGardensList(GardenDTO dto);
+	/**
+	 * 获取园区动态
+	 * @param dto
+	 * @return
+	 */
+	JSONArray findGardensCondition(GardenDTO dto);
 }

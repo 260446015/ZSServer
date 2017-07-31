@@ -28,7 +28,6 @@ import com.huishu.ait.app.Application;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.Garden;
 import com.huishu.ait.es.entity.AITInfo;
-import com.huishu.ait.repository.SpecialRepository;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.repository.garden_user.GardenUserRepository;
 

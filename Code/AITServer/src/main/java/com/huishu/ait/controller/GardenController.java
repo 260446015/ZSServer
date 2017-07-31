@@ -6,10 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.common.SearchModel;
+import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.service.garden.GardenService;
 
 
@@ -138,6 +140,46 @@ public class GardenController extends BaseController{
 			LOGGER.error("getGardenInformationList查询失败！"+e.getMessage());
 			return error("查询动态列表失败！");
 		}
+	}
+	/**
+	 * 获取园区列表
+	 * @param dto 传用户id
+	 * @return
+	 */
+	@RequestMapping("/findGardensList")
+	public AjaxResult findGardensList(GardenDTO dto){
+		if(null == dto){
+			 return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		JSONArray gardens = null;
+		try{
+			gardens = gardenService.findGardensList(dto);
+		}catch(Exception e){
+			e.printStackTrace();
+			LOGGER.info(e);
+			return error(e.getMessage()).setSuccess(false);
+		}
+		return success(gardens).setSuccess(true);
+	}
+	/**
+	 * 获取园区动态
+	 * @param dto 
+	 * @return
+	 */
+	@RequestMapping("/findGardensCondition")
+	public AjaxResult findGardensCondition(GardenDTO dto){
+		if(null == dto){
+			 return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		JSONArray aITInfos = null;
+		try{
+			aITInfos = gardenService.findGardensCondition(dto);
+		}catch(Exception e){
+			e.printStackTrace();
+			LOGGER.info(e);
+			return error(e.getMessage()).setSuccess(false);
+		}
+		return success("").setSuccess(true);
 	}
 	
 }
