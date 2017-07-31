@@ -48,27 +48,26 @@ public class CompanyTest {
 	public void testFindCompaniesOder() {
 		JSONArray data = new JSONArray();
 		try {
-			String industry = "industry";
-			String industryLabel = "industryLabel";
-			String publishTime = "publishTime";
+			String industry = "互联网";
+			String industryLabel = "网络游戏";
+			String publishTime = "2017";
+			String articleType = "企业排行";
 			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			bq.must(QueryBuilders.termQuery("industry", industry));
 			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 			bq.must(QueryBuilders.termQuery("publishTime", publishTime));
-			TermsBuilder vectorBuilder = AggregationBuilders.terms("vector").field("vector");
-			TopHitsBuilder topHits = AggregationBuilders.topHits("hitCount").addSort(SortBuilders.fieldSort("hitCount").order(SortOrder.DESC)).setSize(100);
-			vectorBuilder.subAggregation(topHits);
-			SearchResponse response = requestBuilder.setQuery(bq).addAggregation(vectorBuilder).execute().actionGet();
+			bq.must(QueryBuilders.termQuery("articleType", articleType));
+//			TermsBuilder titleBuilder = AggregationBuilders.terms("title").field("title");
+//			TopHitsBuilder topHits = AggregationBuilders.topHits("hitCount").addSort(SortBuilders.fieldSort("hitCount").order(SortOrder.DESC)).setSize(100);
+//			vectorBuilder.subAggregation(topHits);
+			SearchResponse response = requestBuilder.setQuery(bq).execute().actionGet();
 			System.out.println(requestBuilder); 
 			SearchHits hits = response.getHits();
-			Terms aggs = response.getAggregations().get("vector");
-			for (Terms.Bucket e : aggs.getBuckets()) {
-				System.out.println(e.getKey()+"~~~"+e.getDocCount());
-				InternalTopHits hitr = e.getAggregations().get("hitCount");
-				for (SearchHit searchHit : hitr.getHits()) {
-					data.add(searchHit.getSource());
-				}
+			for (SearchHit searchHit : hits) {
+				JSONObject obj = new JSONObject();
+				Map<String, Object> source = searchHit.getSource();
+				data.add(source);
 			}
 			System.out.println(data.toJSONString());
 		} catch (Exception e) {
