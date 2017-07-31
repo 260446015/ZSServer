@@ -22,7 +22,11 @@ public class CompanyOrderController extends BaseController{
 
 	@Resource
 	private CompanyService cs;
-	
+	/**
+	 * 查询企业排行
+	 * @param dto
+	 * @return
+	 */
 	@RequestMapping(value="/findCompaniesDesc",method={RequestMethod.GET})
 	public AjaxResult findCompanies(CompanyDTO dto){
 		if(null == dto){
