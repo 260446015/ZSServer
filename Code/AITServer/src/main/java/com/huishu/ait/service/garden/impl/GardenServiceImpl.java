@@ -134,6 +134,9 @@ public class GardenServiceImpl implements GardenService {
 	}
 	@Override
 	public JSONArray getGardenBusinessList(SearchModel searchModel) {
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
+		// TODO ES中没有找到相关字段
 		return null;
 	}
 	

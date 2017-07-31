@@ -31,7 +31,7 @@ public class GardenController extends BaseController{
 
 	/**
 	 * 辖区政策列表
-	 * @param park   园区
+	 * @param searchModel    查询条件
 	 * @return
 	 */
 	@RequestMapping(value="getGardenPolicyList.json",method=RequestMethod.POST)
@@ -41,17 +41,11 @@ public class GardenController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONObject object = new JSONObject();
-			object.put("park", searchModel.getPark());
-			object.put("list",gardenService.getGardenPolicyList(searchModel));
-			object.put("totalSize", searchModel.getTotalSize());
-			object.put("totalPage", searchModel.getTotalPage());
-			object.put("pageNumber", searchModel.getPageNumber());
-			return success(object);
+			JSONArray array = gardenService.getGardenPolicyList(searchModel);
+			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
 			LOGGER.error("getGardenPolicyList查询失败！"+e.getMessage());
-			e.printStackTrace();
-			return error("查询政策列表失败！");
+			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
 	
@@ -70,13 +64,13 @@ public class GardenController extends BaseController{
 			return success(gardenService.getGardenPolicyById(id));
 		} catch (Exception e) {
 			LOGGER.error("getGardenPolicyById查询失败！"+e.getMessage());
-			return error("查询政策详情失败！");
+			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
 	
 	/**
 	 * 辖区情报列表
-	 * @param park   园区
+	 * @param searchModel    查询条件
 	 * @return
 	 */
 	@RequestMapping(value="getGardenInformationList.json",method=RequestMethod.POST)
@@ -86,16 +80,11 @@ public class GardenController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONObject object = new JSONObject();
-			object.put("park", searchModel.getPark());
-			object.put("list",gardenService.getGardenInformationList(searchModel));
-			object.put("totalSize", searchModel.getTotalSize());
-			object.put("totalPage", searchModel.getTotalPage());
-			object.put("pageNumber", searchModel.getPageNumber());
-			return success(object);
+			JSONArray array = gardenService.getGardenInformationList(searchModel);
+			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
 			LOGGER.error("getGardenInformationList查询失败！"+e.getMessage());
-			return error("查询动态列表失败！");
+			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
 	
@@ -114,32 +103,27 @@ public class GardenController extends BaseController{
 			return success(gardenService.getGardenInformationById(id));
 		} catch (Exception e) {
 			LOGGER.error("getGardenInformationById查询失败！"+e.getMessage());
-			return error("查询动态详情失败！");
+			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
 	
 	/**
 	 * 龙头企业列表
-	 * @param park   园区
+	 * @param searchModel    查询条件
 	 * @return
 	 */
-	@RequestMapping("getGardenBusinessList.json")
+	@RequestMapping(value="getGardenBusinessList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenBusinessList(SearchModel searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONObject object = new JSONObject();
-			object.put("park", searchModel.getPark());
-			object.put("list",gardenService.getGardenInformationList(searchModel));
-			object.put("totalSize", searchModel.getTotalSize());
-			object.put("totalPage", searchModel.getTotalPage());
-			object.put("pageNumber", searchModel.getPageNumber());
-			return success(object);
+			JSONArray array = gardenService.getGardenBusinessList(searchModel);
+			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
-			LOGGER.error("getGardenInformationList查询失败！"+e.getMessage());
-			return error("查询动态列表失败！");
+			LOGGER.error("getGardenBusinessList查询失败！"+e.getMessage());
+			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
 	/**
@@ -181,6 +165,16 @@ public class GardenController extends BaseController{
 			return error(e.getMessage()).setSuccess(false);
 		}
 		return success("").setSuccess(true);
+	}
+	
+	private JSONObject changeObject(SearchModel searchModel,JSONArray data){
+		JSONObject object = new JSONObject();
+		object.put("park", searchModel.getPark());
+		object.put("list",data);
+		object.put("totalSize", searchModel.getTotalSize());
+		object.put("totalPage", searchModel.getTotalPage());
+		object.put("pageNumber", searchModel.getPageNumber());
+		return object;
 	}
 	
 }

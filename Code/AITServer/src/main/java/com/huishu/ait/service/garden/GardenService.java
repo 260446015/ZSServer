@@ -14,7 +14,7 @@ import com.huishu.ait.es.entity.GardenPolicy;
 public interface GardenService {
 	/**
 	 * 获取园区的政策列表
-	 * @param park    园区名称
+	 * @param searchModel    查询条件
 	 * @return
 	 */
 	JSONArray getGardenPolicyList(SearchModel searchModel);
@@ -26,7 +26,7 @@ public interface GardenService {
 	GardenPolicy getGardenPolicyById(String id);
 	/**
 	 * 获取园区的动态列表
-	 * @param park    园区名称
+	 * @param searchModel    查询条件
 	 * @return
 	 */
 	JSONArray getGardenInformationList(SearchModel searchModel);
@@ -38,7 +38,7 @@ public interface GardenService {
 	GardenInformation getGardenInformationById(String id);
 	/**
 	 * 获取园区的龙头企业列表
-	 * @param park    园区名称
+	 * @param searchModel    查询条件
 	 * @return
 	 */
 	JSONArray getGardenBusinessList(SearchModel searchModel);

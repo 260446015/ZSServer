@@ -1,13 +1,19 @@
 package com.huishu.ait.entity.common;
 
+import java.io.Serializable;
+
 import com.huishu.ait.common.conf.ConfConstant;
 
 /**
- * 
+ * 查询条件
  * @author yindq
  * @date
  */
-public class SearchModel {
+public class SearchModel implements Serializable{
+	/**
+	 * 可序列化
+	 */
+	private static final long serialVersionUID = 1L;
 	/** 园区名称 */
 	private String park;   
 	/** 当前页 */
