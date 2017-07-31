@@ -1,6 +1,5 @@
 package com.huishu.ait.service.garden.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +49,7 @@ public class GardenServiceImpl implements GardenService {
 	private GardenUserRepository gardenUserRepository;
 	
 	@Override
-	public List<JSONObject> getGardenPolicyList(SearchModel searchModel) {
+	public JSONArray getGardenPolicyList(SearchModel searchModel) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		bq.must(QueryBuilders.termQuery("articleType", "政策解读"));
@@ -65,8 +64,8 @@ public class GardenServiceImpl implements GardenService {
 		Integer pageNumber = searchModel.getPageNumber();
 		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize*pageNumber).execute().actionGet();
 		
-		List<JSONObject> rows=new ArrayList<JSONObject>();
-		List<JSONObject> data=new ArrayList<JSONObject>();
+		JSONArray rows=new JSONArray();
+		JSONArray data=new JSONArray();
 		Long total=null; 
 		if(null!=searchResponse&&null!=searchResponse.getHits()){
 			SearchHits hits = searchResponse.getHits();
@@ -92,7 +91,7 @@ public class GardenServiceImpl implements GardenService {
 		return gardenPolicyRepository.findOne(id);
 	}
 	@Override
-	public List<JSONObject> getGardenInformationList(SearchModel searchModel) {
+	public JSONArray getGardenInformationList(SearchModel searchModel) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		bq.must(QueryBuilders.termQuery("articleType", "园区情报"));
@@ -107,8 +106,8 @@ public class GardenServiceImpl implements GardenService {
 		Integer pageNumber = searchModel.getPageNumber();
 		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize*pageNumber).execute().actionGet();
 		
-		List<JSONObject> rows=new ArrayList<JSONObject>();
-		List<JSONObject> data=new ArrayList<JSONObject>();
+		JSONArray rows=new JSONArray();
+		JSONArray data=new JSONArray();
 		Long total=null; 
 		if(null!=searchResponse&&null!=searchResponse.getHits()){
 			SearchHits hits = searchResponse.getHits();
@@ -134,7 +133,7 @@ public class GardenServiceImpl implements GardenService {
 		return gardenInformationRepository.findOne(id);
 	}
 	@Override
-	public List<JSONObject> getGardenBusinessList(SearchModel searchModel) {
+	public JSONArray getGardenBusinessList(SearchModel searchModel) {
 		return null;
 	}
 	

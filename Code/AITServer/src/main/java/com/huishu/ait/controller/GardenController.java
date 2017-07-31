@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
@@ -33,7 +34,7 @@ public class GardenController extends BaseController{
 	 * @param park   园区
 	 * @return
 	 */
-	@RequestMapping("getGardenPolicyList.do")
+	@RequestMapping(value="getGardenPolicyList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenPolicyList(SearchModel searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
@@ -59,7 +60,7 @@ public class GardenController extends BaseController{
 	 * @param id   政策ID
 	 * @return
 	 */
-	@RequestMapping("getGardenPolicyById.do")
+	@RequestMapping(value="getGardenPolicyById.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenPolicyById(String id){
 		if(null==id){
@@ -78,7 +79,7 @@ public class GardenController extends BaseController{
 	 * @param park   园区
 	 * @return
 	 */
-	@RequestMapping("getGardenInformationList.do")
+	@RequestMapping(value="getGardenInformationList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenInformationList(SearchModel searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
@@ -103,7 +104,7 @@ public class GardenController extends BaseController{
 	 * @param id   动态ID
 	 * @return
 	 */
-	@RequestMapping("getGardenInformationById.do")
+	@RequestMapping(value="getGardenInformationById.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenInformationById(String id){
 		if(null==id){
@@ -122,7 +123,7 @@ public class GardenController extends BaseController{
 	 * @param park   园区
 	 * @return
 	 */
-	@RequestMapping("getGardenBusinessList.do")
+	@RequestMapping("getGardenBusinessList.json")
 	@ResponseBody
 	public AjaxResult getGardenBusinessList(SearchModel searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
