@@ -3,6 +3,7 @@ package com.huishu.ait.es.entity;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 /**
@@ -14,7 +15,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
  */
 @Document(indexName = INDEX, type = TYPE)
 public class AITInfo {
-    
+    @Id
     private String id;
 	/** 发布时间 yyyy-MM-dd HH:mm:ss */
 	private String publishDateTime;
