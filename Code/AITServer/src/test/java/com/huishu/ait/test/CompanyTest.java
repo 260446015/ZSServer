@@ -32,7 +32,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.app.Application;
 import com.huishu.ait.common.util.ESUtils;
-import com.huishu.ait.company.service.impl.CompanyServiceImpl;
+import com.huishu.ait.service.company.impl.CompanyServiceImpl;
 
 //这是JUnit的注解，通过这个注解让SpringJUnit4ClassRunner这个类提供Spring测试上下文。  
 @RunWith(SpringJUnit4ClassRunner.class)  

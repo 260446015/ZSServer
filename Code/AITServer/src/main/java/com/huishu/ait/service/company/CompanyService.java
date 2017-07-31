@@ -1,4 +1,4 @@
-package com.huishu.ait.company.service;
+package com.huishu.ait.service.company;
 
 
 

@@ -1,4 +1,4 @@
-package com.huishu.ait.company.service.impl;
+package com.huishu.ait.service.company.impl;
 
 import java.util.Map;
 
@@ -24,9 +24,9 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
-import com.huishu.ait.company.service.CompanyService;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CompanyDTO;
+import com.huishu.ait.service.company.CompanyService;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {

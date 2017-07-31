@@ -1,4 +1,4 @@
-package com.huishu.ait.company.controller;
+package com.huishu.ait.controller.company;
 
 
 import javax.annotation.Resource;
@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.huishu.ait.common.conf.MsgConstant;
-import com.huishu.ait.company.service.CompanyService;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CompanyDTO;
-
+import com.huishu.ait.service.company.CompanyService;
+/**
+ * 
+ * @author yindawei
+ *
+ */
 @RestController
 public class CompanyOrderController extends BaseController{
 
