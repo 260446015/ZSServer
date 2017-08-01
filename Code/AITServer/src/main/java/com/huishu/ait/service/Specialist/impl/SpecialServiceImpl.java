@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ait.entity.Specialist;
 import com.huishu.ait.repository.Specialist.SpecialistRepository;
-import com.huishu.ait.service.Specialist.SpecialService;
 
 
 /**
@@ -15,7 +14,7 @@ import com.huishu.ait.service.Specialist.SpecialService;
  *
  */
 @Service
-public class SpecialServiceImpl implements SpecialService {
+public class SpecialServiceImpl implements SpecialistService {
 	@Autowired
 	private SpecialistRepository   specialRepository;   
 	

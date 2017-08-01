@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.alibaba.fastjson.JSONObject;
+
 
 /**
  * @author yxq
@@ -81,4 +83,10 @@ public class Specialist implements Serializable{
 	public void setPicUrl(String picUrl) {
 		this.picUrl = picUrl;
 	}
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString("Specialist [id=" + id + ", name=" + name + ", sex=" + sex + ", age=" + age + ", professionalTitle="
+				+ professionalTitle + ", company=" + company + ", position=" + position + ", picUrl=" + picUrl + "]");
+	}
+	
 }

@@ -15,11 +15,10 @@ import com.huishu.ait.es.entity.ExpertOpinionDTO;
 public interface ExpertOpinionService {
 	//根基热度和发布时间对查询查询结果进行排序
 	JSONArray getExertOpinionList(ExpertOpinionDTO expertOpinionDTO);
-	
 	//根据作者查询专家观点
 	JSONArray findExpertOpinionByAuthor(ExpertOpinionDTO requestParam);
-	
 	//根据id查询专家观点详情
-	AITInfo findExpertOpinionById(String id);
-
+	JSONObject findExpertOpinionById(String id);
+	//收藏专家观点文章
+	public Boolean expertOpinionCollect(ExpertOpinionDTO param);
 }
