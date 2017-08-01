@@ -165,7 +165,7 @@ public class GardenServiceImpl implements GardenService {
 			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
 			if(!StringUtil.isEmpty(searchName)){
 				findGardensList = gardenRepository.findByNameLike(searchName,pageRequest);
-			}else{
+			}else{//
 				findGardensList = gardenRepository.findByAreaAndIndustryType(area, industryType, pageRequest);
 			}
 			for (Garden garden : findGardensList) {
