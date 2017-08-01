@@ -3,6 +3,7 @@ package com.huishu.ait.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.common.util.StringUtil;
+import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.GardenDTO;
@@ -175,6 +177,30 @@ public class GardenController extends BaseController{
 		}
 		return success(aITInfos).setSuccess(true);
 	}
+	
+	/**
+	 * 获取关注园区列表
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping("/getAttentionGardenList.json")
+	@ResponseBody
+	public AjaxResult getAttentionGardenList(GardenDTO dto){
+	    if(null == dto || StringUtil.isEmpty(String.valueOf(dto.getUserId()))){
+	        return error(MsgConstant.ILLEGAL_PARAM);
+	    }
+	    try{
+	        dto=initPage(dto);
+	        Page<GardenUser> pagedata = null;
+	        pagedata = gardenService.getAttentionGardenList(dto);
+	        return success(pagedata);
+	    }catch(Exception e){
+	        LOGGER.error("查询园区动态失败!", e);
+            return error(e.getMessage()).setSuccess(false);
+	    }
+	}
+	
+	
 	
 	private JSONObject changeObject(SearchModel searchModel,JSONArray data){
 		JSONObject object = new JSONObject();

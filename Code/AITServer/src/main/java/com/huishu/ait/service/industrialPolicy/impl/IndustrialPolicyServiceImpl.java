@@ -52,32 +52,17 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
      * 使用springboot
      */
     @Override
-    public JSONArray getIndustrialPolicyList(IndustrialPolicyDTO dto) {
+    public Page<AITInfo> getIndustrialPolicyList(IndustrialPolicyDTO dto) {
         
         /**
          * 获取ES查询对象bq
          */
-        JSONArray array = new JSONArray();
-        
         try{
-            
-//          Page<AITInfo> pagedata = null;
-            
-            SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
             //获取查询对象
             BoolQueryBuilder bq = dto.builderQuery();
             //获取查询结果
-            SearchResponse response = srb.setQuery(bq).execute().actionGet();
-            //对查询结果进行解析
-            SearchHits hits = response.getHits();
-            for(SearchHit hit:hits){
-                array.add(hit.getSource());
-            }
-            
-            System.out.println(bq);
-            /*Page<AITInfo> pagedata  = industrialPolicyRepository.search(bq,new PageRequest(dto.getPageNumber(), dto.getPageSize()));
-            System.out.println("=================");*/
-            return array;
+            Page<AITInfo> pagedata  = industrialPolicyRepository.search(bq,dto.builderPageRequest());
+            return pagedata;
         }
         catch(Exception e){
             log.error("查询产业政策列表失败",e);

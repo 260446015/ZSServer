@@ -29,7 +29,7 @@ import com.huishu.ait.common.util.ConcersUtils.DateUtil;
  * @CreateTime 2017-7-27 17:18:16
  */
 @Controller
-@RequestMapping(value="industriaPolicy")
+@RequestMapping(value="industry")
 public class IndustrialController extends BaseController {
 
     //加载日志
@@ -125,8 +125,8 @@ public class IndustrialController extends BaseController {
             Boolean b = checkPolicyDTO(dto);
             if(b == true){
                 /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
-                JSONArray policyArray = industrialPolicyService.getIndustrialPolicyList(dto);
-                return success(policyArray);
+                Page<AITInfo> pagedata = industrialPolicyService.getIndustrialPolicyList(dto);
+                return success(pagedata).setSuccess(true);
             }
             else{
                 return error(MsgConstant.ILLEGAL_PARAM);
