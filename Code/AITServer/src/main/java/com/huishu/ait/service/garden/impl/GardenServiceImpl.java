@@ -147,7 +147,9 @@ public class GardenServiceImpl implements GardenService {
 	public JSONArray findGardensList(GardenDTO dto) {
 		String area = dto.getArea();
 		String industryType = dto.getIndustryType();
+		String searchName = dto.getSerarchName();
 		JSONArray data = new JSONArray();
+		List<Garden> findGardensList = null;
 		try{
 			if(StringUtil.isEmpty(area)){
 				area = "北京";
@@ -155,7 +157,11 @@ public class GardenServiceImpl implements GardenService {
 			if(StringUtil.isEmpty(industryType)){
 				industryType = "节能环保";
 			}
-			List<Garden> findGardensList = gardenRepository.findGardensList(area, industryType);
+			if(!StringUtil.isEmpty(searchName)){
+				findGardensList = gardenRepository.findByNameLike(searchName);
+			}else{
+				findGardensList = gardenRepository.findByAreaAndIndustryType(area, industryType);
+			}
 			for (Garden garden : findGardensList) {
 				JSONObject obj = new JSONObject();
 				obj.put("name", garden.getName());

@@ -22,6 +22,7 @@ public class GardenDTO implements Serializable{
 	private String area;
 	private String industryType;
 	private int userId;
+	private String serarchName;
 	/**
 	 * 
 	 * @return 园区id
@@ -91,6 +92,16 @@ public class GardenDTO implements Serializable{
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	/**
+	 * 
+	 * @return 获取前台搜索框中的内荣
+	 */
+	public String getSerarchName() {
+		return serarchName;
+	}
+	public void setSerarchName(String serarchName) {
+		this.serarchName = serarchName;
 	}
 	
 }

@@ -149,7 +149,7 @@ public class GardenController extends BaseController{
 	 * @param dto 传用户id
 	 * @return
 	 */
-	@RequestMapping("/findGardensList.do")
+	@RequestMapping("/findGardensList.json")
 	@ResponseBody
 	public AjaxResult findGardensList(GardenDTO dto){
 		if(null == dto){
@@ -170,7 +170,7 @@ public class GardenController extends BaseController{
 	 * @param dto 
 	 * @return
 	 */
-	@RequestMapping("/findGardensCondition.do")
+	@RequestMapping("/findGardensCondition.json")
 	@ResponseBody
 	public AjaxResult findGardensCondition(GardenDTO dto){
 		if(null == dto){

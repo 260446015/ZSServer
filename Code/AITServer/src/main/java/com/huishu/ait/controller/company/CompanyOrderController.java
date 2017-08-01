@@ -28,7 +28,7 @@ public class CompanyOrderController extends BaseController{
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping(value="/findCompaniesDesc.do")
+	@RequestMapping(value="/findCompaniesDesc.json")
 	public AjaxResult findCompanies(CompanyDTO dto){
 		if(null == dto){
 			return error(MsgConstant.ILLEGAL_PARAM);
