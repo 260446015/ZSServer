@@ -13,7 +13,7 @@ import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.controller.headlines.HeadlinesController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.es.entity.AITInfo;
-import com.huishu.ait.es.entity.dto.ExpertOpinionDTO;
+import com.huishu.ait.es.entity.ExpertOpinionDTO;
 import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
 
 /**
