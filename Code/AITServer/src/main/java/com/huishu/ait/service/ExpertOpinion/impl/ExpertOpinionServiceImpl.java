@@ -18,33 +18,21 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.aggregations.Aggregation;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
-import org.elasticsearch.search.aggregations.metrics.cardinality.CardinalityBuilder;
-import org.elasticsearch.search.aggregations.metrics.tophits.InternalTopHits;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
-import com.huishu.ait.controller.SpecialistController;
 import com.huishu.ait.entity.ExpertOpinionDetail;
-import com.huishu.ait.entity.Specialist;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
 import com.huishu.ait.es.repository.ExpertOpinion.ExpertOpinionElasticsearch;
 import com.huishu.ait.repository.expertOpinionDetail.ExpertOpinionDetailRepository;
 import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
-
-import scala.annotation.meta.setter;
 
 
 /**
