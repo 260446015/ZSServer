@@ -1,6 +1,5 @@
 package com.huishu.ait.service.garden.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +56,7 @@ public class GardenServiceImpl implements GardenService {
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
 	
 	@Override
-	public List<JSONObject> getGardenPolicyList(SearchModel searchModel) {
+	public JSONArray getGardenPolicyList(SearchModel searchModel) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		bq.must(QueryBuilders.termQuery("articleType", "政策解读"));
@@ -65,15 +64,14 @@ public class GardenServiceImpl implements GardenService {
 		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
 		SortBuilder dateBuilder = SortBuilders.fieldSort("publishDate").order(SortOrder.DESC);
 		
-		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX);
-		srb.setTypes(DBConstant.EsConfig.TYPE);
+		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 		srb.addSort(dateBuilder).addSort(countBuilder);
 		Integer pageSize = searchModel.getPageSize();
 		Integer pageNumber = searchModel.getPageNumber();
 		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize*pageNumber).execute().actionGet();
 		
-		List<JSONObject> rows=new ArrayList<JSONObject>();
-		List<JSONObject> data=new ArrayList<JSONObject>();
+		JSONArray rows=new JSONArray();
+		JSONArray data=new JSONArray();
 		Long total=null; 
 		if(null!=searchResponse&&null!=searchResponse.getHits()){
 			SearchHits hits = searchResponse.getHits();
@@ -99,7 +97,7 @@ public class GardenServiceImpl implements GardenService {
 		return gardenPolicyRepository.findOne(id);
 	}
 	@Override
-	public List<JSONObject> getGardenInformationList(SearchModel searchModel) {
+	public JSONArray getGardenInformationList(SearchModel searchModel) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		bq.must(QueryBuilders.termQuery("articleType", "园区情报"));
@@ -107,15 +105,14 @@ public class GardenServiceImpl implements GardenService {
 		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
 		SortBuilder dateBuilder = SortBuilders.fieldSort("publishDate").order(SortOrder.DESC);
 		
-		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX);
-		srb.setTypes(DBConstant.EsConfig.TYPE);
+		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 		srb.addSort(dateBuilder).addSort(countBuilder);
 		Integer pageSize = searchModel.getPageSize();
 		Integer pageNumber = searchModel.getPageNumber();
 		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize*pageNumber).execute().actionGet();
 		
-		List<JSONObject> rows=new ArrayList<JSONObject>();
-		List<JSONObject> data=new ArrayList<JSONObject>();
+		JSONArray rows=new JSONArray();
+		JSONArray data=new JSONArray();
 		Long total=null; 
 		if(null!=searchResponse&&null!=searchResponse.getHits()){
 			SearchHits hits = searchResponse.getHits();
@@ -141,7 +138,10 @@ public class GardenServiceImpl implements GardenService {
 		return gardenInformationRepository.findOne(id);
 	}
 	@Override
-	public List<JSONObject> getGardenBusinessList(SearchModel searchModel) {
+	public JSONArray getGardenBusinessList(SearchModel searchModel) {
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
+		// TODO ES中没有找到相关字段
 		return null;
 	}
 	
@@ -186,12 +186,16 @@ public class GardenServiceImpl implements GardenService {
 	@Override
 	public JSONArray findGardensCondition(GardenDTO dto) {
 		JSONArray data = new JSONArray();
+		int from = dto.getPageNum()*dto.getPageSize()-dto.getPageSize();
+		if(from < 0){
+			from = 0;
+		}
 		try{
 			List<String> gardenName = gardenUserRepository.findGardensCondition(dto.getUserId());
 			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			bq.must(QueryBuilders.termsQuery("park", gardenName));
-			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).execute().actionGet();
+			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).setFrom(from).execute().actionGet();
 			System.out.println(requestBuilder);
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {

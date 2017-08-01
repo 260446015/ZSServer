@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
@@ -34,27 +35,21 @@ public class GardenController extends BaseController{
 
 	/**
 	 * 辖区政策列表
-	 * @param park   园区
+	 * @param searchModel    查询条件
 	 * @return
 	 */
-	@RequestMapping("getGardenPolicyList.do")
+	@RequestMapping(value="getGardenPolicyList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenPolicyList(SearchModel searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONObject object = new JSONObject();
-			object.put("park", searchModel.getPark());
-			object.put("list",gardenService.getGardenPolicyList(searchModel));
-			object.put("totalSize", searchModel.getTotalSize());
-			object.put("totalPage", searchModel.getTotalPage());
-			object.put("pageNumber", searchModel.getPageNumber());
-			return success(object);
+			JSONArray array = gardenService.getGardenPolicyList(searchModel);
+			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
 			LOGGER.error("getGardenPolicyList查询失败！"+e.getMessage());
-			e.printStackTrace();
-			return error("查询政策列表失败！");
+			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
 	
@@ -63,7 +58,7 @@ public class GardenController extends BaseController{
 	 * @param id   政策ID
 	 * @return
 	 */
-	@RequestMapping("getGardenPolicyById.do")
+	@RequestMapping(value="getGardenPolicyById.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenPolicyById(String id){
 		if(null==id){
@@ -73,32 +68,27 @@ public class GardenController extends BaseController{
 			return success(gardenService.getGardenPolicyById(id));
 		} catch (Exception e) {
 			LOGGER.error("getGardenPolicyById查询失败！"+e.getMessage());
-			return error("查询政策详情失败！");
+			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
 	
 	/**
 	 * 辖区情报列表
-	 * @param park   园区
+	 * @param searchModel    查询条件
 	 * @return
 	 */
-	@RequestMapping("getGardenInformationList.do")
+	@RequestMapping(value="getGardenInformationList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenInformationList(SearchModel searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONObject object = new JSONObject();
-			object.put("park", searchModel.getPark());
-			object.put("list",gardenService.getGardenInformationList(searchModel));
-			object.put("totalSize", searchModel.getTotalSize());
-			object.put("totalPage", searchModel.getTotalPage());
-			object.put("pageNumber", searchModel.getPageNumber());
-			return success(object);
+			JSONArray array = gardenService.getGardenInformationList(searchModel);
+			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
 			LOGGER.error("getGardenInformationList查询失败！"+e.getMessage());
-			return error("查询动态列表失败！");
+			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
 	
@@ -107,7 +97,7 @@ public class GardenController extends BaseController{
 	 * @param id   动态ID
 	 * @return
 	 */
-	@RequestMapping("getGardenInformationById.do")
+	@RequestMapping(value="getGardenInformationById.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenInformationById(String id){
 		if(null==id){
@@ -117,34 +107,30 @@ public class GardenController extends BaseController{
 			return success(gardenService.getGardenInformationById(id));
 		} catch (Exception e) {
 			LOGGER.error("getGardenInformationById查询失败！"+e.getMessage());
-			return error("查询动态详情失败！");
+			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
 	
 	/**
 	 * 龙头企业列表
-	 * @param park   园区
+	 * @param searchModel    查询条件
 	 * @return
 	 */
-	@RequestMapping("getGardenBusinessList.do")
+	@RequestMapping(value="getGardenBusinessList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenBusinessList(SearchModel searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONObject object = new JSONObject();
-			object.put("park", searchModel.getPark());
-			object.put("list",gardenService.getGardenInformationList(searchModel));
-			object.put("totalSize", searchModel.getTotalSize());
-			object.put("totalPage", searchModel.getTotalPage());
-			object.put("pageNumber", searchModel.getPageNumber());
-			return success(object);
+			JSONArray array = gardenService.getGardenBusinessList(searchModel);
+			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
-			LOGGER.error("getGardenInformationList查询失败！"+e.getMessage());
-			return error("查询动态列表失败！");
+			LOGGER.error("getGardenBusinessList查询失败！"+e.getMessage());
+			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
+	
 	/**
 	 * 获取园区列表
 	 * @param dto 传用户id
@@ -190,6 +176,16 @@ public class GardenController extends BaseController{
 		return success(aITInfos).setSuccess(true);
 	}
 	
+	private JSONObject changeObject(SearchModel searchModel,JSONArray data){
+		JSONObject object = new JSONObject();
+		object.put("park", searchModel.getPark());
+		object.put("list",data);
+		object.put("totalSize", searchModel.getTotalSize());
+		object.put("totalPage", searchModel.getTotalPage());
+		object.put("pageNumber", searchModel.getPageNumber());
+		return object;
+	}
+	
 	private GardenDTO initPage(GardenDTO dto){
 		if(dto.getPageNum() == null){
 			dto.setPageNum(ConcersUtils.ES_MIN_PAGENUMBER);
@@ -202,5 +198,4 @@ public class GardenController extends BaseController{
 		}
 		return dto;
 	}
-	
 }

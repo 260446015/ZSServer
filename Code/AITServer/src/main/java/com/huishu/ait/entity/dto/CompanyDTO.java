@@ -39,6 +39,10 @@ public class CompanyDTO implements Serializable {
      * 每页数据存储个数
      */
     private Integer pageSize;
+    /**
+     * 总页数
+     */
+    private Integer pageNum;
 
 	public String getIndustry() {
 		return industry;
@@ -86,6 +90,14 @@ public class CompanyDTO implements Serializable {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Integer getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
 	}
 
 }
