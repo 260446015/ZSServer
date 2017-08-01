@@ -22,12 +22,11 @@ public class EchartsDataTransform  implements Transformer {
 	 * @param data
 	 * @return
 	 */
-	public JSONArray transformWordCloud(Object data) {
+	public JSONArray transformWordCloud(JSONArray data) {
 		JSONArray arrayRe = new JSONArray();
 		if (null != data) {
-			JSONArray arry = (JSONArray) (data);
-			for (int i = 0; i < arry.size(); i++) {
-				JSONObject o = (JSONObject) arry.get(i);
+			for (int i = 0; i < data.size(); i++) {
+				JSONObject o = (JSONObject) data.get(i);
 				int value = Integer.parseInt(o.get("heat") + "");
 				String itemStyle = "{name:'" + o.get("word") + "',value:'" + value * 100
 						+ "',itemStyle:{normal: {color: 'rgb(" + Math.round(Math.random() * 160) + ","
@@ -42,7 +41,6 @@ public class EchartsDataTransform  implements Transformer {
 	
 	@Override
 	public Object transform(String data, String... params) {
-		
 		return null;
 	}
 	

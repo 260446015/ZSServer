@@ -20,6 +20,21 @@ public class HeadlinesDTO extends AbstractDTO{
 	private String endDate;
 	/**词云关键词*/
 	private String keyword;
+	/**词云数目*/
+	private Integer wordCloudNum; 
+	
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public Integer getWordCloudNum() {
+		return wordCloudNum;
+	}
+	public void setWordCloudNum(Integer wordCloudNum) {
+		this.wordCloudNum = wordCloudNum;
+	}
 	public String getIndustry() {
 		return industry;
 	}
