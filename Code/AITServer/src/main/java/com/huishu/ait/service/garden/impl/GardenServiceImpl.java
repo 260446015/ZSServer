@@ -62,8 +62,7 @@ public class GardenServiceImpl implements GardenService {
 		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
 		SortBuilder dateBuilder = SortBuilders.fieldSort("publishDate").order(SortOrder.DESC);
 		
-		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX);
-		srb.setTypes(DBConstant.EsConfig.TYPE);
+		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 		srb.addSort(dateBuilder).addSort(countBuilder);
 		Integer pageSize = searchModel.getPageSize();
 		Integer pageNumber = searchModel.getPageNumber();
@@ -104,8 +103,7 @@ public class GardenServiceImpl implements GardenService {
 		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
 		SortBuilder dateBuilder = SortBuilders.fieldSort("publishDate").order(SortOrder.DESC);
 		
-		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX);
-		srb.setTypes(DBConstant.EsConfig.TYPE);
+		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 		srb.addSort(dateBuilder).addSort(countBuilder);
 		Integer pageSize = searchModel.getPageSize();
 		Integer pageNumber = searchModel.getPageNumber();
