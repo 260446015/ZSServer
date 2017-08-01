@@ -13,6 +13,8 @@ import javax.persistence.Id;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * 产业政策实体类
  * @author jdz
@@ -35,6 +37,8 @@ public class IndustrialPolicy implements Serializable {
     
     private String industry;
     
+    private String industryLabel;
+    
     private Date publishDate;
     
     private String author;
@@ -45,15 +49,16 @@ public class IndustrialPolicy implements Serializable {
     
     private String articleType;
     
-//    private String sourceLink;
+    private String sourceLink;
     
-//    private String vector;
+    private String vector;
     
     private String area;
     
     private String industryType;
     
     private String park;
+
 
     public String getId() {
         return id;
@@ -69,6 +74,14 @@ public class IndustrialPolicy implements Serializable {
 
     public void setIndustry(String industry) {
         this.industry = industry;
+    }
+
+    public String getIndustryLabel() {
+        return industryLabel;
+    }
+
+    public void setIndustryLabel(String industryLabel) {
+        this.industryLabel = industryLabel;
     }
 
     public Date getPublishDate() {
@@ -111,6 +124,22 @@ public class IndustrialPolicy implements Serializable {
         this.articleType = articleType;
     }
 
+    public String getSourceLink() {
+        return sourceLink;
+    }
+
+    public void setSourceLink(String sourceLink) {
+        this.sourceLink = sourceLink;
+    }
+
+    public String getVector() {
+        return vector;
+    }
+
+    public void setVector(String vector) {
+        this.vector = vector;
+    }
+
     public String getArea() {
         return area;
     }
@@ -134,9 +163,9 @@ public class IndustrialPolicy implements Serializable {
     public void setPark(String park) {
         this.park = park;
     }
-    
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
+    }
 }

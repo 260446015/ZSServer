@@ -91,4 +91,57 @@ public abstract class BaseController {
 		}
     	return true;
     }
+    
+    /**
+     * 政策列表检查类
+     * @param dto
+     * @return
+     * @createDate 2017-7-31
+     */
+    public boolean  checkPolicyDTO(AbstractDTO dto ){
+        if ( dto == null ){
+            return false;
+        }
+        
+        List<String> fieldNames = dto.getFieldNames();
+        if(fieldNames.contains("industry")){
+            Object industry = getValueByFieldName(dto, "industry");
+           if(industry == null){
+               return false;
+           }
+        }
+        if(fieldNames.contains("industryLabel")){
+            Object industryLabel = getValueByFieldName(dto, "industryLabel");
+            if(industryLabel == null){
+                return false;
+            }
+        }
+        if(fieldNames.contains("area")){
+            Object vector = getValueByFieldName(dto, "area");
+            if(vector == null){
+                return false;
+            }
+        }
+        if (fieldNames.contains("startDate")) {
+            Object startDate = getValueByFieldName(dto, "startDate");
+            
+            if (startDate != null) {
+                if (!CheckUtils.checkDateTime(startDate.toString())) {
+                    return false;
+                }
+            }
+        }
+        
+        if (fieldNames.contains("endDate")) {
+            Object endDate = getValueByFieldName(dto, "endDate");
+            
+            if (endDate != null) {
+                if (!CheckUtils.checkDateTime(endDate.toString())) {
+                    return false;
+                }
+            }
+            
+        }
+        return true;
+    }
 }
