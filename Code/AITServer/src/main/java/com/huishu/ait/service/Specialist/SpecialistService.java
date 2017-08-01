@@ -1,4 +1,4 @@
-package com.huishu.ait.service.Specialist.impl;
+package com.huishu.ait.service.Specialist;
 
 import java.util.List;
 

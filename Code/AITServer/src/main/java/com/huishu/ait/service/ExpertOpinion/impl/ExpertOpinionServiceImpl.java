@@ -60,12 +60,15 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			String publishDateTime = requestParam.getPublishDateTime();
 			String startDate = requestParam.getStartDate();
 			String endDate = requestParam.getEndDate();
-			
+			int pageNumber = requestParam.getPageNumber();
+			int pageSize = requestParam.getPageSize();
+			int from = (pageNumber-1)*pageSize;
 			SearchRequestBuilder searchBuilder = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = QueryBuilders.boolQuery();
 			bq.must(QueryBuilders.matchAllQuery());
 			//根据条件查询
-			SearchRequestBuilder requestBuilder = searchBuilder.setQuery(bq).setSize(500);
+			SearchRequestBuilder requestBuilder = searchBuilder.setQuery(bq)
+					.setFrom(from).setSize(pageSize);
 			if (StringUtils.isNotEmpty(industry)) {
 				bq.must(QueryBuilders.termQuery("industry", industry));
 			}
@@ -129,6 +132,9 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 		try {
 			JSONArray data = new JSONArray();
 			String author = requestParam.getAuthor();
+			int pageNumber = requestParam.getPageNumber();
+			int pageSize = requestParam.getPageSize();
+			int from = (pageNumber-1)*pageSize;
 			
 			SearchRequestBuilder requestBuilder = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = QueryBuilders.boolQuery();
@@ -136,7 +142,10 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			if (StringUtils.isNotBlank(author)) {
 				bq.must(QueryBuilders.termQuery("author", author));
 			}
-			SearchResponse actionGet = requestBuilder.setQuery(bq).addSort("publishDateTime", SortOrder.DESC).setSize(50).execute().actionGet();
+			SearchResponse actionGet = requestBuilder.setQuery(bq)
+					.addSort("publishDateTime", SortOrder.DESC)
+					.setFrom(from).setSize(pageSize)
+					.execute().actionGet();
 			SearchHits hits = actionGet.getHits();
 			if (null != hits) {
 				for (SearchHit hit : hits) {

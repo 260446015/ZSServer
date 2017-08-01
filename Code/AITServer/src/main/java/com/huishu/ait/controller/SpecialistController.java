@@ -14,7 +14,7 @@ import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.controller.headlines.HeadlinesController;
 import com.huishu.ait.entity.Specialist;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.service.Specialist.impl.SpecialistService;
+import com.huishu.ait.service.Specialist.SpecialistService;
 
 /**
  * @author yxq
