@@ -9,7 +9,7 @@ import com.huishu.ait.es.entity.GardenPolicy;
 /**
  * 全景辖区概览service
  * @author yindq
- * @date   2017-7-28
+ * @date   2017-7-28 
  */
 public interface GardenService {
 	/**
