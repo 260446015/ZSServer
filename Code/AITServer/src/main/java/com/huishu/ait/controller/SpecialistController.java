@@ -28,12 +28,11 @@ public class SpecialistController extends BaseController {
 	@Autowired
 	private SpecialistService specialistService;
 	
-	@RequestMapping(value = "/getSpecialist.do")
+	@RequestMapping(value = "/getSpecialist.json")
 	public AjaxResult getSpecialist(){
 		try {
-			Object data = null;
 			List<Specialist> findAll = specialistService.findAll();
-			return success(data);
+			return success(findAll);
 		} catch (Exception e) {
 			log.error("查询失败：",e);
 			return error(MsgConstant.ILLEGAL_PARAM);

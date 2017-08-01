@@ -1,11 +1,10 @@
 package com.huishu.ait.repository.garden;
 
-import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import com.huishu.ait.entity.Garden;
 
@@ -18,7 +17,8 @@ import com.huishu.ait.entity.Garden;
  */
 public interface GardenRepository extends CrudRepository<Garden, Long>{
 	
-	@Query(value="select id,name,description,address,area,industryType from Garden g where g.area=? and g.industryType=?")
-	public List<Garden> findGardensList(String area,String industryType);
+	Page<Garden> findByAreaAndIndustryType(String area,String industryType,Pageable pageable);
+
+	Page<Garden> findByNameLike(String searchName,Pageable pagealbe);
 	
 }

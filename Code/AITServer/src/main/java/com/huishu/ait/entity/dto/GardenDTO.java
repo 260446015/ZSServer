@@ -15,21 +15,34 @@ public class GardenDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private String name;
 	private String description;
 	private String address;
 	private String area;
 	private String industryType;
-	private int userId;
+	private Integer userId;
+	private String serarchName;
+	/**
+	 * 分页中每页大小
+	 */
+	private Integer pageSize;
+	/**
+	 * 分页当前页数
+	 */
+	private Integer currentPage;
+	/**
+	 * 分页总页数
+	 */
+	private Integer pageNum;
 	/**
 	 * 
 	 * @return 园区id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	/**
@@ -86,11 +99,39 @@ public class GardenDTO implements Serializable{
 	 * 
 	 * @return 获取关注的用户id
 	 */
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+	/**
+	 * 
+	 * @return 获取前台搜索框中的内容
+	 */
+	public String getSerarchName() {
+		return serarchName;
+	}
+	public void setSerarchName(String serarchName) {
+		this.serarchName = serarchName;
+	}
+	public Integer getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+	public Integer getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
+	}
+	public Integer getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
 	}
 	
 }
