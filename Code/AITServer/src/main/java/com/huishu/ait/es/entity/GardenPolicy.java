@@ -5,6 +5,8 @@ import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * 
  * @author yindq
@@ -87,9 +89,7 @@ public class GardenPolicy {
 	}
 	@Override
 	public String toString() {
-		return "GardenPolicy [id=" + id + ", title=" + title + ", vector=" + vector + ", publishDateTime="
-				+ publishDateTime + ", articleLink=" + articleLink + ", source=" + source + ", sourceLink=" + sourceLink
-				+ ", content=" + content + ", author=" + author + "]";
+		return JSONObject.toJSONString(this);
 	}
 	
 }

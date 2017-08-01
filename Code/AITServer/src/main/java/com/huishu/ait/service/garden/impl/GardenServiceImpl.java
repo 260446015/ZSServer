@@ -1,6 +1,5 @@
 package com.huishu.ait.service.garden.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +18,8 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -55,7 +56,7 @@ public class GardenServiceImpl implements GardenService {
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
 	
 	@Override
-	public List<JSONObject> getGardenPolicyList(SearchModel searchModel) {
+	public JSONArray getGardenPolicyList(SearchModel searchModel) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		bq.must(QueryBuilders.termQuery("articleType", "政策解读"));
@@ -63,15 +64,14 @@ public class GardenServiceImpl implements GardenService {
 		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
 		SortBuilder dateBuilder = SortBuilders.fieldSort("publishDate").order(SortOrder.DESC);
 		
-		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX);
-		srb.setTypes(DBConstant.EsConfig.TYPE);
+		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 		srb.addSort(dateBuilder).addSort(countBuilder);
 		Integer pageSize = searchModel.getPageSize();
 		Integer pageNumber = searchModel.getPageNumber();
 		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize*pageNumber).execute().actionGet();
 		
-		List<JSONObject> rows=new ArrayList<JSONObject>();
-		List<JSONObject> data=new ArrayList<JSONObject>();
+		JSONArray rows=new JSONArray();
+		JSONArray data=new JSONArray();
 		Long total=null; 
 		if(null!=searchResponse&&null!=searchResponse.getHits()){
 			SearchHits hits = searchResponse.getHits();
@@ -97,23 +97,22 @@ public class GardenServiceImpl implements GardenService {
 		return gardenPolicyRepository.findOne(id);
 	}
 	@Override
-	public List<JSONObject> getGardenInformationList(SearchModel searchModel) {
+	public JSONArray getGardenInformationList(SearchModel searchModel) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		bq.must(QueryBuilders.termQuery("articleType", "园区情报"));
-		//按时间和点击量降序排列
+		//按时间和点击量降序排列 
 		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
 		SortBuilder dateBuilder = SortBuilders.fieldSort("publishDate").order(SortOrder.DESC);
 		
-		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX);
-		srb.setTypes(DBConstant.EsConfig.TYPE);
+		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 		srb.addSort(dateBuilder).addSort(countBuilder);
 		Integer pageSize = searchModel.getPageSize();
 		Integer pageNumber = searchModel.getPageNumber();
 		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize*pageNumber).execute().actionGet();
 		
-		List<JSONObject> rows=new ArrayList<JSONObject>();
-		List<JSONObject> data=new ArrayList<JSONObject>();
+		JSONArray rows=new JSONArray();
+		JSONArray data=new JSONArray();
 		Long total=null; 
 		if(null!=searchResponse&&null!=searchResponse.getHits()){
 			SearchHits hits = searchResponse.getHits();
@@ -139,7 +138,10 @@ public class GardenServiceImpl implements GardenService {
 		return gardenInformationRepository.findOne(id);
 	}
 	@Override
-	public List<JSONObject> getGardenBusinessList(SearchModel searchModel) {
+	public JSONArray getGardenBusinessList(SearchModel searchModel) {
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
+		// TODO ES中没有找到相关字段
 		return null;
 	}
 	
@@ -148,8 +150,11 @@ public class GardenServiceImpl implements GardenService {
 		String area = dto.getArea();
 		String industryType = dto.getIndustryType();
 		String searchName = dto.getSerarchName();
+		int pageNum = dto.getPageNum();
+		int pageSize = dto.getPageSize();
+		int from = pageSize*pageNum - pageSize;
 		JSONArray data = new JSONArray();
-		List<Garden> findGardensList = null;
+		Page<Garden> findGardensList = null;
 		try{
 			if(StringUtil.isEmpty(area)){
 				area = "北京";
@@ -157,10 +162,11 @@ public class GardenServiceImpl implements GardenService {
 			if(StringUtil.isEmpty(industryType)){
 				industryType = "节能环保";
 			}
+			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
 			if(!StringUtil.isEmpty(searchName)){
-				findGardensList = gardenRepository.findByNameLike(searchName);
-			}else{
-				findGardensList = gardenRepository.findByAreaAndIndustryType(area, industryType);
+				findGardensList = gardenRepository.findByNameLike(searchName,pageRequest);
+			}else{//
+				findGardensList = gardenRepository.findByAreaAndIndustryType(area, industryType, pageRequest);
 			}
 			for (Garden garden : findGardensList) {
 				JSONObject obj = new JSONObject();
@@ -175,35 +181,6 @@ public class GardenServiceImpl implements GardenService {
 			LOGGER.error(e.getMessage());
 		}
 		return data;
-		
-//		try {
-//			String industry = (String) msg.get("industry");
-//			String industryLabel = (String) msg.get("industryLabel");
-//			String publishTime = (String) msg.get("publishTime");
-//			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
-//			BoolQueryBuilder bq = new BoolQueryBuilder();
-//			bq.must(QueryBuilders.termQuery("industry", industry));
-//			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
-//			bq.must(QueryBuilders.termQuery("publishTime", publishTime));
-//			TermsBuilder vectorBuilder = AggregationBuilders.terms("vector").field("vector");
-//			TopHitsBuilder topHits = AggregationBuilders.topHits("hitCount").addSort(SortBuilders.fieldSort("hitCount").order(SortOrder.DESC)).setSize(100);
-//			vectorBuilder.subAggregation(topHits);
-//			SearchResponse response = requestBuilder.setQuery(bq).addAggregation(vectorBuilder).execute().actionGet();
-//			System.out.println(requestBuilder); 
-//			Terms aggs = response.getAggregations().get("vector");
-//			for (Terms.Bucket e : aggs.getBuckets()) {
-//				System.out.println(e.getKey()+"~~~"+e.getDocCount());
-//				InternalTopHits hitr = e.getAggregations().get("hitCount");
-//				for (SearchHit searchHit : hitr.getHits()) {
-//					data.add(searchHit.getSource());
-//				}
-//			}
-//			result.setData(data).setSuccess(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			result.setData(data).setSuccess(false);
-//		}
-//		return result;
 	}
 	
 	@Override
