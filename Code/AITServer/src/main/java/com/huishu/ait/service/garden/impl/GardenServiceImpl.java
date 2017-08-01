@@ -19,6 +19,8 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -148,8 +150,11 @@ public class GardenServiceImpl implements GardenService {
 		String area = dto.getArea();
 		String industryType = dto.getIndustryType();
 		String searchName = dto.getSerarchName();
+		int pageNum = dto.getPageNum();
+		int pageSize = dto.getPageSize();
+		int from = pageSize*pageNum - pageSize;
 		JSONArray data = new JSONArray();
-		List<Garden> findGardensList = null;
+		Page<Garden> findGardensList = null;
 		try{
 			if(StringUtil.isEmpty(area)){
 				area = "北京";
@@ -157,10 +162,11 @@ public class GardenServiceImpl implements GardenService {
 			if(StringUtil.isEmpty(industryType)){
 				industryType = "节能环保";
 			}
+			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
 			if(!StringUtil.isEmpty(searchName)){
-				findGardensList = gardenRepository.findByNameLike(searchName);
+				findGardensList = gardenRepository.findByNameLike(searchName,pageRequest);
 			}else{
-				findGardensList = gardenRepository.findByAreaAndIndustryType(area, industryType);
+				findGardensList = gardenRepository.findByAreaAndIndustryType(area, industryType, pageRequest);
 			}
 			for (Garden garden : findGardensList) {
 				JSONObject obj = new JSONObject();
@@ -175,35 +181,6 @@ public class GardenServiceImpl implements GardenService {
 			LOGGER.error(e.getMessage());
 		}
 		return data;
-		
-//		try {
-//			String industry = (String) msg.get("industry");
-//			String industryLabel = (String) msg.get("industryLabel");
-//			String publishTime = (String) msg.get("publishTime");
-//			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
-//			BoolQueryBuilder bq = new BoolQueryBuilder();
-//			bq.must(QueryBuilders.termQuery("industry", industry));
-//			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
-//			bq.must(QueryBuilders.termQuery("publishTime", publishTime));
-//			TermsBuilder vectorBuilder = AggregationBuilders.terms("vector").field("vector");
-//			TopHitsBuilder topHits = AggregationBuilders.topHits("hitCount").addSort(SortBuilders.fieldSort("hitCount").order(SortOrder.DESC)).setSize(100);
-//			vectorBuilder.subAggregation(topHits);
-//			SearchResponse response = requestBuilder.setQuery(bq).addAggregation(vectorBuilder).execute().actionGet();
-//			System.out.println(requestBuilder); 
-//			Terms aggs = response.getAggregations().get("vector");
-//			for (Terms.Bucket e : aggs.getBuckets()) {
-//				System.out.println(e.getKey()+"~~~"+e.getDocCount());
-//				InternalTopHits hitr = e.getAggregations().get("hitCount");
-//				for (SearchHit searchHit : hitr.getHits()) {
-//					data.add(searchHit.getSource());
-//				}
-//			}
-//			result.setData(data).setSuccess(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			result.setData(data).setSuccess(false);
-//		}
-//		return result;
 	}
 	
 	@Override

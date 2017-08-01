@@ -2,6 +2,8 @@ package com.huishu.ait.repository.garden;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.Garden;
@@ -15,8 +17,8 @@ import com.huishu.ait.entity.Garden;
  */
 public interface GardenRepository extends CrudRepository<Garden, Long>{
 	
-	public List<Garden> findByAreaAndIndustryType(String area,String industryType);
+	Page<Garden> findByAreaAndIndustryType(String area,String industryType,Pageable pageable);
 
-	public List<Garden> findByNameLike(String searchName);
+	Page<Garden> findByNameLike(String searchName,Pageable pagealbe);
 	
 }

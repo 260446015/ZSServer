@@ -1,33 +1,26 @@
 package com.huishu.ait.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.elasticsearch.action.search.SearchRequestBuilder;
-import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
-import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.app.Application;
-import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.Garden;
-import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.repository.garden_user.GardenUserRepository;
 
@@ -44,7 +37,9 @@ public class GardenTest {
 	private GardenRepository dao;
 	@Resource
 	private GardenUserRepository gardenUserRepository;
-	@Test
+	@Autowired
+	private GardenRepository gardenRepository;
+	/*@Test
 	public void testFindGardensList() {
 		JSONArray jsonArray = new JSONArray();
 		String area = "广州";
@@ -83,6 +78,15 @@ public class GardenTest {
 		for (SearchHit searchHit : hits) {
 			searchHit.getSource();
 		}
+	}*/
+	@Test
+	public void test2(){
+		/*List<Order> orders = new ArrayList<Order>();
+		orders.add(new Order(Direction.DESC, "updateDate"));*/
+
+//		PageRequest pageRequest = new PageRequest(0, 10);
+		Page<Garden> findGardensList = gardenRepository.findByAreaAndIndustryType("北京", "互联网", new PageRequest(0, 10));
+		System.out.println(findGardensList.iterator().toString());
 	}
 
 }

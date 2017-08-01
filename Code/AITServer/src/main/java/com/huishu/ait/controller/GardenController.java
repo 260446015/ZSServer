@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.common.SearchModel;
@@ -155,12 +156,13 @@ public class GardenController extends BaseController{
 		if(null == dto){
 			 return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		dto = initPage(dto);
 		JSONArray gardens = null;
 		try{
 			gardens = gardenService.findGardensList(dto);
 		}catch(Exception e){
 			e.printStackTrace();
-			LOGGER.info(e.getMessage());
+			LOGGER.error("查询园区列表失败!",e);
 			return error(e.getMessage()).setSuccess(false);
 		}
 		return success(gardens).setSuccess(true);
@@ -177,14 +179,28 @@ public class GardenController extends BaseController{
 			if(StringUtil.isEmpty(String.valueOf(dto.getUserId())))
 				return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		dto = initPage(dto);
 		JSONArray aITInfos = null;
 		try{
 			aITInfos = gardenService.findGardensCondition(dto);
 		}catch(Exception e){
-			LOGGER.info(e.getMessage());
+			LOGGER.error("查询园区动态失败!", e);
 			return error(e.getMessage()).setSuccess(false);
 		}
 		return success(aITInfos).setSuccess(true);
+	}
+	
+	private GardenDTO initPage(GardenDTO dto){
+		if(dto.getPageNum() == null){
+			dto.setPageNum(ConcersUtils.ES_MIN_PAGENUMBER);
+		}
+		if(dto.getPageSize() == null){
+			dto.setPageSize(ConcersUtils.PAGE_SIZE);
+		}
+		if(dto.getPageNum() > ConcersUtils.ES_MAX_PAGENUMBER){
+			dto.setPageNum(ConcersUtils.ES_MAX_PAGENUMBER);
+		}
+		return dto;
 	}
 	
 }
