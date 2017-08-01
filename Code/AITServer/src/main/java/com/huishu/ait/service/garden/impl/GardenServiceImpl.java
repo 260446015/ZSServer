@@ -103,7 +103,7 @@ public class GardenServiceImpl implements GardenService {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		bq.must(QueryBuilders.termQuery("articleType", "园区情报"));
-		//按时间和点击量降序排列
+		//按时间和点击量降序排列 
 		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
 		SortBuilder dateBuilder = SortBuilders.fieldSort("publishDate").order(SortOrder.DESC);
 		
