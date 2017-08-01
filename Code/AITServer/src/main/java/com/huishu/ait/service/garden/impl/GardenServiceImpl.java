@@ -186,12 +186,16 @@ public class GardenServiceImpl implements GardenService {
 	@Override
 	public JSONArray findGardensCondition(GardenDTO dto) {
 		JSONArray data = new JSONArray();
+		int from = dto.getPageNum()*dto.getPageSize()-dto.getPageSize();
+		if(from < 0){
+			from = 0;
+		}
 		try{
 			List<String> gardenName = gardenUserRepository.findGardensCondition(dto.getUserId());
 			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			bq.must(QueryBuilders.termsQuery("park", gardenName));
-			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).execute().actionGet();
+			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).setFrom(from).execute().actionGet();
 			System.out.println(requestBuilder);
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {

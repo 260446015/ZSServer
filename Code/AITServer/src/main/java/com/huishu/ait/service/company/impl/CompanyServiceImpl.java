@@ -64,9 +64,11 @@ public class CompanyServiceImpl implements CompanyService {
 			bq.must(QueryBuilders.termQuery("industry", industry));
 			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 			bq.must(QueryBuilders.termQuery("publishTime", publishTime));
-			dto.setCurrentPage(0);
-			dto.setPageSize(10);
-			SearchResponse response = requestBuilder.setQuery(bq).setSize(dto.getPageSize()).setFrom(dto.getCurrentPage()).execute().actionGet();
+			int from = dto.getPageSize()*dto.getPageNum() - dto.getPageSize();
+			if(from < 0){
+				from = 0;
+			}
+			SearchResponse response = requestBuilder.setQuery(bq).setFrom(from).execute().actionGet();
 			System.out.println(requestBuilder); 
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
