@@ -3,16 +3,16 @@ package com.huishu.ait.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
-import com.huishu.ait.controller.headlines.HeadlinesController;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
 import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
 
@@ -29,7 +29,7 @@ public class ExpertOpinionController extends BaseController{
 	@Autowired
 	private ExpertOpinionService expertOpinionService;
 	
-	@RequestMapping(value = "findaExpertOpinion.do")
+	@RequestMapping(value = "findaExpertOpinion.json",method= RequestMethod.POST)
 	public AjaxResult getExpertOpinion(ExpertOpinionDTO requestParam){
 		try {
 			JSONArray jsonArray = expertOpinionService.getExertOpinionList(requestParam);
@@ -39,7 +39,7 @@ public class ExpertOpinionController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
-	@RequestMapping(value = "/findExpertOpinionByAuthor.do")
+	@RequestMapping(value = "/findExpertOpinionByAuthor.json",method=RequestMethod.POST)
 	public AjaxResult getExpertOpinionByAuthor(ExpertOpinionDTO requestParam){
 		try {
 			JSONArray jsonArray = expertOpinionService.findExpertOpinionByAuthor(requestParam);
@@ -49,8 +49,7 @@ public class ExpertOpinionController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
-	
-	@RequestMapping(value = "/findExpertOpinionById.do")
+	@RequestMapping(value = "/findExpertOpinionById.json", method=RequestMethod.POST)
 	public AjaxResult getExpertOpinionById(String id){
 		try {
 			JSONObject json = expertOpinionService.findExpertOpinionById(id);
@@ -61,8 +60,8 @@ public class ExpertOpinionController extends BaseController{
 		}
 	}
 	
-	@RequestMapping(value = "collectExpertOpinion.do")
-	public AjaxResult collectExpertOpinion(ExpertOpinionDTO requestParam){
+	@RequestMapping(value = "collectExpertOpinion.json", method= RequestMethod.POST)
+	public AjaxResult collectExpertOpinion(@RequestBody ExpertOpinionDTO requestParam){
 		try {
 			Boolean flag = expertOpinionService.expertOpinionCollect(requestParam);
 			AjaxResult result = new AjaxResult();
