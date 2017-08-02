@@ -232,5 +232,26 @@ public class GardenServiceImpl implements GardenService {
             return null;
         }
     }
+	/* 园区情报中获取所有园区内容
+	 * @see com.huishu.ait.service.garden.GardenService#findGardensAll()
+	 */
+	@Override
+	public JSONArray findGardensAll() {
+		// TODO Auto-generated method stub
+		JSONArray data = new JSONArray();
+		try{
+			Iterable<Garden> findAll = gardenRepository.findAll();
+			for (Garden garden : findAll) {
+				JSONObject obj = new JSONObject();
+				obj.put("id", garden.getId());
+				obj.put("area", garden.getArea());
+				obj.put("gardenType", garden.getGardenType());
+				data.add(obj);
+			}
+		}catch(Exception e){
+			LOGGER.error("获取园区情报中获取所有园区内容失败",e);
+		}
+		return data;
+	}
 	
 }

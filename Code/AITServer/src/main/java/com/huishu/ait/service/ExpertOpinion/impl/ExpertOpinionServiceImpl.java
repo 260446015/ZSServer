@@ -54,10 +54,8 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			//获取参数
 			String industry = requestParam.getIndustry();
 			String industryLabel = requestParam.getIndustryLabel();
-			String publishDate = requestParam.getPublishDate();
 			String sortByHotFlag = requestParam.getSortByHotFlag();
 			String sortByTimeFlag = requestParam.getSortByTimeFlag();
-			String publishDateTime = requestParam.getPublishDateTime();
 			String startDate = requestParam.getStartDate();
 			String endDate = requestParam.getEndDate();
 			int pageNumber = requestParam.getPageNumber();
@@ -87,20 +85,6 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 				requestBuilder.addSort("publishDateTime", SortOrder.DESC);
 			}
 			SearchResponse actionGet = requestBuilder.execute().actionGet();
-			//bq.must(QueryBuilders.termQuery(name, value));
-			/*SearchResponse actionGet = searchBuilder.setQuery(bq).execute().actionGet();*/
-			
-			/*Terms agg = actionGet.getAggregations().get("industry");
-			for (Terms.Bucket entry : agg.getBuckets()) {
-				InternalTopHits terms = (InternalTopHits)entry.getAggregations().get("industryLabel");
-				SearchHits hits = terms.getHits();
-				long totalHits = hits.getTotalHits();
-				for (SearchHit searchHit : hits) {
-					Map<String, Object> source = searchHit.getSource();
-					data.add(source);
-				}
-				
-			}*/
 			SearchHits hits = actionGet.getHits();
 			if (null !=hits ) {
 				for (SearchHit hit : hits) {
@@ -184,11 +168,18 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	/**
 	 * 收藏专家观点
 	 */
-	public Boolean expertOpinionCollect(ExpertOpinionDTO param){
+	public Boolean expertOpinionCollect(String articleId){
 		Boolean flag= true;
 		try {
+			AITInfo param = expertOpinionElasticsearch.findOne(articleId);
+			ExpertOpinionDetail findOne = findExpertOpinionDetailByArticleId(articleId);
+			//如果不为空先删除
+			if (null != findOne) {
+				expertOpinionDetailRepository.delete(findOne);
+			}
+			//保存
 			ExpertOpinionDetail expertOpinionDetail = new ExpertOpinionDetail();
-			expertOpinionDetail.setId(param.getId());
+			expertOpinionDetail.setArticleId(param.getId());
 			expertOpinionDetail.setAuthor(param.getAuthor());
 			expertOpinionDetail.setPublishTime(param.getPublishDateTime());
 			expertOpinionDetail.setTitle(param.getTitle());
@@ -196,13 +187,38 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			expertOpinionDetail.setSource(param.getSource());
 			expertOpinionDetail.setSourceLink(param.getSourceLink());
 			expertOpinionDetail.setIndustry(param.getIndustry());
-			expertOpinionDetail.setLanmu(param.getLanmu());
+			expertOpinionDetail.setLanmu(param.getDimension());
 			expertOpinionDetailRepository.save(expertOpinionDetail);
 			return flag;
 		} catch (Exception e) {
 			flag=false;
-			log.error("收藏失败：",e);
+			log.error("收藏失败：",e.getMessage());
 			return flag;
 		}
+	}
+	/**
+	 * 取消收藏专家观点
+	 */
+	public Boolean cancelExpertOpinionCollect(String articleId){
+		Boolean flag= true;
+		try {
+			ExpertOpinionDetail findOne = findExpertOpinionDetailByArticleId(articleId);
+			if (null == findOne) {
+				flag=false;
+			}
+			expertOpinionDetailRepository.delete(findOne);
+			return flag;
+		} catch (Exception e) {
+			flag=false;
+			log.error("取消收藏失败：",e.getMessage());
+			return flag;
+		}
+	}
+	/**
+	 * @param articleId
+	 * @return根据文章id从数据库中查询文章详情
+	 */
+	public ExpertOpinionDetail findExpertOpinionDetailByArticleId(String articleId){
+		return expertOpinionDetailRepository.findExpertOpinionDetailByArticleId(articleId);
 	}
 }

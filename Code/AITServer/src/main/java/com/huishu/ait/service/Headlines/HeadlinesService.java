@@ -26,15 +26,22 @@ public interface HeadlinesService {
 	Option  getCarClondChartList(HeadlinesDTO headlinesDTO);
 
 	/**
-	 * 产业头条--今日头条
+	 * 产业头条--根据载体查询文章
 	 * @param id
 	 * @return
 	 */
 	Page<HeadlinesArticleListDTO> findArticleByVector(HeadlinesDTO headlinesDTO);
 
 	/**
+	 * 根据关键词来查询文章列表
+	 * @param headlinesDTO
+	 * @return
+	 */
+	Page<HeadlinesArticleListDTO> findArticleByKeyWord(HeadlinesDTO headlinesDTO);
+	/**
+	 * 根据id查询文章信息
 	 * @param id
 	 * @return
 	 */
-	AITInfo findVectorArticleById(String id);
+	AITInfo findArticleById(String id);
 }

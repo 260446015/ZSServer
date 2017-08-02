@@ -176,6 +176,11 @@ public abstract class AbstractService {
 		if (StringUtils.isNotEmpty(vector)) {
 			bq.must(QueryBuilders.termQuery("vector", vector));
 		}
+		/**关键词*/
+		String keyword = headlinesDTO.getKeyword();
+		if(StringUtils.isNotEmpty(keyword)){
+			bq.must(QueryBuilders.fuzzyQuery("content", keyword));
+		}
 		/** 时间 */
 		String startDate = headlinesDTO.getStartDate();
 		String endDate = headlinesDTO.getEndDate();

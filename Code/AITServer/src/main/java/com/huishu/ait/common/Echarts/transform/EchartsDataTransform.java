@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.Echarts.dataSource.Transformer;
 
 /**
  * @author hhy
