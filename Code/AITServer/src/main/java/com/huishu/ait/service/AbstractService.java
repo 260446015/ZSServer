@@ -1,16 +1,14 @@
 package com.huishu.ait.service;
 
+import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
 
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -21,9 +19,9 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,18 +33,17 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.conf.DBConstant.Emotion;
+import com.huishu.ait.common.util.UtilsHelper;
+import com.huishu.ait.echart.Legend;
 import com.huishu.ait.echart.Option;
 import com.huishu.ait.echart.Tooltip;
 import com.huishu.ait.echart.series.Pie;
 import com.huishu.ait.echart.series.Serie.SerieData;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesVectorArticleListDTO;
-import com.huishu.ait.common.conf.DBConstant.Emotion;
-import com.huishu.ait.common.util.UtilsHelper;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.forget.articleToKeywordCloud.ArticleConToKeywordCloud;
-import com.huishu.ait.echart.Legend;
 
 /**
  * @author hhy

@@ -142,7 +142,7 @@ public class GardenServiceImpl implements GardenService {
 	public JSONArray getGardenBusinessList(SearchModel searchModel) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
-		// TODO ES中没有找到相关字段
+		bq.must(QueryBuilders.termQuery("dimension", "企业排行"));
 		return null;
 	}
 	

@@ -48,7 +48,7 @@ public class IndustriaTest {
             dto.setEndDate("2017-7-31 17:50:46");
             dto.setPageNumber(1);
             dto.setPageSize(10);
-            JSONArray array = industrialPolicyService.getIndustrialPolicyList(dto);
+            Page<AITInfo> page = industrialPolicyService.getIndustrialPolicyList(dto);
             System.out.println("==================");
         }catch(Exception e){
             e.printStackTrace();
