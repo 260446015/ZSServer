@@ -62,12 +62,13 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/img/**", "anon");
 		filterChainDefinitionMap.put("/css/**", "anon");
 		filterChainDefinitionMap.put("/js/**", "anon");
-		filterChainDefinitionMap.put("/**", "user");
+//		filterChainDefinitionMap.put("/**", "user");
+		filterChainDefinitionMap.put("/**", "anon");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
 		filters.put("authc", new MyFormAuthenticationFilter());
 		filters.put("user", new MyUserFilter());
-		shiroFilterFactoryBean.setFilters(filters);
+//		shiroFilterFactoryBean.setFilters(filters);
 
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
 		shiroFilterFactoryBean.setUnauthorizedUrl("/login");
@@ -83,7 +84,9 @@ public class ShiroConfiguration {
 	@Bean(name = "securityManager")
 	public DefaultWebSecurityManager getDefaultWebSecurityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		securityManager.setSessionManager(new DefaultWebSessionManager());
+		
+		//进行session会话管理之后，控制台会报session失效 的错误，在springboot的环境下暂时没有找到解决方法
+		//securityManager.setSessionManager(new DefaultWebSessionManager());
 		securityManager.setRealm(getShiroDbRealm());
 		LOGGER.info("===============shiro已经加载================");
 		// 用户授权/认证信息Cache
