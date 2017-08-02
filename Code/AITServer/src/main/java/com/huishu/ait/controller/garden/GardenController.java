@@ -51,7 +51,7 @@ public class GardenController extends BaseController{
 			JSONArray array = gardenService.getGardenPolicyList(searchModel);
 			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
-			LOGGER.error("getGardenPolicyList查询失败！"+e.getMessage());
+			LOGGER.error("getGardenPolicyList查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
@@ -70,7 +70,7 @@ public class GardenController extends BaseController{
 		try {
 			return success(gardenService.getGardenPolicyById(id));
 		} catch (Exception e) {
-			LOGGER.error("getGardenPolicyById查询失败！"+e.getMessage());
+			LOGGER.error("getGardenPolicyById查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
@@ -90,7 +90,7 @@ public class GardenController extends BaseController{
 			JSONArray array = gardenService.getGardenInformationList(searchModel);
 			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
-			LOGGER.error("getGardenInformationList查询失败！"+e.getMessage());
+			LOGGER.error("getGardenInformationList查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
@@ -109,7 +109,7 @@ public class GardenController extends BaseController{
 		try {
 			return success(gardenService.getGardenInformationById(id));
 		} catch (Exception e) {
-			LOGGER.error("getGardenInformationById查询失败！"+e.getMessage());
+			LOGGER.error("getGardenInformationById查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
@@ -129,7 +129,7 @@ public class GardenController extends BaseController{
 			JSONArray array = gardenService.getGardenBusinessList(searchModel);
 			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
-			LOGGER.error("getGardenBusinessList查询失败！"+e.getMessage());
+			LOGGER.error("getGardenBusinessList查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
