@@ -33,8 +33,9 @@ public interface HeadlinesService {
 	Page<HeadlinesArticleListDTO> findArticleByVector(HeadlinesDTO headlinesDTO);
 
 	/**
+	 * 根据id查询文章信息
 	 * @param id
 	 * @return
 	 */
-	AITInfo findVectorArticleById(String id);
+	AITInfo findArticleById(String id);
 }

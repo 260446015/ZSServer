@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -73,7 +75,19 @@ public class StringUtil {
 		}
 		return str;
 	}
+	/**
+	 * 根据用户请求判断用户使用的是否是IE浏览器
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static boolean isIE(HttpServletRequest request) {
+		String agent = request.getHeader("User-Agent").toUpperCase();
+		boolean isIE = ((agent != null && agent.indexOf("MSIE") != -1)
+				|| (null != agent && -1 != agent.indexOf("LIKE GECKO"))); // 判断版本,后边是判断IE11的
 
+		return isIE;
+	}
 	/**
 	 * 校验字符串是否为空或为""
 	 * 

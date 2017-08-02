@@ -100,10 +100,15 @@ public class HeadlinesController extends BaseController {
 				return null;
 			}
 		}
+	/**
+	 * 产业头条--根据文章id查看文章详情（针对载体文章和关键词文章）
+	 * @param id
+	 * @return
+	 */
 	@ResponseBody
-	@RequestMapping(value="/getVectorArticleById.json",method=RequestMethod.GET)
+	@RequestMapping(value="/getArticleById.json",method=RequestMethod.GET)
 	public AjaxResult getVectorArticleById(@RequestBody String id){
-		AITInfo dto = service.findVectorArticleById(id);
+		AITInfo dto = service.findArticleById(id);
 		return success(dto);
 	}
 }

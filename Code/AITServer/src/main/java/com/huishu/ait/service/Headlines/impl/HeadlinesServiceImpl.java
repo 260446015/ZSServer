@@ -100,10 +100,10 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	}
 
 	/**
-	 * 产业头条--今日头条详情
+	 * 产业头条--根据id查看文章详情
 	 */
 	@Override
-	public AITInfo findVectorArticleById(String id) {
+	public AITInfo findArticleById(String id) {
 		try {
 			
 			return essearch.findOne(id);

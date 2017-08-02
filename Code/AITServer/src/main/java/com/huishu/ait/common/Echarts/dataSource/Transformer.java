@@ -1,4 +1,4 @@
-package com.huishu.ait.common.Echarts.transform;
+package com.huishu.ait.common.Echarts.dataSource;
 
 /**
  * @author hhy
