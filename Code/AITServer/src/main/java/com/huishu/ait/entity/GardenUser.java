@@ -31,6 +31,18 @@ public class GardenUser implements Serializable{
 	private String gardenName;
 	@Column(name="userid")
 	private int userId;
+	
+	private String area;
+	@Column(name="industrytype")
+	private String industryType;
+	private String address;
+	private String description;
+	
+	@Column(name="attentiondate")
+	private String attentionDate;
+	
+	
+	
 	/**
 	 * 
 	 * @return 关联园区名称
@@ -61,6 +73,34 @@ public class GardenUser implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-
+    public String getArea() {
+        return area;
+    }
+    public void setArea(String area) {
+        this.area = area;
+    }
+    public String getIndustryType() {
+        return industryType;
+    }
+    public void setIndustryType(String industryType) {
+        this.industryType = industryType;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getAttentionDate() {
+        return attentionDate;
+    }
+    public void setAttentionDate(String attentionDate) {
+        this.attentionDate = attentionDate;
+    }
 }

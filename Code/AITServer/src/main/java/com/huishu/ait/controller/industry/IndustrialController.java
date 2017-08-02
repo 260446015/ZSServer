@@ -1,4 +1,4 @@
-package com.huishu.ait.controller;
+package com.huishu.ait.controller.industry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +21,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.conf.ConfConstant;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils.DateUtil;
+import com.huishu.ait.controller.BaseController;
 
 /**
  * 产业政策相关接口
@@ -29,7 +30,7 @@ import com.huishu.ait.common.util.ConcersUtils.DateUtil;
  * @CreateTime 2017-7-27 17:18:16
  */
 @Controller
-@RequestMapping(value="industriaPolicy")
+@RequestMapping(value="industry")
 public class IndustrialController extends BaseController {
 
     //加载日志
@@ -125,8 +126,8 @@ public class IndustrialController extends BaseController {
             Boolean b = checkPolicyDTO(dto);
             if(b == true){
                 /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
-                JSONArray policyArray = industrialPolicyService.getIndustrialPolicyList(dto);
-                return success(policyArray);
+                Page<AITInfo> pagedata = industrialPolicyService.getIndustrialPolicyList(dto);
+                return success(pagedata).setSuccess(true);
             }
             else{
                 return error(MsgConstant.ILLEGAL_PARAM);

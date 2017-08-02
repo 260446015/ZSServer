@@ -1,6 +1,9 @@
 package com.huishu.ait.service.garden;
 
+import org.springframework.data.domain.Page;
+
 import com.alibaba.fastjson.JSONArray;
+import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.GardenInformation;
@@ -54,4 +57,6 @@ public interface GardenService {
 	 * @return
 	 */
 	JSONArray findGardensCondition(GardenDTO dto);
+	
+	Page<GardenUser> getAttentionGardenList(GardenDTO dto);
 }

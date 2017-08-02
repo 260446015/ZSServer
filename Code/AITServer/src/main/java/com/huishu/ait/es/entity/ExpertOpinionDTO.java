@@ -5,12 +5,13 @@ import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
+
 /**
  * @author yxq
  *	专家观点的dto
  */
 @Document(indexName = INDEX, type = TYPE)
-public class ExpertOpinionDTO extends AITInfo {
+public class ExpertOpinionDTO extends AITInfo{
 	
 	/**开始时间*/
 	private  String startDate ;
@@ -22,6 +23,8 @@ public class ExpertOpinionDTO extends AITInfo {
 	private String SortByTimeFlag;
 	/*专家观点所属栏目*/
 	private String lanmu;
+	private Integer pageNumber;
+	private Integer pageSize;
 	
 	public String getStartDate() {
 		return startDate;
@@ -52,5 +55,17 @@ public class ExpertOpinionDTO extends AITInfo {
 	}
 	public void setLanmu(String lanmu) {
 		this.lanmu = lanmu;
+	}
+	public Integer getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(Integer pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+	public Integer getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
 }

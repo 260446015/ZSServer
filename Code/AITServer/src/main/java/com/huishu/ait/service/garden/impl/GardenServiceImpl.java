@@ -27,8 +27,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.DBConstant;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
-import com.huishu.ait.controller.GardenController;
+import com.huishu.ait.controller.garden.GardenController;
 import com.huishu.ait.entity.Garden;
+import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.GardenInformation;
@@ -209,5 +210,29 @@ public class GardenServiceImpl implements GardenService {
 		LOGGER.info("园区动态查询结果:"+data.toJSONString());
 		return data;
 	}
+	
+    @Override
+    public Page<GardenUser> getAttentionGardenList(GardenDTO dto) {
+        Integer userId = dto.getUserId();
+        String area = dto.getArea();
+        String industryType = dto.getIndustryType();
+        try{
+            PageRequest pageRequest = new PageRequest(dto.getPageNum(), dto.getPageSize());
+            Page<GardenUser> page = null;
+            if(StringUtil.isEmpty(area) && StringUtil.isEmpty(industryType)){
+                page = gardenUserRepository.findByUserId(userId, pageRequest);
+            }else if(!StringUtil.isEmpty(area) && StringUtil.isEmpty(industryType)){
+                page = gardenUserRepository.findByUserIdAndArea(userId, area, pageRequest);
+            }else if(!StringUtil.isEmpty(industryType) && StringUtil.isEmpty(area)){
+                page = gardenUserRepository.findByUserIdAndIndustryType(userId, industryType, pageRequest);
+            }else{
+                page = gardenUserRepository.findByUserIdAndAreaAndIndustryType(userId, area, industryType, pageRequest);
+            }
+            return page;
+        }catch(Exception e){
+            LOGGER.error(e.getMessage());
+            return null;
+        }
+    }
 	
 }

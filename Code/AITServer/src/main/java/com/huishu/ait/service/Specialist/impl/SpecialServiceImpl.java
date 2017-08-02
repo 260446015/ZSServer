@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ait.entity.Specialist;
 import com.huishu.ait.repository.Specialist.SpecialistRepository;
+import com.huishu.ait.service.Specialist.SpecialistService;
 
 
 /**

@@ -2,9 +2,13 @@ package com.huishu.ait.service;
 
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
 
@@ -12,12 +16,21 @@ import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.aggregations.Aggregation;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
+import org.elasticsearch.search.aggregations.metrics.sum.Sum;
+import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -27,6 +40,12 @@ import com.huishu.ait.echart.Tooltip;
 import com.huishu.ait.echart.series.Pie;
 import com.huishu.ait.echart.series.Serie.SerieData;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesVectorArticleListDTO;
+import com.huishu.ait.common.conf.DBConstant.Emotion;
+import com.huishu.ait.common.util.UtilsHelper;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.forget.articleToKeywordCloud.ArticleConToKeywordCloud;
 import com.huishu.ait.echart.Legend;
 
 /**
@@ -42,16 +61,17 @@ public abstract class AbstractService {
 	protected ElasticsearchTemplate template;
 
 	/**
-	 * 获取载体分布统计环形图
+	 * 媒体聚焦--获取载体分布统计环形图
 	 * 
 	 * @param p
 	 * @return
 	 */
 	protected Option getVectorDistribution(QueryBuilder queryBuilder) {
+		
 		TermsBuilder vectorBuilder = AggregationBuilders.terms("vector").field("vector");
 
 		TermsBuilder articleBuilder = AggregationBuilders.terms("articleLink").field("articleLink");
-		articleBuilder.subAggregation(vectorBuilder);
+		articleBuilder.subAggregation(vectorBuilder).size(1000);
 		SearchQuery query = getSearchQueryBuilder().addAggregation(articleBuilder).withQuery(queryBuilder).build();
 
 		Option result = template.query(query, res -> {
@@ -72,17 +92,15 @@ public abstract class AbstractService {
 					    key = bucket.getKeyAsString();
 						count = bucket.getDocCount();
 						map.put(key, count);
-						data.setName(key);
-						data.setValue(count);
 					}
 					
 				}
-				System.out.println(map.toString());
-				legend.addData(key);
-//					data = new SerieData<>(key, count);
-				System.out.println(data.getName()+data.getValue().toString());
-				pie.addData(data);
-
+				for(Entry<String,Object> entry : map.entrySet()){
+					data.setName(entry.getKey());
+					data.setValue((Long) entry.getValue());
+					legend.addData(entry.getKey());
+					pie.addData(data);
+				}
 			}
 			opt.setLegend(legend);
 			opt.addSeries(pie);
@@ -90,20 +108,59 @@ public abstract class AbstractService {
 		});
 		return result;
 	}
-
+     /**
+      *  产业头条--关键词云
+      */
+	@SuppressWarnings("static-access" )
+	protected JSONArray getCloudWordList(QueryBuilder queryBuilder,Integer wordCloudNums){
+		List<String> contentList = new ArrayList<String>();
+		JSONArray data = new JSONArray();
+		SearchQuery query = getSearchQueryBuilder().withQuery(queryBuilder).build();
+		data =  template.query(query, res ->{
+			JSONArray jsonArray = new JSONArray();
+			Integer  wordCloudNum = 50;
+			if(wordCloudNums.SIZE>0){
+				wordCloudNum = wordCloudNums;
+			}
+			SearchHits hits = res.getHits();
+			if( hits != null){
+				SearchHit[] hitsList = hits.getHits();
+				for(SearchHit  h : hitsList){
+				    if(h.getSource()!= null){
+						contentList.add(h.getSource().get("content")+"");
+					}
+				}
+			}
+			//将从ES获取到的集合为参数，调用词云的方法
+			/*JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud1(contentList, 0, wordCloudNum, null);
+			if(keywordCloud != null){
+				JSONArray keyWordCloudArray = keywordCloud.getJSONArray("sort");
+				for (int i=0,size=keyWordCloudArray.size(); i<size; i++) {
+					JSONObject item = keyWordCloudArray.getJSONObject(i);
+					JSONObject obj = new JSONObject();
+					obj.put("word", item.getString("keyword"));
+					int heat = Math.round(item.getDouble("count").floatValue());
+					obj.put("heat", heat);
+					jsonArray.add(obj);
+				}
+			}*/
+			return  jsonArray;
+		});
+		return data;
+	}
+	
 	/**
 	 * 查询es库，获取更多条件查询
 	 * 
 	 * @return
 	 */
-	private NativeSearchQueryBuilder getSearchQueryBuilder() {
+	protected NativeSearchQueryBuilder getSearchQueryBuilder() {
 		return new NativeSearchQueryBuilder().withIndices(INDEX).withTypes(TYPE);
 	}
 
 	/**
 	 * 建立查询条件筛选
 	 */
-	@SuppressWarnings("unused")
 	protected BoolQueryBuilder getIndustryContentBuilder(HeadlinesDTO headlinesDTO) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		/** 产业 */
@@ -129,4 +186,151 @@ public abstract class AbstractService {
 		}
 		return bq;
 	}
+	
+	/**
+	 * 今日头条，排行前十
+	 * @param bq
+	 * @param object
+	 * @param pageable
+	 * @return
+	 */
+	protected Page<HeadlinesVectorArticleListDTO> getArticleRank(BoolQueryBuilder bq, Object object,
+			Pageable pageable) {
+		// 第一步：按照声量排序取前500个文章
+		TermsBuilder articleLinkBuilder = AggregationBuilders.terms("articleLink").field("articleLink")
+				.order(Order.count(false)).size(500);
+		
+		SearchQuery authorQuery = getSearchQueryBuilder().withQuery(bq).addAggregation(articleLinkBuilder)
+				.build();
+
+		    JSONArray jsonArray = template.query(authorQuery, res -> {
+		    	JSONArray json = new JSONArray();
+		    	JSONObject  abj = new JSONObject();
+		    	Map<String, Object> Source= null;
+		    	SearchHits hits = res.getHits();
+		    	for(SearchHit hit :hits){
+		    		Source = hit.getSource();
+		    		Source.put("_id", hit.getId());
+		    	}
+		    	for(Entry<String, Object> entry : Source.entrySet()){
+		    		abj.put(entry.getKey(), entry.getValue());
+		    	}
+		    	json.add(abj);
+			return json;
+		});
+		 Iterator<Object> it = jsonArray.iterator();
+	// 第二步：根据文章名与查询条件计算每篇文章的声量，总阅读量，热度，情感值
+		List<HeadlinesVectorArticleListDTO> contents = new ArrayList<>();
+		while(it.hasNext()){
+			JSONObject obj = (JSONObject)it.next();
+			BoolQueryBuilder bool = QueryBuilders.boolQuery();
+			bool.must(bq);
+			bool.must(QueryBuilders.termQuery("articleLink", obj.get("articleLink").toString()));
+			
+			HeadlinesVectorArticleListDTO personage = getArticleRankByQuery(bool, obj);
+					contents.add(personage) ;
+		
+		}	
+		// 第三步：对结果进行排序，按照热度排序，分页取十条数据
+				int total = contents.size();
+				int pageNumber = pageable.getPageNumber();
+				int pageSize = pageable.getPageSize();
+
+				pageable.getSort().forEach(order -> {
+					String property = order.getProperty();
+					Direction direction = order.getDirection();
+					contents.sort((o1, o2) -> {
+						Double v1 = (Double) UtilsHelper.getValueByFieldName(o1, property);
+						Double v2 = (Double) UtilsHelper.getValueByFieldName(o2, property);
+
+						if (Direction.ASC.equals(direction)) {
+							return v1.compareTo(v2);
+						}
+						return v2.compareTo(v1);
+					});
+				});
+
+				for (int i = 0; i < contents.size(); i++) {
+					contents.get(i).setRank(i + 1);
+				}
+
+				List<HeadlinesVectorArticleListDTO> newList = new ArrayList<>();
+				contents.stream().skip(pageNumber * pageSize).limit(pageSize).forEach(newList::add);
+
+				Page<HeadlinesVectorArticleListDTO> results = new PageImpl<>(newList, pageable, total);
+				return results;
+			}
+	
+	/**
+	 * @param bool
+	 * @param obj
+	 * @return
+	 */
+	private HeadlinesVectorArticleListDTO getArticleRankByQuery(BoolQueryBuilder bool, JSONObject obj) {
+		SumBuilder totalHitCount = AggregationBuilders.sum("hitCount").field("hitCount");
+		
+		TermsBuilder emotionBuilder = AggregationBuilders.terms("emotion").field("emotion");
+		
+		SearchQuery authorQuery = getSearchQueryBuilder().withQuery(bool).addAggregation(totalHitCount)
+				.addAggregation(emotionBuilder).build();
+		
+		/*if (logger.isDebugEnabled()) {
+			loggger.debug("查询条件获取个人排行情况 query : \n {}", queryBuilder);
+		}*/
+		
+		HeadlinesVectorArticleListDTO personage = template.query(authorQuery, res -> {
+			HeadlinesVectorArticleListDTO per = new HeadlinesVectorArticleListDTO();
+			per.setTitle(obj.get("title").toString());
+			per.setId(obj.get("_id").toString());
+			per.setArticleLink(obj.get("articleLink").toString());
+			per.setContent(obj.get("content").toString());
+			per.setPublishDate(obj.get("publishDate").toString());
+			per.setSource(obj.get("source").toString());
+			per.setSourceLink(obj.get("sourceLink").toString());
+			Aggregations aggs = res.getAggregations();
+			
+			Sum sum = aggs.get("hitCount");
+			
+			// 获取总阅读量
+			double totalCount = sum.getValue();
+			
+			// 获取声量
+			long totalVolume = res.getHits().getTotalHits();
+			
+			per.setTotalHitCount(totalCount);
+			per.setVolume(totalVolume);
+			
+			// 计算热度值
+			per.setHot(UtilsHelper.getRound(totalCount / totalVolume));
+			
+			Terms t = aggs.get("emotion");
+			
+			double positive = 0D;
+			double negative = 0D;
+			
+			for (Bucket e : t.getBuckets()) {
+				String k = e.getKeyAsString();
+				if (Emotion.POSITIVE.equals(k)) {
+					positive = e.getDocCount();
+				} else if (Emotion.NEGATIVE.equals(k)) {
+					negative = e.getDocCount();
+				}
+			}
+			;
+			
+			// 分子
+			double numerator = (positive - negative);
+			// 分母
+			double denominator = (positive + negative);
+			
+			if (denominator > 0D) {
+				// 获取情感值
+				per.setEmotionVal(UtilsHelper.getRound(numerator / denominator));
+			}
+			return per;
+		});
+		return personage;
+	}
+		
+	
 }

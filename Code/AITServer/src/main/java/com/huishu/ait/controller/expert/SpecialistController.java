@@ -1,4 +1,4 @@
-package com.huishu.ait.controller;
+package com.huishu.ait.controller.expert;
 
 import java.util.List;
 
@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.controller.headlines.HeadlinesController;
 import com.huishu.ait.entity.Specialist;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.service.Specialist.impl.SpecialistService;
+import com.huishu.ait.service.Specialist.SpecialistService;
 
 /**
  * @author yxq
