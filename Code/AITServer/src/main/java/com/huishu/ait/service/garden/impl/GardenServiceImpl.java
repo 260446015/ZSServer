@@ -24,10 +24,8 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.conf.DBConstant;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
-import com.huishu.ait.controller.garden.GardenController;
 import com.huishu.ait.entity.Garden;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.common.SearchModel;
@@ -142,7 +140,7 @@ public class GardenServiceImpl implements GardenService {
 	public JSONArray getGardenBusinessList(SearchModel searchModel) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
-		// TODO ES中没有找到相关字段
+		bq.must(QueryBuilders.termQuery("dimension", "企业排行"));
 		return null;
 	}
 	
