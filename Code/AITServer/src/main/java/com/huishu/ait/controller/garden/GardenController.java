@@ -201,6 +201,18 @@ public class GardenController extends BaseController{
 	    }
 	}
 	
+	@RequestMapping("/findGardensAll.json")
+	@ResponseBody
+	public AjaxResult findGardensAll(){
+		JSONArray arr = null;
+		try{
+			arr = gardenService.findGardensAll();
+		}catch(Exception e){
+			LOGGER.error("查询园区情报中获取所有园区内容失败!", e);
+		}
+		return success(arr);
+	}
+	
 	
 	
 	private JSONObject changeObject(SearchModel searchModel,JSONArray data){

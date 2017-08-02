@@ -59,4 +59,9 @@ public interface GardenService {
 	JSONArray findGardensCondition(GardenDTO dto);
 	
 	Page<GardenUser> getAttentionGardenList(GardenDTO dto);
+	
+	/**
+	 * 园区情报中获取所有园区内容
+	 */
+	JSONArray findGardensAll();
 }
