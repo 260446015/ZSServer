@@ -40,7 +40,7 @@ import com.huishu.ait.echart.Tooltip;
 import com.huishu.ait.echart.series.Pie;
 import com.huishu.ait.echart.series.Serie.SerieData;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
-import com.huishu.ait.es.entity.dto.HeadlinesVectorArticleListDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.common.conf.DBConstant.Emotion;
 import com.huishu.ait.common.util.UtilsHelper;
 import com.alibaba.fastjson.JSONArray;
@@ -194,7 +194,7 @@ public abstract class AbstractService {
 	 * @param pageable
 	 * @return
 	 */
-	protected Page<HeadlinesVectorArticleListDTO> getArticleRank(BoolQueryBuilder bq, Object object,
+	protected Page<HeadlinesArticleListDTO> getArticleRank(BoolQueryBuilder bq, Object object,
 			Pageable pageable) {
 		// 第一步：按照声量排序取前500个文章
 		TermsBuilder articleLinkBuilder = AggregationBuilders.terms("articleLink").field("articleLink")
@@ -220,14 +220,14 @@ public abstract class AbstractService {
 		});
 		 Iterator<Object> it = jsonArray.iterator();
 	// 第二步：根据文章名与查询条件计算每篇文章的声量，总阅读量，热度，情感值
-		List<HeadlinesVectorArticleListDTO> contents = new ArrayList<>();
+		List<HeadlinesArticleListDTO> contents = new ArrayList<>();
 		while(it.hasNext()){
 			JSONObject obj = (JSONObject)it.next();
 			BoolQueryBuilder bool = QueryBuilders.boolQuery();
 			bool.must(bq);
 			bool.must(QueryBuilders.termQuery("articleLink", obj.get("articleLink").toString()));
 			
-			HeadlinesVectorArticleListDTO personage = getArticleRankByQuery(bool, obj);
+			HeadlinesArticleListDTO personage = getArticleRankByQuery(bool, obj);
 					contents.add(personage) ;
 		
 		}	
@@ -254,10 +254,10 @@ public abstract class AbstractService {
 					contents.get(i).setRank(i + 1);
 				}
 
-				List<HeadlinesVectorArticleListDTO> newList = new ArrayList<>();
+				List<HeadlinesArticleListDTO> newList = new ArrayList<>();
 				contents.stream().skip(pageNumber * pageSize).limit(pageSize).forEach(newList::add);
 
-				Page<HeadlinesVectorArticleListDTO> results = new PageImpl<>(newList, pageable, total);
+				Page<HeadlinesArticleListDTO> results = new PageImpl<>(newList, pageable, total);
 				return results;
 			}
 	
@@ -266,7 +266,7 @@ public abstract class AbstractService {
 	 * @param obj
 	 * @return
 	 */
-	private HeadlinesVectorArticleListDTO getArticleRankByQuery(BoolQueryBuilder bool, JSONObject obj) {
+	private HeadlinesArticleListDTO getArticleRankByQuery(BoolQueryBuilder bool, JSONObject obj) {
 		SumBuilder totalHitCount = AggregationBuilders.sum("hitCount").field("hitCount");
 		
 		TermsBuilder emotionBuilder = AggregationBuilders.terms("emotion").field("emotion");
@@ -278,8 +278,8 @@ public abstract class AbstractService {
 			loggger.debug("查询条件获取个人排行情况 query : \n {}", queryBuilder);
 		}*/
 		
-		HeadlinesVectorArticleListDTO personage = template.query(authorQuery, res -> {
-			HeadlinesVectorArticleListDTO per = new HeadlinesVectorArticleListDTO();
+		HeadlinesArticleListDTO personage = template.query(authorQuery, res -> {
+			HeadlinesArticleListDTO per = new HeadlinesArticleListDTO();
 			per.setTitle(obj.get("title").toString());
 			per.setId(obj.get("_id").toString());
 			per.setArticleLink(obj.get("articleLink").toString());

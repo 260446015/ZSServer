@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.echart.Option;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
-import com.huishu.ait.es.entity.dto.HeadlinesVectorArticleListDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 
 /**
  * @author hhy
@@ -30,7 +30,7 @@ public interface HeadlinesService {
 	 * @param id
 	 * @return
 	 */
-	Page<HeadlinesVectorArticleListDTO> findArticleByVector(HeadlinesDTO headlinesDTO);
+	Page<HeadlinesArticleListDTO> findArticleByVector(HeadlinesDTO headlinesDTO);
 
 	/**
 	 * @param id

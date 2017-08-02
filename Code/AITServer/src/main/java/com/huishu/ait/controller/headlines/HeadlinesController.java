@@ -19,7 +19,7 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
-import com.huishu.ait.es.entity.dto.HeadlinesVectorArticleListDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.service.Headlines.HeadlinesService;
 
 /**
@@ -91,7 +91,7 @@ public class HeadlinesController extends BaseController {
 			try {
 				 boolean b = checkDTO(headlinesDTO);
 				 if(b){
-					Page<HeadlinesVectorArticleListDTO> page = service.findArticleByVector(headlinesDTO);
+					Page<HeadlinesArticleListDTO> page = service.findArticleByVector(headlinesDTO);
 					 return success(page);
 				 }
 				 return error(MsgConstant.ILLEGAL_PARAM);

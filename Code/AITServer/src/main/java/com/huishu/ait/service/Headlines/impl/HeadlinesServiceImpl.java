@@ -30,7 +30,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.echart.Option;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
-import com.huishu.ait.es.entity.dto.HeadlinesVectorArticleListDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.repository.Headlines.HeadlinesElasticsearch;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.Headlines.HeadlinesService;
@@ -86,11 +86,11 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	 * 产业头条--今日头条
 	 */
 	@Override
-	public Page<HeadlinesVectorArticleListDTO> findArticleByVector(HeadlinesDTO headlinesDTO) {
+	public Page<HeadlinesArticleListDTO> findArticleByVector(HeadlinesDTO headlinesDTO) {
 		try{
 			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
 			 Pageable pageable = new PageRequest(0, 10,new Sort(Direction.DESC, "hot"));
-		    Page<HeadlinesVectorArticleListDTO> page = getArticleRank(bq, null, pageable);
+		    Page<HeadlinesArticleListDTO> page = getArticleRank(bq, null, pageable);
 		       
 			return page;
 		}catch(Exception e ){
