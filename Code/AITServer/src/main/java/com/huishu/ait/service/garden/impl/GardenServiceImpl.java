@@ -154,7 +154,7 @@ public class GardenServiceImpl implements GardenService {
 		int pageSize = dto.getPageSize();
 		int from = pageSize*pageNum - pageSize;
 		JSONArray data = new JSONArray();
-		Page<Garden> findGardensList = null;
+		Page<Garden> findGardensPage = null;
 		try{
 			if(StringUtil.isEmpty(area)){
 				area = "北京";
@@ -164,11 +164,12 @@ public class GardenServiceImpl implements GardenService {
 			}
 			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
 			if(!StringUtil.isEmpty(searchName)){
-				findGardensList = gardenRepository.findByNameLike(searchName,pageRequest);
+				findGardensPage = gardenRepository.findByNameLike(searchName,pageRequest);
 			}else{//
-				findGardensList = gardenRepository.findByAreaAndIndustryType(area, industryType, pageRequest);
+				findGardensPage = gardenRepository.findByAreaAndIndustryType(area, industryType, pageRequest);
 			}
-			for (Garden garden : findGardensList) {
+			/*List<Garden> gardens = findGardensPage.getContent();
+			for (Garden garden : gardens) {
 				JSONObject obj = new JSONObject();
 				obj.put("name", garden.getName());
 				obj.put("address", garden.getAddress());
@@ -176,7 +177,8 @@ public class GardenServiceImpl implements GardenService {
 				obj.put("description", garden.getDescription());
 				obj.put("industryType", garden.getIndustryType());
 				data.add(obj);
-			}
+			}*/
+			data.add(findGardensPage);
 		}catch(Exception e){
 			LOGGER.error(e.getMessage());
 		}
