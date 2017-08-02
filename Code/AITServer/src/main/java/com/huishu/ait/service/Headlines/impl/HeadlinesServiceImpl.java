@@ -83,7 +83,7 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	}
 
 	/**
-	 * 产业头条--今日头条
+	 * 产业头条--根据载体查询文章
 	 */
 	@Override
 	public Page<HeadlinesArticleListDTO> findArticleByVector(HeadlinesDTO headlinesDTO) {
@@ -109,6 +109,22 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 			return essearch.findOne(id);
 		} catch (Exception e) {
 			logger.error("查询文章详情失败：",e);
+			return null;
+		}
+	}
+
+	/**
+	 * 产业头条--根据关键词查询文章
+	 */
+	@Override
+	public Page<HeadlinesArticleListDTO> findArticleByKeyWord(HeadlinesDTO headlinesDTO) {
+		try {
+			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
+			 Pageable pageable = new PageRequest(0, 10,new Sort(Direction.DESC, "hot"));
+		    Page<HeadlinesArticleListDTO> page = getArticleRank(bq, null, pageable);
+			return page;
+		} catch (Exception e) {
+			logger.error("根据关键词查询文章失败：",e);
 			return null;
 		}
 	}

@@ -97,9 +97,22 @@ public class HeadlinesController extends BaseController {
 				 return error(MsgConstant.ILLEGAL_PARAM);
 			} catch (Exception e) {
 				logger.error("查询头条信息失败：",e);
-				return null;
+				return error("参数不合法");
 			}
 		}
+	@ResponseBody
+	@RequestMapping(value="/getArticleByKeyWordList.json",method=RequestMethod.POST)
+	public AjaxResult getArticleByKeyWordList(@RequestBody HeadlinesDTO headlinesDTO ){
+		try {
+			boolean b = checkDTO(headlinesDTO);
+			if(b){
+				
+			}
+			return success("查询成功！");
+		} catch (Exception e) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+	}
 	/**
 	 * 产业头条--根据文章id查看文章详情（针对载体文章和关键词文章）
 	 * @param id
@@ -108,7 +121,6 @@ public class HeadlinesController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value="/getArticleById.json",method=RequestMethod.GET)
 	public AjaxResult getVectorArticleById(@RequestBody String id){
-		AITInfo dto = service.findArticleById(id);
-		return success(dto);
+		return success(service.findArticleById(id));
 	}
 }
