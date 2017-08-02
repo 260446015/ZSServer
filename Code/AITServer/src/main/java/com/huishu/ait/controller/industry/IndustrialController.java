@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -59,70 +59,17 @@ public class IndustrialController extends BaseController {
         }
         return dto;
     }
-    
-    /**
-     * 对时间阶段进行处理
-     */
-   /* 
-    private IndustriaPolicyDTO timeInit(IndustriaPolicyDTO dto){
-        /*
-         * 如果不传入时间段，将时间设定为 1980-1-1 00:00:00 
-         * 传入今日，为今天0点到系统时间的时间段
-         * 传入昨日，为昨天0点到11:59:59
-         * 传入近七天为 一周前的这个时间到系统当前时间
-         * 一个月 为当前月份减一 到系统当前时间
-         * 半年 为当前时间月份减 6到 系统当前时间 
-         * 一年  为当前时间年份 减1 到系统当前时间
-         */
-           /* if(dto.getTimeBucket()==null || dto.getTimeBucket()==""){
-            try {
-                dto.setStartDate(new SimpleDateFormat(DateUtil.FORMAT_TIME).parse("1980-1-1 00:00:01"));
-                dto.setEndDate(new Date());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        if(dto.getTimeBucket().equals("今日")){
-            dto.setStartDate(DateUtil.getStartTime());
-            dto.setEndDate(new Date());
-        }
-        if(dto.getTimeBucket().equals("昨日")){
-            dto.setStartDate(DateUtil.getYesterAgoStartTime(new Date()));
-            dto.setEndDate(DateUtil.getStartTime());
-        }
-        if(dto.getTimeBucket().equals("近七天")){
-            dto.setStartDate(DateUtil.getWeekAgoStartTime(new Date()));
-            dto.setEndDate(new Date());
-        }
-        if(dto.getTimeBucket().equals("一个月")){
-            dto.setStartDate(DateUtil.getMonthAgoStartTime(new Date()));
-            dto.setEndDate(new Date());
-        }
-        if(dto.getTimeBucket().equals("半年")){
-            dto.setStartDate(DateUtil.getHalfYearStartTime(new Date()));
-            dto.setEndDate(new Date());
-        }
-        if(dto.getTimeBucket().equals("一年")){
-            dto.setStartDate(DateUtil.getYearStartTime(new Date()));
-            dto.setEndDate(new Date());
-        }
-        return dto;
-    }
-    */
-    
-    
-    
-    
     /**
      * 获取产业政策列表接口
      * @param IndustrialPolicyDTO 产业政策查询对象
      * @return AjaxResult 返回一个对象，里面是数据
      */
-    @ResponseBody
     @RequestMapping(value="getIndustrialPolicyList.json")
-    public AjaxResult getIndustrialPolicyList(@RequestBody IndustrialPolicyDTO dto ){
+    @ResponseBody
+    public AjaxResult getIndustrialPolicyList(IndustrialPolicyDTO dto ){
         try{
             
+            pageInit(dto);
             Boolean b = checkPolicyDTO(dto);
             if(b == true){
                 /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
@@ -142,9 +89,9 @@ public class IndustrialController extends BaseController {
      * @param id 产业政策id
      * @return
      */
-    @ResponseBody
     @RequestMapping(value="getIndustrialPolicyDetailById.json")
-    public AjaxResult getIndustrialPolicyDetailById(@RequestBody String id){
+    @ResponseBody
+    public AjaxResult getIndustrialPolicyDetailById(String id){
         try{
             if(id!="" || id!=null){
                 return success(industrialPolicyService.getIndustrialPolicyDetailById(id));

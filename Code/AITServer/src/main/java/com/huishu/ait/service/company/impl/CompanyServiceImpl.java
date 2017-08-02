@@ -1,9 +1,7 @@
 package com.huishu.ait.service.company.impl;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -42,28 +40,23 @@ public class CompanyServiceImpl implements CompanyService {
 	public JSONArray findCompaniesOder(CompanyDTO dto) {
 		JSONArray data = new JSONArray();
 		try {
-			String industry = dto.getIndustry();//获取前台传递的产业字段
-			if(null == industry){
-//				industry = "互联网";
-				industry = "高科技";
-			}
-			String industryLabel = dto.getIndustryLabel();//获取前台传递的产业标签字段
-			if(null == industryLabel){
-//				industryLabel = "电子竞技";
-				industryLabel = "网络游戏";
-			}
-			String publishTime = dto.getPublishTime();//获取前台传递的发布时间字段这里用的是publishTime只有年份查询
-			if(null == publishTime){
-//				publishTime = String.valueOf(LocalDate.now().getYear());
-				publishTime = "2018";
-			}
-			String articleType = "企业排行";//这里只做排行榜，先写死
 			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
+			String industry = dto.getIndustry();//获取前台传递的产业字段
+			String industryLabel = dto.getIndustryLabel();//获取前台传递的产业标签字段
+			String publishTime = dto.getPublishTime();//获取前台传递的发布时间字段这里用的是publishTime只有年份查询
+			if(null != industry){
+				bq.must(QueryBuilders.termQuery("industry", industry));
+			}
+			if(null != industryLabel){
+				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
+			}
+			if(null != publishTime){
+				bq.must(QueryBuilders.termQuery("publishTime", publishTime));
+			}
+			String articleType = "企业排行";//这里只做排行榜，先写死
+			
 			bq.must(QueryBuilders.termQuery("articleType", articleType));
-			bq.must(QueryBuilders.termQuery("industry", industry));
-			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
-			bq.must(QueryBuilders.termQuery("publishTime", publishTime));
 			int from = dto.getPageSize()*dto.getPageNum() - dto.getPageSize();
 			if(from < 0){
 				from = 0;
