@@ -1,4 +1,4 @@
-package com.huishu.ait.controller;
+package com.huishu.ait.controller.industry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +21,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.conf.ConfConstant;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils.DateUtil;
+import com.huishu.ait.controller.BaseController;
 
 /**
  * 产业政策相关接口

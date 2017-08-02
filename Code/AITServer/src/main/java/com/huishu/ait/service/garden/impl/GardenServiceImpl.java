@@ -27,7 +27,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.DBConstant;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
-import com.huishu.ait.controller.GardenController;
+import com.huishu.ait.controller.garden.GardenController;
 import com.huishu.ait.entity.Garden;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.common.SearchModel;

@@ -1,4 +1,4 @@
-package com.huishu.ait.controller;
+package com.huishu.ait.controller.garden;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.common.util.StringUtil;
+import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.common.SearchModel;
