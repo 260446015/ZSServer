@@ -23,7 +23,7 @@ import com.huishu.ait.service.company.CompanyService;
  *
  */
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/business")
 public class CompanyOrderController extends BaseController{
 
 	@Resource
