@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.entity.Specialist;
-import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
 
 /**
@@ -20,5 +18,7 @@ public interface ExpertOpinionService {
 	//根据id查询专家观点详情
 	JSONObject findExpertOpinionById(String id);
 	//收藏专家观点文章
-	public Boolean expertOpinionCollect(ExpertOpinionDTO param);
+	public Boolean expertOpinionCollect(String id);
+	//取消收藏专家观点文章
+	public Boolean cancelExpertOpinionCollect(String id);
 }

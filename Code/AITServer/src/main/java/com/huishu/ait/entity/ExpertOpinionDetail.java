@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,7 +19,10 @@ import javax.persistence.Table;
 public class ExpertOpinionDetail implements Serializable{
 	
 	@Id
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	@Column(name = "article_id")
+	private String articleId;
 	private String author;
 	private String title;
 	@Column(name = "publish_time")
@@ -29,11 +34,17 @@ public class ExpertOpinionDetail implements Serializable{
 	private String industry;//所属产业
 	private String lanmu;//所属栏目
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getArticleId() {
+		return articleId;
+	}
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
 	}
 	public String getAuthor() {
 		return author;
@@ -83,5 +94,4 @@ public class ExpertOpinionDetail implements Serializable{
 	public void setLanmu(String lanmu) {
 		this.lanmu = lanmu;
 	}
-	
 }

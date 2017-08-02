@@ -22,20 +22,20 @@ import com.huishu.ait.service.Specialist.SpecialistService;
  *	专家信息的controller层
  */
 @RestController
-@RequestMapping(value = "/Specialist")
+@RequestMapping(value = "expert")
 public class SpecialistController extends BaseController {
 	
 	private static Logger log = LoggerFactory.getLogger(SpecialistController.class);
 	@Autowired
 	private SpecialistService specialistService;
 	
-	@RequestMapping(value = "/getSpecialist.json")
+	@RequestMapping(value = "getSpecialist.json")
 	public AjaxResult getSpecialist(){
 		try {
 			List<Specialist> findAll = specialistService.findAll();
 			return success(findAll);
 		} catch (Exception e) {
-			log.error("查询失败：",e);
+			log.error("查询失败：",e.getMessage());
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
