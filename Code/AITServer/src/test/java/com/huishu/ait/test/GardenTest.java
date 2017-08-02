@@ -30,8 +30,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.app.Application;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.Garden;
+import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.repository.garden_user.GardenUserRepository;
+import com.huishu.ait.service.garden.impl.GardenServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 //这是Spring Boot注解，为了进行集成测试，需要通过这个注解加载和配置Spring应用上下  
@@ -48,30 +50,21 @@ public class GardenTest {
 	private GardenUserRepository gardenUserRepository;
 	@Autowired
 	private GardenRepository gardenRepository;
+	@Autowired
+	private GardenServiceImpl impl;
 	@Test
 	public void testFindGardensList() {
-		JSONArray jsonArray = new JSONArray();
-		String area = "广州";
-		String industryType = "新能源";
-		SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
-		BoolQueryBuilder bq = new BoolQueryBuilder();
-		bq.must(QueryBuilders.termQuery("area", area));
-		bq.must(QueryBuilders.termQuery("industryType", industryType));
-		TermsBuilder parkBuilder = AggregationBuilders.terms("park").field("park");
-//		TopHitsBuilder topHits = AggregationBuilders.topHits("hitCount").addSort(SortBuilders.fieldSort("hitCount").order(SortOrder.DESC)).setSize(100);
-//		parkBuilder.subAggregation(topHits);
-		SearchResponse response = requestBuilder.setQuery(bq).addAggregation(parkBuilder).execute().actionGet();
-		System.out.println(requestBuilder);
-		Terms terms = response.getAggregations().get("park");
-		for (Terms.Bucket entry : terms.getBuckets()) {
-			JSONObject obj = new JSONObject();
-			JSONArray json = new JSONArray();
-			System.out.println("工业园:"+entry.getKey()+"~~~有"+entry.getDocCount()+"个");
-		}
+		GardenDTO dto = new GardenDTO();
+		dto.setArea("北京");
+		dto.setIndustryType("节能环保");
+		JSONArray findGardensList = impl.findGardensList(dto);
+		System.out.println(findGardensList.toJSONString());
 	}
 	@Test
 	public void testFindGardensCondition(){
-		SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
+		GardenDTO dto = new GardenDTO();
+		dto.setUserId(1);
+		impl.findGardensCondition(dto);
 		BoolQueryBuilder bq = new BoolQueryBuilder();
 //		bq.must(queryBuilder)
 	}

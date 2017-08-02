@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.huishu.ait.entity.Garden;
 
@@ -19,6 +21,7 @@ public interface GardenRepository extends CrudRepository<Garden, Long>{
 	
 	Page<Garden> findByAreaAndIndustryType(String area,String industryType,Pageable pageable);
 
-	Page<Garden> findByNameLike(String searchName,Pageable pagealbe);
+	@Query(value="select id,name,description,address,area,industryType from Garden g where g.name like CONCAT('%',:keyName,'%')")
+	Page<Garden> findByNameLike(@Param("keyName")String name,Pageable pagealbe);
 	
 }
