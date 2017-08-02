@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.app.Application;
 import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
 import com.huishu.ait.es.entity.AITInfo;
@@ -19,7 +18,7 @@ import com.huishu.ait.service.industrialPolicy.IndustrialPolicyService;
 public class IndustriaTest {
 
     @Autowired
-    private IndustrialPolicyService industrialPolicyService;
+    private IndustrialPolicyService industrialPolicyService;	
     
 /*    @org.junit.Test
     public void industriaPolicyDetailTest(){
@@ -48,7 +47,7 @@ public class IndustriaTest {
             dto.setEndDate("2017-7-31 17:50:46");
             dto.setPageNumber(1);
             dto.setPageSize(10);
-            Page<AITInfo> page = industrialPolicyService.getIndustrialPolicyList(dto);
+            Page<AITInfo> array = industrialPolicyService.getIndustrialPolicyList(dto);
             System.out.println("==================");
         }catch(Exception e){
             e.printStackTrace();

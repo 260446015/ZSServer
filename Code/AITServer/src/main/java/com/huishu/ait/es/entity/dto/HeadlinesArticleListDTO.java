@@ -17,7 +17,7 @@ import com.alibaba.fastjson.JSONObject;
  * 
  */
 @Document(indexName = INDEX, type = TYPE)
-public class HeadlinesVectorArticleListDTO {
+public class HeadlinesArticleListDTO {
 	
 	
 	private  String _id;
