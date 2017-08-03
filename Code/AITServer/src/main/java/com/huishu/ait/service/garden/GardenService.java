@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.entity.GardenUser;
-import com.huishu.ait.entity.common.SearchModel;
+import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.GardenInformation;
 import com.huishu.ait.es.entity.GardenPolicy;
@@ -20,7 +20,7 @@ public interface GardenService {
 	 * @param searchModel    查询条件
 	 * @return
 	 */
-	JSONArray getGardenPolicyList(SearchModel searchModel);
+	JSONArray getGardenPolicyList(AreaSearchDTO searchModel);
 	/**
 	 * 根据政策ID获取政策详情
 	 * @param id     政策ID
@@ -32,7 +32,7 @@ public interface GardenService {
 	 * @param searchModel    查询条件
 	 * @return
 	 */
-	JSONArray getGardenInformationList(SearchModel searchModel);
+	JSONArray getGardenInformationList(AreaSearchDTO searchModel);
 	/**
 	 * 根据动态ID获取动态详情
 	 * @param id     动态ID
@@ -44,7 +44,7 @@ public interface GardenService {
 	 * @param searchModel    查询条件
 	 * @return
 	 */
-	JSONArray getGardenBusinessList(SearchModel searchModel);
+	JSONArray getGardenBusinessList(AreaSearchDTO searchModel);
 	/**
 	 * 获取园区列表
 	 * @param dto

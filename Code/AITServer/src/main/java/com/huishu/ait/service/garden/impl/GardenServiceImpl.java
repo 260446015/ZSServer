@@ -1,5 +1,7 @@
 package com.huishu.ait.service.garden.impl;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +14,6 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Garden;
 import com.huishu.ait.entity.GardenUser;
-import com.huishu.ait.entity.common.SearchModel;
+import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.GardenInformation;
 import com.huishu.ait.es.entity.GardenPolicy;
@@ -36,10 +37,11 @@ import com.huishu.ait.es.repository.garden.GardenInformationRepository;
 import com.huishu.ait.es.repository.garden.GardenPolicyRepository;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.repository.garden_user.GardenUserRepository;
+import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.garden.GardenService;
 
 @Service
-public class GardenServiceImpl implements GardenService {
+public class GardenServiceImpl extends AbstractService implements GardenService {
 	
 	@Autowired
 	private Client client;
@@ -55,93 +57,57 @@ public class GardenServiceImpl implements GardenService {
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
 	
 	@Override
-	public JSONArray getGardenPolicyList(SearchModel searchModel) {
-		BoolQueryBuilder bq = QueryBuilders.boolQuery();
-		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
-		bq.must(QueryBuilders.termQuery("articleType", "政策解读"));
-		//按时间和点击量降序排列
-		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
-		SortBuilder dateBuilder = SortBuilders.fieldSort("publishDate").order(SortOrder.DESC);
-		
-		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
-		srb.addSort(dateBuilder).addSort(countBuilder);
-		Integer pageSize = searchModel.getPageSize();
-		Integer pageNumber = searchModel.getPageNumber();
-		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize*pageNumber).execute().actionGet();
-		
-		JSONArray rows=new JSONArray();
-		JSONArray data=new JSONArray();
-		Long total=null; 
-		if(null!=searchResponse&&null!=searchResponse.getHits()){
-			SearchHits hits = searchResponse.getHits();
-			total = hits.getTotalHits();
-			for (SearchHit searchHit : hits) {
-				Map<String, Object> map = searchHit.getSource();
-				JSONObject obj = new JSONObject();
-				obj.put("id",searchHit.getId());
-		        obj.put("title",map.get("title"));
-		        obj.put("content",map.get("content"));
-				rows.add(obj);
-			}
-		}
-		searchModel.setTotalSize(Integer.valueOf(total.toString()));
-		for (int i = searchModel.getPageFrom(); i < rows.size(); i++) {
-			data.add(rows.get(i));
-		}
-		
-		return data;
+	public JSONArray getGardenPolicyList(AreaSearchDTO searchModel) {
+		//组装查询条件
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("park", searchModel.getPark());
+		map.put("articleType", "政策解读");
+		//组装排序字段,按时间和点击量降序排列
+		 String[] order = {"publishDateTime","hitCount"};
+		 List<String> orderList = Arrays.asList(order);
+		//组装返回数据字段
+		 String[] data = {"title","content"};
+		 List<String> dataList = Arrays.asList(data);
+		JSONArray array = getEsData(searchModel, map, orderList, dataList);
+		return array;
 	}
 	@Override
 	public GardenPolicy getGardenPolicyById(String id) {
 		return gardenPolicyRepository.findOne(id);
 	}
 	@Override
-	public JSONArray getGardenInformationList(SearchModel searchModel) {
-		BoolQueryBuilder bq = QueryBuilders.boolQuery();
-		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
-		bq.must(QueryBuilders.termQuery("articleType", "园区情报"));
-		//按时间和点击量降序排列 
-		SortBuilder countBuilder = SortBuilders.fieldSort("hitCount").order(SortOrder.DESC);
-		SortBuilder dateBuilder = SortBuilders.fieldSort("publishDate").order(SortOrder.DESC);
-		
-		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
-		srb.addSort(dateBuilder).addSort(countBuilder);
-		Integer pageSize = searchModel.getPageSize();
-		Integer pageNumber = searchModel.getPageNumber();
-		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize*pageNumber).execute().actionGet();
-		
-		JSONArray rows=new JSONArray();
-		JSONArray data=new JSONArray();
-		Long total=null; 
-		if(null!=searchResponse&&null!=searchResponse.getHits()){
-			SearchHits hits = searchResponse.getHits();
-			total = hits.getTotalHits();
-			for (SearchHit searchHit : hits) {
-				Map<String, Object> map = searchHit.getSource();
-				JSONObject obj = new JSONObject();
-				obj.put("id",searchHit.getId());
-				obj.put("vector",map.get("vector"));
-		        obj.put("title",map.get("title"));
-				rows.add(obj);
-			}
-		}
-		searchModel.setTotalSize(Integer.valueOf(total.toString()));
-		for (int i = searchModel.getPageFrom(); i < rows.size(); i++) {
-			data.add(rows.get(i));
-		}
-		
-		return data;
+	public JSONArray getGardenInformationList(AreaSearchDTO searchModel) {
+		//组装查询条件
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("park", searchModel.getPark());
+		map.put("articleType", "园区情报");
+		//组装排序字段,按时间和点击量降序排列
+		String[] order = {"publishDateTime","hitCount"};
+		List<String> orderList = Arrays.asList(order);
+		//组装返回数据字段
+		String[] data = {"title","vector"};
+		List<String> dataList = Arrays.asList(data);
+		JSONArray array = getEsData(searchModel, map, orderList, dataList);
+		return array;
 	}
 	@Override
 	public GardenInformation getGardenInformationById(String id) {
 		return gardenInformationRepository.findOne(id);
 	}
 	@Override
-	public JSONArray getGardenBusinessList(SearchModel searchModel) {
-		BoolQueryBuilder bq = QueryBuilders.boolQuery();
-		bq.must(QueryBuilders.termQuery("park", searchModel.getPark()));
-		bq.must(QueryBuilders.termQuery("dimension", "企业排行"));
-		return null;
+	public JSONArray getGardenBusinessList(AreaSearchDTO searchModel) {
+		//组装查询条件
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("park", searchModel.getPark());
+		map.put("dimension", "企业排行");
+		//组装排序字段,按点击量降序排列
+		String[] order = {"hitCount"};
+		List<String> orderList = Arrays.asList(order);
+		//组装返回数据字段
+		String[] data = {"business"};
+		List<String> dataList = Arrays.asList(data);
+		JSONArray array = getEsData(searchModel, map, orderList, dataList);
+		return array;
 	}
 	
 	@Override

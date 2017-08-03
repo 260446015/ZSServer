@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 
+ * 园区政策实体
  * @author yindq
  * @date
  */

@@ -5,7 +5,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchCrudReposi
 import com.huishu.ait.es.entity.GardenPolicy;
 
 /**
- * 园区情报
+ * 园区政策
  * @author yindq
  * @date   2017-7-29
  */

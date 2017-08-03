@@ -8,7 +8,10 @@ import java.util.List;
 //import org.springframework.beans.factory.annotation.Autowired;
 
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.dto.AbstractDTO;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.CheckUtils;
 
 
@@ -132,4 +135,20 @@ public abstract class BaseController {
         }
         return true;
     }
+    
+    /**
+     * 对数据加工，返回特定格式的数据给前台
+     * @param searchModel      查询条件DTO
+     * @param data     查询出来的数据集合
+     * @return
+     */
+	protected JSONObject changeObject(AreaSearchDTO searchModel,JSONArray data){
+		JSONObject object = new JSONObject();
+		object.put("park", searchModel.getPark());
+		object.put("list",data);
+		object.put("totalSize", searchModel.getTotalSize());
+		object.put("totalPage", searchModel.getTotalPage());
+		object.put("pageNumber", searchModel.getPageNumber());
+		return object;
+	}
 }

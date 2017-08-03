@@ -18,6 +18,7 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.common.SearchModel;
+import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.service.garden.GardenService;
 
@@ -28,7 +29,7 @@ import com.huishu.ait.service.garden.GardenService;
  * @date   2017-7-28
  */
 @Controller
-@RequestMapping("garden")
+@RequestMapping("area")
 public class GardenController extends BaseController{
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenController.class);
 			
@@ -43,7 +44,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="getGardenPolicyList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getGardenPolicyList(SearchModel searchModel){
+	public AjaxResult getGardenPolicyList(AreaSearchDTO searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -82,7 +83,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="getGardenInformationList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getGardenInformationList(SearchModel searchModel){
+	public AjaxResult getGardenInformationList(AreaSearchDTO searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -121,7 +122,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="getGardenBusinessList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getGardenBusinessList(SearchModel searchModel){
+	public AjaxResult getGardenBusinessList(AreaSearchDTO searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -211,18 +212,6 @@ public class GardenController extends BaseController{
 			LOGGER.error("查询园区情报中获取所有园区内容失败!", e);
 		}
 		return success(arr);
-	}
-	
-	
-	
-	private JSONObject changeObject(SearchModel searchModel,JSONArray data){
-		JSONObject object = new JSONObject();
-		object.put("park", searchModel.getPark());
-		object.put("list",data);
-		object.put("totalSize", searchModel.getTotalSize());
-		object.put("totalPage", searchModel.getTotalPage());
-		object.put("pageNumber", searchModel.getPageNumber());
-		return object;
 	}
 	
 	private GardenDTO initPage(GardenDTO dto){

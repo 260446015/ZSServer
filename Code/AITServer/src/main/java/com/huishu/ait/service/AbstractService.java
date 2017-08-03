@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -24,6 +27,9 @@ import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
+import org.elasticsearch.search.sort.SortBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -36,12 +42,14 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.DBConstant.Emotion;
+import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.UtilsHelper;
 import com.huishu.ait.echart.Legend;
 import com.huishu.ait.echart.Option;
 import com.huishu.ait.echart.Tooltip;
 import com.huishu.ait.echart.series.Pie;
 import com.huishu.ait.echart.series.Serie.SerieData;
+import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 
@@ -55,6 +63,9 @@ import com.huishu.ait.es.entity.dto.HeadlinesDTO;
  */
 public abstract class AbstractService {
 
+	@Autowired
+	private Client client;
+	
 	@Autowired
 	protected ElasticsearchTemplate template;
 
@@ -334,6 +345,58 @@ public abstract class AbstractService {
 		});
 		return personage;
 	}
+	
+	/**
+	 * ES的分页查询数据方法
+	 * @param searchModel  查询Model
+	 * @param termField    查询条件集合
+	 * @param orderField   需要排序的字段集合。  PS：请注意先后顺序
+	 * @param dataField    返回的数据存在的字段集合。  PS：ID属性默认有
+	 * @return
+	 */
+	protected JSONArray getEsData(SearchModel searchModel,Map<String,String> termField,List<String> orderField,List<String> dataField){
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		//查询条件
+		if(null!=termField&&termField.size()!=0){
+			for (String key : termField.keySet()) {
+				bq.must(QueryBuilders.termQuery(key,termField.get(key)));
+			}
+		}
+		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
+		//按orderField包含的字段降序排列
+		if(null!=orderField&&orderField.size()!=0){
+			for (String string : orderField) {
+				srb.addSort(SortBuilders.fieldSort(string).order(SortOrder.DESC));
+			}
+		}
+		Integer pageSize = searchModel.getPageSize();
+		Integer pageNumber = searchModel.getPageNumber();
+		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize*pageNumber).execute().actionGet();
 		
+		JSONArray rows=new JSONArray();
+		JSONArray data=new JSONArray();
+		Long total=null; 
+		if(null!=searchResponse&&null!=searchResponse.getHits()){
+			SearchHits hits = searchResponse.getHits();
+			total = hits.getTotalHits();
+			for (SearchHit searchHit : hits) {
+				Map<String, Object> map = searchHit.getSource();
+				JSONObject obj = new JSONObject();
+				obj.put("id",searchHit.getId());
+				//获取所需要的字段值
+				if(null!=dataField&&dataField.size()!=0){
+					for (String string : dataField) {
+						obj.put(string,map.get(string));
+					}
+				}
+				rows.add(obj);
+			}
+		}
+		searchModel.setTotalSize(Integer.valueOf(total.toString()));
+		for (int i = searchModel.getPageFrom(); i < rows.size(); i++) {
+			data.add(rows.get(i));
+		}
+		return data;
+	}
 	
 }

@@ -2,6 +2,7 @@ package com.huishu.ait.entity.common;
 
 import java.io.Serializable;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.ConfConstant;
 
 /**
@@ -14,8 +15,6 @@ public class SearchModel implements Serializable{
 	 * 可序列化
 	 */
 	private static final long serialVersionUID = 1L;
-	/** 园区名称 */
-	private String park;   
 	/** 当前页 */
 	private Integer pageNumber;
 	/** 页容量 */
@@ -44,15 +43,9 @@ public class SearchModel implements Serializable{
 		}
 			
 	}
-	public String getPark() {
-		return park;
-	}
 	public Integer getPageFrom() {
 		this.pageFrom = (pageNumber-1)*pageSize>0?(pageNumber-1)*pageSize:0;
 		return pageFrom;
-	}
-	public void setPark(String park) {
-		this.park = park;
 	}
 	public Integer getPageNumber() {
 		return pageNumber;
@@ -85,8 +78,7 @@ public class SearchModel implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "SearchModel [park=" + park + ", pageNumber=" + pageNumber + ", pageSize=" + pageSize + ", totalPage="
-				+ totalPage + ", totalSize=" + totalSize + ", pageFrom=" + pageFrom + "]";
+		return JSONObject.toJSONString(this);
 	}
 	
 }
