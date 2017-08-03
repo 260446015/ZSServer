@@ -237,7 +237,6 @@ public class GardenServiceImpl implements GardenService {
 	 */
 	@Override
 	public JSONArray findGardensAll() {
-		// TODO Auto-generated method stub
 		JSONArray data = new JSONArray();
 		try{
 			Iterable<Garden> findAll = gardenRepository.findAll();
