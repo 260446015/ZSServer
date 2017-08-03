@@ -53,6 +53,10 @@ public class ExpertOpinionController extends BaseController{
 		}
 		return dto;
 	}
+	/**
+	 * @return
+	 * 获取专家信息列表
+	 */
 	@RequestMapping(value = "getSpecialist.json")
 	public AjaxResult getSpecialist(){
 		try {
@@ -116,7 +120,7 @@ public class ExpertOpinionController extends BaseController{
 	 * 收藏专家观点
 	 */
 	@RequestMapping(value = "collectExpertOpinion.json")
-	public AjaxResult collectExpertOpinion(@RequestBody String id){
+	public AjaxResult collectExpertOpinion(String id){
 		try {
 			Boolean flag = expertOpinionService.expertOpinionCollect(id);
 			AjaxResult result = new AjaxResult();
@@ -133,7 +137,7 @@ public class ExpertOpinionController extends BaseController{
 	 * 取消收藏专家观点
 	 */
 	@RequestMapping(value = "cancelCollectExpertOpinion.json")
-	public AjaxResult cancelCollectExpertOpinion(@RequestBody String id){
+	public AjaxResult cancelCollectExpertOpinion(String id){
 		try {
 			Boolean flag = expertOpinionService.cancelExpertOpinionCollect(id);
 			AjaxResult result = new AjaxResult();

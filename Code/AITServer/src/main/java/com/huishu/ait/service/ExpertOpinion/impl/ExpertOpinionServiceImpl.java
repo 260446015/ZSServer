@@ -47,7 +47,10 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	@Resource
 	private ExpertOpinionDetailRepository expertOpinionDetailRepository;
 	
-	//根据条件获取专家观点信息
+	/* 
+	 * 方法名：getExertOpinionList
+	 * 描述：根据条件获取专家观点信息
+	 */
 	public JSONArray getExertOpinionList(ExpertOpinionDTO requestParam){
 		try {
 			JSONArray data = new JSONArray();
@@ -77,13 +80,13 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 				bq.must(QueryBuilders.rangeQuery("publishDate").from(startDate).to(endDate));
 			}
 			
-			//点击根据热度或者发布时间排序
+			/*//点击根据热度或者发布时间排序
 			if (null != sortByHotFlag) {
 				requestBuilder.addSort("hitCount", SortOrder.DESC);
 			}
 			if (null != sortByTimeFlag) {
 				requestBuilder.addSort("publishDateTime", SortOrder.DESC);
-			}
+			}*/
 			SearchResponse actionGet = requestBuilder.execute().actionGet();
 			SearchHits hits = actionGet.getHits();
 			if (null !=hits ) {
