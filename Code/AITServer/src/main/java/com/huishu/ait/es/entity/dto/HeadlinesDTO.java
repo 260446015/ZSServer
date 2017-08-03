@@ -1,5 +1,7 @@
 package com.huishu.ait.es.entity.dto;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * @author hhy
  * @date 2017年7月28日
@@ -8,6 +10,7 @@ package com.huishu.ait.es.entity.dto;
  * 
  */
 public class HeadlinesDTO extends AbstractDTO{
+	
 	/**产业*/
 	private String industry;
 	/**产业标签*/
@@ -19,15 +22,15 @@ public class HeadlinesDTO extends AbstractDTO{
 	/**结束时间*/
 	private String endDate;
 	/**词云关键词*/
-	private String keyword;
+	private String keyWord;
 	/**词云数目*/
 	private Integer wordCloudNum; 
 	
 	public String getKeyword() {
-		return keyword;
+		return keyWord;
 	}
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public void setKeyword(String keyWord) {
+		this.keyWord = keyWord;
 	}
 	public Integer getWordCloudNum() {
 		return wordCloudNum;
@@ -65,18 +68,9 @@ public class HeadlinesDTO extends AbstractDTO{
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	public String getKeyWord() {
-		return keyword;
-	}
-	public void setKeyWord(String keyWord) {
-		this.keyword = keyWord;
-	}
 	@Override
 	public String toString() {
-		return "HeadlinesDTO [industry=" + industry + ", industryLabel=" + industryLabel + ", vector=" + vector
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", keyword=" + keyword + "]";
+		return JSONObject.toJSONString(this);
 	}
-	
-	
 	
 }

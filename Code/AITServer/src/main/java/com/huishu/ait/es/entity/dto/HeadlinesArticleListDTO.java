@@ -31,35 +31,39 @@ public class HeadlinesArticleListDTO {
 	 * 排名
 	 */
 	private int rank;
-	/**声量*/
-	private Long volume;
 	
-	/**总阅读量*/
-	private Double totalHitCount;
+	
+	/**回复量*/
+	private int replyCount;
+
+	/**支持量*/
+	private  int supportCount;
+	
+	/**点击量*/
+	private int hitCount;
 	
 	/**热度*/
 	private Double hot;
 	
-	/**情感值*/
-	private Double emotionVal;
 	
-	public int getRank() {
-		return rank;
+	
+	public int getReplyCount() {
+		return replyCount;
 	}
-	public void setRank(int rank) {
-		this.rank = rank;
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
 	}
-	public Long getVolume() {
-		return volume;
+	public int getSupportCount() {
+		return supportCount;
 	}
-	public void setVolume(Long volume) {
-		this.volume = volume;
+	public void setSupportCount(int supportCount) {
+		this.supportCount = supportCount;
 	}
-	public Double getTotalHitCount() {
-		return totalHitCount;
+	public int getHitCount() {
+		return hitCount;
 	}
-	public void setTotalHitCount(Double totalHitCount) {
-		this.totalHitCount = totalHitCount;
+	public void setHitCount(int hitCount) {
+		this.hitCount = hitCount;
 	}
 	public Double getHot() {
 		return hot;
@@ -67,12 +71,22 @@ public class HeadlinesArticleListDTO {
 	public void setHot(Double hot) {
 		this.hot = hot;
 	}
-	public Double getEmotionVal() {
-		return emotionVal;
+	public String get_id() {
+		return _id;
 	}
-	public void setEmotionVal(Double emotionVal) {
-		this.emotionVal = emotionVal;
+	public void set_id(String _id) {
+		this._id = _id;
 	}
+	
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	
+	
+	
 	public String getId() {
 		return _id;
 	}

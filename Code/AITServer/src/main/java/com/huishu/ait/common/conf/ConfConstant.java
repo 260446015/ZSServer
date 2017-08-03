@@ -25,6 +25,15 @@ public class ConfConstant {
 	public static final String[] USER_LEVEL = {"A级会员", "B级会员", "C级会员", "试用辖区"};
 	
 	/**会员默认初始密码*/
-	public final static String DEFAULT_PASSWORD = "huishuzhaoshang2017";
+	public  final static String DEFAULT_PASSWORD = "huishuzhaoshang2017";
 	
+	
+	
+	/**产业*/
+	public static class INDUSTRY {
+		public static final  String FIRST_industry = "互联网" ;
+		public static final  String SECOND_industry = "高科技" ;
+		public static final  String THIRD_industry = "文化创意" ;
+		public static final  String FOURTH_industry = "精英配套" ;
+	}
 }

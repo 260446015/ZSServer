@@ -217,43 +217,31 @@ public abstract class AbstractService {
 		SearchQuery authorQuery = getSearchQueryBuilder().withQuery(bq).addAggregation(articleLinkBuilder)
 				.build();
 
-		    JSONArray jsonArray = template.query(authorQuery, res -> {
-		    	JSONArray json = new JSONArray();
-		    	JSONObject  abj = new JSONObject();
+		List<HeadlinesArticleListDTO> jsonArray = template.query(authorQuery, res -> {
+			List<HeadlinesArticleListDTO> list = new ArrayList<HeadlinesArticleListDTO>();
+			
 		    	Map<String, Object> Source= null;
 		    	SearchHits hits = res.getHits();
 		    	for(SearchHit hit :hits){
 		    		Source = hit.getSource();
 		    		Source.put("_id", hit.getId());
+		    		 getDtoInfo(list,Source);
 		    	}
-		    	for(Entry<String, Object> entry : Source.entrySet()){
-		    		abj.put(entry.getKey(), entry.getValue());
-		    	}
-		    	json.add(abj);
-			return json;
+		    	
+			return list;
 		});
-		 Iterator<Object> it = jsonArray.iterator();
-	// 第二步：根据文章名与查询条件计算每篇文章的声量，总阅读量，热度，情感值
-		List<HeadlinesArticleListDTO> contents = new ArrayList<>();
-		while(it.hasNext()){
-			JSONObject obj = (JSONObject)it.next();
-			BoolQueryBuilder bool = QueryBuilders.boolQuery();
-			bool.must(bq);
-			bool.must(QueryBuilders.termQuery("articleLink", obj.get("articleLink").toString()));
-			
-			HeadlinesArticleListDTO personage = getArticleRankByQuery(bool, obj);
-					contents.add(personage) ;
-		
-		}	
-		// 第三步：对结果进行排序，按照热度排序，分页取十条数据
-				int total = contents.size();
+
+		// 第二步：对结果进行排序，按照热度排序，分页取十条数据
+		                    
+				int total = jsonArray.size();
 				int pageNumber = pageable.getPageNumber();
 				int pageSize = pageable.getPageSize();
 
 				pageable.getSort().forEach(order -> {
 					String property = order.getProperty();
 					Direction direction = order.getDirection();
-					contents.sort((o1, o2) -> {
+					
+					jsonArray.sort((o1, o2) -> {
 						Double v1 = (Double) UtilsHelper.getValueByFieldName(o1, property);
 						Double v2 = (Double) UtilsHelper.getValueByFieldName(o2, property);
 
@@ -264,86 +252,38 @@ public abstract class AbstractService {
 					});
 				});
 
-				for (int i = 0; i < contents.size(); i++) {
-					contents.get(i).setRank(i + 1);
+				for (int i = 0; i < jsonArray.size(); i++) {
+					jsonArray.get(i).setRank(i + 1);
 				}
 
 				List<HeadlinesArticleListDTO> newList = new ArrayList<>();
-				contents.stream().skip(pageNumber * pageSize).limit(pageSize).forEach(newList::add);
+				jsonArray.stream().skip(pageNumber * pageSize).limit(pageSize).forEach(newList::add);
 
 				Page<HeadlinesArticleListDTO> results = new PageImpl<>(newList, pageable, total);
 				return results;
 			}
-	
 	/**
-	 * @param bool
-	 * @param obj
+	 * @param source
+	 * @param dto
 	 * @return
 	 */
-	private HeadlinesArticleListDTO getArticleRankByQuery(BoolQueryBuilder bool, JSONObject obj) {
-		SumBuilder totalHitCount = AggregationBuilders.sum("hitCount").field("hitCount");
+	private void  getDtoInfo( List<HeadlinesArticleListDTO> list,Map<String, Object> source) {
+		HeadlinesArticleListDTO dto = new HeadlinesArticleListDTO();
+		dto.setId(source.get("_id").toString());
+		dto.setArticleLink(source.get("articleLink").toString());
+		dto.setContent(source.get("content").toString());
+		dto.setPublishDate(source.get("publishDate").toString());
+		dto.setSource(source.get("source").toString());
+		dto.setSourceLink(source.get("sourceLink").toString());
+		dto.setTitle(source.get("title").toString());
+		Integer hitCount  = (Integer) source.get("hitCount");
+		Integer supportCount  = (Integer) source.get("supportCount");
 		
-		TermsBuilder emotionBuilder = AggregationBuilders.terms("emotion").field("emotion");
-		
-		SearchQuery authorQuery = getSearchQueryBuilder().withQuery(bool).addAggregation(totalHitCount)
-				.addAggregation(emotionBuilder).build();
-		
-		/*if (logger.isDebugEnabled()) {
-			loggger.debug("查询条件获取个人排行情况 query : \n {}", queryBuilder);
-		}*/
-		
-		HeadlinesArticleListDTO personage = template.query(authorQuery, res -> {
-			HeadlinesArticleListDTO per = new HeadlinesArticleListDTO();
-			per.setTitle(obj.get("title").toString());
-			per.setId(obj.get("_id").toString());
-			per.setArticleLink(obj.get("articleLink").toString());
-			per.setContent(obj.get("content").toString());
-			per.setPublishDate(obj.get("publishDate").toString());
-			per.setSource(obj.get("source").toString());
-			per.setSourceLink(obj.get("sourceLink").toString());
-			Aggregations aggs = res.getAggregations();
-			
-			Sum sum = aggs.get("hitCount");
-			
-			// 获取总阅读量
-			double totalCount = sum.getValue();
-			
-			// 获取声量
-			long totalVolume = res.getHits().getTotalHits();
-			
-			per.setTotalHitCount(totalCount);
-			per.setVolume(totalVolume);
-			
-			// 计算热度值
-			per.setHot(UtilsHelper.getRound(totalCount / totalVolume));
-			
-			Terms t = aggs.get("emotion");
-			
-			double positive = 0D;
-			double negative = 0D;
-			
-			for (Bucket e : t.getBuckets()) {
-				String k = e.getKeyAsString();
-				if (Emotion.POSITIVE.equals(k)) {
-					positive = e.getDocCount();
-				} else if (Emotion.NEGATIVE.equals(k)) {
-					negative = e.getDocCount();
-				}
-			}
-			;
-			
-			// 分子
-			double numerator = (positive - negative);
-			// 分母
-			double denominator = (positive + negative);
-			
-			if (denominator > 0D) {
-				// 获取情感值
-				per.setEmotionVal(UtilsHelper.getRound(numerator / denominator));
-			}
-			return per;
-		});
-		return personage;
+		dto.setHitCount( (int) source.get("hitCount"));
+		dto.setReplyCount( (int) source.get("replyCount"));
+		dto.setSupportCount( (int) source.get("supportCount"));
+		dto.setHot(UtilsHelper.getRound(supportCount/hitCount*1.0));
+		list.add(dto);
 	}
 	
 	/**

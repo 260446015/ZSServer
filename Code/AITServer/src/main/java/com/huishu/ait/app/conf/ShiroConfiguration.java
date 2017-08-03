@@ -118,17 +118,17 @@ public class ShiroConfiguration {
 	}
 
 	//下面这三。。。。。。
-	@Bean
+	@Bean(name = "lifecycleBeanPostProcessor")
 	    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
 	        return new LifecycleBeanPostProcessor();
     }
 	 
-    @Bean
+  /*  @Bean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
         DefaultAdvisorAutoProxyCreator creator=new DefaultAdvisorAutoProxyCreator();
         creator.setProxyTargetClass(true);
         return creator;
-    }
+    }*/
     
     @Bean(name = "authorizationAttributeSourceAdvisor")
     public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor() {
@@ -136,5 +136,14 @@ public class ShiroConfiguration {
         auth.setSecurityManager(getDefaultWebSecurityManager());
         return auth;
     }
+    @Bean(name = "loginFormAuthenticationFilter")
+    public MyFormAuthenticationFilter getMyFormAuthenticationFilter() {
+        return new MyFormAuthenticationFilter();
+    }
 
+    @Bean(name = "customCredentialsMatcher")
+    public CustomCredentialsMatcher getCustomCredentialsMatcher() {
+        return new CustomCredentialsMatcher();
+    
+    }
 }

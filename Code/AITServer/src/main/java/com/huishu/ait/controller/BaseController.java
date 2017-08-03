@@ -4,12 +4,15 @@ import static com.huishu.ait.common.util.UtilsHelper.getValueByFieldName;
 
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+
 /*import org.apache.shiro.SecurityUtils;*/
 //import org.springframework.beans.factory.annotation.Autowired;
 
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.dto.AbstractDTO;
+import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.CheckUtils;
@@ -28,19 +31,19 @@ public abstract class BaseController {
 		return new AjaxResult().setMessage(message).setSuccess(false).setStatus(1);
 	}
 
-//	public ShiroUser getCurrentShiroUser() {
-//		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-//		return user;
-//	}
-//	
-//	public Long getUserId() {
-//		return getCurrentShiroUser().getId();
-//	}
-//	
-//	public String getUserAccount() {
-//		return getCurrentShiroUser().getLoginName();
-//	}
-//	
+	public ShiroUser getCurrentShiroUser() {
+		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		return user;
+	}
+	
+	public Long getUserId() {
+		return getCurrentShiroUser().getId();
+	}
+	
+	public String getUserAccount() {
+		return getCurrentShiroUser().getLoginName();
+	}
+	
     public boolean  checkDTO(AbstractDTO dto ){
     	if ( dto == null ){
     		return false;

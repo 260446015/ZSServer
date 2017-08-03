@@ -12,7 +12,8 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 
 	 @Override
 	    public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
-		 	//如果和教育一样，用户和管理员是分开的话就要这几写token类型，继承这个token就可以
+		 	
+		 //如果和教育一样，用户和管理员是分开的话就要这几写token类型，继承这个token就可以
 	        UsernamePasswordToken utoken=(UsernamePasswordToken) token;
 	        
 	        //获得用户输入的密码

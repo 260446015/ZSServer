@@ -106,10 +106,12 @@ public class HeadlinesController extends BaseController {
 		try {
 			boolean b = checkDTO(headlinesDTO);
 			if(b){
-				
+				Page<HeadlinesArticleListDTO> page = service.findArticleByKeyWord(headlinesDTO);
+				return success(page);
 			}
-			return success("查询成功！");
+			return error(MsgConstant.ILLEGAL_PARAM);
 		} catch (Exception e) {
+			logger.error("根据关键词查询文章内容失败：",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
