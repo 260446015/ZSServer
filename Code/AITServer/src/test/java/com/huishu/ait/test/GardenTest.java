@@ -87,7 +87,7 @@ public class GardenTest {
 		orders.add(new Order(Direction.DESC, "updateDate"));*/
 
 //		PageRequest pageRequest = new PageRequest(0, 10);
-		Page<Garden> findGardensList = gardenRepository.findByAreaAndIndustryType("北京", "互联网", new PageRequest(0, 10));
-		System.out.println(findGardensList.iterator().toString());
+//		Page<Garden> findGardensList = gardenRepository.findByAreaAndIndustryType("北京", "互联网", new PageRequest(0, 10));
+//		System.out.println(findGardensList.iterator().toString());
 	}
 }

@@ -43,7 +43,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="getGardenPolicyList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getGardenPolicyList(AreaSearchDTO searchModel){
+	public AjaxResult getGardenPolicyList(@RequestBody AreaSearchDTO searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -82,7 +82,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="getGardenInformationList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getGardenInformationList(AreaSearchDTO searchModel){
+	public AjaxResult getGardenInformationList(@RequestBody AreaSearchDTO searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -121,7 +121,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="getGardenBusinessList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getGardenBusinessList(AreaSearchDTO searchModel){
+	public AjaxResult getGardenBusinessList(@RequestBody AreaSearchDTO searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
