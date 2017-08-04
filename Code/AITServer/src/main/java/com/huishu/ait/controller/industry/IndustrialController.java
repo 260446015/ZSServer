@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Page;
@@ -64,7 +65,7 @@ public class IndustrialController extends BaseController {
      * @param IndustrialPolicyDTO 产业政策查询对象
      * @return AjaxResult 返回一个对象，里面是数据
      */
-    @RequestMapping(value="getIndustrialPolicyList.json")
+    @RequestMapping(value="getIndustrialPolicyList.json", method = RequestMethod.POST)
     @ResponseBody
     public AjaxResult getIndustrialPolicyList(IndustrialPolicyDTO dto ){
         try{
@@ -89,7 +90,7 @@ public class IndustrialController extends BaseController {
      * @param id 产业政策id
      * @return
      */
-    @RequestMapping(value="getIndustrialPolicyDetailById.json")
+    @RequestMapping(value="getIndustrialPolicyDetailById.json", method = RequestMethod.GET)
     @ResponseBody
     public AjaxResult getIndustrialPolicyDetailById(String id){
         try{

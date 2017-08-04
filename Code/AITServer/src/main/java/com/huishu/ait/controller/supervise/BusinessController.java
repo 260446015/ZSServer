@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
@@ -41,7 +42,7 @@ public class BusinessController extends BaseController {
      * @return
      * @createDate 2017-8-3
      */
-    @RequestMapping("getBusinessBehaviours.json")
+    @RequestMapping(value="/getBusinessBehaviours.json",method=RequestMethod.POST)
     public AjaxResult getBusinessBehaviours(BusinessSuperviseDTO dto){
         try{
             if(null == dto){
@@ -62,7 +63,7 @@ public class BusinessController extends BaseController {
      * @return 企业动态详情
      * createDate 2017-8-3
      */ 
-    @RequestMapping("getBusinessBehaviourDetail.json")
+    @RequestMapping(value="/getBusinessBehaviourDetail.json",method=RequestMethod.GET)
     public AjaxResult getBusinessBehaviourDetail(String id){
         try{
             if(null == id || StringUtil.isEmpty(id)){
