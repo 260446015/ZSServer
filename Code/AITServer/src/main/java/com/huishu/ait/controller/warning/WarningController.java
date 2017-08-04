@@ -53,7 +53,7 @@ public class WarningController extends BaseController{
 	 * @param id   政策ID
 	 * @return
 	 */
-	@RequestMapping(value="getBusinessOutflowById.json",method=RequestMethod.POST)
+	@RequestMapping(value="getBusinessOutflowById.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getBusinessOutflowById(String id){
 		if(null==id){
@@ -79,7 +79,8 @@ public class WarningController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			return success(warningService.getInformationChangeList(searchModel));
+			JSONArray array = warningService.getInformationChangeList(searchModel);
+			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
 			LOGGER.error("getBusinessOutflowList查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
