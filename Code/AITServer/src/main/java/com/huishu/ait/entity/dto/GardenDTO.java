@@ -28,11 +28,7 @@ public class GardenDTO implements Serializable{
 	 */
 	private Integer pageSize;
 	/**
-	 * 分页当前页数
-	 */
-	private Integer currentPage;
-	/**
-	 * 分页总页数
+	 * 分页当前数
 	 */
 	private Integer pageNum;
 	/**
@@ -120,12 +116,6 @@ public class GardenDTO implements Serializable{
 	}
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
-	}
-	public Integer getCurrentPage() {
-		return currentPage;
-	}
-	public void setCurrentPage(Integer currentPage) {
-		this.currentPage = currentPage;
 	}
 	public Integer getPageNum() {
 		return pageNum;

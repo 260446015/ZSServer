@@ -24,12 +24,12 @@ import com.huishu.ait.service.company.CompanyService;
  */
 @RestController
 @RequestMapping("/business")
-public class CompanyOrderController extends BaseController{
+public class CompanyController extends BaseController{
 
 	@Resource
 	private CompanyService cs;
 	
-	private Logger LOGGER = LoggerFactory.getLogger(CompanyOrderController.class);
+	private Logger LOGGER = LoggerFactory.getLogger(CompanyController.class);
 	/**
 	 * 查询企业排行
 	 * @param dto
