@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -140,9 +141,9 @@ public class GardenController extends BaseController{
 	 * @param dto 传用户id
 	 * @return
 	 */
-	@RequestMapping("/findGardensList.json")
+	@RequestMapping(value="/findGardensList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult findGardensList(GardenDTO dto){
+	public AjaxResult findGardensList(@RequestBody GardenDTO dto){
 		if(null == dto){
 			 return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -162,9 +163,9 @@ public class GardenController extends BaseController{
 	 * @param dto 
 	 * @return
 	 */
-	@RequestMapping("/findGardensCondition.json")
+	@RequestMapping(value="/findGardensCondition.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult findGardensCondition(GardenDTO dto){
+	public AjaxResult findGardensCondition(@RequestBody GardenDTO dto){
 		if(null == dto){
 			if(StringUtil.isEmpty(String.valueOf(dto.getUserId())))
 				return error(MsgConstant.ILLEGAL_PARAM);

@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,8 +36,8 @@ public class CompanyController extends BaseController{
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping(value="/findCompaniesDesc.json")
-	public AjaxResult findCompanies(CompanyDTO dto){
+	@RequestMapping(value="/findCompaniesDesc.json",method=RequestMethod.POST)
+	public AjaxResult findCompanies(@RequestBody CompanyDTO dto){
 		if(null == dto){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
