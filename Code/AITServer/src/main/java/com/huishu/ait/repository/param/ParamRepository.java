@@ -2,6 +2,7 @@ package com.huishu.ait.repository.param;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.Param;
@@ -15,5 +16,6 @@ import com.huishu.ait.entity.Param;
  */
 public interface ParamRepository extends CrudRepository<Param, Long> {
 	
-	List<Param> fingParamByUid(Long uid);
+	@Query(value="from Param where uid=?")
+	List<Param> findByUid(Long uid);
 }

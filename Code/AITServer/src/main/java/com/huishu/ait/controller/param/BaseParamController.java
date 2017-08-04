@@ -52,7 +52,7 @@ public class BaseParamController extends BaseController {
 		for(Param pm :list){
 			Long Iid = pm.getIid();
 			Param info = new Param();
-			int m = service.fingOne(uid);
+			int m = service.findOne(uid);
 			if(m==1){
 				boolean b = service.deleteParamAllByUid(uid);
 				if(!b){
@@ -124,7 +124,7 @@ public class BaseParamController extends BaseController {
 				}
 			}
 		} 
-		return success(service.fingOneById(uid));
+		return success(service.findByUid(uid));
 	}	
 }
 

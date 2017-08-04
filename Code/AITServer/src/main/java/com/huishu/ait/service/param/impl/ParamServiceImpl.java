@@ -34,8 +34,8 @@ public class ParamServiceImpl  implements ParamService{
 	 * 根据id查询用户个数
 	 */
 	@Override
-	public int fingOne(Long uid) {
-		List<Param> list = pr.fingParamByUid(uid);
+	public int findOne(Long uid) {
+		List<Param> list = pr.findByUid(uid);
 		if(list!= null){
 			return 1;
 		}
@@ -60,8 +60,8 @@ public class ParamServiceImpl  implements ParamService{
 	 * 通过id查询所有信息
 	 */
 	@Override
-	public List<Param> fingOneById(Long uid) {
-		return pr.fingParamByUid(uid);
+	public List<Param> findByUid(Long uid) {
+		return pr.findByUid(uid);
 	}
 
 }

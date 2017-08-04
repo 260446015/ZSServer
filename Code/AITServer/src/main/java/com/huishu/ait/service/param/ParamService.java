@@ -23,7 +23,7 @@ public interface ParamService {
 	 * @param uid
 	 * @return
 	 */
-	int fingOne(Long uid);
+	int findOne(Long uid);
 
 	/**
 	 * @param uid
@@ -33,6 +33,6 @@ public interface ParamService {
 	/**
 	 * @param uid
 	 */
-	List<Param> fingOneById(Long uid);
+	List<Param> findByUid(Long uid);
 
 }
