@@ -171,8 +171,8 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	/**
 	 * 收藏专家观点
 	 */
-	public Boolean expertOpinionCollect(String articleId){
-		Boolean flag= true;
+	public JSONObject expertOpinionCollect(String articleId){
+		JSONObject json = new JSONObject();
 		try {
 			AITInfo param = expertOpinionElasticsearch.findOne(articleId);
 			ExpertOpinionDetail findOne = findExpertOpinionDetailByArticleId(articleId);
@@ -192,29 +192,31 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			expertOpinionDetail.setIndustry(param.getIndustry());
 			expertOpinionDetail.setLanmu(param.getDimension());
 			expertOpinionDetailRepository.save(expertOpinionDetail);
-			return flag;
+			json.put("state", "success");
+			return json;
 		} catch (Exception e) {
-			flag=false;
+			json.put("state", "failure");
 			log.error("收藏失败：",e.getMessage());
-			return flag;
+			return json;
 		}
 	}
 	/**
 	 * 取消收藏专家观点
 	 */
-	public Boolean cancelExpertOpinionCollect(String articleId){
-		Boolean flag= true;
+	public JSONObject cancelExpertOpinionCollect(String articleId){
+		JSONObject json = new JSONObject();
 		try {
 			ExpertOpinionDetail findOne = findExpertOpinionDetailByArticleId(articleId);
 			if (null == findOne) {
-				flag=false;
+				json.put("state", "failure");
 			}
 			expertOpinionDetailRepository.delete(findOne);
-			return flag;
+			json.put("state", "success");
+			return json;
 		} catch (Exception e) {
-			flag=false;
+			json.put("state", "failure");
 			log.error("取消收藏失败：",e.getMessage());
-			return flag;
+			return json;
 		}
 	}
 	/**
