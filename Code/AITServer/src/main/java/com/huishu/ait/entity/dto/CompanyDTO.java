@@ -32,15 +32,11 @@ public class CompanyDTO implements Serializable {
 	 */
 	private String dimension;
 	/**
-	 * 当前页码
-	 */
-	private Integer currentPage;
-	/**
      * 每页数据存储个数
      */
     private Integer pageSize;
     /**
-     * 总页数
+     * 当前页码数
      */
     private Integer pageNum;
 
@@ -74,14 +70,6 @@ public class CompanyDTO implements Serializable {
 
 	public void setDimension(String dimension) {
 		this.dimension = dimension;
-	}
-
-	public Integer getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(Integer currentPage) {
-		this.currentPage = currentPage;
 	}
 
 	public Integer getPageSize() {
