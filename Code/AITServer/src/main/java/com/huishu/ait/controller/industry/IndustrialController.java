@@ -74,6 +74,9 @@ public class IndustrialController extends BaseController {
             Boolean b = checkPolicyDTO(dto);
             if(b == true){
                 /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
+                if(dto.getIndustryLabel().equals("不限")){
+                    dto.setIndustryLabel(null);
+                }
                 Page<AITInfo> pagedata = industrialPolicyService.getIndustrialPolicyList(dto);
                 return success(pagedata).setSuccess(true);
             }
