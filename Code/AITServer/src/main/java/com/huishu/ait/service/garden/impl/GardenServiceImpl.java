@@ -114,8 +114,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	
 	@Override
 	public JSONArray findGardensList(GardenDTO dto) {
-		String area = dto.getArea();
-		String industryType = dto.getIndustryType();
+		String[] msg = dto.getMsg();
+		String area = msg[0];
+		String industryType = msg[1];
 //		String searchName = dto.getSerarchName();
 		int pageNum = dto.getPageNum();
 		int pageSize = dto.getPageSize();
