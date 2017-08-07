@@ -116,6 +116,12 @@ public abstract class BaseController {
                return false;
            }
         }
+        if(fieldNames.contains("industryLabel")){
+            Object industryLabel = getValueByFieldName(dto, "industryLabel");
+            if(industryLabel == null){
+                return false;
+            }
+        }
         if (fieldNames.contains("startDate")) {
             Object startDate = getValueByFieldName(dto, "startDate");
             

@@ -1,5 +1,7 @@
 package com.huishu.ait.controller.industry;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,52 @@ public class IndustrialController extends BaseController {
         }
         return dto;
     }
+    
+    /**
+     * 时间初始处理
+     */
+    private IndustrialPolicyDTO dateInit(IndustrialPolicyDTO dto){
+        Date date = new Date();
+        String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_TIME); //今天的当前时间（获取服务端时间）
+        String startTime = DateUtil.getFormatDate(DateUtil.getStartTime(), DateUtil.FORMAT_TIME); //今天的起始时间
+        String yesterAgo = DateUtil.getFormatDate(DateUtil.getYesterAgoStartTime(date), DateUtil.FORMAT_TIME); //昨天的起始时间
+        String weekAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_TIME); //近7天的起始时间
+        String monthAgo = DateUtil.getFormatDate(DateUtil.getMonthAgoStartTime(date), DateUtil.FORMAT_TIME); //一个月内
+        String halfYearAgo = DateUtil.getFormatDate(DateUtil.getHalfYearStartTime(date), DateUtil.FORMAT_TIME); //半年内
+        String yearAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_TIME); //一年内
+        
+        //对时间段进行判断
+        if(dto.getPeriodDate().equals("今日")){
+            dto.setStartDate(startTime);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("昨天")){
+            dto.setStartDate(yesterAgo);
+            dto.setEndDate(startTime);
+        }
+        if(dto.getPeriodDate().equals("近7天")){
+            dto.setStartDate(weekAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("1个月")){
+            dto.setStartDate(monthAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("半年")){
+            dto.setStartDate(halfYearAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("一年")){
+            dto.setStartDate(yearAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("不限")){
+            dto.setStartDate("1980-01-01 00:00:01");
+            dto.setEndDate(endTime);
+        }
+        return dto;
+    }
+    
     /**
      * 获取产业政策列表接口
      * @param IndustrialPolicyDTO 产业政策查询对象
@@ -70,10 +118,17 @@ public class IndustrialController extends BaseController {
     public AjaxResult getIndustrialPolicyList(IndustrialPolicyDTO dto ){
         try{
             
-            pageInit(dto);
+            dto = pageInit(dto);
+            if(dto.getPeriodDate() != null){
+                dto = dateInit(dto);
+                dto.setPeriodDate(null);
+            }
             Boolean b = checkPolicyDTO(dto);
             if(b == true){
                 /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
+                if(dto.getIndustryLabel().equals("不限")){
+                    dto.setIndustryLabel(null);
+                }
                 Page<AITInfo> pagedata = industrialPolicyService.getIndustrialPolicyList(dto);
                 return success(pagedata).setSuccess(true);
             }
