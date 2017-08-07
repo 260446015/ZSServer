@@ -23,6 +23,7 @@ public class GardenDTO implements Serializable{
 	private String industryType;
 	private Integer userId;
 	private String serarchName;
+	private String[] msg;
 	/**
 	 * 分页中每页大小
 	 */
@@ -122,6 +123,12 @@ public class GardenDTO implements Serializable{
 	}
 	public void setPageNum(Integer pageNum) {
 		this.pageNum = pageNum;
+	}
+	public String[] getMsg() {
+		return msg;
+	}
+	public void setMsg(String[] msg) {
+		this.msg = msg;
 	}
 	
 }
