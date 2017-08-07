@@ -31,6 +31,16 @@ public class IndustrialPolicyDTO extends AbstractDTO {
     
     /** 结束时间 */
     private String endDate;
+    
+    private String periodDate;
+    
+    public String getPeriodDate() {
+        return periodDate;
+    }
+
+    public void setPeriodDate(String periodDate) {
+        this.periodDate = periodDate;
+    }
 
     public String getIndustry() {
         return industry;
