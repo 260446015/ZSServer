@@ -47,7 +47,7 @@ public class CompanyServiceImpl implements CompanyService {
 			if(null != industry){
 				bq.must(QueryBuilders.termQuery("industry", industry));
 			}
-			if(null != industryLabel){
+			if(!"不限".equals(industryLabel)){
 				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 			}
 			if(null != publishTime){
