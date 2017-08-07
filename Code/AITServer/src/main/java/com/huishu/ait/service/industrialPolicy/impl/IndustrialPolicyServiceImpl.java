@@ -53,10 +53,12 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
      */
     @Override
     public Page<AITInfo> getIndustrialPolicyList(IndustrialPolicyDTO dto) {
-        
-        /**
-         * 获取ES查询对象bq
-         */
+        if (dto.getIndustryLabel().equals("不限")){
+            dto.setIndustryLabel(null);
+        }
+        if (dto.getArea().equals("全部") || dto.getArea().equals("不限")){
+            dto.setArea(null);
+        }
         try{
             //获取查询对象
             BoolQueryBuilder bq = dto.builderQuery();

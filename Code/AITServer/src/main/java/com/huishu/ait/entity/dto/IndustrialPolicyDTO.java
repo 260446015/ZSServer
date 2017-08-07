@@ -32,8 +32,31 @@ public class IndustrialPolicyDTO extends AbstractDTO {
     /** 结束时间 */
     private String endDate;
     
+    /** 时间段 */
     private String periodDate;
     
+    /** 文章类型  */
+    private String articleType;
+    
+    private String[] labels;
+    
+
+    public String[] getLabels() {
+        return labels;
+    }
+
+    public void setLabels(String[] labels) {
+        this.labels = labels;
+    }
+
+    public String getArticleType() {
+        return articleType;
+    }
+
+    public void setArticleType(String articleType) {
+        this.articleType = articleType;
+    }
+
     public String getPeriodDate() {
         return periodDate;
     }
