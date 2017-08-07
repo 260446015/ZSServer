@@ -46,7 +46,7 @@ public class CompanyController extends BaseController{
 		try{
 			arr = cs.findCompaniesOder(dto);
 		}catch(Exception e){
-			LOGGER.error("查询园区列表失败", e);
+			LOGGER.error("查询企业列表失败", e);
 		}
 		return success(arr);
 	}

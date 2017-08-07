@@ -39,6 +39,11 @@ public class CompanyDTO implements Serializable {
      * 当前页码数
      */
     private Integer pageNum;
+    /**
+     * 
+     * 传递数组
+     */
+    private String[] msg;
 
 	public String getIndustry() {
 		return industry;
@@ -86,6 +91,14 @@ public class CompanyDTO implements Serializable {
 
 	public void setPageNum(Integer pageNum) {
 		this.pageNum = pageNum;
+	}
+
+	public String[] getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String[] msg) {
+		this.msg = msg;
 	}
 
 }

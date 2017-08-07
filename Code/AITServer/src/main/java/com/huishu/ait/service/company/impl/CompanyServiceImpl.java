@@ -41,9 +41,10 @@ public class CompanyServiceImpl implements CompanyService {
 		try {
 			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
-			String industry = dto.getIndustry();//获取前台传递的产业字段
-			String industryLabel = dto.getIndustryLabel();//获取前台传递的产业标签字段
-			String publishTime = dto.getPublishTime();//获取前台传递的发布时间字段这里用的是publishTime只有年份查询
+			String[] msg = dto.getMsg();
+			String industry = msg[0];//获取前台传递的产业字段
+			String industryLabel = msg[1];//获取前台传递的产业标签字段
+			String publishTime = msg[2];//获取前台传递的发布时间字段这里用的是publishTime只有年份查询
 			if(null != industry){
 				bq.must(QueryBuilders.termQuery("industry", industry));
 			}
