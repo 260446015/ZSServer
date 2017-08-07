@@ -212,6 +212,23 @@ public class GardenController extends BaseController{
 		}
 		return success(arr);
 	}
+	@RequestMapping(value="/attentionGarden.json",method=RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult attentionGarden(String gardenId,String userId,boolean flag){
+		GardenUser gardenUser = null;
+		try{
+			if(flag)
+				gardenUser = gardenService.attentionGarden(gardenId,userId,true);
+			else
+				gardenUser = gardenService.attentionGarden(gardenId, userId,false);
+		}catch(Exception e){
+			LOGGER.error("关注园区失败", e);
+			return error("关注园区失败");
+		}
+		return success(gardenUser);
+		
+	}
+	
 	
 	private GardenDTO initPage(GardenDTO dto){
 		if(dto.getPageNum() == null){

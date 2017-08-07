@@ -1,5 +1,6 @@
 package com.huishu.ait.service.garden.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -207,6 +209,28 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			LOGGER.error("获取园区情报中获取所有园区内容失败",e);
 		}
 		return data;
+	}
+	/* 此处实现关注园区的功能
+	 */
+	@Override
+	public GardenUser attentionGarden(String gardenId,String userId,boolean flag) {
+		Garden garden = gardenRepository.findOne(Integer.parseInt(gardenId));
+		
+		if(flag){
+			GardenUser gu = new GardenUser();
+			gu.setGardenName(garden.getName());
+			gu.setAddress(garden.getAddress());
+			gu.setArea(garden.getArea());
+			gu.setAttentionDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(System.currentTimeMillis()).toString());
+			gu.setDescription(garden.getDescription());
+			gu.setUserId(Integer.parseInt(userId));
+			gu.setIndustryType(garden.getIndustryType());
+			gardenUserRepository.save(gu);
+			return gu;
+		}else{
+			gardenUserRepository.deleteByGardenName(garden.getName());
+			return null;
+		}
 	}
 	
 }

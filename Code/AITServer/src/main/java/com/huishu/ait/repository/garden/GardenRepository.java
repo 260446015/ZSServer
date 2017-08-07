@@ -17,7 +17,7 @@ import com.huishu.ait.entity.Garden;
  * @return 
  * 
  */
-public interface GardenRepository extends CrudRepository<Garden, Long>{
+public interface GardenRepository extends CrudRepository<Garden, Integer>{
 	
 	Page<Garden> findByAreaLikeAndIndustryTypeLike(String area,String industryType,Pageable pageable);
 

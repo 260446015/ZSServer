@@ -64,4 +64,8 @@ public interface GardenService {
 	 * 园区情报中获取所有园区内容
 	 */
 	JSONArray findGardensAll();
+	/**
+	 * @param gardenId  传入想要关注的园区id,传入用户id,传入关注/取消操作,true是关注,false是取消
+	 */
+	GardenUser attentionGarden(String gardenId,String userId,boolean flag);
 }
