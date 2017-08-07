@@ -28,89 +28,6 @@ import com.huishu.ait.common.conf.DBConstant;
  */
 public class ESUtils {
 
-	/**
-	 * 获取拥车时间查询器
-	 * 
-	 * @param holdDaysRange
-	 * @return
-	 */
-	public static BoolQueryBuilder getHoldDaysRangeQueryBuilder(JSONArray holdDaysRange) {
-		BoolQueryBuilder or = new BoolQueryBuilder();
-		if(holdDaysRange != null){
-			for (int i = 0; i < holdDaysRange.size(); i++) {
-				BoolQueryBuilder must = new BoolQueryBuilder();
-				RangeQueryBuilder range = new RangeQueryBuilder("holdDays");
-				JSONObject date = holdDaysRange.getJSONObject(i);
-				Long holdStartDate = date.getLong("holdStartDays");
-				if (holdStartDate != null) {
-					range.gte(holdStartDate);
-				} else {
-					range.gte(0);
-				}
-				Long holdEndDate = date.getLong("holdEndDays");
-				if (holdEndDate != null) {
-					range.lt(holdEndDate);
-				} else {
-					range.lt(Long.MAX_VALUE);
-				}
-				must.must(range);
-				or.should(must);
-			}
-		}
-		return or;
-	}
-
-	/**
-	 * 获取价格查询器
-	 *
-	 * @param priceRange
-	 * @return
-	 */
-	public static BoolQueryBuilder getPriceRangeQueryBuilder(JSONArray priceRange) {
-		BoolQueryBuilder should = new BoolQueryBuilder();
-		if (priceRange != null) {
-			for (int i = 0; i < priceRange.size(); i++) {
-				JSONObject data = priceRange.getJSONObject(i);
-				Double priceCeiling = null;// 上限
-				if (org.apache.commons.lang.StringUtils.isNotBlank(data.getString("priceCeiling"))) {
-					priceCeiling = data.getDouble("priceCeiling");
-				} else {
-					// 如果价格上限为空，那么默认值为Long的最大值
-					priceCeiling = Double.parseDouble(Long.MAX_VALUE+"");
-				}
-
-				Double priceFloor = null;// 下限
-				if (org.apache.commons.lang.StringUtils.isNotBlank(data.getString("priceFloor"))) {
-					priceFloor = data.getDouble("priceFloor");
-				} else {
-					// 如果价格下限为空，那么默认值为0
-					priceFloor = 0D;
-				}
-
-				/**
-				 * 价格下限 <= 车辆最低价 < 价格上限 
-				 * priceFloor <= lowestPrice < priceCeiling
-				 * 或者 
-				 * 价格下限 <= 车辆最高价 < 价格上限 
-				 * priceFloor <= highestPrice < priceCeiling
-				 */
-				BoolQueryBuilder must = new BoolQueryBuilder();
-				BoolQueryBuilder or = new BoolQueryBuilder();
-				// 1、priceFloor <= lowestPrice < priceCeiling (价格下限 <= 车辆最低价 < 价格上限)
-				BoolQueryBuilder must1 = new BoolQueryBuilder();
-				must1.must(QueryBuilders.rangeQuery("lowestPrice").gte(priceFloor).lt(priceCeiling));
-				or.should(must1);
-				// 2、priceFloor <= highestPrice < priceCeiling(价格下限 <= 车辆最高价 < 价格上限 )
-				BoolQueryBuilder must2 = new BoolQueryBuilder();
-				must2.must(QueryBuilders.rangeQuery("highestPrice").gte(priceFloor).lt(priceCeiling));
-				or.should(must2);
-				must.must(or);
-				should.should(must);
-			}
-		}
-
-		return should;
-	}
 
 	/**
 	 * 获取更多条件查询器
@@ -216,35 +133,6 @@ public class ESUtils {
 		return client.prepareSearch(DBConstant.EsConfig.INDEX).setTypes(DBConstant.EsConfig.TYPE);
 	}
 	
-	/**
-	 * 获取默认的ES 搜索请求构造器---舆情管理内容分析
-	 * 
-	 * @param client
-	 * @return
-	 */
-	public static SearchRequestBuilder getSearchRequestOpinionContentBuilder(Client client) {
-		return client.prepareSearch("cdap_content_alias").setTypes("contentinfo");
-	}
-	
-	/**
-	 * 获取舆情管理 SearchRequestBuilder
-	 * 
-	 * @param client
-	 * @return
-	 */
-	public static SearchRequestBuilder getOpinionSearchReqBuilder(Client client) {
-		return client.prepareSearch().setIndices("opinion_alias").setTypes("opinioninfo");
-	}
-	
-	/**
-	 * 获取产品管理战败分析 SearchRequestBuilder
-	 * 
-	 * @param client
-	 * @return
-	 */
-	public static SearchRequestBuilder getDefeatanalyzeSearchReqBuilder(Client client) {
-		return client.prepareSearch().setIndices("defeate_analysis_alias").setTypes("defeatanalyze");
-	}
 	
 	public static RangeQueryBuilder getPublishDateQuery(String startDate, String endDate) {
 		RangeQueryBuilder range = QueryBuilders.rangeQuery("publishDate");
@@ -285,27 +173,7 @@ public class ESUtils {
 		return existsResponse.isExists();
 	}
 
-	/**
-	 * 根据查询条件获取总人数
-	 * 
-	 * @param bq
-	 * @param client
-	 * @return
-	 */
-	public long getTotalPeople(Client client, BoolQueryBuilder bq) {
-		SearchRequestBuilder requestBuilder = ESUtils.getSearchRequestBuilder(client);
-		CardinalityBuilder carModelAuthor = AggregationBuilders.cardinality("carModelId_authorId")
-				.field("carModelId_authorId");
-
-		requestBuilder.setQuery(bq);
-		requestBuilder.addAggregation(carModelAuthor);
-		System.out.println("totalPeople query: " + requestBuilder);
-		SearchResponse response = requestBuilder.execute().actionGet();
-		InternalCardinality carModelAuthorNum = response.getAggregations().get("carModelId_authorId");
-
-		return carModelAuthorNum.getValue() == 0 ? 1 : carModelAuthorNum.getValue();
-	}
-
+	
 	/**
 	 * 获取属性的范围值
 	 * 
