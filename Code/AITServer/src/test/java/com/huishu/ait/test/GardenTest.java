@@ -55,8 +55,10 @@ public class GardenTest {
 	@Test
 	public void testFindGardensList() {
 		GardenDTO dto = new GardenDTO();
-		dto.setArea("北京");
-		dto.setIndustryType("节能环保");
+//		dto.setArea("北京");
+//		dto.setIndustryType("节能环保");
+		dto.setPageNum(0);
+		dto.setPageSize(10);
 		JSONArray findGardensList = impl.findGardensList(dto);
 		System.out.println(findGardensList.toJSONString());
 	}
@@ -64,12 +66,14 @@ public class GardenTest {
 	public void testFindGardensCondition(){
 		GardenDTO dto = new GardenDTO();
 		dto.setUserId(1);
-		impl.findGardensCondition(dto);
-		BoolQueryBuilder bq = new BoolQueryBuilder();
-//		bq.must(queryBuilder)
+		dto.setPageNum(0);
+		dto.setPageSize(10);
+		JSONArray arr = impl.findGardensCondition(dto);
+		System.out.println(arr.toJSONString());
 	}
 	@Test
 	public void testFind(){
+		JSONArray arr = new JSONArray();
 		List<String> gardenName = gardenUserRepository.findGardensCondition(1);
 		SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
 		BoolQueryBuilder bq = new BoolQueryBuilder();
@@ -77,9 +81,11 @@ public class GardenTest {
 		SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).setFrom(0).execute().actionGet();
 		System.out.println(requestBuilder);
 		SearchHits hits = response.getHits();
-		for (SearchHit searchHit : hits) {
-			searchHit.getSource();
-		}
+//		hits.forEach(s -> arr.add(s.getSource()));
+		hits.forEach(System.out::println);
+//		for (SearchHit searchHit : hits) {
+//			searchHit.getSource();
+//		}
 	}
 	@Test
 	public void test2(){
@@ -87,7 +93,7 @@ public class GardenTest {
 		orders.add(new Order(Direction.DESC, "updateDate"));*/
 
 //		PageRequest pageRequest = new PageRequest(0, 10);
-		Page<Garden> findGardensList = gardenRepository.findByAreaAndIndustryType("北京", "互联网", new PageRequest(0, 10));
-		System.out.println(findGardensList.iterator().toString());
+//		Page<Garden> findGardensList = gardenRepository.findByAreaAndIndustryType("北京", "互联网", new PageRequest(0, 10));
+//		System.out.println(findGardensList.iterator().toString());
 	}
 }
