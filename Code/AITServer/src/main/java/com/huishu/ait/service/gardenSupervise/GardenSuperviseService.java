@@ -1,7 +1,10 @@
 package com.huishu.ait.service.gardenSupervise;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.entity.CompanyGroup;
 
 /**
  * @author yxq
@@ -18,4 +21,7 @@ public interface GardenSuperviseService {
 	 
 	 //保存分组
 	 public String addCompanyGroup(String groupName);
+	 
+	 //查询分组信息
+	 public List<CompanyGroup> selectCompanyGroup();
 }

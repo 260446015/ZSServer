@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -305,9 +306,7 @@ public abstract class AbstractService {
 		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 		//按orderField包含的字段降序排列
 		if(null!=orderField&&orderField.size()!=0){
-			for (String string : orderField) {
-				srb.addSort(SortBuilders.fieldSort(string).order(SortOrder.DESC));
-			}
+			orderField.forEach((string) -> srb.addSort(SortBuilders.fieldSort(string).order(SortOrder.DESC)));
 		}
 		Integer pageSize = searchModel.getPageSize();
 		Integer pageNumber = searchModel.getPageNumber();
@@ -319,7 +318,7 @@ public abstract class AbstractService {
 		if(null!=searchResponse&&null!=searchResponse.getHits()){
 			SearchHits hits = searchResponse.getHits();
 			total = hits.getTotalHits();
-			for (SearchHit searchHit : hits) {
+			hits.forEach((searchHit)->{
 				Map<String, Object> map = searchHit.getSource();
 				JSONObject obj = new JSONObject();
 				obj.put("id",searchHit.getId());
@@ -330,7 +329,7 @@ public abstract class AbstractService {
 					}
 				}
 				rows.add(obj);
-			}
+			});
 		}
 		searchModel.setTotalSize(Integer.valueOf(total.toString()));
 		for (int i = searchModel.getPageFrom(); i < rows.size(); i++) {

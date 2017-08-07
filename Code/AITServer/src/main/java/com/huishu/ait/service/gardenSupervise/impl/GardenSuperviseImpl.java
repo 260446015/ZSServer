@@ -1,5 +1,6 @@
 package com.huishu.ait.service.gardenSupervise.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -128,6 +129,20 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			state = "failure";
 			log.error("分组保存失败", e.getMessage());
 			return state;
+		}
+	}
+	/* 
+	 * 方法名：selectCompanyGroup
+	 * 描述：查询企业分组
+	 */
+	@Override
+	public List<CompanyGroup> selectCompanyGroup() {
+		try {
+			List<CompanyGroup> list = (List<CompanyGroup>) companyGroupRepository.findAll();
+			return list;
+		} catch (Exception e) {
+			log.error("分组查询失败", e.getMessage());
+			return null;
 		}
 	}
 }

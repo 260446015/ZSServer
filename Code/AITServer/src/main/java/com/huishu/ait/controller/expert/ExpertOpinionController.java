@@ -57,7 +57,7 @@ public class ExpertOpinionController extends BaseController{
 	 * @return
 	 * 获取专家信息列表
 	 */
-	@RequestMapping(value = "getSpecialist.json")
+	@RequestMapping(value = "getSpecialist.json",method=RequestMethod.GET)
 	public AjaxResult getSpecialist(){
 		try {
 			List<Specialist> findAll = specialistService.findAll();
@@ -72,7 +72,7 @@ public class ExpertOpinionController extends BaseController{
 	 * @return
 	 * 查询专家观点
 	 */
-	@RequestMapping(value = "findaExpertOpinion.json")
+	@RequestMapping(value = "findaExpertOpinion.json",method=RequestMethod.POST)
 	public AjaxResult getExpertOpinion(ExpertOpinionDTO requestParam){
 		try {
 			requestParam = initPage(requestParam);
@@ -88,7 +88,7 @@ public class ExpertOpinionController extends BaseController{
 	 * @return
 	 * 根据作者名称查询观点列表
 	 */
-	@RequestMapping(value = "findExpertOpinionByAuthor.json")
+	@RequestMapping(value = "findExpertOpinionByAuthor.json",method=RequestMethod.POST)
 	public AjaxResult getExpertOpinionByAuthor(ExpertOpinionDTO requestParam){
 		try {
 			requestParam = initPage(requestParam);
@@ -104,7 +104,7 @@ public class ExpertOpinionController extends BaseController{
 	 * @return
 	 * 根据ID查询专家观点详情
 	 */
-	@RequestMapping(value = "findExpertOpinionById.json")
+	@RequestMapping(value = "findExpertOpinionById.json",method=RequestMethod.GET)
 	public AjaxResult getExpertOpinionById(String id){
 		try {
 			JSONObject json = expertOpinionService.findExpertOpinionById(id);
@@ -119,13 +119,11 @@ public class ExpertOpinionController extends BaseController{
 	 * @return
 	 * 收藏专家观点
 	 */
-	@RequestMapping(value = "collectExpertOpinion.json")
+	@RequestMapping(value = "collectExpertOpinion.json",method=RequestMethod.GET)
 	public AjaxResult collectExpertOpinion(String id){
 		try {
-			Boolean flag = expertOpinionService.expertOpinionCollect(id);
-			AjaxResult result = new AjaxResult();
-			result.setSuccess(flag);
-			return result;
+			JSONObject json = expertOpinionService.expertOpinionCollect(id);
+			return success(json);
 		} catch (Exception e) {
 			log.error("收藏失败：",e.getMessage());
 			return null;
@@ -136,13 +134,11 @@ public class ExpertOpinionController extends BaseController{
 	 * @return
 	 * 取消收藏专家观点
 	 */
-	@RequestMapping(value = "cancelCollectExpertOpinion.json")
+	@RequestMapping(value = "cancelCollectExpertOpinion.json",method=RequestMethod.GET)
 	public AjaxResult cancelCollectExpertOpinion(String id){
 		try {
-			Boolean flag = expertOpinionService.cancelExpertOpinionCollect(id);
-			AjaxResult result = new AjaxResult();
-			result.setSuccess(flag);
-			return result;
+			JSONObject json = expertOpinionService.cancelExpertOpinionCollect(id);
+			return success(json);
 		} catch (Exception e) {
 			log.error("取消收藏失败：",e.getMessage());
 			return null;

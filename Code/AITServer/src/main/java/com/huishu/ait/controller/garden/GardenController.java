@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.service.garden.GardenService;
@@ -45,7 +43,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="getGardenPolicyList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getGardenPolicyList(AreaSearchDTO searchModel){
+	public AjaxResult getGardenPolicyList(@RequestBody AreaSearchDTO searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -63,7 +61,7 @@ public class GardenController extends BaseController{
 	 * @param id   政策ID
 	 * @return
 	 */
-	@RequestMapping(value="getGardenPolicyById.json",method=RequestMethod.POST)
+	@RequestMapping(value="getGardenPolicyById.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getGardenPolicyById(String id){
 		if(null==id){
@@ -84,7 +82,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="getGardenInformationList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getGardenInformationList(AreaSearchDTO searchModel){
+	public AjaxResult getGardenInformationList(@RequestBody AreaSearchDTO searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -102,7 +100,7 @@ public class GardenController extends BaseController{
 	 * @param id   动态ID
 	 * @return
 	 */
-	@RequestMapping(value="getGardenInformationById.json",method=RequestMethod.POST)
+	@RequestMapping(value="getGardenInformationById.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getGardenInformationById(String id){
 		if(null==id){
@@ -123,7 +121,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="getGardenBusinessList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getGardenBusinessList(AreaSearchDTO searchModel){
+	public AjaxResult getGardenBusinessList(@RequestBody AreaSearchDTO searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -186,7 +184,7 @@ public class GardenController extends BaseController{
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping("/getAttentionGardenList.json")
+	@RequestMapping(value = "/getAttentionGardenList.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getAttentionGardenList(GardenDTO dto){
 	    if(null == dto || StringUtil.isEmpty(String.valueOf(dto.getUserId()))){

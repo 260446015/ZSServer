@@ -2,7 +2,10 @@ package test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 public class TestJava8 {
@@ -40,4 +43,5 @@ public class TestJava8 {
 		a=a+"bb";
 		System.out.println(""+a);
 	}
+	
 }

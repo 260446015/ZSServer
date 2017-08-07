@@ -18,7 +18,7 @@ public interface ExpertOpinionService {
 	//根据id查询专家观点详情
 	JSONObject findExpertOpinionById(String id);
 	//收藏专家观点文章
-	public Boolean expertOpinionCollect(String id);
+	public JSONObject expertOpinionCollect(String id);
 	//取消收藏专家观点文章
-	public Boolean cancelExpertOpinionCollect(String id);
+	public JSONObject cancelExpertOpinionCollect(String id);
 }

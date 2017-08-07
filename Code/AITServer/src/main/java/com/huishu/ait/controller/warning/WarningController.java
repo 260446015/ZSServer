@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,7 +36,7 @@ public class WarningController extends BaseController{
 	 */
 	@RequestMapping(value="getBusinessOutflowList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getBusinessOutflowList(AreaSearchDTO searchModel){
+	public AjaxResult getBusinessOutflowList(@RequestBody  AreaSearchDTO searchModel){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -53,7 +54,7 @@ public class WarningController extends BaseController{
 	 * @param id   政策ID
 	 * @return
 	 */
-	@RequestMapping(value="getBusinessOutflowById.json",method=RequestMethod.POST)
+	@RequestMapping(value="getBusinessOutflowById.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getBusinessOutflowById(String id){
 		if(null==id){
@@ -79,7 +80,8 @@ public class WarningController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			return success(warningService.getInformationChangeList(searchModel));
+			JSONArray array = warningService.getInformationChangeList(searchModel);
+			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
 			LOGGER.error("getBusinessOutflowList查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
