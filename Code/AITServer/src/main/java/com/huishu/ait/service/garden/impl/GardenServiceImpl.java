@@ -123,10 +123,10 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		JSONArray data = new JSONArray();
 		Page<Garden> findGardensPage = null;
 		try{
-			if(StringUtil.isEmpty(area)){
+			if("不限".equals(area)){
 				area = "%%";
 			}
-			if(StringUtil.isEmpty(industryType)){
+			if("不限".equals(industryType)){
 				industryType = "%%";
 			}
 			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
