@@ -29,8 +29,10 @@ public class CompanyTest {
 	@Test
 	public void testFindCompaniesOder() {
 		CompanyDTO dto = new CompanyDTO();
-		dto.setIndustry("高科技");
-		dto.setIndustryLabel("网络游戏");
+		dto.setPageNum(0);
+		dto.setPageSize(10);
+//		dto.setIndustry("高科技");
+//		dto.setIndustryLabel("网络游戏");
 		JSONArray findCompaniesOder = impl.findCompaniesOder(dto);
 		System.out.println(findCompaniesOder.toJSONString());
 	}
