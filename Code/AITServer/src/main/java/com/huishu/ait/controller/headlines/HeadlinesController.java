@@ -46,9 +46,10 @@ public class HeadlinesController extends BaseController {
 	@RequestMapping(value = "/getWordClond.json", method = RequestMethod.POST)
 	public AjaxResult getWordClond(@RequestBody HeadlinesDTO headlinesDTO) {
 		try {
-			boolean b = checkDTO(headlinesDTO);
+			HeadlinesDTO dto = CheckDTO(headlinesDTO);
+			boolean b = checkDTO(dto);
 			if (b) {
-				JSONArray cloud = ecdTransformer.transformWordCloud(service.getWordCloud(headlinesDTO));
+				JSONArray cloud = ecdTransformer.transformWordCloud(service.getWordCloud(dto));
 				return success(cloud);
 			}
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -60,6 +61,24 @@ public class HeadlinesController extends BaseController {
 	}
 
 	/**
+	 * @param headlinesDTO
+	 * @return
+	 */
+	private HeadlinesDTO CheckDTO(HeadlinesDTO DTO) {
+		HeadlinesDTO dto = new HeadlinesDTO();
+		String[] msg = DTO.getMsg();
+		dto.setIndustry(msg[0]);
+		dto.setIndustryLabel(msg[1]);
+		dto.setKeyWord(DTO.getKeyWord());
+		dto.setVector(DTO.getVector());
+		dto.setWordCloudNum(DTO.getWordCloudNum());
+		dto.setStartDate(DTO.getStartDate());
+		dto.setEndDate(DTO.getEndDate());
+		//dto.set
+		return dto;
+	}
+
+	/**
 	 * 产业头条--媒体云图
 	 * @param headlinesDTO
 	 * @return
@@ -68,9 +87,10 @@ public class HeadlinesController extends BaseController {
 	@RequestMapping(value = "/getClondChartList.json", method = RequestMethod.POST)
 	public AjaxResult getCarClondChartList(@RequestBody HeadlinesDTO headlinesDTO) {
 		try {
-			boolean b = checkDTO(headlinesDTO);
+			HeadlinesDTO dto = CheckDTO(headlinesDTO);
+			boolean b = checkDTO(dto);
 			if (b) {
-				return success(service.getCarClondChartList(headlinesDTO));
+				return success(service.getCarClondChartList(dto));
 			}
 			return error(MsgConstant.ILLEGAL_PARAM);
 		} catch (Exception e) {
@@ -89,9 +109,10 @@ public class HeadlinesController extends BaseController {
 	@RequestMapping(value="/getArticleByVectorList.json",method=RequestMethod.POST)
 	public AjaxResult getArticleByVectorList(@RequestBody HeadlinesDTO headlinesDTO){
 			try {
-				 boolean b = checkDTO(headlinesDTO);
+				HeadlinesDTO dto = CheckDTO(headlinesDTO);
+				 boolean b = checkDTO(dto);
 				 if(b){
-					Page<HeadlinesArticleListDTO> page = service.findArticleByVector(headlinesDTO);
+					Page<HeadlinesArticleListDTO> page = service.findArticleByVector(dto);
 					 return success(page);
 				 }
 				 return error(MsgConstant.ILLEGAL_PARAM);
@@ -100,13 +121,19 @@ public class HeadlinesController extends BaseController {
 				return error("参数不合法");
 			}
 		}
+	/**
+	 * 产业头条--关键词查文章
+	 * @param headlinesDTO
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/getArticleByKeyWordList.json",method=RequestMethod.POST)
 	public AjaxResult getArticleByKeyWordList(@RequestBody HeadlinesDTO headlinesDTO ){
 		try {
-			boolean b = checkDTO(headlinesDTO);
+			HeadlinesDTO dto = CheckDTO(headlinesDTO);
+			boolean b = checkDTO(dto);
 			if(b){
-				Page<HeadlinesArticleListDTO> page = service.findArticleByKeyWord(headlinesDTO);
+				Page<HeadlinesArticleListDTO> page = service.findArticleByKeyWord(dto);
 				return success(page);
 			}
 			return error(MsgConstant.ILLEGAL_PARAM);

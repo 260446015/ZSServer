@@ -25,13 +25,22 @@ public class HeadlinesDTO extends AbstractDTO{
 	private String keyWord;
 	/**词云数目*/
 	private Integer wordCloudNum; 
+	/**数组，用来接收前台传过来的参数*/
+	private String [] msg;
 	
-	public String getKeyword() {
+	public String getKeyWord() {
 		return keyWord;
 	}
-	public void setKeyword(String keyWord) {
+	public void setKeyWord(String keyWord) {
 		this.keyWord = keyWord;
 	}
+	public String[] getMsg() {
+		return msg;
+	}
+	public void setMsg(String[] msg) {
+		this.msg = msg;
+	}
+	
 	public Integer getWordCloudNum() {
 		return wordCloudNum;
 	}

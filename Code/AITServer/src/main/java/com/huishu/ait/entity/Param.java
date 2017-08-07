@@ -27,30 +27,27 @@ public class Param implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	/**产业id*/
-	@Column(name="t_id",nullable=true)
-	private Long Iid;
+	
 	/**产业信息*/
 	@Column(name="t_industry_info",nullable=true)
 	private String industryInfo;
+	
 	/**产业标签*/
 	@Column(name="t_industry_lagel")
 	private String industryLagel;
+	
 	/**用户id*/
 	@Column(name="uid")
 	private Long Uid;
+	
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getIid() {
-		return Iid;
-	}
-	public void setIid(Long iid) {
-		Iid = iid;
-	}
+	
 	public String getIndustryInfo() {
 		return industryInfo;
 	}

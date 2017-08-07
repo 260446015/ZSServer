@@ -25,7 +25,7 @@ public class ParamServiceImpl  implements ParamService{
 	@Override
 	public boolean insert(Param info) {
 		 Param save = pr.save(info);
-	    if(save!= null){
+	    if(save != null){
 			 return true;
 		 }
 		return false;

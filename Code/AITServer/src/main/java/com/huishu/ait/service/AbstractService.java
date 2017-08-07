@@ -180,16 +180,15 @@ public abstract class AbstractService {
 		}
 		/** 产业标签 */
 		String industryLabel = headlinesDTO.getIndustryLabel();
-		if (StringUtils.isNotEmpty(industryLabel)) {
-			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
-		}
+		ESUtils.getMoreQueryBuilder("industryLabel",industryLabel);
+		
 		/** 载体 */
 		String vector = headlinesDTO.getVector();
 		if (StringUtils.isNotEmpty(vector)) {
 			bq.must(QueryBuilders.termQuery("vector", vector));
 		}
 		/**关键词*/
-		String keyword = headlinesDTO.getKeyword();
+		String keyword = headlinesDTO.getKeyWord();
 		if(StringUtils.isNotEmpty(keyword)){
 			bq.must(QueryBuilders.fuzzyQuery("content", keyword));
 		}
