@@ -55,14 +55,18 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 				SearchHits hits = actionGet.getHits();
 				for (SearchHit hit : hits) {
 					Map<String, Object> map = hit.getSource();
-					json.put("park", map.get("park"));
-					json.put("area", map.get("area"));
-					json.put("position", map.get("position"));
-					json.put("parkType", map.get("parkType"));
-					//占地面积
-					json.put("floorArea", map.get("floorArea"));
-					//建筑面积
-					json.put("tructureArea", map.get("tructureArea"));
+					if (null != map && map.size()> 0 ) {
+						map.put("_id", hit.getId());
+						json.put("id", map.get("_id"));
+						json.put("park", map.get("park"));
+						json.put("area", map.get("area"));
+						json.put("position", map.get("position"));
+						json.put("parkType", map.get("parkType"));
+						//占地面积
+						json.put("floorArea", map.get("floorArea"));
+						//建筑面积
+						json.put("tructureArea", map.get("tructureArea"));
+					}
 				}
 			}
 			return json;
@@ -89,16 +93,16 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 				for (SearchHit hit : hits) {
 					JSONObject json = new JSONObject();
 					Map<String, Object> map = hit.getSource();
-					json.put("park", map.get("park"));
-					json.put("vector", map.get("vector"));
-					json.put("business", map.get("business"));
-					json.put("businessLegal", map.get("businessLegal"));
-					json.put("position", map.get("position"));
-					//占地面积
-					json.put("floorArea", map.get("floorArea"));
-					//建筑面积
-					json.put("tructureArea", map.get("tructureArea"));
-					jsonArray.add(json);
+					if (null != map && map.size()>0 ) {
+						map.put("_id", hit.getId());
+						json.put("id", map.get("_id"));
+						json.put("park", map.get("park"));
+						json.put("vector", map.get("vector"));
+						json.put("business", map.get("business"));
+						json.put("businessLegal", map.get("businessLegal"));
+						json.put("position", map.get("position"));
+						jsonArray.add(json);
+					}
 				}
 			}
 			return jsonArray;

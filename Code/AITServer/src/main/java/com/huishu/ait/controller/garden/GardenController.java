@@ -181,12 +181,17 @@ public class GardenController extends BaseController{
 	
 	/**
 	 * 获取关注园区列表
-	 * @param dto
+	 * @param dto [id,area,industryType]
 	 * @return
 	 */
 	@RequestMapping(value = "/getAttentionGardenList.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getAttentionGardenList(GardenDTO dto){
+	    String msg[] = dto.getMsg();
+	    dto.setUserId(Integer.parseInt(msg[0]));
+	    dto.setArea(msg[1]);
+	    dto.setIndustryType(msg[2]);
+	    
 	    if(null == dto || StringUtil.isEmpty(String.valueOf(dto.getUserId()))){
 	        return error(MsgConstant.ILLEGAL_PARAM);
 	    }

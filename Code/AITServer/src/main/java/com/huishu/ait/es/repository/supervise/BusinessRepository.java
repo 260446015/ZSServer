@@ -20,6 +20,14 @@ public interface BusinessRepository extends ElasticsearchRepository<AITInfo, Str
      * @param pageable 分页
      * @return
      */
-    public Page<AITInfo> findByParkAndEmotionAndBusiness(String park, String emotion, String business, Pageable pageable);
+    public Page<AITInfo> findByParkAndEmotionAndBusinessAndDimension(String park, String emotion, String business, Pageable pageable);
+    
+    /**
+     * 获取当前园区下的企业动态
+     * @param park
+     * @param pageable
+     * @return
+     */
+    public Page<AITInfo> findByParkAndDimension(String park, String dimension, Pageable pageable);
     
 }

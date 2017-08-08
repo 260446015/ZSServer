@@ -37,7 +37,7 @@ public class ConcersUtils {
 
 	public final static String ALL = "全部";
 
-	public final static Integer PAGE_SIZE = 15;
+	public final static Integer PAGE_SIZE = 8;
 
 	public final static String OPINION = "舆情";
 

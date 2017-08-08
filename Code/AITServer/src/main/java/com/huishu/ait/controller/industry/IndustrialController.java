@@ -43,6 +43,62 @@ public class IndustrialController extends BaseController {
     private IndustrialPolicyService industrialPolicyService;
     
     /**
+     * 获取产业政策列表接口
+     * @param IndustrialPolicyDTO 产业政策查询对象
+     * @return AjaxResult 返回一个对象，里面是数据
+     */
+    @RequestMapping(value="getIndustrialPolicyList.json", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult getIndustrialPolicyList( IndustrialPolicyDTO dto){
+        try{
+            String[] labels = dto.getLabels();
+            dto.setIndustry(labels[0]);
+            dto.setIndustryLabel(labels[1]);
+            dto.setArea(labels[2]);
+            dto.setPeriodDate(labels[3]);
+            
+            JSONArray array = new JSONArray();
+            
+            dto = pageInit(dto);
+            if (dto.getPeriodDate() != null){
+                dto = dateInit(dto);
+                dto.setPeriodDate(null);
+            }
+            Boolean b = checkPolicyDTO(dto);
+            if (b == true){
+                /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
+                array = industrialPolicyService.getIndustrialPolicyList(dto);
+                return success(array).setSuccess(true);
+            }
+            else {
+                return error(MsgConstant.ILLEGAL_PARAM);
+            }
+        }catch(Exception e){
+            log.error("获取产业政策列表失败："+e.getMessage());
+            return error("获取产业政策列表失败"); 
+        }
+    }
+    /**
+     * 获取产业政策详情
+     * @param id 产业政策id
+     * @return
+     */
+    @RequestMapping(value="getIndustrialPolicyDetailById.json", method = RequestMethod.GET)
+    @ResponseBody
+    public AjaxResult getIndustrialPolicyDetailById(String id){
+        try{
+            if(id!="" || id!=null){
+                return success(industrialPolicyService.getIndustrialPolicyDetailById(id));
+            }else{
+                return error(MsgConstant.ILLEGAL_PARAM);
+            }
+        }catch(Exception e){
+            log.error("获取产业政策详情失败："+e.getMessage());
+            return error("获取产业政策详情失败");    
+        }
+    }
+    
+    /**
      * 分页初始处理
      */
     private IndustrialPolicyDTO pageInit(IndustrialPolicyDTO dto){
@@ -63,10 +119,12 @@ public class IndustrialController extends BaseController {
         return dto;
     }
     
+    
+    
     /**
-     * 时间初始处理
+     * 时间初始处理 yyyy-MM-dd HH-mm-ss
      */
-    private IndustrialPolicyDTO dateInit(IndustrialPolicyDTO dto){
+    private IndustrialPolicyDTO dateTimeInit(IndustrialPolicyDTO dto){
         Date date = new Date();
         String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_TIME); //今天的当前时间（获取服务端时间）
         String startTime = DateUtil.getFormatDate(DateUtil.getStartTime(), DateUtil.FORMAT_TIME); //今天的起始时间
@@ -109,56 +167,49 @@ public class IndustrialController extends BaseController {
     }
     
     /**
-     * 获取产业政策列表接口
-     * @param IndustrialPolicyDTO 产业政策查询对象
-     * @return AjaxResult 返回一个对象，里面是数据
-     */
-    @RequestMapping(value="getIndustrialPolicyList.json", method = RequestMethod.POST)
-    @ResponseBody
-    public AjaxResult getIndustrialPolicyList(@RequestBody IndustrialPolicyDTO dto){
-        try{
-            String[] labels = dto.getLabels();
-            dto.setIndustry(labels[0]);
-            dto.setIndustryLabel(labels[1]);
-            dto.setArea(labels[2]);
-            dto.setPeriodDate(labels[3]);
-            
-            dto = pageInit(dto);
-            if (dto.getPeriodDate() != null){
-                dto = dateInit(dto);
-                dto.setPeriodDate(null);
-            }
-            Boolean b = checkPolicyDTO(dto);
-            if (b == true){
-                /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
-                Page<AITInfo> pagedata = industrialPolicyService.getIndustrialPolicyList(dto);
-                return success(pagedata).setSuccess(true);
-            }
-            else {
-                return error(MsgConstant.ILLEGAL_PARAM);
-            }
-        }catch(Exception e){
-            log.error("获取产业政策列表失败："+e.getMessage());
-            return error("获取产业政策列表失败"); 
-        }
-    }
-    /**
-     * 获取产业政策详情
-     * @param id 产业政策id
+     * 时间初始处理 yyyy-MM-dd
+     * @param dto
      * @return
      */
-    @RequestMapping(value="getIndustrialPolicyDetailById.json", method = RequestMethod.GET)
-    @ResponseBody
-    public AjaxResult getIndustrialPolicyDetailById(String id){
-        try{
-            if(id!="" || id!=null){
-                return success(industrialPolicyService.getIndustrialPolicyDetailById(id));
-            }else{
-                return error(MsgConstant.ILLEGAL_PARAM);
-            }
-        }catch(Exception e){
-            log.error("获取产业政策详情失败："+e.getMessage());
-            return error("获取产业政策详情失败");    
+    private IndustrialPolicyDTO dateInit(IndustrialPolicyDTO dto){
+        Date date = new Date();
+        String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_DATE); //今天的当前时间（获取服务端时间）
+        String startTime = DateUtil.getFormatDate(DateUtil.getStartTime(), DateUtil.FORMAT_DATE); //今天的起始时间
+        String yesterAgo = DateUtil.getFormatDate(DateUtil.getYesterAgoStartTime(date), DateUtil.FORMAT_DATE); //昨天的起始时间
+        String weekAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_DATE); //近7天的起始时间
+        String monthAgo = DateUtil.getFormatDate(DateUtil.getMonthAgoStartTime(date), DateUtil.FORMAT_DATE); //一个月内
+        String halfYearAgo = DateUtil.getFormatDate(DateUtil.getHalfYearStartTime(date), DateUtil.FORMAT_DATE); //半年内
+        String yearAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_DATE); //一年内
+        
+        //对时间段进行判断
+        if(dto.getPeriodDate().equals("今日")){
+            dto.setStartDate(startTime);
+            dto.setEndDate(endTime);
         }
+        if(dto.getPeriodDate().equals("昨天")){
+            dto.setStartDate(yesterAgo);
+            dto.setEndDate(startTime);
+        }
+        if(dto.getPeriodDate().equals("近7天")){
+            dto.setStartDate(weekAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("1个月")){
+            dto.setStartDate(monthAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("半年")){
+            dto.setStartDate(halfYearAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("一年")){
+            dto.setStartDate(yearAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("不限")){
+            dto.setStartDate("1980-01-01");
+            dto.setEndDate(endTime);
+        }
+        return dto;
     }
 }

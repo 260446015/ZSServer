@@ -4,6 +4,9 @@ package com.huishu.ait.service.industrialPolicy.impl;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -52,7 +55,8 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
      * 使用springboot
      */
     @Override
-    public Page<AITInfo> getIndustrialPolicyList(IndustrialPolicyDTO dto) {
+    public JSONArray getIndustrialPolicyList(IndustrialPolicyDTO dto) {
+        JSONArray array = new JSONArray();
         if (dto.getIndustryLabel().equals("不限")){
             dto.setIndustryLabel(null);
         }
@@ -60,15 +64,32 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
             dto.setArea(null);
         }
         try{
+            Map<String, Object> map = new HashMap<String, Object>();
+            //按文章类型按照维度获取数据 1,政策解读 2, 高峰论坛  3,科学研究
+            dto.setDimension("政策解读");
             //获取查询对象
             BoolQueryBuilder bq = dto.builderQuery();
+            Page<AITInfo> pagedate1 = industrialPolicyRepository.search(bq,dto.builderPageRequest());
+            dto.setDimension("高峰论坛");
+            bq = dto.builderQuery();
+            Page<AITInfo> pagedate2 = industrialPolicyRepository.search(bq,dto.builderPageRequest());
+            dto.setDimension("科学研究");
+            bq = dto.builderQuery();
+            Page<AITInfo> pagedate3 = industrialPolicyRepository.search(bq,dto.builderPageRequest());
+            
+            map.put("政策解读", pagedate1);
+            map.put("高峰论坛", pagedate2);
+            map.put("科学研究", pagedate3);
+            
+            array.add(map);
+            
             //获取查询结果
-            Page<AITInfo> pagedata  = industrialPolicyRepository.search(bq,dto.builderPageRequest());
-            return pagedata;
+//            Page<AITInfo> pagedata  = industrialPolicyRepository.search(bq,dto.builderPageRequest());
+            return array;
         }
         catch(Exception e){
             log.error("查询产业政策列表失败",e);
-            return null;
+            return array;
         }
     }
     

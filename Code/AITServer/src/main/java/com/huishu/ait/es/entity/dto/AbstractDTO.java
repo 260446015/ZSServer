@@ -84,13 +84,22 @@ public abstract class AbstractDTO {
 			String startDate = (String) getValueByFieldName(this, "startDate");
 			String endDate = (String) getValueByFieldName(this, "endDate");
 			
-			if (!isEmpty(startDate) && !isEmpty(endDate)) {
-				QueryBuilder range = QueryBuilders
-						.rangeQuery("publishDateTime")
-						.gte(startDate)
-						.lte(endDate);
-				queryBuilder.must(range);
+			if (startDate.length()>10) { 
+    			if (!isEmpty(startDate) && !isEmpty(endDate)) {
+    				QueryBuilder range = QueryBuilders
+    						.rangeQuery("publishDateTime") //yyyy-MM-dd HH:mm:ss
+    						.gte(startDate)
+    						.lte(endDate);
+    				queryBuilder.must(range);
+    			}
 			}
+			if (!isEmpty(startDate) && !isEmpty(endDate)) {
+                QueryBuilder range = QueryBuilders
+                        .rangeQuery("publishDate") //yyyy-MM-dd
+                        .gte(startDate)
+                        .lte(endDate);
+                queryBuilder.must(range);
+            }
 		}
 		
 		if (fieldNames.contains("keyword")) {

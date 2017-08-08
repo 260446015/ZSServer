@@ -76,6 +76,12 @@ public class ExpertOpinionController extends BaseController{
 	public AjaxResult getExpertOpinion(ExpertOpinionDTO requestParam){
 		try {
 			requestParam = initPage(requestParam);
+			String[] msg = requestParam.getMsg();
+			if (null != msg && msg.length > 0 ) {
+				requestParam.setIndustry(requestParam.getMsg()[0]);
+				requestParam.setIndustryLabel(requestParam.getMsg()[1]);
+				requestParam.setTimeFlag(requestParam.getMsg()[2]);
+			}
 			JSONArray jsonArray = expertOpinionService.getExertOpinionList(requestParam);
 			return this.success(jsonArray);
 		} catch (Exception e) {
