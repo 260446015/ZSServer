@@ -13,7 +13,6 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,15 +31,12 @@ import com.huishu.ait.security.ShiroDbRealm;
 @Configuration
 public class ShiroConfiguration {
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenController.class);
-	//必须保证有序
+	//拦截器，必须保证有序
 	private final static Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 	private final static Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
 
 	/**
 	 * ShiroFilter
-	 * 注册DelegatingFilterProxy（Shiro） 集成Shiro有2种方法：
-	 *  1.按这个方法自己组装一个FilterRegistrationBean（这种方法更为灵活，可以自己定义UrlPattern，在项目使用中你可能会因为一些很但疼的问题最后采用它， 想使用它你可能需要看官网或者已经很了解Shiro的处理原理了）
-	 *  2.直接使用ShiroFilterFactoryBean（这种方法比较简单，其内部对ShiroFilter做了组装工作，无法自己定义UrlPattern， 默认拦截 /* ）
 	 * @return
 	 */
 	@Bean(name = "shiroFilter")
@@ -53,27 +49,23 @@ public class ShiroConfiguration {
 		 */
 		filterChainDefinitionMap.put("/logout.do", "logout");
 
-//		filterChainDefinitionMap.put("/security/generateKey.do", "anon");
-//		filterChainDefinitionMap.put("/security/captcha.do", "anon");
-//		filterChainDefinitionMap.put("/addTrial.json", "anon");
-//		filterChainDefinitionMap.put("/getPhoneCaptcha.json", "anon");
-//		filterChainDefinitionMap.put("/findPassword.json", "anon");
+		filterChainDefinitionMap.put("/security/generateKey.do", "anon");
+		filterChainDefinitionMap.put("/security/captcha.do", "anon");
+		filterChainDefinitionMap.put("/addTrial.json", "anon");
+		filterChainDefinitionMap.put("/getPhoneCaptcha.json", "anon");
+		filterChainDefinitionMap.put("/findPassword.json", "anon");
 
 		filterChainDefinitionMap.put("/img/**", "anon");
 		filterChainDefinitionMap.put("/css/**", "anon");
 		filterChainDefinitionMap.put("/js/**", "anon");
-//		filterChainDefinitionMap.put("/**", "user");
+//		filterChainDefinitionMap.put("/**", "authc");
 		filterChainDefinitionMap.put("/**", "anon");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
-		filters.put("authc", new MyFormAuthenticationFilter());
-		filters.put("user", new MyUserFilter());
-//		shiroFilterFactoryBean.setFilters(filters);
-
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
-		shiroFilterFactoryBean.setUnauthorizedUrl("/login");
 		shiroFilterFactoryBean.setLoginUrl("/login.do");
 		shiroFilterFactoryBean.setSuccessUrl("/");
+		shiroFilterFactoryBean.setUnauthorizedUrl("/login");
 		return shiroFilterFactoryBean;
 	}
 	
@@ -84,25 +76,25 @@ public class ShiroConfiguration {
 	@Bean(name = "securityManager")
 	public DefaultWebSecurityManager getDefaultWebSecurityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		
-		//进行session会话管理之后，控制台会报session失效 的错误，在springboot的环境下暂时没有找到解决方法
-		//securityManager.setSessionManager(new DefaultWebSessionManager());
+		securityManager.setSessionManager(new DefaultWebSessionManager());
 		securityManager.setRealm(getShiroDbRealm());
 		LOGGER.info("===============shiro已经加载================");
 		// 用户授权/认证信息Cache
 		securityManager.setCacheManager(getEhCacheManager());
+//		securityManager.setRememberMeManager(rememberMeManager);
 		return securityManager;
 	}
 	
 	/**
 	 * 配置自定义的权限登录器
+	 * (这个需要自己写，账号密码校验；权限等)
 	 * @return
 	 */
 	@Bean(name = "shiroDbRealm")
 	public ShiroDbRealm getShiroDbRealm() {
 		ShiroDbRealm shiroRealm = new ShiroDbRealm();
 		//配置自定义的密码比较器
-		shiroRealm.setCredentialsMatcher(new CustomCredentialsMatcher());
+		shiroRealm.setCredentialsMatcher(getCustomCredentialsMatcher());
 		return shiroRealm;
 	}
 
@@ -117,30 +109,35 @@ public class ShiroConfiguration {
 		return em;
 	}
 
-	//下面这三。。。。。。
 	@Bean(name = "lifecycleBeanPostProcessor")
 	    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
 	        return new LifecycleBeanPostProcessor();
     }
-	 
-  /*  @Bean
-    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
-        DefaultAdvisorAutoProxyCreator creator=new DefaultAdvisorAutoProxyCreator();
-        creator.setProxyTargetClass(true);
-        return creator;
-    }*/
-    
+	
+	/**
+	 * 开启shiro aop注解支持.
+	 * @return
+	 */
     @Bean(name = "authorizationAttributeSourceAdvisor")
     public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor() {
         AuthorizationAttributeSourceAdvisor auth = new AuthorizationAttributeSourceAdvisor();
         auth.setSecurityManager(getDefaultWebSecurityManager());
         return auth;
     }
+    
+    /**
+     * FormAuthenticationFilter
+     * @return
+     */
     @Bean(name = "loginFormAuthenticationFilter")
     public MyFormAuthenticationFilter getMyFormAuthenticationFilter() {
         return new MyFormAuthenticationFilter();
     }
 
+    /**
+     * 自定义校验密码
+     * @return
+     */
     @Bean(name = "customCredentialsMatcher")
     public CustomCredentialsMatcher getCustomCredentialsMatcher() {
         return new CustomCredentialsMatcher();

@@ -6,12 +6,21 @@ package com.huishu.ait.common.conf;
  * 该类放一些返回信息相关的常量
  */
 public class MsgConstant {
-
+	 /**
+     * 登录成功
+     */
+    public static final String LOGIN_SUCCESS = "登录成功";
+    
+    /**
+     * 登录失败
+     */
+    public static final String LOGIN_ERRROR = "登录失败";
+    
     /**
      * 用户名或密码错误
      **/
     public static final String CREDENTIAL_ERROR = "用户名或密码错误";
-
+    
     /**
      * 验证码错误
      **/
