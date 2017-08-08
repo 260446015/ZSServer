@@ -36,11 +36,20 @@ public class LoginController extends BaseController{
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
     /**
+     * 根路径访问
+     * @return  返回登录模板页
+     */
+    @RequestMapping(value = "/")
+    public String tologin() {
+        return "login";
+    }
+    
+    /**
      * 模板页
      * @param request 请求
      * @return 返回登录模板页
      */
-    @RequestMapping(value = "/login.do", method = RequestMethod.GET)
+    @RequestMapping(value = "login.do", method = RequestMethod.GET)
     public String login(HttpServletRequest request) {
         Subject user = SecurityUtils.getSubject();
         if (user.isAuthenticated()) {
