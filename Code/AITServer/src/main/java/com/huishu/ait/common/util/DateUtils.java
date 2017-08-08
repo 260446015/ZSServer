@@ -321,4 +321,83 @@ public abstract class DateUtils {
 		return Date.from(datetime.atZone(zone).toInstant());
 	}
 	
+	/**
+	 * @return
+	 * 获取今天的时间 返回字符串时间
+	 */
+	public static String getTodayDate1() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        //今天
+        c.setTime(new Date());
+        c.add(Calendar.DATE, - 0);
+        Date a = c.getTime();
+        String day1 = format.format(a);
+		return day1;
+	} 
+	/**
+	 * @return
+	 * 获取昨天的时间 返回昨天的时间字符串
+	 */
+	public static String getYesterdayDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+		//昨天
+        c.setTime(new Date());
+        c.add(Calendar.DATE, - 1);
+        Date b = c.getTime();
+        String day2 = format.format(b);
+		return day2;
+	} 
+	public static String getLast7Date() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+		 //过去七天
+        c.setTime(new Date());
+        c.add(Calendar.DATE, - 7);
+        Date d = c.getTime();
+        String day = format.format(d);
+		return day;
+	} 
+	public static String getLast30Date() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+		  //过去一月
+        c.setTime(new Date());
+        c.add(Calendar.MONTH, -1);
+        Date m = c.getTime();
+        String mon = format.format(m);
+		return mon;
+	} 
+	public static String getLast90Date() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		  //过去三个月
+        c.setTime(new Date());
+        c.add(Calendar.MONTH, -3);
+        Date m3 = c.getTime();
+        String mon3 = format.format(m3);
+		return mon3;
+	} 
+	public static String getHalfYearDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		 //过去一年
+        c.setTime(new Date());
+        c.add(Calendar.MONTH, -6);
+        Date m6 = c.getTime();
+        String mon6 = format.format(m6);
+		return mon6;
+	}
+	public static String getLast365Date() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		//过去一年
+		c.setTime(new Date());
+		c.add(Calendar.YEAR, -1);
+		Date y = c.getTime();
+		String year = format.format(y);
+		return year;
+	}
+	
 }

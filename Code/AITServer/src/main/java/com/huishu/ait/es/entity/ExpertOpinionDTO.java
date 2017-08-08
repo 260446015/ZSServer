@@ -5,13 +5,15 @@ import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.huishu.ait.es.entity.dto.AbstractDTO;
+
 
 /**
  * @author yxq
  *	专家观点的dto
  */
 @Document(indexName = INDEX, type = TYPE)
-public class ExpertOpinionDTO extends AITInfo{
+public class ExpertOpinionDTO extends AbstractDTO{
 	
 	/**开始时间*/
 	private  String startDate ;
@@ -21,6 +23,12 @@ public class ExpertOpinionDTO extends AITInfo{
 	private String SortByHotFlag;
 	/*根据时间排序标识*/
 	private String SortByTimeFlag;
+	private String timeFlag;
+	private String author;
+	private String industry;
+	private String industryLabel;
+	private String[] msg={};
+	
 	/*专家观点所属栏目*/
 	private String lanmu;
 	private Integer pageNumber;
@@ -67,5 +75,35 @@ public class ExpertOpinionDTO extends AITInfo{
 	}
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+	public String getTimeFlag() {
+		return timeFlag;
+	}
+	public void setTimeFlag(String timeFlag) {
+		this.timeFlag = timeFlag;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public String getIndustry() {
+		return industry;
+	}
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+	public String getIndustryLabel() {
+		return industryLabel;
+	}
+	public void setIndustryLabel(String industryLabel) {
+		this.industryLabel = industryLabel;
+	}
+	public String[] getMsg() {
+		return msg;
+	}
+	public void setMsg(String[] msg) {
+		this.msg = msg;
 	}
 }

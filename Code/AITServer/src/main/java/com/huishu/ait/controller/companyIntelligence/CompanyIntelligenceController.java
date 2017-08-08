@@ -34,6 +34,18 @@ public class CompanyIntelligenceController extends BaseController {
 	public AjaxResult getCompanyIntelligenceList(CompanyIntelligenceDTO dto){
 		try {
 			dto = initPage(dto);
+			String[] msg = dto.getMsg();
+			if (null != msg) {
+				if (msg.length == 2) {
+					dto.setEmotion(msg[0]);
+					dto.setTimeFlag(msg[1]);
+				}
+				if (msg.length == 3) {
+					dto.setEmotion(msg[0]);
+					dto.setStartDate(msg[1]);
+					dto.setEndDate(msg[2]);
+				}
+			}
 			JSONArray json = companyIntelligenceService.getCompanyIntelligenceList(dto);
 			return success(json);
 		} catch (Exception e) {

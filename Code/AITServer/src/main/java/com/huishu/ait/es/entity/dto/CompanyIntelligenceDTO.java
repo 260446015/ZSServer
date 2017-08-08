@@ -25,6 +25,8 @@ public class CompanyIntelligenceDTO extends AbstractDTO{
     private String startDate;
     private String endDate;
     
+    private String[] msg={};
+    private String timeFlag;
     /** 分页 */
     private Integer pageNumber;
     private Integer pageSize;
@@ -77,5 +79,16 @@ public class CompanyIntelligenceDTO extends AbstractDTO{
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
-    
+	public String[] getMsg() {
+		return msg;
+	}
+	public void setMsg(String[] msg) {
+		this.msg = msg;
+	}
+	public String getTimeFlag() {
+		return timeFlag;
+	}
+	public void setTimeFlag(String timeFlag) {
+		this.timeFlag = timeFlag;
+	}
 }

@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.ExpertOpinionDetail;
 import com.huishu.ait.es.entity.AITInfo;
@@ -57,10 +58,15 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			//获取参数
 			String industry = requestParam.getIndustry();
 			String industryLabel = requestParam.getIndustryLabel();
-			String sortByHotFlag = requestParam.getSortByHotFlag();
-			String sortByTimeFlag = requestParam.getSortByTimeFlag();
-			String startDate = requestParam.getStartDate();
-			String endDate = requestParam.getEndDate();
+			String timeFlag = requestParam.getTimeFlag();
+			String startDate = null;
+			String endDate = null;
+			String dateCheck = DateCheck.dateCheck(timeFlag);
+			if (null != dateCheck) {
+				String[] split = dateCheck.split("@");
+				startDate = split[0];
+				endDate = split[1];
+			}
 			int pageNumber = requestParam.getPageNumber();
 			int pageSize = requestParam.getPageSize();
 			int from = (pageNumber-1)*pageSize;
@@ -73,32 +79,30 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			if (StringUtils.isNotEmpty(industry)) {
 				bq.must(QueryBuilders.termQuery("industry", industry));
 			}
-			if (StringUtils.isNotBlank(industryLabel)) {
+			if (StringUtils.isNotBlank(industryLabel) && !"不限".equals(industryLabel)) {
 				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 			}
 			if (StringUtils.isNotEmpty(startDate) && StringUtils.isNotEmpty(endDate)) {
 				bq.must(QueryBuilders.rangeQuery("publishDate").from(startDate).to(endDate));
 			}
 			
-			/*//点击根据热度或者发布时间排序
-			if (null != sortByHotFlag) {
-				requestBuilder.addSort("hitCount", SortOrder.DESC);
-			}
-			if (null != sortByTimeFlag) {
-				requestBuilder.addSort("publishDateTime", SortOrder.DESC);
-			}*/
 			SearchResponse actionGet = requestBuilder.execute().actionGet();
 			SearchHits hits = actionGet.getHits();
 			if (null !=hits ) {
 				for (SearchHit hit : hits) {
-					Map<String, Object> source = hit.getSource();
-						if (null != source && source.size() > 0 ) {
+					Map<String, Object> map = hit.getSource();
+						if (null != map && map.size() > 0 ) {
 							JSONObject jsonObject = new JSONObject();
-							source.put("_id", hit.getId());
-							Set<Entry<String, Object>> entrySet = source.entrySet();
-								for (Entry<String, Object> entry : entrySet) {
-									jsonObject.put(entry.getKey(), entry.getValue());
-								}
+							map.put("_id", hit.getId());
+							map.put("total", hits.getTotalHits());
+							jsonObject.put("id", map.get("_id"));
+							jsonObject.put("publishDate", map.get("publishDate"));
+							jsonObject.put("title", map.get("title"));
+							jsonObject.put("content", map.get("content"));
+							jsonObject.put("author", map.get("author"));
+							jsonObject.put("sourceLink", map.get("sourceLink"));
+							jsonObject.put("source", map.get("source"));
+							jsonObject.put("total", map.get("total"));
 							data.add(jsonObject);
 					}
 				}
@@ -139,11 +143,14 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 					Map<String, Object> source = hit.getSource();
 					if (null!= source && source.size() > 0) {
 						source.put("_id", hit.getId());
+						source.put("total", hits.getTotalHits());
 						JSONObject jsonObject = new JSONObject();
-						Set<Entry<String, Object>> entrySet = source.entrySet();
-						for (Entry<String, Object> entry : entrySet) {
-							jsonObject.put(entry.getKey(), entry.getValue());
-						}
+						jsonObject.put("id", source.get("_id"));
+						jsonObject.put("title", source.get("title"));
+						jsonObject.put("content", source.get("content"));
+						jsonObject.put("dimension", source.get("dimension"));
+						jsonObject.put("publishDate", source.get("publishDate"));
+						jsonObject.put("total", source.get("total"));
 						data.add(jsonObject);
 					}
 				}

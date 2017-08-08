@@ -1,25 +1,20 @@
 package com.huishu.ait.controller.supervise;
 
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.CompanyGroup;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.es.entity.ExpertOpinionDTO;
-import com.huishu.ait.es.entity.dto.CompanyIntelligenceDTO;
-import com.huishu.ait.service.companyIntelligence.CompanyIntelligenceService;
 import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
 
 /**
@@ -75,14 +70,17 @@ public class GardenSuperviseController extends BaseController {
 	public AjaxResult addCompanyGroup(String groupName){
 		JSONObject result = new JSONObject();
 		try {
-			String state = gardenSuperviseService.addCompanyGroup(groupName);
-			if ("success".equals(state)) {
-				result.put("state", "success");
+			if (null != groupName && !"".equals(groupName)) {
+				String state = gardenSuperviseService.addCompanyGroup(groupName);
+				if ("success".equals(state)) {
+					result.put("state", "success");
+				}
+				if ("分组已经存在".equals(state)) {
+					result.put("state", "分组已经存在");
+				}
+				return success(result);
 			}
-			if ("分组已经存在".equals(state)) {
-				result.put("state", "分组已经存在");
-			}
-			return success(result);
+			return null;
 		} catch (Exception e) {
 			result.put("state", "failure");
 			log.error("分组添加失败", e.getMessage());

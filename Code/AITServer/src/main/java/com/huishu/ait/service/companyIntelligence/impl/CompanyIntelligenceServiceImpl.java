@@ -1,5 +1,7 @@
 package com.huishu.ait.service.companyIntelligence.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,10 +17,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.es.entity.dto.CompanyIntelligenceDTO;
 import com.huishu.ait.service.companyIntelligence.CompanyIntelligenceService;
@@ -45,8 +47,19 @@ public class CompanyIntelligenceServiceImpl implements CompanyIntelligenceServic
 			//获取参数
 			String company = dto.getBusiness();
 			String emotion = dto.getEmotion();
-			String startDate = dto.getStartDate();
-			String endDate = dto.getEndDate();
+			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+			
+			String startDate = format2.format(format1.parse(dto.getStartDate()));
+			String endDate = format2.format(format1.parse(dto.getEndDate()));
+			String dateCheck = DateCheck.dateCheck(dto.getTimeFlag());
+			if (null == startDate && null == endDate) {
+				if (null != dateCheck) {
+					String[] split = dateCheck.split("@");
+					startDate = split[0];
+					endDate = split[1];			
+				}
+			}
 			Integer pageNumber = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
 			int from = (pageNumber - 1)*pageSize;
@@ -74,14 +87,18 @@ public class CompanyIntelligenceServiceImpl implements CompanyIntelligenceServic
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
 				Map<String, Object> map = searchHit.getSource();
-				JSONObject json = new JSONObject();
-				json.put("id", map.get("_id"));
-				json.put("publishDate", map.get("publishDate"));
-				json.put("title", map.get("title"));
-				json.put("content", map.get("content"));
-				json.put("source", map.get("source"));
-				json.put("dimension", map.get("dimension"));
-				result.add(json);
+				if (null != map && map.size()> 0 ){
+					map.put("_id", searchHit.getId());
+					map.put("total", hits.getTotalHits());
+					JSONObject json = new JSONObject();
+					json.put("id", map.get("_id"));
+					json.put("publishDate", map.get("publishDate"));
+					json.put("title", map.get("title"));
+					json.put("content", map.get("content"));
+					json.put("source", map.get("source"));
+					json.put("dimension", map.get("dimension"));
+					result.add(json);
+				}
 			}
 			return result;
 		} catch (Exception e) {
