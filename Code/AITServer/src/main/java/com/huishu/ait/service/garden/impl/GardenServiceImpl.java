@@ -176,11 +176,14 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
         try{
             PageRequest pageRequest = new PageRequest(dto.getPageNum(), dto.getPageSize());
             Page<GardenUser> page = null;
-            if(StringUtil.isEmpty(area) && StringUtil.isEmpty(industryType)){
+                //对area 和 industryType 没有约束条件，全部查询
+            if (dto.getArea().equals("不限") && dto.getIndustryType().equals("不限")) {
                 page = gardenUserRepository.findByUserId(userId, pageRequest);
-            }else if(!StringUtil.isEmpty(area) && StringUtil.isEmpty(industryType)){
+                //对 area 没有约束，根据 id 和 industryType 查询 
+            }else if ((!dto.getArea().equals("不限")) && dto.getIndustryType().equals("不限")) {
                 page = gardenUserRepository.findByUserIdAndArea(userId, area, pageRequest);
-            }else if(!StringUtil.isEmpty(industryType) && StringUtil.isEmpty(area)){
+                //对 industryType 没有约束，根据 id 和 area 进行查询
+            }else if (dto.getArea().equals("不限") && (!dto.getIndustryType().equals("不限"))) {
                 page = gardenUserRepository.findByUserIdAndIndustryType(userId, industryType, pageRequest);
             }else{
                 page = gardenUserRepository.findByUserIdAndAreaAndIndustryType(userId, area, industryType, pageRequest);

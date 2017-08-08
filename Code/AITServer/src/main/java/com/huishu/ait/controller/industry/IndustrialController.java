@@ -115,13 +115,15 @@ public class IndustrialController extends BaseController {
      */
     @RequestMapping(value="getIndustrialPolicyList.json", method = RequestMethod.POST)
     @ResponseBody
-    public AjaxResult getIndustrialPolicyList(@RequestBody IndustrialPolicyDTO dto){
+    public AjaxResult getIndustrialPolicyList( IndustrialPolicyDTO dto){
         try{
             String[] labels = dto.getLabels();
             dto.setIndustry(labels[0]);
             dto.setIndustryLabel(labels[1]);
             dto.setArea(labels[2]);
             dto.setPeriodDate(labels[3]);
+            
+            JSONArray array = new JSONArray();
             
             dto = pageInit(dto);
             if (dto.getPeriodDate() != null){
@@ -131,8 +133,8 @@ public class IndustrialController extends BaseController {
             Boolean b = checkPolicyDTO(dto);
             if (b == true){
                 /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
-                Page<AITInfo> pagedata = industrialPolicyService.getIndustrialPolicyList(dto);
-                return success(pagedata).setSuccess(true);
+                array = industrialPolicyService.getIndustrialPolicyList(dto);
+                return success(array).setSuccess(true);
             }
             else {
                 return error(MsgConstant.ILLEGAL_PARAM);

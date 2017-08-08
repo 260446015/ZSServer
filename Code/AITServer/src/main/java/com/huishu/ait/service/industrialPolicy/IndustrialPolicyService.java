@@ -1,6 +1,5 @@
 package com.huishu.ait.service.industrialPolicy;
 
-import org.springframework.data.domain.Page;
 
 //import org.springframework.data.domain.Page;
 
@@ -23,7 +22,7 @@ public interface IndustrialPolicyService {
      * @param dto
      * @return
      */
-    Page<AITInfo> getIndustrialPolicyList(IndustrialPolicyDTO dto);
+    JSONArray getIndustrialPolicyList(IndustrialPolicyDTO dto);
     
     /**
      * 根据产业政策id，获取其详细信息
