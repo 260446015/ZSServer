@@ -49,6 +49,7 @@ public class BusinessController extends BaseController {
                 return error(MsgConstant.ILLEGAL_PARAM);
             }
             dto = initPage(dto);
+            dto.setDimension("园区动态");
             Page<AITInfo> pagedata = businessService.getBusinessBehaviours(dto);
             return success(pagedata).setSuccess(true);
         }catch(Exception e){
@@ -74,6 +75,40 @@ public class BusinessController extends BaseController {
         }
         catch(Exception e){
             LOGGER.error("获取企业动态详情失败：",e);
+            return error(MsgConstant.ILLEGAL_PARAM);
+        }
+    }
+    /**
+     * 
+     * @param dto msg[park,keyword]
+     * @return
+     */
+    @RequestMapping(value="/searchBusinessBehaviours.json", method = RequestMethod.POST)
+    public AjaxResult searchBusinessBehaviours(BusinessSuperviseDTO dto){
+        
+        if (null == dto) {
+            return error(MsgConstant.ILLEGAL_PARAM);
+        }
+        //获取参数数组
+        String[] msg = dto.getMsg();
+        //分别赋值
+        if (StringUtil.isEmpty(msg[0])) {
+            return error(MsgConstant.ILLEGAL_PARAM);
+        }else {
+            dto.setPark(msg[0]);
+        }
+        if (!StringUtil.isEmpty(msg[1])) {
+            dto.setKeyword(msg[1]);
+        }
+        try {
+            Page<AITInfo> page = null;
+            dto.setEmotion("园区动态");
+            dto = initPage(dto);
+            page = businessService.searchBusinessBehaviours(dto);
+            
+            return success(page).setSuccess(true);
+        } catch (Exception e) {
+            LOGGER.error("关键字查询企业动态列表失败：", e);
             return error(MsgConstant.ILLEGAL_PARAM);
         }
     }

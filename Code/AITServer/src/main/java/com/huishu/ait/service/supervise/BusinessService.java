@@ -33,7 +33,7 @@ public interface BusinessService {
      * @param dto
      * @return
      */
-    public JSONArray searchBusinessBehaviours(BusinessSuperviseDTO dto);
+    public Page<AITInfo> searchBusinessBehaviours(BusinessSuperviseDTO dto);
     
     
    

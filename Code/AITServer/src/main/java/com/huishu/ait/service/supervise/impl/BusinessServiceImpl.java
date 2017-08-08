@@ -1,5 +1,7 @@
 package com.huishu.ait.service.supervise.impl;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 import com.huishu.ait.es.repository.supervise.BusinessRepository;
@@ -50,9 +53,10 @@ public class BusinessServiceImpl implements BusinessService {
         String park = dto.getPark();
         String business = dto.getBusiness();
         String emotion = dto.getEmotion();
+        String dimension = dto.getDimension();
         PageRequest pageable = dto.builderPageRequest();
         try{
-            Page<AITInfo> page = businessRepository.findByParkAndEmotionAndBusiness(park, emotion, business, pageable);
+            Page<AITInfo> page = businessRepository.findByParkAndEmotionAndBusinessAndDimension(park, emotion, business, pageable);
             return page;
         }catch(Exception e){
             logger.error("获取企业动态数据失败",e);
@@ -62,16 +66,25 @@ public class BusinessServiceImpl implements BusinessService {
 
     /** 经过关键字搜索企业动态列表 */
     @Override
-    public JSONArray searchBusinessBehaviours(BusinessSuperviseDTO dto) {
-        JSONArray array = new JSONArray();
+    public Page<AITInfo> searchBusinessBehaviours(BusinessSuperviseDTO dto) {
+//        JSONArray array = new JSONArray();
+        String park = dto.getPark();
+        String dimension = dto.getDimension();
+        PageRequest pageable = dto.builderPageRequest();
         try{
-            if(dto == null){
-                return null;
-            }
-            
             Page<AITInfo> page = null;
-            return null;
-            
+            //如果关键词为空值
+            if (StringUtil.isEmpty(dto.getKeyword())){
+                page = businessRepository.findByParkAndDimension(park, dimension, pageable);
+            }else{
+                //先把关键词取出来
+                String s = dto.getKeyword();
+                dto.setKeyword(null);
+                BoolQueryBuilder bq = dto.builderQuery();
+                bq.must(QueryBuilders.queryStringQuery(s));//全局匹配
+                page = businessRepository.search(bq, pageable);
+            }
+            return page;
         }catch(Exception e){
             logger.error("查询企业动态列表失败",e);
             return null;

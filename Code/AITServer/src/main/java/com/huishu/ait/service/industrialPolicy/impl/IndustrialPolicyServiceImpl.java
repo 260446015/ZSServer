@@ -65,15 +65,15 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
         }
         try{
             Map<String, Object> map = new HashMap<String, Object>();
-            //按文章类型分类获取数据 1,政策解读 2, 高峰论坛  3,科学研究
-            dto.setArticleType("政策解读");
+            //按文章类型按照维度获取数据 1,政策解读 2, 高峰论坛  3,科学研究
+            dto.setDimension("政策解读");
             //获取查询对象
             BoolQueryBuilder bq = dto.builderQuery();
             Page<AITInfo> pagedate1 = industrialPolicyRepository.search(bq,dto.builderPageRequest());
-            dto.setArticleType("高峰论坛");
+            dto.setDimension("高峰论坛");
             bq = dto.builderQuery();
             Page<AITInfo> pagedate2 = industrialPolicyRepository.search(bq,dto.builderPageRequest());
-            dto.setArticleType("科学研究");
+            dto.setDimension("科学研究");
             bq = dto.builderQuery();
             Page<AITInfo> pagedate3 = industrialPolicyRepository.search(bq,dto.builderPageRequest());
             
@@ -89,7 +89,7 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
         }
         catch(Exception e){
             log.error("查询产业政策列表失败",e);
-            return null;
+            return array;
         }
     }
     

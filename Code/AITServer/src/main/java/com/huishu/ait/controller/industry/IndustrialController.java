@@ -43,72 +43,6 @@ public class IndustrialController extends BaseController {
     private IndustrialPolicyService industrialPolicyService;
     
     /**
-     * 分页初始处理
-     */
-    private IndustrialPolicyDTO pageInit(IndustrialPolicyDTO dto){
-        /*
-         * 如果没传入当前页，将当前页设定为0
-         * 如果没有单页最大数据量，将数据量设定为15
-         * 如果单页数据量大于1000，将其设定为1000
-         */
-        if(dto.getPageNumber()==null){
-            dto.setPageNumber(0);
-        }
-        if(dto.getPageSize()==null){
-            dto.setPageSize(15);
-        }
-        if(dto.getPageSize()>1000){
-            dto.setPageSize(1000);
-        }
-        return dto;
-    }
-    
-    /**
-     * 时间初始处理
-     */
-    private IndustrialPolicyDTO dateInit(IndustrialPolicyDTO dto){
-        Date date = new Date();
-        String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_TIME); //今天的当前时间（获取服务端时间）
-        String startTime = DateUtil.getFormatDate(DateUtil.getStartTime(), DateUtil.FORMAT_TIME); //今天的起始时间
-        String yesterAgo = DateUtil.getFormatDate(DateUtil.getYesterAgoStartTime(date), DateUtil.FORMAT_TIME); //昨天的起始时间
-        String weekAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_TIME); //近7天的起始时间
-        String monthAgo = DateUtil.getFormatDate(DateUtil.getMonthAgoStartTime(date), DateUtil.FORMAT_TIME); //一个月内
-        String halfYearAgo = DateUtil.getFormatDate(DateUtil.getHalfYearStartTime(date), DateUtil.FORMAT_TIME); //半年内
-        String yearAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_TIME); //一年内
-        
-        //对时间段进行判断
-        if(dto.getPeriodDate().equals("今日")){
-            dto.setStartDate(startTime);
-            dto.setEndDate(endTime);
-        }
-        if(dto.getPeriodDate().equals("昨天")){
-            dto.setStartDate(yesterAgo);
-            dto.setEndDate(startTime);
-        }
-        if(dto.getPeriodDate().equals("近7天")){
-            dto.setStartDate(weekAgo);
-            dto.setEndDate(endTime);
-        }
-        if(dto.getPeriodDate().equals("1个月")){
-            dto.setStartDate(monthAgo);
-            dto.setEndDate(endTime);
-        }
-        if(dto.getPeriodDate().equals("半年")){
-            dto.setStartDate(halfYearAgo);
-            dto.setEndDate(endTime);
-        }
-        if(dto.getPeriodDate().equals("一年")){
-            dto.setStartDate(yearAgo);
-            dto.setEndDate(endTime);
-        }
-        if(dto.getPeriodDate().equals("不限")){
-            dto.setStartDate("1980-01-01 00:00:01");
-            dto.setEndDate(endTime);
-        }
-        return dto;
-    }
-    
-    /**
      * 获取产业政策列表接口
      * @param IndustrialPolicyDTO 产业政策查询对象
      * @return AjaxResult 返回一个对象，里面是数据
@@ -162,5 +96,120 @@ public class IndustrialController extends BaseController {
             log.error("获取产业政策详情失败："+e.getMessage());
             return error("获取产业政策详情失败");    
         }
+    }
+    
+    /**
+     * 分页初始处理
+     */
+    private IndustrialPolicyDTO pageInit(IndustrialPolicyDTO dto){
+        /*
+         * 如果没传入当前页，将当前页设定为0
+         * 如果没有单页最大数据量，将数据量设定为15
+         * 如果单页数据量大于1000，将其设定为1000
+         */
+        if(dto.getPageNumber()==null){
+            dto.setPageNumber(0);
+        }
+        if(dto.getPageSize()==null){
+            dto.setPageSize(15);
+        }
+        if(dto.getPageSize()>1000){
+            dto.setPageSize(1000);
+        }
+        return dto;
+    }
+    
+    
+    
+    /**
+     * 时间初始处理 yyyy-MM-dd HH-mm-ss
+     */
+    private IndustrialPolicyDTO dateTimeInit(IndustrialPolicyDTO dto){
+        Date date = new Date();
+        String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_TIME); //今天的当前时间（获取服务端时间）
+        String startTime = DateUtil.getFormatDate(DateUtil.getStartTime(), DateUtil.FORMAT_TIME); //今天的起始时间
+        String yesterAgo = DateUtil.getFormatDate(DateUtil.getYesterAgoStartTime(date), DateUtil.FORMAT_TIME); //昨天的起始时间
+        String weekAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_TIME); //近7天的起始时间
+        String monthAgo = DateUtil.getFormatDate(DateUtil.getMonthAgoStartTime(date), DateUtil.FORMAT_TIME); //一个月内
+        String halfYearAgo = DateUtil.getFormatDate(DateUtil.getHalfYearStartTime(date), DateUtil.FORMAT_TIME); //半年内
+        String yearAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_TIME); //一年内
+        
+        //对时间段进行判断
+        if(dto.getPeriodDate().equals("今日")){
+            dto.setStartDate(startTime);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("昨天")){
+            dto.setStartDate(yesterAgo);
+            dto.setEndDate(startTime);
+        }
+        if(dto.getPeriodDate().equals("近7天")){
+            dto.setStartDate(weekAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("1个月")){
+            dto.setStartDate(monthAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("半年")){
+            dto.setStartDate(halfYearAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("一年")){
+            dto.setStartDate(yearAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("不限")){
+            dto.setStartDate("1980-01-01 00:00:01");
+            dto.setEndDate(endTime);
+        }
+        return dto;
+    }
+    
+    /**
+     * 时间初始处理 yyyy-MM-dd
+     * @param dto
+     * @return
+     */
+    private IndustrialPolicyDTO dateInit(IndustrialPolicyDTO dto){
+        Date date = new Date();
+        String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_DATE); //今天的当前时间（获取服务端时间）
+        String startTime = DateUtil.getFormatDate(DateUtil.getStartTime(), DateUtil.FORMAT_DATE); //今天的起始时间
+        String yesterAgo = DateUtil.getFormatDate(DateUtil.getYesterAgoStartTime(date), DateUtil.FORMAT_DATE); //昨天的起始时间
+        String weekAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_DATE); //近7天的起始时间
+        String monthAgo = DateUtil.getFormatDate(DateUtil.getMonthAgoStartTime(date), DateUtil.FORMAT_DATE); //一个月内
+        String halfYearAgo = DateUtil.getFormatDate(DateUtil.getHalfYearStartTime(date), DateUtil.FORMAT_DATE); //半年内
+        String yearAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_DATE); //一年内
+        
+        //对时间段进行判断
+        if(dto.getPeriodDate().equals("今日")){
+            dto.setStartDate(startTime);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("昨天")){
+            dto.setStartDate(yesterAgo);
+            dto.setEndDate(startTime);
+        }
+        if(dto.getPeriodDate().equals("近7天")){
+            dto.setStartDate(weekAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("1个月")){
+            dto.setStartDate(monthAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("半年")){
+            dto.setStartDate(halfYearAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("一年")){
+            dto.setStartDate(yearAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("不限")){
+            dto.setStartDate("1980-01-01");
+            dto.setEndDate(endTime);
+        }
+        return dto;
     }
 }

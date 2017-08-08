@@ -26,7 +26,25 @@ public class BusinessSuperviseDTO extends AbstractDTO {
     private Integer pageNumber;
     private Integer pageSize;
     
+    /** 数据维度 */
+    private String dimension;
     
+    /** 数组型请求参数    */
+    
+    private String msg[];
+    
+    public String getDimension() {
+        return dimension;
+    }
+    public void setDimension(String dimension) {
+        this.dimension = dimension;
+    }
+    public String[] getMsg() {
+        return msg;
+    }
+    public void setMsg(String[] msg) {
+        this.msg = msg;
+    }
     public String getPark() {
         return park;
     }

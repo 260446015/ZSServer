@@ -38,6 +38,16 @@ public class IndustrialPolicyDTO extends AbstractDTO {
     /** 文章类型  */
     private String articleType;
     
+    private String dimension;
+    
+    public String getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(String dimension) {
+        this.dimension = dimension;
+    }
+
     private String[] labels;
     
 
