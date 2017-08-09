@@ -7,27 +7,16 @@ import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.elasticsearch.action.search.SearchRequestBuilder;
-import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.repository.industria.IndustriaPolicyRepository;
@@ -47,6 +36,7 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
     @Autowired
     private IndustriaPolicyRepository industrialPolicyRepository;
     
+    @SuppressWarnings("unused")
     @Autowired
     private Client client;
     

@@ -39,17 +39,30 @@ public class BusinessController extends BaseController {
      * park && ！business 园区内企业动态  ; ！park && business 单个企业动态列表 加上emotion就添加了情感信息
      * @author jdz
      * @param dto 企业监管DTO
+     * msg[park,business,emotion] 
      * @return
      * @createDate 2017-8-3
      */
     @RequestMapping(value="/getBusinessBehaviours.json",method=RequestMethod.POST)
     public AjaxResult getBusinessBehaviours(BusinessSuperviseDTO dto){
+        
+        if (null == dto) {
+            return error(MsgConstant.ILLEGAL_PARAM);
+        }
+        String[] msg = dto.getMsg();
+        if (!StringUtil.isEmpty(msg[0])) {
+            dto.setPark(msg[0]);
+        }
+        if (!StringUtil.isEmpty(msg[1])) {
+            dto.setBusiness(msg[1]);
+        }
+        if (!StringUtil.isEmpty(msg[2])) {
+            dto.setEmotion(msg[2]);
+        }
+        
         try{
-            if(null == dto){
-                return error(MsgConstant.ILLEGAL_PARAM);
-            }
             dto = initPage(dto);
-            dto.setDimension("园区动态");
+//            dto.setDimension("园区动态");
             Page<AITInfo> pagedata = businessService.getBusinessBehaviours(dto);
             return success(pagedata).setSuccess(true);
         }catch(Exception e){
@@ -79,9 +92,10 @@ public class BusinessController extends BaseController {
         }
     }
     /**
-     * 
+     * 关键字查询企业动态列表
      * @param dto msg[park,keyword]
      * @return
+     * @createDate 2017-8-8
      */
     @RequestMapping(value="/searchBusinessBehaviours.json", method = RequestMethod.POST)
     public AjaxResult searchBusinessBehaviours(BusinessSuperviseDTO dto){
@@ -112,6 +126,24 @@ public class BusinessController extends BaseController {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
     }
+
+    /**
+     * 根据关键字查询企业列表
+     * @param msg[关键字,行业,规模,成立时间]
+     * @return
+     * @author jdz
+     */
+    @RequestMapping(value="searchBusiness.json", method = RequestMethod.POST)
+    public AjaxResult searchBusiness( /* 企业查询对象 */ ) {
+        
+        try {
+            return null;
+        } catch (Exception e) {
+            LOGGER.error("关键字查询企业列表失败：", e);
+            return error(MsgConstant.ILLEGAL_PARAM);
+        }
+    }
+    
     
     /**
      * 分页初始化

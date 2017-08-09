@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
@@ -56,7 +55,7 @@ public class BusinessServiceImpl implements BusinessService {
         String dimension = dto.getDimension();
         PageRequest pageable = dto.builderPageRequest();
         try{
-            Page<AITInfo> page = businessRepository.findByParkAndEmotionAndBusinessAndDimension(park, emotion, business, pageable);
+            Page<AITInfo> page = businessRepository.findByParkAndEmotionAndBusinessAndDimension(park, emotion, business, dimension, pageable);
             return page;
         }catch(Exception e){
             logger.error("获取企业动态数据失败",e);
@@ -89,5 +88,10 @@ public class BusinessServiceImpl implements BusinessService {
             logger.error("查询企业动态列表失败",e);
             return null;
         }
+    }
+
+    @Override
+    public JSONArray searchBusiness() {
+        return null;
     }
 }
