@@ -1,5 +1,8 @@
 package com.huishu.ait.controller.warning;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,12 +78,12 @@ public class WarningController extends BaseController{
 	 */
 	@RequestMapping(value="getInformationChangeList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getInformationChangeList(AreaSearchDTO searchModel){
+	public AjaxResult getInformationChangeList(AreaSearchDTO searchModel,HttpServletRequest request,HttpServletResponse response){
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONArray array = warningService.getInformationChangeList(searchModel);
+			JSONArray array = warningService.getInformationChangeList(searchModel,request,response);
 			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
 			LOGGER.error("getBusinessOutflowList查询失败！",e);
@@ -89,7 +92,7 @@ public class WarningController extends BaseController{
 	}
 	
 	/**
-	 * 信息变更预警详情
+	 * 信息变更预警详情(这个接口估计用不上了)
 	 * @param id   政策ID
 	 * @return
 	 */

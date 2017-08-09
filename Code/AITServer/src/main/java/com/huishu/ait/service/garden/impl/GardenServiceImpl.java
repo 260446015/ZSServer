@@ -27,7 +27,6 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
-import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Garden;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
@@ -62,7 +61,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		//组装查询条件
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("park", searchModel.getPark());
-		map.put("articleType", "政策解读");
+		map.put("dimension", "政策解读");
 		//组装排序字段,按时间和点击量降序排列
 		 String[] order = {"publishDateTime","hitCount"};
 		 List<String> orderList = Arrays.asList(order);
@@ -81,7 +80,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		//组装查询条件
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("park", searchModel.getPark());
-		map.put("articleType", "园区情报");
+		map.put("dimension", "园区动态");
 		//组装排序字段,按时间和点击量降序排列
 		String[] order = {"publishDateTime","hitCount"};
 		List<String> orderList = Arrays.asList(order);
@@ -100,7 +99,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		//组装查询条件
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("park", searchModel.getPark());
-		map.put("dimension", "企业排行");
+		map.put("dimension", "龙头企业");
 		//组装排序字段,按点击量降序排列
 		String[] order = {"hitCount"};
 		List<String> orderList = Arrays.asList(order);

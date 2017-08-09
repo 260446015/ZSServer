@@ -1,5 +1,8 @@
 package com.huishu.ait.service.warning;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.GardenInformation;
@@ -28,7 +31,7 @@ public interface WarningService {
 	 * @param searchModel    查询条件
 	 * @return
 	 */
-	JSONArray getInformationChangeList(AreaSearchDTO searchModel);
+	JSONArray getInformationChangeList(AreaSearchDTO searchModel,HttpServletRequest request,HttpServletResponse response);
 	/**
 	 * 根据ID获取信息变更预警详情
 	 * @param id     预警ID

@@ -89,6 +89,10 @@ public class Constans {
 	 */
 	public static final String INVESTTREE = "https://open.api.tianyancha.com/services/v3/open/investtree.json";
 	/**
+	 * 根据关键字获取企业ID/全名url
+	 */
+	public static final String SEARCH = "https://open.api.tianyancha.com/services/v3/newopen/searchV2.json";
+	/**
 	 * 存储公司关联发现信息url
 	 */
 	

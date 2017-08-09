@@ -20,7 +20,7 @@ import com.huishu.ait.entity.SkyEyeAuthEntity;
  * @description 本类主要实现与天眼查之间接口调用的方法
  * @version 1.0
  */
-public abstract class SkyEyeAbstractService {
+public abstract class SkyEyeAbstractService extends AbstractService {
 
 	/**
 	 * 用于重新获取token令牌的方法
@@ -56,7 +56,7 @@ public abstract class SkyEyeAbstractService {
 	protected String getSkyEyeMsg(String spec,Map<String, String> params,HttpServletRequest request,HttpServletResponse response){
 		String account = Constans.SKYEYE_ACCOUNT;
 		params.put("account", account);
-		String accessToken = getAccessToken(request);;//这里用来取token值，但是具体存在哪还未定
+		String accessToken = getAccessToken(request);//这里用来取token值，但是具体存在哪还未定
 		if(accessToken == null){
 			SkyEyeAuthEntity authEntity = getTokenAuthEntity();
 			accessToken = authEntity.getAccessToken();//重新获取token，（还没写）
