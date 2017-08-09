@@ -31,7 +31,7 @@ public class GardenDTO implements Serializable{
 	/**
 	 * 分页当前数
 	 */
-	private Integer pageNum;
+	private Integer pageNumber;
 	/**
 	 * 
 	 * @return 园区id
@@ -118,11 +118,12 @@ public class GardenDTO implements Serializable{
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
-	public Integer getPageNum() {
-		return pageNum;
+	
+	public Integer getPageNumber() {
+		return pageNumber;
 	}
-	public void setPageNum(Integer pageNum) {
-		this.pageNum = pageNum;
+	public void setPageNumber(Integer pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	public String[] getMsg() {
 		return msg;

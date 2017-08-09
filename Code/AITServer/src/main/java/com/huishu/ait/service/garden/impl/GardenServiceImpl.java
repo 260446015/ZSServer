@@ -117,7 +117,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		String area = msg[0];
 		String industryType = msg[1];
 //		String searchName = dto.getSerarchName();
-		int pageNum = dto.getPageNum();
+		int pageNum = dto.getPageNumber();
 		int pageSize = dto.getPageSize();
 		int from = pageSize*pageNum - pageSize;
 		JSONArray data = new JSONArray();
@@ -145,7 +145,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	@Override
 	public JSONArray findGardensCondition(GardenDTO dto) {
 		JSONArray data = new JSONArray();
-		int from = dto.getPageNum()*dto.getPageSize()-dto.getPageSize();
+		int from = dto.getPageNumber()*dto.getPageSize()-dto.getPageSize();
 		try{
 			List<String> gardenName = gardenUserRepository.findGardensCondition(dto.getUserId());
 			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
@@ -176,7 +176,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
         String area = dto.getArea();
         String industryType = dto.getIndustryType();
         try{
-            PageRequest pageRequest = new PageRequest(dto.getPageNum(), dto.getPageSize());
+            PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize());
             Page<GardenUser> page = null;
                 //对area 和 industryType 没有约束条件，全部查询
             if (dto.getArea().equals("不限") && dto.getIndustryType().equals("不限")) {
@@ -240,9 +240,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	}
 	@Override
 	public JSONObject findGardensConditionById(String cid) {
-		JSONObject obj = new JSONObject();
 		GardenInformation information = gardenInformationRepository.findOne(cid);
-		return obj.parseObject(information.toString());
+		return JSONObject.parseObject(information.toString());
 	}
 	
 }

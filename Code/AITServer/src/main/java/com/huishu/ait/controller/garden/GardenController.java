@@ -164,7 +164,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="/findGardensCondition.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult findGardensCondition( GardenDTO dto){
+	public AjaxResult findGardensCondition(@RequestBody GardenDTO dto){
 		if(null == dto){
 			if(StringUtil.isEmpty(String.valueOf(dto.getUserId())))
 				return error(MsgConstant.ILLEGAL_PARAM);
@@ -255,14 +255,14 @@ public class GardenController extends BaseController{
 	
 	
 	private GardenDTO initPage(GardenDTO dto){
-		if(dto.getPageNum() == null){
-			dto.setPageNum(ConcersUtils.ES_MIN_PAGENUMBER);
+		if(dto.getPageNumber() == null){
+			dto.setPageNumber(ConcersUtils.ES_MIN_PAGENUMBER);
 		}
 		if(dto.getPageSize() == null){
 			dto.setPageSize(ConcersUtils.PAGE_SIZE);
 		}
-		if(dto.getPageNum() > ConcersUtils.ES_MAX_PAGENUMBER){
-			dto.setPageNum(ConcersUtils.ES_MAX_PAGENUMBER);
+		if(dto.getPageNumber() > ConcersUtils.ES_MAX_PAGENUMBER){
+			dto.setPageNumber(ConcersUtils.ES_MAX_PAGENUMBER);
 		}
 		return dto;
 	}
