@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 
 @Document(indexName = INDEX, type = TYPE)
-public class Company {
+public class CompanyElastic {
 	
 	private String id;
 	/** 标题 */

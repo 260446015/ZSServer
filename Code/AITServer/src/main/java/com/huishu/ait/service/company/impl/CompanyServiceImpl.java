@@ -23,7 +23,7 @@ import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.dto.CompanyDTO;
 import com.huishu.ait.es.entity.AITInfo;
-import com.huishu.ait.es.entity.Company;
+import com.huishu.ait.es.entity.CompanyElastic;
 import com.huishu.ait.es.repository.company.CompanyElasticsearchRepository;
 import com.huishu.ait.service.company.CompanyService;
 /**
@@ -93,7 +93,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	@Override
 	public JSONObject findCompanieOrderById(String coid) {
-		Company company = elasticsearchRepository.findOne(coid);
+		CompanyElastic company = elasticsearchRepository.findOne(coid);
 		return JSONObject.parseObject(company.toString());
 	}
 

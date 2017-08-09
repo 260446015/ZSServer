@@ -25,13 +25,7 @@ import com.huishu.ait.service.skyeye.SkyEyeService;
 @Service
 public class SkyEyeServiceImpl extends SkyEyeAbstractService implements SkyEyeService {
 
-	/**
-	 * 查询企业画像接口
-	 * 
-	 * @param params
-	 *            前台传递参数，id值必备
-	 * @return
-	 */
+	
 	public JSONArray findBaseCompany(Map<String, String> params,HttpServletRequest request,HttpServletResponse response) {
 		JSONArray arr = new JSONArray();
 		try {
