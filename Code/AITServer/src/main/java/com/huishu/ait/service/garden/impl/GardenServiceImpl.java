@@ -116,7 +116,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		String area = msg[0];
 		String industryType = msg[1];
 //		String searchName = dto.getSerarchName();
-		int pageNum = dto.getPageNum();
+		int pageNum = dto.getPageNumber();
 		int pageSize = dto.getPageSize();
 		int from = pageSize*pageNum - pageSize;
 		JSONArray data = new JSONArray();
@@ -144,20 +144,23 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	@Override
 	public JSONArray findGardensCondition(GardenDTO dto) {
 		JSONArray data = new JSONArray();
-		int from = dto.getPageNum()*dto.getPageSize()-dto.getPageSize();
-		if(from < 0){
-			from = 0;
-		}
+		int from = dto.getPageNumber()*dto.getPageSize()-dto.getPageSize();
 		try{
 			List<String> gardenName = gardenUserRepository.findGardensCondition(dto.getUserId());
 			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			bq.must(QueryBuilders.termsQuery("park", gardenName));
-			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).setFrom(from).execute().actionGet();
+			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).setFrom(from+dto.getPageSize()).execute().actionGet();
 			System.out.println(requestBuilder);
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
-				data.add(searchHit.getSource());
+				JSONObject obj = new JSONObject();
+				JSONObject condition = JSONObject.parseObject(searchHit.getSourceAsString());
+				obj.put("id", searchHit.getId());
+				obj.put("title", condition.getString("title"));
+				obj.put("park", condition.getString("park"));
+				obj.put("content", condition.getString("content"));
+				data.add(obj);
 			}
 		}catch(Exception e){
 			LOGGER.error(e.getMessage());
@@ -172,7 +175,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
         String area = dto.getArea();
         String industryType = dto.getIndustryType();
         try{
-            PageRequest pageRequest = new PageRequest(dto.getPageNum(), dto.getPageSize());
+            PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize());
             Page<GardenUser> page = null;
                 //对area 和 industryType 没有约束条件，全部查询
             if (dto.getArea().equals("不限") && dto.getIndustryType().equals("不限")) {
@@ -233,6 +236,11 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			gardenUserRepository.deleteByGardenName(garden.getName());
 			return null;
 		}
+	}
+	@Override
+	public JSONObject findGardensConditionById(String cid) {
+		GardenInformation information = gardenInformationRepository.findOne(cid);
+		return JSONObject.parseObject(information.toString());
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.huishu.ait.service.ExpertOpinion.impl;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -19,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -27,7 +29,7 @@ import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.ExpertOpinionDetail;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
-import com.huishu.ait.es.repository.ExpertOpinion.ExpertOpinionElasticsearch;
+import com.huishu.ait.es.repository.ExpertOpinion.BaseElasticsearch;
 import com.huishu.ait.repository.expertOpinionDetail.ExpertOpinionDetailRepository;
 import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
 
@@ -37,6 +39,7 @@ import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
  *	专家观点的实现类
  */
 @Service
+@Transactional
 public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	
 	private static Logger log = LoggerFactory.getLogger(ExpertOpinionServiceImpl.class);
@@ -44,7 +47,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	@Resource
 	private Client client;
 	@Autowired
-	private ExpertOpinionElasticsearch expertOpinionElasticsearch;
+	private BaseElasticsearch baseElasticsearch;
 	@Resource
 	private ExpertOpinionDetailRepository expertOpinionDetailRepository;
 	
@@ -72,7 +75,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			int from = (pageNumber-1)*pageSize;
 			SearchRequestBuilder searchBuilder = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = QueryBuilders.boolQuery();
-			bq.must(QueryBuilders.matchAllQuery());
+			bq.must(QueryBuilders.termQuery("dimension", "百家论"));
 			//根据条件查询
 			SearchRequestBuilder requestBuilder = searchBuilder.setQuery(bq)
 					.setFrom(from).setSize(pageSize);
@@ -162,11 +165,15 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 		}
 	}
 
+	/* 
+	 * 方法名：findExpertOpinionById
+	 * 描述：通过id查询文章详情
+	 */
 	@Override
 	public JSONObject findExpertOpinionById(String id) {
 		try {
 			JSONObject jsonObject = new JSONObject();
-			AITInfo aitInfo = expertOpinionElasticsearch.findOne(id);
+			AITInfo aitInfo = baseElasticsearch.findOne(id);
 			jsonObject = (JSONObject) JSONObject.toJSON(aitInfo);
 			return jsonObject;
 		} catch (Exception e) {
@@ -181,7 +188,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	public JSONObject expertOpinionCollect(String articleId){
 		JSONObject json = new JSONObject();
 		try {
-			AITInfo param = expertOpinionElasticsearch.findOne(articleId);
+			AITInfo param = baseElasticsearch.findOne(articleId);
 			ExpertOpinionDetail findOne = findExpertOpinionDetailByArticleId(articleId);
 			//如果不为空先删除
 			if (null != findOne) {
@@ -191,6 +198,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			ExpertOpinionDetail expertOpinionDetail = new ExpertOpinionDetail();
 			expertOpinionDetail.setArticleId(param.getId());
 			expertOpinionDetail.setAuthor(param.getAuthor());
+			expertOpinionDetail.setCollectTime(new Date());
 			expertOpinionDetail.setPublishTime(param.getPublishDateTime());
 			expertOpinionDetail.setTitle(param.getTitle());
 			expertOpinionDetail.setContent(param.getContent());

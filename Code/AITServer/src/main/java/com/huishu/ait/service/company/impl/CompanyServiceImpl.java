@@ -1,5 +1,6 @@
 package com.huishu.ait.service.company.impl;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,8 +17,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.ConcersUtils.DateUtil;
 import com.huishu.ait.common.util.ESUtils;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.dto.CompanyDTO;
+import com.huishu.ait.es.entity.AITInfo;
+import com.huishu.ait.es.entity.CompanyElastic;
+import com.huishu.ait.es.repository.company.CompanyElasticsearchRepository;
 import com.huishu.ait.service.company.CompanyService;
 /**
  * 企业排行榜实现类
@@ -32,6 +39,8 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Resource
 	private Client client;
+	@Resource
+	private CompanyElasticsearchRepository elasticsearchRepository;
 	/**
 	 * 查询企业排行
 	 */
@@ -57,22 +66,35 @@ public class CompanyServiceImpl implements CompanyService {
 			String articleType = "企业排行";//这里只做排行榜，先写死
 			
 			bq.must(QueryBuilders.termQuery("articleType", articleType));
-			int from = dto.getPageSize()*dto.getPageNum() - dto.getPageSize();
-			if(from < 0){
-				from = 0;
-			}
-			SearchResponse response = requestBuilder.setQuery(bq).setFrom(from).execute().actionGet();
+			int size = 8;
+			int from = dto.getPageSize()*dto.getPageNumber() - dto.getPageSize();
+//			if(from < 0){
+//				from = 0;
+//			}
+			SearchResponse response = requestBuilder.setQuery(bq).setFrom(from+dto.getPageSize()).setSize(size).execute().actionGet();
 			System.out.println(requestBuilder); 
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
-				Map<String, Object> source = searchHit.getSource();
-				data.add(source);
+				JSONObject obj = new JSONObject();
+				JSONObject companie = JSONObject.parseObject(searchHit.getSourceAsString());
+				obj.put("id", searchHit.getId());
+				obj.put("articleType", companie.getString("articleType"));
+				obj.put("vector", companie.getString("vector"));
+				Date parseStrToDate = DateUtil.parseStrToDate(companie.getString("publishDate"), "yyyy年MM月dd日");
+				obj.put("publishDate", parseStrToDate.toString());
+				obj.put("content", companie.getString("content"));
+				data.add(obj);
 			}
 			LOGGER.info("查询到的企业:"+data.toJSONString());
 		} catch (Exception e) {
 			LOGGER.error("企业排行榜查询出错:"+e.getMessage());
 		}
 		return data;
+	}
+	@Override
+	public JSONObject findCompanieOrderById(String coid) {
+		CompanyElastic company = elasticsearchRepository.findOne(coid);
+		return JSONObject.parseObject(company.toString());
 	}
 
 }

@@ -38,7 +38,7 @@ public class CompanyDTO implements Serializable {
     /**
      * 当前页码数
      */
-    private Integer pageNum;
+    private Integer pageNumber;
     /**
      * 
      * 传递数组
@@ -85,12 +85,13 @@ public class CompanyDTO implements Serializable {
 		this.pageSize = pageSize;
 	}
 
-	public Integer getPageNum() {
-		return pageNum;
+
+	public Integer getPageNumber() {
+		return pageNumber;
 	}
 
-	public void setPageNum(Integer pageNum) {
-		this.pageNum = pageNum;
+	public void setPageNumber(Integer pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 
 	public String[] getMsg() {

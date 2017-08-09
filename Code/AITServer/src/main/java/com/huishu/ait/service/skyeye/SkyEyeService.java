@@ -17,14 +17,14 @@ public interface SkyEyeService {
 
 	/**
 	 * 企业基本画像
-	 * @param params
+	 * @param params  前台传递的参数
 	 * @return
 	 */
 	JSONArray findBaseCompany(Map<String, String> params,HttpServletRequest request,HttpServletResponse response);
 	
 	/**
 	 * 企业业务画像
-	 * @param params
+	 * @param params  前台传递的参数
 	 * @return
 	 */
 	JSONArray findBaseCompanyBusiness(Map<String, String> params,HttpServletRequest request,HttpServletResponse response);

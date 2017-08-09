@@ -32,6 +32,13 @@ public class SkyEyeController extends BaseController{
 	@Autowired
 	private SkyEyeService service;
 
+	/**
+	 * 查询企业画像的Controller
+	 * @param params  前台传递过来的数据，暂定是通过键值对的方式
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value="/findBaseCompany",method=RequestMethod.GET)
 	public AjaxResult findBaseCompany(Map<String, String> params,HttpServletRequest request,HttpServletResponse response){
 		JSONArray arr = null;
@@ -44,6 +51,14 @@ public class SkyEyeController extends BaseController{
 		return success(arr);
 	}
 	
+	
+	/**
+	 * 查询企业业务画像的Controller
+	 * @param params   前台传递过来的数据，暂定是通过键值对的方式
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value="/findBaseCompanyBusiness",method=RequestMethod.GET)
 	public AjaxResult findBaseCompanyBusiness(Map<String, String> params,HttpServletRequest request,HttpServletResponse response){
 		JSONArray arr = null;

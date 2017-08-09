@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.common.util.StringUtil;
@@ -178,6 +179,24 @@ public class GardenController extends BaseController{
 		}
 		return success(aITInfos).setSuccess(true);
 	}
+	/**
+	 * 获取园区动态详情信息
+	 */
+	@RequestMapping(value="/findGardensConditionById",method=RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult findGardensConditionById(String cid) {
+		if(StringUtil.isEmpty(cid)) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		JSONObject obj = null;
+		try {
+			obj = gardenService.findGardensConditionById(cid);
+		}catch(Exception e) {
+			LOGGER.error("根据id查询园区动态失败!", e);
+			return error(e.getMessage()).setSuccess(false);
+		}
+		return success(obj).setSuccess(true);
+	}
 	
 	/**
 	 * 获取关注园区列表
@@ -236,14 +255,14 @@ public class GardenController extends BaseController{
 	
 	
 	private GardenDTO initPage(GardenDTO dto){
-		if(dto.getPageNum() == null){
-			dto.setPageNum(ConcersUtils.ES_MIN_PAGENUMBER);
+		if(dto.getPageNumber() == null){
+			dto.setPageNumber(ConcersUtils.ES_MIN_PAGENUMBER);
 		}
 		if(dto.getPageSize() == null){
 			dto.setPageSize(ConcersUtils.PAGE_SIZE);
 		}
-		if(dto.getPageNum() > ConcersUtils.ES_MAX_PAGENUMBER){
-			dto.setPageNum(ConcersUtils.ES_MAX_PAGENUMBER);
+		if(dto.getPageNumber() > ConcersUtils.ES_MAX_PAGENUMBER){
+			dto.setPageNumber(ConcersUtils.ES_MAX_PAGENUMBER);
 		}
 		return dto;
 	}

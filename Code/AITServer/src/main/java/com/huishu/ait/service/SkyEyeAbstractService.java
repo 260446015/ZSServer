@@ -61,6 +61,7 @@ public abstract class SkyEyeAbstractService extends AbstractService {
 			SkyEyeAuthEntity authEntity = getTokenAuthEntity();
 			accessToken = authEntity.getAccessToken();//重新获取token，（还没写）
 			Cookie cookie = new Cookie("accessToken", accessToken);
+			cookie.setMaxAge(-1);//待定
 			response.addCookie(cookie);
 		}
 		params.put("accessToken", accessToken);
@@ -95,7 +96,7 @@ public abstract class SkyEyeAbstractService extends AbstractService {
 		
 	}
 	/**
-	 * 这里想整合一下把service层的调用整合成一个统一的方法
+	 * 这里想把service层的调用整合成一个统一的方法
 	 */
 	public JSONArray sendHttpsRequest(List<String> specList,Map<String, String> params,HttpServletRequest request,HttpServletResponse response){
 		JSONArray arr = new JSONArray();
