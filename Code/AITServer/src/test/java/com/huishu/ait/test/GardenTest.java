@@ -9,27 +9,19 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.app.Application;
 import com.huishu.ait.common.util.ESUtils;
-import com.huishu.ait.entity.Garden;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.repository.garden_user.GardenUserRepository;
@@ -57,7 +49,7 @@ public class GardenTest {
 		GardenDTO dto = new GardenDTO();
 //		dto.setArea("北京");
 //		dto.setIndustryType("节能环保");
-		dto.setPageNum(0);
+//		dto.setPageNum(0);
 		dto.setPageSize(10);
 		JSONArray findGardensList = impl.findGardensList(dto);
 		System.out.println(findGardensList.toJSONString());
@@ -66,7 +58,7 @@ public class GardenTest {
 	public void testFindGardensCondition(){
 		GardenDTO dto = new GardenDTO();
 		dto.setUserId(1);
-		dto.setPageNum(0);
+//		dto.setPageNum(0);
 		dto.setPageSize(10);
 		JSONArray arr = impl.findGardensCondition(dto);
 		System.out.println(arr.toJSONString());
