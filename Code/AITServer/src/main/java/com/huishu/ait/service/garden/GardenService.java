@@ -3,6 +3,7 @@ package com.huishu.ait.service.garden;
 import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.GardenDTO;
@@ -68,4 +69,7 @@ public interface GardenService {
 	 * @param gardenId  传入想要关注的园区id,传入用户id,传入关注/取消操作,true是关注,false是取消
 	 */
 	GardenUser attentionGarden(String gardenId,String userId,boolean flag);
+	
+	
+	JSONObject findGardensConditionById(String cid);
 }

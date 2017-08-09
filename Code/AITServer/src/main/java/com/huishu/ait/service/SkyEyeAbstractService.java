@@ -96,7 +96,7 @@ public abstract class SkyEyeAbstractService {
 		
 	}
 	/**
-	 * 这里想整合一下把service层的调用整合成一个统一的方法
+	 * 这里想把service层的调用整合成一个统一的方法
 	 */
 	public JSONArray sendHttpsRequest(List<String> specList,Map<String, String> params,HttpServletRequest request,HttpServletResponse response){
 		JSONArray arr = new JSONArray();

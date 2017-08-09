@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.common.util.StringUtil;
@@ -163,7 +164,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value="/findGardensCondition.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult findGardensCondition(@RequestBody GardenDTO dto){
+	public AjaxResult findGardensCondition( GardenDTO dto){
 		if(null == dto){
 			if(StringUtil.isEmpty(String.valueOf(dto.getUserId())))
 				return error(MsgConstant.ILLEGAL_PARAM);
@@ -177,6 +178,24 @@ public class GardenController extends BaseController{
 			return error(e.getMessage()).setSuccess(false);
 		}
 		return success(aITInfos).setSuccess(true);
+	}
+	/**
+	 * 获取园区动态详情信息
+	 */
+	@RequestMapping(value="/findGardensConditionById",method=RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult findGardensConditionById(String cid) {
+		if(StringUtil.isEmpty(cid)) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		JSONObject obj = null;
+		try {
+			obj = gardenService.findGardensConditionById(cid);
+		}catch(Exception e) {
+			LOGGER.error("根据id查询园区动态失败!", e);
+			return error(e.getMessage()).setSuccess(false);
+		}
+		return success(obj).setSuccess(true);
 	}
 	
 	/**
