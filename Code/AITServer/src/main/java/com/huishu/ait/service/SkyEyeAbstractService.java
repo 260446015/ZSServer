@@ -61,6 +61,7 @@ public abstract class SkyEyeAbstractService {
 			SkyEyeAuthEntity authEntity = getTokenAuthEntity();
 			accessToken = authEntity.getAccessToken();//重新获取token，（还没写）
 			Cookie cookie = new Cookie("accessToken", accessToken);
+			cookie.setMaxAge(-1);//待定
 			response.addCookie(cookie);
 		}
 		params.put("accessToken", accessToken);
