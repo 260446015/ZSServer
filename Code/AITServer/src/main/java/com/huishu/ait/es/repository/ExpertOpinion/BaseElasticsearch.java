@@ -7,7 +7,7 @@ import com.huishu.ait.es.entity.AITInfo;
 
 
 @Repository
-public interface ExpertOpinionElasticsearch extends ElasticsearchCrudRepository<AITInfo, String>{
+public interface BaseElasticsearch extends ElasticsearchCrudRepository<AITInfo, String>{
 	
 	
 }

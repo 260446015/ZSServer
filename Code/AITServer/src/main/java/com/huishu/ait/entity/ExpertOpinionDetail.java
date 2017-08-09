@@ -1,6 +1,7 @@
 package com.huishu.ait.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,10 @@ import javax.persistence.Table;
 @Table(name = "t_expert_opinion_detail")
 public class ExpertOpinionDetail implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8063405981498880048L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -28,6 +33,8 @@ public class ExpertOpinionDetail implements Serializable{
 	@Column(name = "publish_time")
 	private String publishTime;
 	private String content;
+	@Column(name = "collect_time")
+	private Date collectTime;
 	private String source;//文章来源
 	@Column(name = "source_link")
 	private String sourceLink;//文章来源网址
@@ -87,6 +94,12 @@ public class ExpertOpinionDetail implements Serializable{
 	}
 	public void setIndustry(String industry) {
 		this.industry = industry;
+	}
+	public Date getCollectTime() {
+		return collectTime;
+	}
+	public void setCollectTime(Date collectTime) {
+		this.collectTime = collectTime;
 	}
 	public String getLanmu() {
 		return lanmu;

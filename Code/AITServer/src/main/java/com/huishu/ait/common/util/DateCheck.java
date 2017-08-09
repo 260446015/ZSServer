@@ -1,5 +1,7 @@
 package com.huishu.ait.common.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @author yxq
  * @date 2017年8月7日
@@ -8,7 +10,7 @@ package com.huishu.ait.common.util;
 public abstract class DateCheck {
 	
 	public static String dateCheck(String str) {
-		if (null!= str) {
+		if (StringUtils.isNotBlank(str)) {
 			String endDate = DateUtils.getTodayDate1();
 			String startDate=null;
 			if ("今日".equals(str)) {

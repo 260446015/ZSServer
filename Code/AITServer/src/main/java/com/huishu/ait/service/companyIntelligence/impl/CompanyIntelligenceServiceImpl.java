@@ -1,7 +1,9 @@
 package com.huishu.ait.service.companyIntelligence.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +24,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.ESUtils;
+import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.CompanyIntelligenceDTO;
+import com.huishu.ait.es.repository.ExpertOpinion.BaseElasticsearch;
 import com.huishu.ait.service.companyIntelligence.CompanyIntelligenceService;
 
 /**
@@ -37,6 +41,8 @@ public class CompanyIntelligenceServiceImpl implements CompanyIntelligenceServic
 	
 	@Autowired
 	private Client client;
+	@Autowired
+	private BaseElasticsearch Elasticsearch;
 	/**
 	 * @return
 	 * 获取企业情报列表信息
@@ -105,6 +111,22 @@ public class CompanyIntelligenceServiceImpl implements CompanyIntelligenceServic
 			log.error("获取企业情报失败", e.getMessage());
 			return null;
 		}
-		
+	}
+	/**
+	 * @return
+	 * 通过id获取企业情报信息对象
+	 */
+	public List<AITInfo> getCompanyIntelligenceByIds(String[] ids){
+		try{
+			List<AITInfo> result = new ArrayList<AITInfo>();
+			for (int i = 0; i < ids.length; i++) {
+				AITInfo aitInfo = Elasticsearch.findOne(ids[i]);
+				result.add(aitInfo);
+			}
+			return result;
+		} catch (Exception e) {
+			log.error("获取企业情报失败", e.getMessage());
+			return null;
+		}
 	}
 }
