@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.CompanyCount;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
@@ -144,6 +145,23 @@ public class BusinessController extends BaseController {
         }
     }
     
+    /**
+     * 获取搜索企业列表，按照点击量排序
+     * @author jdz
+     * @param 无参数 
+     * @return
+     */
+    @RequestMapping(value = "getSearchBusinessList", method = RequestMethod.GET)
+    public AjaxResult getSearchBusinessList(){
+        try {
+            Page<CompanyCount> page = businessService.getBusinessList();
+            return success(page).setSuccess(true);
+        }
+        catch (Exception e) {
+            LOGGER.error("获取搜索框企业列表：", e);
+            return error(MsgConstant.ILLEGAL_PARAM);
+        }
+    }
     
     /**
      * 分页初始化
