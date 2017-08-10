@@ -63,12 +63,12 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		if (list == null || list.size() == 0) {
 			return null;
 		}
+		buffer.append("[");
 		for (String companyName : list) {
 			List<String> specList = Arrays.asList(Constans.SEARCH);
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("word", companyName);
 			JSONArray array = sendHttpsRequest(specList, params, request, response);
-			// 一个查询对应一个JSONObject
 			JSONObject json = (JSONObject) array.get(0);
 			if (json == null) {
 				continue;
@@ -84,7 +84,6 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 				JSONArray array2 = sendHttpsRequest(specList2, params2, request, response);
 				// 将所有的JSONArray拼接成一个JSONString
 				try {
-					// 一个查询对应一个JSONObject
 					JSONObject obj1 = (JSONObject) array2.get(0);
 					JSONObject datas = (JSONObject) obj1.get("data");
 					List<Object> result = (List<Object>) datas.get("result");
@@ -102,10 +101,12 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 					}
 				} catch (Exception e) {
 					LOGGER.error("拼接字符串出错", e);
+					continue;
 				}
 			}
 		}
-		JSONArray jsonArr = JSONArray.parseArray("[" + buffer.toString() + "]");
+		buffer.append("]");
+		JSONArray jsonArr = JSONArray.parseArray(buffer.toString());
 		if (jsonArr == null || jsonArr.size() == 0) {
 			return null;
 		}
@@ -114,7 +115,7 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		for (int i = 0; i < jsonArr.size(); i++) {
 			jsonValues.add(jsonArr.getJSONObject(i));
 		}
-		// 对数据进行排序，按照时间先后
+		// 对数据进行排序，按照变更时间先后
 		jsonValues.sort((JSONObject a, JSONObject b) -> {
 			String valA = (String) a.get("changeTime");
 			String valB = (String) b.get("changeTime");
@@ -126,9 +127,9 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		// 实现分页功能
 		JSONArray resultJsonArray = new JSONArray();
 		searchModel.setTotalSize(sortedJsonArray.size());
-		for (int i = searchModel
-				.getPageFrom(); i < (sortedJsonArray.size() < searchModel.getPageFrom() + searchModel.getPageSize()
-						? sortedJsonArray.size() : searchModel.getPageFrom() + searchModel.getPageSize()); i++) {
+		Integer from = searchModel.getPageFrom();
+		Integer pageSize = searchModel.getPageSize();
+		for (int i=from;i<(sortedJsonArray.size()<from+pageSize? sortedJsonArray.size():from+pageSize); i++) {
 			resultJsonArray.add(sortedJsonArray.get(i));
 		}
 		return resultJsonArray;
