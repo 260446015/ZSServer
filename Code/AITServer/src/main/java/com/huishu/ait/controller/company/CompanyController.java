@@ -26,7 +26,7 @@ import com.huishu.ait.service.company.CompanyService;
  *
  */
 @RestController
-@RequestMapping("/business")
+@RequestMapping("/apis/business")
 public class CompanyController extends BaseController{
 
 	@Resource

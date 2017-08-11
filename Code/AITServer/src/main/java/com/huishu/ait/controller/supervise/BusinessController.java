@@ -25,7 +25,7 @@ import com.huishu.ait.service.supervise.BusinessService;
  * @version 1.0
  */
 @RestController
-@RequestMapping("business")
+@RequestMapping("/apis/business")
 public class BusinessController extends BaseController {
     
     /* 日志 */

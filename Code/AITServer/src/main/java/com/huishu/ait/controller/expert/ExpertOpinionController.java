@@ -27,7 +27,7 @@ import com.huishu.ait.service.Specialist.SpecialistService;
  *	查询专家观点
  */
 @RestController
-@RequestMapping(value = "expert")
+@RequestMapping(value = "/apis/expert")
 public class ExpertOpinionController extends BaseController{
 	
 	private static Logger log = LoggerFactory.getLogger(ExpertOpinionController.class);

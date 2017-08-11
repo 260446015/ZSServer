@@ -29,7 +29,7 @@ import com.huishu.ait.service.garden.GardenService;
  * @date   2017-7-28
  */
 @Controller
-@RequestMapping("area")
+@RequestMapping("/apis/area")
 public class GardenController extends BaseController{
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenController.class);
 			

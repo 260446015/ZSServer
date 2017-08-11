@@ -29,7 +29,7 @@ import com.huishu.ait.service.Headlines.HeadlinesService;
  * @return 产业头条
  */
 @Controller
-@RequestMapping("/Headlines")
+@RequestMapping("/apis/Headlines")
 public class HeadlinesController extends BaseController {
 	private static Logger logger = LoggerFactory.getLogger(HeadlinesController.class);
 	@Autowired

@@ -33,7 +33,7 @@ import com.huishu.ait.controller.BaseController;
  * @CreateTime 2017-7-27 17:18:16
  */
 @Controller
-@RequestMapping(value="industry")
+@RequestMapping(value="/apis/industry")
 public class IndustrialController extends BaseController {
 
     //加载日志
