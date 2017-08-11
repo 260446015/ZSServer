@@ -165,12 +165,11 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="/findGardensCondition.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult findGardensCondition(@RequestBody GardenDTO dto){
-		if(null == dto){
-			if(StringUtil.isEmpty(String.valueOf(dto.getUserId())))
-				return error(MsgConstant.ILLEGAL_PARAM);
-		}
 		dto = initPage(dto);
+//		Long userId = getUserId();
+		Long userId = 1L;
 		JSONArray aITInfos = null;
+		dto.setUserId(userId.intValue());
 		try{
 			aITInfos = gardenService.findGardensCondition(dto);
 		}catch(Exception e){
