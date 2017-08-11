@@ -206,9 +206,11 @@ public class GardenController extends BaseController{
 	@ResponseBody
 	public AjaxResult getAttentionGardenList(GardenDTO dto){
 	    String msg[] = dto.getMsg();
-	    dto.setUserId(Integer.parseInt(msg[0]));
-	    dto.setArea(msg[1]);
-	    dto.setIndustryType(msg[2]);
+	    Long userId = 1L;
+//	    Long userId = getUserId();
+	    dto.setUserId(userId.intValue());
+	    dto.setArea(msg[0]);
+	    dto.setIndustryType(msg[1]);
 	    
 	    if(null == dto || StringUtil.isEmpty(String.valueOf(dto.getUserId()))){
 	        return error(MsgConstant.ILLEGAL_PARAM);
@@ -237,13 +239,18 @@ public class GardenController extends BaseController{
 	}
 	@RequestMapping(value="/attentionGarden.json",method=RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult attentionGarden(String gardenId,String userId,boolean flag){
+	public AjaxResult attentionGarden(String gardenId,Boolean flag){
 		GardenUser gardenUser = null;
+		if(StringUtil.isEmpty(gardenId) || null == flag){
+			error(MsgConstant.ILLEGAL_PARAM);
+		}
+		Long userId = 1L;
+//		Long userId = getUserId();
 		try{
 			if(flag)
-				gardenUser = gardenService.attentionGarden(gardenId,userId,true);
+				gardenUser = gardenService.attentionGarden(gardenId,userId.toString(),true);
 			else
-				gardenUser = gardenService.attentionGarden(gardenId, userId,false);
+				gardenUser = gardenService.attentionGarden(gardenId, userId.toString(),false);
 		}catch(Exception e){
 			LOGGER.error("关注园区失败", e);
 			return error("关注园区失败");
