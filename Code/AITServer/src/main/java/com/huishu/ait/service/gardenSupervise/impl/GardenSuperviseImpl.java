@@ -24,8 +24,6 @@ import com.huishu.ait.entity.dto.CompanyDTO;
 import com.huishu.ait.repository.companyGroup.CompanyGroupRepository;
 import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
 
-import scala.annotation.meta.setter;
-
 /**
  * @author yxq
  * @date 2017年8月3日
