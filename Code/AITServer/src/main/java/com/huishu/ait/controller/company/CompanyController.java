@@ -22,7 +22,7 @@ import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.service.company.CompanyService;
 /**
  * 企业排行榜
- * @author yindawei 
+ * @author yindawei    
  *
  */
 @RestController

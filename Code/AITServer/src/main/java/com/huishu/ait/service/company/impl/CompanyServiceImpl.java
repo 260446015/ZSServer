@@ -26,7 +26,7 @@ import com.huishu.ait.es.repository.company.CompanyElasticsearchRepository;
 import com.huishu.ait.service.company.CompanyService;
 /**
  * 企业排行榜实现类
- * @author yindawei
+ * @author yindawei   
  *
  */
 @Service
