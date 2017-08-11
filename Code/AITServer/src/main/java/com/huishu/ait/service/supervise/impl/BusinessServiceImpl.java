@@ -32,8 +32,8 @@ public class BusinessServiceImpl implements BusinessService {
     @Autowired
     private BusinessRepository businessRepository;
     
-    @Autowired
-    private CompanyCountRepository companyCountRepository;
+//    @Autowired
+//    private CompanyCountRepository companyCountRepository;
     
     @Override
     public JSONArray getBusinessBehaviourDetail(String id) {
@@ -100,22 +100,22 @@ public class BusinessServiceImpl implements BusinessService {
         return null;
     }
     
-    @Override
-    public int addBusinessSearchCount(String business) {
-        Integer flag = null;
-        CompanyCount count = companyCountRepository.findByCompanyName(business);
-        if (count == null) {
-            flag = companyCountRepository.addCompanyCount(business, 1);
-        } else {
-            flag = companyCountRepository.updateCompanyCount(business);
-        }
-        return flag;
-    }
+//    @Override
+//    public int addBusinessSearchCount(String business) {
+//        Integer flag = null;
+//        CompanyCount count = companyCountRepository.findByCompanyName(business);
+//        if (count == null) {
+//            flag = companyCountRepository.addCompanyCount(business, 1);
+//        } else {
+//            flag = companyCountRepository.updateCompanyCount(business);
+//        }
+//        return flag;
+//    }
 
-    @Override
-    public Page<CompanyCount> getBusinessList() {
-        PageRequest request = new PageRequest(0, 20);
-        Page<CompanyCount> page = companyCountRepository.findAllByOrderBySearchCountAtDesc(request);
-        return page;
-    }
+//    @Override
+//    public Page<CompanyCount> getBusinessList() {
+////        PageRequest request = new PageRequest(0, 20);
+////        Page<CompanyCount> page = companyCountRepository.findAllByOrderBySearchCountAtDesc();
+//        return null;
+//    }
 }

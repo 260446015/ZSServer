@@ -151,17 +151,17 @@ public class BusinessController extends BaseController {
      * @param 无参数 
      * @return
      */
-    @RequestMapping(value = "getSearchBusinessList", method = RequestMethod.GET)
-    public AjaxResult getSearchBusinessList(){
-        try {
-            Page<CompanyCount> page = businessService.getBusinessList();
-            return success(page).setSuccess(true);
-        }
-        catch (Exception e) {
-            LOGGER.error("获取搜索框企业列表：", e);
-            return error(MsgConstant.ILLEGAL_PARAM);
-        }
-    }
+//    @RequestMapping(value = "getSearchBusinessList", method = RequestMethod.GET)
+//    public AjaxResult getSearchBusinessList(){
+//        try {
+//            Page<CompanyCount> page = businessService.getBusinessList();
+//            return success(page).setSuccess(true);
+//        }
+//        catch (Exception e) {
+//            LOGGER.error("获取搜索框企业列表：", e);
+//            return error(MsgConstant.ILLEGAL_PARAM);
+//        }
+//    }
     
     /**
      * 分页初始化
