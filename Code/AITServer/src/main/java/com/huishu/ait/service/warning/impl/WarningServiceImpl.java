@@ -68,9 +68,15 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 			return null;
 		}
 		buffer.append("[");
+		ArrayList<String> arrayList = new ArrayList<String>();
 		for (Object object : list) {
 			JSONObject jsonobj=(JSONObject)object;
+			//对企业进行去重
 			String companyName = (String)jsonobj.get("business");
+			if(arrayList.indexOf(companyName)!=-1){
+				continue;
+			}
+			arrayList.add(companyName);
 			List<String> specList = Arrays.asList(Constans.SEARCH);
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("word", companyName);
