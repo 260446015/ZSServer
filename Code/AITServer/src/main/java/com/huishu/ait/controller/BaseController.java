@@ -126,7 +126,7 @@ public abstract class BaseController {
             Object startDate = getValueByFieldName(dto, "startDate");
             
             if (startDate != null) {
-                if (!CheckUtils.checkDateTime(startDate.toString())) {
+                if (!CheckUtils.checkDate(startDate.toString())) {
                     return false;
                 }
             }
@@ -136,7 +136,7 @@ public abstract class BaseController {
             Object endDate = getValueByFieldName(dto, "endDate");
             
             if (endDate != null) {
-                if (!CheckUtils.checkDateTime(endDate.toString())) {
+                if (!CheckUtils.checkDate(endDate.toString())) {
                     return false;
                 }
             }
