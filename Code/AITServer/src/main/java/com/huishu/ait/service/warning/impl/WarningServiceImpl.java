@@ -45,7 +45,7 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		// 组装返回数据字段
 		String[] data = { "business", "title", "content" };
 		List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, orderList, dataList);
+		JSONArray array = getEsData(searchModel, map, orderList, dataList,true);
 		return array;
 	}
 
@@ -59,12 +59,18 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 			HttpServletResponse response) {
 		StringBuffer buffer = new StringBuffer();
 		// 根据park获取该园区所有企业
-		ArrayList<String> list = new ArrayList<String>();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("park", searchModel.getPark());
+		String[] data = { "business"};
+		List<String> dataList = Arrays.asList(data);
+		JSONArray list = getEsData(searchModel, map, null, dataList,false);
 		if (list == null || list.size() == 0) {
 			return null;
 		}
 		buffer.append("[");
-		for (String companyName : list) {
+		for (Object object : list) {
+			JSONObject jsonobj=(JSONObject)object;
+			String companyName = (String)jsonobj.get("business");
 			List<String> specList = Arrays.asList(Constans.SEARCH);
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("word", companyName);

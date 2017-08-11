@@ -68,7 +68,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		//组装返回数据字段
 		 String[] data = {"title","content"};
 		 List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, orderList, dataList);
+		JSONArray array = getEsData(searchModel, map, orderList, dataList,true);
 		return array;
 	}
 	@Override
@@ -87,7 +87,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		//组装返回数据字段
 		String[] data = {"title","vector"};
 		List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, orderList, dataList);
+		JSONArray array = getEsData(searchModel, map, orderList, dataList,true);
 		return array;
 	}
 	@Override
@@ -106,7 +106,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		//组装返回数据字段
 		String[] data = {"business"};
 		List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, orderList, dataList);
+		JSONArray array = getEsData(searchModel, map, orderList, dataList,true);
 		return array;
 	}
 	

@@ -292,9 +292,10 @@ public abstract class AbstractService {
 	 * @param termField    查询条件集合
 	 * @param orderField   需要排序的字段集合。  PS：请注意先后顺序
 	 * @param dataField    返回的数据存在的字段集合。  PS：ID属性默认有
+	 * @param isPage    是否分页
 	 * @return
 	 */
-	protected JSONArray getEsData(SearchModel searchModel,Map<String,String> termField,List<String> orderField,List<String> dataField){
+	protected JSONArray getEsData(SearchModel searchModel,Map<String,String> termField,List<String> orderField,List<String> dataField,boolean isPage){
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		//查询条件
 		if(null!=termField&&termField.size()!=0){
@@ -330,11 +331,15 @@ public abstract class AbstractService {
 				rows.add(obj);
 			});
 		}
-		searchModel.setTotalSize(Integer.valueOf(total.toString()));
-		for (int i = searchModel.getPageFrom(); i < rows.size(); i++) {
-			data.add(rows.get(i));
+		if(isPage){
+			searchModel.setTotalSize(Integer.valueOf(total.toString()));
+			for (int i = searchModel.getPageFrom(); i < rows.size(); i++) {
+				data.add(rows.get(i));
+			}
+			return data;
 		}
-		return data;
+		return rows;
+		
 	}
 	
 }
