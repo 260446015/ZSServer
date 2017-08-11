@@ -20,34 +20,34 @@ public interface CompanyCountRepository extends CrudRepository<CompanyCount, Int
      * @param search
      * @return
      */
-    @Modifying
-    @Query(value = "insert into t_company_count(company_name,search_count) values(?1,?2)")
-    int addCompanyCount(String companyName, int searchCount);
-    
+//    @Modifying
+//    @Query(value = "insert into t_company_count(company_name,search_count) values(?1,?2)")
+//    int addCompanyCount(String companyName, int searchCount);
+//    
     /**
      * 根据企业被搜索次数获取企业列表，用作填充搜索框
      * @param pageable
      * @return
      */
-    @Modifying
-    @Query(value = "select * from t_company_count order by search_count desc")
-    public Page<CompanyCount> findAllByOrderBySearchCountAtDesc(Pageable pageable);
+//    @Modifying
+//    @Query(value = "select * from t_company_count order by search_count desc")
+//    public Page<CompanyCount> findAllByOrderBySearchCountAtDesc();
     
     /**
      * 将 根据公司名称 点击量+1 
      * @param companyName
      * @return
      */
-    @Modifying
-    @Query(value = "update t_company_count set search_count=search_count+1 where company_name=1?")
-    public int updateCompanyCount(String companyName);
-    
+//    @Modifying
+//    @Query(value = "update t_company_count set search_count=search_count+1 where company_name=1?")
+//    public int updateCompanyCount(String companyName);
+//    
     /**
      * 根据公司名称获取信息
      * @param companyName
      * @return
      */
-    @Modifying
-    @Query(value = "select * from t_company_count where company_name = 1?")
-    public CompanyCount findByCompanyName(String companyName);
+//    @Modifying
+//    @Query(value = "select * from t_company_count where company_name = 1?")
+//    public CompanyCount findByCompanyName(String companyName);
 }

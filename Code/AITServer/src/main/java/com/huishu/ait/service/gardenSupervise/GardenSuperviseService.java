@@ -5,6 +5,7 @@ import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.entity.CompanyGroup;
+import com.huishu.ait.entity.dto.CompanyDTO;
 
 /**
  * @author yxq
@@ -18,6 +19,9 @@ public interface GardenSuperviseService {
 	  
 	//获取园区内所有企业的信息
 	 public JSONArray getCompanyFromGarden(String park);
+	 
+	 //获取园区内所有企业的信息（分页）
+	 public JSONArray getCompanyFromGardenForPage(CompanyDTO companyDTO);
 	 
 	 //保存分组
 	 public String addCompanyGroup(String groupName);

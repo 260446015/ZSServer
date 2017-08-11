@@ -32,6 +32,14 @@ public class CompanyDTO implements Serializable {
 	 */
 	private String dimension;
 	/**
+	 * 关键字
+	 */
+	private String keyWord;
+	/**
+	 * 注册资金
+	 */
+	private Long regCapital;
+	/**
      * 每页数据存储个数
      */
     private Integer pageSize;
@@ -39,6 +47,10 @@ public class CompanyDTO implements Serializable {
      * 当前页码数
      */
     private Integer pageNumber;
+    /**
+     * 所属园区
+     */
+    private String park;
     /**
      * 
      * 传递数组
@@ -102,4 +114,28 @@ public class CompanyDTO implements Serializable {
 		this.msg = msg;
 	}
 
+	public String getPark() {
+		return park;
+	}
+
+	public void setPark(String park) {
+		this.park = park;
+	}
+
+	public String getKeyWord() {
+		return keyWord;
+	}
+
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
+	}
+
+	public Long getRegCapital() {
+		return regCapital;
+	}
+
+	public void setRegCapital(Long regCapital) {
+		this.regCapital = regCapital;
+	}
+	
 }

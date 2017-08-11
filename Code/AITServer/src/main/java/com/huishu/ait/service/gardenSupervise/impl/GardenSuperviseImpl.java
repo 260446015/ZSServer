@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.CompanyGroup;
+import com.huishu.ait.entity.dto.CompanyDTO;
 import com.huishu.ait.repository.companyGroup.CompanyGroupRepository;
 import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
 
@@ -96,11 +97,12 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 					if (null != map && map.size()>0 ) {
 						map.put("_id", hit.getId());
 						json.put("id", map.get("_id"));
-						json.put("park", map.get("park"));
-						json.put("vector", map.get("vector"));
+						json.put("park", map.get("park"));//所属园区
 						json.put("business", map.get("business"));
+						json.put("vector", map.get("vector"));
 						json.put("businessLegal", map.get("businessLegal"));
-						json.put("position", map.get("position"));
+						json.put("position", map.get("position"));//详细位置
+						json.put("area", map.get("area"));//区域地址
 						jsonArray.add(json);
 					}
 				}
@@ -148,5 +150,65 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			log.error("分组查询失败", e.getMessage());
 			return null;
 		}
+	}
+	/* 
+	 * 方法名：getCompanyFromGardenForPage
+	 * 描述：查询当前园区内所有企业信息+搜索+分页
+	 */
+	public JSONArray getCompanyFromGardenForPage(CompanyDTO dto) {
+		try {
+			JSONArray jsonArray = new JSONArray();
+			String park = dto.getPark();
+			String industry = dto.getIndustry();
+			String keyWord = dto.getKeyWord();
+			Integer pageNumber = dto.getPageNumber();
+			Integer pageSize = dto.getPageSize();
+			Long regCapital = dto.getRegCapital();
+			int from = (pageNumber-1)*pageSize;
+			SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
+			BoolQueryBuilder bq = new BoolQueryBuilder();
+			if (StringUtils.isNotBlank(park)) {
+				bq.must(QueryBuilders.termQuery("park", park));
+			}
+			if (StringUtils.isNotBlank(industry)) {
+				bq.must(QueryBuilders.termQuery("industry", industry));
+			}
+			if (null !=regCapital) {
+				bq.must(QueryBuilders.termQuery("regCapital", regCapital));
+			}
+			if (StringUtils.isNotBlank(keyWord)) {
+				bq.must(QueryBuilders.termQuery("keyWord", keyWord));
+			}
+			SearchResponse actionGet = srb.setQuery(bq).setFrom(from).setSize(pageSize).execute().actionGet();
+			if (null != actionGet && null != actionGet.getHits()) {
+				SearchHits hits = actionGet.getHits();
+				for (SearchHit hit : hits) {
+					JSONObject json = new JSONObject();
+					Map<String, Object> map = hit.getSource();
+					if (null != map && map.size()>0 ) {
+						map.put("_id", hit.getId());
+						json.put("id", map.get("_id"));
+						json.put("total", hits.getTotalHits());
+						json.put("park", map.get("park"));//所属园区
+						json.put("tmPic", map.get("tmPic"));//商标图片链接
+						json.put("vector", map.get("vector"));
+						json.put("business", map.get("business"));
+						json.put("businessLegal", map.get("businessLegal"));//公司领导
+						json.put("position", map.get("position"));//详细位置
+						json.put("area", map.get("area"));//区域地址
+						json.put("regCapital", map.get("regCapital"));//注册资金
+						json.put("legalPersonName", map.get("legalPersonName"));//法人
+						json.put("regTime", map.get("regTime"));//注册时间
+						json.put("percentileScore", map.get("percentileScore"));//评分
+						jsonArray.add(json);
+					}
+				}
+			}
+			return jsonArray;
+		} catch (Exception e) {
+			log.error("获取园区内企业信息失败", e.getMessage());
+			return null;
+		}
+		
 	}
 }
