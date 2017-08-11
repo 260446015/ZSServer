@@ -118,7 +118,6 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 //		String searchName = dto.getSerarchName();
 		int pageNum = dto.getPageNumber();
 		int pageSize = dto.getPageSize();
-		int from = pageSize*pageNum - pageSize;
 		JSONArray data = new JSONArray();
 		Page<Garden> findGardensPage = null;
 		try{
@@ -151,7 +150,6 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			bq.must(QueryBuilders.termsQuery("park", gardenName));
 			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).setFrom(from+dto.getPageSize()).execute().actionGet();
-			System.out.println(requestBuilder);
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
 				JSONObject obj = new JSONObject();
@@ -219,27 +217,38 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	 */
 	@Override
 	public GardenUser attentionGarden(String gardenId,String userId,boolean flag) {
-		Garden garden = gardenRepository.findOne(Integer.parseInt(gardenId));
-		
-		if(flag){
-			GardenUser gu = new GardenUser();
-			gu.setGardenName(garden.getName());
-			gu.setAddress(garden.getAddress());
-			gu.setArea(garden.getArea());
-			gu.setAttentionDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(System.currentTimeMillis()).toString());
-			gu.setDescription(garden.getDescription());
-			gu.setUserId(Integer.parseInt(userId));
-			gu.setIndustryType(garden.getIndustryType());
-			gardenUserRepository.save(gu);
-			return gu;
-		}else{
-			gardenUserRepository.deleteByGardenName(garden.getName());
-			return null;
+		try {
+			Garden garden = gardenRepository.findOne(Integer.parseInt(gardenId));
+			
+			if(flag){
+				if(null != garden) {
+					GardenUser gu = new GardenUser();
+					gu.setGardenName(garden.getName());
+					gu.setAddress(garden.getAddress());
+					gu.setArea(garden.getArea());
+					gu.setAttentionDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(System.currentTimeMillis()).toString());
+					gu.setDescription(garden.getDescription());
+					gu.setUserId(Integer.parseInt(userId));
+					gu.setIndustryType(garden.getIndustryType());
+					gardenUserRepository.save(gu);
+					return gu;
+				}
+			}else{
+				gardenUserRepository.deleteByGardenName(garden.getName());
+			}
+		}catch(Exception e) {
+			LOGGER.error(e.getMessage());
 		}
+		return null;
 	}
 	@Override
 	public JSONObject findGardensConditionById(String cid) {
-		GardenInformation information = gardenInformationRepository.findOne(cid);
+		GardenInformation information = new GardenInformation();
+		try{
+			information = gardenInformationRepository.findOne(cid);
+		}catch(Exception e) {
+			LOGGER.error(e.getMessage());
+		}
 		return JSONObject.parseObject(information.toString());
 	}
 	
