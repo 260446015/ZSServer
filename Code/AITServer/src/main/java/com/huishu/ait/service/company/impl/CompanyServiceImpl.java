@@ -1,7 +1,8 @@
 package com.huishu.ait.service.company.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -18,11 +19,8 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.util.ConcersUtils.DateUtil;
 import com.huishu.ait.common.util.ESUtils;
-import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.dto.CompanyDTO;
-import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.CompanyElastic;
 import com.huishu.ait.es.repository.company.CompanyElasticsearchRepository;
 import com.huishu.ait.service.company.CompanyService;
@@ -66,13 +64,11 @@ public class CompanyServiceImpl implements CompanyService {
 			String articleType = "企业排行";//这里只做排行榜，先写死
 			
 			bq.must(QueryBuilders.termQuery("articleType", articleType));
-			int size = 8;
 			int from = dto.getPageSize()*dto.getPageNumber() - dto.getPageSize();
 //			if(from < 0){
 //				from = 0;
 //			}
-			SearchResponse response = requestBuilder.setQuery(bq).setFrom(from+dto.getPageSize()).setSize(size).execute().actionGet();
-			System.out.println(requestBuilder); 
+			SearchResponse response = requestBuilder.setQuery(bq).setFrom(from+dto.getPageSize()).setSize(dto.getPageSize()).execute().actionGet();
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
 				JSONObject obj = new JSONObject();
@@ -80,9 +76,14 @@ public class CompanyServiceImpl implements CompanyService {
 				obj.put("id", searchHit.getId());
 				obj.put("articleType", companie.getString("articleType"));
 				obj.put("vector", companie.getString("vector"));
-				Date parseStrToDate = DateUtil.parseStrToDate(companie.getString("publishDate"), "yyyy年MM月dd日");
-				obj.put("publishDate", parseStrToDate.toString());
+				DateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+				DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Date date = format1.parse(companie.getString("publishDate"));
+				String publishDate = format.format(date);
+				obj.put("publishDate", publishDate);
 				obj.put("content", companie.getString("content"));
+				obj.put("title", companie.getString("title"));
 				data.add(obj);
 			}
 			LOGGER.info("查询到的企业:"+data.toJSONString());
@@ -93,7 +94,12 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	@Override
 	public JSONObject findCompanieOrderById(String coid) {
-		CompanyElastic company = elasticsearchRepository.findOne(coid);
+		CompanyElastic company = new CompanyElastic();
+		try {
+			company = elasticsearchRepository.findOne(coid);
+		}catch(Exception e) {
+			LOGGER.error(e.getMessage());
+		}
 		return JSONObject.parseObject(company.toString());
 	}
 
