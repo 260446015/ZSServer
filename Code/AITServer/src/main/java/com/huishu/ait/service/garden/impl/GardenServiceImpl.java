@@ -229,6 +229,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					gu.setAttentionDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(System.currentTimeMillis()).toString());
 					gu.setDescription(garden.getDescription());
 					gu.setUserId(Integer.parseInt(userId));
+					gu.setGardenPicture(garden.getGardenPicture());
 					gu.setIndustryType(garden.getIndustryType());
 					gardenUserRepository.save(gu);
 					return gu;
