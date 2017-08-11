@@ -3,6 +3,7 @@ package com.huishu.ait.service.supervise;
 import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
+import com.huishu.ait.entity.CompanyCount;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 
@@ -41,5 +42,15 @@ public interface BusinessService {
      */
     public JSONArray searchBusiness();
     
-   
+    /**
+     * 添加企业被点击数目
+     * @return
+     */
+    public int addBusinessSearchCount(String business);
+    
+    /**
+     * 搜索界面，获取企业名称和被点击数量
+     * @return
+     */
+    public Page<CompanyCount> getBusinessList();
 }
