@@ -3,6 +3,7 @@ package com.huishu.ait.controller.supervise;
 import java.net.URLEncoder;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.CompanyGroup;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.CompanyDTO;
+import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
-
 /**
  * @author yxq
  * @date 2017年8月3日
@@ -31,9 +34,24 @@ public class GardenSuperviseController extends BaseController {
 	@Autowired
 	private GardenSuperviseService gardenSuperviseService;
 	
+	
+	String park = "中关村软件园";
+	/**
+	 * @return
+	 * 获取当前用户
+	 */
+	public ShiroUser getCurrentUser(){
+		return (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+	}
 	//TODO:获取当前用户所在的园区
 	//获取当前用户所在的园区
-	String park = "中关村软件园";
+	/**
+	 * @return
+	 * 获取当前用户所在的园区
+	 */
+	public ShiroUser getCurrentPark(){
+		return null;
+	}
 	/**
 	 * @return
 	 * 获取当前园区的信息
@@ -53,7 +71,7 @@ public class GardenSuperviseController extends BaseController {
 	 * 获取当前园区中的所有企业列表
 	 */
 	@RequestMapping(value = "getCompanyFromGarden.json",method=RequestMethod.GET)
-	public AjaxResult getCompanyFromGarden(){
+	public AjaxResult getCompanyFromGarden(String park){
 		try {
 			JSONArray jsonArray = gardenSuperviseService.getCompanyFromGarden(park);
 			return success(jsonArray);
@@ -101,12 +119,27 @@ public class GardenSuperviseController extends BaseController {
 			return null;
 		}
 	}
-	
+	/**
+	 * @return
+	 * 查询当前园区中的所有企业信息(分页)
+	 */
+	@RequestMapping(value = "searchCompanyFromGardenForPage.json",method=RequestMethod.POST)
+	public AjaxResult getCompanyFromGardenForPage(CompanyDTO dto){
+		try {
+			dto.setPark(park);
+			dto = initPage(dto);
+			JSONArray jsonArray = gardenSuperviseService.getCompanyFromGardenForPage(dto);
+			return success(jsonArray);
+		} catch (Exception e) {
+			log.error("查询园区企业失败", e.getMessage());
+			return null;
+		}
+	}
 	/**
 	 * @param dto
 	 * 初始化分页的方法
 	 */
-	/*private ExpertOpinionDTO initPage(ExpertOpinionDTO dto){
+	private CompanyDTO initPage(CompanyDTO dto){
 		if(dto.getPageNumber() == null){
 			dto.setPageNumber(1);
 		}
@@ -117,5 +150,5 @@ public class GardenSuperviseController extends BaseController {
 			dto.setPageNumber(ConcersUtils.ES_MAX_PAGENUMBER);
 		}
 		return dto;
-	}*/
+	}
 }
