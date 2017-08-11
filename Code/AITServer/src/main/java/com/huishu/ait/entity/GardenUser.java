@@ -41,7 +41,8 @@ public class GardenUser implements Serializable{
 	@Column(name="attentiondate")
 	private String attentionDate;
 	
-	
+	@Column(name="garden_picture")
+	private String gardenPicture;
 	
 	/**
 	 * 
@@ -102,5 +103,11 @@ public class GardenUser implements Serializable{
     }
     public void setAttentionDate(String attentionDate) {
         this.attentionDate = attentionDate;
+    }
+    public String getGardenPicture() {
+        return gardenPicture;
+    }
+    public void setGardenPicture(String gardenPicture) {
+        this.gardenPicture = gardenPicture;
     }
 }

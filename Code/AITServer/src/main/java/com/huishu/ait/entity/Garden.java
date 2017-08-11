@@ -32,6 +32,8 @@ public class Garden implements Serializable {
 	private String industryType;
 	@Column(name="garden_type")
 	private String gardenType;
+	@Column(name="garden_picture")
+	private String gardenPicture;
 	public int getId() {
 		return id;
 	}
@@ -74,5 +76,10 @@ public class Garden implements Serializable {
 	public void setGardenType(String gardenType) {
 		this.gardenType = gardenType;
 	}
-	
+    public String getGardenPicture() {
+        return gardenPicture;
+    }
+    public void setGardenPicture(String gardenPicture) {
+        this.gardenPicture = gardenPicture;
+    }
 }
