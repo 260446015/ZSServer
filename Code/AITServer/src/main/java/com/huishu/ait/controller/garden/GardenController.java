@@ -204,7 +204,7 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value = "/getAttentionGardenList.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getAttentionGardenList(GardenDTO dto){
+	public AjaxResult getAttentionGardenList(@RequestBody GardenDTO dto){
 	    String msg[] = dto.getMsg();
 	    Long userId = 1L;
 //	    Long userId = getUserId();

@@ -48,15 +48,14 @@ public class IndustrialPolicyDTO extends AbstractDTO {
         this.dimension = dimension;
     }
 
-    private String[] labels;
+    private String[] msg;
     
-
-    public String[] getLabels() {
-        return labels;
+    public String[] getMsg() {
+        return msg;
     }
 
-    public void setLabels(String[] labels) {
-        this.labels = labels;
+    public void setMsg(String[] msg) {
+        this.msg = msg;
     }
 
     public String getArticleType() {

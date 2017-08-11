@@ -49,13 +49,13 @@ public class IndustrialController extends BaseController {
      */
     @RequestMapping(value="getIndustrialPolicyList.json", method = RequestMethod.POST)
     @ResponseBody
-    public AjaxResult getIndustrialPolicyList( IndustrialPolicyDTO dto){
+    public AjaxResult getIndustrialPolicyList(@RequestBody IndustrialPolicyDTO dto){
         try{
-            String[] labels = dto.getLabels();
+            String[] labels = dto.getMsg();
             dto.setIndustry(labels[0]);
             dto.setIndustryLabel(labels[1]);
-            dto.setArea(labels[2]);
-            dto.setPeriodDate(labels[3]);
+            dto.setPeriodDate(labels[2]);
+            dto.setArea(labels[3]);
             
             JSONArray array = new JSONArray();
             

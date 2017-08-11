@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -32,8 +35,8 @@ public class BusinessServiceImpl implements BusinessService {
     @Autowired
     private BusinessRepository businessRepository;
     
-//    @Autowired
-//    private CompanyCountRepository companyCountRepository;
+    @Autowired
+    private CompanyCountRepository companyCountRepository;
     
     @Override
     public JSONArray getBusinessBehaviourDetail(String id) {
@@ -100,22 +103,25 @@ public class BusinessServiceImpl implements BusinessService {
         return null;
     }
     
-//    @Override
-//    public int addBusinessSearchCount(String business) {
-//        Integer flag = null;
-//        CompanyCount count = companyCountRepository.findByCompanyName(business);
-//        if (count == null) {
-//            flag = companyCountRepository.addCompanyCount(business, 1);
-//        } else {
-//            flag = companyCountRepository.updateCompanyCount(business);
-//        }
-//        return flag;
-//    }
+    @Override
+    public CompanyCount addBusinessSearchCount(String business) {
+        CompanyCount count1 = companyCountRepository.findByCompanyName(business);
+        CompanyCount count2 = new CompanyCount();
+        if (count1 == null) {
+            count2.setCompanyName(business);
+            count2.setSearchCount(1);
+            count2 = companyCountRepository.save(count2);
+        } else {
+            count1.setSearchCount(count1.getSearchCount()+1);
+            count2 = companyCountRepository.save(count1);
+        }
+        return count2;
+    }
 
-//    @Override
-//    public Page<CompanyCount> getBusinessList() {
-////        PageRequest request = new PageRequest(0, 20);
-////        Page<CompanyCount> page = companyCountRepository.findAllByOrderBySearchCountAtDesc();
-//        return null;
-//    }
+    @Override
+    public Page<CompanyCount> getBusinessList() {
+        PageRequest request = new PageRequest(0, 20, new Sort(new Order(Direction.DESC, "searchCount")));
+        Page<CompanyCount> page = companyCountRepository.findAll(request);
+        return page;
+    }
 }
