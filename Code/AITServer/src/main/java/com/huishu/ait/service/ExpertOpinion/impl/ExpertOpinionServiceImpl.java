@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.ExpertOpinionDetail;
@@ -53,7 +54,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	
 	/* 
 	 * 方法名：getExertOpinionList
-	 * 描述：根据条件获取专家观点信息
+	 * 描述：根据条件获取百家论观点信息
 	 */
 	public JSONArray getExertOpinionList(ExpertOpinionDTO requestParam){
 		try {
@@ -75,14 +76,14 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			int from = (pageNumber-1)*pageSize;
 			SearchRequestBuilder searchBuilder = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = QueryBuilders.boolQuery();
-			bq.must(QueryBuilders.termQuery("dimension", "百家论"));
+			bq.must(QueryBuilders.termQuery("dimension", Constans.BAIJIALUN));
 			//根据条件查询
 			SearchRequestBuilder requestBuilder = searchBuilder.setQuery(bq)
 					.setFrom(from).setSize(pageSize);
 			if (StringUtils.isNotEmpty(industry)) {
 				bq.must(QueryBuilders.termQuery("industry", industry));
 			}
-			if (StringUtils.isNotBlank(industryLabel) && !"不限".equals(industryLabel)) {
+			if (StringUtils.isNotBlank(industryLabel) && !(Constans.BUXIAN).equals(industryLabel)) {
 				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 			}
 			if (StringUtils.isNotEmpty(startDate) && StringUtils.isNotEmpty(endDate)) {
@@ -105,6 +106,8 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 							jsonObject.put("author", map.get("author"));
 							jsonObject.put("sourceLink", map.get("sourceLink"));
 							jsonObject.put("source", map.get("source"));
+							jsonObject.put("business", map.get("business"));
+							jsonObject.put("area", map.get("area"));
 							jsonObject.put("total", map.get("total"));
 							data.add(jsonObject);
 					}
@@ -118,7 +121,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	}
 	
 	/* 
-	 * 根据姓名查询专家观点列表并根据时间进行排序
+	 * 根据姓名查询专家论列表并根据时间进行排序
 	 */
 	@Override
 	public JSONArray findExpertOpinionByAuthor(ExpertOpinionDTO requestParam) {
@@ -132,7 +135,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			
 			SearchRequestBuilder requestBuilder = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = QueryBuilders.boolQuery();
-			bq.must(QueryBuilders.matchAllQuery());
+			bq.must(QueryBuilders.termQuery("dimension", Constans.ZHUANJIALUN));
 			if (StringUtils.isNotBlank(author)) {
 				bq.must(QueryBuilders.termQuery("author", author));
 			}
@@ -153,6 +156,9 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 						jsonObject.put("content", source.get("content"));
 						jsonObject.put("dimension", source.get("dimension"));
 						jsonObject.put("publishDate", source.get("publishDate"));
+						jsonObject.put("business", source.get("business"));
+						jsonObject.put("businessType", source.get("businessType"));
+						jsonObject.put("area", source.get("area"));
 						jsonObject.put("total", source.get("total"));
 						data.add(jsonObject);
 					}

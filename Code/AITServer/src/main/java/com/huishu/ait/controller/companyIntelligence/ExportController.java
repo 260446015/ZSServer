@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.common.util.exporter.ExcelExporter;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.service.companyIntelligence.CompanyIntelligenceService;
@@ -39,10 +40,12 @@ public class ExportController extends HttpServlet {
 	private CompanyIntelligenceService companyIntelligenceService;
 
 	@RequestMapping(value = "exportFile.json")
-	public void exportFile(HttpServletRequest request, HttpServletResponse response, String[] ids)
-			throws ServletException, IOException {
-		List<AITInfo> list = companyIntelligenceService.getCompanyIntelligenceByIds(ids);
+	public void exportFile(HttpServletRequest request, HttpServletResponse response, String[] ids)throws ServletException, IOException {
+		List<AITInfo> list =new ArrayList<AITInfo>();
 		try {
+			if (null != ids) {
+			list =  companyIntelligenceService.getCompanyIntelligenceByIds(ids);
+			}
 			String fileName = "企业情报画像.xls";
 			fileName = new String(fileName.getBytes("utf8"), "ISO8859_1");
 			response.reset();
@@ -83,13 +86,14 @@ public class ExportController extends HttpServlet {
 			cellStyleTitle.setFont(font);
 
 			// 工作表名
-			String id = "id";
-			String title = "标题";
-			String content = "内容";
-			String publishTime = "发布时间";
-			String source = "来源";
-			String dimension = "纬度";
+			String id = Constans.TABID;
+			String title = Constans.TABTITLE;
+			String content = Constans.TABCONTENT;
+			String publishTime = Constans.TABPUBLISHTIME;
+			String source = Constans.TABSOURCE;
+			String dimension = Constans.TABDIMENSION;
 
+			
 			HSSFSheet sheet = wb.createSheet();
 			ExcelExporter exportExcel = new ExcelExporter(wb, sheet);
 			sheet.setDefaultColumnWidth(20);

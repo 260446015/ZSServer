@@ -70,7 +70,7 @@ public class ExpertOpinionController extends BaseController{
 	/**
 	 * @param requestParam
 	 * @return
-	 * 查询专家观点
+	 * 查询百家论信息
 	 */
 	@RequestMapping(value = "findaExpertOpinion.json",method=RequestMethod.POST)
 	public AjaxResult getExpertOpinion(ExpertOpinionDTO requestParam){
@@ -78,9 +78,15 @@ public class ExpertOpinionController extends BaseController{
 			requestParam = initPage(requestParam);
 			String[] msg = requestParam.getMsg();
 			if (null != msg && msg.length > 0 ) {
-				requestParam.setIndustry(requestParam.getMsg()[0]);
-				requestParam.setIndustryLabel(requestParam.getMsg()[1]);
-				requestParam.setTimeFlag(requestParam.getMsg()[2]);
+				if (null != requestParam.getMsg()[0]) {
+					requestParam.setIndustry(requestParam.getMsg()[0]);
+				}
+				if (null != requestParam.getMsg()[1]) {
+					requestParam.setIndustryLabel(requestParam.getMsg()[1]);
+				}
+				if (null != requestParam.getMsg()[2]) {
+					requestParam.setTimeFlag(requestParam.getMsg()[2]);
+				}
 			}
 			JSONArray jsonArray = expertOpinionService.getExertOpinionList(requestParam);
 			return this.success(jsonArray);
@@ -92,7 +98,7 @@ public class ExpertOpinionController extends BaseController{
 	/**
 	 * @param requestParam
 	 * @return
-	 * 根据作者名称查询观点列表
+	 * 根据作者名称查询专家论列表
 	 */
 	@RequestMapping(value = "findExpertOpinionByAuthor.json",method=RequestMethod.POST)
 	public AjaxResult getExpertOpinionByAuthor(ExpertOpinionDTO requestParam){
