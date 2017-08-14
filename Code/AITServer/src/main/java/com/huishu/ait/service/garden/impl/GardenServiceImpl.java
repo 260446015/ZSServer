@@ -1,6 +1,7 @@
 package com.huishu.ait.service.garden.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
@@ -201,13 +203,55 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		JSONArray data = new JSONArray();
 		try{
 			Iterable<Garden> findAll = gardenRepository.findAll();
+			JSONArray arr1 = new JSONArray();//动漫产业
+			JSONArray arr2 = new JSONArray();//影视产业
+			JSONArray arr3 = new JSONArray();//生态科技
+			JSONArray arr4 = new JSONArray();//生物药业
+			JSONArray arr5 = new JSONArray();//信息技术
 			for (Garden garden : findAll) {
 				JSONObject obj = new JSONObject();
-				obj.put("id", garden.getId());
-				obj.put("area", garden.getArea());
-				obj.put("gardenType", garden.getGardenType());
-				data.add(obj);
+//				obj.put("id", garden.getId());
+//				obj.put("area", garden.getArea());
+//				obj.put("gardenType", garden.getGardenType());
+				obj.put("name", garden.getName());
+				int value = 0;
+				switch (garden.getGardenType()) {
+				case "动漫产业":
+					value = 0;
+					break;
+				case "影视产业":
+					value = 2;
+					break;
+				case "生态科技":
+					value = 3;
+					break;
+				case "生物药业":
+					value = 4;
+					break;
+				case "信息技术":
+					value = 5;
+					break;
+				default:
+					break;
+				}
+				obj.put("value", value);
+				if(garden.getGardenType().equals("动漫产业")){
+					arr1.add(obj);
+				}else if(garden.getGardenType().equals("影视产业")){
+					arr2.add(obj);
+				}else if(garden.getGardenType().equals("生态科技")){
+					arr3.add(obj);
+				}else if(garden.getGardenType().equals("生物药业")){
+					arr4.add(obj);
+				}else if(garden.getGardenType().equals("信息技术")){
+					arr5.add(obj);
+				}
 			}
+			data.add(arr1);
+			data.add(arr2);
+			data.add(arr3);
+			data.add(arr4);
+			data.add(arr5);
 		}catch(Exception e){
 			LOGGER.error("获取园区情报中获取所有园区内容失败",e);
 		}

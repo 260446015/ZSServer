@@ -19,8 +19,8 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
-import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.service.Headlines.HeadlinesService;
+import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 
 /**
  * @author hhy

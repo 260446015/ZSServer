@@ -34,8 +34,6 @@ import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.repository.Headlines.HeadlinesElasticsearch;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.Headlines.HeadlinesService;
-
-
 import com.huishu.ait.common.conf.DBConstant.Emotion;
 import com.huishu.ait.common.util.UtilsHelper;
 

@@ -33,8 +33,12 @@ public class Specialist implements Serializable{
 	private String professionalTitle;//职称
 	private String company;
 	private String position;
+	private String title;
+	private String content;
 	@Column(name = "pic_url")
 	private String picUrl;
+	@Column(name = "article_id")
+	private String articleId;
 	public Long getId() {
 		return id;
 	}
@@ -83,10 +87,22 @@ public class Specialist implements Serializable{
 	public void setPicUrl(String picUrl) {
 		this.picUrl = picUrl;
 	}
-	@Override
-	public String toString() {
-		return JSONObject.toJSONString("Specialist [id=" + id + ", name=" + name + ", sex=" + sex + ", age=" + age + ", professionalTitle="
-				+ professionalTitle + ", company=" + company + ", position=" + position + ", picUrl=" + picUrl + "]");
+	public String getTitle() {
+		return title;
 	}
-	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getArticleId() {
+		return articleId;
+	}
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
+	}
 }
