@@ -23,7 +23,7 @@ import com.huishu.ait.common.conf.ConfConstant.INDUSTRY;
  * 本方法主要针对公用参数的添加与删除
  */
 @Controller
-@RequestMapping(value="/param")
+@RequestMapping(value="/apis/param")
 public class BaseParamController extends BaseController {
 	
 	@Autowired
@@ -32,12 +32,12 @@ public class BaseParamController extends BaseController {
 	//首次进入今日头条，将会给予提示
 	@ResponseBody
 	@RequestMapping("/getInsertParam.json")
-   public AjaxResult getInsertParam(@RequestBody List<Param>  list){
-		if(list.isEmpty()){
-			return error(MsgConstant.ILLEGAL_PARAM);
+   public AjaxResult getInsertParam(@RequestBody Param param){
+		if( param == null){
+			 return error(MsgConstant.ILLEGAL_PARAM);
 		}
-//		Long userId = getUserId();
-		Long userId = (long)2;//测试用
+	//	Long userId = getUserId();
+		Long userId = (long)2;//测试用 
            
 		List<Param> findByUid = service.findByUid(userId);
 		if(!findByUid.isEmpty()){
@@ -47,7 +47,11 @@ public class BaseParamController extends BaseController {
 			}
 		}
 		boolean b = false;
-		for (Param param : list) {
+		String[] msg = param.getMsg();
+		for (int i = 0; i < msg.length; i++) {
+			
+		}
+		/*for (Param param : list) {
 			param.setUid(userId);
 			b = service.insert(param);
 			if( !b){
@@ -57,7 +61,7 @@ public class BaseParamController extends BaseController {
 		if( b ){
 			List<Param> list2 = service.findByUid(userId);
 			return success(list2);
-		}
+		}*/
 		return error(MsgConstant.ILLEGAL_PARAM);
 	}
 	/**
