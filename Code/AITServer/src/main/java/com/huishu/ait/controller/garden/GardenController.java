@@ -136,6 +136,26 @@ public class GardenController extends BaseController{
 	}
 	
 	/**
+	 * 根据园区名字获取园区状态
+	 * @param gardenName   园区名
+	 * @return
+	 */
+	@RequestMapping(value="getGardenByName.json",method=RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getGardenByName(String gardenName){
+		if(null==gardenName){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(gardenService.getGardenByName(gardenName));
+		} catch (Exception e) {
+			LOGGER.error("getGardenInformationById查询失败！",e);
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+	}
+	
+	
+	/**
 	 * 获取园区列表
 	 * @param dto 传用户id
 	 * @return
