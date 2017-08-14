@@ -206,6 +206,28 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				obj.put("id", garden.getId());
 				obj.put("area", garden.getArea());
 				obj.put("gardenType", garden.getGardenType());
+				obj.put("name", garden.getName());
+				int value = 0;
+				switch (garden.getGardenType()) {
+				case "动漫产业":
+					value = 0;
+					break;
+				case "影视产业":
+					value = 2;
+					break;
+				case "生态科技":
+					value = 3;
+					break;
+				case "生物药业":
+					value = 4;
+					break;
+				case "信息技术":
+					value = 5;
+					break;
+				default:
+					break;
+				}
+				obj.put("value", value);
 				data.add(obj);
 			}
 		}catch(Exception e){

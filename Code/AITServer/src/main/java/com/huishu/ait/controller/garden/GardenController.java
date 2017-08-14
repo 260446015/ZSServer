@@ -137,7 +137,7 @@ public class GardenController extends BaseController{
 	
 	/**
 	 * 获取园区列表
-	 * @param dto 传用户id
+	 * @param dto 
 	 * @return
 	 */
 	@RequestMapping(value="/findGardensList.json",method=RequestMethod.POST)
