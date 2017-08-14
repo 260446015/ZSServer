@@ -210,9 +210,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			JSONArray arr5 = new JSONArray();//信息技术
 			for (Garden garden : findAll) {
 				JSONObject obj = new JSONObject();
-				obj.put("id", garden.getId());
-				obj.put("area", garden.getArea());
-				obj.put("gardenType", garden.getGardenType());
+//				obj.put("id", garden.getId());
+//				obj.put("area", garden.getArea());
+//				obj.put("gardenType", garden.getGardenType());
 				obj.put("name", garden.getName());
 				int value = 0;
 				switch (garden.getGardenType()) {

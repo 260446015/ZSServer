@@ -76,6 +76,7 @@ public class CompanyServiceImpl implements CompanyService {
 				obj.put("id", searchHit.getId());
 				obj.put("articleType", companie.getString("articleType"));
 				obj.put("vector", companie.getString("vector"));
+				obj.put("business", companie.getString("business"));
 				DateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
 				DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 				
