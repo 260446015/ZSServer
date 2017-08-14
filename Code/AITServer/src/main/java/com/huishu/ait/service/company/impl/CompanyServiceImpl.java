@@ -65,9 +65,6 @@ public class CompanyServiceImpl implements CompanyService {
 			
 			bq.must(QueryBuilders.termQuery("articleType", articleType));
 			int from = dto.getPageSize()*dto.getPageNumber() - dto.getPageSize();
-//			if(from < 0){
-//				from = 0;
-//			}
 			SearchResponse response = requestBuilder.setQuery(bq).setFrom(from+dto.getPageSize()).setSize(dto.getPageSize()).execute().actionGet();
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
