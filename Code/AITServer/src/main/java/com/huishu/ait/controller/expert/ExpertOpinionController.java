@@ -61,7 +61,21 @@ public class ExpertOpinionController extends BaseController{
 	public AjaxResult getSpecialist(){
 		try {
 			List<Specialist> findAll = specialistService.findAll();
-			return success(findAll);
+			return this.success(findAll);
+		} catch (Exception e) {
+			log.error("查询失败：",e.getMessage());
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+	}
+	/**
+	 * @return
+	 * 根据姓名获取专家信息列表
+	 */
+	@RequestMapping(value = "getSpecialistById.json",method=RequestMethod.GET)
+	public AjaxResult getSpecialistById(String id){
+		try {
+			Specialist specialist = specialistService.getSpecialistById(id);
+			return this.success(specialist);
 		} catch (Exception e) {
 			log.error("查询失败：",e.getMessage());
 			return error(MsgConstant.ILLEGAL_PARAM);

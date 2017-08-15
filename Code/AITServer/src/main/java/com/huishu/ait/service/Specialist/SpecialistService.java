@@ -8,4 +8,6 @@ public interface SpecialistService {
 
 	List<Specialist> findAll();
 
+	Specialist getSpecialistById(String id);
+
 }
