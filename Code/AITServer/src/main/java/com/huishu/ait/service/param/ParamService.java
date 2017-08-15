@@ -3,6 +3,7 @@ package com.huishu.ait.service.param;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.entity.Param;
 
 /**
@@ -34,7 +35,7 @@ public interface ParamService {
 	/**
 	 * @param uid
 	 */
-	JSONArray findByUid(Long uid);
+	JSONObject findByUid(Long uid);
 
 	/**
 	 * 
