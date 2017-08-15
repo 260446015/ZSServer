@@ -304,9 +304,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		JSONArray array2 = getGardenInformationList(getAreaSearchDTODemo(gardenName));
 		JSONArray array3 = getGardenBusinessList(getAreaSearchDTODemo(gardenName));
 		JSONObject object = new JSONObject();
-		object.put("1", array3);
-		object.put("2", array);
-		object.put("3", array2);
+		object.put("leadCompany", array3);
+		object.put("parkPolicy", array);
+		object.put("parkDynamics", array2);
 		return object;
 	}
 	
