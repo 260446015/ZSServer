@@ -143,11 +143,12 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="getGardenTableData.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getGardenTableData(String gardenName){
-		if(StringUtil.isEmpty(gardenName)){
+		Long userId = getUserId();
+		if(StringUtil.isEmpty(gardenName)||null == userId){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			return success(gardenService.getGardenTableData(gardenName));
+			return success(gardenService.getGardenTableData(gardenName,userId));
 		} catch (Exception e) {
 			LOGGER.error("getGardenTableData查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);

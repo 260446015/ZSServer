@@ -51,7 +51,7 @@ public interface GardenService {
 	 * @param gardenName     园区名字
 	 * @return
 	 */
-	JSONObject getGardenTableData(String gardenName);
+	JSONObject getGardenTableData(String gardenName,Long userId);
 	/**
 	 * 根据园区名字获取园区信息
 	 * @param id     动态ID

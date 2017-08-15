@@ -299,11 +299,11 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		return gardenUserRepository.findByGardenName(gardenName);
 	}
 	@Override
-	public JSONObject getGardenTableData(String gardenName) {
+	public JSONObject getGardenTableData(String gardenName,Long userId) {
 		JSONArray array = getGardenPolicyList(getAreaSearchDTODemo(gardenName));
 		JSONArray array2 = getGardenInformationList(getAreaSearchDTODemo(gardenName));
 		JSONArray array3 = getGardenBusinessList(getAreaSearchDTODemo(gardenName));
-		GardenUser gu = gardenUserRepository.findByGardenName(gardenName);
+		GardenUser gu = gardenUserRepository.findByGardenNameAndUserId(gardenName,userId.intValue());
 		JSONObject object = new JSONObject();
 		object.put("leadCompany", array3);
 		object.put("parkPolicy", array);
