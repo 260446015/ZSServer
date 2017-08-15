@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.entity.Param;
 import com.huishu.ait.repository.param.ParamRepository;
@@ -61,8 +63,15 @@ public class ParamServiceImpl  implements ParamService{
 	 * 通过id查询所有信息
 	 */
 	@Override
-	public List<Param> findByUid(Long uid) {
-		return pr.findByUid(uid);
+	public JSONArray findByUid(Long uid) {
+		JSONArray data = new JSONArray();
+		List<Param> params = pr.findByUid(uid);
+		for (Param param : params) {
+			JSONObject obj = new JSONObject();
+			obj.put(param.getIndustryInfo(), param.getIndustryLagel());
+			data.add(obj);
+		}
+		return data;
 	}
 	@Override
 	public boolean saveParams(List<Param> list) {

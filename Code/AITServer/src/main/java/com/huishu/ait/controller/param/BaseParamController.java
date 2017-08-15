@@ -55,7 +55,7 @@ public class BaseParamController extends BaseController {
 			Param p = new Param();
 			p.setIndustryInfo(key);
 			p.setUid(userId);
-			p.setIndustryLagel(obj.getString(key));
+			p.setIndustryLagel(obj.getString(key).replaceAll("[", "").replaceAll("]", "").replaceAll("\"", ""));
 			params.add(p);
 		}
 		try{
@@ -67,8 +67,7 @@ public class BaseParamController extends BaseController {
 		if(!b){
 			return error("保存失败！");
 		}else{
-			List<Param> list2 = service.findByUid(userId);
-			return success(list2);
+			return success(service.findByUid(userId));
 		}
 	}
 	/**
@@ -81,7 +80,7 @@ public class BaseParamController extends BaseController {
 	@RequestMapping("/getParamById.json")
 	public AjaxResult  getParamById(){
 //		Long userId = getUserId();
-		Long userId = (long)2;//测试用
+		Long userId = (long)3;//测试用
 		if(userId == null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
