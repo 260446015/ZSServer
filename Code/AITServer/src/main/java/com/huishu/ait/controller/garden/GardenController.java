@@ -192,11 +192,10 @@ public class GardenController extends BaseController{
 		try{
 			gardens = gardenService.findGardensList(dto);
 		}catch(Exception e){
-			e.printStackTrace();
 			LOGGER.error("查询园区列表失败!",e);
-			return error(e.getMessage()).setSuccess(false);
+			return error(e.getMessage());
 		}
-		return success(gardens).setSuccess(true);
+		return success(gardens);
 	}
 	/**
 	 * 获取园区动态
@@ -215,9 +214,9 @@ public class GardenController extends BaseController{
 			aITInfos = gardenService.findGardensCondition(dto);
 		}catch(Exception e){
 			LOGGER.error("查询园区动态失败!", e);
-			return error(e.getMessage()).setSuccess(false);
+			return error(e.getMessage());
 		}
-		return success(aITInfos).setSuccess(true);
+		return success(aITInfos);
 	}
 	/**
 	 * 获取园区动态详情信息
@@ -233,9 +232,9 @@ public class GardenController extends BaseController{
 			obj = gardenService.findGardensConditionById(cid);
 		}catch(Exception e) {
 			LOGGER.error("根据id查询园区动态失败!", e);
-			return error(e.getMessage()).setSuccess(false);
+			return error(e.getMessage());
 		}
-		return success(obj).setSuccess(true);
+		return success(obj);
 	}
 	
 	/**
@@ -263,7 +262,7 @@ public class GardenController extends BaseController{
 	        return success(pagedata);
 	    }catch(Exception e){
 	        LOGGER.error("查询园区动态失败!", e);
-            return error(e.getMessage()).setSuccess(false);
+            return error(e.getMessage());
 	    }
 	}
 	
