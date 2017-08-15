@@ -55,7 +55,7 @@ public class BaseParamController extends BaseController {
 			Param p = new Param();
 			p.setIndustryInfo(key);
 			p.setUid(userId);
-			p.setIndustryLagel(obj.getString(key).replaceAll("[", "").replaceAll("]", "").replaceAll("\"", ""));
+			p.setIndustryLagel(obj.getString(key).replace("[", "").replace("]", "").replace("\"", ""));
 			params.add(p);
 		}
 		try{
