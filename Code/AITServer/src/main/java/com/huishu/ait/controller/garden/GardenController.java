@@ -65,7 +65,7 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="getGardenPolicyById.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getGardenPolicyById(String id){
-		if(null==id){
+		if(StringUtil.isEmpty(id)){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -104,7 +104,7 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="getGardenInformationById.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getGardenInformationById(String id){
-		if(null==id){
+		if(StringUtil.isEmpty(id)){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -136,6 +136,25 @@ public class GardenController extends BaseController{
 	}
 	
 	/**
+	 * 获取园区的龙头企业，园区政策和园区情报信息，全都只取前五条
+	 * @param searchModel    查询条件
+	 * @return
+	 */
+	@RequestMapping(value="getGardenTableData.json",method=RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getGardenTableData(String gardenName){
+		if(StringUtil.isEmpty(gardenName)){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(gardenService.getGardenTableData(gardenName));
+		} catch (Exception e) {
+			LOGGER.error("getGardenTableData查询失败！",e);
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+	}
+	
+	/**
 	 * 根据园区名字获取园区状态
 	 * @param gardenName   园区名
 	 * @return
@@ -143,13 +162,13 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="getGardenByName.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getGardenByName(String gardenName){
-		if(null==gardenName){
+		if(StringUtil.isEmpty(gardenName)){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
 			return success(gardenService.getGardenByName(gardenName));
 		} catch (Exception e) {
-			LOGGER.error("getGardenInformationById查询失败！",e);
+			LOGGER.error("getGardenByName查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
