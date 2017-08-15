@@ -143,7 +143,8 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="getGardenTableData.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getGardenTableData(String gardenName){
-		Long userId = getUserId();
+//		Long userId = getUserId();
+		Long userId = 1L;
 		if(StringUtil.isEmpty(gardenName)||null == userId){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
