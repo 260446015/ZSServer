@@ -35,4 +35,16 @@ public interface ParamService {
 	 */
 	List<Param> findByUid(Long uid);
 
+	/**
+	 * 
+	 * @param list
+	 */
+	boolean saveParams(List<Param> list);
+	
+	/**
+	 * @param param
+	 * @return
+	 */
+	boolean getInsertParam(List<Param> params,Long userId);
+
 }

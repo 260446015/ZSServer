@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.entity.Param;
 import com.huishu.ait.repository.param.ParamRepository;
 import com.huishu.ait.service.param.ParamService;
@@ -48,8 +49,8 @@ public class ParamServiceImpl  implements ParamService{
 	@Override
 	public boolean deleteParamAllByUid(Long uid) {
 		try {
-		  pr.delete(uid);
-			
+		  List<Param> list = pr.findByUid(uid);
+		  pr.delete(list);
 		} catch (Exception e) {
 			
 			return false;
@@ -62,6 +63,32 @@ public class ParamServiceImpl  implements ParamService{
 	@Override
 	public List<Param> findByUid(Long uid) {
 		return pr.findByUid(uid);
+	}
+	@Override
+	public boolean saveParams(List<Param> list) {
+		try{
+			pr.save(list);
+		}catch(Exception e){
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public boolean getInsertParam(List<Param> params,Long userId) {
+		try{
+			List<Param> findByUid = pr.findByUid(userId);
+			if(!findByUid.isEmpty()){
+				pr.delete(findByUid);
+			}
+			List<Param> find = pr.findByUid(userId);
+			if(find.isEmpty()){
+				pr.save(params);
+			}
+			
+		}catch(Exception e){
+			return false;
+		}
+		return true;
 	}
 
 }

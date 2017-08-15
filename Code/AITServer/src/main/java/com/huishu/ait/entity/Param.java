@@ -39,7 +39,7 @@ public class Param implements Serializable {
 	/**用户id*/
 	@Column(name="uid")
 	private Long Uid;
-	private String [] msg;
+	private String msg;
 	
 	public Long getId() {
 		return id;
@@ -49,11 +49,11 @@ public class Param implements Serializable {
 		this.id = id;
 	}
 	
-	public String[] getMsg() {
+	public String getMsg() {
 		return msg;
 	}
 
-	public void setMsg(String[] msg) {
+	public void setMsg(String msg) {
 		this.msg = msg;
 	}
 

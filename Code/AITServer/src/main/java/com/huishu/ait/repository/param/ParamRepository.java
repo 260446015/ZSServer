@@ -18,4 +18,7 @@ public interface ParamRepository extends CrudRepository<Param, Long> {
 	
 	@Query(value="from Param where uid=?")
 	List<Param> findByUid(Long uid);
+	
+	@Query(value="delete from Param p where p.Uid=?")
+	boolean removeByUid(Long uid);
 }
