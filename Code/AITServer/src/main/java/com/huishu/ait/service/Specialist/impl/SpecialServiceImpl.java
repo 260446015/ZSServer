@@ -25,6 +25,11 @@ public class SpecialServiceImpl implements SpecialistService {
 		return (List<Specialist>) specialRepository.findAll();
 	}
 
+	@Override
+	public Specialist getSpecialistById(String id) {
+		return specialRepository.findOne(Long.parseLong(id));
+	}
+
 	
 
 }

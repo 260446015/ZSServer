@@ -13,4 +13,6 @@ import com.huishu.ait.entity.Specialist;
  */
 public interface SpecialistRepository extends CrudRepository<Specialist, Long>  {
 
+	Specialist getSpecialistByName(String name);
+
 }
