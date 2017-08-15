@@ -67,7 +67,7 @@ public class ParamServiceImpl  implements ParamService{
 		JSONObject obj = new JSONObject();
 		List<Param> params = pr.findByUid(uid);
 		for (Param param : params) {
-			obj.put(param.getIndustryInfo(), param.getIndustryLagel());
+			obj.put(param.getIndustryInfo(), param.getIndustryLagel().split(","));
 		}
 		return obj;
 	}
