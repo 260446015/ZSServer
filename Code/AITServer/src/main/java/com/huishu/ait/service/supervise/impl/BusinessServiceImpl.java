@@ -63,7 +63,12 @@ public class BusinessServiceImpl implements BusinessService {
         String dimension = dto.getDimension();
         PageRequest pageable = dto.builderPageRequest();
         try{
-            Page<AITInfo> page = businessRepository.findByParkAndEmotionAndBusinessAndDimension(park, emotion, business, dimension, pageable);
+            Page<AITInfo> page = null;
+            if (StringUtil.isEmpty(park)) {
+                page = businessRepository.findByBusinessAndEmotionAndDimension(business, emotion, dimension, pageable);
+            } else {
+                page = businessRepository.findByParkAndDimension(park, dimension, pageable);
+            }
             return page;
         }catch(Exception e){
             logger.error("获取企业动态数据失败",e);
