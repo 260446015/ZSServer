@@ -1,7 +1,6 @@
 package com.huishu.ait.service.garden.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +24,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
@@ -299,6 +297,17 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	@Override
 	public GardenUser getGardenByName(String gardenName) {
 		return gardenUserRepository.findByGardenName(gardenName);
+	}
+	@Override
+	public JSONObject getGardenTableData(String gardenName) {
+		JSONArray array = getGardenPolicyList(getAreaSearchDTODemo(gardenName));
+		JSONArray array2 = getGardenInformationList(getAreaSearchDTODemo(gardenName));
+		JSONArray array3 = getGardenBusinessList(getAreaSearchDTODemo(gardenName));
+		JSONObject object = new JSONObject();
+		object.put("1", array3);
+		object.put("2", array);
+		object.put("3", array2);
+		return object;
 	}
 	
 }

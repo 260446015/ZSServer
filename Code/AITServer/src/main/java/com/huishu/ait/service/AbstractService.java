@@ -51,6 +51,7 @@ import com.huishu.ait.echart.Tooltip;
 import com.huishu.ait.echart.series.Pie;
 import com.huishu.ait.echart.series.Serie.SerieData;
 import com.huishu.ait.entity.common.SearchModel;
+import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 
@@ -342,4 +343,15 @@ public abstract class AbstractService {
 		
 	}
 	
+	/**
+	 * 获取固定查询条件DEMO
+	 * @param gardenName   园区名字
+	 * @return
+	 */
+	protected AreaSearchDTO getAreaSearchDTODemo(String gardenName){
+		AreaSearchDTO searchModel = new AreaSearchDTO();
+		searchModel.setPark(gardenName);
+		searchModel.setPageSize(5);
+		return searchModel;
+	}
 }

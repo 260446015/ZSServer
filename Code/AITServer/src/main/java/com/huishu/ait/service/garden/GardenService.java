@@ -47,6 +47,12 @@ public interface GardenService {
 	 */
 	JSONArray getGardenBusinessList(AreaSearchDTO searchModel);
 	/**
+	 * 获取园区的龙头企业，园区政策和园区情报信息
+	 * @param gardenName     园区名字
+	 * @return
+	 */
+	JSONObject getGardenTableData(String gardenName);
+	/**
 	 * 根据园区名字获取园区信息
 	 * @param id     动态ID
 	 * @return
