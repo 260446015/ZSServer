@@ -309,9 +309,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		object.put("parkPolicy", array);
 		object.put("parkDynamics", array2);
 		if(null != gu){
-			object.put("isAttention ", "yes");
+			object.put("isAttention", "yes");
 		}else{
-			object.put("isAttention ", "no");
+			object.put("isAttention", "no");
 		}
 		return object;
 	}
