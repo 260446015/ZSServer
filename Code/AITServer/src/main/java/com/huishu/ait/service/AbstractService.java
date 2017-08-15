@@ -90,11 +90,13 @@ public abstract class AbstractService {
 			Pie<SerieData<Long>> pie = new Pie<>();
 			pie.addRadiu("40%").addRadiu("55%");
 			pie.setName("载体分布统计");
-			Legend legend = new Legend();
+			Legend legend = new Legend(); 
+			
+			
 			Terms articleLink = res.getAggregations().get("articleLink");
 			String key = null;
 			long count = 0;
-			SerieData<Long> data = new SerieData<>(key, count);
+			
 			Map<String ,Object> map = new HashMap<String, Object>();
 			if (articleLink != null) {
 				for (Terms.Bucket e1 : articleLink.getBuckets()) {
@@ -107,6 +109,7 @@ public abstract class AbstractService {
 					
 				}
 				for(Entry<String,Object> entry : map.entrySet()){
+					SerieData<Long> data = new SerieData<>(key, count);
 					data.setName(entry.getKey());
 					data.setValue((Long) entry.getValue());
 					legend.addData(entry.getKey());
@@ -142,9 +145,12 @@ public abstract class AbstractService {
 					}
 				}
 			}
-			//将从ES获取到的集合为参数，调用词云的方法
-			/*JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud1(contentList, 0, wordCloudNum, null);
-			if(keywordCloud != null){
+			/*//将从ES获取到的集合为参数，调用词云的方法  -- 双创
+			JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, wordCloudNum);
+			if(keywordCloud.getBooleanValue("status")){
+				jsonArray.add(keywordCloud.get("result"));
+			}*/
+			/*if(keywordCloud != null){
 				JSONArray keyWordCloudArray = keywordCloud.getJSONArray("sort");
 				for (int i=0,size=keyWordCloudArray.size(); i<size; i++) {
 					JSONObject item = keyWordCloudArray.getJSONObject(i);

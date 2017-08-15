@@ -43,5 +43,5 @@ public interface HeadlinesService {
 	 * @param id
 	 * @return
 	 */
-	AITInfo findArticleById(String id);
+	AITInfo findArticleById(String _id);
 }

@@ -58,6 +58,7 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	try {
 		
 		BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
+		
 		return getCloudWordList(bq,headlinesDTO.getWordCloudNum());
 	} catch (Exception e) {
 		logger.error("获取词云失败：",e);
@@ -101,10 +102,10 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	 * 产业头条--根据id查看文章详情
 	 */
 	@Override
-	public AITInfo findArticleById(String id) {
+	public AITInfo findArticleById(String _id) {
 		try {
-			
-			return essearch.findOne(id);
+			 AITInfo findOne = essearch.findOne(_id);
+			return findOne;
 		} catch (Exception e) {
 			logger.error("查询文章详情失败：",e);
 			return null;

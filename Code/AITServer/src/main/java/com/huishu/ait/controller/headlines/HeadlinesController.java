@@ -1,5 +1,6 @@
 package com.huishu.ait.controller.headlines;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.Echarts.transform.EchartsDataTransform;
 import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.common.util.ConcersUtils.DateUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 import com.huishu.ait.service.Headlines.HeadlinesService;
@@ -25,9 +28,9 @@ import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 /**
  * @author hhy
  * @date 2017年7月27日
- * @Parem
+ * @Parem                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
  * @return 产业头条
- */
+ */                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 @Controller
 @RequestMapping("/apis/Headlines")
 public class HeadlinesController extends BaseController {
@@ -43,10 +46,14 @@ public class HeadlinesController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getWordClond.json", method = RequestMethod.POST)
+	@RequestMapping(value = "/getWordClond.json",method=RequestMethod.POST)
 	public AjaxResult getWordClond(@RequestBody HeadlinesDTO headlinesDTO) {
 		try {
 			HeadlinesDTO dto = CheckDTO(headlinesDTO);
+			if (dto.getPeriodDate() != null){
+                dto = dateInit(dto);
+               // dto.setPeriodDate(null);
+            }
 			boolean b = checkDTO(dto);
 			if (b) {
 				JSONArray cloud = ecdTransformer.transformWordCloud(service.getWordCloud(dto));
@@ -67,13 +74,33 @@ public class HeadlinesController extends BaseController {
 	private HeadlinesDTO CheckDTO(HeadlinesDTO DTO) {
 		HeadlinesDTO dto = new HeadlinesDTO();
 		String[] msg = DTO.getMsg();
+		/*String industry = msg[0];
+		String industrtLabel = msg[1];
+		String periodDate = msg[2];
+		String vector = msg[3];
+		String keyword = msg[4];
+		String keycloudNum = msg[5];*/
 		dto.setIndustry(msg[0]);
 		dto.setIndustryLabel(msg[1]);
-		dto.setKeyWord(DTO.getKeyWord());
-		dto.setVector(DTO.getVector());
-		dto.setWordCloudNum(DTO.getWordCloudNum());
-		dto.setStartDate(DTO.getStartDate());
-		dto.setEndDate(DTO.getEndDate());
+		dto.setPeriodDate(msg[2]);
+		if(!msg[3].isEmpty()){
+			dto.setVector(msg[3]);
+		}
+		if(!msg[4].isEmpty()){
+			dto.setKeyWord(msg[4]);
+		}
+		if(!msg[5].isEmpty()){
+			dto.setWordCloudNum(Integer.getInteger( msg[5]));
+		}
+		/*dto.setIndustry("互联网");
+		dto.setIndustryLabel("大数据");
+		
+		dto.setPeriodDate("一年");*/
+		/*dto.setVector("微信");*/
+		/*dto.setVector("");
+		dto.setKeyWord("");
+		dto.setWordCloudNum("");*/
+		
 		//dto.set
 		return dto;
 	}
@@ -84,8 +111,8 @@ public class HeadlinesController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getClondChartList.json", method = RequestMethod.POST)
-	public AjaxResult getCarClondChartList(@RequestBody HeadlinesDTO headlinesDTO) {
+	@RequestMapping(value = "/getClondChartList.json" )
+	public AjaxResult getCarClondChartList(   HeadlinesDTO headlinesDTO) {
 		try {
 			HeadlinesDTO dto = CheckDTO(headlinesDTO);
 			boolean b = checkDTO(dto);
@@ -106,8 +133,8 @@ public class HeadlinesController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getArticleByVectorList.json",method=RequestMethod.POST)
-	public AjaxResult getArticleByVectorList(@RequestBody HeadlinesDTO headlinesDTO){
+	@RequestMapping(value="/getArticleByVectorList.json")
+	public AjaxResult getArticleByVectorList(HeadlinesDTO headlinesDTO){
 			try {
 				HeadlinesDTO dto = CheckDTO(headlinesDTO);
 				 boolean b = checkDTO(dto);
@@ -148,8 +175,55 @@ public class HeadlinesController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getArticleById.json",method=RequestMethod.GET)
-	public AjaxResult getVectorArticleById(@RequestBody String id){
-		return success(service.findArticleById(id));
+	@RequestMapping(value="/getArticleById.json")
+	public AjaxResult getVectorArticleById( String _id){
+		AITInfo byId = service.findArticleById(_id);
+		return success(byId);
 	}
+	/**
+     * 时间初始处理 yyyy-MM-dd
+     * @param dto
+     * @return
+     */
+    private HeadlinesDTO dateInit(HeadlinesDTO dto){
+        Date date = new Date();
+        String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_DATE); //今天的当前时间（获取服务端时间）
+        String startTime = DateUtil.getFormatDate(DateUtil.getStartTime(), DateUtil.FORMAT_DATE); //今天的起始时间
+        String yesterAgo = DateUtil.getFormatDate(DateUtil.getYesterAgoStartTime(date), DateUtil.FORMAT_DATE); //昨天的起始时间
+        String weekAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_DATE); //近7天的起始时间
+        String monthAgo = DateUtil.getFormatDate(DateUtil.getMonthAgoStartTime(date), DateUtil.FORMAT_DATE); //一个月内
+        String halfYearAgo = DateUtil.getFormatDate(DateUtil.getHalfYearStartTime(date), DateUtil.FORMAT_DATE); //半年内
+        String yearAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_DATE); //一年内
+        
+        //对时间段进行判断
+        if(dto.getPeriodDate().equals("今日")){
+            dto.setStartDate(startTime);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("昨天")){
+            dto.setStartDate(yesterAgo);
+            dto.setEndDate(startTime);
+        }
+        if(dto.getPeriodDate().equals("近7天")){
+            dto.setStartDate(weekAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("1个月")){
+            dto.setStartDate(monthAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("半年")){
+            dto.setStartDate(halfYearAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("一年")){
+            dto.setStartDate(yearAgo);
+            dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("不限")){
+            dto.setStartDate("1980-01-01");
+            dto.setEndDate(endTime);
+        }
+        return dto;
+    }
 }
