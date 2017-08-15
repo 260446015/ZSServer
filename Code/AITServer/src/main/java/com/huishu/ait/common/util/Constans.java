@@ -616,5 +616,26 @@ public class Constans {
 	 * 天眼查接口ID 70
 	 */
 	public static final String ALLDETAIL2 = "https://open.api.tianyancha.com/services/v3/open/allDetail2.json";
+	/**
+	 * 专家论
+	 */
+	public static final String ZHUANJIALUN = "专家论";
+	/**
+	 * 百家论
+	 */
+	public static final String BAIJIALUN = "百家论";
+	/**
+	 * 不限
+	 */
+	public static final String BUXIAN = "不限";
+	/**
+	 * 导出表格第一行标题内容
+	 */
+	public static final String TABID = "编号";
+	public static final String TABTITLE = "标题";
+	public static final String TABCONTENT = "内容";
+	public static final String TABPUBLISHTIME = "发布时间";
+	public static final String TABSOURCE = "来源";
+	public static final String TABDIMENSION = "纬度";
 	
 }

@@ -67,9 +67,9 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
             bq = dto.builderQuery();
             Page<AITInfo> pagedate3 = industrialPolicyRepository.search(bq,dto.builderPageRequest());
             
-            map.put("政策解读", pagedate1);
-            map.put("高峰论坛", pagedate2);
-            map.put("科学研究", pagedate3);
+            map.put("policy", pagedate1); //政策解读
+            map.put("forum", pagedate2);  //高峰论坛
+            map.put("research", pagedate3);  //科学研究
             
             array.add(map);
             

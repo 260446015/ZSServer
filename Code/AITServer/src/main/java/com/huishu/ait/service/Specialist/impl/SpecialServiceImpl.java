@@ -17,7 +17,7 @@ import com.huishu.ait.service.Specialist.SpecialistService;
 @Service
 public class SpecialServiceImpl implements SpecialistService {
 	@Autowired
-	private SpecialistRepository   specialRepository;   
+	private SpecialistRepository specialRepository;   
 	
 	@Override
 	public List<Specialist> findAll() {

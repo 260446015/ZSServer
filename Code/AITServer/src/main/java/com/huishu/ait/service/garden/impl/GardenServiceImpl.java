@@ -296,5 +296,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		}
 		return JSONObject.parseObject(information.toString());
 	}
+	@Override
+	public GardenUser getGardenByName(String gardenName) {
+		return gardenUserRepository.findByGardenName(gardenName);
+	}
 	
 }

@@ -29,4 +29,5 @@ public interface GardenUserRepository extends CrudRepository<GardenUser, Integer
 	Page<GardenUser> findByUserIdAndIndustryType(Integer userId, String industryType, Pageable pageable);
 	Page<GardenUser> findByUserId(Integer userId, Pageable pageable);
 	Integer deleteByGardenName(String gardenName);
+	GardenUser findByGardenName(String gardenName);
 }

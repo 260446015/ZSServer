@@ -14,6 +14,11 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.Aggregation;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,9 +60,14 @@ public class CompanyIntelligenceServiceImpl implements CompanyIntelligenceServic
 			String emotion = dto.getEmotion();
 			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-			
-			String startDate = format2.format(format1.parse(dto.getStartDate()));
-			String endDate = format2.format(format1.parse(dto.getEndDate()));
+			String startDate =null;
+			String endDate = null;
+			if (StringUtils.isNotBlank(dto.getStartDate()) ) {
+				 format2.format(format1.parse(dto.getStartDate()));
+			}
+			if (StringUtils.isNotBlank(dto.getEndDate()) ) {
+				format2.format(format1.parse(dto.getEndDate()));
+			}
 			String dateCheck = DateCheck.dateCheck(dto.getTimeFlag());
 			if (null == startDate && null == endDate) {
 				if (null != dateCheck) {
@@ -86,10 +96,13 @@ public class CompanyIntelligenceServiceImpl implements CompanyIntelligenceServic
 			if (StringUtils.isNotEmpty(startDate) && StringUtils.isNotEmpty(endDate)) {
 				bq.must(QueryBuilders.rangeQuery("publishDate").from(startDate).to(endDate));
 			}
+			TermsBuilder agg = AggregationBuilders.terms("sourceLink").field("sourceLink");
 			SearchResponse response = requestBuilder.setQuery(bq)
+					.addAggregation(agg)
 					.addSort("publishDateTime", SortOrder.DESC)
-					.setFrom(from).setSize(pageSize)
-					.execute().actionGet();
+					.setFrom(from).setSize(30)
+					.execute()
+					.actionGet();
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
 				Map<String, Object> map = searchHit.getSource();
@@ -98,6 +111,7 @@ public class CompanyIntelligenceServiceImpl implements CompanyIntelligenceServic
 					map.put("total", hits.getTotalHits());
 					JSONObject json = new JSONObject();
 					json.put("id", map.get("_id"));
+					json.put("total", map.get("total"));
 					json.put("publishDate", map.get("publishDate"));
 					json.put("title", map.get("title"));
 					json.put("content", map.get("content"));

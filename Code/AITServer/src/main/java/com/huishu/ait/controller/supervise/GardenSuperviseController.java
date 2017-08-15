@@ -49,7 +49,7 @@ public class GardenSuperviseController extends BaseController {
 	 * @return
 	 * 获取当前用户所在的园区
 	 */
-	public ShiroUser getCurrentPark(){
+	public String getCurrentPark(){
 		return null;
 	}
 	/**
