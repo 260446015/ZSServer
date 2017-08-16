@@ -291,17 +291,24 @@ public abstract class AbstractService {
 	 * ES的分页查询数据方法
 	 * @param searchModel  查询Model
 	 * @param termField    查询条件集合
+	 * @param notTermField    不包含条件集合
 	 * @param orderField   需要排序的字段集合。  PS：请注意先后顺序
 	 * @param dataField    返回的数据存在的字段集合。  PS：ID属性默认有
 	 * @param isPage    是否分页
 	 * @return
 	 */
-	protected JSONArray getEsData(SearchModel searchModel,Map<String,String> termField,List<String> orderField,List<String> dataField,boolean isPage){
+	protected JSONArray getEsData(SearchModel searchModel,Map<String,String> termField,Map<String,String> notTermField,List<String> orderField,List<String> dataField,boolean isPage){
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		//查询条件
 		if(null!=termField&&termField.size()!=0){
 			for (String key : termField.keySet()) {
 				bq.must(QueryBuilders.termQuery(key,termField.get(key)));
+			}
+		}
+		//不包含条件
+		if(null!=notTermField&&notTermField.size()!=0){
+			for (String key : termField.keySet()) {
+				bq.mustNot(QueryBuilders.termQuery(key,termField.get(key)));
 			}
 		}
 		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);

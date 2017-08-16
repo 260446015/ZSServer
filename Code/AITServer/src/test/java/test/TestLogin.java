@@ -1,5 +1,15 @@
 package test;
 
+import java.util.Map;
+
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +17,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.app.Application;
+import com.huishu.ait.common.conf.DBConstant;
+import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.service.user.UserBaseService;
 
@@ -19,12 +33,30 @@ import com.huishu.ait.service.user.UserBaseService;
 public class TestLogin {
 	@Autowired
 	private UserBaseService userBaseService;
+	@Autowired
+	private Client client;
 	
 	@Test
 	public void login(){
 		System.out.println("==================================");
 		UserBase user = userBaseService.getUserByUserAccount("18301649800");
 		System.out.println(user);
+	}
+	@Test
+	public void aaa(){
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		SearchRequestBuilder srb = client.prepareSearch("aitserver_2017-08-15").setTypes(DBConstant.EsConfig.TYPE);
+		SearchResponse searchResponse = srb.setQuery(bq).setSize(50).execute().actionGet();
+		
+		if(null!=searchResponse&&null!=searchResponse.getHits()){
+			SearchHits hits = searchResponse.getHits();
+			hits.forEach((searchHit)->{
+				Map<String, Object> map = searchHit.getSource();
+				 for (String key : map.keySet()) {
+				   System.out.println("key= "+ key + " and value= " + map.get(key));
+				  }
+			});
+		}
 	}
 	
 	

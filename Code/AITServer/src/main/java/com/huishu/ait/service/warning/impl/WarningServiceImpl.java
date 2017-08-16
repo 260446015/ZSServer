@@ -37,15 +37,17 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 	public JSONArray getBusinessOutflowList(AreaSearchDTO searchModel) {
 		// 组装查询条件
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("park", searchModel.getPark());
+		map.put("dimension", "疑似外流");
 		map.put("emotion", DBConstant.Emotion.NEGATIVE);
+		Map<String, String> map2 = new HashMap<String, String>();
+		map2.put("park", searchModel.getPark());
 		// 组装排序字段,按时间和点击量降序排列
 		String[] order = { "publishDateTime", "hitCount" };
 		List<String> orderList = Arrays.asList(order);
 		// 组装返回数据字段
 		String[] data = { "business", "title", "content" };
 		List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, orderList, dataList,true);
+		JSONArray array = getEsData(searchModel, map, map2,orderList, dataList,true);
 		return array;
 	}
 
@@ -63,7 +65,7 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		map.put("park", searchModel.getPark());
 		String[] data = { "business"};
 		List<String> dataList = Arrays.asList(data);
-		JSONArray list = getEsData(searchModel, map, null, dataList,false);
+		JSONArray list = getEsData(searchModel, map, null,null, dataList,false);
 		if (list == null || list.size() == 0) {
 			return null;
 		}
