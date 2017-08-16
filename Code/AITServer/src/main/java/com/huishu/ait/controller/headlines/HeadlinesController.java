@@ -83,14 +83,9 @@ public class HeadlinesController extends BaseController {
 		dto.setIndustry(msg[0]);
 		dto.setIndustryLabel(msg[1]);
 		dto.setPeriodDate(msg[2]);
-		if(!msg[3].isEmpty()){
+		if(msg.length>=4&&msg.length<5){
 			dto.setVector(msg[3]);
-		}
-		if(!msg[4].isEmpty()){
-			dto.setKeyWord(msg[4]);
-		}
-		if(!msg[5].isEmpty()){
-			dto.setWordCloudNum(Integer.getInteger( msg[5]));
+			dto.setKeyWord(msg[3]);
 		}
 		/*dto.setIndustry("互联网");
 		dto.setIndustryLabel("大数据");
