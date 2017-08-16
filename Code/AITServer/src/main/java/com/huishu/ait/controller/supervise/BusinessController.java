@@ -61,8 +61,8 @@ public class BusinessController extends BaseController {
             }
             dto = initPage(dto);
 //            dto.setDimension("园区动态");
-            Page<AITInfo> pagedata = businessService.getBusinessBehaviours(dto);
-            return success(pagedata).setSuccess(true);
+            JSONArray array = businessService.getBusinessBehaviours(dto);
+            return success(array).setSuccess(true);
         }catch(Exception e){
             LOGGER.error("获取园区内企业动态列表失败",e);
             return error("获取动态列表失败");
@@ -83,9 +83,9 @@ public class BusinessController extends BaseController {
         try {
             dto.setPark(msg[0]);
             initPage(dto);
-            dto.setDimension("园区动态");
-            Page<AITInfo> pagedata = businessService.getBusinessBehaviours(dto);
-            return success(pagedata).setSuccess(true);
+//            dto.setDimension("园区动态");
+            JSONArray array = businessService.getBusinessBehaviours(dto);
+            return success(array).setSuccess(true);
         } catch (Exception e) {
             LOGGER.error("获取企业动态失败：",e);
             return error("获取园区内企业动态列表失败");

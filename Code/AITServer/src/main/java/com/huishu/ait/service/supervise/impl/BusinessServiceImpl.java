@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.CompanyCount;
 import com.huishu.ait.es.entity.AITInfo;
@@ -56,12 +57,13 @@ public class BusinessServiceImpl implements BusinessService {
 
     /** 获取企业动态列表 */
     @Override
-    public Page<AITInfo> getBusinessBehaviours(BusinessSuperviseDTO dto) {
+    public JSONArray getBusinessBehaviours(BusinessSuperviseDTO dto) {
         String park = dto.getPark();
         String business = dto.getBusiness();
         String emotion = dto.getEmotion();
         String dimension = dto.getDimension();
         PageRequest pageable = dto.builderPageRequest();
+        JSONArray array = new JSONArray();
         try{
             Page<AITInfo> page = null;
             if (StringUtil.isEmpty(park)) {
@@ -69,7 +71,17 @@ public class BusinessServiceImpl implements BusinessService {
             } else {
                 page = businessRepository.findByParkAndDimension(park, dimension, pageable);
             }
-            return page;
+            for (AITInfo p : page) {
+               JSONObject map = new JSONObject();
+               map.put("id", p.getId());
+               map.put("business", p.getBusiness());
+               map.put("emotion", p.getEmotion());
+               map.put("publishDate", p.getPublishDate());
+               map.put("title", p.getTitle());
+               map.put("content", p.getContent());
+               array.add(map);
+            }
+            return array;
         }catch(Exception e){
             logger.error("获取企业动态数据失败",e);
             return null;
