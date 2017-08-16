@@ -77,7 +77,7 @@ public abstract class AbstractService {
 	 * @param p
 	 * @return
 	 */
-	protected Option getVectorDistribution(QueryBuilder queryBuilder) {
+	protected JSONArray getVectorDistribution(QueryBuilder queryBuilder) {
 		
 		TermsBuilder vectorBuilder = AggregationBuilders.terms("vector").field("vector");
 
@@ -85,18 +85,11 @@ public abstract class AbstractService {
 		articleBuilder.subAggregation(vectorBuilder).size(1000);
 		SearchQuery query = getSearchQueryBuilder().addAggregation(articleBuilder).withQuery(queryBuilder).build();
 
-		Option result = template.query(query, res -> {
-			Option opt = new Option().setTooltip(new Tooltip().setTrigger("item"));
-			Pie<SerieData<Long>> pie = new Pie<>();
-			pie.addRadiu("40%").addRadiu("55%");
-			pie.setName("载体分布统计");
-			Legend legend = new Legend(); 
-			
-			
+		JSONArray result = template.query(query, res -> {
 			Terms articleLink = res.getAggregations().get("articleLink");
 			String key = null;
 			long count = 0;
-			
+			JSONArray  json = new JSONArray();
 			Map<String ,Object> map = new HashMap<String, Object>();
 			if (articleLink != null) {
 				for (Terms.Bucket e1 : articleLink.getBuckets()) {
@@ -105,20 +98,15 @@ public abstract class AbstractService {
 					    key = bucket.getKeyAsString();
 						count = bucket.getDocCount();
 						map.put(key, count);
-					}
-					
+					}	
 				}
 				for(Entry<String,Object> entry : map.entrySet()){
-					SerieData<Long> data = new SerieData<>(key, count);
-					data.setName(entry.getKey());
-					data.setValue((Long) entry.getValue());
-					legend.addData(entry.getKey());
-					pie.addData(data);
+					JSONObject obj = new JSONObject();
+					obj.put(entry.getKey(), entry.getValue());
+					json.add(obj);
 				}
 			}
-			opt.setLegend(legend);
-			opt.addSeries(pie);
-			return opt;
+			return json;
 		});
 		return result;
 	}

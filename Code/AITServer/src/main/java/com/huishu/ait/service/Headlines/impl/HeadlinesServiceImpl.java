@@ -71,7 +71,7 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	 *  产业头条---云图
 	 */
 	@Override
-	public Option getCarClondChartList(HeadlinesDTO headlinesDTO) {
+	public JSONArray getCarClondChartList(HeadlinesDTO headlinesDTO) {
 		try {
 			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
 			return getVectorDistribution(bq);
