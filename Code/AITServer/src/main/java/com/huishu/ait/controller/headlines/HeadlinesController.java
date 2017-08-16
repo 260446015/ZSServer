@@ -80,7 +80,7 @@ public class HeadlinesController extends BaseController {
 		String vector = msg[3];
 		String keyword = msg[4];
 		String keycloudNum = msg[5];*/
-		/*dto.setIndustry(msg[0]);
+		dto.setIndustry(msg[0]);
 		dto.setIndustryLabel(msg[1]);
 		dto.setPeriodDate(msg[2]);
 		if(!msg[3].isEmpty()){
@@ -91,11 +91,11 @@ public class HeadlinesController extends BaseController {
 		}
 		if(!msg[5].isEmpty()){
 			dto.setWordCloudNum(Integer.getInteger( msg[5]));
-		}*/
-		dto.setIndustry("互联网");
+		}
+		/*dto.setIndustry("互联网");
 		dto.setIndustryLabel("大数据");
 		
-		dto.setPeriodDate("一年");
+		dto.setPeriodDate("一年");*/
 		/*dto.setVector("微信");*/
 		/*dto.setVector("");
 		dto.setKeyWord("");
