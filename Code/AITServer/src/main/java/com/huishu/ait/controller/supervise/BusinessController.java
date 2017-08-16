@@ -37,41 +37,61 @@ public class BusinessController extends BaseController {
     
     /**
      * 获取园区企业动态列表 或者单企业动态列表 
-     * park && ！business 园区内企业动态  ; ！park && business 单个企业动态列表 加上emotion就添加了情感信息
+     * business 园区内企业动态 emotion 添加情感信息
+     * emotion :neutral：中立的   negative：消极的  positive：积极的
      * @author jdz
      * @param dto 企业监管DTO
-     * msg[park,business,emotion] 
+     * msg[business,emotion] 
      * @return
      * @createDate 2017-8-3
      */
-    @RequestMapping(value="/getBusinessBehaviours.json",method=RequestMethod.POST)
+    @RequestMapping(value="/getBehaviours.json",method=RequestMethod.POST)
     public AjaxResult getBusinessBehaviours(BusinessSuperviseDTO dto){
         
-        if (null == dto) {
+        if (null == dto || dto.getMsg().length == 0) {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
-        String[] msg = dto.getMsg();
-        if (!StringUtil.isEmpty(msg[0])) {
-            dto.setPark(msg[0]);
-        }
-        if (!StringUtil.isEmpty(msg[1])) {
-            dto.setBusiness(msg[1]);
-        }
-        if (!StringUtil.isEmpty(msg[2])) {
-            dto.setEmotion(msg[2]);
-        }
-        
         try{
+            String[] msg = dto.getMsg();
+            if (!StringUtil.isEmpty(msg[0])) {
+                dto.setBusiness(msg[0]);
+            }
+            if (!StringUtil.isEmpty(msg[1])) {
+                dto.setEmotion(msg[1]);
+            }
             dto = initPage(dto);
 //            dto.setDimension("园区动态");
-            Page<AITInfo> pagedata = businessService.getBusinessBehaviours(dto);
-            return success(pagedata).setSuccess(true);
+            JSONArray array = businessService.getBusinessBehaviours(dto);
+            return success(array).setSuccess(true);
         }catch(Exception e){
-            LOGGER.error("获取园区内企业动态列表或企业动态列表失败 ",e);
+            LOGGER.error("获取园区内企业动态列表失败",e);
             return error("获取动态列表失败");
         }
     }
 
+    /**
+     * 获取园区内企业动态列表
+     * @param dto msg[park]
+     * @return
+     */
+    @RequestMapping(value = "getParkBehaviours.json", method = RequestMethod.POST)
+    public AjaxResult getParkBusinessBehaviours(BusinessSuperviseDTO dto){
+        if (dto == null || dto.getMsg().length == 0) {
+            return error(MsgConstant.ILLEGAL_PARAM);
+        }
+        String[] msg = dto.getMsg();
+        try {
+            dto.setPark(msg[0]);
+            initPage(dto);
+//            dto.setDimension("园区动态");
+            JSONArray array = businessService.getBusinessBehaviours(dto);
+            return success(array).setSuccess(true);
+        } catch (Exception e) {
+            LOGGER.error("获取企业动态失败：",e);
+            return error("获取园区内企业动态列表失败");
+        }
+    }
+    
     /**
      * @author jdz 
      * @param id 企业动态详情
@@ -136,7 +156,6 @@ public class BusinessController extends BaseController {
      */
     @RequestMapping(value="searchBusiness.json", method = RequestMethod.POST)
     public AjaxResult searchBusiness( /* 企业查询对象 */ ) {
-        
         try {
             return null;
         } catch (Exception e) {

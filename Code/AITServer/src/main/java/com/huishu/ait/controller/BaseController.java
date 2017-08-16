@@ -62,7 +62,7 @@ public abstract class BaseController {
     			return false;
     		}
     	}
-    	if(fieldNames.contains("vector")){
+    	/*if(fieldNames.contains("vector")){
     		Object vector = getValueByFieldName(dto, "vector");
     		if(vector == null){
     			return false;
@@ -94,7 +94,7 @@ public abstract class BaseController {
 				}
 			}
 			
-		}
+		}*/
     	return true;
     }
     

@@ -20,7 +20,7 @@ public interface BusinessService {
      * @param dto (包含参数：park 园区名称 ; business 企业名称 ; emotion 情感; pageable 分页)
      * @return
      */
-    public Page<AITInfo> getBusinessBehaviours(BusinessSuperviseDTO dto);
+    public JSONArray getBusinessBehaviours(BusinessSuperviseDTO dto);
     
     /**
      * 获取园区企业动态详情

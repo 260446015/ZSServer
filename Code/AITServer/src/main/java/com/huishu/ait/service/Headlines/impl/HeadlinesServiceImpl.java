@@ -58,6 +58,7 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	try {
 		
 		BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
+		
 		return getCloudWordList(bq,headlinesDTO.getWordCloudNum());
 	} catch (Exception e) {
 		logger.error("获取词云失败：",e);
@@ -70,7 +71,7 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	 *  产业头条---云图
 	 */
 	@Override
-	public Option getCarClondChartList(HeadlinesDTO headlinesDTO) {
+	public JSONArray getCarClondChartList(HeadlinesDTO headlinesDTO) {
 		try {
 			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
 			return getVectorDistribution(bq);
@@ -103,8 +104,8 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	@Override
 	public AITInfo findArticleById(String id) {
 		try {
-			
-			return essearch.findOne(id);
+			 AITInfo findOne = essearch.findOne(id);
+			return findOne;
 		} catch (Exception e) {
 			logger.error("查询文章详情失败：",e);
 			return null;

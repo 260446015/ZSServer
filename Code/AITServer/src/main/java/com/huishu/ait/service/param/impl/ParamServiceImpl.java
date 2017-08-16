@@ -63,15 +63,13 @@ public class ParamServiceImpl  implements ParamService{
 	 * 通过id查询所有信息
 	 */
 	@Override
-	public JSONArray findByUid(Long uid) {
-		JSONArray data = new JSONArray();
+	public JSONObject findByUid(Long uid) {
+		JSONObject obj = new JSONObject();
 		List<Param> params = pr.findByUid(uid);
 		for (Param param : params) {
-			JSONObject obj = new JSONObject();
-			obj.put(param.getIndustryInfo(), param.getIndustryLagel());
-			data.add(obj);
+			obj.put(param.getIndustryInfo(), param.getIndustryLagel().split(","));
 		}
-		return data;
+		return obj;
 	}
 	@Override
 	public boolean saveParams(List<Param> list) {

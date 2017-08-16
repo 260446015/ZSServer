@@ -77,7 +77,7 @@ public abstract class AbstractService {
 	 * @param p
 	 * @return
 	 */
-	protected Option getVectorDistribution(QueryBuilder queryBuilder) {
+	protected JSONArray getVectorDistribution(QueryBuilder queryBuilder) {
 		
 		TermsBuilder vectorBuilder = AggregationBuilders.terms("vector").field("vector");
 
@@ -85,16 +85,11 @@ public abstract class AbstractService {
 		articleBuilder.subAggregation(vectorBuilder).size(1000);
 		SearchQuery query = getSearchQueryBuilder().addAggregation(articleBuilder).withQuery(queryBuilder).build();
 
-		Option result = template.query(query, res -> {
-			Option opt = new Option().setTooltip(new Tooltip().setTrigger("item"));
-			Pie<SerieData<Long>> pie = new Pie<>();
-			pie.addRadiu("40%").addRadiu("55%");
-			pie.setName("载体分布统计");
-			Legend legend = new Legend();
+		JSONArray result = template.query(query, res -> {
 			Terms articleLink = res.getAggregations().get("articleLink");
 			String key = null;
 			long count = 0;
-			SerieData<Long> data = new SerieData<>(key, count);
+			JSONArray  json = new JSONArray();
 			Map<String ,Object> map = new HashMap<String, Object>();
 			if (articleLink != null) {
 				for (Terms.Bucket e1 : articleLink.getBuckets()) {
@@ -103,19 +98,14 @@ public abstract class AbstractService {
 					    key = bucket.getKeyAsString();
 						count = bucket.getDocCount();
 						map.put(key, count);
-					}
-					
+					}	
 				}
 				for(Entry<String,Object> entry : map.entrySet()){
-					data.setName(entry.getKey());
-					data.setValue((Long) entry.getValue());
-					legend.addData(entry.getKey());
-					pie.addData(data);
+					SerieData<Long> data = new SerieData<>(entry.getKey(),(Long)entry.getValue());
+					json.add(data);
 				}
 			}
-			opt.setLegend(legend);
-			opt.addSeries(pie);
-			return opt;
+			return json;
 		});
 		return result;
 	}
@@ -142,9 +132,12 @@ public abstract class AbstractService {
 					}
 				}
 			}
-			//将从ES获取到的集合为参数，调用词云的方法
-			/*JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud1(contentList, 0, wordCloudNum, null);
-			if(keywordCloud != null){
+			/*//将从ES获取到的集合为参数，调用词云的方法  -- 双创
+			JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, wordCloudNum);
+			if(keywordCloud.getBooleanValue("status")){
+				jsonArray.add(keywordCloud.get("result"));
+			}*/
+			/*if(keywordCloud != null){
 				JSONArray keyWordCloudArray = keywordCloud.getJSONArray("sort");
 				for (int i=0,size=keyWordCloudArray.size(); i<size; i++) {
 					JSONObject item = keyWordCloudArray.getJSONObject(i);

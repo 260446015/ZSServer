@@ -54,8 +54,9 @@ public class IndustrialController extends BaseController {
             String[] labels = dto.getMsg();
             dto.setIndustry(labels[0]);
             dto.setIndustryLabel(labels[1]);
-            dto.setPeriodDate(labels[2]);
-            dto.setArea(labels[3]);
+//            dto.setPeriodDate(labels[2]);
+            dto.setArea(labels[2]);
+            dto.setPeriodDate("不限");
             
             JSONArray array = new JSONArray();
             
@@ -73,7 +74,7 @@ public class IndustrialController extends BaseController {
             else {
                 return error(MsgConstant.ILLEGAL_PARAM);
             }
-        }catch(Exception e){
+        } catch(Exception e) {
             log.error("获取产业政策列表失败："+e.getMessage());
             return error("获取产业政策列表失败"); 
         }
@@ -111,15 +112,13 @@ public class IndustrialController extends BaseController {
             dto.setPageNumber(0);
         }
         if(dto.getPageSize()==null){
-            dto.setPageSize(15);
+            dto.setPageSize(10);
         }
         if(dto.getPageSize()>1000){
             dto.setPageSize(1000);
         }
         return dto;
     }
-    
-    
     
     /**
      * 时间初始处理 yyyy-MM-dd HH-mm-ss

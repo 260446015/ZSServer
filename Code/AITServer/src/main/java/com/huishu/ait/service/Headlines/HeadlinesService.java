@@ -23,7 +23,7 @@ public interface HeadlinesService {
 	JSONArray  getWordCloud(HeadlinesDTO headlinesDTO); 
 	
 	/** 产业头条--媒体云图 */
-	Option  getCarClondChartList(HeadlinesDTO headlinesDTO);
+	JSONArray  getCarClondChartList(HeadlinesDTO headlinesDTO);
 
 	/**
 	 * 产业头条--根据载体查询文章

@@ -46,7 +46,7 @@ public class Enterprise implements Serializable {
 	@Column(name="register_capital")
 	private String registerCapital;
 	/**经营状态*/
-	@Column(name="engagep_state")
+	@Column(name="engage_state")
 	private String engageState;
 	/**注册时间*/
 	@Column(name="register_time")
@@ -66,7 +66,7 @@ public class Enterprise implements Serializable {
 	@Column(name="business_date")
 	private String businessDate;
 	/**登记机关*/
-	@Column(name="register_angecy")
+	@Column(name="register_agency")
 	private String registerAgency;
 	/**核准日期*/
 	@Column(name="examine_time")
@@ -75,7 +75,7 @@ public class Enterprise implements Serializable {
 	@Column(name="register_address")
 	private String registerAddress;
 	/**经营范围*/
-	@Column(name="oprate_scope")
+	@Column(name="operate_scope")
 	private String operateScope;
 	/**所属园区*/
 	private String park;
