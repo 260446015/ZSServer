@@ -101,9 +101,8 @@ public abstract class AbstractService {
 					}	
 				}
 				for(Entry<String,Object> entry : map.entrySet()){
-					JSONObject obj = new JSONObject();
-					obj.put(entry.getKey(), entry.getValue());
-					json.add(obj);
+					SerieData<Long> data = new SerieData<>(entry.getKey(),(Long)entry.getValue());
+					json.add(data);
 				}
 			}
 			return json;
