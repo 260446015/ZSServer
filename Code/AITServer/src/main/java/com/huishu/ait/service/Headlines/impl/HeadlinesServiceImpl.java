@@ -102,9 +102,9 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	 * 产业头条--根据id查看文章详情
 	 */
 	@Override
-	public AITInfo findArticleById(String _id) {
+	public AITInfo findArticleById(String id) {
 		try {
-			 AITInfo findOne = essearch.findOne(_id);
+			 AITInfo findOne = essearch.findOne(id);
 			return findOne;
 		} catch (Exception e) {
 			logger.error("查询文章详情失败：",e);

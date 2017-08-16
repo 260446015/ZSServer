@@ -176,8 +176,8 @@ public class HeadlinesController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getArticleById.json")
-	public AjaxResult getVectorArticleById( String _id){
-		AITInfo byId = service.findArticleById(_id);
+	public AjaxResult getVectorArticleById( String id){
+		AITInfo byId = service.findArticleById(id);
 		return success(byId);
 	}
 	/**
