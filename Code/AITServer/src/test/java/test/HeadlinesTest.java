@@ -24,7 +24,7 @@ public class HeadlinesTest extends BaseTest{
 		HeadlinesDTO   headlinesDTO = new HeadlinesDTO();
 		headlinesDTO.setIndustry("文化创意");
 		headlinesDTO.setIndustryLabel("网络游戏");
-		Option option = service.getCarClondChartList(headlinesDTO);
-		System.out.println(option.getLegend());
+		/*Option option = service.getCarClondChartList(headlinesDTO);
+		System.out.println(option.getLegend());*/
 	}
 }
