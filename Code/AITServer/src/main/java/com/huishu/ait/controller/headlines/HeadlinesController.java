@@ -111,8 +111,8 @@ public class HeadlinesController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getClondChartList.json" )
-	public AjaxResult getCarClondChartList(   HeadlinesDTO headlinesDTO) {
+	@RequestMapping(value = "/getClondChartList.json" ,method=RequestMethod.POST)
+	public AjaxResult getCarClondChartList(@RequestBody HeadlinesDTO headlinesDTO) {
 		try {
 			HeadlinesDTO dto = CheckDTO(headlinesDTO);
 			boolean b = checkDTO(dto);
@@ -133,8 +133,8 @@ public class HeadlinesController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getArticleByVectorList.json")
-	public AjaxResult getArticleByVectorList(HeadlinesDTO headlinesDTO){
+	@RequestMapping(value="/getArticleByVectorList.json",method=RequestMethod.POST)
+	public AjaxResult getArticleByVectorList(@RequestBody HeadlinesDTO headlinesDTO){
 			try {
 				HeadlinesDTO dto = CheckDTO(headlinesDTO);
 				 boolean b = checkDTO(dto);
@@ -175,8 +175,8 @@ public class HeadlinesController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getArticleById.json")
-	public AjaxResult getVectorArticleById( String id){
+	@RequestMapping(value="/getArticleById.json",method=RequestMethod.GET )
+	public AjaxResult getVectorArticleById(@RequestBody String id){
 		AITInfo byId = service.findArticleById(id);
 		return success(byId);
 	}
