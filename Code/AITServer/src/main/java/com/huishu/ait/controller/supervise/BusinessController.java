@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
@@ -54,6 +55,7 @@ public class BusinessController extends BaseController {
         if (null == dto) {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
+        JSONArray array = new JSONArray();
         try{
             String[] msg = dto.getMsg();
             /*if (!StringUtil.isEmpty(msg[0])) {
@@ -65,8 +67,24 @@ public class BusinessController extends BaseController {
             }
             dto = initPage(dto);
 //            dto.setDimension("园区动态");
-            JSONArray array = businessService.getBusinessBehaviours(dto);
-            return success(array).setSuccess(true);
+            Page<AITInfo> page = businessService.getBusinessBehaviours(dto);
+            for (AITInfo p : page) {
+                JSONObject map = new JSONObject();
+                map.put("id", p.getId());
+                map.put("business", p.getBusiness());
+                map.put("emotion", p.getEmotion());
+                map.put("publishDate", p.getPublishDate());
+                map.put("title", p.getTitle());
+                map.put("content", p.getContent());
+                array.add(map);
+             }
+            Long totleNumber = page.getTotalElements();
+            int pageSize = dto.getPageSize();
+            JSONObject obj = new JSONObject();
+            obj.put("page", array);
+            obj.put("totleNumber", totleNumber);
+            obj.put("pageSize", pageSize);
+            return success(obj).setSuccess(true);
         }catch(Exception e){
             LOGGER.error("获取园区内企业动态列表失败",e);
             return error("获取动态列表失败");
@@ -84,12 +102,29 @@ public class BusinessController extends BaseController {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
         String[] msg = dto.getMsg();
+        JSONArray array = new JSONArray();
         try {
             dto.setPark(msg[0]);
             initPage(dto);
 //            dto.setDimension("园区动态");
-            JSONArray array = businessService.getBusinessBehaviours(dto);
-            return success(array).setSuccess(true);
+            Page<AITInfo> page = businessService.getBusinessBehaviours(dto);
+            for (AITInfo p : page) {
+                JSONObject map = new JSONObject();
+                map.put("id", p.getId());
+                map.put("business", p.getBusiness());
+                map.put("emotion", p.getEmotion());
+                map.put("publishDate", p.getPublishDate());
+                map.put("title", p.getTitle());
+                map.put("content", p.getContent());
+                array.add(map);
+             }
+            Long totleNumber = page.getTotalElements();
+            int pageSize = dto.getPageSize();
+            JSONObject obj = new JSONObject();
+            obj.put("page", array);
+            obj.put("totleNumber", totleNumber);
+            obj.put("pageSize", pageSize);
+            return success(obj).setSuccess(true);
         } catch (Exception e) {
             LOGGER.error("获取企业动态失败：",e);
             return error("获取园区内企业动态列表失败");
@@ -197,7 +232,7 @@ public class BusinessController extends BaseController {
             dto.setPageNumber(0);
         }
         if(dto.getPageSize()==null){
-            dto.setPageSize(15);
+            dto.setPageSize(10);
         }
         if(dto.getPageSize()>1000){
             dto.setPageSize(1000);

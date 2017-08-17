@@ -60,14 +60,13 @@ public class BusinessServiceImpl implements BusinessService {
 
     /** 获取企业动态列表 */
     @Override
-    public JSONArray getBusinessBehaviours(BusinessSuperviseDTO dto) {
+    public Page<AITInfo> getBusinessBehaviours(BusinessSuperviseDTO dto) {
         final List<String> EMOTIONS = Arrays.asList("neutral", "negative", "positive");
         String park = dto.getPark();
         String business = dto.getBusiness();
         String emotion = dto.getEmotion();
         String dimension = dto.getDimension();
         PageRequest pageable = dto.builderPageRequest();
-        JSONArray array = new JSONArray();
         try{
             Page<AITInfo> page = null;
             if (EMOTIONS.contains(emotion)) {
@@ -75,17 +74,7 @@ public class BusinessServiceImpl implements BusinessService {
             } else {
                 page = businessRepository.findByParkAndDimension(park, dimension, pageable);
             }
-            for (AITInfo p : page) {
-               JSONObject map = new JSONObject();
-               map.put("id", p.getId());
-               map.put("business", p.getBusiness());
-               map.put("emotion", p.getEmotion());
-               map.put("publishDate", p.getPublishDate());
-               map.put("title", p.getTitle());
-               map.put("content", p.getContent());
-               array.add(map);
-            }
-            return array;
+            return page;
         }catch(Exception e){
             logger.error("获取企业动态数据失败",e);
             return null;
