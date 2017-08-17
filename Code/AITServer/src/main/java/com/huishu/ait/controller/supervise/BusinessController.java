@@ -76,7 +76,7 @@ public class BusinessController extends BaseController {
      * @return
      */
     @RequestMapping(value = "getParkBehaviours.json", method = RequestMethod.POST)
-    public AjaxResult getParkBusinessBehaviours(BusinessSuperviseDTO dto){
+    public AjaxResult getParkBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
         if (dto == null || dto.getMsg().length == 0) {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
@@ -120,7 +120,7 @@ public class BusinessController extends BaseController {
      * @createDate 2017-8-8
      */
     @RequestMapping(value="/searchBusinessBehaviours.json", method = RequestMethod.POST)
-    public AjaxResult searchBusinessBehaviours(BusinessSuperviseDTO dto){
+    public AjaxResult searchBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
         
         JSONArray array = new JSONArray();
         if (null == dto) {
