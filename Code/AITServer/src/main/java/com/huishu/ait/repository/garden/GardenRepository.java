@@ -21,6 +21,13 @@ public interface GardenRepository extends CrudRepository<Garden, Integer>{
 	
 	Page<Garden> findByAreaLikeAndIndustryTypeLike(String area,String industryType,Pageable pageable);
 
+	/**
+	 * 按照地域查询园区列表
+	 * @param area
+	 * @return
+	 */
+	List<Garden> findGardensByArea(String area);
+
 //	@Query(value="select id,name,description,address,area,industryType from Garden g where g.name like CONCAT('%',:keyName,'%')")
 //	Page<Garden> findByNameLike(@Param("keyName")String name,Pageable pagealbe);
 	

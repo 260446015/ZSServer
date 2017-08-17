@@ -315,5 +315,22 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		}
 		return object;
 	}
+	@Override
+	public JSONArray findGardensByArea(String area) {
+		JSONArray arr = new JSONArray();
+		try{
+			List<Garden> list = gardenRepository.findGardensByArea(area);
+			for (Garden garden : list) {
+				JSONObject obj = new JSONObject();
+				obj.put("address", garden.getAddress());
+				obj.put("name", garden.getName());
+				obj.put("industryType", garden.getIndustryType());
+				arr.add(obj);
+			}
+		}catch(Exception e){
+			LOGGER.error(e.getMessage());
+		}
+		return arr;
+	}
 	
 }

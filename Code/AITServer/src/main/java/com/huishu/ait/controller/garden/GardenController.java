@@ -299,6 +299,19 @@ public class GardenController extends BaseController{
 		
 	}
 	
+	@RequestMapping(value="/findGardensByArea.json",method=RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult findGardensByArea(String area){
+		JSONArray data = null;
+		try{
+			data = gardenService.findGardensByArea(area);
+		}catch(Exception e){
+			LOGGER.error("按地域查询多个园区失败", e);
+			error("按地域查询多个园区失败");
+		}
+		return success(data);
+	}
+	
 	
 	private GardenDTO initPage(GardenDTO dto){
 		if(dto.getPageNumber() == null){

@@ -71,6 +71,11 @@ public interface GardenService {
 	 */
 	JSONArray findGardensCondition(GardenDTO dto);
 	
+	/**
+	 * 获取关注园区列表
+	 * @param dto
+	 * @return
+	 */
 	Page<GardenUser> getAttentionGardenList(GardenDTO dto);
 	
 	/**
@@ -82,6 +87,17 @@ public interface GardenService {
 	 */
 	GardenUser attentionGarden(String gardenId,String userId,boolean flag);
 	
-	
+	/**
+	 * 根据园区动态列表查询到动态详情
+	 * @param cid 园区动态id
+	 * @return
+	 */
 	JSONObject findGardensConditionById(String cid);
+	
+	/**
+	 * 根据地区查询到园区列表
+	 * @param area 地区
+	 * @return
+	 */
+	JSONArray findGardensByArea(String area);
 }
