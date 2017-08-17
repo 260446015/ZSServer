@@ -146,7 +146,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 	@Override
 	public List<CompanyGroup> selectCompanyGroup(Long userId) {
 		try {
-			List<CompanyGroup> list = (List<CompanyGroup>) companyGroupRepository.findByUserId(userId);
+			List<CompanyGroup> list = companyGroupRepository.findByUserId(userId);
 			return list;
 		} catch (Exception e) {
 			log.error("分组查询失败", e.getMessage());

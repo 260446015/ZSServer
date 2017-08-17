@@ -37,6 +37,11 @@ public class CompanyGroup implements Serializable{
 	@Transient
 	private List<Company> companys;
 	
+	/**
+	 * 传递用户id
+	 */
+	private Long userId;
+	
 	public int getGroupid() {
 		return groupid;
 	}
@@ -55,4 +60,11 @@ public class CompanyGroup implements Serializable{
 	public void setCompanys(List<Company> companys) {
 		this.companys = companys;
 	}
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+	
 }
