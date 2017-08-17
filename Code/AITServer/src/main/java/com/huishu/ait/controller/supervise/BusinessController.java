@@ -49,16 +49,19 @@ public class BusinessController extends BaseController {
     @RequestMapping(value="/getBehaviours.json",method=RequestMethod.POST)
     public AjaxResult getParkEmotionBehaviours(@RequestBody BusinessSuperviseDTO dto){
         
-        if (null == dto || dto.getMsg().length == 0) {
+        final String PARK = "中关村软件园";
+        
+        if (null == dto) {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
         try{
             String[] msg = dto.getMsg();
-            if (!StringUtil.isEmpty(msg[0])) {
+            /*if (!StringUtil.isEmpty(msg[0])) {
                 dto.setPark(msg[0]);
-            }
-            if (!StringUtil.isEmpty(msg[1])) {
-                dto.setEmotion(msg[1]);
+            }*/
+            dto.setPark(PARK);
+            if (!StringUtil.isEmpty(msg[0])) {
+                dto.setEmotion(msg[0]);
             }
             dto = initPage(dto);
 //            dto.setDimension("园区动态");
