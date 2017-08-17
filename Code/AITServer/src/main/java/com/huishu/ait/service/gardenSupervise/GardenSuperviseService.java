@@ -13,19 +13,29 @@ import com.huishu.ait.entity.dto.CompanyDTO;
  * @功能描述：园区监管
  */
 public interface GardenSuperviseService {
-	
-	//获取园区的信息
-	 public JSONObject getGardenInfo(String park); 
-	  
-	//获取园区内所有企业的信息
-	 public JSONArray getCompanyFromGarden(String park);
-	 
-	 //获取园区内所有企业的信息（分页）
-	 public JSONArray getCompanyFromGardenForPage(CompanyDTO companyDTO);
-	 
-	 //保存分组
-	 public String addCompanyGroup(String groupName);
-	 
-	 //查询分组信息
-	 public List<CompanyGroup> selectCompanyGroup();
+
+	// 获取园区的信息
+	public JSONObject getGardenInfo(String park);
+
+	// 获取园区内所有企业的信息
+	public JSONArray getCompanyFromGarden(String park);
+
+	// 获取园区内所有企业的信息（分页）
+	public JSONArray getCompanyFromGardenForPage(CompanyDTO companyDTO);
+
+	// 保存分组
+	public String addCompanyGroup(String groupName, Long userId);
+
+	// 查询分组信息
+	public List<CompanyGroup> selectCompanyGroup(Long userId);
+
+	// 删除企业分组
+	public boolean dropCompanyGroup(String companyGroupName, Long userId);
+
+	/**
+	 * 通过企业分组id查询相关联的企业列表
+	 * @param companyGroupId  企业分组id
+	 * @return
+	 */
+	public JSONArray findCompanyByCompanyGroupId(String companyGroupId);
 }

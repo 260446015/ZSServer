@@ -20,6 +20,7 @@ import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CompanyDTO;
 import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
+
 /**
  * @author yxq
  * @date 2017年8月3日
@@ -28,36 +29,35 @@ import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
 @RestController
 @RequestMapping(value = "apis/supervise")
 public class GardenSuperviseController extends BaseController {
-	
+
 	private static Logger log = LoggerFactory.getLogger(GardenSuperviseController.class);
-	
+
 	@Autowired
 	private GardenSuperviseService gardenSuperviseService;
-	
-	
+
 	String park = "中关村软件园";
+
 	/**
-	 * @return
-	 * 获取当前用户
+	 * @return 获取当前用户
 	 */
-	public ShiroUser getCurrentUser(){
+	public ShiroUser getCurrentUser() {
 		return (ShiroUser) SecurityUtils.getSubject().getPrincipal();
 	}
-	//TODO:获取当前用户所在的园区
-	//获取当前用户所在的园区
+
+	// TODO:获取当前用户所在的园区
+	// 获取当前用户所在的园区
 	/**
-	 * @return
-	 * 获取当前用户所在的园区
+	 * @return 获取当前用户所在的园区
 	 */
-	public String getCurrentPark(){
+	public String getCurrentPark() {
 		return null;
 	}
+
 	/**
-	 * @return
-	 * 获取当前园区的信息
+	 * @return 获取当前园区的信息
 	 */
-	@RequestMapping(value = "getGardenInfo.json",method=RequestMethod.GET)
-	public AjaxResult getGardenInfo(){
+	@RequestMapping(value = "getGardenInfo.json", method = RequestMethod.GET)
+	public AjaxResult getGardenInfo() {
 		try {
 			JSONObject json = gardenSuperviseService.getGardenInfo(park);
 			return success(json);
@@ -66,12 +66,12 @@ public class GardenSuperviseController extends BaseController {
 			return null;
 		}
 	}
+
 	/**
-	 * @return
-	 * 获取当前园区中的所有企业列表
+	 * @return 获取当前园区中的所有企业列表
 	 */
-	@RequestMapping(value = "getCompanyFromGarden.json",method=RequestMethod.GET)
-	public AjaxResult getCompanyFromGarden(String park){
+	@RequestMapping(value = "getCompanyFromGarden.json", method = RequestMethod.GET)
+	public AjaxResult getCompanyFromGarden(String park) {
 		try {
 			JSONArray jsonArray = gardenSuperviseService.getCompanyFromGarden(park);
 			return success(jsonArray);
@@ -80,16 +80,18 @@ public class GardenSuperviseController extends BaseController {
 			return null;
 		}
 	}
+
 	/**
-	 * @return
-	 * 添加企业分组
+	 * @return 添加企业分组
 	 */
-	@RequestMapping(value = "addCompanyGroup.json",method=RequestMethod.GET)
-	public AjaxResult addCompanyGroup(String groupName){
+	@RequestMapping(value = "addCompanyGroup.json", method = RequestMethod.GET)
+	public AjaxResult addCompanyGroup(String groupName) {
 		JSONObject result = new JSONObject();
+		Long userId = 1L;
+		// Long userId = getUserId();
 		try {
 			if (null != groupName && !"".equals(groupName)) {
-				String state = gardenSuperviseService.addCompanyGroup(groupName);
+				String state = gardenSuperviseService.addCompanyGroup(groupName, userId);
 				if ("success".equals(state)) {
 					result.put("state", "success");
 				}
@@ -105,26 +107,28 @@ public class GardenSuperviseController extends BaseController {
 			return success(result);
 		}
 	}
+
 	/**
-	 * @return
-	 * 查询分组信息
+	 * @return 查询当前用户创建的企业分组信息
 	 */
-	@RequestMapping(value = "selectCompanyGroup.json",method=RequestMethod.GET)
-	public AjaxResult selectCompanyGroup(){
+	@RequestMapping(value = "selectCompanyGroup.json", method = RequestMethod.GET)
+	public AjaxResult selectCompanyGroup() {
 		try {
-			List<CompanyGroup> list = gardenSuperviseService.selectCompanyGroup();
+			Long userId = 1L;
+//			Long userId = getUserId();
+			List<CompanyGroup> list = gardenSuperviseService.selectCompanyGroup(userId);
 			return success(list);
 		} catch (Exception e) {
-			log.error("查询失败",e.getMessage());
+			log.error("查询失败", e.getMessage());
 			return null;
 		}
 	}
+
 	/**
-	 * @return
-	 * 查询当前园区中的所有企业信息(分页)
+	 * @return 查询当前园区中的所有企业信息(分页)
 	 */
-	@RequestMapping(value = "searchCompanyFromGardenForPage.json",method=RequestMethod.POST)
-	public AjaxResult getCompanyFromGardenForPage(CompanyDTO dto){
+	@RequestMapping(value = "searchCompanyFromGardenForPage.json", method = RequestMethod.POST)
+	public AjaxResult getCompanyFromGardenForPage(CompanyDTO dto) {
 		try {
 			dto.setPark(park);
 			dto = initPage(dto);
@@ -135,18 +139,55 @@ public class GardenSuperviseController extends BaseController {
 			return null;
 		}
 	}
+
+	/**
+	 * 删除企业分组的controller
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "dropCompanyGroup.json", method = RequestMethod.GET)
+	public AjaxResult dropCompanyGroup(String companyGroupName) {
+		Long userId = 1L;
+		// Long userId = getUserId();
+		boolean flag = false;
+		try {
+			flag = gardenSuperviseService.dropCompanyGroup(companyGroupName, userId);
+		} catch (Exception e) {
+			log.error("删除企业分组出错", e);
+			return error("删除企业分组出错");
+		}
+		return success(flag);
+	}
+	
+	/**
+	 * 通过企业分组id查询相关联的企业列表
+	 * @param companyGroupId
+	 * @return
+	 */
+	@RequestMapping(value="/findCompanyByCompanyGroupId",method=RequestMethod.GET)
+	public AjaxResult findCompanyByCompanyGroupId(String companyGroupId){
+		JSONArray data = null;
+		try{
+			data = gardenSuperviseService.findCompanyByCompanyGroupId(companyGroupId);
+		}catch(Exception e){
+			log.error("通过企业分组id查询相关联的企业列表", e);
+			return error("通过企业分组id查询相关联的企业列表");
+		}
+		return success(data);
+	}
+
 	/**
 	 * @param dto
-	 * 初始化分页的方法
+	 *            初始化分页的方法
 	 */
-	private CompanyDTO initPage(CompanyDTO dto){
-		if(dto.getPageNumber() == null){
+	private CompanyDTO initPage(CompanyDTO dto) {
+		if (dto.getPageNumber() == null) {
 			dto.setPageNumber(1);
 		}
-		if(dto.getPageSize() == null){
+		if (dto.getPageSize() == null) {
 			dto.setPageSize(ConcersUtils.PAGE_SIZE);
 		}
-		if(dto.getPageNumber() > ConcersUtils.ES_MAX_PAGENUMBER){
+		if (dto.getPageNumber() > ConcersUtils.ES_MAX_PAGENUMBER) {
 			dto.setPageNumber(ConcersUtils.ES_MAX_PAGENUMBER);
 		}
 		return dto;

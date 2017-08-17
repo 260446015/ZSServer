@@ -39,6 +39,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 	@Autowired
 	private CompanyGroupRepository companyGroupRepository;
 	
+	
 	/* 
 	 * 方法名：getGardenInfo
 	 * 描述：获取园区的信息
@@ -119,16 +120,17 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 	 * @return
 	 * 添加企业分组
 	 */
-	public String addCompanyGroup(String groupName){
+	public String addCompanyGroup(String groupName,Long userId){
 		String state = "success";
 		try {
-			CompanyGroup findGroupByName = companyGroupRepository.findGroupByName(groupName);
+			CompanyGroup findGroupByName = companyGroupRepository.findGroupByName(groupName,userId);
 			if (null != findGroupByName) {
 				state="分组已经存在";
 				return state;
 			}
 			CompanyGroup companyGroup = new CompanyGroup();
 			companyGroup.setGroupName(groupName);
+			companyGroup.setUserId(userId);
 			companyGroupRepository.save(companyGroup);
 			return state;
 		} catch (Exception e) {
@@ -142,9 +144,9 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 	 * 描述：查询企业分组
 	 */
 	@Override
-	public List<CompanyGroup> selectCompanyGroup() {
+	public List<CompanyGroup> selectCompanyGroup(Long userId) {
 		try {
-			List<CompanyGroup> list = (List<CompanyGroup>) companyGroupRepository.findAll();
+			List<CompanyGroup> list = (List<CompanyGroup>) companyGroupRepository.findByUserId(userId);
 			return list;
 		} catch (Exception e) {
 			log.error("分组查询失败", e.getMessage());
@@ -209,6 +211,22 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			log.error("获取园区内企业信息失败", e.getMessage());
 			return null;
 		}
+		
+	}
+	@Override
+	public boolean dropCompanyGroup(String companyGroupName, Long userId) {
+		boolean flag  = false;
+		try{
+			companyGroupRepository.deleteByCompanyGroupNameAndUserId(companyGroupName,userId);
+			flag = true;
+		}catch(Exception e){
+			log.error(e.getMessage());
+		}
+		return flag;
+	}
+	@Override
+	public JSONArray findCompanyByCompanyGroupId(String companyGroupId) {
+		return null;
 		
 	}
 }
