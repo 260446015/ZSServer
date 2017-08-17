@@ -82,7 +82,7 @@ public class BusinessController extends BaseController {
             int pageSize = dto.getPageSize();
             JSONObject obj = new JSONObject();
             obj.put("page", array);
-            obj.put("totleNumber", totleNumber);
+            obj.put("totalNumber", totleNumber);
             obj.put("pageSize", pageSize);
             return success(obj).setSuccess(true);
         }catch(Exception e){
@@ -122,7 +122,7 @@ public class BusinessController extends BaseController {
             int pageSize = dto.getPageSize();
             JSONObject obj = new JSONObject();
             obj.put("page", array);
-            obj.put("totleNumber", totleNumber);
+            obj.put("totalNumber", totleNumber);
             obj.put("pageSize", pageSize);
             return success(obj).setSuccess(true);
         } catch (Exception e) {
