@@ -26,7 +26,7 @@ import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
  * @功能描述：园区监管的controller
  */
 @RestController
-@RequestMapping(value = "supervise")
+@RequestMapping(value = "apis/supervise")
 public class GardenSuperviseController extends BaseController {
 	
 	private static Logger log = LoggerFactory.getLogger(GardenSuperviseController.class);
