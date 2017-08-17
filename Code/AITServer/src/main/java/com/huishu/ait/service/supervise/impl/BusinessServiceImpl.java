@@ -1,5 +1,8 @@
 package com.huishu.ait.service.supervise.impl;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
@@ -58,6 +61,7 @@ public class BusinessServiceImpl implements BusinessService {
     /** 获取企业动态列表 */
     @Override
     public JSONArray getBusinessBehaviours(BusinessSuperviseDTO dto) {
+        final List<String> EMOTIONS = Arrays.asList("neutral", "negative", "positive");
         String park = dto.getPark();
         String business = dto.getBusiness();
         String emotion = dto.getEmotion();
@@ -66,8 +70,8 @@ public class BusinessServiceImpl implements BusinessService {
         JSONArray array = new JSONArray();
         try{
             Page<AITInfo> page = null;
-            if (StringUtil.isEmpty(park)) {
-                page = businessRepository.findByBusinessAndEmotionAndDimension(business, emotion, dimension, pageable);
+            if (EMOTIONS.contains(emotion)) {
+                page = businessRepository.findByParkAndEmotionAndDimension(business, emotion, dimension, pageable);
             } else {
                 page = businessRepository.findByParkAndDimension(park, dimension, pageable);
             }

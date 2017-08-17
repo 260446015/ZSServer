@@ -37,17 +37,17 @@ public class BusinessController extends BaseController {
     
     
     /**
-     * 获取园区企业动态列表 或者单企业动态列表 
-     * business 园区内企业动态 emotion 添加情感信息
+     * 获取园区内企业动态列表 
+     * park 园区内企业动态 emotion 添加情感信息
      * emotion :neutral：中立的   negative：消极的  positive：积极的
      * @author jdz
      * @param dto 企业监管DTO
-     * msg[business,emotion] 
+     * msg[park,emotion] 
      * @return
      * @createDate 2017-8-3
      */
     @RequestMapping(value="/getBehaviours.json",method=RequestMethod.POST)
-    public AjaxResult getBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
+    public AjaxResult getParkEmotionBehaviours(@RequestBody BusinessSuperviseDTO dto){
         
         if (null == dto || dto.getMsg().length == 0) {
             return error(MsgConstant.ILLEGAL_PARAM);
@@ -55,7 +55,7 @@ public class BusinessController extends BaseController {
         try{
             String[] msg = dto.getMsg();
             if (!StringUtil.isEmpty(msg[0])) {
-                dto.setBusiness(msg[0]);
+                dto.setPark(msg[0]);
             }
             if (!StringUtil.isEmpty(msg[1])) {
                 dto.setEmotion(msg[1]);
@@ -76,7 +76,7 @@ public class BusinessController extends BaseController {
      * @return
      */
     @RequestMapping(value = "getParkBehaviours.json", method = RequestMethod.POST)
-    public AjaxResult getParkBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
+    public AjaxResult getParkBusinessBehaviours(BusinessSuperviseDTO dto){
         if (dto == null || dto.getMsg().length == 0) {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
@@ -120,7 +120,7 @@ public class BusinessController extends BaseController {
      * @createDate 2017-8-8
      */
     @RequestMapping(value="/searchBusinessBehaviours.json", method = RequestMethod.POST)
-    public AjaxResult searchBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
+    public AjaxResult searchBusinessBehaviours(BusinessSuperviseDTO dto){
         
         JSONArray array = new JSONArray();
         if (null == dto) {
