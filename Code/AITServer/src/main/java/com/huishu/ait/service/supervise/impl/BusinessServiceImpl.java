@@ -90,16 +90,20 @@ public class BusinessServiceImpl implements BusinessService {
 
     /** 经过关键字搜索企业动态列表 */
     @Override
-    public Page<AITInfo> searchBusinessBehaviours(BusinessSuperviseDTO dto) {
+    public JSONArray searchBusinessBehaviours(BusinessSuperviseDTO dto) {
 //        JSONArray array = new JSONArray();
-        String park = dto.getPark();
-        String dimension = dto.getDimension();
+        String business = dto.getBusiness();
+        String dimension = null;
+        JSONArray array = new JSONArray();
+        if (null != dto.getDimension()) {
+            dimension = dto.getDimension();
+        }
         PageRequest pageable = dto.builderPageRequest();
         try{
             Page<AITInfo> page = null;
             //如果关键词为空值
             if (StringUtil.isEmpty(dto.getKeyword())){
-                page = businessRepository.findByParkAndDimension(park, dimension, pageable);
+                page = businessRepository.findByBusinessAndDimension(business, dimension, pageable);
             }else{
                 //先把关键词取出来
                 String s = dto.getKeyword();
@@ -108,7 +112,17 @@ public class BusinessServiceImpl implements BusinessService {
                 bq.must(QueryBuilders.queryStringQuery(s));//全局匹配
                 page = businessRepository.search(bq, pageable);
             }
-            return page;
+            for (AITInfo p : page) {
+                JSONObject map = new JSONObject();
+                map.put("id", p.getId());
+                map.put("business", p.getBusiness());
+                map.put("emotion", p.getEmotion());
+                map.put("publishDate", p.getPublishDate());
+                map.put("title", p.getTitle());
+                map.put("content", p.getContent());
+                array.add(map);
+             }
+            return array;
         }catch(Exception e){
             logger.error("查询企业动态列表失败",e);
             return null;

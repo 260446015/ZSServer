@@ -34,7 +34,7 @@ public interface BusinessService {
      * @param dto
      * @return
      */
-    public Page<AITInfo> searchBusinessBehaviours(BusinessSuperviseDTO dto);
+    public JSONArray searchBusinessBehaviours(BusinessSuperviseDTO dto);
     
     /**
      * 根据关键字查询企业列表

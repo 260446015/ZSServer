@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +47,7 @@ public class BusinessController extends BaseController {
      * @createDate 2017-8-3
      */
     @RequestMapping(value="/getBehaviours.json",method=RequestMethod.POST)
-    public AjaxResult getBusinessBehaviours(BusinessSuperviseDTO dto){
+    public AjaxResult getBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
         
         if (null == dto || dto.getMsg().length == 0) {
             return error(MsgConstant.ILLEGAL_PARAM);
@@ -75,7 +76,7 @@ public class BusinessController extends BaseController {
      * @return
      */
     @RequestMapping(value = "getParkBehaviours.json", method = RequestMethod.POST)
-    public AjaxResult getParkBusinessBehaviours(BusinessSuperviseDTO dto){
+    public AjaxResult getParkBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
         if (dto == null || dto.getMsg().length == 0) {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
@@ -119,8 +120,9 @@ public class BusinessController extends BaseController {
      * @createDate 2017-8-8
      */
     @RequestMapping(value="/searchBusinessBehaviours.json", method = RequestMethod.POST)
-    public AjaxResult searchBusinessBehaviours(BusinessSuperviseDTO dto){
+    public AjaxResult searchBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
         
+        JSONArray array = new JSONArray();
         if (null == dto) {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
@@ -130,18 +132,19 @@ public class BusinessController extends BaseController {
         if (StringUtil.isEmpty(msg[0])) {
             return error(MsgConstant.ILLEGAL_PARAM);
         }else {
-            dto.setPark(msg[0]);
+            dto.setBusiness(msg[0]);
         }
         if (!StringUtil.isEmpty(msg[1])) {
             dto.setKeyword(msg[1]);
         }
+        
         try {
-            Page<AITInfo> page = null;
-            dto.setEmotion("园区动态");
+//            Page<AITInfo> page = null;
+//            dto.setEmotion("园区动态");
             dto = initPage(dto);
-            page = businessService.searchBusinessBehaviours(dto);
+            array = businessService.searchBusinessBehaviours(dto);
             
-            return success(page).setSuccess(true);
+            return success(array).setSuccess(true);
         } catch (Exception e) {
             LOGGER.error("关键字查询企业动态列表失败：", e);
             return error(MsgConstant.ILLEGAL_PARAM);
