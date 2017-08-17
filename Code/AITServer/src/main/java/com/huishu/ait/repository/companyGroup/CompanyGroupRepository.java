@@ -16,7 +16,7 @@ public interface CompanyGroupRepository extends CrudRepository<CompanyGroup, Int
 	@Query("from CompanyGroup where groupName = ? and userId = ?")
 	CompanyGroup findGroupByName(String groupName,Long userId);
 
-	void deleteByCompanyGroupNameAndUserId(String groupName,Long userId);
+	void deleteByGroupNameAndUserId(String groupName,Long userId);
 
 	/**
 	 * 通过用户id查询当前用户所创建的企业分组

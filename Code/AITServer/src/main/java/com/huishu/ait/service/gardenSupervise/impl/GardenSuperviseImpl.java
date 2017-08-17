@@ -217,7 +217,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 	public boolean dropCompanyGroup(String companyGroupName, Long userId) {
 		boolean flag  = false;
 		try{
-			companyGroupRepository.deleteByCompanyGroupNameAndUserId(companyGroupName,userId);
+			companyGroupRepository.deleteByGroupNameAndUserId(companyGroupName,userId);
 			flag = true;
 		}catch(Exception e){
 			log.error(e.getMessage());

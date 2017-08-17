@@ -40,6 +40,7 @@ public class CompanyGroup implements Serializable{
 	/**
 	 * 传递用户id
 	 */
+	@Column(name="userid")
 	private Long userId;
 	
 	public int getGroupid() {
