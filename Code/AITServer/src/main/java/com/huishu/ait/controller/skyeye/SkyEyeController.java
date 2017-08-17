@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.service.skyeye.SkyEyeService;
@@ -25,7 +25,6 @@ import com.huishu.ait.service.skyeye.SkyEyeService;
  * @version 1.0
  */
 @RestController
-@ResponseBody
 @RequestMapping("/skyEye")
 public class SkyEyeController extends BaseController{
 	private static final Logger LOGGER = LoggerFactory.getLogger(SkyEyeController.class); 
@@ -70,4 +69,60 @@ public class SkyEyeController extends BaseController{
 		}
 		return success(arr);
 	}
+	
+	/**
+	 * 查询查询企业图谱的Controller
+	 * @param params   企业id
+	 * @return
+	 */
+	@RequestMapping(value="/findCompanyAtlas",method=RequestMethod.GET)
+	public AjaxResult findCompanyAtlas(Map<String, String> params,HttpServletRequest request,HttpServletResponse response){
+		JSONObject obj = null;
+		try{
+			obj = service.findBaseService("xxx", params, request, response);
+		}catch(Exception e){
+			error("查询企业图谱出错");
+			LOGGER.error("查询企业图谱出错",e);
+		}
+		return success(obj);
+	}
+	
+	/**
+	 * 查询企业拓扑图的Controller
+	 * @param params
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/findCompanyTopology",method=RequestMethod.GET)
+	public AjaxResult findCompanyTopology(Map<String, String> params,HttpServletRequest request,HttpServletResponse response){
+		JSONObject obj = null;
+		try{
+			obj = service.findBaseService("xxx", params, request, response);
+		}catch(Exception e){
+			error("查询企业图谱出错");
+			LOGGER.error("查询企业图谱出错",e);
+		}
+		return success(obj);
+	}
+
+	/**
+	 * 查询企业关系挖掘的Controller
+	 * @param params
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/findRelationExcavate",method=RequestMethod.GET)
+	public AjaxResult findRelationExcavate(Map<String, String> params,HttpServletRequest request,HttpServletResponse response){
+		JSONObject obj = null;
+		try{
+			obj = service.findBaseService("xxx", params, request, response);
+		}catch(Exception e){
+			error("查询企业图谱出错");
+			LOGGER.error("查询企业图谱出错",e);
+		}
+		return success(obj);
+	}
+	
 }

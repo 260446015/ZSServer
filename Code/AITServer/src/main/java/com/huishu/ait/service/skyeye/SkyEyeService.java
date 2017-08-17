@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author yindawei 
@@ -28,4 +29,6 @@ public interface SkyEyeService {
 	 * @return
 	 */
 	JSONArray findBaseCompanyBusiness(Map<String, String> params,HttpServletRequest request,HttpServletResponse response);
+
+	JSONObject findBaseService(String url,Map<String, String> params, HttpServletRequest request, HttpServletResponse response);
 }

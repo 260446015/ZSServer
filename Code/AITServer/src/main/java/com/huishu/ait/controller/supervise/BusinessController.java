@@ -37,28 +37,31 @@ public class BusinessController extends BaseController {
     
     
     /**
-     * 获取园区企业动态列表 或者单企业动态列表 
-     * business 园区内企业动态 emotion 添加情感信息
+     * 获取园区内企业动态列表 
+     * park 园区内企业动态 emotion 添加情感信息
      * emotion :neutral：中立的   negative：消极的  positive：积极的
      * @author jdz
      * @param dto 企业监管DTO
-     * msg[business,emotion] 
+     * msg[park,emotion] 
      * @return
      * @createDate 2017-8-3
      */
     @RequestMapping(value="/getBehaviours.json",method=RequestMethod.POST)
-    public AjaxResult getBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
+    public AjaxResult getParkEmotionBehaviours(@RequestBody BusinessSuperviseDTO dto){
         
-        if (null == dto || dto.getMsg().length == 0) {
+        final String PARK = "中关村软件园";
+        
+        if (null == dto) {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
         try{
             String[] msg = dto.getMsg();
+            /*if (!StringUtil.isEmpty(msg[0])) {
+                dto.setPark(msg[0]);
+            }*/
+            dto.setPark(PARK);
             if (!StringUtil.isEmpty(msg[0])) {
-                dto.setBusiness(msg[0]);
-            }
-            if (!StringUtil.isEmpty(msg[1])) {
-                dto.setEmotion(msg[1]);
+                dto.setEmotion(msg[0]);
             }
             dto = initPage(dto);
 //            dto.setDimension("园区动态");
