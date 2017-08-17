@@ -8,11 +8,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.common.util.HttpUtils;
 import com.huishu.ait.entity.SkyEyeAuthEntity;
+import com.huishu.ait.repository.skyeye.SkyEyeRepository;
 
 /**
  * @author yindawei 
@@ -21,6 +24,9 @@ import com.huishu.ait.entity.SkyEyeAuthEntity;
  * @version 1.0
  */
 public abstract class SkyEyeAbstractService extends AbstractService {
+	
+	@Autowired
+	private SkyEyeRepository repository;
 
 	/**
 	 * 用于重新获取token令牌的方法
@@ -56,7 +62,7 @@ public abstract class SkyEyeAbstractService extends AbstractService {
 	protected String getSkyEyeMsg(String spec,Map<String, String> params,HttpServletRequest request,HttpServletResponse response){
 		String account = Constans.SKYEYE_ACCOUNT;
 		params.put("account", account);
-		String accessToken = getAccessToken(request);//这里用来取token值，但是具体存在哪还未定
+		String accessToken = getAccessToken().getAccessToken();//这里用来取token值，但是具体存在哪还未定
 		if(accessToken == null){
 			SkyEyeAuthEntity authEntity = getTokenAuthEntity();
 			accessToken = authEntity.getAccessToken();//重新获取token，（还没写）
@@ -85,14 +91,8 @@ public abstract class SkyEyeAbstractService extends AbstractService {
 	/**
 	 * @return 返回存储的token值
 	 */
-	private String getAccessToken(HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-		for (int i = 0; i < cookies.length; i++) {
-			if("accessToken".equals(cookies[i].getName())){
-				return cookies[i].getValue();
-			}
-		}
-		return null;
+	private SkyEyeAuthEntity getAccessToken() {
+		return repository.findOne(1L);
 		
 	}
 	/**
