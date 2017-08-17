@@ -75,6 +75,7 @@
 	                        	alert(response.message);
 	                        }else{
 	                       		alert(response.data);
+	                       		window.location.href="../swagger-ui.html"
 	                        }
                         	console.log(response);
                         }

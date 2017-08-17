@@ -9,9 +9,8 @@ import com.huishu.ait.entity.common.SearchModel;
  * @date 2017年8月3日
  */
 public class AreaSearchDTO extends SearchModel {
-
 	/**
-	 * 可序列化
+	 * 序列化
 	 */
 	private static final long serialVersionUID = 1L;
 	/** 园区 */
