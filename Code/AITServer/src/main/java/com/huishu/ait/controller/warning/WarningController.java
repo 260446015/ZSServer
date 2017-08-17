@@ -25,7 +25,7 @@ import com.huishu.ait.service.warning.WarningService;
  * @date 2017年8月3日
  */
 @Controller
-@RequestMapping(value="warning")
+@RequestMapping(value="/apis/warning")
 public class WarningController extends BaseController{
 	private static Logger LOGGER = LoggerFactory.getLogger(WarningController.class);
 	
