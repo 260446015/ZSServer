@@ -59,11 +59,11 @@ public class CompanyServiceImpl implements CompanyService {
 				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 			}
 			if(null != publishTime){
-				bq.must(QueryBuilders.termQuery("publishTime", publishTime));
+				bq.must(QueryBuilders.termQuery("publishYear", publishTime));
 			}
-			String articleType = "企业排行";//这里只做排行榜，先写死
+			String dimension = "企业排行";//这里只做排行榜，先写死
 			
-			bq.must(QueryBuilders.termQuery("articleType", articleType));
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
 			int from = dto.getPageSize()*dto.getPageNumber() - dto.getPageSize();
 			SearchResponse response = requestBuilder.setQuery(bq).setFrom(from+dto.getPageSize()).setSize(dto.getPageSize()).execute().actionGet();
 			SearchHits hits = response.getHits();
@@ -77,11 +77,12 @@ public class CompanyServiceImpl implements CompanyService {
 				DateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
 				DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 				
-				Date date = format1.parse(companie.getString("publishDate"));
+				Date date = format1.parse(companie.getString("publishTime"));
 				String publishDate = format.format(date);
 				obj.put("publishDate", publishDate);
 				obj.put("content", companie.getString("content"));
 				obj.put("title", companie.getString("title"));
+				obj.put("summary", companie.getString("summary"));
 				data.add(obj);
 			}
 			LOGGER.info("查询到的企业:"+data.toJSONString());

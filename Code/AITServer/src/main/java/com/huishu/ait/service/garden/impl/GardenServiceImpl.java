@@ -28,6 +28,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.Garden;
+import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.GardenDTO;
@@ -119,19 +120,21 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		int pageNum = dto.getPageNumber();
 		int pageSize = dto.getPageSize();
 		JSONArray data = new JSONArray();
-		Page<Garden> findGardensPage = null;
+		Page<GardenData> findGardensPage = null;
 		try{
 			if("不限".equals(area)){
 				area = "%%";
 			}
 			if("不限".equals(industryType)){
 				industryType = "%%";
+			}else{
+				industryType = "%"+industryType+"%";
 			}
 			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
 //			if(!StringUtil.isEmpty(searchName)){
 //				findGardensPage = gardenRepository.findByNameLike(searchName,pageRequest);
 //			}else{//
-				findGardensPage = gardenRepository.findByAreaLikeAndIndustryTypeLike(area, industryType, pageRequest);
+				findGardensPage = gardenRepository.findByAreaLikeAndLeadingIndustryLike(area, industryType, pageRequest);
 //			}
 			data.add(findGardensPage);
 		}catch(Exception e){
@@ -200,18 +203,18 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	public JSONArray findGardensAll() {
 		JSONArray data = new JSONArray();
 		try{
-			Iterable<Garden> findAll = gardenRepository.findAll();
+			Iterable<GardenData> findAll = gardenRepository.findAll();
 			JSONArray arr1 = new JSONArray();//动漫产业
 			JSONArray arr2 = new JSONArray();//影视产业
 			JSONArray arr3 = new JSONArray();//生态科技
 			JSONArray arr4 = new JSONArray();//生物药业
 			JSONArray arr5 = new JSONArray();//信息技术
-			for (Garden garden : findAll) {
+			for (GardenData garden : findAll) {
 				JSONObject obj = new JSONObject();
 //				obj.put("id", garden.getId());
 //				obj.put("area", garden.getArea());
 //				obj.put("gardenType", garden.getGardenType());
-				obj.put("name", garden.getName());
+				obj.put("name", garden.getGardenName());
 				int value = 0;
 				switch (garden.getGardenType()) {
 				case "动漫产业":
@@ -260,24 +263,24 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	@Override
 	public GardenUser attentionGarden(String gardenId,String userId,boolean flag) {
 		try {
-			Garden garden = gardenRepository.findOne(Integer.parseInt(gardenId));
+			GardenData garden = gardenRepository.findOne(Integer.parseInt(gardenId));
 			
 			if(flag){
 				if(null != garden) {
 					GardenUser gu = new GardenUser();
-					gu.setGardenName(garden.getName());
+					gu.setGardenName(garden.getGardenName());
 					gu.setAddress(garden.getAddress());
 					gu.setArea(garden.getArea());
 					gu.setAttentionDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(System.currentTimeMillis()).toString());
-					gu.setDescription(garden.getDescription());
+					gu.setDescription(garden.getGardenIntroduce());
 					gu.setUserId(Integer.parseInt(userId));
 					gu.setGardenPicture(garden.getGardenPicture());
-					gu.setIndustryType(garden.getIndustryType());
+					gu.setIndustryType(garden.getLeadingIndustry());
 					gardenUserRepository.save(gu);
 					return gu;
 				}
 			}else{
-				gardenUserRepository.deleteByGardenName(garden.getName());
+				gardenUserRepository.deleteByGardenName(garden.getGardenName());
 			}
 		}catch(Exception e) {
 			LOGGER.error(e.getMessage());
@@ -319,12 +322,12 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	public JSONArray findGardensByArea(String area) {
 		JSONArray arr = new JSONArray();
 		try{
-			List<Garden> list = gardenRepository.findGardensByArea(area);
-			for (Garden garden : list) {
+			List<GardenData> list = gardenRepository.findGardensByArea(area);
+			for (GardenData garden : list) {
 				JSONObject obj = new JSONObject();
 				obj.put("address", garden.getAddress());
-				obj.put("name", garden.getName());
-				obj.put("industryType", garden.getIndustryType());
+				obj.put("name", garden.getGardenName());
+				obj.put("industryType", garden.getLeadingIndustry());
 				arr.add(obj);
 			}
 		}catch(Exception e){
