@@ -145,7 +145,7 @@ public class GardenSuperviseController extends BaseController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "dropCompanyGroup.json", method = RequestMethod.GET)
+	@RequestMapping(value = "dropCompanyGroup.json", method = RequestMethod.POST)
 	public AjaxResult dropCompanyGroup(String[] groupNames) {
 		Long userId = 1L;
 		// Long userId = getUserId();
