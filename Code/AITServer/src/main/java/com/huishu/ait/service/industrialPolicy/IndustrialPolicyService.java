@@ -28,7 +28,7 @@ public interface IndustrialPolicyService {
      * 根据产业政策id，获取其详细信息
      * @param id
      */
-    AITInfo getIndustrialPolicyDetailById(String id);
+    JSONArray getIndustrialPolicyDetailById(String id);
    
     
     
