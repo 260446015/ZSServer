@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
@@ -146,7 +147,7 @@ public class GardenSuperviseController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "dropCompanyGroup.json", method = RequestMethod.POST)
-	public AjaxResult dropCompanyGroup(String[] groupNames) {
+	public AjaxResult dropCompanyGroup(@RequestParam(value = "groupNames[]") String[] groupNames) {
 		Long userId = 1L;
 		// Long userId = getUserId();
 		boolean flag = false;
