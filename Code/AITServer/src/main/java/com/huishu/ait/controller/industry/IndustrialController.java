@@ -10,21 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
-import com.huishu.ait.entity.IndustrialPolicy;
-import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
-import com.huishu.ait.es.entity.AITInfo;
-import com.huishu.ait.service.industrialPolicy.IndustrialPolicyService;
 import com.alibaba.fastjson.JSONArray;
-import com.huishu.ait.common.conf.ConfConstant;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils.DateUtil;
 import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
+import com.huishu.ait.service.industrialPolicy.IndustrialPolicyService;
 
 /**
  * 产业政策相关接口

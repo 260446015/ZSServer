@@ -40,10 +40,10 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		map.put("dimension", "疑似外流");
 		map.put("emotion", DBConstant.Emotion.NEGATIVE);
 		// 组装排序字段,按时间和点击量降序排列
-		String[] order = { "publishDateTime", "hitCount" };
+		String[] order = { "publishDate", "hitCount" };
 		List<String> orderList = Arrays.asList(order);
 		// 组装返回数据字段
-		String[] data = { "business", "title", "content","warnTime","park"};
+		String[] data = { "publishDate","business", "title", "content","warnTime","park"};
 		List<String> dataList = Arrays.asList(data);
 		JSONArray array = getEsData(searchModel, map, null,orderList, dataList,true);
 		JSONArray array2 = new JSONArray();

@@ -41,7 +41,7 @@ public class WarningController extends BaseController{
 	@ResponseBody
 	public AjaxResult getBusinessOutflowList(@RequestBody  AreaSearchDTO searchModel){
 		//假数据
-		searchModel.setPark("中关村软件园");
+		searchModel.setPark("中关村");
 		if (null==searchModel || null==searchModel.getPark()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}

@@ -63,7 +63,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		map.put("park", searchModel.getPark());
 		map.put("dimension", "政策解读");
 		//组装排序字段,按时间和点击量降序排列
-		 String[] order = {"publishDateTime","hitCount"};
+		 String[] order = {"publishDate","hitCount"};
 		 List<String> orderList = Arrays.asList(order);
 		//组装返回数据字段
 		 String[] data = {"title","content"};
@@ -82,7 +82,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		map.put("park", searchModel.getPark());
 		map.put("dimension", "园区动态");
 		//组装排序字段,按时间和点击量降序排列
-		String[] order = {"publishDateTime","hitCount"};
+		String[] order = {"publishDate","hitCount"};
 		List<String> orderList = Arrays.asList(order);
 		//组装返回数据字段
 		String[] data = {"title","vector"};
@@ -149,7 +149,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			bq.must(QueryBuilders.termsQuery("park", gardenName));
-			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDateTime").order(SortOrder.DESC)).setFrom(from+dto.getPageSize()).execute().actionGet();
+			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC)).setFrom(from+dto.getPageSize()).execute().actionGet();
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
 				JSONObject obj = new JSONObject();

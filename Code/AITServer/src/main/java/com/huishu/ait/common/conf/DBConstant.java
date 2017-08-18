@@ -12,7 +12,7 @@ public class DBConstant {
      * es相关配置
      */
     public static class EsConfig {
-        public static final String INDEX = "aitserver_alias";
+        public static final String INDEX = "aitserver_2017-08-15";
         public static final String TYPE = "aitinfo";
     }
 
