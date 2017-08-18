@@ -95,11 +95,10 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
      * (1),使用ES中ElasticSearchRepository的findOne方法
      */
     @Override
-    public JSONArray getIndustrialPolicyDetailById(String id) {
+    public JSONObject getIndustrialPolicyDetailById(String id) {
         /**
          * 直接调用ElasticsearchRepository 中的 findOne方法
          */
-        JSONArray array = new JSONArray();
         JSONObject obj = new JSONObject();
         
         AITInfo info = industrialPolicyRepository.findOne(id);
@@ -109,8 +108,7 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
         } else {
             obj.put("isCollect", "true");
         }
-        array.add(obj);
-        return array;
+        return obj;
     }
     
     /**
