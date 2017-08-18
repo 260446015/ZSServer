@@ -7,6 +7,8 @@ import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.slf4j.Logger;
@@ -17,9 +19,11 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.repository.industria.IndustriaPolicyRepository;
+import com.huishu.ait.repository.expertOpinionDetail.ExpertOpinionDetailRepository;
 import com.huishu.ait.service.industrialPolicy.IndustrialPolicyService;
 
 /**
@@ -35,6 +39,9 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
 
     @Autowired
     private IndustriaPolicyRepository industrialPolicyRepository;
+    
+    @Resource
+    private ExpertOpinionDetailRepository expertOpinionDetailRepository;
     
     @SuppressWarnings("unused")
     @Autowired
@@ -88,11 +95,22 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
      * (1),使用ES中ElasticSearchRepository的findOne方法
      */
     @Override
-    public AITInfo getIndustrialPolicyDetailById(String id) {
+    public JSONArray getIndustrialPolicyDetailById(String id) {
         /**
          * 直接调用ElasticsearchRepository 中的 findOne方法
          */
-        return industrialPolicyRepository.findOne(id);
+        JSONArray array = new JSONArray();
+        JSONObject obj = new JSONObject();
+        
+        AITInfo info = industrialPolicyRepository.findOne(id);
+        obj = (JSONObject) JSONObject.toJSON(info);
+        if (null == expertOpinionDetailRepository.findExpertOpinionDetailByArticleId(id)) {
+            obj.put("isCollect", "false");
+        } else {
+            obj.put("isCollect", "true");
+        }
+        array.add(obj);
+        return array;
     }
     
     /**
