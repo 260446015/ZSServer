@@ -40,10 +40,11 @@ public class WarningController extends BaseController{
 	@RequestMapping(value="getBusinessOutflowList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getBusinessOutflowList(@RequestBody  AreaSearchDTO searchModel){
-		if (null==searchModel) {
+		//假数据
+		searchModel.setPark("中关村软件园");
+		if (null==searchModel || null==searchModel.getPark()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		searchModel.setPark("中关村软件园"); //先写死一个，以后通过其他方法来获取park值
 		try {
 			JSONArray array = warningService.getBusinessOutflowList(searchModel);
 			return success(changeObject(searchModel, array));

@@ -39,16 +39,22 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("dimension", "疑似外流");
 		map.put("emotion", DBConstant.Emotion.NEGATIVE);
-		Map<String, String> map2 = new HashMap<String, String>();
-		map2.put("park", searchModel.getPark());
 		// 组装排序字段,按时间和点击量降序排列
 		String[] order = { "publishDateTime", "hitCount" };
 		List<String> orderList = Arrays.asList(order);
 		// 组装返回数据字段
-		String[] data = { "business", "title", "content" };
+		String[] data = { "business", "title", "content","warnTime","park"};
 		List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, map2,orderList, dataList,true);
-		return array;
+		JSONArray array = getEsData(searchModel, map, null,orderList, dataList,true);
+		JSONArray array2 = new JSONArray();
+		for (Object object : array) {
+			JSONObject json=(JSONObject)object;
+			if(!searchModel.getPark().equals(json.get("park"))){
+				array2.add(json);
+			}
+		}
+		searchModel.setTotalSize(array2.size());
+		return array2;
 	}
 
 	@Override
