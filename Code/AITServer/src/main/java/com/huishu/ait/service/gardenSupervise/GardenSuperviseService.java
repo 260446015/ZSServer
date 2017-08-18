@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.CompanyGroup;
+import com.huishu.ait.entity.CompanyGroupMiddle;
 import com.huishu.ait.entity.dto.CompanyDTO;
 
 /**
@@ -22,6 +24,8 @@ public interface GardenSuperviseService {
 
 	// 获取园区内所有企业的信息（分页）
 	public JSONArray getCompanyFromGardenForPage(CompanyDTO companyDTO);
+	// 获取园区内所有企业的信息（分页）(mysql)
+	public JSONArray getCompanyFromGardenForPage2(CompanyDTO companyDTO);
 
 	// 保存分组
 	public String addCompanyGroup(String groupName, Long userId);
@@ -37,5 +41,18 @@ public interface GardenSuperviseService {
 	 * @param companyGroupId  企业分组id
 	 * @return
 	 */
-	public JSONArray findCompanyByCompanyGroupId(String companyGroupId);
+	public List<Company> findCompanyByCompanyGroupId(CompanyDTO dto);
+
+	/**
+	 * 保存操作的企业到企业分组
+	 * @param company  
+	 */
+	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle);
+
+	/**
+	 * 删除企业分组中的企业
+	 * @param middle
+	 * @return
+	 */
+	public boolean deleteCompanyInGroup(CompanyGroupMiddle middle);
 }

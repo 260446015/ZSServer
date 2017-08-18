@@ -38,7 +38,7 @@ public class CompanyDTO implements Serializable {
 	/**
 	 * 注册资金
 	 */
-	private Long regCapital;
+	private String regCapital;
 	/**
      * 每页数据存储个数
      */
@@ -56,8 +56,24 @@ public class CompanyDTO implements Serializable {
      * 传递数组
      */
     private String[] msg;
+    
+    /**
+     * 传递企业分组的id
+     */
+    private Long groupId;
+    /**
+     * 查询注册资本起始资金
+     */
+    private double start;
+    /**
+     * 查询注册资本结束资金
+     */
+    private double end;
 
 	public String getIndustry() {
+		if("全部".equals("industry")){
+			industry = "%%";
+		}
 		return industry;
 	}
 
@@ -114,6 +130,10 @@ public class CompanyDTO implements Serializable {
 		this.msg = msg;
 	}
 
+	
+
+	
+
 	public String getPark() {
 		return park;
 	}
@@ -130,12 +150,64 @@ public class CompanyDTO implements Serializable {
 		this.keyWord = keyWord;
 	}
 
-	public Long getRegCapital() {
+	public String getRegCapital() {
+		if(regCapital == null){
+			return regCapital;
+		}
+		switch (regCapital) {
+		case "全部":
+			regCapital = "0,99999";
+			break;
+		case "0-100万":
+			regCapital = "0,100";
+			break;
+		case "100-200万":
+			regCapital = "100,200";
+			break;
+		case "200-500万":
+			regCapital = "200,500";
+			break;
+		case "500-1000万":
+			regCapital = "500,1000";
+			break;
+		case "1000-99999万":
+			regCapital = "1000,99999";
+			break;
+		default:
+			break;
+		}
 		return regCapital;
 	}
 
-	public void setRegCapital(Long regCapital) {
+	public void setRegCapital(String regCapital) {
 		this.regCapital = regCapital;
 	}
+
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+
+	public double getStart() {
+		String[] split = getRegCapital().split(",");
+		return Double.parseDouble(split[0]);
+	}
+
+	public void setStart(double start) {
+		this.start = start;
+	}
+
+	public double getEnd() {
+		String[] split = getRegCapital().split(",");
+		return Double.parseDouble(split[1]);
+	}
+
+	public void setEnd(double end) {
+		this.end = end;
+	}
+	
 	
 }

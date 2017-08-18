@@ -7,6 +7,7 @@ import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.CompanyGroup;
+import com.huishu.ait.entity.CompanyGroupMiddle;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CompanyDTO;
 import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
@@ -129,11 +133,13 @@ public class GardenSuperviseController extends BaseController {
 	 * @return 查询当前园区中的所有企业信息(分页)
 	 */
 	@RequestMapping(value = "searchCompanyFromGardenForPage.json", method = RequestMethod.POST)
-	public AjaxResult getCompanyFromGardenForPage(CompanyDTO dto) {
+	public AjaxResult getCompanyFromGardenForPage(@RequestBody CompanyDTO dto) {
 		try {
-			dto.setPark(park);
+			if(dto.getRegCapital() == null || dto.getIndustry() == null || dto.getPark() == null){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
 			dto = initPage(dto);
-			JSONArray jsonArray = gardenSuperviseService.getCompanyFromGardenForPage(dto);
+			JSONArray jsonArray = gardenSuperviseService.getCompanyFromGardenForPage2(dto);
 			return success(jsonArray);
 		} catch (Exception e) {
 			log.error("查询园区企业失败", e.getMessage());
@@ -165,17 +171,52 @@ public class GardenSuperviseController extends BaseController {
 	 * @param companyGroupId
 	 * @return
 	 */
-	@RequestMapping(value="/findCompanyByCompanyGroupId",method=RequestMethod.GET)
-	public AjaxResult findCompanyByCompanyGroupId(String companyGroupId){
-		JSONArray data = null;
+	@RequestMapping(value="/findCompanyByCompanyGroupId",method=RequestMethod.POST)
+	public AjaxResult findCompanyByCompanyGroupId(@RequestBody CompanyDTO dto){
+		List<Company> list = null;
 		try{
-			data = gardenSuperviseService.findCompanyByCompanyGroupId(companyGroupId);
+			if(dto.getGroupId() == null || dto.getRegCapital() == null || dto.getIndustry() == null){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			list = gardenSuperviseService.findCompanyByCompanyGroupId(dto);
 		}catch(Exception e){
 			log.error("通过企业分组id查询相关联的企业列表", e);
 			return error("通过企业分组id查询相关联的企业列表");
 		}
-		return success(data);
+		return success(list);
 	}
+	
+	/**
+	 * 保存操作的企业到企业分组的Controller
+	 * @param middle  企业与企业分组的中间表
+	 * @return
+	 */
+	@RequestMapping(value="/saveCompanyByGroupId.json",method=RequestMethod.POST)
+	public AjaxResult saveCompanyByGroupId(@RequestBody CompanyGroupMiddle middle){
+		boolean flag = gardenSuperviseService.saveCompanyByGroupId(middle);
+		if(flag){
+			return success(flag);
+		}else{
+			return error("保存操作的企业到企业分组失败");
+		}
+	}
+	
+	/**
+	 * 删除企业分组中的企业的Controller
+	 * @param middle  企业与企业分组的中间表
+	 * @return
+	 */
+	@RequestMapping(value="/deleteCompanyInGroup.json",method=RequestMethod.POST)
+	public AjaxResult deleteCompanyInGroup(@RequestBody CompanyGroupMiddle middle){
+		boolean flag = gardenSuperviseService.deleteCompanyInGroup(middle);
+		if(flag){
+			return success(flag);
+		}else{
+			return error("删除企业分组中的企业失败");
+		}
+	}
+	
+	
 
 	/**
 	 * @param dto

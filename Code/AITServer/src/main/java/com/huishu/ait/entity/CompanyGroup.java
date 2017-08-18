@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * @author yxq
  * @date 2017年8月3日
@@ -66,6 +68,10 @@ public class CompanyGroup implements Serializable{
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
 	}
 	
 }

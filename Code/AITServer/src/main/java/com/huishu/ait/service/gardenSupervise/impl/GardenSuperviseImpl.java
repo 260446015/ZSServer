@@ -15,14 +15,21 @@ import org.elasticsearch.search.SearchHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
+import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.CompanyGroup;
+import com.huishu.ait.entity.CompanyGroupMiddle;
 import com.huishu.ait.entity.dto.CompanyDTO;
+import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.repository.companyGroup.CompanyGroupRepository;
+import com.huishu.ait.repository.company_group_middle.CompanyGroupMiddleRepository;
 import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
 
 /**
@@ -39,6 +46,10 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 	private Client client;
 	@Autowired
 	private CompanyGroupRepository companyGroupRepository;
+	@Autowired
+	private CompanyGroupMiddleRepository middleRepository;
+	@Autowired
+	private CompanyRepository companyRepository;
 	
 	
 	/* 
@@ -105,6 +116,10 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 						json.put("businessLegal", map.get("businessLegal"));
 						json.put("position", map.get("position"));//详细位置
 						json.put("area", map.get("area"));//区域地址
+						json.put("registerCapital", map.get("registerCapital"));//获取注册资本
+						json.put("registerDate", map.get("registerDate"));//获取注册时间
+						json.put("boss", map.get("boss"));//新的企业法人
+						json.put("logo", map.get("logo"));
 						jsonArray.add(json);
 					}
 				}
@@ -166,7 +181,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			String keyWord = dto.getKeyWord();
 			Integer pageNumber = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
-			Long regCapital = dto.getRegCapital();
+//			Long regCapital = dto.getRegCapital();
 			int from = (pageNumber-1)*pageSize;
 			SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
@@ -176,9 +191,9 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			if (StringUtils.isNotBlank(industry)) {
 				bq.must(QueryBuilders.termQuery("industry", industry));
 			}
-			if (null !=regCapital) {
-				bq.must(QueryBuilders.termQuery("regCapital", regCapital));
-			}
+//			if (null !=regCapital) {
+//				bq.must(QueryBuilders.termQuery("regCapital", regCapital));
+//			}
 			if (StringUtils.isNotBlank(keyWord)) {
 				bq.must(QueryBuilders.termQuery("keyWord", keyWord));
 			}
@@ -214,6 +229,29 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		}
 		
 	}
+	/* 
+	 * 方法名：getCompanyFromGardenForPage
+	 * 描述：查询当前园区内所有企业信息+搜索+分页  原本是从es库中取，现改为从mysql
+	 */
+	public JSONArray getCompanyFromGardenForPage2(@RequestBody CompanyDTO dto) {
+		try {
+			JSONArray jsonArray = new JSONArray();
+			String park = dto.getPark();
+			Integer pageNumber = dto.getPageNumber();
+			Integer pageSize = dto.getPageSize();
+			String industry = dto.getIndustry();//产业描述
+			double start = dto.getStart();
+			double end = dto.getEnd();
+			PageRequest pageRequest = new PageRequest(pageNumber-1, pageSize);
+			Page<Company> page = companyRepository.findByIndustryAndParkAndRegisterCapitalBetween(industry, park, start, end,pageRequest);
+			jsonArray.add(page);
+			return jsonArray;
+		} catch (Exception e) {
+			log.error("获取园区内企业信息失败", e.getMessage());
+			return null;
+		}
+		
+	}
 	@Override
 	public boolean dropCompanyGroup(String[] groupNames, Long userId) {
 		boolean flag  = false;
@@ -231,8 +269,43 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		return flag;
 	}
 	@Override
-	public JSONArray findCompanyByCompanyGroupId(String companyGroupId) {
-		return null;
+	public List<Company> findCompanyByCompanyGroupId(CompanyDTO dto) {
+		String industry = dto.getIndustry();
+		String regCapital = dto.getRegCapital();
+		Long groupId = dto.getGroupId();
+		double start = dto.getStart();
+		double end = dto.getEnd();
+		List<Company> list = null;
+		try{
+			list = companyRepository.selectCompanysByDto(industry,groupId,start,end);
+		}catch(Exception e){
+			log.error(e.getMessage());
+		}
+		return list;
+		
+	}
+	@Override
+	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle) {
+		boolean flag = false;
+		try{
+			middleRepository.save(middle);
+			flag = true;
+		}catch(Exception e){
+			log.error(e.getMessage());
+		}
+		return flag;
+		
+	}
+	@Override
+	public boolean deleteCompanyInGroup(CompanyGroupMiddle middle) {
+		boolean flag = false;
+		try{
+			middleRepository.deleteByCompanyId(middle.getCompanyId());
+			flag = true;
+		}catch(Exception e){
+			log.error(e.getMessage());
+		}
+		return flag;
 		
 	}
 }
