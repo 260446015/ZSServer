@@ -75,7 +75,7 @@
 	                        	alert(response.message);
 	                        }else{
 	                       		alert(response.data);
-	                       		window.location.href="../swagger-ui.html"
+	                       		window.location.href="http://localhost:8000/intelligence"
 	                        }
                         	console.log(response);
                         }

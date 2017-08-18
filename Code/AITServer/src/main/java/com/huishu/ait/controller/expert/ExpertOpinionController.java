@@ -98,9 +98,9 @@ public class ExpertOpinionController extends BaseController{
 				if (null != requestParam.getMsg()[1]) {
 					requestParam.setIndustryLabel(requestParam.getMsg()[1]);
 				}
-				if (null != requestParam.getMsg()[2]) {
+				/*if (null != requestParam.getMsg()[2]) {
 					requestParam.setTimeFlag(requestParam.getMsg()[2]);
-				}
+				}*/
 			}
 			JSONArray jsonArray = expertOpinionService.getExertOpinionList(requestParam);
 			return this.success(jsonArray);

@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Configuration;
 import com.huishu.ait.controller.garden.GardenController;
 import com.huishu.ait.security.CustomCredentialsMatcher;
 import com.huishu.ait.security.MyFormAuthenticationFilter;
-import com.huishu.ait.security.MyUserFilter;
 import com.huishu.ait.security.ShiroDbRealm;
 
 /**

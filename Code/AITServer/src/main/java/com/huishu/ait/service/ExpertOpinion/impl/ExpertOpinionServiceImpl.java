@@ -62,7 +62,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			//获取参数
 			String industry = requestParam.getIndustry();
 			String industryLabel = requestParam.getIndustryLabel();
-			String timeFlag = requestParam.getTimeFlag();
+			/*String timeFlag = requestParam.getTimeFlag();
 			String startDate = null;
 			String endDate = null;
 			String dateCheck = DateCheck.dateCheck(timeFlag);
@@ -70,13 +70,13 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 				String[] split = dateCheck.split("@");
 				startDate = split[0];
 				endDate = split[1];
-			}
+			}*/
 			int pageNumber = requestParam.getPageNumber();
 			int pageSize = requestParam.getPageSize();
 			int from = (pageNumber-1)*pageSize;
 			SearchRequestBuilder searchBuilder = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = QueryBuilders.boolQuery();
-			bq.must(QueryBuilders.termQuery("dimension", Constans.BAIJIALUN));
+			bq.must(QueryBuilders.termQuery("dimension", "专家观点"));
 			//根据条件查询
 			SearchRequestBuilder requestBuilder = searchBuilder.setQuery(bq)
 					.setFrom(from).setSize(pageSize);
@@ -86,9 +86,9 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			if (StringUtils.isNotBlank(industryLabel) && !(Constans.BUXIAN).equals(industryLabel)) {
 				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 			}
-			if (StringUtils.isNotEmpty(startDate) && StringUtils.isNotEmpty(endDate)) {
+			/*if (StringUtils.isNotEmpty(startDate) && StringUtils.isNotEmpty(endDate)) {
 				bq.must(QueryBuilders.rangeQuery("publishDate").from(startDate).to(endDate));
-			}
+			}*/
 			
 			SearchResponse actionGet = requestBuilder.execute().actionGet();
 			SearchHits hits = actionGet.getHits();
@@ -103,6 +103,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 							jsonObject.put("publishDate", map.get("publishDate"));
 							jsonObject.put("title", map.get("title"));
 							jsonObject.put("content", map.get("content"));
+							jsonObject.put("summary", map.get("summary"));
 							jsonObject.put("author", map.get("author"));
 							jsonObject.put("sourceLink", map.get("sourceLink"));
 							jsonObject.put("source", map.get("source"));
