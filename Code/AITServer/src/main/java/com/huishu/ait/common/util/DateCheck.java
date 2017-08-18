@@ -19,6 +19,9 @@ public abstract class DateCheck {
 			if ("昨日".equals(str)) {
 				startDate = DateUtils.getYesterdayDate();
 			}
+			if ("近3天".equals(str)) {
+				startDate = DateUtils.getLast3Date();
+			}
 			if ("近7天".equals(str)) {
 				startDate = DateUtils.getLast7Date();
 			}

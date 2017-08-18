@@ -1,5 +1,6 @@
 package com.huishu.ait.service.gardenSupervise.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -214,10 +215,15 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		
 	}
 	@Override
-	public boolean dropCompanyGroup(String companyGroupName, Long userId) {
+	public boolean dropCompanyGroup(String[] groupNames, Long userId) {
 		boolean flag  = false;
 		try{
-			companyGroupRepository.deleteByGroupNameAndUserId(companyGroupName,userId);
+			List<CompanyGroup> list = new ArrayList<>();
+			for (String groupName : groupNames) {
+				CompanyGroup findGroupByName = companyGroupRepository.findGroupByName(groupName, userId);
+				list.add(findGroupByName);
+			}
+			companyGroupRepository.delete(list);
 			flag = true;
 		}catch(Exception e){
 			log.error(e.getMessage());

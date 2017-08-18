@@ -146,12 +146,12 @@ public class GardenSuperviseController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "dropCompanyGroup.json", method = RequestMethod.GET)
-	public AjaxResult dropCompanyGroup(String companyGroupName) {
+	public AjaxResult dropCompanyGroup(String[] groupNames) {
 		Long userId = 1L;
 		// Long userId = getUserId();
 		boolean flag = false;
 		try {
-			flag = gardenSuperviseService.dropCompanyGroup(companyGroupName, userId);
+			flag = gardenSuperviseService.dropCompanyGroup(groupNames, userId);
 		} catch (Exception e) {
 			log.error("删除企业分组出错", e);
 			return error("删除企业分组出错");

@@ -349,6 +349,16 @@ public abstract class DateUtils {
         String day2 = format.format(b);
 		return day2;
 	} 
+	public static String getLast3Date() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+		 //过去三天
+        c.setTime(new Date());
+        c.add(Calendar.DATE, - 3);
+        Date d = c.getTime();
+        String day = format.format(d);
+		return day;
+	} 
 	public static String getLast7Date() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();

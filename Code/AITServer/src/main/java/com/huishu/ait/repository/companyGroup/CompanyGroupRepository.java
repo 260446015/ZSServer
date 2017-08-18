@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.huishu.ait.entity.CompanyGroup;
 
@@ -12,6 +13,7 @@ import com.huishu.ait.entity.CompanyGroup;
  * @date 2017年8月3日
  * @功能描述：企业分组
  */
+@Transactional
 public interface CompanyGroupRepository extends CrudRepository<CompanyGroup, Integer>{
 	@Query("from CompanyGroup where groupName = ? and userId = ?")
 	CompanyGroup findGroupByName(String groupName,Long userId);

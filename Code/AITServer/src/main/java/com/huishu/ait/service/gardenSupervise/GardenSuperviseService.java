@@ -30,7 +30,7 @@ public interface GardenSuperviseService {
 	public List<CompanyGroup> selectCompanyGroup(Long userId);
 
 	// 删除企业分组
-	public boolean dropCompanyGroup(String companyGroupName, Long userId);
+	public boolean dropCompanyGroup(String[] groupNames, Long userId);
 
 	/**
 	 * 通过企业分组id查询相关联的企业列表
