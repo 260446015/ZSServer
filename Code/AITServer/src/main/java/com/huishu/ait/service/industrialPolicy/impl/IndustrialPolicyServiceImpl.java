@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,17 +63,24 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
         }
         try{
             Map<String, Object> map = new HashMap<String, Object>();
-            //按文章类型按照维度获取数据 1,政策解读 2, 高峰论坛  3,科学研究
-            dto.setDimension("政策解读");
+          //按文章类型按照维度获取数据 1,政策解读 2, 高峰论坛  3,科学研究
+            BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+            if (null != dto.getIndustry()) {
+                queryBuilder.must(QueryBuilders.termQuery("industry", dto.getIndustry()));
+            }
+            if (null != dto.getIndustryLabel()){
+                queryBuilder.must(QueryBuilders.termQuery("industryLabel", dto.getIndustryLabel()));
+            }
+            if (null != dto.getArea()) {
+                queryBuilder.must(QueryBuilders.termQuery("area", dto.getArea()));
+            }
             //获取查询对象
-            BoolQueryBuilder bq = dto.builderQuery();
-            Page<AITInfo> pagedate1 = industrialPolicyRepository.search(bq,dto.builderPageRequest());
-            dto.setDimension("高峰论坛");
-            bq = dto.builderQuery();
-            Page<AITInfo> pagedate2 = industrialPolicyRepository.search(bq,dto.builderPageRequest());
-            dto.setDimension("科学研究");
-            bq = dto.builderQuery();
-            Page<AITInfo> pagedate3 = industrialPolicyRepository.search(bq,dto.builderPageRequest());
+            queryBuilder.must(QueryBuilders.termQuery("dimension", "政策解读"));
+            Page<AITInfo> pagedate1 = industrialPolicyRepository.search(queryBuilder,dto.builderPageRequest());
+            queryBuilder.must(QueryBuilders.termQuery("dimension", "高峰论坛"));
+            Page<AITInfo> pagedate2 = industrialPolicyRepository.search(queryBuilder,dto.builderPageRequest());
+            queryBuilder.must(QueryBuilders.termQuery("dimension", "科学研究"));
+            Page<AITInfo> pagedate3 = industrialPolicyRepository.search(queryBuilder,dto.builderPageRequest());
             
             map.put("policy", pagedate1); //政策解读
             map.put("forum", pagedate2);  //高峰论坛

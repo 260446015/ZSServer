@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils.DateUtil;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
@@ -42,31 +43,28 @@ public class IndustrialController extends BaseController {
      */
     @RequestMapping(value="getIndustrialPolicyList.json", method = RequestMethod.POST)
     @ResponseBody
-    public AjaxResult getIndustrialPolicyList(@RequestBody IndustrialPolicyDTO dto){
+    public AjaxResult getIndustrialPolicyList(IndustrialPolicyDTO dto){
         try{
+            if (null == dto || 3!=dto.getMsg().length){
+                return error(MsgConstant.ILLEGAL_PARAM);
+            }
             String[] labels = dto.getMsg();
-            dto.setIndustry(labels[0]);
-            dto.setIndustryLabel(labels[1]);
-//            dto.setPeriodDate(labels[2]);
-            dto.setArea(labels[2]);
-            dto.setPeriodDate("不限");
-            
+
+            if (!StringUtil.isEmpty(labels[0])) {
+                dto.setIndustry(labels[0]);
+            }
+            if (!StringUtil.isEmpty(labels[1])) {
+                dto.setIndustryLabel(labels[1]);
+            }
+            if (!StringUtil.isEmpty(labels[2])) {
+                dto.setArea(labels[2]);
+            }
             JSONArray array = new JSONArray();
             
             dto = pageInit(dto);
-            if (dto.getPeriodDate() != null){
-                dto = dateInit(dto);
-                dto.setPeriodDate(null);
-            }
-            Boolean b = checkPolicyDTO(dto);
-            if (b == true){
                 /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
-                array = industrialPolicyService.getIndustrialPolicyList(dto);
-                return success(array).setSuccess(true);
-            }
-            else {
-                return error(MsgConstant.ILLEGAL_PARAM);
-            }
+            array = industrialPolicyService.getIndustrialPolicyList(dto);
+            return success(array).setSuccess(true);
         } catch(Exception e) {
             log.error("获取产业政策列表失败："+e.getMessage());
             return error("获取产业政策列表失败"); 
@@ -109,51 +107,6 @@ public class IndustrialController extends BaseController {
         }
         if(dto.getPageSize()>1000){
             dto.setPageSize(1000);
-        }
-        return dto;
-    }
-    
-    /**
-     * 时间初始处理 yyyy-MM-dd HH-mm-ss
-     */
-    private IndustrialPolicyDTO dateTimeInit(IndustrialPolicyDTO dto){
-        Date date = new Date();
-        String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_TIME); //今天的当前时间（获取服务端时间）
-        String startTime = DateUtil.getFormatDate(DateUtil.getStartTime(), DateUtil.FORMAT_TIME); //今天的起始时间
-        String yesterAgo = DateUtil.getFormatDate(DateUtil.getYesterAgoStartTime(date), DateUtil.FORMAT_TIME); //昨天的起始时间
-        String weekAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_TIME); //近7天的起始时间
-        String monthAgo = DateUtil.getFormatDate(DateUtil.getMonthAgoStartTime(date), DateUtil.FORMAT_TIME); //一个月内
-        String halfYearAgo = DateUtil.getFormatDate(DateUtil.getHalfYearStartTime(date), DateUtil.FORMAT_TIME); //半年内
-        String yearAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_TIME); //一年内
-        
-        //对时间段进行判断
-        if(dto.getPeriodDate().equals("今日")){
-            dto.setStartDate(startTime);
-            dto.setEndDate(endTime);
-        }
-        if(dto.getPeriodDate().equals("昨天")){
-            dto.setStartDate(yesterAgo);
-            dto.setEndDate(startTime);
-        }
-        if(dto.getPeriodDate().equals("近7天")){
-            dto.setStartDate(weekAgo);
-            dto.setEndDate(endTime);
-        }
-        if(dto.getPeriodDate().equals("1个月")){
-            dto.setStartDate(monthAgo);
-            dto.setEndDate(endTime);
-        }
-        if(dto.getPeriodDate().equals("半年")){
-            dto.setStartDate(halfYearAgo);
-            dto.setEndDate(endTime);
-        }
-        if(dto.getPeriodDate().equals("一年")){
-            dto.setStartDate(yearAgo);
-            dto.setEndDate(endTime);
-        }
-        if(dto.getPeriodDate().equals("不限")){
-            dto.setStartDate("1980-01-01 00:00:01");
-            dto.setEndDate(endTime);
         }
         return dto;
     }
