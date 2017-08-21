@@ -43,7 +43,7 @@ public class IndustrialController extends BaseController {
      */
     @RequestMapping(value="getIndustrialPolicyList.json", method = RequestMethod.POST)
     @ResponseBody
-    public AjaxResult getIndustrialPolicyList(IndustrialPolicyDTO dto){
+    public AjaxResult getIndustrialPolicyList(@RequestBody IndustrialPolicyDTO dto){
         try{
             if (null == dto || 3!=dto.getMsg().length){
                 return error(MsgConstant.ILLEGAL_PARAM);

@@ -64,27 +64,16 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
         try{
             Map<String, Object> map = new HashMap<String, Object>();
           //按文章类型按照维度获取数据 1,政策解读 2, 高峰论坛  3,科学研究
-            BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-            if (null != dto.getIndustry()) {
-                queryBuilder.must(QueryBuilders.termQuery("industry", dto.getIndustry()));
-            }
-            if (null != dto.getIndustryLabel()){
-                queryBuilder.must(QueryBuilders.termQuery("industryLabel", dto.getIndustryLabel()));
-            }
-            if (null != dto.getArea()) {
-                queryBuilder.must(QueryBuilders.termQuery("area", dto.getArea()));
-            }
-            //获取查询对象
-            queryBuilder.must(QueryBuilders.termQuery("dimension", "政策解读"));
-            Page<AITInfo> pagedate1 = industrialPolicyRepository.search(queryBuilder,dto.builderPageRequest());
-            queryBuilder.must(QueryBuilders.termQuery("dimension", "高峰论坛"));
-            Page<AITInfo> pagedate2 = industrialPolicyRepository.search(queryBuilder,dto.builderPageRequest());
-            queryBuilder.must(QueryBuilders.termQuery("dimension", "科学研究"));
-            Page<AITInfo> pagedate3 = industrialPolicyRepository.search(queryBuilder,dto.builderPageRequest());
+            dto.setDimension("政策解读");
+            Page<AITInfo> page1 = industrialPolicyRepository.search(dto.builderQuery(), dto.builderPageRequest());
+            dto.setDimension("高峰论坛");
+            Page<AITInfo> page2 = industrialPolicyRepository.search(dto.builderQuery(), dto.builderPageRequest());
+            dto.setDimension("科学研究");
+            Page<AITInfo> page3 = industrialPolicyRepository.search(dto.builderQuery(), dto.builderPageRequest());
             
-            map.put("policy", pagedate1); //政策解读
-            map.put("forum", pagedate2);  //高峰论坛
-            map.put("research", pagedate3);  //科学研究
+            map.put("policy", page1); //政策解读
+            map.put("forum", page2);  //高峰论坛
+            map.put("research", page3);  //科学研究
             
             array.add(map);
             
