@@ -34,8 +34,7 @@ public class CompanyInfoController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/getCompanyInfoByCompany.json", method = RequestMethod.POST)
 
-	// public AjaxResult findInfo( String company){
-	public AjaxResult getCompanyInfoByCompany(@RequestBody String company) {
+	public AjaxResult getCompanyInfoByCompany(String company) {
 		if (company.isEmpty()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}

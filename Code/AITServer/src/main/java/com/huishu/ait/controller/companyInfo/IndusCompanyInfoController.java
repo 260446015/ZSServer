@@ -20,23 +20,23 @@ import com.huishu.ait.service.indusCompany.IndusCompanyService;
  */
 @Controller
 @RequestMapping("/apis/indus")
-public class IndusCompanyInfoController extends BaseController{
-  @Autowired
-  private IndusCompanyService service;
-  /**
-   * 根据产业名查询公司的信息
-   * @param industry
-   * @return
-   */
- @ResponseBody
-  @RequestMapping(value="/getCompanyInfoByIndustry.json",method=RequestMethod.POST)
- 
-  //public AjaxResult getCompanyInfoByIndustry( String industry){
-	 public AjaxResult getCompanyInfoByIndustry( @RequestBody String industry){
-	  if(industry.isEmpty()){
-		  	return error(MsgConstant.ILLEGAL_PARAM);
-	  }	  
-	  return success(service.findIndusInfoByIndustry(industry));
-  }
- 
+public class IndusCompanyInfoController extends BaseController {
+	@Autowired
+	private IndusCompanyService service;
+
+	/**
+	 * 根据产业名查询公司的信息
+	 * 
+	 * @param industry
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getCompanyInfoByIndustry.json", method = RequestMethod.POST)
+	public AjaxResult getCompanyInfoByIndustry( String industry) {
+		if (industry.isEmpty()) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		return success(service.findIndusInfoByIndustry(industry));
+	}
+
 }
