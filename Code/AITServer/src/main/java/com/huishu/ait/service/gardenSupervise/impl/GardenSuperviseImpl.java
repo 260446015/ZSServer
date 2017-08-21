@@ -267,12 +267,13 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 	public boolean dropCompanyGroup(String[] groupNames, Long userId) {
 		boolean flag  = false;
 		try{
-			List<CompanyGroup> list = new ArrayList<>();
 			for (String groupName : groupNames) {
 				CompanyGroup findGroupByName = companyGroupRepository.findGroupByName(groupName, userId);
-				list.add(findGroupByName);
+				if(findGroupByName != null){
+					companyGroupRepository.delete(findGroupByName);
+					middleRepository.deleteByGroupId(findGroupByName.getGroupid());
+				}
 			}
-			companyGroupRepository.delete(list);
 			flag = true;
 		}catch(Exception e){
 			log.error(e.getMessage());
@@ -302,6 +303,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			CompanyGroup cg = companyGroupRepository.findByGroupNameAndUserId(middle.getGroupname(), userId);
 			middle.setGroupId(cg.getGroupid());
 			middle.setGroupname(cg.getGroupName());
+			middle.setUserId(userId);
 			middleRepository.save(middle);
 			flag = true;
 		}catch(Exception e){

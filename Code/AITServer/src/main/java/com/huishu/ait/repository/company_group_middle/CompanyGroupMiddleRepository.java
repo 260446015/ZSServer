@@ -15,5 +15,7 @@ public interface CompanyGroupMiddleRepository extends CrudRepository<CompanyGrou
 	
 	List<CompanyGroupMiddle> findByGroupId(Long groupId);
 	
+	int deleteByGroupId(Long groupId);
+	
 
 }
