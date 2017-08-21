@@ -44,6 +44,10 @@ public abstract class BaseController {
 		return getCurrentShiroUser().getLoginName();
 	}
 	
+	public String getUserPark() {
+		return getCurrentShiroUser().getPark();
+	}
+	
     public boolean  checkDTO(AbstractDTO dto ){
     	if ( dto == null ){
     		return false;
