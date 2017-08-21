@@ -15,20 +15,20 @@ import com.alibaba.fastjson.JSONObject;
 @Document(indexName = INDEX, type = TYPE)
 public class WarningInformation {
 	private String id;
-	/** 公司名称 */
-	private String business;
+	/** 标题 */
+	private String title;
 	/** 类型标签 */
 	private String businessType;
-	/** 所属单位*/
-	private String danwei;
+	/** 公司名称*/
+	private String business;
 	/** 更新属性 */
 	private String updateAttribute;
 	/** 更新前 */
-	private String beforeUpdate;
+	private String contentBefore;
 	/** 更新后 */
-	private String afterUpdate;
+	private String contentAfter;
 	/** 更新时间 */
-	private String dateTime;
+	private String publishTime;
 	/** 更新来源 */
 	private String source;
 	
@@ -56,44 +56,45 @@ public class WarningInformation {
 		this.businessType = businessType;
 	}
 
-	public String getDanwei() {
-		return danwei;
-	}
-
-	public void setDanwei(String danwei) {
-		this.danwei = danwei;
-	}
-
 	public String getUpdateAttribute() {
 		return updateAttribute;
+	}
+
+	public String getContentBefore() {
+		return contentBefore;
+	}
+
+	public void setContentBefore(String contentBefore) {
+		this.contentBefore = contentBefore;
+	}
+
+	public String getContentAfter() {
+		return contentAfter;
+	}
+
+	public void setContentAfter(String contentAfter) {
+		this.contentAfter = contentAfter;
 	}
 
 	public void setUpdateAttribute(String updateAttribute) {
 		this.updateAttribute = updateAttribute;
 	}
 
-	public String getBeforeUpdate() {
-		return beforeUpdate;
+
+	public String getTitle() {
+		return title;
 	}
 
-	public void setBeforeUpdate(String beforeUpdate) {
-		this.beforeUpdate = beforeUpdate;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getAfterUpdate() {
-		return afterUpdate;
+	public String getPublishTime() {
+		return publishTime;
 	}
 
-	public void setAfterUpdate(String afterUpdate) {
-		this.afterUpdate = afterUpdate;
-	}
-
-	public String getDateTime() {
-		return dateTime;
-	}
-
-	public void setDateTime(String dateTime) {
-		this.dateTime = dateTime;
+	public void setPublishTime(String publishTime) {
+		this.publishTime = publishTime;
 	}
 
 	public String getSource() {

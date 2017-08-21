@@ -81,6 +81,8 @@ public class WarningController extends BaseController{
 	@RequestMapping(value="getInformationChangeList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getInformationChangeList(AreaSearchDTO searchModel,HttpServletRequest request,HttpServletResponse response){
+		//假数据
+		searchModel.setPark("中关村");
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -94,7 +96,7 @@ public class WarningController extends BaseController{
 	}
 	
 	/**
-	 * 信息变更预警详情(这个接口估计用不上了)
+	 * 信息变更预警详情
 	 * @param id   政策ID
 	 * @return
 	 */

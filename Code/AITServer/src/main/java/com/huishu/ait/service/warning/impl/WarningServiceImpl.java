@@ -17,21 +17,23 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.DBConstant;
-import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.GardenInformation;
 import com.huishu.ait.es.entity.WarningInformation;
+import com.huishu.ait.es.repository.warning.WarningInformationRepository;
 import com.huishu.ait.es.repository.warning.WarningRepository;
 import com.huishu.ait.service.SkyEyeAbstractService;
 import com.huishu.ait.service.warning.WarningService;
 
 @Service
 public class WarningServiceImpl extends SkyEyeAbstractService implements WarningService {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(WarningServiceImpl.class);
+	
+	private static Logger LOGGER = LoggerFactory.getLogger(WarningServiceImpl.class);
 
 	@Autowired
 	private WarningRepository warningRepository;
+	@Autowired
+	private WarningInformationRepository warningInformationRepository;
 
 	@Override
 	public JSONArray getBusinessOutflowList(AreaSearchDTO searchModel) {
@@ -67,62 +69,38 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 			HttpServletResponse response) {
 		StringBuffer buffer = new StringBuffer();
 		// 根据park获取该园区所有企业
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("park", searchModel.getPark());
-		String[] data = { "business"};
-		List<String> dataList = Arrays.asList(data);
-		JSONArray list = getEsData(searchModel, map, null,null, dataList,false);
+		List<String> list = Arrays.asList("北京百度网讯科技有限公司");
 		if (list == null || list.size() == 0) {
 			return null;
 		}
 		buffer.append("[");
-		ArrayList<String> arrayList = new ArrayList<String>();
-		for (Object object : list) {
-			JSONObject jsonobj=(JSONObject)object;
-			//对企业进行去重
-			String companyName = (String)jsonobj.get("business");
-			if(arrayList.indexOf(companyName)!=-1){
-				continue;
-			}
-			arrayList.add(companyName);
-			List<String> specList = Arrays.asList(Constans.SEARCH);
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("word", companyName);
-			JSONArray array = sendHttpsRequest(specList, params, request, response);
-			JSONObject json = (JSONObject) array.get(0);
-			if (json == null) {
-				continue;
-			}
-			List<Object> items = (List<Object>) json.get("data");
-			if (items != null && items.size() != 0) {
-				String string = JSONObject.toJSON(items.get(0)).toString();
-				JSONObject parse = JSONObject.parseObject(string);
-				String id = parse.get("id").toString();
-				List<String> specList2 = Arrays.asList(Constans.CHANGEINFO);
-				Map<String, String> params2 = new HashMap<String, String>();
-				params2.put("id", id);
-				JSONArray array2 = sendHttpsRequest(specList2, params2, request, response);
-				// 将所有的JSONArray拼接成一个JSONString
-				try {
-					JSONObject obj1 = (JSONObject) array2.get(0);
-					JSONObject datas = (JSONObject) obj1.get("data");
-					List<Object> result = (List<Object>) datas.get("result");
-					if (obj1 == null || datas == null || result == null || result.size() == 0) {
-						continue;
+		for (String business : list) {
+			//组装查询条件
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("business", business);
+			map.put("dimension", "企业信息变更");
+			//组装排序字段,按时间和点击量降序排列
+			 String[] order = {"publishDate","hitCount"};
+			 List<String> orderList = Arrays.asList(order);
+			//组装返回数据字段
+			 String[] data = {"publishTime","business", "updateAttribute","businessType"};
+			 List<String> dataList = Arrays.asList(data);
+			JSONArray array = getEsData(searchModel, map, null,orderList, dataList,true);
+			// 将所有的JSONArray拼接成一个JSONString
+			try {
+				for (int i = 0; i < array.size(); i++) {
+					JSONObject item = (JSONObject) array.get(i);
+					if (item != null) {
+						if (i == array.size() - 1)
+							buffer.append(item.toString());
+						else
+							buffer.append(item.toString()).append(",");
 					}
-					for (int i = 0; i < result.size(); i++) {
-						JSONObject item = (JSONObject) result.get(i);
-						if (item != null) {
-							if (i == result.size() - 1)
-								buffer.append(item.toString());
-							else
-								buffer.append(item.toString()).append(",");
-						}
-					}
-				} catch (Exception e) {
-					LOGGER.error("拼接字符串出错", e);
-					continue;
+					
 				}
+			} catch (Exception e) {
+				LOGGER.error("拼接字符串出错", e);
+				continue;
 			}
 		}
 		buffer.append("]");
@@ -137,8 +115,8 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		}
 		// 对数据进行排序，按照变更时间先后
 		jsonValues.sort((JSONObject a, JSONObject b) -> {
-			String valA = (String) a.get("changeTime");
-			String valB = (String) b.get("changeTime");
+			String valA = (String) a.get("publishTime");
+			String valB = (String) b.get("publishTime");
 			return valB.compareTo(valA);
 		});
 		for (int i = 0; i < jsonValues.size(); i++) {
@@ -157,7 +135,7 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 
 	@Override
 	public WarningInformation getInformationChangeById(String id) {
-		return null;
+		return warningInformationRepository.findOne(id);
 	}
 
 }
