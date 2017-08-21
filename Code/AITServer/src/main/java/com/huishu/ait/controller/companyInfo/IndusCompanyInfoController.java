@@ -29,7 +29,7 @@ public class IndusCompanyInfoController extends BaseController{
    * @return
    */
   @ResponseBody
-  @RequestMapping(name="/getCompanyInfoByIndustry.json",method=RequestMethod.POST)
+  @RequestMapping(name="/getCompanyInfoByIndustry.json",method=RequestMethod.GET )
   public AjaxResult getCompanyInfoByIndustry(@RequestBody String industry){
 	  if(industry.isEmpty()){
 		  	return error(MsgConstant.ILLEGAL_PARAM);
@@ -42,7 +42,7 @@ public class IndusCompanyInfoController extends BaseController{
    * @return
    */
   @ResponseBody
-  @RequestMapping(name="/findInfo.json",method=RequestMethod.GET)
+  @RequestMapping(name="/findInfo.json",method=RequestMethod.POST)
   public AjaxResult  findInfo(@RequestBody String company){
 	  if(company.isEmpty()){
 		  	return error(MsgConstant.ILLEGAL_PARAM);
