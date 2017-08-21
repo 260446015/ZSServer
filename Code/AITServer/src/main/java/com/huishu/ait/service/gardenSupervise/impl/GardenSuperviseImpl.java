@@ -243,7 +243,18 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			double start = dto.getStart();
 			double end = dto.getEnd();
 			PageRequest pageRequest = new PageRequest(pageNumber-1, pageSize);
-			Page<Company> page = companyRepository.findByIndustryAndParkAndRegisterCapitalBetween(industry, park, start, end,pageRequest);
+			Page<Company> page = null;
+			if(dto.getGroupname().equals("全部")){
+				page = companyRepository.findByIndustryAndParkAndRegisterCapitalBetween(industry, park, start, end,pageRequest);
+			}else{
+				CompanyGroup cg = companyGroupRepository.findGroupByName(dto.getGroupname(), dto.getUserId());
+				 List<CompanyGroupMiddle> ms = middleRepository.findByGroupId(cg.getGroupid());
+				 List<Long> companyIds = new ArrayList<>();
+				 for (CompanyGroupMiddle m : ms) {
+					 companyIds.add(m.getCompanyId());
+				}
+				page = companyRepository.findByIndustryAndParkAndCidInAndRegisterCapitalBetween(industry, park,companyIds, start, end,  pageRequest);
+			} 
 			jsonArray.add(page);
 			return jsonArray;
 		} catch (Exception e) {
@@ -268,7 +279,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		}
 		return flag;
 	}
-	@Override
+	/*@Override
 	public List<Company> findCompanyByCompanyGroupId(CompanyDTO dto) {
 		String industry = dto.getIndustry();
 		String regCapital = dto.getRegCapital();
@@ -283,7 +294,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		}
 		return list;
 		
-	}
+	}*/
 	@Override
 	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle,Long userId) {
 		boolean flag = false;

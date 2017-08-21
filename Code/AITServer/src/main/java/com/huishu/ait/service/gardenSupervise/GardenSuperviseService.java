@@ -36,12 +36,6 @@ public interface GardenSuperviseService {
 	// 删除企业分组
 	public boolean dropCompanyGroup(String[] groupNames, Long userId);
 
-	/**
-	 * 通过企业分组id查询相关联的企业列表
-	 * @param companyGroupId  企业分组id
-	 * @return
-	 */
-	public List<Company> findCompanyByCompanyGroupId(CompanyDTO dto);
 
 	/**
 	 * 保存操作的企业到企业分组

@@ -126,11 +126,12 @@ public class GardenSuperviseController extends BaseController {
 	@RequestMapping(value = "searchCompanyFromGardenForPage.json", method = RequestMethod.POST)
 	public AjaxResult getCompanyFromGardenForPage(@RequestBody CompanyDTO dto) {
 		try {
-			if(dto.getRegCapital() == null || dto.getIndustry() == null ){
+			if(dto.getRegCapital() == null || dto.getIndustry() == null || dto.getGroupname() == null){
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
 //			String userPark = getUserPark();
 			String userPark = "天津中新生态城";
+			dto.setUserId(getUserId());
 			dto.setPark(userPark);
 			dto = initPage(dto);
 			JSONArray jsonArray = gardenSuperviseService.getCompanyFromGardenForPage2(dto);
@@ -165,7 +166,7 @@ public class GardenSuperviseController extends BaseController {
 	 * @param companyGroupId
 	 * @return
 	 */
-	@RequestMapping(value="/findCompanyByCompanyGroupId",method=RequestMethod.POST)
+	/*@RequestMapping(value="/findCompanyByCompanyGroupId",method=RequestMethod.POST)
 	public AjaxResult findCompanyByCompanyGroupId(@RequestBody CompanyDTO dto){
 		List<Company> list = null;
 		try{
@@ -178,7 +179,7 @@ public class GardenSuperviseController extends BaseController {
 			return error("通过企业分组id查询相关联的企业列表");
 		}
 		return success(list);
-	}
+	}*/
 	
 	/**
 	 * 保存操作的企业到企业分组的Controller
