@@ -32,6 +32,7 @@ import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
  * @date 2017年8月8日
  */
 @Controller
+@RequestMapping(value="apis")
 public class LoginController extends BaseController{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
