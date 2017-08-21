@@ -20,7 +20,7 @@ public class Garden implements Serializable {
 	/**
 	 * 可序列化
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5360652382519203287L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

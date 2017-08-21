@@ -9,6 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author yindawei 
+ * @date 2017年8月21日上午11:22:34
+ * @description 企业分组与企业的中间关联表
+ * @version
+ */
 @Table(name="t_company_group_middle")
 @Entity
 public class CompanyGroupMiddle implements Serializable{
@@ -28,6 +35,8 @@ public class CompanyGroupMiddle implements Serializable{
 	
 	@Column(name="group_id")
 	private Long groupId;
+	
+	private String groupname;
 
 	public Long getId() {
 		return id;
@@ -51,6 +60,14 @@ public class CompanyGroupMiddle implements Serializable{
 
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
+	}
+
+	public String getGroupname() {
+		return groupname;
+	}
+
+	public void setGroupname(String groupname) {
+		this.groupname = groupname;
 	}
 	
 	
