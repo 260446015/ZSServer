@@ -9,6 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author yindawei 
+ * @date 2017年8月21日上午11:22:34
+ * @description 企业分组与企业的中间关联表
+ * @version
+ */
 @Table(name="t_company_group_middle")
 @Entity
 public class CompanyGroupMiddle implements Serializable{

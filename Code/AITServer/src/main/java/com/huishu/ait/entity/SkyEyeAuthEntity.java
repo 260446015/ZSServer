@@ -19,6 +19,11 @@ import javax.persistence.Table;
 public class SkyEyeAuthEntity implements Serializable{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8831887752628366901L;
+
+	/**
 	 * 存贮id
 	 */
 	@Id

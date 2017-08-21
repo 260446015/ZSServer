@@ -40,7 +40,6 @@ public class GardenSuperviseController extends BaseController {
 	@Autowired
 	private GardenSuperviseService gardenSuperviseService;
 
-	String park = "中关村软件园";
 
 	/**
 	 * @return 获取当前用户
@@ -49,20 +48,12 @@ public class GardenSuperviseController extends BaseController {
 		return (ShiroUser) SecurityUtils.getSubject().getPrincipal();
 	}
 
-	// TODO:获取当前用户所在的园区
-	// 获取当前用户所在的园区
-	/**
-	 * @return 获取当前用户所在的园区
-	 */
-	public String getCurrentPark() {
-		return null;
-	}
 
 	/**
 	 * @return 获取当前园区的信息
 	 */
 	@RequestMapping(value = "getGardenInfo.json", method = RequestMethod.GET)
-	public AjaxResult getGardenInfo() {
+	public AjaxResult getGardenInfo(String park) {
 		try {
 			JSONObject json = gardenSuperviseService.getGardenInfo(park);
 			return success(json);
@@ -135,9 +126,12 @@ public class GardenSuperviseController extends BaseController {
 	@RequestMapping(value = "searchCompanyFromGardenForPage.json", method = RequestMethod.POST)
 	public AjaxResult getCompanyFromGardenForPage(@RequestBody CompanyDTO dto) {
 		try {
-			if(dto.getRegCapital() == null || dto.getIndustry() == null || dto.getPark() == null){
+			if(dto.getRegCapital() == null || dto.getIndustry() == null ){
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
+//			String userPark = getUserPark();
+			String userPark = "天津中新生态城";
+			dto.setPark(userPark);
 			dto = initPage(dto);
 			JSONArray jsonArray = gardenSuperviseService.getCompanyFromGardenForPage2(dto);
 			return success(jsonArray);
