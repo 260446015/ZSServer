@@ -30,23 +30,13 @@ public class IndusCompanyInfoController extends BaseController{
    */
  @ResponseBody
   @RequestMapping(value="/getCompanyInfoByIndustry.json",method=RequestMethod.POST)
-  public AjaxResult getCompanyInfoByIndustry( @RequestBody String industry){
+ 
+  //public AjaxResult getCompanyInfoByIndustry( String industry){
+	 public AjaxResult getCompanyInfoByIndustry( @RequestBody String industry){
 	  if(industry.isEmpty()){
 		  	return error(MsgConstant.ILLEGAL_PARAM);
 	  }	  
 	  return success(service.findIndusInfoByIndustry(industry));
   }
-  /**
-   * 根据公司全名查询公司的详细信息
-   * @param company
-   * @return
-   */
-  @ResponseBody
-  @RequestMapping(value="/findInfo.json",method=RequestMethod.GET)
-  public AjaxResult  findInfo(@RequestBody String company){
-	  if(company.isEmpty()){
-		  	return error(MsgConstant.ILLEGAL_PARAM);
-	  }	  
-	  return success(service.findInfo(company).get("data"));
-  }
+ 
 }
