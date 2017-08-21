@@ -88,9 +88,12 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 		boolean rememberMe = isRememberMe(request);
 		String host = getHost(request);
 		String type = getType(request);
-		return new CaptchaUsernamePasswordToken(username, password.toCharArray(), rememberMe, host, captcha, type);
+		String park = getPark(request);
+		return new CaptchaUsernamePasswordToken(username, password.toCharArray(), rememberMe, host, captcha, type,park);
 	}
-
+	private String getPark(ServletRequest request) {
+		return WebUtils.getCleanParam(request, "park");
+	}
 	private String getCaptcha(ServletRequest request) {
 		return WebUtils.getCleanParam(request, CheckCodeUtil.DEFAULT_CAPTCHA_PARAM);
 	}

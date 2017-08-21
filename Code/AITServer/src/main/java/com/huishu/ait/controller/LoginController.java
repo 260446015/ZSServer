@@ -24,6 +24,7 @@ import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.exception.AccountExpiredException;
 import com.huishu.ait.exception.IncorrectCaptchaException;
 import com.huishu.ait.security.RSAUtils;
+import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 
 /**
  * 用户登录相关
@@ -67,7 +68,7 @@ public class LoginController extends BaseController{
     @ResponseBody
     public AjaxResult loginAjax(HttpServletRequest request) {
         if (request.getAttribute("success") != null && (boolean) request.getAttribute("success")) {
-            return success(MsgConstant.LOGIN_SUCCESS);
+           return success(MsgConstant.LOGIN_SUCCESS);
         }
         
         // 登录失败从request中获取shiro处理的异常信息。

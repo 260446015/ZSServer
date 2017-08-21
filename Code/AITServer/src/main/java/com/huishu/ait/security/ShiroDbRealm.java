@@ -79,7 +79,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		List<Long> permissions = userPermissionRepository.findPermissionIdByAdminId(user.getId());
 		user.setPermissions(permissions);
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-    		   new ShiroUser(user.getId(),user.getUserAccount(),user.getRealName(),user.getUserType()),
+    		   new ShiroUser(user.getId(),user.getUserAccount(),user.getRealName(),user.getUserType(),user.getUserPark()),
 				user.getPassword(),
 				ByteSource.Util.bytes(user.getSalt()),
 				getName());
@@ -95,12 +95,15 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		private String loginName;
 		private String name;
 		private String type;
+		private String park;
 		
-		public ShiroUser(Long id, String loginName, String name, String type) {
+		public ShiroUser(Long id, String loginName, String name, String type, String park) {
+			super();
 			this.id = id;
 			this.loginName = loginName;
 			this.name = name;
 			this.type = type;
+			this.park = park;
 		}
 
 
@@ -138,6 +141,16 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		public void setType(String type) {
 			this.type = type;
 		}
+
+		public String getPark() {
+			return park;
+		}
+
+
+		public void setPark(String park) {
+			this.park = park;
+		}
+
 
 		/**
 		 * 本函数输出将作为默认的<shiro:principal/>输出.
