@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.entity.Enterprise;
 import com.huishu.ait.entity.IndusCompany;
 import com.huishu.ait.entity.dto.EnterpriseDTO;
@@ -47,11 +48,11 @@ public class IndusCompanyServiceImpl  implements IndusCompanyService{
 	 * 根据公司全名查询公司信息
 	 */
 	@Override
-	public JSONArray findInfo(String company) {
-		JSONArray  json = new JSONArray();
+	public JSONObject findInfo(String company) {
+		JSONObject  json = new JSONObject();
 		EnterpriseDTO dto = erepository.findByCompany(company);
-		
-			json.add(dto);
+		json.put("data", dto);
+//			boolean add = json.add(dto);
 		
 		return json;
 	}

@@ -47,6 +47,6 @@ public class IndusCompanyInfoController extends BaseController{
 	  if(company.isEmpty()){
 		  	return error(MsgConstant.ILLEGAL_PARAM);
 	  }	  
-	  return success(service.findInfo(company));
+	  return success(service.findInfo(company).get("data"));
   }
 }
