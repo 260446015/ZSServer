@@ -27,6 +27,8 @@ public interface CompanyGroupRepository extends CrudRepository<CompanyGroup, Int
 	 */
 	List<CompanyGroup> findByUserId(Long userId);
 	
+	CompanyGroup findByGroupNameAndUserId(String groupName,Long userId);
+	
 	
 
 }

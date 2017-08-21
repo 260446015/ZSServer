@@ -187,7 +187,12 @@ public class GardenSuperviseController extends BaseController {
 	 */
 	@RequestMapping(value="/saveCompanyByGroupId.json",method=RequestMethod.POST)
 	public AjaxResult saveCompanyByGroupId(@RequestBody CompanyGroupMiddle middle){
-		boolean flag = gardenSuperviseService.saveCompanyByGroupId(middle);
+		Long userId = 1L;
+//		Long userId = getUserId();
+		if(middle.getCompanyId() == null || middle.getGroupname() == null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		boolean flag = gardenSuperviseService.saveCompanyByGroupId(middle,userId);
 		if(flag){
 			return success(flag);
 		}else{

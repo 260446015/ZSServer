@@ -45,9 +45,9 @@ public interface GardenSuperviseService {
 
 	/**
 	 * 保存操作的企业到企业分组
-	 * @param company  
+	 * @param middle   userId
 	 */
-	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle);
+	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle,Long userId);
 
 	/**
 	 * 删除企业分组中的企业

@@ -35,6 +35,8 @@ public class CompanyGroupMiddle implements Serializable{
 	
 	@Column(name="group_id")
 	private Long groupId;
+	
+	private String groupname;
 
 	public Long getId() {
 		return id;
@@ -58,6 +60,14 @@ public class CompanyGroupMiddle implements Serializable{
 
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
+	}
+
+	public String getGroupname() {
+		return groupname;
+	}
+
+	public void setGroupname(String groupname) {
+		this.groupname = groupname;
 	}
 	
 	

@@ -285,9 +285,12 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		
 	}
 	@Override
-	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle) {
+	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle,Long userId) {
 		boolean flag = false;
 		try{
+			CompanyGroup cg = companyGroupRepository.findByGroupNameAndUserId(middle.getGroupname(), userId);
+			middle.setGroupId(cg.getGroupid());
+			middle.setGroupname(cg.getGroupName());
 			middleRepository.save(middle);
 			flag = true;
 		}catch(Exception e){

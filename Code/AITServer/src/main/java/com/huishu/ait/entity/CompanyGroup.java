@@ -31,7 +31,7 @@ public class CompanyGroup implements Serializable{
 	@Id
 	@GeneratedValue
 	@Column(name="group_id", nullable= false)
-	private int groupid;
+	private Long groupid;
 	//分组名称
 	@Column(name = "group_name")
 	private String groupName;
@@ -45,10 +45,10 @@ public class CompanyGroup implements Serializable{
 	@Column(name="userid")
 	private Long userId;
 	
-	public int getGroupid() {
+	public Long getGroupid() {
 		return groupid;
 	}
-	public void setGroupid(int groupid) {
+	public void setGroupid(Long groupid) {
 		this.groupid = groupid;
 	}
 	public String getGroupName() {
