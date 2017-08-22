@@ -170,8 +170,8 @@ public class GardenController extends BaseController{
 		try {
 			return success(gardenService.getGardenByName(gardenName));
 		} catch (Exception e) {
-			LOGGER.error("getGardenByName查询失败！",e);
-			return error(MsgConstant.ILLEGAL_PARAM);
+			LOGGER.error("根据园区名字获取园区状态查询失败！",e);
+			return error("根据园区名字获取园区状态失败");
 		}
 	}
 	
@@ -184,7 +184,7 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="/findGardensList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult findGardensList(@RequestBody GardenDTO dto){
-		if(null == dto){
+		if(null == dto.getMsg() || dto.getMsg().length == 0){
 			 return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		dto = initPage(dto);
@@ -266,17 +266,13 @@ public class GardenController extends BaseController{
 	    }
 	}
 	
-	@RequestMapping("/findGardensAll.json")
-	@ResponseBody
-	public AjaxResult findGardensAll(){
-		JSONArray arr = null;
-		try{
-			arr = gardenService.findGardensAll();
-		}catch(Exception e){
-			LOGGER.error("查询园区情报中获取所有园区内容失败!", e);
-		}
-		return success(arr);
-	}
+	
+	/**
+	 * 关注/取消关注园区
+	 * @param gardenId   园区id
+	 * @param flag  true关注，false取消关注
+	 * @return
+	 */
 	@RequestMapping(value="/attentionGarden.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult attentionGarden(String gardenId,Boolean flag){
@@ -299,6 +295,11 @@ public class GardenController extends BaseController{
 		
 	}
 	
+	/**
+	 * 按地区查询园区
+	 * @param area
+	 * @return
+	 */
 	@RequestMapping(value="/findGardensByArea.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult findGardensByArea(String area){
