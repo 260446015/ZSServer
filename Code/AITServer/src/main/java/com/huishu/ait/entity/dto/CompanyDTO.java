@@ -69,6 +69,8 @@ public class CompanyDTO implements Serializable {
      * 查询注册资本结束资金
      */
     private double end;
+    private String groupname;
+    private Long userId;
 
 	public String getIndustry() {
 		if("全部".equals("industry")){
@@ -207,6 +209,22 @@ public class CompanyDTO implements Serializable {
 
 	public void setEnd(double end) {
 		this.end = end;
+	}
+
+	public String getGroupname() {
+		return groupname;
+	}
+
+	public void setGroupname(String groupname) {
+		this.groupname = groupname;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	
 	

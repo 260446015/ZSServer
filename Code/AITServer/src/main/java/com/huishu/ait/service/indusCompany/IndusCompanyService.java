@@ -1,6 +1,7 @@
 package com.huishu.ait.service.indusCompany;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author hhy
@@ -22,5 +23,5 @@ public interface IndusCompanyService {
 	 * 根据公司全名查看公司信息
 	 * @param company
 	 */
-	JSONArray findInfo(String company);
+	JSONObject findInfo(String company);
 }

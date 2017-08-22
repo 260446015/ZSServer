@@ -243,7 +243,18 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			double start = dto.getStart();
 			double end = dto.getEnd();
 			PageRequest pageRequest = new PageRequest(pageNumber-1, pageSize);
-			Page<Company> page = companyRepository.findByIndustryAndParkAndRegisterCapitalBetween(industry, park, start, end,pageRequest);
+			Page<Company> page = null;
+			if(dto.getGroupname().equals("全部")){
+				page = companyRepository.findByIndustryAndParkAndRegisterCapitalBetween(industry, park, start, end,pageRequest);
+			}else{
+				CompanyGroup cg = companyGroupRepository.findGroupByName(dto.getGroupname(), dto.getUserId());
+				 List<CompanyGroupMiddle> ms = middleRepository.findByGroupId(cg.getGroupid());
+				 List<Long> companyIds = new ArrayList<>();
+				 for (CompanyGroupMiddle m : ms) {
+					 companyIds.add(m.getCompanyId());
+				}
+				page = companyRepository.findByIndustryAndParkAndCidInAndRegisterCapitalBetween(industry, park,companyIds, start, end,  pageRequest);
+			} 
 			jsonArray.add(page);
 			return jsonArray;
 		} catch (Exception e) {
@@ -256,19 +267,20 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 	public boolean dropCompanyGroup(String[] groupNames, Long userId) {
 		boolean flag  = false;
 		try{
-			List<CompanyGroup> list = new ArrayList<>();
 			for (String groupName : groupNames) {
 				CompanyGroup findGroupByName = companyGroupRepository.findGroupByName(groupName, userId);
-				list.add(findGroupByName);
+				if(findGroupByName != null){
+					companyGroupRepository.delete(findGroupByName);
+					middleRepository.deleteByGroupId(findGroupByName.getGroupid());
+				}
 			}
-			companyGroupRepository.delete(list);
 			flag = true;
 		}catch(Exception e){
 			log.error(e.getMessage());
 		}
 		return flag;
 	}
-	@Override
+	/*@Override
 	public List<Company> findCompanyByCompanyGroupId(CompanyDTO dto) {
 		String industry = dto.getIndustry();
 		String regCapital = dto.getRegCapital();
@@ -283,7 +295,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		}
 		return list;
 		
-	}
+	}*/
 	@Override
 	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle,Long userId) {
 		boolean flag = false;
@@ -291,6 +303,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			CompanyGroup cg = companyGroupRepository.findByGroupNameAndUserId(middle.getGroupname(), userId);
 			middle.setGroupId(cg.getGroupid());
 			middle.setGroupname(cg.getGroupName());
+			middle.setUserId(userId);
 			middleRepository.save(middle);
 			flag = true;
 		}catch(Exception e){

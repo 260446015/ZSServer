@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -35,15 +36,13 @@ public class CompanyGroup implements Serializable{
 	//分组名称
 	@Column(name = "group_name")
 	private String groupName;
-	//一对多
-	@Transient
-	private List<Company> companys;
 	
 	/**
 	 * 传递用户id
 	 */
 	@Column(name="userid")
 	private Long userId;
+	
 	
 	public Long getGroupid() {
 		return groupid;
@@ -57,18 +56,13 @@ public class CompanyGroup implements Serializable{
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-	public List<Company> getCompanys() {
-		return companys;
-	}
-	public void setCompanys(List<Company> companys) {
-		this.companys = companys;
-	}
 	public Long getUserId() {
 		return userId;
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
+	
 	@Override
 	public String toString() {
 		return JSONObject.toJSONString(this);
