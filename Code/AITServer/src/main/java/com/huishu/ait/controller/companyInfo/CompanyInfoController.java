@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
@@ -34,10 +35,12 @@ public class CompanyInfoController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/getCompanyInfoByCompany.json", method = RequestMethod.POST)
 
-	public AjaxResult getCompanyInfoByCompany(String company) {
+	public AjaxResult getCompanyInfoByCompany(@RequestBody String company) {
 		if (company.isEmpty()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		return success(service.findInfo(company).get("data"));
+		JSONObject  json = (JSONObject) JSONObject.parse(company);
+		String str = (String) json.get("company");
+		return success(service.findInfo(str).get("data"));
 	}
 }
