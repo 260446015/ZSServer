@@ -17,11 +17,13 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.DBConstant;
+import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.GardenInformation;
 import com.huishu.ait.es.entity.WarningInformation;
 import com.huishu.ait.es.repository.warning.WarningInformationRepository;
 import com.huishu.ait.es.repository.warning.WarningRepository;
+import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.service.SkyEyeAbstractService;
 import com.huishu.ait.service.warning.WarningService;
 
@@ -32,6 +34,8 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 
 	@Autowired
 	private WarningRepository warningRepository;
+	@Autowired
+	private CompanyRepository companyRepository;
 	@Autowired
 	private WarningInformationRepository warningInformationRepository;
 
@@ -68,16 +72,15 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 	public JSONArray getInformationChangeList(AreaSearchDTO searchModel, HttpServletRequest request,
 			HttpServletResponse response) {
 		StringBuffer buffer = new StringBuffer();
-		// 根据park获取该园区所有企业
-		List<String> list = Arrays.asList("北京百度网讯科技有限公司");
+		List<Company> list = companyRepository.findByPark(searchModel.getPark());
 		if (list == null || list.size() == 0) {
 			return null;
 		}
 		buffer.append("[");
-		for (String business : list) {
+		for (Company company : list) {
 			//组装查询条件
 			Map<String,String> map = new HashMap<String,String>();
-			map.put("business", business);
+			map.put("business", company.getCompanyName());
 			map.put("dimension", "企业信息变更");
 			//组装排序字段,按时间和点击量降序排列
 			 String[] order = {"publishDate","hitCount"};
