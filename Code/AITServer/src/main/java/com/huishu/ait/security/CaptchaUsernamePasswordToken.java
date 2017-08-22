@@ -10,20 +10,15 @@ public class CaptchaUsernamePasswordToken extends UsernamePasswordToken{
 	 * 用户类型：admin/user
 	 */
 	private String type;
-	/**
-	 * 用户所属园区
-	 */
-	private String park;
 	
 	//验证码字符串  
     private String captcha;  
   
     public CaptchaUsernamePasswordToken(String username, char[] password,  
-            boolean rememberMe, String host, String captcha, String type,String park) {  
+            boolean rememberMe, String host, String captcha, String type) {  
         super(username, password, rememberMe, host);  
         this.captcha = captcha;  
         this.type = type;
-        this.park = park;
     }  
   
     public String getCaptcha() {  
@@ -33,14 +28,6 @@ public class CaptchaUsernamePasswordToken extends UsernamePasswordToken{
     public void setCaptcha(String captcha) {  
         this.captcha = captcha;  
     }
-
-	public String getPark() {
-		return park;
-	}
-
-	public void setPark(String park) {
-		this.park = park;
-	}
 
 	public String getType() {
 		return type;

@@ -24,7 +24,6 @@ import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.exception.AccountExpiredException;
 import com.huishu.ait.exception.IncorrectCaptchaException;
 import com.huishu.ait.security.RSAUtils;
-import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 
 /**
  * 用户登录相关
@@ -32,7 +31,6 @@ import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
  * @date 2017年8月8日
  */
 @Controller
-@RequestMapping(value="apis")
 public class LoginController extends BaseController{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
@@ -51,7 +49,7 @@ public class LoginController extends BaseController{
      * @param request 请求
      * @return 返回登录模板页
      */
-    @RequestMapping(value = "login.do", method = RequestMethod.GET)
+    @RequestMapping(value = "apis/login.do", method = RequestMethod.GET)
     public String login(HttpServletRequest request) {
         Subject user = SecurityUtils.getSubject();
         if (user.isAuthenticated()) {
@@ -65,7 +63,7 @@ public class LoginController extends BaseController{
      * @param request 携带成功或失败的request
      * @return 返回响应
      */
-    @RequestMapping(value = "login.do", method = RequestMethod.POST)
+    @RequestMapping(value = "apis/login.do", method = RequestMethod.POST)
     @ResponseBody
     public AjaxResult loginAjax(HttpServletRequest request) {
         if (request.getAttribute("success") != null && (boolean) request.getAttribute("success")) {
@@ -100,7 +98,7 @@ public class LoginController extends BaseController{
      * @param request http请求
      * @return 返回公钥
      */
-    @RequestMapping(value = "/security/generateKey.do")
+    @RequestMapping(value = "apis/security/generateKey.do")
     @ResponseBody
     public AjaxResult generateKeyAjax(HttpServletRequest request) {
         AjaxResult result = new AjaxResult();

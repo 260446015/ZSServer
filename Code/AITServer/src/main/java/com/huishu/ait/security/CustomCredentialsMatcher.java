@@ -35,6 +35,9 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 		String inPassword = getInPassword(utoken);
 		// 获得数据库中的密码
 		String dbPassword = (String) info.getCredentials();
+		System.out.println("===============");
+		System.out.println(inPassword);
+		System.out.println(dbPassword);
 		// 进行密码的比对
 		return this.equals(inPassword, dbPassword);
 	}

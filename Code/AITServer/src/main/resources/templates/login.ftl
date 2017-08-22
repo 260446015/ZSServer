@@ -54,7 +54,7 @@
 
     function doLogin() {
         $.ajax({
-            url: "/security/generateKey.do",
+            url: "/apis/security/generateKey.do",
             dataType: "json",
             success: function (response) {
                 if (response.success) {
@@ -67,7 +67,7 @@
                     var encrypedPwd = RSAUtils.encryptedString(key, password);
                     $.ajax({
                         type: 'post',
-                        url: "/login.do",
+                        url: "/apis/login.do",
                         async: false,
                         data: {username: $('input[name=username]').val(), password: encrypedPwd, type: 'user'},
                         success: function (response) {
