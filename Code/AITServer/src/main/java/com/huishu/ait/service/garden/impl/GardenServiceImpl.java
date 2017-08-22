@@ -264,7 +264,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			List<GardenData> list = gardenRepository.findGardensByArea(area);
 			for (GardenData garden : list) {
 				JSONObject obj = new JSONObject();
-				obj.put(garden.getGardenName(), garden.getAddress());
+				obj.put("address", garden.getAddress());
+				obj.put("name", garden.getGardenName());
+				obj.put("industryType", garden.getLeadingIndustry());
 				arr.add(obj);
 			}
 		}catch(Exception e){
