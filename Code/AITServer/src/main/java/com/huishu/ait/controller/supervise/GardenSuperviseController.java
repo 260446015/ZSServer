@@ -123,7 +123,9 @@ public class GardenSuperviseController extends BaseController {
 			}
 //			String userPark = getUserPark();
 			String userPark = "天津中新生态城";
-			dto.setUserId(getUserId());
+//			Long userId = getUserId();
+			Long userId = 1L;
+			dto.setUserId(userId);
 			dto.setPark(userPark);
 			dto = initPage(dto);
 			JSONArray jsonArray = gardenSuperviseService.getCompanyFromGardenForPage2(dto);
