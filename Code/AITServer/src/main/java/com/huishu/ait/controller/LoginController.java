@@ -68,7 +68,7 @@ public class LoginController extends BaseController{
     @ResponseBody
     public AjaxResult loginAjax(HttpServletRequest request) {
         if (request.getAttribute("success") != null && (boolean) request.getAttribute("success")) {
-           return success(MsgConstant.LOGIN_SUCCESS);
+           return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
         }
         
         // 登录失败从request中获取shiro处理的异常信息。
