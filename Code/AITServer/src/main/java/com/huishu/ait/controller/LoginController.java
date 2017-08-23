@@ -24,6 +24,7 @@ import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.exception.AccountExpiredException;
 import com.huishu.ait.exception.IncorrectCaptchaException;
 import com.huishu.ait.security.RSAUtils;
+import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 
 /**
  * 用户登录相关
@@ -89,6 +90,8 @@ public class LoginController extends BaseController{
             } else if (error.equals(AccountExpiredException.class.getName())) {
                 message = MsgConstant.ACCOUNTEXPIRED;
             }
+        }else if(null!=getCurrentShiroUser()){
+        	message = MsgConstant.REPETITIVEOPERATION;
         }
         return error(message);
     }

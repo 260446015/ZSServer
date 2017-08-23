@@ -68,13 +68,13 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 	protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request,
 			ServletResponse response) throws Exception {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        if ("XMLHttpRequest".equals(httpServletRequest.getHeader("X-Requested-With"))) {
+      //  if ("XMLHttpRequest".equals(httpServletRequest.getHeader("X-Requested-With"))) {
             httpServletRequest.setAttribute("success", true);
             return true;
-        } else {
-            this.issueSuccessRedirect(httpServletRequest, response);
-            return false;
-        }
+//        } else {
+//            this.issueSuccessRedirect(httpServletRequest, response);
+//            return false;
+//        }
 	}
 
 	/**
