@@ -75,12 +75,6 @@ public class HeadlinesController extends BaseController {
 	private HeadlinesDTO CheckDTO(HeadlinesDTO DTO) {
 		HeadlinesDTO dto = new HeadlinesDTO();
 		String[] msg = DTO.getMsg();
-		/*String industry = msg[0];
-		
-		String periodDate = msg[2];
-		String vector = msg[3];
-		String keyword = msg[4];
-		String keycloudNum = msg[5];*/
 		dto.setIndustry(msg[0]);
 		String industrtLabel = msg[1];
 		if(industrtLabel.equals("不限")){
@@ -91,18 +85,7 @@ public class HeadlinesController extends BaseController {
 		dto.setPeriodDate(msg[2]);
 		if(msg.length>=4&&msg.length<5){
 			dto.setVector(msg[3]);
-			dto.setKeyWord(msg[3]);
 		}
-		/*dto.setIndustry("互联网");
-		dto.setIndustryLabel("大数据");
-		
-		dto.setPeriodDate("一年");*/
-		/*dto.setVector("微信");*/
-		/*dto.setVector("");
-		dto.setKeyWord("");
-		dto.setWordCloudNum("");*/
-		
-		//dto.set
 		return dto;
 	}
 
@@ -145,6 +128,7 @@ public class HeadlinesController extends BaseController {
 				HeadlinesDTO dto = CheckDTO(headlinesDTO);
 				 boolean b = checkDTO(dto);
 				 if(b){
+					 dto.setDimension("产业头条");
 					Page<HeadlinesArticleListDTO> page = service.findArticleByVector(dto);
 					 return success(page);
 				 }

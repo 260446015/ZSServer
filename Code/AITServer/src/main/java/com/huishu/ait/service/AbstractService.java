@@ -37,6 +37,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ResultsExtractor;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
@@ -84,7 +85,6 @@ public abstract class AbstractService {
 		TermsBuilder articleBuilder = AggregationBuilders.terms("articleLink").field("articleLink");
 		articleBuilder.subAggregation(vectorBuilder).size(1000);
 		SearchQuery query = getSearchQueryBuilder().addAggregation(articleBuilder).withQuery(queryBuilder).build();
-
 		JSONArray result = template.query(query, res -> {
 			Terms articleLink = res.getAggregations().get("articleLink");
 			String key = null;
@@ -96,8 +96,12 @@ public abstract class AbstractService {
 					Terms vector = e1.getAggregations().get("vector");
 					for (Bucket bucket : vector.getBuckets()) {
 					    key = bucket.getKeyAsString();
-						count = bucket.getDocCount();
-						map.put(key, count);
+					    count = bucket.getDocCount();
+					    if(map.get(key) != null ){
+					    	map.put(key, (long)map.get(key)+count);
+					    }else{
+					    	map.put(key, count);
+					    }
 					}	
 				}
 				for(Entry<String,Object> entry : map.entrySet()){
