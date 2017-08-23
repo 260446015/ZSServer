@@ -39,9 +39,9 @@ import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
  */
 @Service
 public class GardenSuperviseImpl implements GardenSuperviseService {
-	
+
 	private static Logger log = LoggerFactory.getLogger(GardenSuperviseImpl.class);
-	
+
 	@Autowired
 	private Client client;
 	@Autowired
@@ -50,11 +50,9 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 	private CompanyGroupMiddleRepository middleRepository;
 	@Autowired
 	private CompanyRepository companyRepository;
-	
-	
-	/* 
-	 * 方法名：getGardenInfo
-	 * 描述：获取园区的信息
+
+	/*
+	 * 方法名：getGardenInfo 描述：获取园区的信息
 	 */
 	public JSONObject getGardenInfo(String park) {
 		try {
@@ -69,16 +67,16 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 				SearchHits hits = actionGet.getHits();
 				for (SearchHit hit : hits) {
 					Map<String, Object> map = hit.getSource();
-					if (null != map && map.size()> 0 ) {
+					if (null != map && map.size() > 0) {
 						map.put("_id", hit.getId());
 						json.put("id", map.get("_id"));
 						json.put("park", map.get("park"));
 						json.put("area", map.get("area"));
 						json.put("position", map.get("position"));
 						json.put("parkType", map.get("parkType"));
-						//占地面积
+						// 占地面积
 						json.put("floorArea", map.get("floorArea"));
-						//建筑面积
+						// 建筑面积
 						json.put("tructureArea", map.get("tructureArea"));
 					}
 				}
@@ -89,9 +87,9 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			return null;
 		}
 	}
-	/* 
-	 * 方法名：getCompanyFromGarden
-	 * 描述：获取当前园区内所有企业列表的信息
+
+	/*
+	 * 方法名：getCompanyFromGarden 描述：获取当前园区内所有企业列表的信息
 	 */
 	public JSONArray getCompanyFromGarden(String park) {
 		try {
@@ -107,18 +105,18 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 				for (SearchHit hit : hits) {
 					JSONObject json = new JSONObject();
 					Map<String, Object> map = hit.getSource();
-					if (null != map && map.size()>0 ) {
+					if (null != map && map.size() > 0) {
 						map.put("_id", hit.getId());
 						json.put("id", map.get("_id"));
-						json.put("park", map.get("park"));//所属园区
+						json.put("park", map.get("park"));// 所属园区
 						json.put("business", map.get("business"));
 						json.put("vector", map.get("vector"));
 						json.put("businessLegal", map.get("businessLegal"));
-						json.put("position", map.get("position"));//详细位置
-						json.put("area", map.get("area"));//区域地址
-						json.put("registerCapital", map.get("registerCapital"));//获取注册资本
-						json.put("registerDate", map.get("registerDate"));//获取注册时间
-						json.put("boss", map.get("boss"));//新的企业法人
+						json.put("position", map.get("position"));// 详细位置
+						json.put("area", map.get("area"));// 区域地址
+						json.put("registerCapital", map.get("registerCapital"));// 获取注册资本
+						json.put("registerDate", map.get("registerDate"));// 获取注册时间
+						json.put("boss", map.get("boss"));// 新的企业法人
 						json.put("logo", map.get("logo"));
 						jsonArray.add(json);
 					}
@@ -129,19 +127,19 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			log.error("获取园区内企业信息失败", e.getMessage());
 			return null;
 		}
-		
+
 	}
+
 	/**
 	 * @param group
-	 * @return
-	 * 添加企业分组
+	 * @return 添加企业分组
 	 */
-	public String addCompanyGroup(String groupName,Long userId){
+	public String addCompanyGroup(String groupName, Long userId) {
 		String state = "success";
 		try {
-			CompanyGroup findGroupByName = companyGroupRepository.findGroupByName(groupName,userId);
+			CompanyGroup findGroupByName = companyGroupRepository.findGroupByName(groupName, userId);
 			if (null != findGroupByName) {
-				state="分组已经存在";
+				state = "分组已经存在";
 				return state;
 			}
 			CompanyGroup companyGroup = new CompanyGroup();
@@ -155,9 +153,9 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			return state;
 		}
 	}
-	/* 
-	 * 方法名：selectCompanyGroup
-	 * 描述：查询企业分组
+
+	/*
+	 * 方法名：selectCompanyGroup 描述：查询企业分组
 	 */
 	@Override
 	public List<CompanyGroup> selectCompanyGroup(Long userId) {
@@ -169,9 +167,9 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			return null;
 		}
 	}
-	/* 
-	 * 方法名：getCompanyFromGardenForPage
-	 * 描述：查询当前园区内所有企业信息+搜索+分页
+
+	/*
+	 * 方法名：getCompanyFromGardenForPage 描述：查询当前园区内所有企业信息+搜索+分页
 	 */
 	public JSONArray getCompanyFromGardenForPage(CompanyDTO dto) {
 		try {
@@ -181,8 +179,8 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			String keyWord = dto.getKeyWord();
 			Integer pageNumber = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
-//			Long regCapital = dto.getRegCapital();
-			int from = (pageNumber-1)*pageSize;
+			// Long regCapital = dto.getRegCapital();
+//			int from = (pageNumber - 1) * pageSize;
 			SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			if (StringUtils.isNotBlank(park)) {
@@ -191,33 +189,29 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			if (StringUtils.isNotBlank(industry)) {
 				bq.must(QueryBuilders.termQuery("industry", industry));
 			}
-//			if (null !=regCapital) {
-//				bq.must(QueryBuilders.termQuery("regCapital", regCapital));
-//			}
+			// if (null !=regCapital) {
+			// bq.must(QueryBuilders.termQuery("regCapital", regCapital));
+			// }
 			if (StringUtils.isNotBlank(keyWord)) {
 				bq.must(QueryBuilders.termQuery("keyWord", keyWord));
 			}
-			SearchResponse actionGet = srb.setQuery(bq).setFrom(from).setSize(pageSize).execute().actionGet();
+			SearchResponse actionGet = srb.setQuery(bq).setSize(200).execute().actionGet();
 			if (null != actionGet && null != actionGet.getHits()) {
 				SearchHits hits = actionGet.getHits();
 				for (SearchHit hit : hits) {
 					JSONObject json = new JSONObject();
 					Map<String, Object> map = hit.getSource();
-					if (null != map && map.size()>0 ) {
-						map.put("_id", hit.getId());
-						json.put("id", map.get("_id"));
-						json.put("total", hits.getTotalHits());
-						json.put("park", map.get("park"));//所属园区
-						json.put("tmPic", map.get("tmPic"));//商标图片链接
-						json.put("vector", map.get("vector"));
+					if (null != map && map.size() > 0) {
 						json.put("business", map.get("business"));
-						json.put("businessLegal", map.get("businessLegal"));//公司领导
-						json.put("position", map.get("position"));//详细位置
-						json.put("area", map.get("area"));//区域地址
-						json.put("regCapital", map.get("regCapital"));//注册资金
-						json.put("legalPersonName", map.get("legalPersonName"));//法人
-						json.put("regTime", map.get("regTime"));//注册时间
-						json.put("percentileScore", map.get("percentileScore"));//评分
+						json.put("boss", map.get("boss"));
+						json.put("businessType", map.get("businessType"));// 所属园区
+						json.put("park", map.get("park"));// 商标图片链接
+						json.put("engageState", map.get("engageState"));
+						json.put("registerCapital", map.get("registerCapital"));
+						json.put("registerDate", map.get("registerDate"));// 公司领导
+						json.put("address", map.get("address"));// 详细位置
+						json.put("area", map.get("area"));// 区域地址
+						json.put("logo", map.get("logo"));// 注册资金
 						jsonArray.add(json);
 					}
 				}
@@ -227,11 +221,12 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			log.error("获取园区内企业信息失败", e.getMessage());
 			return null;
 		}
-		
+
 	}
-	/* 
-	 * 方法名：getCompanyFromGardenForPage
-	 * 描述：查询当前园区内所有企业信息+搜索+分页  原本是从es库中取，现改为从mysql
+
+	/*
+	 * 方法名：getCompanyFromGardenForPage 描述：查询当前园区内所有企业信息+搜索+分页
+	 * 原本是从es库中取，现改为从mysql
 	 */
 	public JSONArray getCompanyFromGardenForPage2(@RequestBody CompanyDTO dto) {
 		try {
@@ -239,89 +234,87 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			String park = dto.getPark();
 			Integer pageNumber = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
-			String industry = dto.getIndustry();//产业描述
+			String industry = dto.getIndustry();// 产业描述
 			double start = dto.getStart();
 			double end = dto.getEnd();
-			PageRequest pageRequest = new PageRequest(pageNumber-1, pageSize);
+			PageRequest pageRequest = new PageRequest(pageNumber - 1, pageSize);
 			Page<Company> page = null;
-			if(dto.getGroupname().equals("全部")){
-				page = companyRepository.findByIndustryAndParkAndRegisterCapitalBetween(industry, park, start, end,pageRequest);
-			}else{
+			if (dto.getGroupname().equals("全部")) {
+				page = companyRepository.findByIndustryAndParkAndRegisterCapitalBetween(industry, park, start, end,
+						pageRequest);
+			} else {
 				CompanyGroup cg = companyGroupRepository.findGroupByName(dto.getGroupname(), dto.getUserId());
-				 List<CompanyGroupMiddle> ms = middleRepository.findByGroupId(cg.getGroupid());
-				 List<Long> companyIds = new ArrayList<>();
-				 for (CompanyGroupMiddle m : ms) {
-					 companyIds.add(m.getCompanyId());
+				if(cg == null){
+					return null;
 				}
-				page = companyRepository.findByIndustryAndParkAndCidInAndRegisterCapitalBetween(industry, park,companyIds, start, end,  pageRequest);
-			} 
+				List<CompanyGroupMiddle> ms = middleRepository.findByGroupId(cg.getGroupid());
+				if(ms == null){
+					return null;
+				}
+				List<Long> companyIds = new ArrayList<>();
+				for (CompanyGroupMiddle m : ms) {
+					companyIds.add(m.getCompanyId());
+				}
+				page = companyRepository.findByIndustryAndParkAndCidInAndRegisterCapitalBetween(industry, park,
+						companyIds, start, end, pageRequest);
+			}
 			jsonArray.add(page);
 			return jsonArray;
 		} catch (Exception e) {
 			log.error("获取园区内企业信息失败", e.getMessage());
 			return null;
 		}
-		
+
 	}
+
 	@Override
 	public boolean dropCompanyGroup(String[] groupNames, Long userId) {
-		boolean flag  = false;
-		try{
+		boolean flag = false;
+		try {
 			for (String groupName : groupNames) {
 				CompanyGroup findGroupByName = companyGroupRepository.findGroupByName(groupName, userId);
-				if(findGroupByName != null){
+				if (findGroupByName != null) {
 					companyGroupRepository.delete(findGroupByName);
 					middleRepository.deleteByGroupId(findGroupByName.getGroupid());
 				}
 			}
 			flag = true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 		return flag;
 	}
-	/*@Override
-	public List<Company> findCompanyByCompanyGroupId(CompanyDTO dto) {
-		String industry = dto.getIndustry();
-		String regCapital = dto.getRegCapital();
-		Long groupId = dto.getGroupId();
-		double start = dto.getStart();
-		double end = dto.getEnd();
-		List<Company> list = null;
-		try{
-			list = companyRepository.selectCompanysByDto(industry,groupId,start,end);
-		}catch(Exception e){
-			log.error(e.getMessage());
-		}
-		return list;
-		
-	}*/
+
 	@Override
-	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle,Long userId) {
+	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle, Long userId) {
 		boolean flag = false;
-		try{
+		try {
 			CompanyGroup cg = companyGroupRepository.findByGroupNameAndUserId(middle.getGroupname(), userId);
+			if(cg == null){
+				return flag;
+			}
 			middle.setGroupId(cg.getGroupid());
 			middle.setGroupname(cg.getGroupName());
 			middle.setUserId(userId);
 			middleRepository.save(middle);
 			flag = true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 		return flag;
-		
+
 	}
+
 	@Override
 	public boolean deleteCompanyInGroup(CompanyGroupMiddle middle) {
 		boolean flag = false;
-		try{
+		try {
 			middleRepository.deleteByCompanyId(middle.getCompanyId());
 			flag = true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 		return flag;
-		
+
 	}
 }

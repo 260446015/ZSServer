@@ -42,14 +42,6 @@ public class GardenSuperviseController extends BaseController {
 
 
 	/**
-	 * @return 获取当前用户
-	 */
-	public ShiroUser getCurrentUser() {
-		return (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-	}
-
-
-	/**
 	 * @return 获取当前园区的信息
 	 */
 	@RequestMapping(value = "getGardenInfo.json", method = RequestMethod.GET)
@@ -161,25 +153,7 @@ public class GardenSuperviseController extends BaseController {
 		return success(flag);
 	}
 	
-	/**
-	 * 通过企业分组id查询相关联的企业列表
-	 * @param companyGroupId
-	 * @return
-	 */
-	/*@RequestMapping(value="/findCompanyByCompanyGroupId",method=RequestMethod.POST)
-	public AjaxResult findCompanyByCompanyGroupId(@RequestBody CompanyDTO dto){
-		List<Company> list = null;
-		try{
-			if(dto.getGroupId() == null || dto.getRegCapital() == null || dto.getIndustry() == null){
-				return error(MsgConstant.ILLEGAL_PARAM);
-			}
-			list = gardenSuperviseService.findCompanyByCompanyGroupId(dto);
-		}catch(Exception e){
-			log.error("通过企业分组id查询相关联的企业列表", e);
-			return error("通过企业分组id查询相关联的企业列表");
-		}
-		return success(list);
-	}*/
+	
 	
 	/**
 	 * 保存操作的企业到企业分组的Controller
