@@ -59,7 +59,7 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 		
 		BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
 		
-		return getCloudWordList(bq,headlinesDTO.getWordCloudNum());
+		return getCloudWordList(bq);
 	} catch (Exception e) {
 		logger.error("获取词云失败：",e);
 		return null;

@@ -53,7 +53,7 @@ public class HeadlinesController extends BaseController {
 			HeadlinesDTO dto = CheckDTO(headlinesDTO);
 			if (dto.getPeriodDate() != null){
                 dto = dateInit(dto);
-               // dto.setPeriodDate(null);
+               dto.setPeriodDate(null);
             }
 			boolean b = checkDTO(dto);
 			if (b) {
@@ -125,7 +125,17 @@ public class HeadlinesController extends BaseController {
 	@RequestMapping(value="/getArticleByVectorList.json",method=RequestMethod.POST)
 	public AjaxResult getArticleByVectorList(@RequestBody HeadlinesDTO headlinesDTO){
 			try {
-				HeadlinesDTO dto = CheckDTO(headlinesDTO);
+				HeadlinesDTO dto = new HeadlinesDTO();
+				String[] msg = headlinesDTO.getMsg();
+				dto.setIndustry(msg[0]);
+				String industrtLabel = msg[1];
+				if(industrtLabel.equals("不限")){
+					dto.setIndustryLabel("");
+				}else{
+					dto.setIndustryLabel(msg[1]);
+				}
+				dto.setPeriodDate(msg[2]);
+				dto.setVector(msg[3]);
 				 boolean b = checkDTO(dto);
 				 if(b){
 					 dto.setDimension("产业头条");
@@ -147,7 +157,18 @@ public class HeadlinesController extends BaseController {
 	@RequestMapping(value="/getArticleByKeyWordList.json",method=RequestMethod.POST)
 	public AjaxResult getArticleByKeyWordList(@RequestBody HeadlinesDTO headlinesDTO ){
 		try {
-			HeadlinesDTO dto = CheckDTO(headlinesDTO);
+			HeadlinesDTO dto = new HeadlinesDTO();
+			String[] msg = headlinesDTO.getMsg();
+			dto.setIndustry(msg[0]);
+			String industrtLabel = msg[1];
+			if(industrtLabel.equals("不限")){
+				dto.setIndustryLabel("");
+			}else{
+				dto.setIndustryLabel(msg[1]);
+			}
+			dto.setPeriodDate(msg[2]);
+			dto.setKeyWord(msg[3]);
+			
 			boolean b = checkDTO(dto);
 			if(b){
 				Page<HeadlinesArticleListDTO> page = service.findArticleByKeyWord(dto);
