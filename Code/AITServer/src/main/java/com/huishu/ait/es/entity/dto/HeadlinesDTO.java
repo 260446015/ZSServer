@@ -29,6 +29,15 @@ public class HeadlinesDTO extends AbstractDTO {
 	private Integer wordCloudNum;
 	/** 数组，用来接收前台传过来的参数 */
 	private String[] msg;
+	private String dimension;
+	
+	public String getDimension() {
+		return dimension;
+	}
+
+	public void setDimension(String dimension) {
+		this.dimension = dimension;
+	}
 
 	public String getPeriodDate() {
 		return periodDate;

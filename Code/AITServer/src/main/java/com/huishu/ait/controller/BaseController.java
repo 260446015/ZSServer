@@ -60,13 +60,14 @@ public abstract class BaseController {
     		   return false;
     	   }
     	}
-    	if(fieldNames.contains("industryLabel")){
+    	/*if(fieldNames.contains("industryLabel")){
+    		
     		Object industryLabel = getValueByFieldName(dto, "industryLabel");
     		if(industryLabel == null){
     			return false;
     		}
     	}
-    	/*if(fieldNames.contains("vector")){
+    	if(fieldNames.contains("vector")){
     		Object vector = getValueByFieldName(dto, "vector");
     		if(vector == null){
     			return false;

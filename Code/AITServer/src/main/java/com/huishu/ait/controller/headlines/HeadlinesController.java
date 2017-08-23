@@ -1,3 +1,4 @@
+
 package com.huishu.ait.controller.headlines;
 
 import java.util.Date;
@@ -75,13 +76,18 @@ public class HeadlinesController extends BaseController {
 		HeadlinesDTO dto = new HeadlinesDTO();
 		String[] msg = DTO.getMsg();
 		/*String industry = msg[0];
-		String industrtLabel = msg[1];
+		
 		String periodDate = msg[2];
 		String vector = msg[3];
 		String keyword = msg[4];
 		String keycloudNum = msg[5];*/
 		dto.setIndustry(msg[0]);
-		dto.setIndustryLabel(msg[1]);
+		String industrtLabel = msg[1];
+		if(industrtLabel.equals("不限")){
+			dto.setIndustryLabel("");
+		}else{
+			dto.setIndustryLabel(msg[1]);
+		}
 		dto.setPeriodDate(msg[2]);
 		if(msg.length>=4&&msg.length<5){
 			dto.setVector(msg[3]);
@@ -110,8 +116,13 @@ public class HeadlinesController extends BaseController {
 	public AjaxResult getCarClondChartList(@RequestBody HeadlinesDTO headlinesDTO) {
 		try {
 			HeadlinesDTO dto = CheckDTO(headlinesDTO);
+			if (dto.getPeriodDate() != null){
+                dto = dateInit(dto);
+                dto.setPeriodDate(null);
+            }
 			boolean b = checkDTO(dto);
 			if (b) {
+				dto.setDimension("产业头条");
 				return success(service.getCarClondChartList(dto));
 			}
 			return error(MsgConstant.ILLEGAL_PARAM);

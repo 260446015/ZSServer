@@ -50,8 +50,10 @@ public class IndusCompanyServiceImpl  implements IndusCompanyService{
 	@Override
 	public JSONObject findInfo(String company) {
 		JSONObject  json = new JSONObject();
-		EnterpriseDTO dto = erepository.findByCompany(company);
-		json.put("data", dto);
+		List<EnterpriseDTO> dto = erepository.findByCompany(company);
+		for (EnterpriseDTO enterpriseDTO : dto) {
+			json.put("data",enterpriseDTO);
+		}
 //			boolean add = json.add(dto);
 		
 		return json;

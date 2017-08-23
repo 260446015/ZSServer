@@ -40,7 +40,7 @@ public class CompanyInfoController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		JSONObject  json = (JSONObject) JSONObject.parse(company);
-		String str = (String) json.get("company");
+		String str =(String) json.get("company").toString();
 		return success(service.findInfo(str).get("data"));
 	}
 }

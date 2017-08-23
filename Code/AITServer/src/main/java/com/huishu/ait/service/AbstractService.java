@@ -174,12 +174,18 @@ public abstract class AbstractService {
 		}
 		/** 产业标签 */
 		String industryLabel = headlinesDTO.getIndustryLabel();
-		ESUtils.getMoreQueryBuilder("industryLabel",industryLabel);
+		if(StringUtils.isNotEmpty(industryLabel)){
+			ESUtils.getMoreQueryBuilder("industryLabel",industryLabel);
+		}
 		
 		/** 载体 */
 		String vector = headlinesDTO.getVector();
 		if (StringUtils.isNotEmpty(vector)) {
 			bq.must(QueryBuilders.termQuery("vector", vector));
+		}
+		String dimension = headlinesDTO.getDimension();
+		if(StringUtils.isNotEmpty(dimension)){
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
 		}
 		/**关键词*/
 		String keyword = headlinesDTO.getKeyWord();
@@ -190,7 +196,7 @@ public abstract class AbstractService {
 		String startDate = headlinesDTO.getStartDate();
 		String endDate = headlinesDTO.getEndDate();
 		if (StringUtils.isNotEmpty(startDate) && StringUtils.isNotEmpty(endDate)) {
-			bq.must(QueryBuilders.rangeQuery("publishDate").from(startDate).to(endDate));
+			bq.must(QueryBuilders.rangeQuery("publishTime").from(startDate).to(endDate));
 		}
 		return bq;
 	}

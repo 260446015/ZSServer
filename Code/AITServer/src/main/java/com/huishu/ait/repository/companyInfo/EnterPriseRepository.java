@@ -20,7 +20,7 @@ public interface EnterPriseRepository extends CrudRepository<EnterpriseDTO, Long
 	 * @param company
 	 * @return
 	 */
-	@Query(value="from EnterpriseDTO e where e.company=?")
-	EnterpriseDTO findByCompany(String company);
+	@Query(value="from EnterpriseDTO e where e.company=?1")
+	List<EnterpriseDTO> findByCompany(String company);
 
 }
