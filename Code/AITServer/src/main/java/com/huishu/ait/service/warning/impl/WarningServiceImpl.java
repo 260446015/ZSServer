@@ -69,8 +69,7 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 	}
 
 	@Override
-	public JSONArray getInformationChangeList(AreaSearchDTO searchModel, HttpServletRequest request,
-			HttpServletResponse response) {
+	public JSONArray getInformationChangeList(AreaSearchDTO searchModel) {
 		StringBuffer buffer = new StringBuffer();
 		List<Company> list = companyRepository.findByPark(searchModel.getPark());
 		if (list == null || list.size() == 0) {

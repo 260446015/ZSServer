@@ -39,7 +39,7 @@ public class WarningController extends BaseController{
 	 */
 	@RequestMapping(value="getBusinessOutflowList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getBusinessOutflowList(@RequestBody  AreaSearchDTO searchModel){
+	public AjaxResult getBusinessOutflowList(@RequestBody AreaSearchDTO searchModel){
 		//假数据
 		searchModel.setPark("北航留学人员创业园");
 		if (null==searchModel || null==searchModel.getPark()) {
@@ -80,14 +80,14 @@ public class WarningController extends BaseController{
 	 */
 	@RequestMapping(value="getInformationChangeList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getInformationChangeList(AreaSearchDTO searchModel,HttpServletRequest request,HttpServletResponse response){
+	public AjaxResult getInformationChangeList(@RequestBody AreaSearchDTO searchModel){
 		//假数据
 		searchModel.setPark("中关村软件园");
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONArray array = warningService.getInformationChangeList(searchModel,request,response);
+			JSONArray array = warningService.getInformationChangeList(searchModel);
 			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
 			LOGGER.error("getBusinessOutflowList查询失败！",e);
@@ -100,7 +100,7 @@ public class WarningController extends BaseController{
 	 * @param id   政策ID
 	 * @return
 	 */
-	@RequestMapping(value="getInformationChangeById.json",method=RequestMethod.POST)
+	@RequestMapping(value="getInformationChangeById.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getInformationChangeById(String id){
 		if(null==id){

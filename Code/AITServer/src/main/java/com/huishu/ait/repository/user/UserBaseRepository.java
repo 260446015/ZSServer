@@ -17,4 +17,16 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @return
 	 */
 	UserBase findByUserAccount(String userAccount);
+	/**
+	 * 通过手机号查找用户信息
+	 * @param userAccount
+	 * @return
+	 */
+	UserBase findByTelphone(String telphone);
+	/**
+	 * 通过手机号查找用户信息
+	 * @param userAccount
+	 * @return
+	 */
+	UserBase findByUserEmail(String userEmail);
 }

@@ -52,5 +52,29 @@ public class MsgConstant {
 
     /*** 开始时间不能大于结束时间 */
     public static final String START_GT_END = "开始时间不能大于结束时间";
+    /**
+     * 注册成功
+     **/
+    public static final String REGISTER_SUCCESS = "注册成功";
+    /**
+     * 注册失败
+     **/
+    public static final String REGISTER_ERROR = "注册失败，请稍后再试";
+    /**
+     * 账号已注册
+     */
+    public static final String ACCOUNT_REPEAT = "该账号已被注册，请直接登录或者使用其他账号进行注册";
+    /**
+     * 邮箱已注册
+     */
+    public static final String EMAIL_REPEAT = "该邮箱已被注册，请直接登录或者使用其他邮箱进行注册";
+    /**
+     * 手机已注册
+     */
+    public static final String PHONE_REPEAT = "该手机号已被注册，请直接登录或者使用其他手机号进行注册";
+    /**
+     * 手机账号不匹配
+     */
+    public static final String PHONE_ERROR = "此手机不是该账户的绑定手机";
 
 }

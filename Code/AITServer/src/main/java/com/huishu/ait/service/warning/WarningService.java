@@ -31,7 +31,7 @@ public interface WarningService {
 	 * @param searchModel    查询条件
 	 * @return
 	 */
-	JSONArray getInformationChangeList(AreaSearchDTO searchModel,HttpServletRequest request,HttpServletResponse response);
+	JSONArray getInformationChangeList(AreaSearchDTO searchModel);
 	/**
 	 * 根据ID获取信息变更预警详情
 	 * @param id     预警ID

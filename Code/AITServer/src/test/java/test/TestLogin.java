@@ -8,8 +8,6 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.app.Application;
 import com.huishu.ait.common.conf.DBConstant;
-import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.service.user.UserBaseService;
 
@@ -39,7 +34,7 @@ public class TestLogin {
 	@Test
 	public void login(){
 		System.out.println("==================================");
-		UserBase user = userBaseService.getUserByUserAccount("18301649800");
+		UserBase user = userBaseService.findUserByTelphone("789");
 		System.out.println(user);
 	}
 	@Test

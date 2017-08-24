@@ -1,6 +1,8 @@
 package com.huishu.ait.service.user;
 
 import com.huishu.ait.entity.UserBase;
+import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.RegisterDTO;
 
 /**
  * 用户service
@@ -13,5 +15,23 @@ public interface UserBaseService {
 	 * @param userAccount
 	 * @return
 	 */
-	UserBase getUserByUserAccount(String userAccount);
+	UserBase findUserByUserAccount(String userAccount);
+	/**
+	 * 通过账号查找用户信息
+	 * @param userAccount
+	 * @return
+	 */
+	UserBase findUserByTelphone(String telphone);
+	/**
+	 * 通过账号查找用户信息
+	 * @param userAccount
+	 * @return
+	 */
+	UserBase findUserByUserId(long id);
+	/**
+	 * 添加注册用户
+	 * @param dto
+	 * @return
+	 */
+	AjaxResult addRegisterUser(RegisterDTO dto);
 }
