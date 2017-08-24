@@ -55,8 +55,8 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/user/findPassword.json", "anon");
 		filterChainDefinitionMap.put("/apis/login.do", "anon");
 
-		filterChainDefinitionMap.put("/apis/**", "authc");
-//		filterChainDefinitionMap.put("/apis/**", "anon");
+//		filterChainDefinitionMap.put("/apis/**", "authc");
+		filterChainDefinitionMap.put("/apis/**", "anon");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
