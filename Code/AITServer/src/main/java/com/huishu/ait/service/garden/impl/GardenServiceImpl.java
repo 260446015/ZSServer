@@ -164,6 +164,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				obj.put("title", condition.getString("title"));
 				obj.put("park", condition.getString("park"));
 				obj.put("content", condition.getString("content"));
+				obj.put("totalElements", hits.getTotalHits());
 				data.add(obj);
 			}
 		}catch(Exception e){
