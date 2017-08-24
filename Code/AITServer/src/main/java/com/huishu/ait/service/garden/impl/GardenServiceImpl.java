@@ -149,6 +149,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	public JSONArray findGardensCondition(GardenDTO dto) {
 		JSONArray data = new JSONArray();
 		int from = dto.getPageNumber()*dto.getPageSize()-dto.getPageSize();
+		Long count = 0L;
 		try{
 			List<String> gardenName = gardenUserRepository.findGardensCondition(dto.getUserId());
 			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
@@ -157,6 +158,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			bq.must(QueryBuilders.termQuery("dimension", Constans.YUANQUDONGTAI));
 			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC)).setFrom(from).setSize(dto.getPageSize()).execute().actionGet();
 			SearchHits hits = response.getHits();
+			count = hits.getTotalHits();
 			for (SearchHit searchHit : hits) {
 				JSONObject obj = new JSONObject();
 				JSONObject condition = JSONObject.parseObject(searchHit.getSourceAsString());
@@ -164,13 +166,15 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				obj.put("title", condition.getString("title"));
 				obj.put("park", condition.getString("park"));
 				obj.put("content", condition.getString("content"));
-				obj.put("totalElements", hits.getTotalHits());
 				data.add(obj);
 			}
 		}catch(Exception e){
 			LOGGER.error(e.getMessage());
 		}
 		LOGGER.info("园区动态查询结果:"+data.toJSONString());
+		JSONObject total = new JSONObject();
+		total.put("totalElements", count);
+		data.add(total);
 		return data;
 	}
 	
