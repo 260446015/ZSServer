@@ -57,7 +57,7 @@ public class HeadlinesController extends BaseController {
             }
 			boolean b = checkDTO(dto);
 			if (b) {
-				JSONArray cloud = ecdTransformer.transformWordCloud(service.getWordCloud(dto));
+				JSONArray cloud = service.getWordCloud(dto);
 				return success(cloud);
 			}
 			return error(MsgConstant.ILLEGAL_PARAM);
