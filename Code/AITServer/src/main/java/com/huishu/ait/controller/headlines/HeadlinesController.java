@@ -159,14 +159,14 @@ public class HeadlinesController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getArticleByKeyWordList.json",method=RequestMethod.POST)
-	public AjaxResult getArticleByKeyWordList( HeadlinesDTO headlinesDTO ){
+	public AjaxResult getArticleByKeyWordList(@RequestBody HeadlinesDTO headlinesDTO ){
 		try {
 			HeadlinesDTO dto = new HeadlinesDTO();
 			String[] msg = headlinesDTO.getMsg();
 			dto.setIndustry(msg[0]);
 			String industrtLabel = msg[1];
 //			String industrtLabel = "不限";
-			dto.setIndustry("互联网");
+//			dto.setIndustry("互联网");
 			
 			if(industrtLabel.equals("不限")){
 				dto.setIndustryLabel("");
