@@ -136,6 +136,10 @@ public class HeadlinesController extends BaseController {
 				}
 				dto.setPeriodDate(msg[2]);
 				dto.setVector(msg[3]);
+				if (dto.getPeriodDate() != null){
+	                dto = dateInit(dto);
+	                dto.setPeriodDate(null);
+	            }
 				 boolean b = checkDTO(dto);
 				 if(b){
 					 dto.setDimension("产业头条");
@@ -155,12 +159,15 @@ public class HeadlinesController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getArticleByKeyWordList.json",method=RequestMethod.POST)
-	public AjaxResult getArticleByKeyWordList(@RequestBody HeadlinesDTO headlinesDTO ){
+	public AjaxResult getArticleByKeyWordList( HeadlinesDTO headlinesDTO ){
 		try {
 			HeadlinesDTO dto = new HeadlinesDTO();
 			String[] msg = headlinesDTO.getMsg();
 			dto.setIndustry(msg[0]);
 			String industrtLabel = msg[1];
+//			String industrtLabel = "不限";
+			dto.setIndustry("互联网");
+			
 			if(industrtLabel.equals("不限")){
 				dto.setIndustryLabel("");
 			}else{
@@ -168,9 +175,15 @@ public class HeadlinesController extends BaseController {
 			}
 			dto.setPeriodDate(msg[2]);
 			dto.setKeyWord(msg[3]);
-			
+//			dto.setKeyWord("创新");
+//			dto.setPeriodDate("一年");
+			if (dto.getPeriodDate() != null){
+                dto = dateInit(dto);
+                dto.setPeriodDate(null);
+            }
 			boolean b = checkDTO(dto);
 			if(b){
+				
 				Page<HeadlinesArticleListDTO> page = service.findArticleByKeyWord(dto);
 				return success(page);
 			}

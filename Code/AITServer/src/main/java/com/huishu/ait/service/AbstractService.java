@@ -186,7 +186,8 @@ public abstract class AbstractService {
 		/**关键词*/
 		String keyword = headlinesDTO.getKeyWord();
 		if(StringUtils.isNotEmpty(keyword)){
-			bq.must(QueryBuilders.fuzzyQuery("content", keyword));
+			bq.must(QueryBuilders.wildcardQuery("content", "*"+keyword+"*"));
+//			bq.must(QueryBuilders.fuzzyQuery("content", keyword));
 		}
 		/** 时间 */
 		String startDate = headlinesDTO.getStartDate();
