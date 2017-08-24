@@ -20,7 +20,22 @@ public class MsgConstant {
      * 用户名或密码错误
      **/
     public static final String CREDENTIAL_ERROR = "用户名或密码错误";
-    
+    /**
+     * 两次密码不一致
+     */
+    public static final String PASSWORD_ERROR = "两次密码不一致";
+    /**
+     * 原密码输入有误
+     */
+    public static final String OLDPASSWORD_ERROR = "原密码输入有误";
+    /**
+     * 密码修改成功
+     **/
+    public static final String PASSWORD_SUCCESS = "密码修改成功";
+    /**
+     * 密码修改失败
+     **/
+    public static final String CHANGE_ERROR = "密码修改失败，请稍后再试";
     /**
      * 验证码错误
      **/

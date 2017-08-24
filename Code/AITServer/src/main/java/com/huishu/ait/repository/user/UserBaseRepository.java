@@ -1,5 +1,7 @@
 package com.huishu.ait.repository.user;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.UserBase;
@@ -19,14 +21,23 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	UserBase findByUserAccount(String userAccount);
 	/**
 	 * 通过手机号查找用户信息
-	 * @param userAccount
+	 * @param telphone
 	 * @return
 	 */
 	UserBase findByTelphone(String telphone);
 	/**
 	 * 通过手机号查找用户信息
-	 * @param userAccount
+	 * @param userEmail
 	 * @return
 	 */
 	UserBase findByUserEmail(String userEmail);
+	/**
+	 * 修改用户密码
+	 * @param id
+	 * @param password
+	 * @return
+	 */
+	@Modifying
+	@Query("update UserBase ub set ub.password = ?1 where ub.id = ?2")
+	Integer modifyPassword(String password,Long id);
 }

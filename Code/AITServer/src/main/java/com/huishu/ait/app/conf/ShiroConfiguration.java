@@ -46,19 +46,17 @@ public class ShiroConfiguration {
 		 * 配置访问权限
 		 * anon：表示全部放权的资源路径，authc：表示需要认证才可以访问
 		 */
-		filterChainDefinitionMap.put("/logout.do", "logout");
+		filterChainDefinitionMap.put("/apis/logout.do", "logout");
+		
+		filterChainDefinitionMap.put("/apis/security/generateKey.do", "anon");
+		filterChainDefinitionMap.put("/apis/security/captcha.do", "anon");
+		filterChainDefinitionMap.put("/apis/register.json", "anon");
+		filterChainDefinitionMap.put("/apis/getPhoneCaptcha.json", "anon");
+		filterChainDefinitionMap.put("/apis/user/findPassword.json", "anon");
+		filterChainDefinitionMap.put("/apis/login.do", "anon");
 
-		filterChainDefinitionMap.put("/security/generateKey.do", "anon");
-		filterChainDefinitionMap.put("/security/captcha.do", "anon");
-		filterChainDefinitionMap.put("/addTrial.json", "anon");
-		filterChainDefinitionMap.put("/getPhoneCaptcha.json", "anon");
-		filterChainDefinitionMap.put("/findPassword.json", "anon");
-
-		filterChainDefinitionMap.put("/img/**", "anon");
-		filterChainDefinitionMap.put("/css/**", "anon");
-		filterChainDefinitionMap.put("/js/**", "anon");
-//		filterChainDefinitionMap.put("/**", "authc");
-		filterChainDefinitionMap.put("/**", "anon");
+		filterChainDefinitionMap.put("/apis/**", "authc");
+//		filterChainDefinitionMap.put("/apis/**", "anon");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());

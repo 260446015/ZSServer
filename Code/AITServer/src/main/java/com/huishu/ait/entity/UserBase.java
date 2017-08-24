@@ -67,6 +67,10 @@ public class UserBase implements Serializable {
 	@Column(name = "user_park" )
 	private String userPark;
 
+	/**创建时间*/
+	@Column(name = "create_time")
+	private String createTime;
+	
 	/**用户类型*/
 	@Column(name = "user_type")
 	private String userType;
@@ -171,8 +175,12 @@ public class UserBase implements Serializable {
 		this.permissions = permissions;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 
 	@Override

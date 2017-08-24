@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,15 +71,12 @@ public class LoginController extends BaseController {
 	 * 
 	 * @param request
 	 *            请求
-	 * @return 返回登录模板页
+	 * @return 返回消息
 	 */
 	@RequestMapping(value = "apis/login.do", method = RequestMethod.GET)
-	public String login(HttpServletRequest request) {
-		Subject user = SecurityUtils.getSubject();
-		if (user.isAuthenticated()) {
-			user.logout();
-		}
-		return "login";
+	@ResponseBody
+	public AjaxResult login(HttpServletRequest request) {
+		return error("请先登录").setStatus(2);
 	}
 
 	/**

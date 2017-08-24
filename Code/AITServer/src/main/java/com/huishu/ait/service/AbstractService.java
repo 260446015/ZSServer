@@ -3,15 +3,15 @@ package com.huishu.ait.service;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
+import java.security.interfaces.RSAPrivateKey;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
@@ -21,14 +21,10 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
-import org.elasticsearch.search.aggregations.metrics.sum.Sum;
-import org.elasticsearch.search.aggregations.metrics.sum.SumBuilder;
-import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,24 +33,21 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.ResultsExtractor;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.conf.DBConstant.Emotion;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.UtilsHelper;
-import com.huishu.ait.echart.Legend;
-import com.huishu.ait.echart.Option;
-import com.huishu.ait.echart.Tooltip;
-import com.huishu.ait.echart.series.Pie;
 import com.huishu.ait.echart.series.Serie.SerieData;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
+import com.huishu.ait.security.Digests;
+import com.huishu.ait.security.Encodes;
+import com.huishu.ait.security.RSAUtils;
 import com.merchantKey.articleToKeywordCloud.ArticleConToKeywordCloud;
 import com.merchantKey.itemModel.KeywordModel;
 
@@ -355,5 +348,28 @@ public abstract class AbstractService {
 		searchModel.setPark(gardenName);
 		searchModel.setPageSize(5);
 		return searchModel;
+	}
+	
+	/**
+	 * 获取经过解密，加密处理后的密码
+	 * @param password
+	 * @param salt
+	 * @return
+	 */
+	protected String getPasswordDB(String password,String salt){
+		// 获取当前用户的私钥
+		Object priKey = SecurityUtils.getSubject().getSession().getAttribute("privateKey");
+		String newPassword = null;
+		try {
+			newPassword = RSAUtils.decryptByPrivateKey(password, (RSAPrivateKey) priKey);
+		} catch (Exception e) {
+			return null;
+		}
+		newPassword = new StringBuilder(newPassword).reverse().toString();
+		byte[] saltByte = Encodes.decodeHex(salt);
+		byte[] passwordByte = Digests.sha1(newPassword.getBytes(), saltByte, Encodes.HASH_INTERATIONS);
+		String passwordTrue = Encodes.encodeHex(passwordByte);
+		return passwordTrue;
+		
 	}
 }
