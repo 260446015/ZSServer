@@ -26,6 +26,8 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.Garden;
 import com.huishu.ait.entity.GardenData;
@@ -152,7 +154,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			bq.must(QueryBuilders.termsQuery("park", gardenName));
-			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC)).setFrom(from+dto.getPageSize()).execute().actionGet();
+			bq.must(QueryBuilders.termQuery("dimension", Constans.YUANQUDONGTAI));
+			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC)).setFrom(from).setSize(dto.getPageSize()).execute().actionGet();
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
 				JSONObject obj = new JSONObject();
@@ -219,7 +222,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					return gu;
 				}
 			}else{
-				gardenUserRepository.deleteByGardenName(garden.getGardenName());
+				gardenUserRepository.delete(Integer.parseInt(gardenId));
 			}
 		}catch(Exception e) {
 			LOGGER.error(e.getMessage());
