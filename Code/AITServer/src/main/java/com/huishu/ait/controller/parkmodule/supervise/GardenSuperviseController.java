@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.supervise;
+package com.huishu.ait.controller.parkmodule.supervise;
 
 import java.net.URLEncoder;
 import java.util.List;

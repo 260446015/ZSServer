@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.industry;
+package com.huishu.ait.controller.Industrymodule.industry;
 
 import java.util.Date;
 
