@@ -42,13 +42,13 @@ public class ExpertOpinionController extends BaseController{
 	 * 初始化分页的方法
 	 */
 	private ExpertOpinionDTO initPage(ExpertOpinionDTO dto){
-		if(dto.getPageNumber() == null){
-			dto.setPageNumber(1);
+		if (dto.getPageNumber() == null) {
+			dto.setPageNumber(ConcersUtils.ES_MIN_PAGENUMBER);
 		}
-		if(dto.getPageSize() == null){
+		if (dto.getPageSize() == null) {
 			dto.setPageSize(ConcersUtils.PAGE_SIZE);
 		}
-		if(dto.getPageNumber() > ConcersUtils.ES_MAX_PAGENUMBER){
+		if (dto.getPageNumber() > ConcersUtils.ES_MAX_PAGENUMBER) {
 			dto.setPageNumber(ConcersUtils.ES_MAX_PAGENUMBER);
 		}
 		return dto;
@@ -115,7 +115,7 @@ public class ExpertOpinionController extends BaseController{
 	 * 根据作者名称查询专家论列表
 	 */
 	@RequestMapping(value = "findExpertOpinionByAuthor.json",method=RequestMethod.POST)
-	public AjaxResult getExpertOpinionByAuthor(ExpertOpinionDTO requestParam){
+	public AjaxResult getExpertOpinionByAuthor(@RequestBody ExpertOpinionDTO requestParam){
 		try {
 			requestParam = initPage(requestParam);
 			JSONArray jsonArray = expertOpinionService.findExpertOpinionByAuthor(requestParam);

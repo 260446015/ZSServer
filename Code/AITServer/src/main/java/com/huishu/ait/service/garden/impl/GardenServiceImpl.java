@@ -9,31 +9,29 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.elasticsearch.action.search.SearchRequestBuilder;
-import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.common.util.ESUtils;
-import com.huishu.ait.entity.Garden;
 import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.GardenDTO;
+import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.GardenInformation;
 import com.huishu.ait.es.entity.GardenPolicy;
+import com.huishu.ait.es.repository.GardenEsRepository;
 import com.huishu.ait.es.repository.garden.GardenInformationRepository;
 import com.huishu.ait.es.repository.garden.GardenPolicyRepository;
 import com.huishu.ait.repository.garden.GardenRepository;
@@ -54,6 +52,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	private GardenRepository gardenRepository;
 	@Resource
 	private GardenUserRepository gardenUserRepository;
+	@Autowired
+	private GardenEsRepository gardenEsRepository;
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
 	
@@ -146,23 +146,15 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	@Override
 	public JSONArray findGardensCondition(GardenDTO dto) {
 		JSONArray data = new JSONArray();
-		int from = dto.getPageNumber()*dto.getPageSize()-dto.getPageSize();
 		try{
 			List<String> gardenName = gardenUserRepository.findGardensCondition(dto.getUserId());
-			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			bq.must(QueryBuilders.termsQuery("park", gardenName));
-			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC)).setFrom(from+dto.getPageSize()).execute().actionGet();
-			SearchHits hits = response.getHits();
-			for (SearchHit searchHit : hits) {
-				JSONObject obj = new JSONObject();
-				JSONObject condition = JSONObject.parseObject(searchHit.getSourceAsString());
-				obj.put("id", searchHit.getId());
-				obj.put("title", condition.getString("title"));
-				obj.put("park", condition.getString("park"));
-				obj.put("content", condition.getString("content"));
-				data.add(obj);
-			}
+			bq.must(QueryBuilders.termQuery("dimension", Constans.YUANQUDONGTAI));
+			Sort sortx = new Sort(new Sort.Order(Sort.Direction.DESC,"publishDate"));
+			PageRequest pageRequest = new PageRequest(dto.getPageNumber()-1, dto.getPageSize(), sortx);
+			Page<AITInfo> search = gardenEsRepository.search(bq, pageRequest);
+			data.add(search);
 		}catch(Exception e){
 			LOGGER.error(e.getMessage());
 		}
@@ -219,7 +211,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					return gu;
 				}
 			}else{
-				gardenUserRepository.deleteByGardenName(garden.getGardenName());
+				gardenUserRepository.delete(Integer.parseInt(gardenId));
 			}
 		}catch(Exception e) {
 			LOGGER.error(e.getMessage());

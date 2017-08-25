@@ -637,5 +637,6 @@ public class Constans {
 	public static final String TABPUBLISHTIME = "发布时间";
 	public static final String TABSOURCE = "来源";
 	public static final String TABDIMENSION = "纬度";
+	public static final String YUANQUDONGTAI = "园区动态";
 	
 }

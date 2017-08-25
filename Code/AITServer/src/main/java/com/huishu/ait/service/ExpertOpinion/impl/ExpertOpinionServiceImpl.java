@@ -132,16 +132,16 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			String author = requestParam.getAuthor();
 			int pageNumber = requestParam.getPageNumber();
 			int pageSize = requestParam.getPageSize();
-			int from = (pageNumber-1)*pageSize;
+			int from = pageNumber*pageSize-pageSize;
 			
 			SearchRequestBuilder requestBuilder = ESUtils.getSearchRequestBuilder(client);
-			BoolQueryBuilder bq = QueryBuilders.boolQuery();
+			BoolQueryBuilder bq = new BoolQueryBuilder();
 			bq.must(QueryBuilders.termQuery("dimension", Constans.ZHUANJIALUN));
 			if (StringUtils.isNotBlank(author)) {
 				bq.must(QueryBuilders.termQuery("author", author));
 			}
 			SearchResponse actionGet = requestBuilder.setQuery(bq)
-					.addSort("publishDateTime", SortOrder.DESC)
+					.addSort("publishTime", SortOrder.DESC)
 					.setFrom(from).setSize(pageSize)
 					.execute().actionGet();
 			SearchHits hits = actionGet.getHits();

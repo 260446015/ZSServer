@@ -13,6 +13,8 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -65,7 +67,7 @@ public class CompanyServiceImpl implements CompanyService {
 			
 			bq.must(QueryBuilders.termQuery("dimension", dimension));
 			int from = dto.getPageSize()*dto.getPageNumber() - dto.getPageSize();
-			SearchResponse response = requestBuilder.setQuery(bq).setFrom(from+dto.getPageSize()).setSize(dto.getPageSize()).execute().actionGet();
+			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC)).setFrom(from+dto.getPageSize()).setSize(dto.getPageSize()).execute().actionGet();
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
 				JSONObject obj = new JSONObject();
