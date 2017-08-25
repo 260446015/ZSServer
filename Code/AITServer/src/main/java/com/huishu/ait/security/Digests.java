@@ -106,7 +106,7 @@ public class Digests {
 	public static void main(String[] args) {
 		byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
 		System.out.println(Encodes.encodeHex(salt));
-		byte[] hashPassword = Digests.sha1("11111111111".getBytes(), hexStringToBytes(Encodes.encodeHex(salt)),
+		byte[] hashPassword = Digests.sha1("123456".getBytes(), hexStringToBytes(Encodes.encodeHex(salt)),
 				Encodes.HASH_INTERATIONS);
 		System.out.println(Encodes.encodeHex(hashPassword));
 	}

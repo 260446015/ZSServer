@@ -31,6 +31,7 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CaptchaDTO;
+import com.huishu.ait.entity.dto.FindPasswordDTO;
 import com.huishu.ait.entity.dto.RegisterDTO;
 import com.huishu.ait.exception.AccountExpiredException;
 import com.huishu.ait.exception.IncorrectCaptchaException;
@@ -213,5 +214,27 @@ public class LoginController extends BaseController {
 		}
 		return userBaseService.addRegisterUser(dto);
 	}
-
+	/**
+	 * 找回密码
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "apis/findPassword.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult findPassword(@RequestBody FindPasswordDTO dto) {
+		if (null == dto || StringUtil.isEmpty(dto.getCaptcha()) || StringUtil.isEmpty(dto.getNewPassword())
+				|| StringUtil.isEmpty(dto.getTelphone())) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		if (!captchaManager.checkCaptcha(dto.getTelphone(), dto.getCaptcha())) {
+			return error(MsgConstant.INCORRECT_CAPTCHA);
+		}
+		try {
+			return userBaseService.findPassword(dto);
+		} catch (Exception e) {
+			LOGGER.error("findPassword失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
 }

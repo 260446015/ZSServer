@@ -16,7 +16,6 @@ import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.entity.dto.FindPasswordDTO;
 import com.huishu.ait.entity.dto.UserPasswordDTO;
 import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.service.user.UserBaseService;
@@ -40,18 +39,13 @@ public class UserBaseController extends BaseController {
 	/**
 	 * 查看我的个人信息
 	 * 
-	 * @param userId
-	 *            用户ID
 	 * @return
 	 */
 	@RequestMapping(value = "findMyInformation.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult findMyInformation(Long userId) {
-		if (null == userId) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
+	public AjaxResult findMyInformation() {
 		try {
-			UserBase base = userBaseService.findUserByUserId(userId);
+			UserBase base = userBaseService.findUserByUserId(getUserId());
 			return success(base);
 		} catch (Exception e) {
 			LOGGER.error("findMyInformation失败！", e);
@@ -69,11 +63,11 @@ public class UserBaseController extends BaseController {
 	@RequestMapping(value = "modifyPassword.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult modifyPassword(@RequestBody UserPasswordDTO param) {
-		if (null == param || StringUtil.isEmpty(param.getOldPassword()) || StringUtil.isEmpty(param.getNewPassword())
-				|| null == param.getUserId()) {
+		if (null == param || StringUtil.isEmpty(param.getOldPassword()) || StringUtil.isEmpty(param.getNewPassword())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
+			param.setUserId(getUserId());
 			return userBaseService.modifyPassword(param);
 		} catch (Exception e) {
 			LOGGER.error("modifyPassword失败！", e);
@@ -82,27 +76,4 @@ public class UserBaseController extends BaseController {
 
 	}
 
-	/**
-	 * 找回密码
-	 * 
-	 * @param dto
-	 * @return
-	 */
-	@RequestMapping(value = "findPassword.json", method = RequestMethod.POST)
-	@ResponseBody
-	public AjaxResult findPassword(@RequestBody FindPasswordDTO dto) {
-		if (null == dto || StringUtil.isEmpty(dto.getCaptcha()) || StringUtil.isEmpty(dto.getNewPassword())
-				|| StringUtil.isEmpty(dto.getTelphone())) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		if (!captchaManager.checkCaptcha(dto.getTelphone(), dto.getCaptcha())) {
-			return error(MsgConstant.INCORRECT_CAPTCHA);
-		}
-		try {
-			return userBaseService.findPassword(dto);
-		} catch (Exception e) {
-			LOGGER.error("findPassword失败！", e);
-			return error(MsgConstant.SYSTEM_ERROR);
-		}
-	}
 }

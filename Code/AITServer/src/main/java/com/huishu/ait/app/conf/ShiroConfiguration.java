@@ -52,7 +52,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/security/captcha.do", "anon");
 		filterChainDefinitionMap.put("/apis/register.json", "anon");
 		filterChainDefinitionMap.put("/apis/getPhoneCaptcha.json", "anon");
-		filterChainDefinitionMap.put("/apis/user/findPassword.json", "anon");
+		filterChainDefinitionMap.put("/apis/findPassword.json", "anon");
 		filterChainDefinitionMap.put("/apis/login.do", "anon");
 
 //		filterChainDefinitionMap.put("/apis/**", "authc");
