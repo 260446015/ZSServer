@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
-import com.huishu.ait.common.Echarts.transform.EchartsDataTransform;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils.DateUtil;
 import com.huishu.ait.controller.BaseController;
@@ -36,8 +35,6 @@ import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 @RequestMapping("/apis/Headlines")
 public class HeadlinesController extends BaseController {
 	private static Logger logger = LoggerFactory.getLogger(HeadlinesController.class);
-	@Autowired
-	private EchartsDataTransform ecdTransformer;
 	@Autowired
 	private HeadlinesService service;
 
