@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.garden;
+package com.huishu.ait.controller.Industrymodule.garden;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.company;
+package com.huishu.ait.controller.Industrymodule.company;
 
 import javax.annotation.Resource;
 
@@ -17,7 +17,6 @@ import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CompanyDTO;
-import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.service.company.CompanyService;
 
 /**

@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.warning;
+package com.huishu.ait.controller.parkmodule.warning;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

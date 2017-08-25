@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.expert;
+package com.huishu.ait.controller.Industrymodule.expert;
 
 import java.util.List;
 
@@ -17,7 +17,6 @@ import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.Specialist;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
 import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
 import com.huishu.ait.service.Specialist.SpecialistService;

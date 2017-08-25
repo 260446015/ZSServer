@@ -1,8 +1,7 @@
 
-package com.huishu.ait.controller.headlines;
+package com.huishu.ait.controller.Industrymodule.headlines;
 
 import java.util.Date;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +18,10 @@ import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils.DateUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
 import com.huishu.ait.es.entity.AITInfo;
+import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 import com.huishu.ait.service.Headlines.HeadlinesService;
-import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 
 /**
  * @author hhy
