@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.companyInfo;
+package com.huishu.ait.controller.Investmentmodule.companyInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,31 +15,32 @@ import com.huishu.ait.service.indusCompany.IndusCompanyService;
 
 /**
  * @author hhy
- * @date 2017年8月11日
- * 
+ * @date 2017年8月21日
+ * @Parem
+ * @return
  * 
  */
 @Controller
-@RequestMapping("/apis/indus")
-public class IndusCompanyInfoController extends BaseController {
+@RequestMapping("/apis/comp")
+public class CompanyInfoController extends BaseController {
 	@Autowired
 	private IndusCompanyService service;
-	
+
 	/**
-	 * 根据产业名查询公司的信息
+	 * 根据公司全名查询公司的详细信息
 	 * 
-	 * @param industry
+	 * @param company
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getCompanyInfoByIndustry.json", method = RequestMethod.POST)
-	public AjaxResult getCompanyInfoByIndustry(@RequestBody String industry) {
-		if (industry.isEmpty()) {
+	@RequestMapping(value = "/getCompanyInfoByCompany.json", method = RequestMethod.POST)
+
+	public AjaxResult getCompanyInfoByCompany(@RequestBody String company) {
+		if (company.isEmpty()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		JSONObject jsonobj = (JSONObject) JSONObject.parse(industry);
-		String str = (String) jsonobj.get("industry");
-		return success(service.findIndusInfoByIndustry(str));
+		JSONObject  json = (JSONObject) JSONObject.parse(company);
+		String str =(String) json.get("company").toString();
+		return success(service.findInfo(str).get("data"));
 	}
-
 }
