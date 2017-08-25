@@ -45,8 +45,10 @@ public class GardenSuperviseController extends BaseController {
 	 * @return 获取当前园区的信息
 	 */
 	@RequestMapping(value = "getGardenInfo.json", method = RequestMethod.GET)
-	public AjaxResult getGardenInfo(String park) {
+	public AjaxResult getGardenInfo() {
 		try {
+			String park = "天津中新生态城";
+//			String park = getUserPark();
 			JSONObject json = gardenSuperviseService.getGardenInfo(park);
 			return success(json);
 		} catch (Exception e) {
