@@ -105,7 +105,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		searchModel.setTotalSize(list.size());
 		Integer end=searchModel.getPageFrom()+searchModel.getPageSize();
 		for (int i = searchModel.getPageFrom(); i < (list.size()>end?end:list.size()); i++) {
-			array.add(new JSONObject().put("business", list.get(i).getCompanyName()));
+			JSONObject obj = new JSONObject();
+			obj.put("business", list.get(i).getCompanyName());
+			array.add(obj);
 		}
 		return array;
 	}
