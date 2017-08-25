@@ -17,7 +17,7 @@ import com.huishu.ait.entity.GardenData;
  */
 public interface GardenRepository extends CrudRepository<GardenData, Integer>{
 	
-	Page<GardenData> findByAreaLikeAndLeadingIndustryLike(String area,String leadingIndustry,Pageable pageable);
+	Page<GardenData> findByAreaLikeAndLeadingIndustryLikeOrderByIdDesc(String area,String leadingIndustry,Pageable pageable);
 
 	/**
 	 * 按照地域查询园区列表

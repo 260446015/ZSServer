@@ -129,11 +129,11 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			}else{
 				industryType = "%"+industryType+"%";
 			}
-			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
+			PageRequest pageRequest = new PageRequest(pageNum-1, pageSize);
 //			if(!StringUtil.isEmpty(searchName)){
 //				findGardensPage = gardenRepository.findByNameLike(searchName,pageRequest);
 //			}else{//
-				findGardensPage = gardenRepository.findByAreaLikeAndLeadingIndustryLike(area, industryType, pageRequest);
+				findGardensPage = gardenRepository.findByAreaLikeAndLeadingIndustryLikeOrderByIdDesc(area, industryType, pageRequest);
 //			}
 			data.add(findGardensPage);
 		}catch(Exception e){

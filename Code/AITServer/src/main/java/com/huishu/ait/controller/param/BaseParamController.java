@@ -44,8 +44,7 @@ public class BaseParamController extends BaseController {
 		if( param == null){
 			 return error(MsgConstant.ILLEGAL_PARAM);
 		}
-	//	Long userId = getUserId();
-		Long userId = (long)3;//测试用 
+		Long userId = getUserId();
            
 		boolean b = false;
 		String msg = param.getMsg();
@@ -55,7 +54,7 @@ public class BaseParamController extends BaseController {
 			Param p = new Param();
 			p.setIndustryInfo(key);
 			p.setUid(userId);
-			String industryLagel = obj.getString(key).replace("[", "").replace("]", "").replace("\"", "").substring(3);
+			String industryLagel = obj.getString(key).replace("[", "").replace("]", "").replace("\"", "");
 			p.setIndustryLagel(industryLagel);
 			params.add(p);
 		}
@@ -80,8 +79,7 @@ public class BaseParamController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/getParamById.json")
 	public AjaxResult  getParamById(){
-//		Long userId = getUserId();
-		Long userId = (long)3;//测试用
+		Long userId = getUserId();
 		if(userId == null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
