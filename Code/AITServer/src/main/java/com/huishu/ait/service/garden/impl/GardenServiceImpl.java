@@ -198,6 +198,10 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			GardenData garden = gardenRepository.findOne(Integer.parseInt(gardenId));
 			
 			if(flag){
+				GardenUser check = gardenUserRepository.findByGardenNameAndUserId(garden.getGardenName(), Integer.parseInt(userId));
+				if(check != null){
+					return null;
+				}
 				if(null != garden) {
 					GardenUser gu = new GardenUser();
 					gu.setGardenName(garden.getGardenName());
