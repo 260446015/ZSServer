@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
@@ -42,8 +41,6 @@ import com.huishu.ait.service.garden.GardenService;
 @Service
 public class GardenServiceImpl extends AbstractService implements GardenService {
 	
-	@Autowired
-	private Client client;
 	@Autowired
     private GardenPolicyRepository gardenPolicyRepository;
 	@Autowired
@@ -108,7 +105,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		searchModel.setTotalSize(list.size());
 		Integer end=searchModel.getPageFrom()+searchModel.getPageSize();
 		for (int i = searchModel.getPageFrom(); i < (list.size()>end?end:list.size()); i++) {
-			array.add(list.get(i).getCompanyName());
+			array.add(new JSONObject().put("business", list.get(i).getCompanyName()));
 		}
 		return array;
 	}

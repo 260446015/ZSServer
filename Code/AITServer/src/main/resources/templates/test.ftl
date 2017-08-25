@@ -23,7 +23,25 @@
 		        </div>
 		    </fieldset>
 		</form>
-		
+		<form>
+		    <fieldset>
+		        <legend>注册</legend>
+		        <div>
+		            <lable>手机号:</lable>
+		            <input type="text" name="telphone"/></div>
+		        <div>
+		            <lable>类型:</lable>
+		            <input name="type" type="radio" value="findPassword" />找回密码
+		            <input name="type" type="radio" value="register" />注册</div>
+		        <div>
+		            <lable>账号(找回密码的时候需要携带):</lable>
+		            <input type="text" name="userAccount"/></div>
+		        <div>
+		            <lable>提交:</lable>
+		            <input type="button" value="验证码" onclick="doRegister()"/>
+		        </div>
+		    </fieldset>
+		</form>
 		<form>
 		    <fieldset>
 		        <legend>登录</legend>
@@ -46,6 +64,24 @@
 </html>
 <script type="text/javascript">
 	function doCaptcha(){
+	var obj={telphone: $('input[name=telphone]').val(), userAccount: $('input[name=userAccount]').val(), type:  $('input[name="type"]:checked').val()};
+		$.ajax({
+            type: 'post',
+            url: "/apis/getPhoneCaptcha.json",
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(obj),
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
+            	console.log(response);
+            }
+        });
+	}
+	function doRegister(){
 	var obj={telphone: $('input[name=telphone]').val(), userAccount: $('input[name=userAccount]').val(), type:  $('input[name="type"]:checked').val()};
 		$.ajax({
             type: 'post',
