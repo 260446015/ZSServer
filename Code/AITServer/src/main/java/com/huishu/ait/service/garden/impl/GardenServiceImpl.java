@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -23,7 +22,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.Constans;
-import com.huishu.ait.common.util.ESUtils;
+import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
@@ -34,6 +33,7 @@ import com.huishu.ait.es.entity.GardenPolicy;
 import com.huishu.ait.es.repository.GardenEsRepository;
 import com.huishu.ait.es.repository.garden.GardenInformationRepository;
 import com.huishu.ait.es.repository.garden.GardenPolicyRepository;
+import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.repository.garden_user.GardenUserRepository;
 import com.huishu.ait.service.AbstractService;
@@ -54,6 +54,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	private GardenUserRepository gardenUserRepository;
 	@Autowired
 	private GardenEsRepository gardenEsRepository;
+	@Autowired
+	private CompanyRepository companyRepository;
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
 	
@@ -95,19 +97,19 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	public GardenInformation getGardenInformationById(String id) {
 		return gardenInformationRepository.findOne(id);
 	}
+	
 	@Override
 	public JSONArray getGardenBusinessList(AreaSearchDTO searchModel) {
-		//组装查询条件
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("park", searchModel.getPark());
-		map.put("dimension", "龙头企业");
-		//组装排序字段,按点击量降序排列
-		String[] order = {"hitCount"};
-		List<String> orderList = Arrays.asList(order);
-		//组装返回数据字段
-		String[] data = {"business"};
-		List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, null,orderList, dataList,true);
+		List<Company> list = companyRepository.findByPark(searchModel.getPark());
+		JSONArray array = new JSONArray();
+		if (list == null || list.size() == 0) {
+			return null;
+		}
+		searchModel.setTotalSize(list.size());
+		Integer end=searchModel.getPageFrom()+searchModel.getPageSize();
+		for (int i = searchModel.getPageFrom(); i < (list.size()>end?end:list.size()); i++) {
+			array.add(list.get(i).getCompanyName());
+		}
 		return array;
 	}
 	
@@ -130,11 +132,11 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			}else{
 				industryType = "%"+industryType+"%";
 			}
-			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
+			PageRequest pageRequest = new PageRequest(pageNum-1, pageSize);
 //			if(!StringUtil.isEmpty(searchName)){
 //				findGardensPage = gardenRepository.findByNameLike(searchName,pageRequest);
 //			}else{//
-				findGardensPage = gardenRepository.findByAreaLikeAndLeadingIndustryLike(area, industryType, pageRequest);
+				findGardensPage = gardenRepository.findByAreaLikeAndLeadingIndustryLikeOrderByIdDesc(area, industryType, pageRequest);
 //			}
 			data.add(findGardensPage);
 		}catch(Exception e){
