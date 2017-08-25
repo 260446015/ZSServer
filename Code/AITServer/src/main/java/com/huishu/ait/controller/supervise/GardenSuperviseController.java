@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.CompanyGroup;
@@ -39,6 +40,7 @@ public class GardenSuperviseController extends BaseController {
 
 	@Autowired
 	private GardenSuperviseService gardenSuperviseService;
+	
 
 
 	/**
@@ -47,8 +49,7 @@ public class GardenSuperviseController extends BaseController {
 	@RequestMapping(value = "getGardenInfo.json", method = RequestMethod.GET)
 	public AjaxResult getGardenInfo() {
 		try {
-			String park = "天津中新生态城";
-//			String park = getUserPark();
+			String park = getUserPark();
 			JSONObject json = gardenSuperviseService.getGardenInfo(park);
 			return success(json);
 		} catch (Exception e) {
@@ -61,9 +62,12 @@ public class GardenSuperviseController extends BaseController {
 	 * @return 获取当前园区中的所有企业列表
 	 */
 	@RequestMapping(value = "getCompanyFromGarden.json", method = RequestMethod.GET)
-	public AjaxResult getCompanyFromGarden(String park) {
+	public AjaxResult getCompanyFromGarden() {
+		if(StringUtil.isEmpty(getUserPark())){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
 		try {
-			JSONArray jsonArray = gardenSuperviseService.getCompanyFromGarden(park);
+			JSONArray jsonArray = gardenSuperviseService.getCompanyFromGarden(getUserPark());
 			return success(jsonArray);
 		} catch (Exception e) {
 			log.error("查询园区企业失败", e.getMessage());
@@ -77,8 +81,7 @@ public class GardenSuperviseController extends BaseController {
 	@RequestMapping(value = "addCompanyGroup.json", method = RequestMethod.GET)
 	public AjaxResult addCompanyGroup(String groupName) {
 		JSONObject result = new JSONObject();
-		Long userId = 1L;
-		// Long userId = getUserId();
+		Long userId = getUserId();
 		try {
 			if (null != groupName && !"".equals(groupName)) {
 				String state = gardenSuperviseService.addCompanyGroup(groupName, userId);
@@ -104,8 +107,7 @@ public class GardenSuperviseController extends BaseController {
 	@RequestMapping(value = "selectCompanyGroup.json", method = RequestMethod.GET)
 	public AjaxResult selectCompanyGroup() {
 		try {
-			Long userId = 1L;
-//			Long userId = getUserId();
+			Long userId = getUserId();
 			List<CompanyGroup> list = gardenSuperviseService.selectCompanyGroup(userId);
 			return success(list);
 		} catch (Exception e) {
@@ -123,10 +125,8 @@ public class GardenSuperviseController extends BaseController {
 			if(dto.getRegCapital() == null || dto.getIndustry() == null || dto.getGroupname() == null){
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
-//			String userPark = getUserPark();
-			String userPark = "天津中新生态城";
-//			Long userId = getUserId();
-			Long userId = 1L;
+			String userPark = getUserPark();
+			Long userId = getUserId();
 			dto.setUserId(userId);
 			dto.setPark(userPark);
 			dto = initPage(dto);
@@ -145,8 +145,7 @@ public class GardenSuperviseController extends BaseController {
 	 */
 	@RequestMapping(value = "dropCompanyGroup.json", method = RequestMethod.GET)
 	public AjaxResult dropCompanyGroup(@RequestParam(value = "groupNames[]") String[] groupNames) {
-		Long userId = 1L;
-		// Long userId = getUserId();
+		Long userId = getUserId();
 		boolean flag = false;
 		try {
 			flag = gardenSuperviseService.dropCompanyGroup(groupNames, userId);
@@ -166,8 +165,7 @@ public class GardenSuperviseController extends BaseController {
 	 */
 	@RequestMapping(value="/saveCompanyByGroupId.json",method=RequestMethod.POST)
 	public AjaxResult saveCompanyByGroupId(@RequestBody CompanyGroupMiddle middle){
-		Long userId = 1L;
-//		Long userId = getUserId();
+		Long userId = getUserId();
 		if(middle.getCompanyId() == null || middle.getGroupname() == null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}

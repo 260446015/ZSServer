@@ -50,7 +50,7 @@ public class BusinessController extends BaseController {
     @RequestMapping(value="/getBehaviours.json",method=RequestMethod.POST)
     public AjaxResult getParkEmotionBehaviours(@RequestBody BusinessSuperviseDTO dto){
         
-        final String PARK = "中关村软件园";
+        String park = getUserPark();
         
         if (null == dto) {
             return error(MsgConstant.ILLEGAL_PARAM);
@@ -61,7 +61,7 @@ public class BusinessController extends BaseController {
             /*if (!StringUtil.isEmpty(msg[0])) {
                 dto.setPark(msg[0]);
             }*/
-            dto.setPark(PARK);
+            dto.setPark(park);
             if (!StringUtil.isEmpty(msg[0])) {
                 dto.setEmotion(msg[0]);
             }
@@ -106,7 +106,7 @@ public class BusinessController extends BaseController {
         try {
             dto.setPark(msg[0]);
             initPage(dto);
-//            dto.setDimension("园区动态");
+            dto.setDimension("园区动态");
             Page<AITInfo> page = businessService.getBusinessBehaviours(dto);
             for (AITInfo p : page) {
                 JSONObject map = new JSONObject();
