@@ -20,20 +20,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
-import com.huishu.ait.common.util.PersonalValidtor;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.CaptchaDTO;
 import com.huishu.ait.entity.dto.RegisterDTO;
 import com.huishu.ait.exception.AccountExpiredException;
 import com.huishu.ait.exception.IncorrectCaptchaException;
@@ -65,7 +62,17 @@ public class LoginController extends BaseController {
 	public String tologin() {
 		return "login";
 	}
-
+	
+	/**
+	 * 测试页面
+	 * 
+	 * @return 
+	 */
+	@RequestMapping(value = "test.html")
+	public String test() {
+		return "test";
+	}
+	
 	/**
 	 * 模板页
 	 * 
@@ -153,13 +160,13 @@ public class LoginController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "apis/getPhoneCaptcha.json", method = RequestMethod.POST)
-	public AjaxResult getPhoneCaptcha(@RequestBody JSONObject param) {
+	public AjaxResult getPhoneCaptcha(@RequestBody CaptchaDTO param) {
 		if (param == null) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		String telphone = param.getString("telphone");
-		String type = param.getString("type");
-		String userAccount = param.getString("userAccount");
+		String telphone = param.getTelphone();
+		String type = param.getType();
+		String userAccount = param.getUserAccount();
 		if (StringUtil.isEmpty(telphone)) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -168,7 +175,9 @@ public class LoginController extends BaseController {
 		}
 		UserBase user = userBaseService.findUserByTelphone(telphone);
 		if ("findPassword".equals(type)) {
-			if (user == null || user.getUserAccount().equals(userAccount)) {
+			if(user == null){
+				return error("该手机号未被注册");
+			}else if(!user.getUserAccount().equals(userAccount)){
 				return error(MsgConstant.PHONE_ERROR);
 			}
 		} else {
@@ -177,7 +186,7 @@ public class LoginController extends BaseController {
 			}
 		}
 		boolean result = captchaManager.send(telphone);
-		return result ? success(null).setMessage("验证码已发送") : error("稍后再试");
+		return result ? success(null).setMessage("验证码已发送") : error("如未收到验证码请稍后再试");
 	}
 
 	/**
@@ -205,13 +214,4 @@ public class LoginController extends BaseController {
 		return userBaseService.addRegisterUser(dto);
 	}
 
-	/**
-	 * 绑定PersonalValidator
-	 * 
-	 * @param webDataBinder
-	 */
-	@InitBinder
-	private void initBinder(WebDataBinder webDataBinder) {
-		webDataBinder.addValidators(new PersonalValidtor());
-	}
 }
