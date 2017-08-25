@@ -45,9 +45,10 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="getGardenPolicyList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenPolicyList(@RequestBody AreaSearchDTO searchModel){
-		if(null==searchModel || null==searchModel.getPark()){
+		if(null==searchModel){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		searchModel.setPark(getUserPark());
 		try {
 			JSONArray array = gardenService.getGardenPolicyList(searchModel);
 			return success(changeObject(searchModel, array));
@@ -84,9 +85,10 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="getGardenInformationList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenInformationList(@RequestBody AreaSearchDTO searchModel){
-		if(null==searchModel || null==searchModel.getPark()){
+		if(null==searchModel || StringUtil.isEmpty(getUserPark())){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		searchModel.setPark(getUserPark());
 		try {
 			JSONArray array = gardenService.getGardenInformationList(searchModel);
 			return success(changeObject(searchModel, array));
@@ -123,9 +125,11 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="getGardenBusinessList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenBusinessList(@RequestBody AreaSearchDTO searchModel){
-		if(null==searchModel || null==searchModel.getPark()){
+		
+		if(null==searchModel || StringUtil.isEmpty(getUserPark())){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		searchModel.setPark(getUserPark());
 		try {
 			JSONArray array = gardenService.getGardenBusinessList(searchModel);
 			return success(changeObject(searchModel, array));
@@ -143,8 +147,7 @@ public class GardenController extends BaseController{
 	@RequestMapping(value="getGardenTableData.json",method=RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getGardenTableData(String gardenName){
-//		Long userId = getUserId();
-		Long userId = 1L;
+		Long userId = getUserId();
 		if(StringUtil.isEmpty(gardenName)||null == userId){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -206,8 +209,7 @@ public class GardenController extends BaseController{
 	@ResponseBody
 	public AjaxResult findGardensCondition(@RequestBody GardenDTO dto){
 		dto = initPage(dto);
-//		Long userId = getUserId();
-		Long userId = 1L;
+		Long userId = getUserId();
 		JSONArray aITInfos = null;
 		dto.setUserId(userId.intValue());
 		try{
@@ -246,13 +248,12 @@ public class GardenController extends BaseController{
 	@ResponseBody
 	public AjaxResult getAttentionGardenList(@RequestBody GardenDTO dto){
 	    String msg[] = dto.getMsg();
-	    Long userId = 1L;
-//	    Long userId = getUserId();
+	    Long userId = getUserId();
 	    dto.setUserId(userId.intValue());
 	    dto.setArea(msg[0]);
 	    dto.setIndustryType(msg[1]);
 	    
-	    if(null == dto || StringUtil.isEmpty(String.valueOf(dto.getUserId()))){
+	    if(null == dto || userId == null){
 	        return error(MsgConstant.ILLEGAL_PARAM);
 	    }
 	    try{
@@ -280,8 +281,7 @@ public class GardenController extends BaseController{
 		if(StringUtil.isEmpty(gardenId) || null == flag){
 			error(MsgConstant.ILLEGAL_PARAM);
 		}
-		Long userId = 1L;
-//		Long userId = getUserId();
+		Long userId = getUserId();
 		try{
 			if(flag)
 				gardenUser = gardenService.attentionGarden(gardenId,userId.toString(),true);

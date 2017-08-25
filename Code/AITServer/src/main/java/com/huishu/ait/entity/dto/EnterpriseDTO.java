@@ -53,6 +53,18 @@ public class EnterpriseDTO implements Serializable{
 	/**注册地址*/
 	@Column(name="register_address")
 	private String registerAddress;
+	
+	/**天眼查超链接*/
+	@Column(name="company_url" )
+	private String companyUrl;
+
+	public String getCompanyUrl() {
+		return companyUrl;
+	}
+
+	public void setCompanyUrl(String companyUrl) {
+		this.companyUrl = companyUrl;
+	}
 
 	public Long getId() {
 		return id;

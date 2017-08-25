@@ -15,6 +15,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,15 +72,12 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 				startDate = split[0];
 				endDate = split[1];
 			}*/
-			int pageNumber = requestParam.getPageNumber();
-			int pageSize = requestParam.getPageSize();
-			int from = (pageNumber-1)*pageSize;
 			SearchRequestBuilder searchBuilder = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = QueryBuilders.boolQuery();
-			bq.must(QueryBuilders.termQuery("dimension", "专家观点"));
+			bq.must(QueryBuilders.termQuery("dimension", Constans.BAIJIALUN));
 			//根据条件查询
 			SearchRequestBuilder requestBuilder = searchBuilder.setQuery(bq)
-					.setFrom(from).setSize(pageSize);
+					.setSize(requestParam.getPageSize()).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC));
 			if (StringUtils.isNotEmpty(industry)) {
 				bq.must(QueryBuilders.termQuery("industry", industry));
 			}

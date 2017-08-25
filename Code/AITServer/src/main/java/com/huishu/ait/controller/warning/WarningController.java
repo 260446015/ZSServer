@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
@@ -37,8 +38,10 @@ public class WarningController extends BaseController{
 	@RequestMapping(value="getBusinessOutflowList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getBusinessOutflowList(@RequestBody AreaSearchDTO searchModel){
-		//假数据
-		searchModel.setPark("北航留学人员创业园");
+		if(StringUtil.isEmpty(getUserPark())){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		searchModel.setPark(getUserPark());
 		if (null==searchModel || null==searchModel.getPark()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -78,8 +81,10 @@ public class WarningController extends BaseController{
 	@RequestMapping(value="getInformationChangeList.json",method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getInformationChangeList(@RequestBody AreaSearchDTO searchModel){
-		//假数据
-		searchModel.setPark("中关村软件园");
+		if(StringUtil.isEmpty(getUserPark())){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		searchModel.setPark(getUserPark());
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
