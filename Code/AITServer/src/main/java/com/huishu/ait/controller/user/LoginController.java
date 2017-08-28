@@ -1,5 +1,6 @@
 package com.huishu.ait.controller.user;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +72,7 @@ public class LoginController extends BaseController {
 	 * 
 	 * @return 
 	 */
-	@RequestMapping(value = "test.html")
+	@RequestMapping(value = "test.html",method = RequestMethod.GET)
 	public String test() {
 		return "test";
 	}
@@ -133,7 +136,7 @@ public class LoginController extends BaseController {
 	 *            http请求
 	 * @return 返回公钥
 	 */
-	@RequestMapping(value = "apis/security/generateKey.do")
+	@RequestMapping(value = "apis/security/generateKey.do",method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult generateKeyAjax(HttpServletRequest request) {
 		AjaxResult result = new AjaxResult();
@@ -214,6 +217,29 @@ public class LoginController extends BaseController {
 		}
 		return userBaseService.addRegisterUser(dto);
 	}
+	
+	/**
+     * 用户登出
+     *
+     * @return
+     */
+    @RequestMapping(value = "apis/logOut.do",method = RequestMethod.GET)
+    public String logOut() {
+        Subject subject = SecurityUtils.getSubject();
+        try {
+			if (subject.isAuthenticated()) {
+			    if (LOGGER.isDebugEnabled()) {
+			        LOGGER.debug("user {} to logout", subject.getPrincipal());
+			    }
+			    subject.logout();
+			}
+		} catch (Exception e) {
+			LOGGER.error("logout失败！", e);
+			return null;
+		}
+        return "redirect:login";
+    }
+    
 	/**
 	 * 找回密码
 	 * 

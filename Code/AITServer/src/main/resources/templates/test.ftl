@@ -76,6 +76,7 @@
 		        <div>
 		            <lable>查看个人信息:</lable>
 		            <input type="button" value="查看" onclick="my()"/>
+		            <input type="button" value="登出" onclick="logout()"/>
 		        </div>
 		    </fieldset>
 		</form>
@@ -197,6 +198,24 @@
 		$.ajax({
             type: 'get',
             url: "/apis/user/findMyInformation.json",
+            async: false,
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+	                var description = "";  
+				    for (var i in response.data) {  
+				        description += i + " = " + response.data[i] + "\n";  
+				    }  
+				    alert(description); 
+                }
+            }
+        });
+	}
+	function logout(){
+		$.ajax({
+            type: 'get',
+            url: "/apis/logOut.do",
             async: false,
             success: function (response) {
                 if(response.message!=null){

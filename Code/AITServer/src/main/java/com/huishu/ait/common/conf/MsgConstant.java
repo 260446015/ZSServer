@@ -48,7 +48,7 @@ public class MsgConstant {
     /**
      * 多次重复登录
      */
-    public static final String REPETITIVEOPERATION = "已经登录无需重复操作";
+    public static final String REPETITIVEOPERATION = "已经登录,如需更换账号请先注销登录";
 
     /**
      * 系统异常
@@ -91,5 +91,9 @@ public class MsgConstant {
      * 手机账号不匹配
      */
     public static final String PHONE_ERROR = "此手机不是该账户的绑定手机";
+    /**
+     * 用户不存在
+     */
+    public static final String USER_ERROR = "该用户不存在";
 
 }

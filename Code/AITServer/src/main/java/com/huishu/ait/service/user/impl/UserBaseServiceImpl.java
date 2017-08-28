@@ -93,19 +93,21 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 	}
 
 	@Override
+	@Transactional
 	public AjaxResult findPassword(FindPasswordDTO param) {
 		AjaxResult result = new AjaxResult();
 		UserBase one = userBaseRepository.findByUserAccount(param.getUserAccount());
 		if (one != null) {
 			String newPassword = getPasswordDB(param.getNewPassword(),one.getSalt());
-			Integer integer = userBaseRepository.modifyPassword(newPassword, one.getId());
+			Long id = one.getId();
+			Integer integer = userBaseRepository.modifyPassword(newPassword,id );
 			if (integer == 1) {
 				return result.setSuccess(true).setMessage(MsgConstant.PASSWORD_SUCCESS);
 			} else {
 				return result.setSuccess(false).setMessage(MsgConstant.CHANGE_ERROR);
 			}
 		}
-		return result.setSuccess(false).setMessage(MsgConstant.CHANGE_ERROR);
+		return result.setSuccess(false).setMessage(MsgConstant.USER_ERROR);
 	}
 
 }
