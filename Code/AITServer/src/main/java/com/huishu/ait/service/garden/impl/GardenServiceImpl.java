@@ -324,7 +324,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			JSONArray gangkouwuliu = new JSONArray();// 港口物流
 			for (IndustryClass industry : findAll) {
 				JSONObject obj = new JSONObject();
-				obj.put("area", industry.getArea());
+				obj.put("name", industry.getArea());
 				obj.put("count", industry.getCount());
 				int value = 0;
 				switch (industry.getIndustry()) {
