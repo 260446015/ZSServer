@@ -274,7 +274,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	public JSONArray findGardensByAreaAndIndustry(String area, String leadIndustry) {
 		JSONArray arr = new JSONArray();
 		try {
-			List<GardenData> list = gardenRepository.findGardensByArea(area);
+			area = "%"+area+"%";
+			List<GardenData> list = gardenRepository.findGardensByAddressLike(area);
 			for (GardenData garden : list) {
 				String maxStr, minStr;
 				if (leadIndustry.length() > garden.getLeadingIndustry().length()) {
