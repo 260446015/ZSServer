@@ -97,6 +97,9 @@ public class AITInfo {
 	/** 维度 */
 	private String dimension;
 	
+	/** 摘要 */
+	private String summary;
+	
 
 	public String getId() {
         return id;
@@ -311,6 +314,15 @@ public class AITInfo {
 
 	public void setBusinessLegal(String businessLegal) {
 		this.businessLegal = businessLegal;
+	}
+	
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 	@Override
