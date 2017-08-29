@@ -52,15 +52,6 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		String[] data = { "publishDate","business", "title", "content","warnTime","park"};
 		List<String> dataList = Arrays.asList(data);
 		JSONArray array = getEsData(searchModel, map, mapnot,orderList, dataList,true);
-		/*JSONArray array2 = new JSONArray();
-		for (Object object : array) {
-			JSONObject json=(JSONObject)object;
-			if(!searchModel.getPark().equals(json.get("park"))){
-				array2.add(json);
-			}
-		}
-		searchModel.setTotalSize(array2.size());
-		return array2;*/
 		return array;
 	}
 
