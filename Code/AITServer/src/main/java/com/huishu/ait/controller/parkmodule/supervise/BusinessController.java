@@ -211,7 +211,7 @@ public class BusinessController extends BaseController {
      * @param 无参数 
      * @return
      */
-    @RequestMapping(value = "getSearchBusinessList", method = RequestMethod.GET)
+    @RequestMapping(value = "getSearchBusinessList.json", method = RequestMethod.GET)
     public AjaxResult getSearchBusinessList(){
         try {
             Page<CompanyCount> page = businessService.getBusinessList();
