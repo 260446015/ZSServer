@@ -45,10 +45,6 @@ public class MsgConstant {
      * 账号过期
      */
     public static final String ACCOUNTEXPIRED = "账号过期";
-    /**
-     * 多次重复登录
-     */
-    public static final String REPETITIVEOPERATION = "已经登录,如需更换账号请先注销登录";
 
     /**
      * 系统异常

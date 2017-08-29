@@ -124,7 +124,7 @@ public class LoginController extends BaseController {
 				message = MsgConstant.ACCOUNTEXPIRED;
 			}
 		} else if (null != getCurrentShiroUser()) {
-			message = MsgConstant.REPETITIVEOPERATION;
+			return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
 		}
 		return error(message);
 	}
