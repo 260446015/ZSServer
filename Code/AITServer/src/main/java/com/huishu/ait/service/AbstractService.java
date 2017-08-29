@@ -296,10 +296,11 @@ public abstract class AbstractService {
 		}
 		//不包含条件
 		if(null!=notTermField&&notTermField.size()!=0){
-			for (String key : termField.keySet()) {
-				bq.mustNot(QueryBuilders.termQuery(key,termField.get(key)));
+			for (String key : notTermField.keySet()) {
+				bq.mustNot(QueryBuilders.termQuery(key,notTermField.get(key)));
 			}
 		}
+		
 		SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 		//按orderField包含的字段降序排列
 		if(null!=orderField&&orderField.size()!=0){
