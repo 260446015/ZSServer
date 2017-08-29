@@ -143,7 +143,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			// findGardensPage =
 			// gardenRepository.findByNameLike(searchName,pageRequest);
 			// }else{//
-			findGardensPage = gardenRepository.findByAreaLikeAndLeadingIndustryLikeOrderByIdDesc(area, industryType,
+			findGardensPage = gardenRepository.findByAreaLikeAndIndustryLikeOrderByIdDesc(area, industryType,
 					pageRequest);
 			// }
 			data.add(findGardensPage);
