@@ -159,6 +159,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 						jsonObject.put("businessType", source.get("businessType"));
 						jsonObject.put("area", source.get("area"));
 						jsonObject.put("total", source.get("total"));
+						jsonObject.put("summary", source.get("summary"));
 						data.add(jsonObject);
 					}
 				}
