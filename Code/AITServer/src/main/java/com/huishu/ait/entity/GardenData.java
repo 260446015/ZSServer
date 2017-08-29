@@ -72,6 +72,8 @@ public class GardenData implements Serializable{
     private String gardenPicture;
     @Column(name = "remarks") /**备注  */
     private String remarks;
+    /**主导产业一级目录*/
+    private String industry;
     
     public GardenData() {
         super();
@@ -261,7 +263,13 @@ public class GardenData implements Serializable{
         this.remarks = remarks;
     }
     
-    @Override
+    public String getIndustry() {
+		return industry;
+	}
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+	@Override
     public String toString() {
         return "GardenData [id=" + id + ", gardenName=" + gardenName + ", gardenNewName=" + gardenNewName + ", area="
                 + area + ", gardenWebsite=" + gardenWebsite + ", address=" + address + ", gardenLevel=" + gardenLevel

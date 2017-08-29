@@ -143,7 +143,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			// findGardensPage =
 			// gardenRepository.findByNameLike(searchName,pageRequest);
 			// }else{//
-			findGardensPage = gardenRepository.findByAreaLikeAndLeadingIndustryLikeOrderByIdDesc(area, industryType,
+			findGardensPage = gardenRepository.findByAreaLikeAndIndustryLikeOrderByIdDesc(area, industryType,
 					pageRequest);
 			// }
 			data.add(findGardensPage);
@@ -327,6 +327,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				JSONObject obj = new JSONObject();
 				obj.put("name", industry.getArea());
 				obj.put("count", industry.getCount());
+				obj.put("industry", industry.getIndustry());
 				int value = 0;
 				switch (industry.getIndustry()) {
 				case "互联网+":
