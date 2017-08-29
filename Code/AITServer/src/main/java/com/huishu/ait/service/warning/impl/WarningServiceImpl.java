@@ -42,14 +42,17 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("dimension", "疑似外流");
 		map.put("emotion", DBConstant.Emotion.NEGATIVE);
+		// 组装not条件
+		Map<String, String> mapnot = new HashMap<String, String>();
+		mapnot.put("park", searchModel.getPark());
 		// 组装排序字段,按时间和点击量降序排列
 		String[] order = { "publishDate", "hitCount" };
 		List<String> orderList = Arrays.asList(order);
 		// 组装返回数据字段
 		String[] data = { "publishDate","business", "title", "content","warnTime","park"};
 		List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, null,orderList, dataList,true);
-		JSONArray array2 = new JSONArray();
+		JSONArray array = getEsData(searchModel, map, mapnot,orderList, dataList,true);
+		/*JSONArray array2 = new JSONArray();
 		for (Object object : array) {
 			JSONObject json=(JSONObject)object;
 			if(!searchModel.getPark().equals(json.get("park"))){
@@ -57,7 +60,8 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 			}
 		}
 		searchModel.setTotalSize(array2.size());
-		return array2;
+		return array2;*/
+		return array;
 	}
 
 	@Override
