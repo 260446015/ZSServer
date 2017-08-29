@@ -63,14 +63,13 @@ public class BusinessServiceImpl implements BusinessService {
     public Page<AITInfo> getBusinessBehaviours(BusinessSuperviseDTO dto) {
         final List<String> EMOTIONS = Arrays.asList("neutral", "negative", "positive");
         String park = dto.getPark();
-        String business = dto.getBusiness();
         String emotion = dto.getEmotion();
         String dimension = dto.getDimension();
         PageRequest pageable = dto.builderPageRequest();
         try{
             Page<AITInfo> page = null;
             if (EMOTIONS.contains(emotion)) {
-                page = businessRepository.findByParkAndEmotionAndDimension(business, emotion, dimension, pageable);
+                page = businessRepository.findByParkAndEmotionAndDimension(park, emotion, dimension, pageable);
             } else {
                 page = businessRepository.findByParkAndDimension(park, dimension, pageable);
             }

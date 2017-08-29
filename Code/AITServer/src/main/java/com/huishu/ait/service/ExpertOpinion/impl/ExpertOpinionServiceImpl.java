@@ -20,6 +20,10 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,40 +134,16 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			String author = requestParam.getAuthor();
 			int pageNumber = requestParam.getPageNumber();
 			int pageSize = requestParam.getPageSize();
-			int from = pageNumber*pageSize-pageSize;
 			
-			SearchRequestBuilder requestBuilder = ESUtils.getSearchRequestBuilder(client);
+			Sort sort = new Sort(Direction.DESC, "publishTime");
+			PageRequest pageRequest = new PageRequest(pageNumber-1, pageSize, sort);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			bq.must(QueryBuilders.termQuery("dimension", Constans.ZHUANJIALUN));
 			if (StringUtils.isNotBlank(author)) {
 				bq.must(QueryBuilders.termQuery("author", author));
 			}
-			SearchResponse actionGet = requestBuilder.setQuery(bq)
-					.addSort("publishTime", SortOrder.DESC)
-					.setFrom(from).setSize(pageSize)
-					.execute().actionGet();
-			SearchHits hits = actionGet.getHits();
-			if (null != hits) {
-				for (SearchHit hit : hits) {
-					Map<String, Object> source = hit.getSource();
-					if (null!= source && source.size() > 0) {
-						source.put("_id", hit.getId());
-						source.put("total", hits.getTotalHits());
-						JSONObject jsonObject = new JSONObject();
-						jsonObject.put("id", source.get("_id"));
-						jsonObject.put("title", source.get("title"));
-						jsonObject.put("content", source.get("content"));
-						jsonObject.put("dimension", source.get("dimension"));
-						jsonObject.put("publishDate", source.get("publishDate"));
-						jsonObject.put("business", source.get("business"));
-						jsonObject.put("businessType", source.get("businessType"));
-						jsonObject.put("area", source.get("area"));
-						jsonObject.put("total", source.get("total"));
-						jsonObject.put("summary", source.get("summary"));
-						data.add(jsonObject);
-					}
-				}
-			}
+			Page<AITInfo> page = baseElasticsearch.search(bq, pageRequest);
+			data.add(page);
 			return data;
 		} catch (Exception e) {
 			log.error("查询失败：",e);
