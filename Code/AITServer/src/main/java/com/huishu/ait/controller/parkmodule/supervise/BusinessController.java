@@ -97,14 +97,14 @@ public class BusinessController extends BaseController {
      * @return
      */
     @RequestMapping(value = "getParkBehaviours.json", method = RequestMethod.POST)
-    public AjaxResult getParkBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
-        if (dto == null || dto.getMsg().length == 0) {
-            return error(MsgConstant.ILLEGAL_PARAM);
-        }
-        String[] msg = dto.getMsg();
+    public AjaxResult getParkBusinessBehaviours(){
+    	if(StringUtil.isEmpty(getUserPark())){
+    		return error(MsgConstant.ILLEGAL_PARAM);
+    	}
+    	BusinessSuperviseDTO dto = new BusinessSuperviseDTO();
         JSONArray array = new JSONArray();
         try {
-            dto.setPark(msg[0]);
+            dto.setPark(getUserPark());
             initPage(dto);
             dto.setDimension("园区动态");
             Page<AITInfo> page = businessService.getBusinessBehaviours(dto);
@@ -211,7 +211,7 @@ public class BusinessController extends BaseController {
      * @param 无参数 
      * @return
      */
-    @RequestMapping(value = "getSearchBusinessList", method = RequestMethod.GET)
+    @RequestMapping(value = "getSearchBusinessList.json", method = RequestMethod.GET)
     public AjaxResult getSearchBusinessList(){
         try {
             Page<CompanyCount> page = businessService.getBusinessList();
