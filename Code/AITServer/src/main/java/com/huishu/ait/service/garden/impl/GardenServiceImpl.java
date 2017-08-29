@@ -327,6 +327,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				JSONObject obj = new JSONObject();
 				obj.put("name", industry.getArea());
 				obj.put("count", industry.getCount());
+				obj.put("industry", industry.getIndustry());
 				int value = 0;
 				switch (industry.getIndustry()) {
 				case "互联网+":
