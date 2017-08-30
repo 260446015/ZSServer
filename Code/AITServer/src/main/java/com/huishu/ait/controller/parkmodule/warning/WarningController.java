@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
@@ -115,4 +116,18 @@ public class WarningController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
+	/**
+	 * 获取辖区预警数量
+	 */
+	@RequestMapping(value="getGardenWarningCout.json",method=RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getGardenWarningCout(){
+		AreaSearchDTO searchModel = new AreaSearchDTO();
+		searchModel.setPark(getUserPark());
+		JSONObject obj = new JSONObject();
+		JSONArray arr = warningService.getBusinessOutflowList(searchModel);
+		obj.put("count", arr.size());
+		return success(obj);
+	}
+	
 }

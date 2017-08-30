@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,10 +57,10 @@ public class ExpertOpinionController extends BaseController{
 	 * @return
 	 * 获取专家信息列表
 	 */
-	@RequestMapping(value = "getSpecialist.json",method=RequestMethod.GET)
-	public AjaxResult getSpecialist(){
+	@RequestMapping(value = "getSpecialist.json",method=RequestMethod.POST)
+	public AjaxResult getSpecialist(@RequestBody ExpertOpinionDTO dto){
 		try {
-			List<Specialist> findAll = specialistService.findAll();
+			Page<Specialist> findAll = specialistService.findAll(dto);
 			return this.success(findAll);
 		} catch (Exception e) {
 			log.error("查询失败：",e.getMessage());
