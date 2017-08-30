@@ -26,10 +26,11 @@ public class SpecialServiceImpl implements SpecialistService {
 	private SpecialistRepository specialRepository;   
 	
 	@Override
-	public Page<Specialist> findAll(ExpertOpinionDTO dto) {
-		Sort sort = new Sort(Direction.DESC, "id");
-		PageRequest request = new PageRequest(dto.getPageNumber(), dto.getPageSize(), sort);
-		return specialRepository.findSpecialistOrderById(request);
+	public Page<Specialist> findAllOrderById(ExpertOpinionDTO dto) {
+		Sort sort = new Sort(Direction.ASC, "id");
+		PageRequest request = new PageRequest(dto.getPageNumber(), dto.getPageSize(),sort);
+		Page<Specialist> page = specialRepository.findAll(request);
+		return page;
 	}
 
 	@Override

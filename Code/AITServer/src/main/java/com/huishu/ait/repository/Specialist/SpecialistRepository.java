@@ -2,7 +2,7 @@ package com.huishu.ait.repository.Specialist;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.huishu.ait.entity.Specialist;
 
@@ -13,10 +13,10 @@ import com.huishu.ait.entity.Specialist;
  * @return 
  * 
  */
-public interface SpecialistRepository extends CrudRepository<Specialist, Long>  {
+public interface SpecialistRepository extends PagingAndSortingRepository<Specialist, Long>  {
 
 	Specialist getSpecialistByName(String name);
 	
-	Page<Specialist> findSpecialistOrderById(Pageable pageable);
+	Page<Specialist> findAllOrderById(Pageable pageable);
 
 }

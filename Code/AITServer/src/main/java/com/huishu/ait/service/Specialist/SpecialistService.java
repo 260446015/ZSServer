@@ -9,7 +9,7 @@ import com.huishu.ait.es.entity.ExpertOpinionDTO;
 
 public interface SpecialistService {
 
-	Page<Specialist> findAll(ExpertOpinionDTO dto);
+	Page<Specialist> findAllOrderById(ExpertOpinionDTO dto);
 
 	Specialist getSpecialistById(String id);
 

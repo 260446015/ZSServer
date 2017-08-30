@@ -60,7 +60,7 @@ public class ExpertOpinionController extends BaseController{
 	@RequestMapping(value = "getSpecialist.json",method=RequestMethod.POST)
 	public AjaxResult getSpecialist(@RequestBody ExpertOpinionDTO dto){
 		try {
-			Page<Specialist> findAll = specialistService.findAll(dto);
+			Page<Specialist> findAll = specialistService.findAllOrderById(dto);
 			return this.success(findAll);
 		} catch (Exception e) {
 			log.error("查询失败：",e.getMessage());
