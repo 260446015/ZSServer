@@ -54,7 +54,6 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/getPhoneCaptcha.json", "anon");
 		filterChainDefinitionMap.put("/apis/findPassword.json", "anon");
 		filterChainDefinitionMap.put("/apis/login.do", "anon");
-		filterChainDefinitionMap.put("/apis/tologin.do", "anon");
 		filterChainDefinitionMap.put("/apis/unauthorized.do", "anon");
 		
 		filterChainDefinitionMap.put("/apis/business/**", "authc,perms[Industrymodule,parkmodule]");
@@ -72,7 +71,7 @@ public class ShiroConfiguration {
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
-		shiroFilterFactoryBean.setLoginUrl("/apis/tologin.do");
+		shiroFilterFactoryBean.setLoginUrl("/apis/login.do");
 		shiroFilterFactoryBean.setSuccessUrl("/");
 		shiroFilterFactoryBean.setUnauthorizedUrl("/apis/unauthorized.do");
 		return shiroFilterFactoryBean;
