@@ -21,12 +21,6 @@ public interface WarningService {
 	 */
 	JSONArray getBusinessOutflowList(AreaSearchDTO searchModel);
 	/**
-	 * 根据ID获取取疑似外流企业详情
-	 * @param id     疑似外流企业ID
-	 * @return
-	 */
-	GardenInformation getBusinessOutflowById(String id);
-	/**
 	 * 获取信息变更预警列表
 	 * @param searchModel    查询条件
 	 * @return

@@ -68,20 +68,6 @@ public class ExpertOpinionController extends BaseController{
 		}
 	}
 	/**
-	 * @return
-	 * 根据姓名获取专家信息列表
-	 */
-	@RequestMapping(value = "getSpecialistById.json",method=RequestMethod.GET)
-	public AjaxResult getSpecialistById(String id){
-		try {
-			Specialist specialist = specialistService.getSpecialistById(id);
-			return this.success(specialist);
-		} catch (Exception e) {
-			log.error("查询失败：",e.getMessage());
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-	}
-	/**
 	 * @param requestParam
 	 * @return
 	 * 查询百家论信息
@@ -120,21 +106,6 @@ public class ExpertOpinionController extends BaseController{
 			requestParam = initPage(requestParam);
 			JSONArray jsonArray = expertOpinionService.findExpertOpinionByAuthor(requestParam);
 			return this.success(jsonArray);
-		} catch (Exception e) {
-			log.error("查询失败：",e.getMessage());
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-	}
-	/**
-	 * @param id
-	 * @return
-	 * 根据ID查询专家观点详情
-	 */
-	@RequestMapping(value = "findExpertOpinionById.json",method=RequestMethod.GET)
-	public AjaxResult getExpertOpinionById(String id){
-		try {
-			JSONObject json = expertOpinionService.findExpertOpinionById(id);
-			return this.success(json);
 		} catch (Exception e) {
 			log.error("查询失败：",e.getMessage());
 			return error(MsgConstant.ILLEGAL_PARAM);

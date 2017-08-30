@@ -60,27 +60,6 @@ public class GardenController extends BaseController {
 	}
 
 	/**
-	 * 辖区政策详情
-	 * 
-	 * @param id
-	 *            政策ID
-	 * @return
-	 */
-	@RequestMapping(value = "getGardenPolicyById.json", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult getGardenPolicyById(String id) {
-		if (StringUtil.isEmpty(id)) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		try {
-			return success(gardenService.getGardenPolicyById(id));
-		} catch (Exception e) {
-			LOGGER.error("getGardenPolicyById查询失败！", e);
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-	}
-
-	/**
 	 * 辖区情报列表
 	 * 
 	 * @param searchModel
@@ -99,27 +78,6 @@ public class GardenController extends BaseController {
 			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
 			LOGGER.error("getGardenInformationList查询失败！", e);
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-	}
-
-	/**
-	 * 辖区情报详情
-	 * 
-	 * @param id
-	 *            动态ID
-	 * @return
-	 */
-	@RequestMapping(value = "getGardenInformationById.json", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult getGardenInformationById(String id) {
-		if (StringUtil.isEmpty(id)) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		try {
-			return success(gardenService.getGardenInformationById(id));
-		} catch (Exception e) {
-			LOGGER.error("getGardenInformationById查询失败！", e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
@@ -234,25 +192,6 @@ public class GardenController extends BaseController {
 			return error(e.getMessage());
 		}
 		return success(aITInfos);
-	}
-
-	/**
-	 * 获取园区动态详情信息
-	 */
-	@RequestMapping(value = "/findGardensConditionById", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult findGardensConditionById(String cid) {
-		if (StringUtil.isEmpty(cid)) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		JSONObject obj = null;
-		try {
-			obj = gardenService.findGardensConditionById(cid);
-		} catch (Exception e) {
-			LOGGER.error("根据id查询园区动态失败!", e);
-			return error(e.getMessage());
-		}
-		return success(obj);
 	}
 
 	/**

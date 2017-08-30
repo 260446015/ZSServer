@@ -27,15 +27,6 @@ public interface GardenService {
 	JSONArray getGardenPolicyList(AreaSearchDTO searchModel);
 
 	/**
-	 * 根据政策ID获取政策详情
-	 * 
-	 * @param id
-	 *            政策ID
-	 * @return
-	 */
-	GardenPolicy getGardenPolicyById(String id);
-
-	/**
 	 * 获取园区的动态列表
 	 * 
 	 * @param searchModel
@@ -43,15 +34,6 @@ public interface GardenService {
 	 * @return
 	 */
 	JSONArray getGardenInformationList(AreaSearchDTO searchModel);
-
-	/**
-	 * 根据动态ID获取动态详情
-	 * 
-	 * @param id
-	 *            动态ID
-	 * @return
-	 */
-	GardenInformation getGardenInformationById(String id);
 
 	/**
 	 * 获取园区的龙头企业列表
@@ -109,15 +91,6 @@ public interface GardenService {
 	 *            传入想要关注的园区id,传入用户id,传入关注/取消操作,true是关注,false是取消
 	 */
 	GardenUser attentionGarden(String gardenId, String userId, boolean flag);
-
-	/**
-	 * 根据园区动态列表查询到动态详情
-	 * 
-	 * @param cid
-	 *            园区动态id
-	 * @return
-	 */
-	JSONObject findGardensConditionById(String cid);
 
 	/**
 	 * 根据地区查询到园区列表

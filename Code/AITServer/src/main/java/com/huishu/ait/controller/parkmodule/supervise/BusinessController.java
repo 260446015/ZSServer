@@ -97,11 +97,10 @@ public class BusinessController extends BaseController {
      * @return
      */
     @RequestMapping(value = "getParkBehaviours.json", method = RequestMethod.POST)
-    public AjaxResult getParkBusinessBehaviours(){
+    public AjaxResult getParkBusinessBehaviours(@RequestBody BusinessSuperviseDTO dto){
     	if(StringUtil.isEmpty(getUserPark())){
     		return error(MsgConstant.ILLEGAL_PARAM);
     	}
-    	BusinessSuperviseDTO dto = new BusinessSuperviseDTO();
         JSONArray array = new JSONArray();
         try {
             dto.setPark(getUserPark());
@@ -131,26 +130,6 @@ public class BusinessController extends BaseController {
         }
     }
     
-    /**
-     * @author jdz 
-     * @param id 企业动态详情
-     * @return 企业动态详情
-     * createDate 2017-8-3
-     */ 
-    @RequestMapping(value="/getBusinessBehaviourDetail.json",method=RequestMethod.GET)
-    public AjaxResult getBusinessBehaviourDetail(String id){
-        try{
-            if(null == id || StringUtil.isEmpty(id)){
-                return error(MsgConstant.ILLEGAL_PARAM);
-            }
-            JSONArray array = businessService.getBusinessBehaviourDetail(id);
-            return success(array);
-        }
-        catch(Exception e){
-            LOGGER.error("获取企业动态详情失败：",e);
-            return error(MsgConstant.ILLEGAL_PARAM);
-        }
-    }
     /**
      * 关键字查询企业动态列表
      * @param dto msg[park,keyword]

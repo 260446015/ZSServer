@@ -56,26 +56,6 @@ public class CompanyController extends BaseController {
 	}
 
 	/**
-	 * 查询企业排行榜详情内容
-	 * 
-	 * @param coid
-	 * @return
-	 */
-	@RequestMapping(value = "/findCompanieOrderById", method = RequestMethod.GET)
-	public AjaxResult findCompanieOrderById(String coid) {
-		if (StringUtil.isEmpty(coid)) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		JSONObject obj = null;
-		try {
-			obj = cs.findCompanieOrderById(coid);
-		} catch (Exception e) {
-			LOGGER.error("给据企业排行榜id查询失败", e);
-		}
-		return success(obj);
-	}
-
-	/**
 	 * 初始化分页
 	 * 
 	 * @param dto

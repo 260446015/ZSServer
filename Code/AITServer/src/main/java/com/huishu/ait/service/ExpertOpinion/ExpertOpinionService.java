@@ -15,8 +15,6 @@ public interface ExpertOpinionService {
 	JSONArray getExertOpinionList(ExpertOpinionDTO expertOpinionDTO);
 	//根据作者查询专家观点
 	JSONArray findExpertOpinionByAuthor(ExpertOpinionDTO requestParam);
-	//根据id查询专家观点详情
-	JSONObject findExpertOpinionById(String id);
 	//收藏专家观点文章
 	public JSONObject expertOpinionCollect(String id);
 	//取消收藏专家观点文章

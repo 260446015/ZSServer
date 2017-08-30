@@ -38,10 +38,4 @@ public interface HeadlinesService {
 	 * @return
 	 */
 	Page<HeadlinesArticleListDTO> findArticleByKeyWord(HeadlinesDTO headlinesDTO);
-	/**
-	 * 根据id查询文章信息
-	 * @param id
-	 * @return
-	 */
-	AITInfo findArticleById(String id);
 }

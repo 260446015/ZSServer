@@ -33,11 +33,4 @@ public class SpecialServiceImpl implements SpecialistService {
 		return page;
 	}
 
-	@Override
-	public Specialist getSpecialistById(String id) {
-		return specialRepository.findOne(Long.parseLong(id));
-	}
-
-	
-
 }

@@ -189,17 +189,6 @@ public class HeadlinesController extends BaseController {
 		}
 	}
 	/**
-	 * 产业头条--根据文章id查看文章详情（针对载体文章和关键词文章）
-	 * @param id
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value="/getArticleById.json",method=RequestMethod.GET )
-	public AjaxResult getVectorArticleById(@RequestBody String id){
-		AITInfo byId = service.findArticleById(id);
-		return success(byId);
-	}
-	/**
      * 时间初始处理 yyyy-MM-dd
      * @param dto
      * @return

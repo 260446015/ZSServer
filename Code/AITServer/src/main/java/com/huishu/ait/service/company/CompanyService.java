@@ -13,11 +13,4 @@ public interface CompanyService {
 	 * @return
 	 */
 	JSONArray findCompaniesOder(CompanyDTO dto);
-
-	/**
-	 * 根据企业排行榜id查询详细
-	 * @param coid 传递企业排行榜的id
-	 * @return
-	 */
-	JSONObject findCompanieOrderById(String coid);
 }

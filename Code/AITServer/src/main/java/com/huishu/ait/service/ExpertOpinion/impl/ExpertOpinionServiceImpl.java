@@ -151,23 +151,6 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 		}
 	}
 
-	/* 
-	 * 方法名：findExpertOpinionById
-	 * 描述：通过id查询文章详情
-	 */
-	@Override
-	public JSONObject findExpertOpinionById(String id) {
-		try {
-			JSONObject jsonObject = new JSONObject();
-			AITInfo aitInfo = baseElasticsearch.findOne(id);
-			jsonObject = (JSONObject) JSONObject.toJSON(aitInfo);
-			return jsonObject;
-		} catch (Exception e) {
-			log.error("查询失败：",e);
-			return null;
-		}
-	}
-	
 	/**
 	 * 收藏专家观点
 	 */
