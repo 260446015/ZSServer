@@ -74,7 +74,11 @@
 		<form>
 		    <fieldset>
 		        <div>
-		            <lable>查看个人信息:</lable>
+		            <lable>查看个人信息(
+					   <#if Session.isLogin?exists>  
+							${Session.isLogin}   
+						</#if>  
+					):</lable>
 		            <input type="button" value="查看" onclick="my()"/>
 		            <input type="button" value="登出" onclick="logout()"/>
 		        </div>

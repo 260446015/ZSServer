@@ -1,5 +1,9 @@
 package com.huishu.ait.service.user.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,19 +53,32 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 		if (email != null) {
 			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_REPEAT);
 		}
-		UserBase base = new UserBase();
-		byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
-		base.setSalt(Encodes.encodeHex(salt));
-		byte[] password = Digests.sha1(ConfConstant.DEFAULT_PASSWORD.getBytes(), salt, Encodes.HASH_INTERATIONS);
-		base.setPassword(Encodes.encodeHex(password));
-		base.setTelphone(dto.getTelphone());
-		base.setUserAccount(dto.getUserAccount());
-		base.setUserComp(dto.getCompany());
-		base.setUserDepartment(dto.getDepartment());
-		base.setUserEmail(dto.getUserEmail());
-		base.setUserPark(dto.getPark());
-		base.setUserType(dto.getUserType());
-		UserBase save = userBaseRepository.save(base);
+		UserBase save=null;
+		try {
+			UserBase base = new UserBase();
+			byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
+			base.setSalt(Encodes.encodeHex(salt));
+			byte[] password = Digests.sha1(ConfConstant.DEFAULT_PASSWORD.getBytes(), salt, Encodes.HASH_INTERATIONS);
+			base.setPassword(Encodes.encodeHex(password));
+			base.setTelphone(dto.getTelphone());
+			base.setUserAccount(dto.getUserAccount());
+			base.setUserComp(dto.getCompany());
+			base.setUserDepartment(dto.getDepartment());
+			base.setUserEmail(dto.getUserEmail());
+			base.setUserPark(dto.getPark());
+			base.setUserType(dto.getUserType());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Calendar c = Calendar.getInstance();  
+			c.setTime(new Date());
+			Calendar nextDate = (Calendar) c.clone();  
+			nextDate.add(Calendar.MONTH, +1);  
+			base.setCreateTime(sdf.format(new Date()));
+			base.setUserLevel(0);
+			base.setExpireTime(sdf.format(nextDate.getTime()));
+			save = userBaseRepository.save(base);
+		} catch (Exception e) {
+			LOGGER.error("保存用户信息出错", e);
+		}
 		if (save == null) {
 			return result.setSuccess(false).setMessage(MsgConstant.REGISTER_ERROR);
 		}

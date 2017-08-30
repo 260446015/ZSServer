@@ -71,9 +71,17 @@ public class UserBase implements Serializable {
 	@Column(name = "create_time")
 	private String createTime;
 	
+	/**会员到期时间*/
+	@Column(name = "expire_time")
+	private String expireTime;
+	
 	/**用户类型*/
 	@Column(name = "user_type")
 	private String userType;
+	
+	/**会员等级(0:试用,1:A级会员,2：B级会员,3：C级会员)*/
+	@Column(name = "user_level")
+	private Integer userLevel;
 	
 	/**用户权限，不存数据库*/
 	@Transient
@@ -181,6 +189,22 @@ public class UserBase implements Serializable {
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getExpireTime() {
+		return expireTime;
+	}
+
+	public void setExpireTime(String expireTime) {
+		this.expireTime = expireTime;
+	}
+
+	public Integer getUserLevel() {
+		return userLevel;
+	}
+
+	public void setUserLevel(Integer userLevel) {
+		this.userLevel = userLevel;
 	}
 
 	@Override

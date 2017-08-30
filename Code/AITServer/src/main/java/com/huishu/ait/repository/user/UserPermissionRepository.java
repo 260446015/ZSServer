@@ -15,10 +15,10 @@ import com.huishu.ait.entity.UserPermission;
 public interface UserPermissionRepository extends CrudRepository<UserPermission,Long>{
 
 	/**
-	 * 通过用户ID查找改用户所拥有的权限
+	 * 根据会员等级查找改用户所拥有的权限
 	 * @param userId
 	 * @return
 	 */
-	@Query("select permissionId from UserPermission where userId = ?1")
-	List<Long> findPermissionIdByAdminId(Long userId);
+	@Query("select permissionId from UserPermission where userLevel = ?1")
+	List<Long> findPermissionIdByUserLevel(int userLevel);
 }

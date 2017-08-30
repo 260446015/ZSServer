@@ -20,9 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.huishu.ait.entity.Permission;
 import com.huishu.ait.entity.UserBase;
-import com.huishu.ait.repository.user.PermissionRepository;
-import com.huishu.ait.repository.user.UserBaseRepository;
-import com.huishu.ait.repository.user.UserPermissionRepository;
+import com.huishu.ait.service.user.PermissionService;
+import com.huishu.ait.service.user.UserBaseService;
+import com.huishu.ait.service.user.UserPermissionService;
 
 /**
  * 身份校验核心类
@@ -34,11 +34,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ShiroDbRealm.class);
 
 	@Autowired
-	private UserBaseRepository userBaseRepository;
+	private UserBaseService userBaseService;
 	@Autowired
-	private UserPermissionRepository userPermissionRepository;
+	private UserPermissionService userPermissionService;
 	@Autowired
-	private PermissionRepository permissionRepository;
+	private PermissionService permissionService;
 	
 	/**
 	 * 授权
@@ -49,14 +49,15 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		ShiroUser user  = (ShiroUser)principals.getPrimaryPrincipal();
 		authorizationInfo.addRole(user.type);
-		List<Long> permissionIds = userPermissionRepository.findPermissionIdByAdminId(user.getId());
+		//获取权限
+		List<Long> permissionIds = userPermissionService.getPermissionIdsByUserLevel(user.getUserLevel());
 		if (permissionIds != null && permissionIds.size()!=0) {
+			authorizationInfo.addRole(user.getUserLevel().toString());
 			for (Long permissionId : permissionIds) {
-				Permission permission = permissionRepository.findOne(permissionId);
+				Permission permission = permissionService.getPermissionByPermissionId(permissionId);
 				authorizationInfo.addStringPermission(permission.getPermissionName());
 			}
 		}
-		
 		return authorizationInfo;
 	}
 
@@ -68,18 +69,15 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		CaptchaUsernamePasswordToken myToken =(CaptchaUsernamePasswordToken) token;
 		//获取用户的输入的账号.
 		String userAccount = myToken.getUsername();
-		UserBase user = userBaseRepository.findByUserAccount(userAccount);
+		UserBase user = userBaseService.findUserByUserAccount(userAccount);
 		if(user==null){
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("user {} is not exist.", myToken.getUsername());
 			}
 			throw new IncorrectCredentialsException();
 		}
-		//获取权限
-		List<Long> permissions = userPermissionRepository.findPermissionIdByAdminId(user.getId());
-		user.setPermissions(permissions);
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-    		   new ShiroUser(user.getId(),user.getUserAccount(),user.getRealName(),user.getUserType(),user.getUserPark()),
+    		   new ShiroUser(user.getId(),user.getUserAccount(),user.getRealName(),user.getUserType(),user.getUserPark(),user.getUserLevel()),
 				user.getPassword(),
 				ByteSource.Util.bytes(user.getSalt()),
 				getName());
@@ -96,14 +94,26 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		private String name;
 		private String type;
 		private String park;
+		private Integer userLevel;
 		
-		public ShiroUser(Long id, String loginName, String name, String type, String park) {
+		public ShiroUser(Long id, String loginName, String name, String type, String park,Integer userLevel) {
 			super();
 			this.id = id;
 			this.loginName = loginName;
 			this.name = name;
 			this.type = type;
 			this.park = park;
+			this.userLevel = userLevel;
+		}
+
+
+		public Integer getUserLevel() {
+			return userLevel;
+		}
+
+
+		public void setUserLevel(Integer userLevel) {
+			this.userLevel = userLevel;
 		}
 
 

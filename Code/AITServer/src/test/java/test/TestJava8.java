@@ -1,14 +1,25 @@
 package test;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 public class TestJava8 {
+	@Test
+	public void testData(){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar c = Calendar.getInstance();  
+	    c.setTime(new Date());
+	    Calendar nextDate = (Calendar) c.clone();  
+	    nextDate.add(Calendar.MONTH, +1);  
+	    System.out.println("今天"+sdf.format(new Date()));
+	    System.out.println("下个月"+sdf.format(nextDate.getTime()));
+		
+	}
 	@Test
 	public void aa(){
 		String[] atp = {"Rafael Nadal", "Novak Djokovic",  

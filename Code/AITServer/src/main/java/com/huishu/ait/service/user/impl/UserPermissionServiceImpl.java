@@ -15,8 +15,8 @@ public class UserPermissionServiceImpl implements UserPermissionService {
 	private UserPermissionRepository userPermissionRepository;
 	
 	@Override
-	public List<Long> getPermissionIdsByUserId(Long userId) {
-		return userPermissionRepository.findPermissionIdByAdminId(userId);
+	public List<Long> getPermissionIdsByUserLevel(Integer userLevel) {
+		return userPermissionRepository.findPermissionIdByUserLevel(userLevel);
 	}
 
 }
