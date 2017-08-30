@@ -1,5 +1,6 @@
 package test;
 
+import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.action.search.SearchRequestBuilder;
@@ -17,7 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.huishu.ait.app.Application;
 import com.huishu.ait.common.conf.DBConstant;
-import com.huishu.ait.entity.UserBase;
+import com.huishu.ait.repository.user.UserPermissionRepository;
 import com.huishu.ait.service.user.UserBaseService;
 
 //这是JUnit的注解，通过这个注解让SpringJUnit4ClassRunner这个类提供Spring测试上下文。  
@@ -29,13 +30,15 @@ public class TestLogin {
 	@Autowired
 	private UserBaseService userBaseService;
 	@Autowired
+	private UserPermissionRepository userPermissionService;
+	@Autowired
 	private Client client;
 	
 	@Test
 	public void login(){
-		System.out.println("==================================");
-		UserBase user = userBaseService.findUserByTelphone("789");
-		System.out.println(user);
+		System.out.println("--------------------------------------");
+		List<Long> permissionIds = userPermissionService.findPermissionIdByUserLevel(3);
+		System.out.println("权限"+permissionIds);
 	}
 	@Test
 	public void aaa(){

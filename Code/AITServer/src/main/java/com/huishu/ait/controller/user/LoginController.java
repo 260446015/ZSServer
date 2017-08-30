@@ -77,18 +77,26 @@ public class LoginController extends BaseController {
 	}
 	
 	/**
-	 * 模板页
+	 * 未登录
 	 * 
-	 * @param request
-	 *            请求
 	 * @return 返回消息
 	 */
 	@RequestMapping(value = "apis/login.do", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult login(HttpServletRequest request) {
-		return error("请先登录").setStatus(2);
+	public AjaxResult login() {
+		return error("请先登录").setStatus(44020);
 	}
-
+	
+	/**
+	 * 没有权限
+	 * 
+	 * @return 返回消息
+	 */
+	@RequestMapping(value = "apis/unauthorized.do", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult unauthorized() {
+		return error("您没有该权限").setStatus(44001);
+	}
 	/**
 	 * 登录过滤器放行后进入此接口
 	 * 

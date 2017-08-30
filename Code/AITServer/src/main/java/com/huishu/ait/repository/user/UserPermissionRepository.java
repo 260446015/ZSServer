@@ -12,13 +12,13 @@ import com.huishu.ait.entity.UserPermission;
  * @author yindq
  * @date 2017年8月8日
  */
-public interface UserPermissionRepository extends CrudRepository<UserPermission,Long>{
+public interface UserPermissionRepository extends CrudRepository<UserPermission,Integer>{
 
 	/**
 	 * 根据会员等级查找改用户所拥有的权限
 	 * @param userId
 	 * @return
 	 */
-	@Query("select permissionId from UserPermission where userLevel = ?1")
-	List<Long> findPermissionIdByUserLevel(int userLevel);
+	@Query("select permissionId from UserPermission where userLevel = ?")
+	List<Long> findPermissionIdByUserLevel(Integer userLevel);
 }

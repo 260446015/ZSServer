@@ -30,7 +30,7 @@ public class UserPermission implements Serializable {
 	
 	/**会员等级*/
 	@Column(name = "user_level", nullable = false)
-	private Long userLevel;
+	private Integer userLevel;
 	
 	/**权限id*/
 	@Column(name = "permission_id", nullable = false)
@@ -44,11 +44,11 @@ public class UserPermission implements Serializable {
 		this.id = id;
 	}
 
-	public Long getUserLevel() {
+	public Integer getUserLevel() {
 		return userLevel;
 	}
 
-	public void setUserLevel(Long userLevel) {
+	public void setUserLevel(Integer userLevel) {
 		this.userLevel = userLevel;
 	}
 

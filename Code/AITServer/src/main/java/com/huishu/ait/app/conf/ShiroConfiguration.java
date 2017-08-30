@@ -54,8 +54,10 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/getPhoneCaptcha.json", "anon");
 		filterChainDefinitionMap.put("/apis/findPassword.json", "anon");
 		filterChainDefinitionMap.put("/apis/login.do", "anon");
+		filterChainDefinitionMap.put("/apis/tologin.do", "anon");
+		filterChainDefinitionMap.put("/apis/unauthorized.do", "anon");
 		
-/*		filterChainDefinitionMap.put("/apis/business/**", "authc,perms[Industrymodule,parkmodule]");
+		filterChainDefinitionMap.put("/apis/business/**", "authc,perms[Industrymodule,parkmodule]");
 		filterChainDefinitionMap.put("/apis/expert/**", "authc,perms[Industrymodule]");
 		filterChainDefinitionMap.put("/apis/area/**", "authc,perms[Industrymodule]");
 		filterChainDefinitionMap.put("/apis/Headlines/**", "authc,perms[Industrymodule]");
@@ -64,15 +66,15 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/supervise/**", "authc,perms[parkmodule]");
 		
 		filterChainDefinitionMap.put("/apis/indus/**", "authc,perms[Investmentmodule]");
-		filterChainDefinitionMap.put("/apis/comp/**", "authc,perms[Investmentmodule]");*/
+		filterChainDefinitionMap.put("/apis/comp/**", "authc,perms[Investmentmodule]");
 		filterChainDefinitionMap.put("/apis/**", "authc");
 //		filterChainDefinitionMap.put("/apis/**", "anon");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
-		shiroFilterFactoryBean.setLoginUrl("/apis/login.do");
+		shiroFilterFactoryBean.setLoginUrl("/apis/tologin.do");
 		shiroFilterFactoryBean.setSuccessUrl("/");
-		shiroFilterFactoryBean.setUnauthorizedUrl("/login");
+		shiroFilterFactoryBean.setUnauthorizedUrl("/apis/unauthorized.do");
 		return shiroFilterFactoryBean;
 	}
 	
