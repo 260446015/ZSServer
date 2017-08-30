@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.annotation.Resource;
 
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -17,14 +16,13 @@ import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.dto.CompanyDTO;
-import com.huishu.ait.es.entity.CompanyElastic;
-import com.huishu.ait.es.repository.company.CompanyElasticsearchRepository;
 import com.huishu.ait.service.company.CompanyService;
 /**
  * 企业排行榜实现类
@@ -36,11 +34,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
-
-	@Resource
+	@Autowired
 	private Client client;
-	@Resource
-	private CompanyElasticsearchRepository elasticsearchRepository;
+
 	/**
 	 * 查询企业排行
 	 */
@@ -66,8 +62,7 @@ public class CompanyServiceImpl implements CompanyService {
 			String dimension = "企业排行";//这里只做排行榜，先写死
 			
 			bq.must(QueryBuilders.termQuery("dimension", dimension));
-			int from = dto.getPageSize()*dto.getPageNumber() - dto.getPageSize();
-			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC)).setFrom(from+dto.getPageSize()).setSize(dto.getPageSize()).execute().actionGet();
+			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC)).setSize(dto.getPageSize()).execute().actionGet();
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
 				JSONObject obj = new JSONObject();
@@ -93,15 +88,4 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 		return data;
 	}
-	@Override
-	public JSONObject findCompanieOrderById(String coid) {
-		CompanyElastic company = new CompanyElastic();
-		try {
-			company = elasticsearchRepository.findOne(coid);
-		}catch(Exception e) {
-			LOGGER.error(e.getMessage());
-		}
-		return JSONObject.parseObject(company.toString());
-	}
-
 }

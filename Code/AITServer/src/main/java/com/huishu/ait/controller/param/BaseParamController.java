@@ -75,7 +75,6 @@ public class BaseParamController extends BaseController {
 	 * @param uid
 	 * @return
 	 */
-	@SuppressWarnings("unused")
 	@ResponseBody
 	@RequestMapping("/getParamById.json")
 	public AjaxResult  getParamById(){

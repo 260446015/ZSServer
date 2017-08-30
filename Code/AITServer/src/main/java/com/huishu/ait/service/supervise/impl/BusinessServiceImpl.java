@@ -42,22 +42,6 @@ public class BusinessServiceImpl implements BusinessService {
     @Autowired
     private CompanyCountRepository companyCountRepository;
     
-    @Override
-    public JSONArray getBusinessBehaviourDetail(String id) {
-        try{
-            JSONArray array = new JSONArray();
-            AITInfo info = businessRepository.findOne(id);
-            /*if(null != info){
-                JSONObject obj = new JSONObject();
-            }*/
-            array.add(info);
-            return array;
-        }catch(Exception e){
-            logger.error("获取企业动态详情失败",e);
-            return null;
-        }
-    }
-
     /** 获取企业动态列表 */
     @Override
     public Page<AITInfo> getBusinessBehaviours(BusinessSuperviseDTO dto) {

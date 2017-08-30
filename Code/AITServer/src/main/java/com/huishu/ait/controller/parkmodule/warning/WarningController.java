@@ -56,25 +56,6 @@ public class WarningController extends BaseController{
 	}
 	
 	/**
-	 * 企业疑似外流详情
-	 * @param id   政策ID
-	 * @return
-	 */
-	@RequestMapping(value="getBusinessOutflowById.json",method=RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult getBusinessOutflowById(String id){
-		if(null==id){
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		try {
-			return success(warningService.getBusinessOutflowById(id));
-		} catch (Exception e) {
-			LOGGER.error("getBusinessOutflowById查询失败！",e);
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-	}
-	
-	/**
 	 * 信息变更预警列表
 	 * @param searchModel   查询条件
 	 * @return

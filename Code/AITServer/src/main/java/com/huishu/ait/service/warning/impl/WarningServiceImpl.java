@@ -19,7 +19,6 @@ import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.GardenInformation;
 import com.huishu.ait.es.entity.WarningInformation;
 import com.huishu.ait.es.repository.warning.WarningInformationRepository;
-import com.huishu.ait.es.repository.warning.WarningRepository;
 import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.service.SkyEyeAbstractService;
 import com.huishu.ait.service.warning.WarningService;
@@ -29,8 +28,6 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(WarningServiceImpl.class);
 
-	@Autowired
-	private WarningRepository warningRepository;
 	@Autowired
 	private CompanyRepository companyRepository;
 	@Autowired
@@ -53,11 +50,6 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		List<String> dataList = Arrays.asList(data);
 		JSONArray array = getEsData(searchModel, map, mapnot,orderList, dataList,true);
 		return array;
-	}
-
-	@Override
-	public GardenInformation getBusinessOutflowById(String id) {
-		return warningRepository.findOne(id);
 	}
 
 	@Override

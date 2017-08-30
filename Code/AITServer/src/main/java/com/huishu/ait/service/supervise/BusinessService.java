@@ -23,13 +23,6 @@ public interface BusinessService {
     public Page<AITInfo> getBusinessBehaviours(BusinessSuperviseDTO dto);
     
     /**
-     * 获取园区企业动态详情
-     * @param id 园区动态id
-     * @return 园区动态详情
-     */
-    public JSONArray getBusinessBehaviourDetail(String id);
-    
-    /**
      * 根据关键字查询企业动态列表
      * @param dto
      * @return

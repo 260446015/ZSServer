@@ -32,7 +32,6 @@ import com.huishu.ait.es.entity.GardenInformation;
 import com.huishu.ait.es.entity.GardenPolicy;
 import com.huishu.ait.es.repository.GardenEsRepository;
 import com.huishu.ait.es.repository.garden.GardenInformationRepository;
-import com.huishu.ait.es.repository.garden.GardenPolicyRepository;
 import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.repository.garden_user.GardenUserRepository;
@@ -43,10 +42,6 @@ import com.huishu.ait.service.garden.GardenService;
 @Service
 public class GardenServiceImpl extends AbstractService implements GardenService {
 
-	@Autowired
-	private GardenPolicyRepository gardenPolicyRepository;
-	@Autowired
-	private GardenInformationRepository gardenInformationRepository;
 	@Resource
 	private GardenRepository gardenRepository;
 	@Resource
@@ -77,11 +72,6 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	}
 
 	@Override
-	public GardenPolicy getGardenPolicyById(String id) {
-		return gardenPolicyRepository.findOne(id);
-	}
-
-	@Override
 	public JSONArray getGardenInformationList(AreaSearchDTO searchModel) {
 		// 组装查询条件
 		Map<String, String> map = new HashMap<String, String>();
@@ -95,11 +85,6 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		List<String> dataList = Arrays.asList(data);
 		JSONArray array = getEsData(searchModel, map, null, orderList, dataList, true);
 		return array;
-	}
-
-	@Override
-	public GardenInformation getGardenInformationById(String id) {
-		return gardenInformationRepository.findOne(id);
 	}
 
 	@Override
@@ -234,17 +219,6 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			LOGGER.error(e.getMessage());
 		}
 		return null;
-	}
-
-	@Override
-	public JSONObject findGardensConditionById(String cid) {
-		GardenInformation information = new GardenInformation();
-		try {
-			information = gardenInformationRepository.findOne(cid);
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage());
-		}
-		return JSONObject.parseObject(information.toString());
 	}
 
 	@Override
