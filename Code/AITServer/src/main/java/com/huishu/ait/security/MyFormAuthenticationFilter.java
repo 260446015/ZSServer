@@ -36,15 +36,6 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 		CaptchaUsernamePasswordToken token = createToken(request, response);
 		try {
 			Subject subject = getSubject(request, response);
-			// 获取用户密码输入错误的次数
-			Object passwordErrorCount = subject.getSession().getAttribute("passwordErrorCount");
-			if (passwordErrorCount != null) {
-				Integer errorCount = (Integer) passwordErrorCount;
-				// 当密码错误次数大于等于5次校验验证码
-				if (errorCount >= 5) {
-					// doCaptchaValidate((HttpServletRequest) request, token);
-				}
-			}
 			DefaultWebSessionManager sessionManager = (DefaultWebSessionManager) securityManager.getSessionManager();
 			// 获取当前已登录的用户session列表
 			Collection<Session> sessions = sessionManager.getSessionDAO().getActiveSessions();
@@ -58,7 +49,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 			subject.login(token);// 正常验证
 			return onLoginSuccess(token, subject, request, response);
 		} catch (AuthenticationException e) {
-			log.error("登录失败.", e);
+			log.error("登录失败."+e);
 			return onLoginFailure(token, e, request, response);
 		}
 	}
@@ -103,6 +94,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 				Subject subject = this.getSubject(request, response);
 				ShiroUser user = (ShiroUser) subject.getPrincipal();
 				if (account != null && user != null && !account.equals(user.getLoginName())) {
+					//本来这么写是可以解决问题的但是，因为session里存了私钥，所以对密码解不了密
 					subject.logout();
 				}
 			}

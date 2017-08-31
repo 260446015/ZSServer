@@ -2,9 +2,14 @@ package com.huishu.ait.controller;
 
 import static com.huishu.ait.common.util.UtilsHelper.getValueByFieldName;
 
+import java.security.interfaces.RSAPrivateKey;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.CheckUtils;
 
 /*import org.apache.shiro.SecurityUtils;*/
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +17,10 @@ import org.apache.shiro.SecurityUtils;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.dto.AbstractDTO;
+import com.huishu.ait.security.Digests;
+import com.huishu.ait.security.Encodes;
+import com.huishu.ait.security.RSAUtils;
 import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.util.CheckUtils;
 
 
 
@@ -164,5 +169,25 @@ public abstract class BaseController {
 		object.put("totalPage", searchModel.getTotalPage());
 		object.put("pageNumber", searchModel.getPageNumber());
 		return object;
+	}
+	
+	/**
+	 * 对token中获取的密码进行特殊处理
+	 * @param utoken
+	 * @return
+	 */
+	protected String getInPassword(String pass,String salts,RSAPrivateKey priKey) {
+		String descrypedPwd = null;
+		try {
+			String decode = RSAUtils.decryptByPrivateKey(pass, (RSAPrivateKey) priKey);
+			descrypedPwd = new StringBuilder(decode).reverse().toString();
+		} catch (Exception e) {
+			return null;
+		}
+		byte[] salt = Encodes.decodeHex(salts);
+		byte[] hashPassword = Digests.sha1(descrypedPwd.getBytes(), salt, Encodes.HASH_INTERATIONS);
+		String inPassword = Encodes.encodeHex(hashPassword);
+		return inPassword;
+
 	}
 }

@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
@@ -39,7 +40,6 @@ import com.huishu.ait.exception.AccountExpiredException;
 import com.huishu.ait.exception.IncorrectCaptchaException;
 import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.security.RSAUtils;
-import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 import com.huishu.ait.service.user.UserBaseService;
 
 /**
@@ -101,7 +101,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "apis/login.do", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult login() {
-		return error("请先登录").setStatus(44020);
+		return error("请先登录");
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "apis/unauthorized.do", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult unauthorized() {
-		return error("您没有该权限").setStatus(44001);
+		return error("您没有该权限");
 	}
 	/**
 	 * 登录过滤器放行后进入此接口
@@ -123,11 +123,10 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value = "apis/login.do", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult loginAjax(HttpServletRequest request) {
+	public AjaxResult loginAjax(HttpServletRequest request,String username,String password) {
 		if (request.getAttribute("success") != null && (boolean) request.getAttribute("success")) {
 			return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
 		}
-
 		// 登录失败从request中获取shiro处理的异常信息。
 		String message = MsgConstant.LOGIN_ERRROR;
 		String error = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
@@ -135,20 +134,26 @@ public class LoginController extends BaseController {
 		if (error != null) {
 			if (error.equals(IncorrectCredentialsException.class.getName())) {
 				message = MsgConstant.CREDENTIAL_ERROR;
-				Object passwordErrorCount = request.getSession().getAttribute("passwordErrorCount");
-				if (passwordErrorCount != null) {
-					Integer errorCount = (Integer) passwordErrorCount;
-					request.getSession().setAttribute("passwordErrorCount", ++errorCount);
-				} else {
-					request.getSession().setAttribute("passwordErrorCount", 1);
-				}
 			} else if (error.equals(IncorrectCaptchaException.class.getName())) {
 				message = MsgConstant.INCORRECT_CAPTCHA;
 			} else if (error.equals(AccountExpiredException.class.getName())) {
 				message = MsgConstant.ACCOUNTEXPIRED;
+			}else if (error.equals(ExcessiveAttemptsException.class.getName())) {
+				message = MsgConstant.LOCKING;
 			}
 		} else if (null != getCurrentShiroUser()) {
-			return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
+			// 私钥保存在session中，用于解密
+			RSAPrivateKey priKey = (RSAPrivateKey)request.getSession().getAttribute("privateKey");
+			UserBase base = userBaseService.findUserByUserAccount(username);
+			// 获得用户输入的密码
+			String inPassword = getInPassword( password, base.getSalt(), priKey);
+			// 获得数据库中的密码
+			String dbPassword = base.getPassword();
+			// 进行密码的比对
+			if(dbPassword.equals(inPassword)){
+				return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
+			}
+			message = MsgConstant.CREDENTIAL_ERROR;
 		}
 		return error(message);
 	}

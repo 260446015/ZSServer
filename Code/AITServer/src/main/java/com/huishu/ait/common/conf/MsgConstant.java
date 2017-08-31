@@ -45,6 +45,10 @@ public class MsgConstant {
      * 账号过期
      */
     public static final String ACCOUNTEXPIRED = "账号过期";
+    /**
+     * 锁定
+     */
+    public static final String LOCKING = "密码连续输入错误超过5次，锁定半小时！";
 
     /**
      * 系统异常

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.Filter;
 
 import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import com.huishu.ait.controller.Industrymodule.garden.GardenController;
 import com.huishu.ait.security.CustomCredentialsMatcher;
 import com.huishu.ait.security.MyFormAuthenticationFilter;
+import com.huishu.ait.security.MyUserFilter;
 import com.huishu.ait.security.ShiroDbRealm;
 
 /**
@@ -70,11 +72,14 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/**", "authc");
 //		filterChainDefinitionMap.put("/apis/**", "anon");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+		
+		filters.put("ajaxSessionFilter", getMyUserFilter());
 
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
 		shiroFilterFactoryBean.setLoginUrl("/apis/login.do");
 		shiroFilterFactoryBean.setSuccessUrl("/");
 		shiroFilterFactoryBean.setUnauthorizedUrl("/apis/unauthorized.do");
+		shiroFilterFactoryBean.setFilters(filters);
 		return shiroFilterFactoryBean;
 	}
 	
@@ -85,7 +90,7 @@ public class ShiroConfiguration {
 	@Bean(name = "securityManager")
 	public DefaultWebSecurityManager getDefaultWebSecurityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		securityManager.setSessionManager(new DefaultWebSessionManager());
+		securityManager.setSessionManager(getDefaultWebSessionManager());
 		securityManager.setRealm(getShiroDbRealm());
 		LOGGER.info("===============shiro已经加载================");
 		// 用户授权/认证信息Cache
@@ -103,6 +108,12 @@ public class ShiroConfiguration {
 	public ShiroDbRealm getShiroDbRealm() {
 		ShiroDbRealm shiroRealm = new ShiroDbRealm();
 		//配置自定义的密码比较器
+		shiroRealm.setCredentialsMatcher(getCustomCredentialsMatcher());
+		//启用身份验证缓存，即缓存AuthenticationInfo信息，默认false
+		shiroRealm.setAuthenticationCachingEnabled(true);
+		shiroRealm.setAuthenticationCacheName("authenticationCache");
+		shiroRealm.setAuthorizationCacheName("authorizationCache");
+		shiroRealm.setCacheManager(getEhCacheManager());
 		shiroRealm.setCredentialsMatcher(getCustomCredentialsMatcher());
 		return shiroRealm;
 	}
@@ -124,6 +135,15 @@ public class ShiroConfiguration {
     }
 	
 	/**
+	 * 处理session超时
+	 * @return
+	 */
+	@Bean(name = "myUserFilter")
+    public MyUserFilter getMyUserFilter(){
+        return new MyUserFilter();
+	}
+	
+	/**
 	 * 开启shiro aop注解支持.
 	 * @return
 	 */
@@ -142,14 +162,39 @@ public class ShiroConfiguration {
     public MyFormAuthenticationFilter getMyFormAuthenticationFilter() {
         return new MyFormAuthenticationFilter();
     }
-
+    
+    /**
+     * DefaultWebSessionManager
+     * @return
+     */
+    @Bean(name = "defaultWebSessionManager")
+    public DefaultWebSessionManager getDefaultWebSessionManager(){
+    	 DefaultWebSessionManager manager = new DefaultWebSessionManager();
+    	 //30min  毫秒
+    	 manager.setGlobalSessionTimeout(1800000);
+    	 manager.setSessionDAO(getEnterpriseCacheSessionDAO());
+    	 return manager;
+    }
     /**
      * 自定义校验密码
      * @return
      */
     @Bean(name = "customCredentialsMatcher")
     public CustomCredentialsMatcher getCustomCredentialsMatcher() {
-        return new CustomCredentialsMatcher();
+        CustomCredentialsMatcher matcher = new CustomCredentialsMatcher(getEhCacheManager());
+        matcher.setRetryLimitCacheName("halfHour");
+        return matcher;
+    }
     
+    /**
+     * SessionDAO
+     * @return
+     */
+    @Bean(name = "EnterpriseCacheSessionDAO")
+    public EnterpriseCacheSessionDAO getEnterpriseCacheSessionDAO() {
+         EnterpriseCacheSessionDAO dao = new EnterpriseCacheSessionDAO();
+		 dao.setActiveSessionsCacheName("activeSessionCache");
+		 dao.setCacheManager(getEhCacheManager());
+         return dao;
     }
 }

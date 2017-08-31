@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.web.filter.authc.UserFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.util.StringUtils;
 
 public class MyUserFilter extends UserFilter {
 	
@@ -24,6 +25,24 @@ public class MyUserFilter extends UserFilter {
 			String loginUrl = getLoginUrl();
 			WebUtils.issueRedirect(request, response, loginUrl);
 		}
+	}
+	
+	/**
+	 * ajax shiro session超时统一处理
+	 */
+	@Override
+	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+		HttpServletRequest req = WebUtils.toHttp(request);
+		String xmlHttpRequest = req.getHeader("X-Requested-With");
+		if (!StringUtils.hasText(xmlHttpRequest)) {
+			if (xmlHttpRequest.equalsIgnoreCase("XMLHttpRequest")) {
+				HttpServletResponse res = WebUtils.toHttp(response);
+				res.sendError(401, "oauthstatus");
+				//res.setHeader("oauthstatus", "401");
+				return false;
+			}
+		}
+		return super.onAccessDenied(request, response);
 	}
 	
 }
