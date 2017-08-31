@@ -81,6 +81,7 @@
 					):</lable>
 		            <input type="button" value="查看" onclick="my()"/>
 		            <input type="button" value="登出" onclick="logout()"/>
+		            <input type="button" value="查看园区疑似外流（测权限用）" onclick="haha()"/>
 		        </div>
 		    </fieldset>
 		</form>
@@ -226,6 +227,26 @@
                 	alert(response.message);
                 }else{
                		alert(response.data);
+                }
+            }
+        });
+	}
+	 function haha(){
+		$.ajax({
+            type: 'post',
+            url: "/apis/warning/getBusinessOutflowList.json",
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify({a:1}),
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+	                var description = "";  
+				    for (var i in response.data) {  
+				        description += i + " = " + response.data[i] + "\n";  
+				    }  
+				    alert(description); 
                 }
             }
         });

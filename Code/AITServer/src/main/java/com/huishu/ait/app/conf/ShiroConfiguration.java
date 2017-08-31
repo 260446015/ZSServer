@@ -56,16 +56,17 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/login.do", "anon");
 		filterChainDefinitionMap.put("/apis/unauthorized.do", "anon");
 		
-		filterChainDefinitionMap.put("/apis/business/**", "authc,perms[Industrymodule,parkmodule]");
-		filterChainDefinitionMap.put("/apis/expert/**", "authc,perms[Industrymodule]");
-		filterChainDefinitionMap.put("/apis/area/**", "authc,perms[Industrymodule]");
-		filterChainDefinitionMap.put("/apis/Headlines/**", "authc,perms[Industrymodule]");
-		filterChainDefinitionMap.put("/apis/industry/**", "authc,perms[Industrymodule]");
+		filterChainDefinitionMap.put("/apis/business/**", "perms[\"Industrymodule,parkmodule\"]");
+		filterChainDefinitionMap.put("/apis/expert/**", "perms[Industrymodule]");
+		filterChainDefinitionMap.put("/apis/area/**", "perms[Industrymodule]");
+		filterChainDefinitionMap.put("/apis/Headlines/**", "perms[Industrymodule]");
+		filterChainDefinitionMap.put("/apis/industry/**", "perms[Industrymodule]");
 		
-		filterChainDefinitionMap.put("/apis/supervise/**", "authc,perms[parkmodule]");
+		filterChainDefinitionMap.put("/apis/supervise/**", "perms[parkmodule]");
+		filterChainDefinitionMap.put("/apis/warning/**", "perms[parkmodule]");
 		
-		filterChainDefinitionMap.put("/apis/indus/**", "authc,perms[Investmentmodule]");
-		filterChainDefinitionMap.put("/apis/comp/**", "authc,perms[Investmentmodule]");
+		filterChainDefinitionMap.put("/apis/indus/**", "perms[Investmentmodule]");
+		filterChainDefinitionMap.put("/apis/comp/**", "perms[Investmentmodule]");
 		filterChainDefinitionMap.put("/apis/**", "authc");
 //		filterChainDefinitionMap.put("/apis/**", "anon");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
