@@ -1,12 +1,17 @@
 package com.huishu.ait.service.garden.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -16,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -28,10 +34,7 @@ import com.huishu.ait.entity.IndustryClass;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.AITInfo;
-import com.huishu.ait.es.entity.GardenInformation;
-import com.huishu.ait.es.entity.GardenPolicy;
 import com.huishu.ait.es.repository.GardenEsRepository;
-import com.huishu.ait.es.repository.garden.GardenInformationRepository;
 import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.repository.garden_user.GardenUserRepository;
@@ -164,20 +167,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		String industryType = dto.getIndustryType();
 		try {
 			PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize());
-			Page<GardenUser> page = null;
-			// 对area 和 industryType 没有约束条件，全部查询
-			if (dto.getArea().equals("不限") && dto.getIndustryType().equals("不限")) {
-				page = gardenUserRepository.findByUserId(userId, pageRequest);
-				// 对 area 没有约束，根据 id 和 industryType 查询
-			} else if ((!dto.getArea().equals("不限")) && dto.getIndustryType().equals("不限")) {
-				page = gardenUserRepository.findByUserIdAndArea(userId, area, pageRequest);
-				// 对 industryType 没有约束，根据 id 和 area 进行查询
-			} else if (dto.getArea().equals("不限") && (!dto.getIndustryType().equals("不限"))) {
-				page = gardenUserRepository.findByUserIdAndIndustryType(userId, industryType, pageRequest);
-			} else {
-				page = gardenUserRepository.findByUserIdAndAreaAndIndustryType(userId, area, industryType, pageRequest);
-			}
-			return page;
+			return gardenUserRepository.findAll(getSpec(area, industryType,userId), pageRequest);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			return null;
@@ -208,7 +198,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					gu.setDescription(garden.getGardenIntroduce());
 					gu.setUserId(Integer.parseInt(userId));
 					gu.setGardenPicture(garden.getGardenPicture());
-					gu.setIndustryType(garden.getLeadingIndustry());
+					gu.setIndustryType(garden.getIndustry());
 					gardenUserRepository.save(gu);
 					return gu;
 				}
@@ -245,40 +235,18 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	}
 
 	@Override
-	public JSONArray findGardensByAreaAndIndustry(String area, String leadIndustry) {
+	public JSONArray findGardensByAreaAndIndustry(String area, String industry) {
 		JSONArray arr = new JSONArray();
 		try {
-			area = "%"+area+"%";
-			List<GardenData> list = gardenRepository.findGardensByAddressLike(area);
+			area = "%" + area + "%";
+			industry = "%" + industry + "%";
+			List<GardenData> list = gardenRepository.findGardensByAddressLikeAndIndustryLike(area,industry);
 			for (GardenData garden : list) {
-				String maxStr, minStr;
-				if (leadIndustry.length() > garden.getLeadingIndustry().length()) {
-					maxStr = leadIndustry;
-					minStr = garden.getLeadingIndustry();
-				} else {
-					maxStr = garden.getLeadingIndustry();
-					minStr = leadIndustry;
-				}
-				int max = maxStr.length();
-				int min = minStr.length();
-				int result = 0;
-				OK: for (int l = min; l > 0; l--) {
-					for (int i = 0; i <= max - l; i++) {
-						for (int j = 0; j <= min - l; j++) {
-							if (maxStr.regionMatches(true, i, minStr, j, l)) {
-								result = l;// System.out.println(l+" "+i+" "+j);
-								break OK;
-							}
-						}
-					}
-				}
-				if(result >= 3){
-					JSONObject obj = new JSONObject();
-					obj.put("address", garden.getAddress());
-					obj.put("name", garden.getGardenName());
-					obj.put("industryType", garden.getLeadingIndustry());
-					arr.add(obj);
-				}
+				JSONObject obj = new JSONObject();
+				obj.put("address", garden.getAddress());
+				obj.put("name", garden.getGardenName());
+				obj.put("industryType", garden.getLeadingIndustry());
+				arr.add(obj);
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
@@ -350,6 +318,24 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			LOGGER.error("获取园区情报中获取所有园区内容失败", e);
 		}
 		return data;
+	}
+
+	public Specification<GardenUser> getSpec(String area,String industryType,Integer userId) {
+		return new Specification<GardenUser>() {
+			List<Predicate> predicates = new ArrayList<Predicate>();  
+			@Override
+			public Predicate toPredicate(Root<GardenUser> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				if(!"不限".equals(area)){
+					predicates.add(cb.equal(root.<String>get("area"), area));
+				}
+				if(!"不限".equals(industryType)){
+					predicates.add(cb.like(root.<String>get("industryType"), industryType));
+				}
+				predicates.add(cb.equal(root.get("userId"), userId));
+				return query.where(predicates.toArray(new Predicate[predicates.size()])).getGroupRestriction();
+				
+			}
+		};
 	}
 
 }

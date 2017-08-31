@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.huishu.ait.entity.GardenUser;
 @Transactional
-public interface GardenUserRepository extends CrudRepository<GardenUser, Integer>{
+public interface GardenUserRepository extends CrudRepository<GardenUser, Integer>,JpaSpecificationExecutor<GardenUser>{
 
 	@Query(value="select gu.gardenName from GardenUser gu where gu.userId=?")
 	public List<String> findGardensCondition(int userid);
