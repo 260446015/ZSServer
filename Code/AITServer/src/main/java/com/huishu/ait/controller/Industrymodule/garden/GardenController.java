@@ -265,31 +265,7 @@ public class GardenController extends BaseController {
 	public AjaxResult findGardensByArea(String area,String industry) {
 		JSONArray data = null;
 		try {
-			String queryStr = "";
-			switch (industry) {
-			case "互联网":
-				queryStr = "{互联网:网络游戏,大数据,电子商务,网络视听,移动阅读,智能硬件}";
-				break;
-			case "高科技":
-				queryStr = "{高科技:新一代信息技术,智能机器人,生物医药,节能环保技术装备,新能源,新材料,航空装备}";
-				break;
-			case "文化创意":
-				queryStr = "{文化创意:动漫制作,影视传媒,图书出版,广告营销}";
-				break;
-			case "精英配套":
-				queryStr = "{精英配套:金融服务,住宅地产,商业综合体,康体美容,母婴产业,健康产业,教育培训}";
-				break;
-			case "滨海旅游":
-				queryStr = "{滨海旅游:特色旅游综合体,体育产业}";
-				break;
-			case "港口物流":
-				queryStr = "{港口物流:生鲜贸易,食品加工,冷链物流}";
-				break;
-
-			default:
-				break;
-			}
-			data = gardenService.findGardensByAreaAndIndustry(area,queryStr);
+			data = gardenService.findGardensByAreaAndIndustry(area,industry);
 		} catch (Exception e) {
 			LOGGER.error("按地域查询多个园区失败", e);
 			error("按地域查询多个园区失败");
