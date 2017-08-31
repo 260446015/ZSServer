@@ -39,6 +39,7 @@ import com.huishu.ait.exception.AccountExpiredException;
 import com.huishu.ait.exception.IncorrectCaptchaException;
 import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.security.RSAUtils;
+import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 import com.huishu.ait.service.user.UserBaseService;
 
 /**
@@ -74,6 +75,22 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "test.html",method = RequestMethod.GET)
 	public String test() {
 		return "test";
+	}
+	
+	/**
+	 * 是否登录
+	 * 
+	 * @return 返回消息
+	 */
+	@RequestMapping(value = "apis/islogin.do", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult islogin() {
+		Object object = SecurityUtils.getSubject().getPrincipal();
+		if(object==null){
+			return error("请先登录");
+		}else{
+			return success("已经登录").setMessage("已经登录");
+		}
 	}
 	
 	/**
