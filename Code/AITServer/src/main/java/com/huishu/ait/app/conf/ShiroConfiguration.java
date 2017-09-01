@@ -56,6 +56,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/getPhoneCaptcha.json", "anon");
 		filterChainDefinitionMap.put("/apis/findPassword.json", "anon");
 		filterChainDefinitionMap.put("/apis/login.do", "anon");
+		filterChainDefinitionMap.put("/apis/islogin.do", "anon");
 		filterChainDefinitionMap.put("/apis/unauthorized.do", "anon");
 		
 		filterChainDefinitionMap.put("/apis/business/**", "perms[\"Industrymodule,parkmodule\"]");
