@@ -1,16 +1,20 @@
 package com.huishu.ait.entity.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 注册用户DTO
  * @author yindq
  * @date 2017年8月24日
  */
-public class RegisterDTO {
+public class RegisterDTO{
+
 	/**账号*/
 	@Pattern(regexp = "^[a-zA-Z\\d]{3,20}$")
 	private String userAccount;

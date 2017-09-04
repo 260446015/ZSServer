@@ -2,10 +2,21 @@ package com.huishu.ait.controller;
 
 import static com.huishu.ait.common.util.UtilsHelper.getValueByFieldName;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.interfaces.RSAPrivateKey;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -190,4 +201,6 @@ public abstract class BaseController {
 		return inPassword;
 
 	}
+	
+	
 }
