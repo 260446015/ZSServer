@@ -71,6 +71,10 @@ public class UserBase implements Serializable {
 	@Column(name = "create_time")
 	private String createTime;
 	
+	/**会员开始时间*/
+	@Column(name = "start_time")
+	private String startTime;
+	
 	/**会员到期时间*/
 	@Column(name = "expire_time")
 	private String expireTime;

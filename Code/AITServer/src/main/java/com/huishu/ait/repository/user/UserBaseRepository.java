@@ -40,4 +40,14 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	@Modifying
 	@Query("update UserBase ub set ub.password = ?1 where ub.id = ?2")
 	Integer modifyPassword(String password,Long id);
+	/**
+	 * 审核账号
+	 * @param startTime   开始时间
+	 * @param expireTime     到期时间
+	 * @param id
+	 * @return
+	 */
+	/*@Modifying
+	@Query("update UserBase ub set ub.startTime = ?1 and ub.expireTime=?2 where ub.id = ?3")
+	Integer auditAccount(String startTime,String expireTime,Long id);*/
 }

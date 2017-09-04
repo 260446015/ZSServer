@@ -142,14 +142,10 @@ public class LoginController extends BaseController {
 				message = MsgConstant.LOCKING;
 			}
 		} else if (null != getCurrentShiroUser()) {
-			// 私钥保存在session中，用于解密
 			RSAPrivateKey priKey = (RSAPrivateKey)request.getSession().getAttribute("privateKey");
 			UserBase base = userBaseService.findUserByUserAccount(username);
-			// 获得用户输入的密码
 			String inPassword = getInPassword( password, base.getSalt(), priKey);
-			// 获得数据库中的密码
 			String dbPassword = base.getPassword();
-			// 进行密码的比对
 			if(dbPassword.equals(inPassword)){
 				return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
 			}

@@ -1,7 +1,5 @@
 package com.huishu.ait.controller.user;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.UserPasswordDTO;
-import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.service.user.UserBaseService;
 
 /**
@@ -33,8 +30,6 @@ public class UserBaseController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserBaseController.class);
 	@Autowired
 	private UserBaseService userBaseService;
-	@Resource
-	private CaptchaManager captchaManager;
 
 	/**
 	 * 查看我的个人信息
@@ -75,5 +70,7 @@ public class UserBaseController extends BaseController {
 		}
 
 	}
+	
+	//查看个人收藏
 
 }
