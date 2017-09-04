@@ -112,8 +112,6 @@ public class ShiroConfiguration {
 		shiroRealm.setCredentialsMatcher(getCustomCredentialsMatcher());
 		//启用身份验证缓存，即缓存AuthenticationInfo信息，默认false
 		shiroRealm.setAuthenticationCachingEnabled(true);
-		shiroRealm.setAuthenticationCacheName("authenticationCache");
-		shiroRealm.setAuthorizationCacheName("authorizationCache");
 		shiroRealm.setCacheManager(getEhCacheManager());
 		shiroRealm.setCredentialsMatcher(getCustomCredentialsMatcher());
 		return shiroRealm;
@@ -183,7 +181,6 @@ public class ShiroConfiguration {
     @Bean(name = "customCredentialsMatcher")
     public CustomCredentialsMatcher getCustomCredentialsMatcher() {
         CustomCredentialsMatcher matcher = new CustomCredentialsMatcher(getEhCacheManager());
-        matcher.setRetryLimitCacheName("halfHour");
         return matcher;
     }
     
@@ -194,7 +191,6 @@ public class ShiroConfiguration {
     @Bean(name = "EnterpriseCacheSessionDAO")
     public EnterpriseCacheSessionDAO getEnterpriseCacheSessionDAO() {
          EnterpriseCacheSessionDAO dao = new EnterpriseCacheSessionDAO();
-		 dao.setActiveSessionsCacheName("activeSessionCache");
 		 dao.setCacheManager(getEhCacheManager());
          return dao;
     }
