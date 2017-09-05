@@ -1,6 +1,5 @@
 package com.huishu.ait.controller.Industrymodule.industry;
 
-import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.conf.MsgConstant;
-import com.huishu.ait.common.util.ConcersUtils.DateUtil;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
@@ -79,8 +77,8 @@ public class IndustrialController extends BaseController {
     @ResponseBody
     public AjaxResult getIndustrialPolicyDetailById(String id){
         try{
-            if(id!="" || id!=null){
-                return success(industrialPolicyService.getIndustrialPolicyDetailById(id));
+            if(!StringUtil.isEmpty(id) && getUserId() != null){
+                return success(industrialPolicyService.getIndustrialPolicyDetail(id,getUserId()));
             }else{
                 return error(MsgConstant.ILLEGAL_PARAM);
             }
