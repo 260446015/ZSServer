@@ -41,7 +41,7 @@ public class PersonCenterServiceImpl implements PersonCenterService {
 		JSONArray data = new JSONArray();
 		try {
 			Sort sort = new Sort(Direction.DESC, "collectTime");
-			PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(), sort);
+			PageRequest pageRequest = new PageRequest(dto.getPageNumber() - 1, dto.getPageSize(), sort);
 			Page<UserCollection> page = userCollectionRepository.findByUserIdAndLanmuLike(dto.getUserId(),
 					dto.getQuery(), pageRequest);
 			data.add(page);
