@@ -16,7 +16,7 @@ public interface ExpertOpinionService {
 	//根据作者查询专家观点
 	JSONArray findExpertOpinionByAuthor(ExpertOpinionDTO requestParam);
 	//收藏专家观点文章
-	public JSONObject expertOpinionCollect(String id);
+	public JSONObject expertOpinionCollect(String id,Long userId);
 	//取消收藏专家观点文章
-	public JSONObject cancelExpertOpinionCollect(String id);
+	public JSONObject cancelExpertOpinionCollect(String id,Long userId);
 }

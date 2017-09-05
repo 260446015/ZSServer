@@ -32,11 +32,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.ESUtils;
-import com.huishu.ait.entity.ExpertOpinionDetail;
+import com.huishu.ait.entity.UserCollection;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
 import com.huishu.ait.es.repository.ExpertOpinion.BaseElasticsearch;
-import com.huishu.ait.repository.expertOpinionDetail.ExpertOpinionDetailRepository;
+import com.huishu.ait.repository.expertOpinionDetail.UserCollectionRepository;
 import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
 
 
@@ -55,7 +55,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	@Autowired
 	private BaseElasticsearch baseElasticsearch;
 	@Resource
-	private ExpertOpinionDetailRepository expertOpinionDetailRepository;
+	private UserCollectionRepository userCollectionRepository;
 	
 	/* 
 	 * 方法名：getExertOpinionList
@@ -154,28 +154,29 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	/**
 	 * 收藏专家观点
 	 */
-	public JSONObject expertOpinionCollect(String articleId){
+	public JSONObject expertOpinionCollect(String articleId,Long userId){
 		JSONObject json = new JSONObject();
 		try {
 			AITInfo param = baseElasticsearch.findOne(articleId);
-			ExpertOpinionDetail findOne = findExpertOpinionDetailByArticleId(articleId);
+			UserCollection findOne = userCollectionRepository.findByArticleIdAndUserId(articleId,userId);
 			//如果不为空先删除
 			if (null != findOne) {
-				expertOpinionDetailRepository.delete(findOne);
+				userCollectionRepository.delete(findOne);
 			}
 			//保存
-			ExpertOpinionDetail expertOpinionDetail = new ExpertOpinionDetail();
-			expertOpinionDetail.setArticleId(param.getId());
-			expertOpinionDetail.setAuthor(param.getAuthor());
-			expertOpinionDetail.setCollectTime(new Date());
-			expertOpinionDetail.setPublishTime(param.getPublishDateTime());
-			expertOpinionDetail.setTitle(param.getTitle());
-			expertOpinionDetail.setContent(param.getContent());
-			expertOpinionDetail.setSource(param.getSource());
-			expertOpinionDetail.setSourceLink(param.getSourceLink());
-			expertOpinionDetail.setIndustry(param.getIndustry());
-			expertOpinionDetail.setLanmu(param.getDimension());
-			expertOpinionDetailRepository.save(expertOpinionDetail);
+			UserCollection uc = new UserCollection();
+			uc.setArticleId(param.getId());
+			uc.setAuthor(param.getAuthor());
+			uc.setCollectTime(new Date().toString());
+			uc.setPublishTime(param.getPublishDateTime());
+			uc.setTitle(param.getTitle());
+			uc.setContent(param.getContent());
+			uc.setSource(param.getSource());
+			uc.setSourceLink(param.getSourceLink());
+			uc.setIndustry(param.getIndustry());
+			uc.setLanmu(param.getDimension());
+			uc.setUserId(userId);
+			userCollectionRepository.save(uc);
 			json.put("state", "success");
 			return json;
 		} catch (Exception e) {
@@ -187,14 +188,14 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	/**
 	 * 取消收藏专家观点
 	 */
-	public JSONObject cancelExpertOpinionCollect(String articleId){
+	public JSONObject cancelExpertOpinionCollect(String articleId,Long userId){
 		JSONObject json = new JSONObject();
 		try {
-			ExpertOpinionDetail findOne = findExpertOpinionDetailByArticleId(articleId);
+			UserCollection findOne = userCollectionRepository.findByArticleIdAndUserId(articleId, userId);
 			if (null == findOne) {
 				json.put("state", "failure");
 			}
-			expertOpinionDetailRepository.delete(findOne);
+			userCollectionRepository.delete(findOne);
 			json.put("state", "success");
 			return json;
 		} catch (Exception e) {
@@ -202,12 +203,5 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			log.error("取消收藏失败：",e.getMessage());
 			return json;
 		}
-	}
-	/**
-	 * @param articleId
-	 * @return根据文章id从数据库中查询文章详情
-	 */
-	public ExpertOpinionDetail findExpertOpinionDetailByArticleId(String articleId){
-		return expertOpinionDetailRepository.findExpertOpinionDetailByArticleId(articleId);
 	}
 }

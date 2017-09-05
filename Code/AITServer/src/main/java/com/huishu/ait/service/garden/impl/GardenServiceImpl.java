@@ -320,9 +320,10 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		return data;
 	}
 
-	public Specification<GardenUser> getSpec(String area,String industryType,Integer userId) {
+	private Specification<GardenUser> getSpec(String area,String industryType,Integer userId) {
 		return new Specification<GardenUser>() {
-			List<Predicate> predicates = new ArrayList<Predicate>();  
+			List<Predicate> predicates = new ArrayList<Predicate>();
+
 			@Override
 			public Predicate toPredicate(Root<GardenUser> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				if(!"不限".equals(area)){
@@ -337,5 +338,4 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			}
 		};
 	}
-
 }
