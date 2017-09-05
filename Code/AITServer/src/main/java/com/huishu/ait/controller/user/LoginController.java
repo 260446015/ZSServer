@@ -260,7 +260,7 @@ public class LoginController extends BaseController {
 			}
 		} catch (Exception e) {
 			LOGGER.error("logout失败！", e);
-			return null;
+			return "redirect:login";
 		}
         return "redirect:login";
     }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.huishu.ait.common.conf.ConfConstant;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
  
@@ -27,7 +28,7 @@ import com.huishu.ait.entity.common.AjaxResult;
 @RequestMapping("apis")
 public class UploadController extends BaseController  {
  
-    private static final Logger LOG = Logger.getLogger(UploadController.class);
+    private static final Logger LOGGER = Logger.getLogger(UploadController.class);
  
     private static final HashMap<String, String> TypeMap = new HashMap<String, String>();
     //设置文件允许上传的类型
@@ -49,10 +50,9 @@ public class UploadController extends BaseController  {
      * @return
      */
     @RequestMapping(value = "/imageUpload.do", method = RequestMethod.POST)
-    public AjaxResult imageUpload(
-            @RequestParam("file") MultipartFile file,
+    public AjaxResult imageUpload(@RequestParam("file") MultipartFile file,
             @RequestParam(required = false) String filePre, HttpServletRequest request, HttpServletResponse response) {
-        LOG.info("file name is :" + file.getOriginalFilename());
+    	LOGGER.info("file name is :" + file.getOriginalFilename());
         if (!file.isEmpty()) {
             if (file.getSize() > fileSize) {
                 return error("文件超过上传大小");
@@ -82,11 +82,11 @@ public class UploadController extends BaseController  {
             }
              newname += UUID.randomUUID()+ "." + fileSuffix;
             try {
-                File saveFile = new File("E:/images", newname);
+                File saveFile = new File(ConfConstant.DEFAULT_URL, newname);
                 file.transferTo(saveFile);
                 return success(newname).setMessage("上传成功");
             } catch (Exception e) {
-                LOG.error(e.getMessage(), e);
+            	LOGGER.error("imageUpload失败！", e);
                 return error("上传失败");
             }
         } else {

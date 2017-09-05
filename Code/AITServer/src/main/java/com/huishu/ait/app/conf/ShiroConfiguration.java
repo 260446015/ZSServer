@@ -189,7 +189,7 @@ public class ShiroConfiguration {
      * SessionDAO
      * @return
      */
-    @Bean(name = "EnterpriseCacheSessionDAO")
+    @Bean(name = "enterpriseCacheSessionDAO")
     public EnterpriseCacheSessionDAO getEnterpriseCacheSessionDAO() {
          EnterpriseCacheSessionDAO dao = new EnterpriseCacheSessionDAO();
 		 dao.setCacheManager(getEhCacheManager());

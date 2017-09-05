@@ -41,6 +41,8 @@ public class UserBaseController extends BaseController {
 	public AjaxResult findMyInformation() {
 		try {
 			UserBase base = userBaseService.findUserByUserId(getUserId());
+			base.setPassword(null);
+			base.setSalt(null);
 			return success(base);
 		} catch (Exception e) {
 			LOGGER.error("findMyInformation失败！", e);
@@ -71,6 +73,25 @@ public class UserBaseController extends BaseController {
 
 	}
 	
-	//查看个人收藏
+	/**
+	 * 修改邮箱
+	 * 
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping(value = "modifyEmail.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult modifyEmail(String email) {
+		if (StringUtil.isEmpty(email)) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return userBaseService.modifyEmail(getUserId(),email);
+		} catch (Exception e) {
+			LOGGER.error("modifyEmail失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
 
 }

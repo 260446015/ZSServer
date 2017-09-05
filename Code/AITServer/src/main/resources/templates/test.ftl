@@ -130,6 +130,18 @@
 		        </div>
 		    </fieldset>
 		</form>
+		<form>
+		    <fieldset>
+		        <legend>修改邮箱</legend>
+		        <div>
+		            <lable>新邮箱:</lable>
+		            <input type="text" name="email"/></div>
+		        <div>
+		            <lable>提交:</lable>
+		            <input type="button" value="修改" onclick="doemailchange()"/>
+		        </div>
+		    </fieldset>
+		</form>
 	</body>
 </html>
 <script type="text/javascript">
@@ -226,7 +238,7 @@
 	function logout(){
 		$.ajax({
             type: 'get',
-            url: "/apis/logOut.do",
+            url: "/apis/logout.do",
             async: false,
             success: function (response) {
                 if(response.message!=null){
@@ -353,6 +365,23 @@
             }
            }
 		);
+	}
+	function doemailchange(){
+	    var iemail = $('input[name=email]').val();
+	    $.ajax({
+            type: 'get',
+            url: "/apis/user/modifyEmail.json",
+            async: false,
+            contentType: 'application/json',
+            data: {email: iemail},
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
+            }
+        });
 	}
 	
 </script> 

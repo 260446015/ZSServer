@@ -40,7 +40,7 @@ public class AdminController extends BaseController {
 			UserBase base = userBaseService.findUserByUserId(getUserId());
 			return success(base);
 		} catch (Exception e) {
-			LOGGER.error("findMyInformation失败！", e);
+			LOGGER.error("auditAccount失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 

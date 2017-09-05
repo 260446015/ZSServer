@@ -52,6 +52,14 @@ public interface UserBaseService {
 	 * @return
 	 */
 	AjaxResult modifyPassword(UserPasswordDTO param);
+	
+	/**
+	 * 修改用户邮箱
+	 * 
+	 * @param param
+	 * @return
+	 */
+	AjaxResult modifyEmail(Long userId , String email);
 
 	/**
 	 * 重置用户密码

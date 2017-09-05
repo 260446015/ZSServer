@@ -133,4 +133,16 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 		return null;
 	}
 
+	@Override
+	@Transactional
+	public AjaxResult modifyEmail(Long userId, String email) {
+		AjaxResult result = new AjaxResult();
+		Integer integer = userBaseRepository.updateEmail(email, userId);
+		if (integer == 1) {
+			return result.setSuccess(true).setMessage(MsgConstant.EMAIL_SUCCESS);
+		} else {
+			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_CHANGE_ERROR);
+		}
+	}
+
 }
