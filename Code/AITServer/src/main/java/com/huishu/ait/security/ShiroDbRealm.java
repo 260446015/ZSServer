@@ -50,7 +50,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		ShiroUser user  = (ShiroUser)principals.getPrimaryPrincipal();
 		//获取权限
-		List<Long> permissionIds = userPermissionService.getPermissionIdsByUserLevel(user.getUserLevel());
+		List<Long> permissionIds = userPermissionService.getPermissionIdsByUserId(user.getId());
 		if (permissionIds != null && permissionIds.size()!=0) {
 			authorizationInfo.addRole(user.getUserLevel().toString());
 			for (Long permissionId : permissionIds) {

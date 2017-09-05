@@ -98,7 +98,7 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 			LOGGER.error("私钥解密失败", e);
 			return null;
 		}
-		UserBase user = userBaseRepository.findByUserAccount(utoken.getUsername());
+		UserBase user = userBaseRepository.findByUserAccountAndUserType(utoken.getUsername(),"user");
 		if(user==null){
 			return null;
 		}

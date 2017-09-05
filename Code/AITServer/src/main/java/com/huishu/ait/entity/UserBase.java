@@ -151,6 +151,14 @@ public class UserBase implements Serializable {
 		return userDepartment;
 	}
 
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
 	public void setUserDepartment(String userDepartment) {
 		this.userDepartment = userDepartment;
 	}

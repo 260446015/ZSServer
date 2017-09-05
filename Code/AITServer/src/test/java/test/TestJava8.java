@@ -50,6 +50,13 @@ public class TestJava8 {
 		System.out.println(a);
 		
 	}
+	@Test
+	public void cc(){
+		int a=7;
+		int b=19;
+		System.out.println(a/(float)b);
+		
+	}
 	private void add(String a){
 		a=a+"bb";
 		System.out.println(""+a);

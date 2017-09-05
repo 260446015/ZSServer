@@ -13,5 +13,5 @@ public interface UserPermissionService {
 	 * @param userId
 	 * @return
 	 */
-	List<Long> getPermissionIdsByUserLevel(Integer userLevel);
+	List<Long> getPermissionIdsByUserId(Long id);
 }

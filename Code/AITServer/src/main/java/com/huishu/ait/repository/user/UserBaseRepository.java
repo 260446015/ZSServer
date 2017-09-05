@@ -1,11 +1,12 @@
 package com.huishu.ait.repository.user;
 
-import org.springframework.data.jpa.repository.Modifying;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.huishu.ait.entity.UserBase;
+import com.huishu.ait.entity.common.Ratio;
 
 /**
  * 用户-权限关系权限持久化类
@@ -17,52 +18,50 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	/**
 	 * 通过账号查找用户信息
 	 * @param userAccount
+	 * @param userType
 	 * @return
 	 */
-	UserBase findByUserAccount(String userAccount);
+	UserBase findByUserAccountAndUserType(String userAccount,String userType);
 	/**
 	 * 通过手机号查找用户信息
 	 * @param telphone
+	 * @param userType
 	 * @return
 	 */
-	UserBase findByTelphone(String telphone);
+	UserBase findByTelphoneAndUserType(String telphone,String userType);
 	/**
 	 * 通过手机号查找用户信息
 	 * @param userEmail
+	 * @param userType
 	 * @return
 	 */
-	UserBase findByUserEmail(String userEmail);
-	
+	UserBase findByUserEmailAndUserType(String userEmail,String userType);
 	/**
-	 * 修改用户密码
-	 * @param id
-	 * @param password
+	 * 查看人数
+	 * @param userType
 	 * @return
 	 */
-	@Modifying
-	@Transactional
-	@Query("update UserBase ub set ub.password = ?1 where ub.id = ?2")
-	Integer modifyPassword(String password,Long id);
-	
+	@Query("select count(1) from t_user_base where user_type=?")
+	Integer findMemberNum(String userType);
 	/**
-	 * 修改用户邮箱
-	 * @param id
+	 * 查看预到期人数
+	 * @param userType
+	 * @return
+	 */
+	@Query("select count(1) from t_user_base where user_type=? and expire_time > sysdate()")
+	Integer findExpireMemberNum(String userType);
+	/**
+	 * 查看预到期人数
+	 * @param userType
+	 * @return
+	 */
+	@Query("select count(area) sum,area name from t_user_base where user_type=? GROUP BY area")
+	List<Ratio> findAreaRatio(String userType);
+	/**
+	 * 查看园区行业数量
 	 * @param userEmail
 	 * @return
 	 */
-	@Modifying
-	@Transactional
-	@Query("update UserBase ub set ub.userEmail = ?1 where ub.id = ?2")
-	Integer updateEmail(String userEmail,Long id);
-	/**
-	 * 审核账号
-	 * @param startTime   开始时间
-	 * @param expireTime     到期时间
-	 * @param id
-	 * @return
-	 */
-	/*@Modifying
-	 * @Transactional
-	@Query("update UserBase ub set ub.startTime = ?1 and ub.expireTime=?2 where ub.id = ?3")
-	Integer auditAccount(UserBase userBase);*/
+	@Query("SELECT count(industry) sum,industry name from t_company_data where park=？ GROUP BY industry")
+	List<Ratio> findIndustryRatio(String park);
 }

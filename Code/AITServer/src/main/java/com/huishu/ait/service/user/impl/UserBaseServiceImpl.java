@@ -32,12 +32,12 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 
 	@Override
 	public UserBase findUserByUserAccount(String userAccount) {
-		return userBaseRepository.findByUserAccount(userAccount);
+		return userBaseRepository.findByUserAccountAndUserType(userAccount,"user");
 	}
 
 	@Override
 	public UserBase findUserByTelphone(String telphone) {
-		return userBaseRepository.findByTelphone(telphone);
+		return userBaseRepository.findByTelphoneAndUserType(telphone,"user");
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 		if (account != null) {
 			return result.setSuccess(false).setMessage(MsgConstant.ACCOUNT_REPEAT);
 		}
-		UserBase email = userBaseRepository.findByUserEmail(dto.getUserEmail());
+		UserBase email = userBaseRepository.findByUserEmailAndUserType(dto.getUserEmail(),"user");
 		if (email != null) {
 			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_REPEAT);
 		}
@@ -67,13 +67,8 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 			base.setUserPark(dto.getPark());
 			base.setUserType(dto.getUserType());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			/*Calendar c = Calendar.getInstance();  
-			c.setTime(new Date());
-			Calendar nextDate = (Calendar) c.clone();  
-			nextDate.add(Calendar.MONTH, +1);  */
 			base.setCreateTime(sdf.format(new Date()));
 			base.setUserLevel(0);
-			//base.setExpireTime(sdf.format(nextDate.getTime()));
 			save = userBaseRepository.save(base);
 		} catch (Exception e) {
 			LOGGER.error("保存用户信息出错", e);
@@ -98,8 +93,9 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 		String oldPassword = getPasswordDB(param.getOldPassword(),one.getSalt());
 		String newPassword = getPasswordDB(param.getNewPassword(),one.getSalt());
 		if (one != null && oldPassword.equals(one.getPassword())) {
-			Integer integer = userBaseRepository.modifyPassword(newPassword, userId);
-			if (integer == 1) {
+			one.setPassword(newPassword);
+			UserBase save = userBaseRepository.save(one);
+			if (save != null) {
 				return result.setSuccess(true).setMessage(MsgConstant.PASSWORD_SUCCESS);
 			} else {
 				return result.setSuccess(false).setMessage(MsgConstant.CHANGE_ERROR);
@@ -112,12 +108,12 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 	@Transactional
 	public AjaxResult findPassword(FindPasswordDTO param) {
 		AjaxResult result = new AjaxResult();
-		UserBase one = userBaseRepository.findByUserAccount(param.getUserAccount());
+		UserBase one = userBaseRepository.findByUserAccountAndUserType(param.getUserAccount(),"user");
 		if (one != null) {
 			String newPassword = getPasswordDB(param.getNewPassword(),one.getSalt());
-			Long id = one.getId();
-			Integer integer = userBaseRepository.modifyPassword(newPassword,id );
-			if (integer == 1) {
+			one.setPassword(newPassword);
+			UserBase save = userBaseRepository.save(one);
+			if (save != null) {
 				return result.setSuccess(true).setMessage(MsgConstant.PASSWORD_SUCCESS);
 			} else {
 				return result.setSuccess(false).setMessage(MsgConstant.CHANGE_ERROR);
@@ -128,17 +124,12 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 
 	@Override
 	@Transactional
-	public AjaxResult auditAccount(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	@Transactional
 	public AjaxResult modifyEmail(Long userId, String email) {
 		AjaxResult result = new AjaxResult();
-		Integer integer = userBaseRepository.updateEmail(email, userId);
-		if (integer == 1) {
+		UserBase one = userBaseRepository.findOne(userId);
+		one.setUserEmail(email);
+		UserBase save = userBaseRepository.save(one);
+		if (save != null) {
 			return result.setSuccess(true).setMessage(MsgConstant.EMAIL_SUCCESS);
 		} else {
 			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_CHANGE_ERROR);

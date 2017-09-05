@@ -69,10 +69,4 @@ public interface UserBaseService {
 	 */
 	AjaxResult findPassword(FindPasswordDTO param);
 	
-	/**
-	 * 账号审核
-	 * @param id
-	 * @return
-	 */
-	AjaxResult auditAccount(long id);
 }
