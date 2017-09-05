@@ -71,7 +71,7 @@ public class PersonCenterController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/downloadCol.json", method = RequestMethod.GET)
-	public AjaxResult download(HttpServletRequest request, HttpServletResponse response) {
+	public void download(HttpServletRequest request, HttpServletResponse response) {
 		String type = request.getParameter("type");
 		String articleId = request.getParameter("articleId");
 		String path = request.getParameter("path");
@@ -107,7 +107,6 @@ public class PersonCenterController extends BaseController {
 				}
 			}
 		}
-		return null;
 	}
 
 	private PersonCollectDto initPage(PersonCollectDto dto) {
