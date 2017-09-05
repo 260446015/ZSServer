@@ -1,7 +1,6 @@
 package com.huishu.ait.service.user.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -68,13 +67,13 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 			base.setUserPark(dto.getPark());
 			base.setUserType(dto.getUserType());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Calendar c = Calendar.getInstance();  
+			/*Calendar c = Calendar.getInstance();  
 			c.setTime(new Date());
 			Calendar nextDate = (Calendar) c.clone();  
-			nextDate.add(Calendar.MONTH, +1);  
+			nextDate.add(Calendar.MONTH, +1);  */
 			base.setCreateTime(sdf.format(new Date()));
 			base.setUserLevel(0);
-			base.setExpireTime(sdf.format(nextDate.getTime()));
+			//base.setExpireTime(sdf.format(nextDate.getTime()));
 			save = userBaseRepository.save(base);
 		} catch (Exception e) {
 			LOGGER.error("保存用户信息出错", e);
@@ -125,6 +124,25 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 			}
 		}
 		return result.setSuccess(false).setMessage(MsgConstant.USER_ERROR);
+	}
+
+	@Override
+	@Transactional
+	public AjaxResult auditAccount(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public AjaxResult modifyEmail(Long userId, String email) {
+		AjaxResult result = new AjaxResult();
+		Integer integer = userBaseRepository.updateEmail(email, userId);
+		if (integer == 1) {
+			return result.setSuccess(true).setMessage(MsgConstant.EMAIL_SUCCESS);
+		} else {
+			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_CHANGE_ERROR);
+		}
 	}
 
 }

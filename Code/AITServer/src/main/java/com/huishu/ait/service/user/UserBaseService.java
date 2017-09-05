@@ -22,7 +22,7 @@ public interface UserBaseService {
 	UserBase findUserByUserAccount(String userAccount);
 
 	/**
-	 * 通过账号查找用户信息
+	 * 通过电话查找用户信息
 	 * 
 	 * @param userAccount
 	 * @return
@@ -30,7 +30,7 @@ public interface UserBaseService {
 	UserBase findUserByTelphone(String telphone);
 
 	/**
-	 * 通过账号查找用户信息
+	 * 通过ID查找用户信息
 	 * 
 	 * @param userAccount
 	 * @return
@@ -52,6 +52,14 @@ public interface UserBaseService {
 	 * @return
 	 */
 	AjaxResult modifyPassword(UserPasswordDTO param);
+	
+	/**
+	 * 修改用户邮箱
+	 * 
+	 * @param param
+	 * @return
+	 */
+	AjaxResult modifyEmail(Long userId , String email);
 
 	/**
 	 * 重置用户密码
@@ -60,4 +68,11 @@ public interface UserBaseService {
 	 * @return
 	 */
 	AjaxResult findPassword(FindPasswordDTO param);
+	
+	/**
+	 * 账号审核
+	 * @param id
+	 * @return
+	 */
+	AjaxResult auditAccount(long id);
 }

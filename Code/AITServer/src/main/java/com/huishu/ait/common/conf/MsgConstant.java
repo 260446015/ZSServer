@@ -37,6 +37,14 @@ public class MsgConstant {
      **/
     public static final String CHANGE_ERROR = "密码修改失败，请稍后再试";
     /**
+     * 邮箱修改成功
+     **/
+    public static final String 	EMAIL_SUCCESS = "邮箱修改成功";
+    /**
+     * 邮箱修改失败
+     **/
+    public static final String EMAIL_CHANGE_ERROR = "邮箱修改失败，请稍后再试";
+    /**
      * 验证码错误
      **/
     public static final String INCORRECT_CAPTCHA = "验证码错误";
@@ -45,6 +53,10 @@ public class MsgConstant {
      * 账号过期
      */
     public static final String ACCOUNTEXPIRED = "账号过期";
+    /**
+     * 锁定
+     */
+    public static final String LOCKING = "密码连续输入错误超过5次，锁定半小时！";
 
     /**
      * 系统异常

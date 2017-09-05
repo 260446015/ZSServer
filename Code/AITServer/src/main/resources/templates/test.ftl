@@ -2,6 +2,8 @@
 	<head>
 		<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
 	    <script type="text/javascript" src="/js/security.js"></script>
+	    <script type="text/javascript" src="/js/jquery.tablesort.js"></script>
+	    <script type="text/javascript" src="/js/ajaxfileupload.js"></script>
 	</head>
 	<body>
 		<form>
@@ -47,6 +49,10 @@
 		            <div>
 		            <lable>所在部门:</lable>
 		            <input type="text" name="department2"/></div>
+		            <div>
+		            <lable>名片:</lable>
+                    <input type="file" id="file" name="file" onchange="pushImg();"/> 
+                    <input type="hidden" id="pic" name="pic" /></div>
 		        <div>
 		            <lable>提交:</lable>
 		            <input type="button" value="注册" onclick="doRegister()"/>
@@ -121,6 +127,18 @@
 		        <div>
 		            <lable>提交:</lable>
 		            <input type="button" value="修改" onclick="dochange()"/>
+		        </div>
+		    </fieldset>
+		</form>
+		<form>
+		    <fieldset>
+		        <legend>修改邮箱</legend>
+		        <div>
+		            <lable>新邮箱:</lable>
+		            <input type="text" name="email"/></div>
+		        <div>
+		            <lable>提交:</lable>
+		            <input type="button" value="修改" onclick="doemailchange()"/>
 		        </div>
 		    </fieldset>
 		</form>
@@ -220,7 +238,7 @@
 	function logout(){
 		$.ajax({
             type: 'get',
-            url: "/apis/logOut.do",
+            url: "/apis/logout.do",
             async: false,
             success: function (response) {
                 if(response.message!=null){
@@ -327,4 +345,43 @@
         	});
         }
 	}
+	function pushImg(){
+	    var picpath="";
+	    $.ajaxFileUpload({
+	    　　　　url : "/apis/imageUpload.do",
+           fileElementId:'file',
+           dataType : "json",
+           success: function(response){
+          	 alert(response.message);
+            //$("#picshow").append("<img src='http://localhost:8082/img/tempImg/"+data.fileName+"' width='80px' height='80px'/>")
+           //alert('success');
+            //picpath=$("#pic").val()+data.fileName+",";
+            //$("#pic").val(picpath);
+           },
+           error: function(response)
+           {
+              alert(response.message);
+              console.log(response);
+            }
+           }
+		);
+	}
+	function doemailchange(){
+	    var iemail = $('input[name=email]').val();
+	    $.ajax({
+            type: 'get',
+            url: "/apis/user/modifyEmail.json",
+            async: false,
+            contentType: 'application/json',
+            data: {email: iemail},
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
+            }
+        });
+	}
+	
 </script> 

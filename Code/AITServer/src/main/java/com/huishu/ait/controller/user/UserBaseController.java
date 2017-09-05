@@ -1,7 +1,5 @@
 package com.huishu.ait.controller.user;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.UserPasswordDTO;
-import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.service.user.UserBaseService;
 
 /**
@@ -33,8 +30,6 @@ public class UserBaseController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserBaseController.class);
 	@Autowired
 	private UserBaseService userBaseService;
-	@Resource
-	private CaptchaManager captchaManager;
 
 	/**
 	 * 查看我的个人信息
@@ -46,6 +41,8 @@ public class UserBaseController extends BaseController {
 	public AjaxResult findMyInformation() {
 		try {
 			UserBase base = userBaseService.findUserByUserId(getUserId());
+			base.setPassword(null);
+			base.setSalt(null);
 			return success(base);
 		} catch (Exception e) {
 			LOGGER.error("findMyInformation失败！", e);
@@ -71,6 +68,27 @@ public class UserBaseController extends BaseController {
 			return userBaseService.modifyPassword(param);
 		} catch (Exception e) {
 			LOGGER.error("modifyPassword失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
+	
+	/**
+	 * 修改邮箱
+	 * 
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping(value = "modifyEmail.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult modifyEmail(String email) {
+		if (StringUtil.isEmpty(email)) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return userBaseService.modifyEmail(getUserId(),email);
+		} catch (Exception e) {
+			LOGGER.error("modifyEmail失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 

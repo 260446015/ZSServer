@@ -13,6 +13,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,6 +66,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+		LOGGER.info("===============进行登陆认证================");
 		CaptchaUsernamePasswordToken myToken =(CaptchaUsernamePasswordToken) token;
 		//获取用户的输入的账号.
 		String userAccount = myToken.getUsername();
@@ -83,6 +85,31 @@ public class ShiroDbRealm extends AuthorizingRealm {
        return authenticationInfo;
 	}
 
+	@Override
+    public void onLogout(PrincipalCollection principals) {
+        super.clearCachedAuthorizationInfo(principals);
+        ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
+        removeUserCache(shiroUser);
+    }
+
+    /**
+     * 清除用户缓存
+     * @param shiroUser
+     */
+    public void removeUserCache(ShiroUser shiroUser){
+        removeUserCache(shiroUser.getLoginName());
+    }
+
+    /**
+     * 清除用户缓存
+     * @param loginName
+     */
+    public void removeUserCache(String loginName){
+        SimplePrincipalCollection principals = new SimplePrincipalCollection();
+        principals.add(loginName, super.getName());
+        super.clearCachedAuthenticationInfo(principals);
+    }
+	
 	/**
 	 * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
 	 */
