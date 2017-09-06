@@ -66,6 +66,7 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 			base.setUserEmail(dto.getUserEmail());
 			base.setUserPark(dto.getPark());
 			base.setUserType(dto.getUserType());
+			base.setImageUrl(dto.getImageUrl());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			base.setCreateTime(sdf.format(new Date()));
 			base.setUserLevel(0);

@@ -39,6 +39,14 @@ public class RegisterDTO{
 	/**用户类型*/
 	@Length(min = 4, max = 5)
 	private String userType;
+	private String imageUrl;
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	public String getUserAccount() {
 		return userAccount;
 	}

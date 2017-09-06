@@ -25,7 +25,6 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	private UserBaseRepository userBaseRepository;
 	
 	@Override
-	@Transactional
 	public AjaxResult auditAccount(long id) {
 		UserBase base = userBaseRepository.findOne(id);
 		Calendar nextDate = getNow();

@@ -76,6 +76,9 @@ public class AdminController extends BaseController {
 	 */
 	@RequestMapping(value = "auditAccount.json", method = RequestMethod.GET)
 	public AjaxResult auditAccount(Long id) {
+		if (null==id) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
 		try {
 			return adminService.auditAccount(id);
 		} catch (Exception e) {
