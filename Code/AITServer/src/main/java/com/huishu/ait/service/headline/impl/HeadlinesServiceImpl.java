@@ -1,4 +1,4 @@
-package com.huishu.ait.service.Headlines.impl;
+package com.huishu.ait.service.headline.impl;
 
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -15,7 +15,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.service.AbstractService;
-import com.huishu.ait.service.Headlines.HeadlinesService;
+import com.huishu.ait.service.headline.HeadlinesService;
 
 /**
  * @author hhy

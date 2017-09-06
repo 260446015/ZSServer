@@ -1,4 +1,4 @@
-package com.huishu.ait.service.Headlines;
+package com.huishu.ait.service.headline;
 
 import java.util.List;
 
