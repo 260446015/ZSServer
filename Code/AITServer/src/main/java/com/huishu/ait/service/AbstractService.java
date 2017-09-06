@@ -1,6 +1,7 @@
 package com.huishu.ait.service;
 
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
+import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX1;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import java.security.interfaces.RSAPrivateKey;
@@ -148,7 +149,14 @@ public abstract class AbstractService {
 	protected NativeSearchQueryBuilder getSearchQueryBuilder() {
 		return new NativeSearchQueryBuilder().withIndices(INDEX).withTypes(TYPE);
 	}
-
+	/**
+	 * 查询es库，获取更多条件查询
+	 * 查询企业分类库
+	 * @return
+	 */
+	protected NativeSearchQueryBuilder getSearchBuilder() {
+		return new NativeSearchQueryBuilder().withIndices(INDEX1).withTypes(TYPE);
+	}
 	/**
 	 * 建立查询条件筛选
 	 */

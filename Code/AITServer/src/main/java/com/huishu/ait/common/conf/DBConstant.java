@@ -13,6 +13,7 @@ public class DBConstant {
      */
     public static class EsConfig {
         public static final String INDEX = "aitserver_2017-08-15";
+        public static final String INDEX1 = "aitserver_business";
         public static final String TYPE = "aitinfo";
     }
 
