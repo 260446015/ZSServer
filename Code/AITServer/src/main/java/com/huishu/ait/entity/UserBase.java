@@ -68,6 +68,7 @@ public class UserBase implements Serializable {
 	private String userPark;
 	
 	/** 地域 */
+	@Column
 	private String area;
 
 	/**创建时间*/
