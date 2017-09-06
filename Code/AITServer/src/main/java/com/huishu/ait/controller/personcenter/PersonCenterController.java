@@ -85,21 +85,11 @@ public class PersonCenterController extends BaseController {
 	public void download(HttpServletRequest request, HttpServletResponse response) {
 		String type = request.getParameter("type");
 		String articleId = request.getParameter("articleId");
-		String path = request.getParameter("path");
 		String fileName = request.getParameter("fileName");
-		// String articleId = "40";
-		// String path = "F:/test/";
 		if (StringUtil.isEmpty(fileName)) {
-			fileName = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "." + type;
+			fileName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()) + "." + type;
 		} else {
 			fileName = fileName + "." + type;
-		}
-
-		response.setContentType("application/octet-stream; charset=UTF-8");
-		if ("doc".equals(type)) {
-			response.setHeader("content-disposition", "attachment;filename=" + fileName);
-		} else if ("pdf".equals(type)) {
-			response.setHeader("content-disposition", "attachment;filename=" + fileName);
 		}
 		OutputStream os = null;
 		try {
