@@ -2,7 +2,7 @@ package com.huishu.ait.repository.industry;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.huishu.ait.entity.IndustrialPolicy;
+import com.huishu.ait.es.entity.IndustrialPolicy;
 
 /**
  * 产业政策相关Repository
