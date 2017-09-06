@@ -238,7 +238,7 @@
 	function logout(){
 		$.ajax({
             type: 'get',
-            url: "/apis/logout.do",
+            url: "/apis/logOut.do",
             async: false,
             success: function (response) {
                 if(response.message!=null){

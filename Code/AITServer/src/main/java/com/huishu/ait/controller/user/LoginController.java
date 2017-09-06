@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.common.util.ShiroUtil;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
@@ -249,7 +251,7 @@ public class LoginController extends BaseController {
      * @return
      */
     @RequestMapping(value = "apis/logOut.do",method = RequestMethod.GET)
-    public String logOut() {
+    public void logOut(HttpServletResponse response) {
         Subject subject = SecurityUtils.getSubject();
         try {
 			if (subject.isAuthenticated()) {
@@ -260,9 +262,9 @@ public class LoginController extends BaseController {
 			}
 		} catch (Exception e) {
 			LOGGER.error("logout失败！", e);
-			return "redirect:login";
+			ShiroUtil.writeResponse(response, MsgConstant.SYSTEM_ERROR);
 		}
-        return "redirect:login";
+        ShiroUtil.writeResponse(response, "注销成功");
     }
     
 	/**
