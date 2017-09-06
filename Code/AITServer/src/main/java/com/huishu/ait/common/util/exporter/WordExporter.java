@@ -349,10 +349,10 @@ public class WordExporter {
 			if (response != null) {
 				String filename = "";
 				if (StringUtil.isIE(request)) {
-					filename = new String(fileName + ".doc");
+					filename = new String(fileName);
 					filename = URLEncoder.encode(filename, "UTF-8");
 				} else {
-					filename = new String((fileName + ".doc").getBytes(), "iso-8859-1");
+					filename = new String((fileName).getBytes(), "iso-8859-1");
 				}
 				String header = "attachment; filename=\"" + filename + "\"";
 				response.reset();
