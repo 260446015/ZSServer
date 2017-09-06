@@ -105,7 +105,7 @@ public class PersonCenterController extends BaseController {
 		try {
 			Document document = new Document();
 			os = new FileOutputStream(path + fileName);
-			News artic = personCenterService.getData(articleId);
+			News artic = personCenterService.getData(articleId,getUserId());
 			WordExporter ex = new WordExporter(os, document);
 			ex.exportWord(request, artic, response, fileName, type);
 			os.flush();

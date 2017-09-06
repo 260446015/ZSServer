@@ -1,8 +1,5 @@
 package com.huishu.ait.service.personcenter.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +10,8 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.export.News;
-import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.entity.UserCollection;
-import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.PersonCollectDto;
 import com.huishu.ait.repository.expertOpinionDetail.UserCollectionRepository;
 import com.huishu.ait.service.personcenter.PersonCenterService;
@@ -52,10 +46,10 @@ public class PersonCenterServiceImpl implements PersonCenterService {
 	}
 
 	@Override
-	public News getData(String articleId) {
+	public News getData(String articleId,Long userId) {
 		News download = null;
 		try {
-			UserCollection findOne = userCollectionRepository.findOne(Long.parseLong(articleId));
+			UserCollection findOne = userCollectionRepository.findByArticleIdAndUserId(articleId, userId);
 			download = new News();
 			download.setTitle(findOne.getTitle());
 			download.setPublishTime(findOne.getPublishTime());
