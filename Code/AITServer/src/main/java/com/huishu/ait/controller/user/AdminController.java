@@ -47,7 +47,7 @@ public class AdminController extends BaseController {
 	}
 	
 	/**
-	 * 查看账号分页列表
+	 * 查看会员账号分页列表
 	 * @param id
 	 * @return
 	 */
@@ -86,6 +86,29 @@ public class AdminController extends BaseController {
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 
+	}
+	
+	/**
+	 * 查看预到期会员账号分页列表
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "getWarningAccountList.json", method = RequestMethod.POST)
+	public AjaxResult getWarningAccountList(@RequestBody AccountSearchDTO searchModel) {
+		if (null==searchModel || null==searchModel.getType()|| null==searchModel.getDay()) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			List<UserBase> list = adminService.getWarningAccountList(searchModel);
+			for (UserBase base : list) {
+				base.setPassword(null);
+				base.setSalt(null);
+			}
+			return success(changeObject(searchModel, list));
+		} catch (Exception e) {
+			LOGGER.error("getAccountList查询失败！",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
 	}
 
 }

@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.UserBase;
-import com.huishu.ait.entity.dto.AreaSearchDTO;
 
 /**
  * 用户-权限关系权限持久化类
@@ -84,4 +83,25 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 */
 	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and create_time between ?4 and ?5 and start_time is null limit ?2,?3",nativeQuery = true)
 	List<UserBase> findUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2);
+	/**
+	 * 查看预到期会员数量
+	 * @param userLevel
+	 * @param time1
+	 * @param time2
+	 * @return
+	 */
+	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and createTime between ?2 and ?3 and expire_time between now() and adddate(now(),7)")
+	Integer findWarningUserListCount(Integer userLevel,String time1,String time2);
+	/**
+	 * 查看预到期会员列表
+	 * @param userLevel
+	 * @param pageFrom
+	 * @param pageSize
+	 * @param time1
+	 * @param time2
+	 * @return
+	 */
+	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and create_time between ?4 and ?5 and expire_time between now() and adddate(now(),7) limit ?2,?3",nativeQuery = true)
+	List<UserBase> findWarningUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2);
+	
 }

@@ -29,4 +29,10 @@ public interface AdminService {
 	 * @return
 	 */
 	List<UserBase> getAccountList(AccountSearchDTO searchModel);
+	/**
+	 * 获取预到期账号列表
+	 * @param searchModel    查询条件
+	 * @return
+	 */
+	List<UserBase> getWarningAccountList(AccountSearchDTO searchModel);
 }
