@@ -46,6 +46,7 @@ import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
+import com.huishu.ait.es.entity.dto.IndicatorDTO;
 import com.huishu.ait.security.Digests;
 import com.huishu.ait.security.Encodes;
 import com.huishu.ait.security.RSAUtils;
@@ -395,5 +396,124 @@ public abstract class AbstractService {
 			objects[0]=((Float.parseFloat(String.valueOf(objects[0])))/sum);
 		}
 		return ratio;
+	}
+	/**
+	 * @param bq
+	 */
+	protected JSONArray getIndicatorInfo(BoolQueryBuilder bq) {
+		JSONArray data = new JSONArray();
+		SearchRequestBuilder requestBuilder = ESUtils.getSearchBuilder(client);
+		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
+		TermsBuilder secondIndicatorBuilder = AggregationBuilders.terms("industryTwo").field("industryTwo");
+		TermsBuilder thirdIndicatorBuilder = AggregationBuilders.terms("industryThree").field("industryThree");
+		TermsBuilder fourIndicatorBuilder = AggregationBuilders.terms("industryFour").field("industryFour");
+		//聚合产业分类信息
+		thirdIndicatorBuilder.subAggregation(fourIndicatorBuilder);
+		secondIndicatorBuilder.subAggregation(thirdIndicatorBuilder);
+		firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
+		//获取返回结果
+		SearchResponse response = requestBuilder.addAggregation(firstIndicatorBuilder).setSize(2000).setQuery(bq).execute().actionGet();
+	
+		Terms agg = response.getAggregations().get("industryOne");
+		if(agg != null){
+			for(Terms.Bucket e1 :agg.getBuckets()){
+				Terms firsts = e1.getAggregations().get("industryTwo");
+				for(Terms.Bucket e2 :firsts.getBuckets()){
+					Terms seconds = e2.getAggregations().get("industryThree");
+					for(Terms.Bucket e3: seconds.getBuckets()){
+						Terms thirds=  e3.getAggregations().get("industryFour");
+						for(Terms.Bucket e4: thirds.getBuckets()){
+								JSONObject json = new JSONObject();
+								json.put("firstIndicator", e1.getKey());
+								json.put("secondIndicator", e2.getKey());
+								json.put("thirdIndicator", e3.getKey());
+								json.put("fourIndicator", e4.getKey());
+								data.add(json);
+							
+						}
+					}
+				}
+			}
+		}
+		return data;
+	}
+	
+	/**
+	 * @param bq
+	 * @return
+	 */
+	protected JSONArray getBusinessByIndicator(BoolQueryBuilder bq) {
+		JSONArray data = new JSONArray();
+		SearchRequestBuilder requestBuilder = ESUtils.getSearchBuilder(client);
+		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
+		TermsBuilder secondIndicatorBuilder = AggregationBuilders.terms("industryTwo").field("industryTwo");
+		TermsBuilder thirdIndicatorBuilder = AggregationBuilders.terms("industryThree").field("industryThree");
+		TermsBuilder fourIndicatorBuilder = AggregationBuilders.terms("industryFour").field("industryFour");
+		TermsBuilder businessBuilder = AggregationBuilders.terms("business").field("business");
+		//企业聚合到四级分类下
+		fourIndicatorBuilder.subAggregation(businessBuilder);
+		thirdIndicatorBuilder.subAggregation(fourIndicatorBuilder);
+		secondIndicatorBuilder.subAggregation(thirdIndicatorBuilder);
+		firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
+		requestBuilder.addAggregation(firstIndicatorBuilder).setSize(2000).setQuery(bq);
+	
+//		logger.info(String.format(" %n requestBuilder: %s", requestBuilder));
+		
+		//获取返回结果
+		SearchResponse response = requestBuilder.execute().actionGet();
+		Terms agg = response.getAggregations().get("industryOne");
+		if(agg != null){
+			for(Terms.Bucket e1 :agg.getBuckets()){
+				Terms firsts = e1.getAggregations().get("industryTwo");
+				for(Terms.Bucket e2 :firsts.getBuckets()){
+					Terms seconds = e2.getAggregations().get("industryThree");
+					for(Terms.Bucket e3: seconds.getBuckets()){
+						Terms thirds=  e3.getAggregations().get("industryFour");
+						for(Terms.Bucket e4: thirds.getBuckets()){
+							Terms fours = e4.getAggregations().get("business");
+							for(Terms.Bucket e5 :fours.getBuckets()){
+								JSONObject json = new JSONObject();
+								json.put("firstIndicator", e1.getKey());
+								json.put("secondIndicator", e2.getKey());
+								json.put("thirdIndicator", e3.getKey());
+								json.put("fourIndicator", e4.getKey());
+								json.put("business", e5.getKey());
+								data.add(json);
+							}
+						}
+					}
+				}
+			}
+		}
+		return data;
+	}
+	
+	/**
+	 * 建立关于产业分类的查询条件筛选器
+	 * @param dto
+	 * @return
+	 */
+	protected  BoolQueryBuilder getIndicatorContentBuilder(IndicatorDTO dto){
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		String firstIndicator = dto.getFirstIndicator();
+		if(StringUtils.isNotEmpty(firstIndicator)){
+			bq.must(QueryBuilders.termQuery("industryOne", firstIndicator));
+		}
+		String secondIndicator = dto.getSecondIndicator();
+		if(StringUtils.isNotEmpty(secondIndicator)){
+			bq.must(QueryBuilders.termQuery("industryTwo", secondIndicator));
+		}
+		
+		String thirdIndicator = dto.getThirdIndicator();
+		if(StringUtils.isNotEmpty(thirdIndicator)){
+			bq.must(QueryBuilders.termQuery("industryThree", thirdIndicator));
+		}
+		
+		String fourIndicator = dto.getFourIndicator();
+		if(StringUtils.isNotEmpty(fourIndicator)){
+			bq.must(QueryBuilders.termQuery("industryFour", fourIndicator));
+		}
+		
+		return bq;
 	}
 }

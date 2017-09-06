@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
  * @date 2017年7月28日
  * @Parem
  * @return
- * 
+ * 产业头条的dto
  */
 public class HeadlinesDTO extends AbstractDTO {
 

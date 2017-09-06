@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSONObject;
  * @date 2017年7月31日
  * @Parem
  * @return 
- * 
+ * 产业头条文章内容dto
  */
 @Document(indexName = INDEX, type = TYPE)
 public class HeadlinesArticleListDTO {

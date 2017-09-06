@@ -132,6 +132,15 @@ public class ESUtils {
 	public static SearchRequestBuilder getSearchRequestBuilder(Client client) {
 		return client.prepareSearch(DBConstant.EsConfig.INDEX).setTypes(DBConstant.EsConfig.TYPE);
 	}
+	/**
+	 * 获取默认的ES 搜索请求构造器
+	 * 
+	 * @param client
+	 * @return
+	 */
+	public static SearchRequestBuilder getSearchBuilder(Client client) {
+		return client.prepareSearch(DBConstant.EsConfig.INDEX1).setTypes(DBConstant.EsConfig.TYPE1);
+	}
 	
 	
 	public static RangeQueryBuilder getPublishDateQuery(String startDate, String endDate) {
