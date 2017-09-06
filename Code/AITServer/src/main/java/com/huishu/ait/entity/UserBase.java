@@ -87,6 +87,10 @@ public class UserBase implements Serializable {
 	@Column(name = "user_type")
 	private String userType;
 	
+	/**名片路径*/
+	@Column(name = "image_url")
+	private String imageUrl;
+	
 	/**会员等级(0:试用,1:A级会员,2：B级会员,3：C级会员)*/
 	@Column(name = "user_level")
 	private Integer userLevel;
@@ -94,6 +98,14 @@ public class UserBase implements Serializable {
 	/**用户权限，不存数据库*/
 	@Transient
 	private List<Long> permissions;
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	public String getArea() {
 		return area;

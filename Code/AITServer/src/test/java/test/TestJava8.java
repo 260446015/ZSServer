@@ -15,9 +15,10 @@ public class TestJava8 {
 		Calendar c = Calendar.getInstance();  
 	    c.setTime(new Date());
 	    Calendar nextDate = (Calendar) c.clone();  
-	    nextDate.add(Calendar.MONTH, +1);  
-	    System.out.println("今天"+sdf.format(new Date()));
-	    System.out.println("下个月"+sdf.format(nextDate.getTime()));
+	    nextDate.add(Calendar.DATE, -6); 
+	    System.out.println(sdf.format(nextDate.getTime()));
+	    nextDate.add(Calendar.DATE, +7); 
+	    System.out.println(sdf.format(nextDate.getTime()));
 		
 	}
 	@Test

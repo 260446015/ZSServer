@@ -82,9 +82,10 @@ public class UploadController extends BaseController  {
             }
              newname += UUID.randomUUID()+ "." + fileSuffix;
             try {
-                File saveFile = new File(ConfConstant.DEFAULT_URL, newname);
+            	String url=request.getSession().getServletContext().getRealPath("/")+ConfConstant.DEFAULT_URL;
+                File saveFile = new File(url, newname);
                 file.transferTo(saveFile);
-                return success(newname).setMessage("上传成功");
+                return success(ConfConstant.DEFAULT_URL+"/"+newname).setMessage("上传成功");
             } catch (Exception e) {
             	LOGGER.error("imageUpload失败！", e);
                 return error("上传失败");

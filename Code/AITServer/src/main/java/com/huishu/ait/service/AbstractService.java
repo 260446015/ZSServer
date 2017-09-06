@@ -42,7 +42,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.UtilsHelper;
 import com.huishu.ait.echart.series.Serie.SerieData;
-import com.huishu.ait.entity.common.Ratio;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
@@ -356,7 +355,7 @@ public abstract class AbstractService {
 	protected AreaSearchDTO getAreaSearchDTODemo(String gardenName){
 		AreaSearchDTO searchModel = new AreaSearchDTO();
 		searchModel.setPark(gardenName);
-		searchModel.setPageSize(5);
+		searchModel.setPageSize(6);
 		return searchModel;
 	}
 	
@@ -387,13 +386,13 @@ public abstract class AbstractService {
 	 * @param ratio
 	 * @return
 	 */
-	protected List<Ratio> convertData(List<Ratio> ratio){
+	protected List<Object[]> convertData(List<Object[]> ratio){
 		int sum=0;
-		for (Ratio ratio2 : ratio) {
-			sum+=ratio2.getNum();
+		for (Object[] objects : ratio) {
+			sum+=Integer.parseInt(String.valueOf(objects[0]));
 		}
-		for (Ratio ratio2 : ratio) {
-			ratio2.setPercent(ratio2.getNum()/(float)sum);
+		for (Object[] objects : ratio) {
+			objects[0]=((Float.parseFloat(String.valueOf(objects[0])))/sum);
 		}
 		return ratio;
 	}

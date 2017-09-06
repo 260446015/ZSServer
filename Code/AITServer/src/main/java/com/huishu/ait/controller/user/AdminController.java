@@ -1,15 +1,20 @@
 package com.huishu.ait.controller.user;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.AccountSearchDTO;
 import com.huishu.ait.service.user.AdminService;
 
 /**
@@ -39,6 +44,29 @@ public class AdminController extends BaseController {
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 
+	}
+	
+	/**
+	 * 查看账号分页列表
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "getAccountList.json", method = RequestMethod.POST)
+	public AjaxResult getAccountList(@RequestBody AccountSearchDTO searchModel) {
+		if (null==searchModel || null==searchModel.getType()|| null==searchModel.getDay()) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			List<UserBase> list = adminService.getAccountList(searchModel);
+			for (UserBase base : list) {
+				base.setPassword(null);
+				base.setSalt(null);
+			}
+			return success(changeObject(searchModel, list));
+		} catch (Exception e) {
+			LOGGER.error("getAccountList查询失败！",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
 	}
 	
 	/**

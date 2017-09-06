@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.entity.common.Ratio;
+import com.huishu.ait.entity.dto.AccountSearchDTO;
 import com.huishu.ait.repository.user.UserBaseRepository;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.user.AdminService;
@@ -28,9 +28,7 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	@Transactional
 	public AjaxResult auditAccount(long id) {
 		UserBase base = userBaseRepository.findOne(id);
-		Calendar c = Calendar.getInstance();  
-		c.setTime(new Date());
-		Calendar nextDate = (Calendar) c.clone();  
+		Calendar nextDate = getNow();
 		nextDate.add(Calendar.MONTH, +1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		base.setStartTime(sdf.format(new Date()));
@@ -49,10 +47,8 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		AjaxResult result = new AjaxResult();
 		Integer memberNum = userBaseRepository.findMemberNum("user");
 		Integer expireMemberNum = userBaseRepository.findExpireMemberNum("user");
-		//List<Ratio> areaRatio = userBaseRepository.findAreaRatio("user");
-		//List<Ratio> industryRatio = userBaseRepository.findIndustryRatio(park);
-		List<Ratio> industryRatio = null;
-		List<Ratio> areaRatio = null;
+		List<Object[]> areaRatio = userBaseRepository.findAreaRatio("user");
+		List<Object[]> industryRatio = userBaseRepository.findIndustryRatio(park);
 		JSONObject object = new JSONObject();
 		object.put("memberNum", memberNum);
 		object.put("expireMemberNum", expireMemberNum);
@@ -60,5 +56,46 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		object.put("industryRatio",convertData(industryRatio ));
 		return result.setSuccess(true).setData(object);
 	}
+
+	@Override
+	public List<UserBase> getAccountList(AccountSearchDTO searchModel) {
+		String time1;
+		String time2;
+		Calendar nextDate = getNow();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if(searchModel.getDay().equals("今日")){
+			nextDate.add(Calendar.DATE, +1);
+			time1=sdf.format(new Date());
+			time2=sdf.format(nextDate.getTime());
+		}else if(searchModel.getDay().equals("昨日")){
+			nextDate.add(Calendar.DATE, -1);
+			time2=sdf.format(new Date());
+			time1=sdf.format(nextDate.getTime());
+		}else if(searchModel.getDay().equals("近一周")){
+			nextDate.add(Calendar.DATE, -6);
+			time1=sdf.format(nextDate.getTime());
+			nextDate.add(Calendar.DATE, +7);
+			time2=sdf.format(nextDate.getTime());
+		}else {
+			time1="2017-01-01";
+			time2=sdf.format(nextDate.getTime());
+		}
+		if(searchModel.getType().equals("0")){
+			Integer count = userBaseRepository.findUserListCount(Integer.valueOf(searchModel.getType()), time1, time2);
+			searchModel.setTotalSize(count);
+			List<UserBase> list = userBaseRepository.findUserList(Integer.valueOf(searchModel.getType()), searchModel.getPageFrom(), searchModel.getPageSize(), time1, time2);
+			return list;
+		}else{
+			return null;
+		}
+	}
+	
+	private Calendar getNow(){
+		Calendar c = Calendar.getInstance();  
+		c.setTime(new Date());
+		Calendar nextDate = (Calendar) c.clone();  
+		return nextDate;
+	}
+	
 
 }

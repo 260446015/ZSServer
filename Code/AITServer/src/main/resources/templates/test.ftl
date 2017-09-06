@@ -52,6 +52,7 @@
 		            <div>
 		            <lable>名片:</lable>
                     <input type="file" id="file" name="file" onchange="pushImg();"/> 
+                    <img src="/images/a2e552bb-523d-44de-b57a-e6c41c693d77.jpg"  width="149" height="149"/> 
                     <input type="hidden" id="pic" name="pic" /></div>
 		        <div>
 		            <lable>提交:</lable>

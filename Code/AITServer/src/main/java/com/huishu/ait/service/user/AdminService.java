@@ -1,6 +1,10 @@
 package com.huishu.ait.service.user;
 
+import java.util.List;
+
+import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.AccountSearchDTO;
 
 /**
  * 后台管理service
@@ -19,4 +23,10 @@ public interface AdminService {
 	 * @return
 	 */
 	AjaxResult globalManagement(String park);
+	/**
+	 * 获取账号列表
+	 * @param searchModel    查询条件
+	 * @return
+	 */
+	List<UserBase> getAccountList(AccountSearchDTO searchModel);
 }
