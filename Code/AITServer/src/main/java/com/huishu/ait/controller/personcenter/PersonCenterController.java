@@ -90,7 +90,7 @@ public class PersonCenterController extends BaseController {
 		// String articleId = "40";
 		// String path = "F:/test/";
 		if (StringUtil.isEmpty(fileName)) {
-			fileName = new SimpleDateFormat("yyyyMMddHH:mm:ss").format(new Date()) + "." + type;
+			fileName = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "." + type;
 		} else {
 			fileName = fileName + "." + type;
 		}
