@@ -41,27 +41,27 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param userType
 	 * @return
 	 */
-	@Query("select count(1) from t_user_base where user_type=?")
+	@Query("select count(1) from UserBase where userType=?")
 	Integer findMemberNum(String userType);
 	/**
 	 * 查看预到期人数
 	 * @param userType
 	 * @return
 	 */
-	@Query("select count(1) from t_user_base where user_type=? and expire_time > sysdate()")
+	@Query("select count(1) from UserBase where userType=? and expireTime > sysdate()")
 	Integer findExpireMemberNum(String userType);
 	/**
 	 * 查看预到期人数
 	 * @param userType
 	 * @return
 	 */
-	@Query("select count(area) sum,area name from t_user_base where user_type=? GROUP BY area")
-	List<Ratio> findAreaRatio(String userType);
+	/*@Query("select count(area) sum,area name from UserBase where userType=? GROUP BY area")
+	List<Ratio> findAreaRatio(String userType);*/
 	/**
 	 * 查看园区行业数量
 	 * @param userEmail
 	 * @return
 	 */
-	@Query("SELECT count(industry) sum,industry name from t_company_data where park=？ GROUP BY industry")
-	List<Ratio> findIndustryRatio(String park);
+	/*@Query("SELECT count(industry) sum,industry name from Company where park=? GROUP BY industry")
+	List<Ratio> findIndustryRatio(String park);*/
 }

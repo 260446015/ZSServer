@@ -66,6 +66,9 @@ public class UserBase implements Serializable {
 	/**所属园区*/
 	@Column(name = "user_park" )
 	private String userPark;
+	
+	/** 地域 */
+	private String area;
 
 	/**创建时间*/
 	@Column(name = "create_time")
@@ -90,6 +93,14 @@ public class UserBase implements Serializable {
 	/**用户权限，不存数据库*/
 	@Transient
 	private List<Long> permissions;
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 
 	public Long getId() {
 		return id;

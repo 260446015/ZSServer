@@ -49,8 +49,10 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		AjaxResult result = new AjaxResult();
 		Integer memberNum = userBaseRepository.findMemberNum("user");
 		Integer expireMemberNum = userBaseRepository.findExpireMemberNum("user");
-		List<Ratio> areaRatio = userBaseRepository.findAreaRatio("user");
-		List<Ratio> industryRatio = userBaseRepository.findIndustryRatio(park);
+		//List<Ratio> areaRatio = userBaseRepository.findAreaRatio("user");
+		//List<Ratio> industryRatio = userBaseRepository.findIndustryRatio(park);
+		List<Ratio> industryRatio = null;
+		List<Ratio> areaRatio = null;
 		JSONObject object = new JSONObject();
 		object.put("memberNum", memberNum);
 		object.put("expireMemberNum", expireMemberNum);
