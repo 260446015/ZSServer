@@ -21,6 +21,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.export.News;
 import com.huishu.ait.common.util.ConcersUtils;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.common.util.exporter.WordExporter;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
@@ -47,6 +48,8 @@ public class PersonCenterController extends BaseController {
 	/**
 	 * 个人中心中查询用户收藏的专家观点，政策，企业报告的Controller
 	 * 
+	 * @param PersonCollectDto里面传递query为查询类型
+	 *            分页请传pageNumber当前页 pageSize页大小
 	 * @return 返回一个jsonobj，里面存有专家观点，政策，企业报告
 	 */
 	@RequestMapping(value = "/getPersonCollection.json", method = RequestMethod.POST)
@@ -68,25 +71,35 @@ public class PersonCenterController extends BaseController {
 	/**
 	 * 下载文档
 	 * 
+	 * @param type
+	 *            pdf请传pdf,word请传doc字符串
+	 * @param articleId
+	 *            文章id
+	 * @param path
+	 *            用户保存路径
+	 * @param fileName
+	 *            用户存储名字
 	 * @return
 	 */
 	@RequestMapping(value = "/downloadCol.json", method = RequestMethod.GET)
-	public AjaxResult download(HttpServletRequest request, HttpServletResponse response) {
+	public void download(HttpServletRequest request, HttpServletResponse response) {
 		String type = request.getParameter("type");
 		String articleId = request.getParameter("articleId");
 		String path = request.getParameter("path");
 		String fileName = request.getParameter("fileName");
 		// String articleId = "40";
 		// String path = "F:/test/";
-		fileName = fileName +"." + type;
+		if (StringUtil.isEmpty(fileName)) {
+			fileName = new SimpleDateFormat("yyyyMMddHH:mm:ss").format(new Date()) + "." + type;
+		} else {
+			fileName = fileName + "." + type;
+		}
 
 		response.setContentType("application/octet-stream; charset=UTF-8");
 		if ("doc".equals(type)) {
-			response.setHeader("content-disposition",
-					"attachment;filename=" + new SimpleDateFormat("yyyyMMddHH:mm:ss").format(new Date()) + ".doc");
+			response.setHeader("content-disposition", "attachment;filename=" + fileName);
 		} else if ("pdf".equals(type)) {
-			response.setHeader("content-disposition",
-					"attachment;filename=" + new SimpleDateFormat("yyyyMMddHH:mm:ss").format(new Date()) + ".pdf");
+			response.setHeader("content-disposition", "attachment;filename=" + fileName);
 		}
 		OutputStream os = null;
 		try {
@@ -107,7 +120,6 @@ public class PersonCenterController extends BaseController {
 				}
 			}
 		}
-		return null;
 	}
 
 	private PersonCollectDto initPage(PersonCollectDto dto) {
