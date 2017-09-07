@@ -6,14 +6,17 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 注册用户DTO
  * @author yindq
  * @date 2017年8月24日
  */
-public class RegisterDTO{
+public class RegisterDTO implements Serializable {
+	/**
+	 * 可序列化
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**手机号*/
 	@Pattern(regexp = "^((13[0-9])|(14[57])|(15[0-9])|(17[01678])|(18[0-9]))\\d{8}$")

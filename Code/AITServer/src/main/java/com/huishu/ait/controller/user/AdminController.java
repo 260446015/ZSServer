@@ -17,6 +17,7 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AccountSearchDTO;
+import com.huishu.ait.entity.dto.GardenSearchDTO;
 import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.service.user.AdminService;
 import com.huishu.ait.service.user.UserBaseService;
@@ -56,7 +57,7 @@ public class AdminController extends BaseController {
 	
 	/**
 	 * 查看会员账号分页列表
-	 * @param id
+	 * @param searchModel
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountList.json", method = RequestMethod.POST)
@@ -110,7 +111,7 @@ public class AdminController extends BaseController {
 	
 	/**
 	 * 查看预到期会员账号分页列表
-	 * @param id
+	 * @param searchModel
 	 * @return
 	 */
 	@RequestMapping(value = "getWarningAccountList.json", method = RequestMethod.POST)
@@ -125,6 +126,44 @@ public class AdminController extends BaseController {
 				base.setSalt(null);
 			}
 			return success(changeObject(searchModel, list));
+		} catch (Exception e) {
+			LOGGER.error("getAccountList查询失败！",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	/**
+	 * 账号预警
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "warnAccount.json", method = RequestMethod.GET)
+	public AjaxResult warnAccount(Long id) {
+		if (null==id) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return adminService.warnAccount(id,1);
+		} catch (Exception e) {
+			LOGGER.error("auditAccount失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
+	
+	/**
+	 * 查看园区分页列表
+	 * @param searchModel
+	 * @return
+	 */
+	@RequestMapping(value = "getGardenList.json", method = RequestMethod.POST)
+	public AjaxResult getGardenList(GardenSearchDTO searchModel) {
+		if (null==searchModel || null==searchModel.getMsg()) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			adminService.getGardenList(searchModel);
+			return success(changeObject(searchModel, null));
 		} catch (Exception e) {
 			LOGGER.error("getAccountList查询失败！",e);
 			return error(MsgConstant.SYSTEM_ERROR);

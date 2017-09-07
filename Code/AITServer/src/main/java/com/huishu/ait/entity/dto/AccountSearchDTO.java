@@ -6,7 +6,7 @@ import com.huishu.ait.entity.common.SearchModel;
 /**
  * 账号查询的DTO
  * @author yindq
- * @date 2017年8月3日
+ * @date 2017年9月5日
  */
 public class AccountSearchDTO extends SearchModel {
 	/**

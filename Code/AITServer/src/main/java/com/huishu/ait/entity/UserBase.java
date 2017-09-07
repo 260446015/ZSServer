@@ -91,13 +91,25 @@ public class UserBase implements Serializable {
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	/**会员等级(0:试用,1:A级会员,2：B级会员,3：C级会员)*/
+	/**会员等级(0:试用,1:正式)*/
 	@Column(name = "user_level")
 	private Integer userLevel;
+	
+	/**是否预警*/
+	@Column(name = "is_warn")
+	private Integer isWarn;
 	
 	/**用户权限，不存数据库*/
 	@Transient
 	private List<Long> permissions;
+
+	public Integer getIsWarn() {
+		return isWarn;
+	}
+
+	public void setIsWarn(Integer isWarn) {
+		this.isWarn = isWarn;
+	}
 
 	public String getImageUrl() {
 		return imageUrl;

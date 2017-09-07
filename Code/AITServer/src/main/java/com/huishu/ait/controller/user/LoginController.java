@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ShiroUtil;
 import com.huishu.ait.common.util.StringUtil;
@@ -42,6 +43,8 @@ import com.huishu.ait.exception.AccountExpiredException;
 import com.huishu.ait.exception.AccountStartException;
 import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.security.RSAUtils;
+import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
+import com.huishu.ait.service.user.AdminService;
 import com.huishu.ait.service.user.UserBaseService;
 
 /**
@@ -58,6 +61,8 @@ public class LoginController extends BaseController {
 	private UserBaseService userBaseService;
 	@Resource
 	private CaptchaManager captchaManager;
+	@Autowired
+	private AdminService adminService;
 
 	/**
 	 * 根路径访问
@@ -87,11 +92,18 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "apis/islogin.do", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult islogin() {
-		Object object = SecurityUtils.getSubject().getPrincipal();
-		if(object==null){
+		ShiroUser user = getCurrentShiroUser();
+		if(user==null){
 			return error("请先登录");
 		}else{
-			return success("已经登录").setMessage("已经登录");
+			UserBase base = userBaseService.findUserByUserId(user.getId());
+			if(base.getIsWarn()==1){
+				adminService.warnAccount(user.getId(),0);
+				JSONObject object = new JSONObject();
+				object.put("iswarn", base.getExpireTime());
+				return success(object);
+			}
+			return success(null).setMessage("已经登录");
 		}
 	}
 	

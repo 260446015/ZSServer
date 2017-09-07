@@ -5,13 +5,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.huishu.ait.common.util.DateUtils;
+import com.huishu.ait.controller.user.AdminController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AccountSearchDTO;
+import com.huishu.ait.entity.dto.GardenSearchDTO;
 import com.huishu.ait.repository.user.UserBaseRepository;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.user.AdminService;
@@ -21,21 +25,24 @@ import net.minidev.json.JSONObject;
 @Service
 public class AdminServiceImpl extends AbstractService implements AdminService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
 	@Autowired
 	private UserBaseRepository userBaseRepository;
 	
 	@Override
 	public Boolean auditAccount(UserBase base) {
-		Calendar nextDate = DateUtils.getNow();
-		nextDate.add(Calendar.MONTH, +1);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		base.setStartTime(sdf.format(new Date()));
-		base.setExpireTime(sdf.format(nextDate.getTime()));
-		UserBase save = userBaseRepository.save(base);
-		if (save != null) {
+		try {
+			Calendar nextDate = DateUtils.getNow();
+			nextDate.add(Calendar.MONTH, +1);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			base.setStartTime(sdf.format(new Date()));
+			base.setExpireTime(sdf.format(nextDate.getTime()));
+			userBaseRepository.save(base);
 			return true;
+		} catch (Exception e) {
+			LOGGER.error("预警失败！",e);
+			return false;
 		}
-		return false;
 	}
 
 	@Override
@@ -72,6 +79,21 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		return list;
 	}
 	
+	@Override
+	public AjaxResult warnAccount(Long id,Integer status) {
+		AjaxResult result = new AjaxResult();
+		UserBase base = userBaseRepository.findOne(id);
+		base.setIsWarn(status);
+		userBaseRepository.save(base);
+		return result.setSuccess(true).setMessage("操作成功");
+	}
+	
+	@Override
+	public List<UserBase> getGardenList(GardenSearchDTO searchModel) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	private String[] analysisDate(String day){
 		String time1;
 		String time2;
@@ -98,5 +120,4 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		return times;
 	}
 
-	
 }

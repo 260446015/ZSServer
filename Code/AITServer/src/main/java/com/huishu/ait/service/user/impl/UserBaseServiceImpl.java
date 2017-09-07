@@ -107,12 +107,8 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 		if (one != null) {
 			String newPassword = getPasswordDB(param.getNewPassword(),one.getSalt());
 			one.setPassword(newPassword);
-			UserBase save = userBaseRepository.save(one);
-			if (save != null) {
-				return result.setSuccess(true).setMessage(MsgConstant.PASSWORD_SUCCESS);
-			} else {
-				return result.setSuccess(false).setMessage(MsgConstant.CHANGE_ERROR);
-			}
+			userBaseRepository.save(one);
+			return result.setSuccess(false).setMessage(MsgConstant.CHANGE_ERROR);
 		}
 		return result.setSuccess(false).setMessage(MsgConstant.USER_ERROR);
 	}
