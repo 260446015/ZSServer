@@ -39,12 +39,12 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	}
 
 	@Override
-	public AjaxResult globalManagement(String park) {
+	public AjaxResult globalManagement() {
 		AjaxResult result = new AjaxResult();
 		Integer memberNum = userBaseRepository.findMemberNum("user");
 		Integer expireMemberNum = userBaseRepository.findExpireMemberNum("user");
 		List<Object[]> areaRatio = userBaseRepository.findAreaRatio("user");
-		List<Object[]> industryRatio = userBaseRepository.findIndustryRatio(park);
+		List<Object[]> industryRatio = userBaseRepository.findIndustryRatio();
 		JSONObject object = new JSONObject();
 		object.put("memberNum", memberNum);
 		object.put("expireMemberNum", expireMemberNum);

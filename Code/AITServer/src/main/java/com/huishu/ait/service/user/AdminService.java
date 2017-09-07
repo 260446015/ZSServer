@@ -22,7 +22,7 @@ public interface AdminService {
 	 * 查看全局管理数据
 	 * @return
 	 */
-	AjaxResult globalManagement(String park);
+	AjaxResult globalManagement();
 	/**
 	 * 获取账号列表
 	 * @param searchModel    查询条件

@@ -46,7 +46,7 @@ public class AdminController extends BaseController {
 	@RequestMapping(value = "globalManagement.json", method = RequestMethod.GET)
 	public AjaxResult globalManagement() {
 		try {
-			return adminService.globalManagement(getUserPark());
+			return adminService.globalManagement();
 		} catch (Exception e) {
 			LOGGER.error("globalManagement失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);

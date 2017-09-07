@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -387,15 +388,42 @@ public abstract class AbstractService {
 	 * @param ratio
 	 * @return
 	 */
-	protected List<Object[]> convertData(List<Object[]> ratio){
+	protected Map<String,Float> convertData(List<Object[]> ratio){
+		Map<String,Float> map= new HashMap<String,Float>();
 		int sum=0;
-		for (Object[] objects : ratio) {
-			sum+=Integer.parseInt(String.valueOf(objects[0]));
+		for (int i = 0; i < ratio.size(); i++) {
+			Object[] objects=ratio.get(i);
+			if(objects[1]==null||objects[1].equals("")){
+				continue;
+			}
+			String name=(String)objects[1];
+			String[] split = name.split(",");
+			if(split.length!=1){
+				for (int j = 0; j < split.length; j++) {
+					Object[] data={objects[0],split[j]};
+					if(map.containsKey(data[1])){
+						Float value=map.get(data[1]);
+		                map.put((String)data[1], Integer.parseInt(String.valueOf(data[0]))+value);
+		            }else{
+		                map.put((String)data[1], Float.parseFloat(String.valueOf(data[0])));
+		            }
+					sum+=Integer.parseInt(String.valueOf(objects[0]));
+				}
+			}else{
+				if(map.containsKey(ratio.get(i)[1])){
+					Float value=map.get(ratio.get(i)[1]);
+	                map.put((String)ratio.get(i)[1], Integer.parseInt(String.valueOf(ratio.get(i)[0]))+value);
+	            }else{
+	                map.put((String)ratio.get(i)[1], Float.parseFloat(String.valueOf(ratio.get(i)[0])));
+	            }
+				sum+=Integer.parseInt(String.valueOf(objects[0]));
+			}
 		}
-		for (Object[] objects : ratio) {
-			objects[0]=((Float.parseFloat(String.valueOf(objects[0])))/sum);
+		Set<String> set = map.keySet();
+		for (String key : set) {
+			map.put(key, (float)map.get(key)/sum);
 		}
-		return ratio;
+		return map;
 	}
 	/**
 	 * @param bq

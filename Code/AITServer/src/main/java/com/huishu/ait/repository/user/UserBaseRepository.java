@@ -1,5 +1,6 @@
 package com.huishu.ait.repository.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -61,8 +62,8 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param park
 	 * @return
 	 */
-	@Query(value="SELECT count(industry) sum,industry name from t_company_data where park=? GROUP BY industry",nativeQuery = true)
-	List<Object[]> findIndustryRatio(String park);
+	@Query(value="SELECT count(industry) sum,industry name from t_garden_data GROUP BY industry",nativeQuery = true)
+	List<Object[]> findIndustryRatio();
 	/**
 	 * 查看会员数量
 	 * @param userLevel
@@ -82,7 +83,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @return
 	 */
 	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?6 and create_time between ?4 and ?5 and start_time is null limit ?2,?3",nativeQuery = true)
-	List<UserBase> findUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2,String search);
+	ArrayList<UserBase> findUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2,String search);
 	/**
 	 * 查看预到期会员数量
 	 * @param userLevel
@@ -102,6 +103,6 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @return
 	 */
 	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?6 and create_time between ?4 and ?5 and expire_time between now() and adddate(now(),7) limit ?2,?3",nativeQuery = true)
-	List<UserBase> findWarningUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2,String search);
+	ArrayList<UserBase> findWarningUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2,String search);
 	
 }
