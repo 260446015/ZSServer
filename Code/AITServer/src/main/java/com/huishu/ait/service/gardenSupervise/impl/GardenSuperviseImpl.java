@@ -180,7 +180,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			Integer pageNumber = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
 			// Long regCapital = dto.getRegCapital();
-//			int from = (pageNumber - 1) * pageSize;
+			// int from = (pageNumber - 1) * pageSize;
 			SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			if (StringUtils.isNotBlank(park)) {
@@ -240,15 +240,17 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			PageRequest pageRequest = new PageRequest(pageNumber - 1, pageSize);
 			Page<Company> page = null;
 			if (dto.getGroupname().equals("全部")) {
-				page = companyRepository.findByIndustryAndParkAndRegisterCapitalBetween(industry, park, start, end,
+				if ("全部".equals(industry))
+					industry = "%%";
+				page = companyRepository.findByIndustryLikeAndParkAndRegisterCapitalBetween(industry, park, start, end,
 						pageRequest);
 			} else {
 				CompanyGroup cg = companyGroupRepository.findGroupByName(dto.getGroupname(), dto.getUserId());
-				if(cg == null){
+				if (cg == null) {
 					return null;
 				}
 				List<CompanyGroupMiddle> ms = middleRepository.findByGroupId(cg.getGroupid());
-				if(ms == null){
+				if (ms == null) {
 					return null;
 				}
 				List<Long> companyIds = new ArrayList<>();
@@ -290,7 +292,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		boolean flag = false;
 		try {
 			CompanyGroup cg = companyGroupRepository.findByGroupNameAndUserId(middle.getGroupname(), userId);
-			if(cg == null){
+			if (cg == null) {
 				return flag;
 			}
 			middle.setGroupId(cg.getGroupid());
@@ -317,4 +319,5 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		return flag;
 
 	}
+
 }

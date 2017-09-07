@@ -40,6 +40,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.hankcs.analysis.Analysis;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.UtilsHelper;
 import com.huishu.ait.echart.series.Serie.SerieData;
@@ -264,6 +265,7 @@ public abstract class AbstractService {
 	/**
 	 * @param source
 	 * @param dto
+	 * 获取文章内容
 	 * @return
 	 */
 	private void  getDtoInfo( List<HeadlinesArticleListDTO> list,Map<String, Object> source) {
@@ -282,9 +284,35 @@ public abstract class AbstractService {
 		dto.setReplyCount( (int) source.get("replyCount"));
 		dto.setSupportCount( (int) source.get("supportCount"));
 		dto.setHot(UtilsHelper.getRound(supportCount/hitCount*1.0));
+		String summary = (String)source.get("summary");
+		if(StringUtils.isEmpty(summary)){
+			/**如果文章摘要不存在，则将内容的前一百数据取出作为摘要*/
+			summary = dto.getContent().substring(0, 100);
+			dto.setSummary(summary);
+		}else{
+			dto.setSummary(summary);	
+		}
+		Set<String> set = getBusiness(dto.getTitle(),dto.getContent());
+		dto.setSet(set);
 		list.add(dto);
 	}
 	
+	/**
+	 * @param title
+	 * @param content
+	 * 提取文章内部公司名录
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private Set<String> getBusiness(String title, String content) {
+		JSONObject findCompany = Analysis.findCompany(title, content);
+		if(findCompany != null && findCompany.getBooleanValue("status")){
+		Set<String> set = (Set<String>) findCompany.get("result");
+			return set;
+		}else{			
+			return null;
+		}
+	}
 	/**
 	 * ES的分页查询数据方法
 	 * @param searchModel  查询Model
