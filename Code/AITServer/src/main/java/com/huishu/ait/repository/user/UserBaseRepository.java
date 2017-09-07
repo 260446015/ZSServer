@@ -70,8 +70,8 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param time2
 	 * @return
 	 */
-	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and createTime between ?2 and ?3 and start_time is null")
-	Integer findUserListCount(Integer userLevel,String time1,String time2);
+	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and concat(real_name, user_park) like ?4 and createTime between ?2 and ?3 and start_time is null")
+	Integer findUserListCount(Integer userLevel,String time1,String time2,String search);
 	/**
 	 * 查看会员列表
 	 * @param userLevel
@@ -81,8 +81,8 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param time2
 	 * @return
 	 */
-	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and create_time between ?4 and ?5 and start_time is null limit ?2,?3",nativeQuery = true)
-	List<UserBase> findUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2);
+	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?6 and create_time between ?4 and ?5 and start_time is null limit ?2,?3",nativeQuery = true)
+	List<UserBase> findUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2,String search);
 	/**
 	 * 查看预到期会员数量
 	 * @param userLevel
@@ -90,8 +90,8 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param time2
 	 * @return
 	 */
-	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and createTime between ?2 and ?3 and expire_time between now() and adddate(now(),7)")
-	Integer findWarningUserListCount(Integer userLevel,String time1,String time2);
+	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and concat(real_name, user_park) like ?4 and createTime between ?2 and ?3 and expire_time between now() and adddate(now(),7)")
+	Integer findWarningUserListCount(Integer userLevel,String time1,String time2,String search);
 	/**
 	 * 查看预到期会员列表
 	 * @param userLevel
@@ -101,7 +101,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param time2
 	 * @return
 	 */
-	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and create_time between ?4 and ?5 and expire_time between now() and adddate(now(),7) limit ?2,?3",nativeQuery = true)
-	List<UserBase> findWarningUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2);
+	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?6 and create_time between ?4 and ?5 and expire_time between now() and adddate(now(),7) limit ?2,?3",nativeQuery = true)
+	List<UserBase> findWarningUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2,String search);
 	
 }

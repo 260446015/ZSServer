@@ -39,7 +39,7 @@ import com.huishu.ait.entity.dto.CaptchaDTO;
 import com.huishu.ait.entity.dto.FindPasswordDTO;
 import com.huishu.ait.entity.dto.RegisterDTO;
 import com.huishu.ait.exception.AccountExpiredException;
-import com.huishu.ait.exception.IncorrectCaptchaException;
+import com.huishu.ait.exception.AccountStartException;
 import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.security.RSAUtils;
 import com.huishu.ait.service.user.UserBaseService;
@@ -136,10 +136,10 @@ public class LoginController extends BaseController {
 		if (error != null) {
 			if (error.equals(IncorrectCredentialsException.class.getName())) {
 				message = MsgConstant.CREDENTIAL_ERROR;
-			} else if (error.equals(IncorrectCaptchaException.class.getName())) {
-				message = MsgConstant.INCORRECT_CAPTCHA;
-			} else if (error.equals(AccountExpiredException.class.getName())) {
+			}else if (error.equals(AccountExpiredException.class.getName())) {
 				message = MsgConstant.ACCOUNTEXPIRED;
+			}else if (error.equals(AccountStartException.class.getName())) {
+				message = MsgConstant.ACCOUNTSTART;
 			}else if (error.equals(ExcessiveAttemptsException.class.getName())) {
 				message = MsgConstant.LOCKING;
 			}
@@ -197,7 +197,6 @@ public class LoginController extends BaseController {
 		}
 		String telphone = param.getTelphone();
 		String type = param.getType();
-		String userAccount = param.getUserAccount();
 		if (StringUtil.isEmpty(telphone)) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -208,8 +207,6 @@ public class LoginController extends BaseController {
 		if ("findPassword".equals(type)) {
 			if(user == null){
 				return error("该手机号未被注册");
-			}else if(!user.getUserAccount().equals(userAccount)){
-				return error(MsgConstant.PHONE_ERROR);
 			}
 		} else {
 			if (user != null) {

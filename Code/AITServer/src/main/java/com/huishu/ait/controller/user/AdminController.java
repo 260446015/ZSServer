@@ -2,6 +2,8 @@ package com.huishu.ait.controller.user;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,9 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AccountSearchDTO;
+import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.service.user.AdminService;
+import com.huishu.ait.service.user.UserBaseService;
 
 /**
  * 后台管理人员操作相关
@@ -30,6 +34,10 @@ public class AdminController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private UserBaseService userBaseService;
+	@Resource
+	private CaptchaManager captchaManager;
 	
 	/**
 	 * 全局管理
@@ -57,6 +65,12 @@ public class AdminController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
+			String search = searchModel.getSearch();
+			if(search==null){
+				searchModel.setSearch("%%");
+			}else{
+				searchModel.setSearch("%"+search+"%");
+			}
 			List<UserBase> list = adminService.getAccountList(searchModel);
 			for (UserBase base : list) {
 				base.setPassword(null);
@@ -80,7 +94,13 @@ public class AdminController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			return adminService.auditAccount(id);
+			UserBase base = userBaseService.findUserByUserId(id);
+			Boolean status = adminService.auditAccount(base);
+			if(status){
+				boolean result = captchaManager.notice(base.getTelphone());
+				return  result ? success(null).setMessage("审核成功，用户将收到短信通知") : error("短信发送失败，请稍后再试");
+			}
+			return error("审核失败，请稍后再试");
 		} catch (Exception e) {
 			LOGGER.error("auditAccount失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);

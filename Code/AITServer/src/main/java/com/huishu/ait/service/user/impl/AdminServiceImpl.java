@@ -25,20 +25,17 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	private UserBaseRepository userBaseRepository;
 	
 	@Override
-	public AjaxResult auditAccount(long id) {
-		UserBase base = userBaseRepository.findOne(id);
+	public Boolean auditAccount(UserBase base) {
 		Calendar nextDate = DateUtils.getNow();
 		nextDate.add(Calendar.MONTH, +1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		base.setStartTime(sdf.format(new Date()));
 		base.setExpireTime(sdf.format(nextDate.getTime()));
 		UserBase save = userBaseRepository.save(base);
-		AjaxResult result = new AjaxResult();
 		if (save != null) {
-			return result.setSuccess(true).setMessage("审核通过");
-		} else {
-			return result.setSuccess(false).setMessage("审核失败，请稍后再试");
+			return true;
 		}
+		return false;
 	}
 
 	@Override
@@ -59,23 +56,19 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	@Override
 	public List<UserBase> getAccountList(AccountSearchDTO searchModel) {
 		String[] times = analysisDate(searchModel.getDay());
-		if(searchModel.getType().equals("0")){
-			Integer count = userBaseRepository.findUserListCount(Integer.valueOf(searchModel.getType()),times[0], times[1]);
-			searchModel.setTotalSize(count);
-			List<UserBase> list = userBaseRepository.findUserList(Integer.valueOf(searchModel.getType()), searchModel.getPageFrom(), searchModel.getPageSize(),times[0], times[1]);
-			return list;
-		}else{
-			return null;
-		}
+		Integer count = userBaseRepository.findUserListCount(Integer.valueOf(searchModel.getType()),times[0], times[1],searchModel.getSearch());
+		searchModel.setTotalSize(count);
+		List<UserBase> list = userBaseRepository.findUserList(Integer.valueOf(searchModel.getType()), searchModel.getPageFrom(), searchModel.getPageSize(),times[0], times[1],searchModel.getSearch());
+		return list;
 	}
 	
 
 	@Override
 	public List<UserBase> getWarningAccountList(AccountSearchDTO searchModel) {
 		String[] times = analysisDate(searchModel.getDay());
-		Integer count = userBaseRepository.findWarningUserListCount(Integer.valueOf(searchModel.getType()),times[0], times[1]);
+		Integer count = userBaseRepository.findWarningUserListCount(Integer.valueOf(searchModel.getType()),times[0], times[1],searchModel.getSearch());
 		searchModel.setTotalSize(count);
-		List<UserBase> list = userBaseRepository.findWarningUserList(Integer.valueOf(searchModel.getType()), searchModel.getPageFrom(), searchModel.getPageSize(),times[0], times[1]);
+		List<UserBase> list = userBaseRepository.findWarningUserList(Integer.valueOf(searchModel.getType()), searchModel.getPageFrom(), searchModel.getPageSize(),times[0], times[1],searchModel.getSearch());
 		return list;
 	}
 	

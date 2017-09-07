@@ -17,6 +17,8 @@ public class AccountSearchDTO extends SearchModel {
 	private String type;
 	/** 日期 */
 	private String day;
+	/** 搜索条件 */
+	private String search;
 	
 	public String getType() {
 		return type;
@@ -32,6 +34,14 @@ public class AccountSearchDTO extends SearchModel {
 
 	public void setDay(String day) {
 		this.day = day;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 
 	@Override

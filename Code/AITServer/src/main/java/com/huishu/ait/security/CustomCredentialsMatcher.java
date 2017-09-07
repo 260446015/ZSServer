@@ -58,9 +58,8 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 			passwordRetryCache.put(username, retryCount);
 		}
 		if(retryCount.incrementAndGet() > 5) {
-			//if retry count > 5 throw
 			LOGGER.warn("username: " + username + " tried to login more than 5 times in period");  
-			throw new ExcessiveAttemptsException("用户名: " + username + " 密码连续输入错误超过5次，锁定半小时！"); 
+			throw new ExcessiveAttemptsException(); 
 		} else {
 			passwordRetryCache.put(username, retryCount);
 		}

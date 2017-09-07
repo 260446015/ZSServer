@@ -41,13 +41,8 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 	}
 
 	@Override
-	@Transactional
 	public AjaxResult addRegisterUser(RegisterDTO dto) {
 		AjaxResult result = new AjaxResult();
-		UserBase account = findUserByUserAccount(dto.getUserAccount());
-		if (account != null) {
-			return result.setSuccess(false).setMessage(MsgConstant.ACCOUNT_REPEAT);
-		}
 		UserBase email = userBaseRepository.findByUserEmailAndUserType(dto.getUserEmail(),"user");
 		if (email != null) {
 			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_REPEAT);
@@ -60,7 +55,7 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 			byte[] password = Digests.sha1(ConfConstant.DEFAULT_PASSWORD.getBytes(), salt, Encodes.HASH_INTERATIONS);
 			base.setPassword(Encodes.encodeHex(password));
 			base.setTelphone(dto.getTelphone());
-			base.setUserAccount(dto.getUserAccount());
+			base.setUserAccount(dto.getTelphone());
 			base.setUserComp(dto.getCompany());
 			base.setUserDepartment(dto.getDepartment());
 			base.setUserEmail(dto.getUserEmail());
@@ -106,10 +101,9 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 	}
 
 	@Override
-	@Transactional
 	public AjaxResult findPassword(FindPasswordDTO param) {
 		AjaxResult result = new AjaxResult();
-		UserBase one = userBaseRepository.findByUserAccountAndUserType(param.getUserAccount(),"user");
+		UserBase one = userBaseRepository.findByUserAccountAndUserType(param.getTelphone(),"user");
 		if (one != null) {
 			String newPassword = getPasswordDB(param.getNewPassword(),one.getSalt());
 			one.setPassword(newPassword);
@@ -124,7 +118,6 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 	}
 
 	@Override
-	@Transactional
 	public AjaxResult modifyEmail(Long userId, String email) {
 		AjaxResult result = new AjaxResult();
 		UserBase one = userBaseRepository.findOne(userId);

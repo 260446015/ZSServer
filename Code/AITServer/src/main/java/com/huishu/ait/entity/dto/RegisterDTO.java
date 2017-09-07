@@ -15,9 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class RegisterDTO{
 
-	/**账号*/
-	@Pattern(regexp = "^[a-zA-Z\\d]{3,20}$")
-	private String userAccount;
 	/**手机号*/
 	@Pattern(regexp = "^((13[0-9])|(14[57])|(15[0-9])|(17[01678])|(18[0-9]))\\d{8}$")
 	private String telphone;
@@ -46,12 +43,6 @@ public class RegisterDTO{
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
-	}
-	public String getUserAccount() {
-		return userAccount;
-	}
-	public void setUserAccount(String userAccount) {
-		this.userAccount = userAccount;
 	}
 	public String getTelphone() {
 		return telphone;

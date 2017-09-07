@@ -26,6 +26,7 @@ public class CaptchaManager {
 	private static final Logger log = LoggerFactory.getLogger(CaptchaManager.class);
 
 	private static final String MESSAGE = "您的短信验证码为 %s, 请在30分钟内填写";
+	private static final String ACCOUNTMESSAGE = "您的账号已通过审核，账号为 %s, 密码默认为huishuzhaoshang2017，为保障账号安全请尽快修改密码";
 
 	private static final Map<String, MyCaptcha> container = new ConcurrentHashMap<>();
 
@@ -54,7 +55,11 @@ public class CaptchaManager {
 	public CaptchaManager() {
 		new Thread(cleanupRunnable).start();
 	}
-	
+	/**
+	 * 发送短信验证码
+	 * @param phoneNumber
+	 * @return
+	 */
 	public boolean send(String phoneNumber) {
 		MyCaptcha myCaptcha = container.get(phoneNumber);
 		String captcha = CheckCodeUtil.getRandomPhoneCaptcha();
@@ -95,7 +100,24 @@ public class CaptchaManager {
 		container.put(phoneNumber, myCaptcha);
 		return true;
 	}
-
+	/**
+	 * 发送通知
+	 * @param phoneNumber
+	 * @return
+	 */
+	public boolean notice(String phoneNumber) {
+		AjaxResult result = smsSender.send(String.format(ACCOUNTMESSAGE, phoneNumber), phoneNumber);
+		if (!result.isSuccess()) {
+			if (log.isDebugEnabled()) {
+				log.debug("手机 {} 通知发送失败", phoneNumber);
+			}
+			return false;
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("手机 {} 通知发送成功", phoneNumber);
+		}
+		return true;
+	}
 	/**
 	 * 校验验证码是否正确
 	 */

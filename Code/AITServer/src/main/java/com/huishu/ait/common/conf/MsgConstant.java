@@ -54,6 +54,10 @@ public class MsgConstant {
      */
     public static final String ACCOUNTEXPIRED = "账号过期";
     /**
+     * 账号未审核
+     */
+    public static final String ACCOUNTSTART = "账号未审核";
+    /**
      * 锁定
      */
     public static final String LOCKING = "密码连续输入错误超过5次，锁定半小时！";
@@ -78,11 +82,11 @@ public class MsgConstant {
     /**
      * 注册成功
      **/
-    public static final String REGISTER_SUCCESS = "注册成功";
+    public static final String REGISTER_SUCCESS = "申请成功，请等待管理员审批";
     /**
      * 注册失败
      **/
-    public static final String REGISTER_ERROR = "注册失败，请稍后再试";
+    public static final String REGISTER_ERROR = "申请失败，请稍后再试";
     /**
      * 账号已注册
      */
@@ -95,10 +99,6 @@ public class MsgConstant {
      * 手机已注册
      */
     public static final String PHONE_REPEAT = "该手机号已被注册，请直接登录或者使用其他手机号进行注册";
-    /**
-     * 手机账号不匹配
-     */
-    public static final String PHONE_ERROR = "此手机不是该账户的绑定手机";
     /**
      * 用户不存在
      */

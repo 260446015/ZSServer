@@ -17,7 +17,7 @@ public interface AdminService {
 	 * @param id
 	 * @return
 	 */
-	AjaxResult auditAccount(long id);
+	Boolean auditAccount(UserBase base);
 	/**
 	 * 查看全局管理数据
 	 * @return

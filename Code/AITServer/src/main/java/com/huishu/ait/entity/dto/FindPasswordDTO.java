@@ -8,7 +8,6 @@ public class FindPasswordDTO implements Serializable{
 	 * 序列化
 	 */
 	private static final long serialVersionUID = 1L;
-	private String userAccount;
 	private String telphone;
 	private String captcha;
 	private String newPassword;
@@ -30,12 +29,4 @@ public class FindPasswordDTO implements Serializable{
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
 	}
-	public String getUserAccount() {
-		return userAccount;
-	}
-	public void setUserAccount(String userAccount) {
-		this.userAccount = userAccount;
-	}
-	
-	
 }
