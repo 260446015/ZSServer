@@ -101,9 +101,9 @@ public class LoginController extends BaseController {
 				adminService.warnAccount(user.getId(),0);
 				JSONObject object = new JSONObject();
 				object.put("iswarn", base.getExpireTime());
-				return success(object);
+				return success(object).setMessage("已经登录");
 			}
-			return success(null).setMessage("已经登录");
+			return success("").setMessage("已经登录");
 		}
 	}
 	
