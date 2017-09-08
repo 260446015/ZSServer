@@ -1,7 +1,6 @@
-package com.huishu.ait.service.user.impl;
+package com.huishu.ait.service.user.backstage.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -13,14 +12,11 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.entity.UserBase;
-import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AccountSearchDTO;
-import com.huishu.ait.entity.dto.GardenDataDTO;
-import com.huishu.ait.entity.dto.GardenSearchDTO;
 import com.huishu.ait.repository.user.UserBaseRepository;
 import com.huishu.ait.service.AbstractService;
-import com.huishu.ait.service.user.AdminService;
+import com.huishu.ait.service.user.backstage.AdminService;
 
 import net.minidev.json.JSONObject;
 
@@ -90,41 +86,4 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		return result.setSuccess(true).setMessage("操作成功");
 	}
 	
-	@Override
-	public List<GardenDataDTO> getGardenList(GardenSearchDTO searchModel) {
-		List<GardenDataDTO> listData = new ArrayList<GardenDataDTO>();
-		String[] msg = searchModel.getMsg();
-		searchModel.setArea(msg[0]);
-		searchModel.setType(msg[1]);
-		searchModel.setDay(msg[2]);
-		String[] times = analysisDate(searchModel.getDay());
-		Integer count = userBaseRepository.findGardenListCount(searchModel.getArea(),searchModel.getSearch());
-		searchModel.setTotalSize(count);
-		List<Object[]> list = userBaseRepository.findGardenList(searchModel.getArea(), searchModel.getPageFrom(), searchModel.getPageSize(),searchModel.getSearch());
-		for (Object[] str : list) {
-			GardenDataDTO dto = new GardenDataDTO();
-			dto.setId((Long)str[0]);
-			dto.setArea((String)str[2]);
-			dto.setParkName((String)str[1]);
-			Integer accountCount = userBaseRepository.findAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
-			Integer checkAccountCount = userBaseRepository.findCheckAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
-			Integer expireAccountCount = userBaseRepository.findExpireAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
-			Integer normalAccountCount = userBaseRepository.findNormalAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
-			Integer dueAccountCount = userBaseRepository.findDueAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
-			dto.setAccountCount(accountCount);
-			dto.setCheckAccountCount(checkAccountCount);
-			dto.setDueAccountCount(dueAccountCount);
-			dto.setExpireAccountCount(expireAccountCount);
-			dto.setNormalAccountCount(normalAccountCount);
-			listData.add(dto);
-		}
-		return listData;
-	}
-	
-	@Override
-	public AjaxResult addGarden(UserPark userPark) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

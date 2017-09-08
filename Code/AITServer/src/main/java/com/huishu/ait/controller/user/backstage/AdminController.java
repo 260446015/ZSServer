@@ -18,8 +18,8 @@ import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AccountSearchDTO;
 import com.huishu.ait.security.CaptchaManager;
-import com.huishu.ait.service.user.AdminService;
 import com.huishu.ait.service.user.UserBaseService;
+import com.huishu.ait.service.user.backstage.AdminService;
 
 /**
  * 后台系统-全局管理与账号审核

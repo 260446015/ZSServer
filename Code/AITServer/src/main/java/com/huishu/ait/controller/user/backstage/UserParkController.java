@@ -17,7 +17,7 @@ import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.GardenDataDTO;
 import com.huishu.ait.entity.dto.GardenSearchDTO;
-import com.huishu.ait.service.user.AdminService;
+import com.huishu.ait.service.user.backstage.UserParkService;
 
 /**
  * 后台系统-园区管理
@@ -26,12 +26,12 @@ import com.huishu.ait.service.user.AdminService;
  * @create 2017年9月8日
  */
 @RestController
-@RequestMapping(value = "/apis/admin/garden")
-public class BackGardenController extends BaseController{
+@RequestMapping(value = "/apis/userPark/garden")
+public class UserParkController extends BaseController{
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(BackGardenController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserParkController.class);
 	@Autowired
-	private AdminService adminService;
+	private UserParkService userParkService;
 	/**
 	 * 查看园区分页列表
 	 * @param searchModel
@@ -43,7 +43,7 @@ public class BackGardenController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			List<GardenDataDTO> list = adminService.getGardenList(searchModel);
+			List<GardenDataDTO> list = userParkService.getGardenList(searchModel);
 			return success(changeObject(searchModel, list));
 		} catch (Exception e) {
 			LOGGER.error("getAccountList查询失败！",e);
@@ -62,7 +62,7 @@ public class BackGardenController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			return adminService.addGarden(userPark);
+			return userParkService.addGarden(userPark);
 		} catch (Exception e) {
 			LOGGER.error("addGarden添加失败！",e);
 			return error(MsgConstant.SYSTEM_ERROR);

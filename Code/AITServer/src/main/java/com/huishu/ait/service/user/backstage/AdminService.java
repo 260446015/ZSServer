@@ -1,4 +1,4 @@
-package com.huishu.ait.service.user;
+package com.huishu.ait.service.user.backstage;
 
 import java.util.List;
 
@@ -44,16 +44,4 @@ public interface AdminService {
 	 * @return
 	 */
 	List<UserBase> getWarningAccountList(AccountSearchDTO searchModel);
-	/**
-	 * 查看园区分页列表
-	 * @param searchModel    查询条件
-	 * @return
-	 */
-	List<GardenDataDTO> getGardenList(GardenSearchDTO searchModel);
-	/**
-	 * 添加园区
-	 * @param userPark
-	 * @return
-	 */
-	AjaxResult addGarden(UserPark userPark);
 }

@@ -80,7 +80,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		if(user==null){
 			LOGGER.debug("user {} is not exist.", myToken.getUsername());
 			throw new IncorrectCredentialsException();
-		}else if(user.getStartTime()==null){
+		}else if(user.getIsCheck()==0){
 			LOGGER.debug("user {} is not examine.", myToken.getUsername());
 			throw new AccountStartException();
 		}else if(today.compareTo(user.getExpireTime())>0){
