@@ -273,7 +273,7 @@ public abstract class AbstractService {
 		dto.setId(source.get("_id").toString());
 		dto.setArticleLink(source.get("articleLink").toString());
 		dto.setContent(source.get("content").toString());
-		dto.setPublishDate(source.get("publishDate").toString());
+		dto.setPublishTime(source.get("publishTime").toString());
 		dto.setSource(source.get("source").toString());
 		dto.setSourceLink(source.get("sourceLink").toString());
 		dto.setTitle(source.get("title").toString());
@@ -303,7 +303,7 @@ public abstract class AbstractService {
 	 * 提取文章内部公司名录
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "null" })
 	protected Set<String> getBusiness(String title, String content) {
 		JSONObject findCompany = Analysis.findCompany(title, content);
 		if(findCompany != null && findCompany.getBooleanValue("status")){
@@ -311,7 +311,8 @@ public abstract class AbstractService {
 			return set;
 		}else{
 			Set<String> set = null;
-			set.add("暂无");
+			String str ="暂无";
+			set.add(str);
 			return set;
 		}
 	}

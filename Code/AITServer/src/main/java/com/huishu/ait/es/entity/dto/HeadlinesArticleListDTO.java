@@ -25,7 +25,7 @@ public class HeadlinesArticleListDTO {
 	private String summary;
 	private String content;
 	private String source;
-	private String publishDate;
+	private String publishTime;
 	private String articleLink;
 	private String sourceLink;
 	/**
@@ -146,12 +146,13 @@ public class HeadlinesArticleListDTO {
 		this.source = source;
 	}
 
-	public String getPublishDate() {
-		return publishDate;
+
+	public String getPublishTime() {
+		return publishTime;
 	}
 
-	public void setPublishDate(String publishDate) {
-		this.publishDate = publishDate;
+	public void setPublishTime(String publishTime) {
+		this.publishTime = publishTime;
 	}
 
 	public String getArticleLink() {
