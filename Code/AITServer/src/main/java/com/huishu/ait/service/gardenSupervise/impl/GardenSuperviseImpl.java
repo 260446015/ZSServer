@@ -293,6 +293,11 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			if (cg == null) {
 				return flag;
 			}
+			CompanyGroupMiddle checkMiddle = middleRepository.findByCompanyIdAndUserIdAndGroupId(middle.getCompanyId(),
+					userId, middle.getGroupId());
+			if (checkMiddle != null) {
+				return flag;
+			}
 			middle.setGroupId(cg.getGroupid());
 			middle.setGroupname(cg.getGroupName());
 			middle.setUserId(userId);
