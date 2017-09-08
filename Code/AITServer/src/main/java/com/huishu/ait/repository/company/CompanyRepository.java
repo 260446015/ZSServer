@@ -13,7 +13,7 @@ public interface CompanyRepository extends CrudRepository<Company, Long> {
 	Page<Company> findByIndustryLikeAndParkAndRegisterCapitalBetween(String industry, String park, double start,
 			double end, Pageable pageable);
 
-	Page<Company> findByIndustryAndParkAndCidInAndRegisterCapitalBetween(String industry, String park,
+	Page<Company> findByIndustryLikeAndParkAndCidInAndRegisterCapitalBetween(String industry, String park,
 			List<Long> companyIds, double start, double end, Pageable pageable);
 
 	List<Company> findByPark(String park);
