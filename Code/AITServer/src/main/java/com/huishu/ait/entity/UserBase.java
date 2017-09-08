@@ -95,13 +95,25 @@ public class UserBase implements Serializable {
 	@Column(name = "user_level")
 	private Integer userLevel;
 	
-	/**是否预警*/
+	/**是否预警(0:正常,1:预警)*/
 	@Column(name = "is_warn")
 	private Integer isWarn;
+	
+	/**是否审核(0:待审核,1:已审核)*/
+	@Column(name = "is_check")
+	private Integer isCheck;
 	
 	/**用户权限，不存数据库*/
 	@Transient
 	private List<Long> permissions;
+
+	public Integer getIsCheck() {
+		return isCheck;
+	}
+
+	public void setIsCheck(Integer isCheck) {
+		this.isCheck = isCheck;
+	}
 
 	public Integer getIsWarn() {
 		return isWarn;

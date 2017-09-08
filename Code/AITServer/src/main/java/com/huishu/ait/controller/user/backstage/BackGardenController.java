@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.GardenDataDTO;
 import com.huishu.ait.entity.dto.GardenSearchDTO;
@@ -45,6 +47,24 @@ public class BackGardenController extends BaseController{
 			return success(changeObject(searchModel, list));
 		} catch (Exception e) {
 			LOGGER.error("getAccountList查询失败！",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	/**
+	 * 添加园区
+	 * @param userPark
+	 * @return
+	 */
+	@RequestMapping(value = "addGarden.json", method = RequestMethod.POST)
+	public AjaxResult addGarden(UserPark userPark){
+		if (null==userPark || StringUtil.isEmpty(userPark.getName())) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return adminService.addGarden(userPark);
+		} catch (Exception e) {
+			LOGGER.error("addGarden添加失败！",e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}

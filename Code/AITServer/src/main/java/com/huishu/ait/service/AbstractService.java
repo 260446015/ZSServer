@@ -5,7 +5,10 @@ import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX1;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import java.security.interfaces.RSAPrivateKey;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +44,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hankcs.analysis.Analysis;
+import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.UtilsHelper;
 import com.huishu.ait.echart.series.Serie.SerieData;
@@ -570,5 +574,31 @@ public abstract class AbstractService {
 		}
 		
 		return bq;
+	}
+	
+	protected String[] analysisDate(String day){
+		String time1;
+		String time2;
+		Calendar nextDate = DateUtils.getNow();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if(day.equals("今日")){
+			nextDate.add(Calendar.DATE, +1);
+			time1=sdf.format(new Date());
+			time2=sdf.format(nextDate.getTime());
+		}else if(day.equals("昨日")){
+			nextDate.add(Calendar.DATE, -1);
+			time2=sdf.format(new Date());
+			time1=sdf.format(nextDate.getTime());
+		}else if(day.equals("近一周")){
+			nextDate.add(Calendar.DATE, -6);
+			time1=sdf.format(nextDate.getTime());
+			nextDate.add(Calendar.DATE, +7);
+			time2=sdf.format(nextDate.getTime());
+		}else {
+			time1="2017-01-01";
+			time2=sdf.format(nextDate.getTime());
+		}
+		String[] times={time1,time2};
+		return times;
 	}
 }

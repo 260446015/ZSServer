@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.entity.UserBase;
+import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AccountSearchDTO;
 import com.huishu.ait.entity.dto.GardenDataDTO;
@@ -102,8 +103,9 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		List<Object[]> list = userBaseRepository.findGardenList(searchModel.getArea(), searchModel.getPageFrom(), searchModel.getPageSize(),searchModel.getSearch());
 		for (Object[] str : list) {
 			GardenDataDTO dto = new GardenDataDTO();
-			dto.setArea((String)str[1]);
-			dto.setParkName((String)str[0]);
+			dto.setId((Long)str[0]);
+			dto.setArea((String)str[2]);
+			dto.setParkName((String)str[1]);
 			Integer accountCount = userBaseRepository.findAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
 			Integer checkAccountCount = userBaseRepository.findCheckAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
 			Integer expireAccountCount = userBaseRepository.findExpireAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
@@ -119,30 +121,10 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		return listData;
 	}
 	
-	private String[] analysisDate(String day){
-		String time1;
-		String time2;
-		Calendar nextDate = DateUtils.getNow();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		if(day.equals("今日")){
-			nextDate.add(Calendar.DATE, +1);
-			time1=sdf.format(new Date());
-			time2=sdf.format(nextDate.getTime());
-		}else if(day.equals("昨日")){
-			nextDate.add(Calendar.DATE, -1);
-			time2=sdf.format(new Date());
-			time1=sdf.format(nextDate.getTime());
-		}else if(day.equals("近一周")){
-			nextDate.add(Calendar.DATE, -6);
-			time1=sdf.format(nextDate.getTime());
-			nextDate.add(Calendar.DATE, +7);
-			time2=sdf.format(nextDate.getTime());
-		}else {
-			time1="2017-01-01";
-			time2=sdf.format(nextDate.getTime());
-		}
-		String[] times={time1,time2};
-		return times;
+	@Override
+	public AjaxResult addGarden(UserPark userPark) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -3,6 +3,7 @@ package com.huishu.ait.service.user;
 import java.util.List;
 
 import com.huishu.ait.entity.UserBase;
+import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AccountSearchDTO;
 import com.huishu.ait.entity.dto.GardenDataDTO;
@@ -49,4 +50,10 @@ public interface AdminService {
 	 * @return
 	 */
 	List<GardenDataDTO> getGardenList(GardenSearchDTO searchModel);
+	/**
+	 * 添加园区
+	 * @param userPark
+	 * @return
+	 */
+	AjaxResult addGarden(UserPark userPark);
 }

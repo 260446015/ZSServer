@@ -5,7 +5,6 @@ import org.apache.shiro.authc.AuthenticationException;
 /**
  * 账号未审核异常
  * 
- * 
  * @author yindq
  * @create 2017年9月7日
  */

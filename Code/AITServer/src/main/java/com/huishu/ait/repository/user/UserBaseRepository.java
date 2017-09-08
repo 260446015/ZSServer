@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.UserBase;
-import com.huishu.ait.entity.dto.GardenDataDTO;
 
 /**
  * 用户-权限关系权限持久化类
@@ -44,7 +43,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param userType
 	 * @return
 	 */
-	UserBase findByUserParkAndUserLevelAndUserType(String userPark,Integer userLevel,String userType);
+	UserBase findByUserParkAndUserLevelAndUserTypeAndIsCheck(String userPark,Integer userLevel,String userType,Integer isCheck);
 	/**
 	 * 查看人数
 	 * @param userType
@@ -81,7 +80,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param search
 	 * @return
 	 */
-	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and concat(real_name, user_park) like ?4 and createTime between ?2 and ?3 and start_time is null")
+	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and concat(real_name, user_park) like ?4 and createTime between ?2 and ?3 and is_check=0")
 	Integer findUserListCount(Integer userLevel,String time1,String time2,String search);
 	/**
 	 * 查看会员列表
@@ -93,7 +92,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param search
 	 * @return
 	 */
-	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?6 and create_time between ?4 and ?5 and start_time is null limit ?2,?3",nativeQuery = true)
+	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?6 and create_time between ?4 and ?5 and is_check=0 limit ?2,?3",nativeQuery = true)
 	ArrayList<UserBase> findUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2,String search);
 	/**
 	 * 查看预到期会员数量
@@ -126,7 +125,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param search
 	 * @return
 	 */
-	@Query(value="SELECT count(1) from(SELECT count(1) from t_user_base where area like ?1 and user_park like ?2 group by user_park)a",nativeQuery = true)
+	@Query(value="SELECT count(1) from t_user_park where area like ?1 and concat(id,name) like ?2",nativeQuery = true)
 	Integer findGardenListCount(String area,String search);
 	/**
 	 * 查看园区列表
@@ -139,7 +138,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param search
 	 * @return
 	 */
-	@Query(value="SELECT user_park,area from t_user_base where area like ?1 and user_park like ?4 group by user_park limit ?2,?3",nativeQuery = true)
+	@Query(value="SELECT id,name,area from t_user_park where area like ?1 and concat(id,name) like ?4 limit ?2,?3",nativeQuery = true)
 	ArrayList<Object[]> findGardenList(String area,Integer pageFrom,Integer pageSize,String search);
 	/**
 	 * 查看园区总账号数
@@ -159,7 +158,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param time2
 	 * @return
 	 */
-	@Query(value="SELECT count(1) from t_user_base where user_park =?1 and user_level like ?2 and create_time between ?3 and ?4 and expire_time is null",nativeQuery = true)
+	@Query(value="SELECT count(1) from t_user_base where user_park =?1 and user_level like ?2 and create_time between ?3 and ?4 and is_check=0",nativeQuery = true)
 	Integer findCheckAccountCount(String park,String userLevel,String time1,String time2);
 	/**
 	 * 查看园区已到期账号数

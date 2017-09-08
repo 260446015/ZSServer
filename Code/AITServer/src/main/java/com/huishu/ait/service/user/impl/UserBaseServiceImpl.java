@@ -47,7 +47,7 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 		if (email != null) {
 			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_REPEAT);
 		}
-		UserBase type = userBaseRepository.findByUserParkAndUserLevelAndUserType(dto.getPark(), 0, "user");
+		UserBase type = userBaseRepository.findByUserParkAndUserLevelAndUserTypeAndIsCheck(dto.getPark(), 0, "user",1);
 		if (type != null) {
 			return result.setSuccess(false).setMessage("该园区已注册过测试账号");
 		}
@@ -69,6 +69,7 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			base.setCreateTime(sdf.format(new Date()));
 			base.setUserLevel(0);
+			base.setIsCheck(0);
 			save = userBaseRepository.save(base);
 		} catch (Exception e) {
 			LOGGER.error("保存用户信息出错", e);

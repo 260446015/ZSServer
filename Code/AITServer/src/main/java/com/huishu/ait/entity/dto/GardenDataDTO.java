@@ -16,6 +16,7 @@ public class GardenDataDTO implements Serializable {
 	 * 序列化
 	 */
 	private static final long serialVersionUID = 1L;
+	private Long id;
 	/**园区名字*/
 	private String parkName;
 	/**地域*/
@@ -31,6 +32,14 @@ public class GardenDataDTO implements Serializable {
 	/**即将过期会员数量*/
 	private Integer dueAccountCount;
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getParkName() {
 		return parkName;
 	}
