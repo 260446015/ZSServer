@@ -47,6 +47,10 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 		if (email != null) {
 			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_REPEAT);
 		}
+		UserBase type = userBaseRepository.findByUserParkAndUserLevelAndUserType(dto.getPark(), 0, "user");
+		if (type != null) {
+			return result.setSuccess(false).setMessage("该园区已注册过测试账号");
+		}
 		UserBase save=null;
 		try {
 			UserBase base = new UserBase();

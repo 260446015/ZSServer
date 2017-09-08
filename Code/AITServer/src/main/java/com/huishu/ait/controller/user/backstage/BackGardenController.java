@@ -25,9 +25,9 @@ import com.huishu.ait.service.user.AdminService;
  */
 @RestController
 @RequestMapping(value = "/apis/admin/garden")
-public class GardenController extends BaseController{
+public class BackGardenController extends BaseController{
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(GardenController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BackGardenController.class);
 	@Autowired
 	private AdminService adminService;
 	/**
