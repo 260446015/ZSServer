@@ -22,7 +22,6 @@ import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.user.AdminService;
 
 import net.minidev.json.JSONObject;
-import scala.annotation.meta.setter;
 
 @Service
 public class AdminServiceImpl extends AbstractService implements AdminService {
