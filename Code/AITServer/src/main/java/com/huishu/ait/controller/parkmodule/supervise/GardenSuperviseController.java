@@ -171,9 +171,9 @@ public class GardenSuperviseController extends BaseController {
 		}
 		boolean flag = gardenSuperviseService.saveCompanyByGroupId(middle, userId);
 		if (flag) {
-			return success(flag);
+			return success(0);
 		} else {
-			return error("保存操作的企业到企业分组失败");
+			return success(1);
 		}
 	}
 
