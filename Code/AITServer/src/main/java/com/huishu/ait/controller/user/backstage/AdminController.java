@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.user;
+package com.huishu.ait.controller.user.backstage;
 
 import java.util.List;
 
@@ -17,13 +17,12 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AccountSearchDTO;
-import com.huishu.ait.entity.dto.GardenSearchDTO;
 import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.service.user.AdminService;
 import com.huishu.ait.service.user.UserBaseService;
 
 /**
- * 后台管理人员操作相关
+ * 后台系统-全局管理与账号审核
  * 
  * @author yindq
  * @date 2017年8月24日
@@ -66,12 +65,6 @@ public class AdminController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			String search = searchModel.getSearch();
-			if(search==null){
-				searchModel.setSearch("%%");
-			}else{
-				searchModel.setSearch("%"+search+"%");
-			}
 			List<UserBase> list = adminService.getAccountList(searchModel);
 			for (UserBase base : list) {
 				base.setPassword(null);
@@ -151,23 +144,4 @@ public class AdminController extends BaseController {
 
 	}
 	
-	/**
-	 * 查看园区分页列表
-	 * @param searchModel
-	 * @return
-	 */
-	@RequestMapping(value = "getGardenList.json", method = RequestMethod.POST)
-	public AjaxResult getGardenList(GardenSearchDTO searchModel) {
-		if (null==searchModel || null==searchModel.getMsg()) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		try {
-			adminService.getGardenList(searchModel);
-			return success(changeObject(searchModel, null));
-		} catch (Exception e) {
-			LOGGER.error("getAccountList查询失败！",e);
-			return error(MsgConstant.SYSTEM_ERROR);
-		}
-	}
-
 }

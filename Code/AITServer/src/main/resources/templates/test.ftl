@@ -89,6 +89,7 @@
 		            <input type="button" value="查看" onclick="my()"/>
 		            <input type="button" value="登出" onclick="logout()"/>
 		            <input type="button" value="查看园区疑似外流（测权限用）" onclick="haha()"/>
+		            <input type="button" value="查看后台园区管理列表" onclick="hahaha()"/>
 		        </div>
 		    </fieldset>
 		</form>
@@ -384,5 +385,24 @@
             }
         });
 	}
-	
+	function hahaha(){
+		var datalist= new Array();
+		datalist.push("全部");         
+		datalist.push("全部");         
+		datalist.push("全部");         
+	    $.ajax({
+            type: 'post',
+            url: "/apis/admin/getGardenList.json",
+            async: false,
+            contentType: 'application/json',
+            data: {msg: datalist},
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
+            }
+        });
+	}
 </script> 

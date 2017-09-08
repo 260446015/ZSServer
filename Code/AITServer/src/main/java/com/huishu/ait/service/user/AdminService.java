@@ -5,6 +5,7 @@ import java.util.List;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AccountSearchDTO;
+import com.huishu.ait.entity.dto.GardenDataDTO;
 import com.huishu.ait.entity.dto.GardenSearchDTO;
 
 /**
@@ -47,5 +48,5 @@ public interface AdminService {
 	 * @param searchModel    查询条件
 	 * @return
 	 */
-	List<UserBase> getGardenList(GardenSearchDTO searchModel);
+	List<GardenDataDTO> getGardenList(GardenSearchDTO searchModel);
 }

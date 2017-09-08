@@ -207,6 +207,7 @@ public class UserBase implements Serializable {
 		this.userComp = userComp;
 	}
 
+
 	public String getUserPark() {
 		return userPark;
 	}
