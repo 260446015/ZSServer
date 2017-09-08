@@ -293,7 +293,7 @@ public abstract class AbstractService {
 			dto.setSummary(summary);	
 		}
 		Set<String> set = getBusiness(dto.getTitle(),dto.getContent());
-		dto.setSet(set);
+		dto.setBus(set);
 		list.add(dto);
 	}
 	
@@ -304,13 +304,15 @@ public abstract class AbstractService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private Set<String> getBusiness(String title, String content) {
+	protected Set<String> getBusiness(String title, String content) {
 		JSONObject findCompany = Analysis.findCompany(title, content);
 		if(findCompany != null && findCompany.getBooleanValue("status")){
 		Set<String> set = (Set<String>) findCompany.get("result");
 			return set;
-		}else{			
-			return null;
+		}else{
+			Set<String> set = null;
+			set.add("暂无");
+			return set;
 		}
 	}
 	/**

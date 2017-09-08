@@ -44,15 +44,18 @@ public class HeadlinesArticleListDTO {
 
 	/** 热度 */
 	private Double hot;
-	/** 公司名录集合 */
-	private Set<String> set;
 
-	public Set<String> getSet() {
-		return set;
+	/** 公司名录集合 */
+	private Set<String> bus;
+
+	
+
+	public Set<String> getBus() {
+		return bus;
 	}
 
-	public void setSet(Set<String> set) {
-		this.set = set;
+	public void setBus(Set<String> bus) {
+		this.bus = bus;
 	}
 
 	public String getSummary() {

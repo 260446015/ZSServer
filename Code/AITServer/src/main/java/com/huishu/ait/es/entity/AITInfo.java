@@ -3,6 +3,8 @@ package com.huishu.ait.es.entity;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
+import java.util.Set;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -100,6 +102,17 @@ public class AITInfo {
 	/** 摘要 */
 	private String summary;
 	
+	/** 公司名录集合 */
+	private Set<String> bus;
+	
+
+	public Set<String> getBus() {
+		return bus;
+	}
+
+	public void setBus(Set<String> bus) {
+		this.bus = bus;
+	}
 
 	public String getId() {
         return id;
