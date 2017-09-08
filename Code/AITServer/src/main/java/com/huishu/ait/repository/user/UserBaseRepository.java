@@ -38,6 +38,14 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 */
 	UserBase findByUserEmailAndUserType(String userEmail,String userType);
 	/**
+	 * 通过园区与用户等级
+	 * @param userPark
+	 * @param userLevel
+	 * @param userType
+	 * @return
+	 */
+	UserBase findByUserParkAndUserLevelAndUserType(String userPark,Integer userLevel,String userType);
+	/**
 	 * 查看人数
 	 * @param userType
 	 * @return
