@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.UserBase;
+import com.huishu.ait.entity.dto.GardenDataDTO;
 
 /**
  * 用户-权限关系权限持久化类
@@ -69,6 +70,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param userLevel
 	 * @param time1
 	 * @param time2
+	 * @param search
 	 * @return
 	 */
 	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and concat(real_name, user_park) like ?4 and createTime between ?2 and ?3 and start_time is null")
@@ -80,6 +82,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param pageSize
 	 * @param time1
 	 * @param time2
+	 * @param search
 	 * @return
 	 */
 	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?6 and create_time between ?4 and ?5 and start_time is null limit ?2,?3",nativeQuery = true)
@@ -89,6 +92,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param userLevel
 	 * @param time1
 	 * @param time2
+	 * @param search
 	 * @return
 	 */
 	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and concat(real_name, user_park) like ?4 and createTime between ?2 and ?3 and expire_time between now() and adddate(now(),7)")
@@ -100,9 +104,84 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	 * @param pageSize
 	 * @param time1
 	 * @param time2
+	 * @param search
 	 * @return
 	 */
 	@Query(value="SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?6 and create_time between ?4 and ?5 and expire_time between now() and adddate(now(),7) limit ?2,?3",nativeQuery = true)
 	ArrayList<UserBase> findWarningUserList(Integer userLevel,Integer pageFrom,Integer pageSize,String time1,String time2,String search);
+	/**
+	 * 查看园区数量
+	 * @param area
+	 * @param userLevel
+	 * @param time1
+	 * @param time2
+	 * @param search
+	 * @return
+	 */
+	@Query(value="SELECT count(1) from(SELECT count(1) from t_user_base where area like ?1 and user_park like ?2 group by user_park)a",nativeQuery = true)
+	Integer findGardenListCount(String area,String search);
+	/**
+	 * 查看园区列表
+	 * @param area
+	 * @param userLevel
+	 * @param pageFrom
+	 * @param pageSize
+	 * @param time1
+	 * @param time2
+	 * @param search
+	 * @return
+	 */
+	@Query(value="SELECT user_park,area from t_user_base where area like ?1 and user_park like ?4 group by user_park limit ?2,?3",nativeQuery = true)
+	ArrayList<Object[]> findGardenList(String area,Integer pageFrom,Integer pageSize,String search);
+	/**
+	 * 查看园区总账号数
+	 * @param park
+	 * @param userLevel
+	 * @param time1
+	 * @param time2
+	 * @return
+	 */
+	@Query(value="SELECT count(1) from t_user_base where user_park =?1 and user_level like ?2 and create_time between ?3 and ?4",nativeQuery = true)
+	Integer findAccountCount(String park,String userLevel,String time1,String time2);
+	/**
+	 * 查看园区未审核账号数
+	 * @param park
+	 * @param userLevel
+	 * @param time1
+	 * @param time2
+	 * @return
+	 */
+	@Query(value="SELECT count(1) from t_user_base where user_park =?1 and user_level like ?2 and create_time between ?3 and ?4 and expire_time is null",nativeQuery = true)
+	Integer findCheckAccountCount(String park,String userLevel,String time1,String time2);
+	/**
+	 * 查看园区已到期账号数
+	 * @param park
+	 * @param userLevel
+	 * @param time1
+	 * @param time2
+	 * @return
+	 */
+	@Query(value="SELECT count(1) from t_user_base where user_park =?1 and user_level like ?2 and create_time between ?3 and ?4 and expire_time<now()",nativeQuery = true)
+	Integer findExpireAccountCount(String park,String userLevel,String time1,String time2);
+	/**
+	 * 查看园区未到期账号数
+	 * @param park
+	 * @param userLevel   
+	 * @param time1
+	 * @param time2
+	 * @return
+	 */
+	@Query(value="SELECT count(1) from t_user_base where user_park =?1 and user_level like ?2 and create_time between ?3 and ?4 and expire_time>now()",nativeQuery = true)
+	Integer findNormalAccountCount(String park,String userLevel,String time1,String time2);
+	/**
+	 * 查看园区即将到期账号数
+	 * @param park
+	 * @param string
+	 * @param time1
+	 * @param time2
+	 * @return
+	 */
+	@Query(value="SELECT count(1) from t_user_base where user_park =?1 and user_level like ?2 and create_time between ?3 and ?4 and expire_time between now() and adddate(now(),7)",nativeQuery = true)
+	Integer findDueAccountCount(String park,String string,String time1,String time2);
 	
 }

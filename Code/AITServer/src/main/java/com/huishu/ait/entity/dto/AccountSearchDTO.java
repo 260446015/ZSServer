@@ -1,6 +1,7 @@
 package com.huishu.ait.entity.dto;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.common.SearchModel;
 
 /**
@@ -37,6 +38,11 @@ public class AccountSearchDTO extends SearchModel {
 	}
 
 	public String getSearch() {
+		if(StringUtil.isEmpty(search)){
+			search = "%%";
+		}else{
+			search = "%"+search+"%";
+		}
 		return search;
 	}
 

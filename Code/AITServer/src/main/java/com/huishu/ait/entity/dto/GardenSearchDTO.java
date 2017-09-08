@@ -1,6 +1,7 @@
 package com.huishu.ait.entity.dto;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.common.SearchModel;
 
 /**
@@ -20,9 +21,14 @@ public class GardenSearchDTO extends SearchModel {
 	private String type;
 	/**时间*/
 	private String day;
+	/** 搜索条件 */
+	private String search;
 	private String[] msg={};
 	
 	public String getArea() {
+		if("全部".equals(area)){
+			area = "%%";
+		}
 		return area;
 	}
 
@@ -31,6 +37,9 @@ public class GardenSearchDTO extends SearchModel {
 	}
 
 	public String getType() {
+		if("全部".equals(type)){
+			type = "%%";
+		}
 		return type;
 	}
 
@@ -44,6 +53,19 @@ public class GardenSearchDTO extends SearchModel {
 
 	public void setDay(String day) {
 		this.day = day;
+	}
+
+	public String getSearch() {
+		if(StringUtil.isEmpty(search)){
+			search = "%%";
+		}else{
+			search = "%"+search+"%";
+		}
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 
 	public String[] getMsg() {
