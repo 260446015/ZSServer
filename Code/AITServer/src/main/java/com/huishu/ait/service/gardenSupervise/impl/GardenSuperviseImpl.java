@@ -294,7 +294,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 				return flag;
 			}
 			CompanyGroupMiddle checkMiddle = middleRepository.findByCompanyIdAndUserIdAndGroupId(middle.getCompanyId(),
-					userId, middle.getGroupId());
+					userId, cg.getGroupid());
 			if (checkMiddle != null) {
 				return flag;
 			}
