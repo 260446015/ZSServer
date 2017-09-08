@@ -25,7 +25,7 @@ public class HeadlinesArticleListDTO {
 	private String summary;
 	private String content;
 	private String source;
-	private String publishDate;
+	private String publishTime;
 	private String articleLink;
 	private String sourceLink;
 	/**
@@ -44,15 +44,18 @@ public class HeadlinesArticleListDTO {
 
 	/** 热度 */
 	private Double hot;
-	/** 公司名录集合 */
-	private Set<String> set;
 
-	public Set<String> getSet() {
-		return set;
+	/** 公司名录集合 */
+	private Set<String> bus;
+
+	
+
+	public Set<String> getBus() {
+		return bus;
 	}
 
-	public void setSet(Set<String> set) {
-		this.set = set;
+	public void setBus(Set<String> bus) {
+		this.bus = bus;
 	}
 
 	public String getSummary() {
@@ -143,12 +146,13 @@ public class HeadlinesArticleListDTO {
 		this.source = source;
 	}
 
-	public String getPublishDate() {
-		return publishDate;
+
+	public String getPublishTime() {
+		return publishTime;
 	}
 
-	public void setPublishDate(String publishDate) {
-		this.publishDate = publishDate;
+	public void setPublishTime(String publishTime) {
+		this.publishTime = publishTime;
 	}
 
 	public String getArticleLink() {

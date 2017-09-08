@@ -273,7 +273,7 @@ public abstract class AbstractService {
 		dto.setId(source.get("_id").toString());
 		dto.setArticleLink(source.get("articleLink").toString());
 		dto.setContent(source.get("content").toString());
-		dto.setPublishDate(source.get("publishDate").toString());
+		dto.setPublishTime(source.get("publishTime").toString());
 		dto.setSource(source.get("source").toString());
 		dto.setSourceLink(source.get("sourceLink").toString());
 		dto.setTitle(source.get("title").toString());
@@ -293,7 +293,7 @@ public abstract class AbstractService {
 			dto.setSummary(summary);	
 		}
 		Set<String> set = getBusiness(dto.getTitle(),dto.getContent());
-		dto.setSet(set);
+		dto.setBus(set);
 		list.add(dto);
 	}
 	
@@ -304,14 +304,13 @@ public abstract class AbstractService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private Set<String> getBusiness(String title, String content) {
+	protected Set<String> getBusiness(String title, String content) {
 		JSONObject findCompany = Analysis.findCompany(title, content);
 		if(findCompany != null && findCompany.getBooleanValue("status")){
 		Set<String> set = (Set<String>) findCompany.get("result");
 			return set;
-		}else{			
-			return null;
 		}
+		return null;
 	}
 	/**
 	 * ES的分页查询数据方法

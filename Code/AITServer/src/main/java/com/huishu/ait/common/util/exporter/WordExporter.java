@@ -108,20 +108,20 @@ public class WordExporter {
 			}
 
 			if (StringUtils.isNotBlank(echartImage)) {
-//				String[] arr = echartImage.split("base64,");
-//				if (arr.length > 1) {
-					byte[] buffer = Base64.decodeBase64(echartImage);
-					// 添加图片
-					Image img = Image.getInstance(buffer);
-					img.setAbsolutePosition(0, 0);
-					img.setAlignment(Image.ALIGN_CENTER);
-					img.scaleAbsolute(100, 100);
-					img.scalePercent(100);// 设置图片按原图大小显示
-					img.setRotation(30);
-					img.setOriginalType(Image.ORIGINAL_PNG);
-					document.add(img);
-				}
-//			}
+				// String[] arr = echartImage.split("base64,");
+				// if (arr.length > 1) {
+				byte[] buffer = Base64.decodeBase64(echartImage);
+				// 添加图片
+				Image img = Image.getInstance(buffer);
+				img.setAbsolutePosition(0, 0);
+				img.setAlignment(Image.ALIGN_CENTER);
+				img.scaleAbsolute(100, 100);
+				img.scalePercent(100);// 设置图片按原图大小显示
+				img.setRotation(30);
+				img.setOriginalType(Image.ORIGINAL_PNG);
+				document.add(img);
+			}
+			// }
 			Paragraph context = new Paragraph("dewfejfef");
 			// 离上一段落（标题）空的行数
 			context.setSpacingBefore(20);
@@ -160,26 +160,30 @@ public class WordExporter {
 			publishTime.setFont(contentFont);
 			document.add(publishTime);
 			String contentTxt = artic.getContent();
-			List<ContentSub> contentList = getContentSplitByImg(contentTxt);
-			contentList.forEach(sub->{
-				try {
-					Paragraph content = new Paragraph(sub.getContent(), contentFont);
-					document.add(content);
-					Image img = Image.getInstance(new URL(sub.getSrc()));
-					document.add(img);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			});
-//			Paragraph content = new Paragraph(contentTxt, contentFont);
-//			// 正文格式左对齐
-//			content.setAlignment(Element.ALIGN_LEFT);
-//			content.setFont(contentFont);
-//			// 离上一段落（标题）空的行数
-//			content.setSpacingBefore(20);
-//			// 设置第一行空的列数
-//			content.setFirstLineIndent(20);
-//			document.add(content);
+			if (contentTxt.contains("<img")) {
+				List<ContentSub> contentList = getContentSplitByImg(contentTxt);
+				contentList.forEach(sub -> {
+					try {
+						Paragraph content = new Paragraph(sub.getContent(), contentFont);
+						document.add(content);
+						Image img = Image.getInstance(new URL(sub.getSrc()));
+						document.add(img);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				});
+			} else {
+				Paragraph content = new Paragraph(contentTxt, contentFont);
+				// 正文格式左对齐
+				content.setAlignment(Element.ALIGN_LEFT);
+				content.setFont(contentFont);
+				// 离上一段落（标题）空的行数
+				content.setSpacingBefore(20);
+				// 设置第一行空的列数
+				content.setFirstLineIndent(20);
+				document.add(content);
+			}
+
 			// 设置情报采集
 			Paragraph source = new Paragraph("情报采集:" + artic.getSource(), contentFont);
 			publishTime.setAlignment(Element.ALIGN_CENTER);
@@ -190,9 +194,10 @@ public class WordExporter {
 			publishTime.setAlignment(Element.ALIGN_CENTER);
 			publishTime.setFont(contentFont);
 			document.add(sourceLink);
-//			URL url = new URL("http://i3.sinaimg.cn/cj/2013/0304/U5566P1081DT20130304094711.jpg");  
-//			Image img = Image.getInstance(url);
-//			document.add(img);
+			// URL url = new
+			// URL("http://i3.sinaimg.cn/cj/2013/0304/U5566P1081DT20130304094711.jpg");
+			// Image img = Image.getInstance(url);
+			// document.add(img);
 			setHeader(request, response, fileName);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -433,24 +438,23 @@ public class WordExporter {
 		setHeader(request, response, fileName);
 		document.close();
 	}
-	
-	private List<ContentSub> getContentSplitByImg(String str){
+
+	private List<ContentSub> getContentSplitByImg(String str) {
 		String jiequ = "";
 		String shengyu = str;
 		List<ContentSub> listStr = new ArrayList<>();
 		String src = "";
-		while(shengyu.contains("<img")){
+		while (shengyu.contains("<img")) {
 			ContentSub sub = new ContentSub();
 			int startIndex = shengyu.indexOf("<img");
 			jiequ = shengyu.substring(0, startIndex);
 			sub.setContent(jiequ);
-			src = shengyu.substring(shengyu.indexOf("src=\"")+5,shengyu.indexOf("\"",shengyu.indexOf("src=\"")+5));
+			src = shengyu.substring(shengyu.indexOf("src=\"") + 5,
+					shengyu.indexOf("\"", shengyu.indexOf("src=\"") + 5));
 			sub.setSrc(src);
-			shengyu = shengyu.substring(shengyu.indexOf("/>")+2);
-			System.out.println("截取:"+jiequ+"剩余:"+shengyu+"---src="+src);
+			shengyu = shengyu.substring(shengyu.indexOf("/>") + 2);
 			listStr.add(sub);
 		}
-		listStr.forEach(item->System.out.println(item.getSrc()));
 		return listStr;
 	}
 }

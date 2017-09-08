@@ -6,6 +6,7 @@ import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -23,6 +24,7 @@ import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.repository.ExpertOpinion.BaseElasticsearch;
 import com.huishu.ait.repository.expertOpinionDetail.UserCollectionRepository;
+import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.industrialPolicy.IndustrialPolicyService;
 
 /**
@@ -32,7 +34,7 @@ import com.huishu.ait.service.industrialPolicy.IndustrialPolicyService;
  * @createDate 2017-7-28
  */
 @Service
-public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
+public class IndustrialPolicyServiceImpl extends AbstractService implements IndustrialPolicyService {
     
     private static Logger log = LoggerFactory.getLogger(IndustrialPolicyServiceImpl.class);
 
@@ -97,6 +99,8 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
         JSONObject obj = new JSONObject();
         
         AITInfo info = elasticsearch.findOne(id);
+        Set<String> business = getBusiness(info.getTitle(),info.getContent());
+        info.setBus(business);
         obj = (JSONObject) JSONObject.toJSON(info);
         if (null == userCollectionRepository.findByArticleIdAndUserId(id, userId)) {
             obj.put("isCollect", "false");
@@ -106,12 +110,5 @@ public class IndustrialPolicyServiceImpl implements IndustrialPolicyService {
         return obj;
     }
     
-    /**
-     * 查询es库，获取更多条件查询
-     * 
-     * @return
-     */
-    private NativeSearchQueryBuilder getSearchQueryBuilder() {
-        return new NativeSearchQueryBuilder().withIndices(INDEX).withTypes(TYPE);
-    }
+    
 }

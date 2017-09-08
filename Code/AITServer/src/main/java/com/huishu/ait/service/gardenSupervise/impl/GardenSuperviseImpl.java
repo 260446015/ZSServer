@@ -234,14 +234,12 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			String park = dto.getPark();
 			Integer pageNumber = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
-			String industry = dto.getIndustry();// 产业描述
+			String industry = dto.getIndustry().equals("全部") ? "%%" : dto.getIndustry();// 产业描述
 			double start = dto.getStart();
 			double end = dto.getEnd();
 			PageRequest pageRequest = new PageRequest(pageNumber - 1, pageSize);
 			Page<Company> page = null;
 			if (dto.getGroupname().equals("全部")) {
-				if ("全部".equals(industry))
-					industry = "%%";
 				page = companyRepository.findByIndustryLikeAndParkAndRegisterCapitalBetween(industry, park, start, end,
 						pageRequest);
 			} else {
@@ -257,7 +255,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 				for (CompanyGroupMiddle m : ms) {
 					companyIds.add(m.getCompanyId());
 				}
-				page = companyRepository.findByIndustryAndParkAndCidInAndRegisterCapitalBetween(industry, park,
+				page = companyRepository.findByIndustryLikeAndParkAndCidInAndRegisterCapitalBetween(industry, park,
 						companyIds, start, end, pageRequest);
 			}
 			jsonArray.add(page);
@@ -293,6 +291,11 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		try {
 			CompanyGroup cg = companyGroupRepository.findByGroupNameAndUserId(middle.getGroupname(), userId);
 			if (cg == null) {
+				return flag;
+			}
+			CompanyGroupMiddle checkMiddle = middleRepository.findByCompanyIdAndUserIdAndGroupId(middle.getCompanyId(),
+					userId, middle.getGroupId());
+			if (checkMiddle != null) {
 				return flag;
 			}
 			middle.setGroupId(cg.getGroupid());

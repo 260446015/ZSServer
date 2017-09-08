@@ -9,13 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.huishu.ait.entity.CompanyGroupMiddle;
 
 @Transactional
-public interface CompanyGroupMiddleRepository extends CrudRepository<CompanyGroupMiddle, Long>{
+public interface CompanyGroupMiddleRepository extends CrudRepository<CompanyGroupMiddle, Long> {
 
 	void deleteByCompanyId(Long companyId);
-	
+
 	List<CompanyGroupMiddle> findByGroupId(Long groupId);
-	
+
 	int deleteByGroupId(Long groupId);
-	
+
+	CompanyGroupMiddle findByCompanyIdAndUserIdAndGroupId(Long companyId, Long userId, Long groupId);
 
 }
