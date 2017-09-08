@@ -303,18 +303,14 @@ public abstract class AbstractService {
 	 * 提取文章内部公司名录
 	 * @return
 	 */
-	@SuppressWarnings({ "unchecked", "null" })
+	@SuppressWarnings("unchecked")
 	protected Set<String> getBusiness(String title, String content) {
 		JSONObject findCompany = Analysis.findCompany(title, content);
 		if(findCompany != null && findCompany.getBooleanValue("status")){
 		Set<String> set = (Set<String>) findCompany.get("result");
 			return set;
-		}else{
-			Set<String> set = null;
-			String str ="暂无";
-			set.add(str);
-			return set;
 		}
+		return null;
 	}
 	/**
 	 * ES的分页查询数据方法
