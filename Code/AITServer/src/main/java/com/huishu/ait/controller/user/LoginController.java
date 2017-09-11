@@ -113,7 +113,9 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "apis/login.do", method = RequestMethod.GET)
 	public void login(HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		ShiroUtil.writeResponse(response, "1002");
+		JSONObject object = new JSONObject();
+		object.put("code", "1002");
+		ShiroUtil.writeResponse(response, object);
 	}
 	
 	/**
@@ -122,7 +124,9 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "apis/unauthorized.do", method = RequestMethod.GET)
 	public void unauthorized(HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		ShiroUtil.writeResponse(response, "1004");
+		JSONObject object = new JSONObject();
+		object.put("code", "1004");
+		ShiroUtil.writeResponse(response, object);
 	}
 	/**
 	 * 登录过滤器放行后进入此接口

@@ -88,7 +88,7 @@
 					):</lable>
 		            <input type="button" value="查看" onclick="my()"/>
 		            <input type="button" value="登出" onclick="logout()"/>
-		            <input type="button" value="查看园区疑似外流（测权限用）" onclick="haha()"/>
+		            <input type="button" value="查看园区预警数量（测权限用）" onclick="haha()"/>
 		            <input type="button" value="查看后台园区管理列表" onclick="hahaha()"/>
 		        </div>
 		    </fieldset>
@@ -253,11 +253,10 @@
 	}
 	 function haha(){
 		$.ajax({
-            type: 'post',
-            url: "/apis/warning/getBusinessOutflowList.json",
+            type: 'get',
+            url: "/apis/warning/getGardenWarningCout.json",
             async: false,
             contentType: 'application/json',
-            data: JSON.stringify({a:1}),
             success: function (response) {
                 if(response.message!=null){
                 	alert(response.message);
