@@ -109,24 +109,20 @@ public class LoginController extends BaseController {
 	
 	/**
 	 * 未登录
-	 * 
-	 * @return 返回消息
 	 */
 	@RequestMapping(value = "apis/login.do", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult login() {
-		return error("请先登录");
+	public void login(HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		ShiroUtil.writeResponse(response, "1002");
 	}
 	
 	/**
 	 * 没有权限
-	 * 
-	 * @return 返回消息
 	 */
 	@RequestMapping(value = "apis/unauthorized.do", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult unauthorized() {
-		return error("您没有该权限");
+	public void unauthorized(HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		ShiroUtil.writeResponse(response, "1004");
 	}
 	/**
 	 * 登录过滤器放行后进入此接口
