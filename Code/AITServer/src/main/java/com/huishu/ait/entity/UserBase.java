@@ -91,7 +91,7 @@ public class UserBase implements Serializable {
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	/**会员等级(0:试用,1:正式)*/
+	/**会员等级(0:试用,1:正式，9:试用申请转正式)*/
 	@Column(name = "user_level")
 	private Integer userLevel;
 	

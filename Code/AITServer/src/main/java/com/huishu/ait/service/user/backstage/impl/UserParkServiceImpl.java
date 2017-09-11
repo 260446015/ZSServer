@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.GardenDataDTO;
@@ -52,8 +53,12 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 	
 	@Override
 	public AjaxResult addGarden(UserPark userPark) {
-		// TODO Auto-generated method stub
-		return null;
+		AjaxResult result = new AjaxResult();
+		UserPark save = userParkRepository.save(userPark);
+		if (save == null) {
+			return result.setSuccess(false).setMessage("添加失败，请稍后再试");
+		}
+		return result.setSuccess(true).setMessage("添加成功");
 	}
 
 }

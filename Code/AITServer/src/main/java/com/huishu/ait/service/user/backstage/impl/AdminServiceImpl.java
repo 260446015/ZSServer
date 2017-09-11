@@ -31,14 +31,20 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	public Boolean auditAccount(UserBase base) {
 		try {
 			Calendar nextDate = DateUtils.getNow();
-			nextDate.add(Calendar.MONTH, +1);
+			//试用会员一个月，正式会员一年
+			if(base.getUserLevel()==0){
+				nextDate.add(Calendar.MONTH, +1);
+			}else{
+				nextDate.add(Calendar.YEAR, +1);
+				base.setUserLevel(1);
+			}
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			base.setStartTime(sdf.format(new Date()));
 			base.setExpireTime(sdf.format(nextDate.getTime()));
 			userBaseRepository.save(base);
 			return true;
 		} catch (Exception e) {
-			LOGGER.error("预警失败！",e);
+			LOGGER.error("auditAccount失败！",e);
 			return false;
 		}
 	}

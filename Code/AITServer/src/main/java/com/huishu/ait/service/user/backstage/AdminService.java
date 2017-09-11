@@ -3,11 +3,8 @@ package com.huishu.ait.service.user.backstage;
 import java.util.List;
 
 import com.huishu.ait.entity.UserBase;
-import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AccountSearchDTO;
-import com.huishu.ait.entity.dto.GardenDataDTO;
-import com.huishu.ait.entity.dto.GardenSearchDTO;
 
 /**
  * 后台管理service

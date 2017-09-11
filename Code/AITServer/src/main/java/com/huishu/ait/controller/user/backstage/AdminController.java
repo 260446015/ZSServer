@@ -55,7 +55,7 @@ public class AdminController extends BaseController {
 	}
 	
 	/**
-	 * 查看会员账号分页列表
+	 * 查看待审核会员账号分页列表
 	 * @param searchModel
 	 * @return
 	 */
@@ -63,6 +63,9 @@ public class AdminController extends BaseController {
 	public AjaxResult getAccountList(@RequestBody AccountSearchDTO searchModel) {
 		if (null==searchModel || null==searchModel.getType()|| null==searchModel.getDay()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		if(searchModel.getType()=="1"){
+			searchModel.setType("9");
 		}
 		try {
 			List<UserBase> list = adminService.getAccountList(searchModel);
