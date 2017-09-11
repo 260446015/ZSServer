@@ -312,7 +312,11 @@ public abstract class AbstractService {
 		dto.setHitCount( (int) source.get("hitCount"));
 		dto.setReplyCount( (int) source.get("replyCount"));
 		dto.setSupportCount( (int) source.get("supportCount"));
-		dto.setHot(UtilsHelper.getRound(supportCount/hitCount*1.0));
+		if(hitCount.intValue()==0){
+			dto.setHot(UtilsHelper.getRound(supportCount/(hitCount+1)*1.0));
+		}else{
+			dto.setHot(UtilsHelper.getRound(supportCount/hitCount*1.0));
+		}
 		String summary = (String)source.get("summary");
 		if(StringUtils.isEmpty(summary)){
 			/**如果文章摘要不存在，则将内容的前一百数据取出作为摘要*/
