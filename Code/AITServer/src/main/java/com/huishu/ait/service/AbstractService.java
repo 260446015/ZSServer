@@ -8,6 +8,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +48,7 @@ import com.hankcs.analysis.Analysis;
 import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.UtilsHelper;
+import com.huishu.ait.common.util.datasort.SerieDataComparator;
 import com.huishu.ait.echart.series.Serie.SerieData;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
@@ -114,7 +116,30 @@ public abstract class AbstractService {
 			}
 			return json;
 		});
-		return result;
+		return sortArray(result);
+	}
+	/**
+	 * @param result
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private JSONArray sortArray(JSONArray array) {
+		List<SerieData<Long>> list = new ArrayList<SerieData<Long> >();
+		
+		for(int i = 0; i<array.size();i++){
+			SerieData<Long> obj = (SerieData<Long>)array.get(i);
+			list.add(obj);
+		}
+		//排序操作
+		Collections.sort(list, new SerieDataComparator());
+		  //把数据放回去 
+        array.clear();
+        for (int i = 0; i < list.size(); i++) {
+        	SerieData<Long> obj = null;
+            obj = list.get(i);
+            array.add(obj);
+        }
+		return array;
 	}
     /**
      *  产业头条--关键词云
