@@ -74,6 +74,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 						json.put("area", map.get("area"));
 						json.put("position", map.get("position"));
 						json.put("parkType", map.get("parkType"));
+						json.put("address", map.get("address"));
 						// 占地面积
 						json.put("floorArea", map.get("floorArea"));
 						// 建筑面积
