@@ -26,16 +26,28 @@ public class IndicatorController extends BaseController{
 	
 	@Autowired
 	private IndicatorService service;
-	
+	/**
+	 * 获取四级产业分类
+	 * /apis/getIndicator.json
+	 * 
+	 * @param dto
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/getIndicator.json",method=RequestMethod.POST)
 	public  AjaxResult  getIndicator(IndicatorDTO dto){
-		if(dto == null){
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
+//		if(dto == null){
+//			return error(MsgConstant.ILLEGAL_PARAM);
+//		}
 		JSONArray jsonArray = service.getIndicatorList(dto);
 		return success(jsonArray);
 	}
+	/**
+	 * 根据指标获取公司名录
+	 * /apis/getBusinessByIndicator.json
+	 * @param dto
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/getBusinessByIndicator.json",method=RequestMethod.POST)
 	public  AjaxResult  getBusinessByIndicator(IndicatorDTO dto){
