@@ -15,7 +15,6 @@ import com.huishu.ait.es.entity.ExpertOpinionDTO;
 import com.huishu.ait.repository.Specialist.SpecialistRepository;
 import com.huishu.ait.service.Specialist.SpecialistService;
 
-
 /**
  * @author yxq
  *
@@ -23,12 +22,12 @@ import com.huishu.ait.service.Specialist.SpecialistService;
 @Service
 public class SpecialServiceImpl implements SpecialistService {
 	@Autowired
-	private SpecialistRepository specialRepository;   
-	
+	private SpecialistRepository specialRepository;
+
 	@Override
 	public Page<Specialist> findAllOrderById(ExpertOpinionDTO dto) {
 		Sort sort = new Sort(Direction.ASC, "id");
-		PageRequest request = new PageRequest(dto.getPageNumber(), dto.getPageSize(),sort);
+		PageRequest request = new PageRequest(dto.getPageNumber() - 1, dto.getPageSize(), sort);
 		Page<Specialist> page = specialRepository.findAll(request);
 		return page;
 	}

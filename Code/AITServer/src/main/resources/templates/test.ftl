@@ -52,6 +52,7 @@
 		            <div>
 		            <lable>名片:</lable>
                     <input type="file" id="file" name="file" onchange="pushImg();"/> 
+                    <img src="/images/a2e552bb-523d-44de-b57a-e6c41c693d77.jpg"  width="149" height="149"/> 
                     <input type="hidden" id="pic" name="pic" /></div>
 		        <div>
 		            <lable>提交:</lable>
@@ -87,7 +88,8 @@
 					):</lable>
 		            <input type="button" value="查看" onclick="my()"/>
 		            <input type="button" value="登出" onclick="logout()"/>
-		            <input type="button" value="查看园区疑似外流（测权限用）" onclick="haha()"/>
+		            <input type="button" value="查看园区预警数量（测权限用）" onclick="haha()"/>
+		            <input type="button" value="查看后台园区管理列表" onclick="hahaha()"/>
 		        </div>
 		    </fieldset>
 		</form>
@@ -251,11 +253,10 @@
 	}
 	 function haha(){
 		$.ajax({
-            type: 'post',
-            url: "/apis/warning/getBusinessOutflowList.json",
+            type: 'get',
+            url: "/apis/warning/getGardenWarningCout.json",
             async: false,
             contentType: 'application/json',
-            data: JSON.stringify({a:1}),
             success: function (response) {
                 if(response.message!=null){
                 	alert(response.message);
@@ -383,5 +384,24 @@
             }
         });
 	}
-	
+	function hahaha(){
+		var datalist= new Array();
+		datalist.push("全部");         
+		datalist.push("全部");         
+		datalist.push("全部");         
+	    $.ajax({
+            type: 'post',
+            url: "/apis/admin/getGardenList.json",
+            async: false,
+            contentType: 'application/json',
+            data: {msg: datalist},
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
+            }
+        });
+	}
 </script> 

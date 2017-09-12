@@ -10,7 +10,6 @@ public class CaptchaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String telphone;
 	private String type;
-	private String userAccount;
 	public String getTelphone() {
 		return telphone;
 	}
@@ -22,12 +21,6 @@ public class CaptchaDTO implements Serializable {
 	}
 	public void setType(String type) {
 		this.type = type;
-	}
-	public String getUserAccount() {
-		return userAccount;
-	}
-	public void setUserAccount(String userAccount) {
-		this.userAccount = userAccount;
 	}
 	
 }

@@ -183,7 +183,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		String area = dto.getArea();
 		String industryType = dto.getIndustryType();
 		try {
-			PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize());
+			PageRequest pageRequest = new PageRequest(dto.getPageNumber() - 1, dto.getPageSize());
 			
 			Page<GardenUser> findAll = gardenUserRepository.findAll(getSpec(area, industryType,userId), pageRequest);
 			findAll.forEach(GardenUser ->{

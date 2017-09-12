@@ -41,16 +41,15 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 	}
 
 	@Override
-	@Transactional
 	public AjaxResult addRegisterUser(RegisterDTO dto) {
 		AjaxResult result = new AjaxResult();
-		UserBase account = findUserByUserAccount(dto.getUserAccount());
-		if (account != null) {
-			return result.setSuccess(false).setMessage(MsgConstant.ACCOUNT_REPEAT);
-		}
 		UserBase email = userBaseRepository.findByUserEmailAndUserType(dto.getUserEmail(),"user");
 		if (email != null) {
 			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_REPEAT);
+		}
+		UserBase type = userBaseRepository.findByUserParkAndUserLevelAndUserTypeAndIsCheck(dto.getPark(), 0, "user",1);
+		if (type != null) {
+			return result.setSuccess(false).setMessage("该园区已注册过测试账号");
 		}
 		UserBase save=null;
 		try {
@@ -60,15 +59,17 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 			byte[] password = Digests.sha1(ConfConstant.DEFAULT_PASSWORD.getBytes(), salt, Encodes.HASH_INTERATIONS);
 			base.setPassword(Encodes.encodeHex(password));
 			base.setTelphone(dto.getTelphone());
-			base.setUserAccount(dto.getUserAccount());
+			base.setUserAccount(dto.getTelphone());
 			base.setUserComp(dto.getCompany());
 			base.setUserDepartment(dto.getDepartment());
 			base.setUserEmail(dto.getUserEmail());
 			base.setUserPark(dto.getPark());
 			base.setUserType(dto.getUserType());
+			base.setImageUrl(dto.getImageUrl().equals("")?"/images/default.jpg":dto.getImageUrl());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			base.setCreateTime(sdf.format(new Date()));
 			base.setUserLevel(0);
+			base.setIsCheck(0);
 			save = userBaseRepository.save(base);
 		} catch (Exception e) {
 			LOGGER.error("保存用户信息出错", e);
@@ -105,25 +106,19 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 	}
 
 	@Override
-	@Transactional
 	public AjaxResult findPassword(FindPasswordDTO param) {
 		AjaxResult result = new AjaxResult();
-		UserBase one = userBaseRepository.findByUserAccountAndUserType(param.getUserAccount(),"user");
+		UserBase one = userBaseRepository.findByUserAccountAndUserType(param.getTelphone(),"user");
 		if (one != null) {
 			String newPassword = getPasswordDB(param.getNewPassword(),one.getSalt());
 			one.setPassword(newPassword);
-			UserBase save = userBaseRepository.save(one);
-			if (save != null) {
-				return result.setSuccess(true).setMessage(MsgConstant.PASSWORD_SUCCESS);
-			} else {
-				return result.setSuccess(false).setMessage(MsgConstant.CHANGE_ERROR);
-			}
+			userBaseRepository.save(one);
+			return result.setSuccess(false).setMessage(MsgConstant.CHANGE_ERROR);
 		}
 		return result.setSuccess(false).setMessage(MsgConstant.USER_ERROR);
 	}
 
 	@Override
-	@Transactional
 	public AjaxResult modifyEmail(Long userId, String email) {
 		AjaxResult result = new AjaxResult();
 		UserBase one = userBaseRepository.findOne(userId);

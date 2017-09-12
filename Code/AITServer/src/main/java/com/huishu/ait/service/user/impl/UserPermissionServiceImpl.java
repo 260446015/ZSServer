@@ -1,7 +1,5 @@
 package com.huishu.ait.service.user.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +21,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
 	@Override
 	public List<Long> getPermissionIdsByUserId(Long id) {
 		UserBase base = userBaseRepository.findOne(id);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String today = sdf.format(new Date());
-		if (today.compareTo(base.getExpireTime())>0) {
-			return null;
-		} else {
-			return userPermissionRepository.findPermissionIdByUserLevel(base.getUserLevel());
-		}
+		return userPermissionRepository.findPermissionIdByUserLevel(base.getUserLevel());
 	}
 
 }

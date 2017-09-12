@@ -28,7 +28,7 @@ public class ConfConstant {
 	public  final static String DEFAULT_PASSWORD = "huishuzhaoshang2017";
 	
 	/**会员名片默认存放地址*/
-	public  final static String DEFAULT_URL = "E:/images";
+	public  final static String DEFAULT_URL = "images";
 	
 	
 	

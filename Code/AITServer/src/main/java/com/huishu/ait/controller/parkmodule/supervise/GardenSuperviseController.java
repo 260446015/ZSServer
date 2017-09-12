@@ -1,9 +1,7 @@
 package com.huishu.ait.controller.parkmodule.supervise;
 
-import java.net.URLEncoder;
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +17,10 @@ import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
-import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.CompanyGroup;
 import com.huishu.ait.entity.CompanyGroupMiddle;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CompanyDTO;
-import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
 
 /**
@@ -40,8 +36,6 @@ public class GardenSuperviseController extends BaseController {
 
 	@Autowired
 	private GardenSuperviseService gardenSuperviseService;
-	
-
 
 	/**
 	 * @return 获取当前园区的信息
@@ -63,7 +57,7 @@ public class GardenSuperviseController extends BaseController {
 	 */
 	@RequestMapping(value = "getCompanyFromGarden.json", method = RequestMethod.GET)
 	public AjaxResult getCompanyFromGarden() {
-		if(StringUtil.isEmpty(getUserPark())){
+		if (StringUtil.isEmpty(getUserPark())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -82,6 +76,9 @@ public class GardenSuperviseController extends BaseController {
 	public AjaxResult addCompanyGroup(String groupName) {
 		JSONObject result = new JSONObject();
 		Long userId = getUserId();
+		if(StringUtil.isEmpty(groupName)){
+			return error("企业分组名称不能为空!");
+		}
 		try {
 			if (null != groupName && !"".equals(groupName)) {
 				String state = gardenSuperviseService.addCompanyGroup(groupName, userId);
@@ -122,7 +119,7 @@ public class GardenSuperviseController extends BaseController {
 	@RequestMapping(value = "searchCompanyFromGardenForPage.json", method = RequestMethod.POST)
 	public AjaxResult getCompanyFromGardenForPage(@RequestBody CompanyDTO dto) {
 		try {
-			if(dto.getRegCapital() == null || dto.getIndustry() == null || dto.getGroupname() == null){
+			if (dto.getRegCapital() == null || dto.getIndustry() == null || dto.getGroupname() == null) {
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
 			String userPark = getUserPark();
@@ -155,44 +152,44 @@ public class GardenSuperviseController extends BaseController {
 		}
 		return success(flag);
 	}
-	
-	
-	
+
 	/**
 	 * 保存操作的企业到企业分组的Controller
-	 * @param middle  企业与企业分组的中间表
+	 * 
+	 * @param middle
+	 *            企业与企业分组的中间表
 	 * @return
 	 */
-	@RequestMapping(value="/saveCompanyByGroupId.json",method=RequestMethod.POST)
-	public AjaxResult saveCompanyByGroupId(@RequestBody CompanyGroupMiddle middle){
+	@RequestMapping(value = "/saveCompanyByGroupId.json", method = RequestMethod.POST)
+	public AjaxResult saveCompanyByGroupId(@RequestBody CompanyGroupMiddle middle) {
 		Long userId = getUserId();
-		if(middle.getCompanyId() == null || middle.getGroupname() == null){
+		if (middle.getCompanyId() == null || middle.getGroupname() == null) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		boolean flag = gardenSuperviseService.saveCompanyByGroupId(middle,userId);
-		if(flag){
-			return success(flag);
-		}else{
-			return error("保存操作的企业到企业分组失败");
+		boolean flag = gardenSuperviseService.saveCompanyByGroupId(middle, userId);
+		if (flag) {
+			return success(0);
+		} else {
+			return success(1);
 		}
 	}
-	
+
 	/**
 	 * 删除企业分组中的企业的Controller
-	 * @param middle  企业与企业分组的中间表
+	 * 
+	 * @param middle
+	 *            企业与企业分组的中间表
 	 * @return
 	 */
-	@RequestMapping(value="/deleteCompanyInGroup.json",method=RequestMethod.POST)
-	public AjaxResult deleteCompanyInGroup(@RequestBody CompanyGroupMiddle middle){
+	@RequestMapping(value = "/deleteCompanyInGroup.json", method = RequestMethod.POST)
+	public AjaxResult deleteCompanyInGroup(@RequestBody CompanyGroupMiddle middle) {
 		boolean flag = gardenSuperviseService.deleteCompanyInGroup(middle);
-		if(flag){
+		if (flag) {
 			return success(flag);
-		}else{
+		} else {
 			return error("删除企业分组中的企业失败");
 		}
 	}
-	
-	
 
 	/**
 	 * @param dto

@@ -68,6 +68,7 @@ public class UserBase implements Serializable {
 	private String userPark;
 	
 	/** 地域 */
+	@Column
 	private String area;
 
 	/**创建时间*/
@@ -86,13 +87,49 @@ public class UserBase implements Serializable {
 	@Column(name = "user_type")
 	private String userType;
 	
-	/**会员等级(0:试用,1:A级会员,2：B级会员,3：C级会员)*/
+	/**名片路径*/
+	@Column(name = "image_url")
+	private String imageUrl;
+	
+	/**会员等级(0:试用,1:正式，9:试用申请转正式)*/
 	@Column(name = "user_level")
 	private Integer userLevel;
+	
+	/**是否预警(0:正常,1:预警)*/
+	@Column(name = "is_warn")
+	private Integer isWarn;
+	
+	/**是否审核(0:待审核,1:已审核)*/
+	@Column(name = "is_check")
+	private Integer isCheck;
 	
 	/**用户权限，不存数据库*/
 	@Transient
 	private List<Long> permissions;
+
+	public Integer getIsCheck() {
+		return isCheck;
+	}
+
+	public void setIsCheck(Integer isCheck) {
+		this.isCheck = isCheck;
+	}
+
+	public Integer getIsWarn() {
+		return isWarn;
+	}
+
+	public void setIsWarn(Integer isWarn) {
+		this.isWarn = isWarn;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	public String getArea() {
 		return area;
@@ -181,6 +218,7 @@ public class UserBase implements Serializable {
 	public void setUserComp(String userComp) {
 		this.userComp = userComp;
 	}
+
 
 	public String getUserPark() {
 		return userPark;

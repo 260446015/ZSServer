@@ -180,7 +180,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			Integer pageNumber = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
 			// Long regCapital = dto.getRegCapital();
-//			int from = (pageNumber - 1) * pageSize;
+			// int from = (pageNumber - 1) * pageSize;
 			SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			if (StringUtils.isNotBlank(park)) {
@@ -234,28 +234,28 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			String park = dto.getPark();
 			Integer pageNumber = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
-			String industry = dto.getIndustry();// 产业描述
+			String industry = dto.getIndustry().equals("全部") ? "%%" : dto.getIndustry();// 产业描述
 			double start = dto.getStart();
 			double end = dto.getEnd();
 			PageRequest pageRequest = new PageRequest(pageNumber - 1, pageSize);
 			Page<Company> page = null;
 			if (dto.getGroupname().equals("全部")) {
-				page = companyRepository.findByIndustryAndParkAndRegisterCapitalBetween(industry, park, start, end,
+				page = companyRepository.findByIndustryLikeAndParkAndRegisterCapitalBetween(industry, park, start, end,
 						pageRequest);
 			} else {
 				CompanyGroup cg = companyGroupRepository.findGroupByName(dto.getGroupname(), dto.getUserId());
-				if(cg == null){
+				if (cg == null) {
 					return null;
 				}
 				List<CompanyGroupMiddle> ms = middleRepository.findByGroupId(cg.getGroupid());
-				if(ms == null){
+				if (ms == null) {
 					return null;
 				}
 				List<Long> companyIds = new ArrayList<>();
 				for (CompanyGroupMiddle m : ms) {
 					companyIds.add(m.getCompanyId());
 				}
-				page = companyRepository.findByIndustryAndParkAndCidInAndRegisterCapitalBetween(industry, park,
+				page = companyRepository.findByIndustryLikeAndParkAndCidInAndRegisterCapitalBetween(industry, park,
 						companyIds, start, end, pageRequest);
 			}
 			jsonArray.add(page);
@@ -290,7 +290,12 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		boolean flag = false;
 		try {
 			CompanyGroup cg = companyGroupRepository.findByGroupNameAndUserId(middle.getGroupname(), userId);
-			if(cg == null){
+			if (cg == null) {
+				return flag;
+			}
+			CompanyGroupMiddle checkMiddle = middleRepository.findByCompanyIdAndUserIdAndGroupId(middle.getCompanyId(),
+					userId, cg.getGroupid());
+			if (checkMiddle != null) {
 				return flag;
 			}
 			middle.setGroupId(cg.getGroupid());
@@ -317,4 +322,5 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 		return flag;
 
 	}
+
 }

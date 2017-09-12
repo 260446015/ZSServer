@@ -1,6 +1,8 @@
 package com.huishu.ait.security;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.huishu.ait.entity.Permission;
 import com.huishu.ait.entity.UserBase;
+import com.huishu.ait.exception.AccountExpiredException;
+import com.huishu.ait.exception.AccountStartException;
 import com.huishu.ait.service.user.PermissionService;
 import com.huishu.ait.service.user.UserBaseService;
 import com.huishu.ait.service.user.UserPermissionService;
@@ -71,11 +75,17 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		//获取用户的输入的账号.
 		String userAccount = myToken.getUsername();
 		UserBase user = userBaseService.findUserByUserAccount(userAccount);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String today = format.format(new Date());
 		if(user==null){
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("user {} is not exist.", myToken.getUsername());
-			}
+			LOGGER.debug("user {} is not exist.", myToken.getUsername());
 			throw new IncorrectCredentialsException();
+		}else if(user.getIsCheck()==0){
+			LOGGER.debug("user {} is not examine.", myToken.getUsername());
+			throw new AccountStartException();
+		}else if(today.compareTo(user.getExpireTime())>0){
+			LOGGER.debug("user {} be overdue.", myToken.getUsername());
+			throw new AccountExpiredException();
 		}
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
     		   new ShiroUser(user.getId(),user.getUserAccount(),user.getRealName(),user.getUserType(),user.getUserPark(),user.getUserLevel()),

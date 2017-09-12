@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ShiroUtil;
 import com.huishu.ait.common.util.StringUtil;
@@ -39,10 +40,12 @@ import com.huishu.ait.entity.dto.CaptchaDTO;
 import com.huishu.ait.entity.dto.FindPasswordDTO;
 import com.huishu.ait.entity.dto.RegisterDTO;
 import com.huishu.ait.exception.AccountExpiredException;
-import com.huishu.ait.exception.IncorrectCaptchaException;
+import com.huishu.ait.exception.AccountStartException;
 import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.security.RSAUtils;
+import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 import com.huishu.ait.service.user.UserBaseService;
+import com.huishu.ait.service.user.backstage.AdminService;
 
 /**
  * 用户登录相关
@@ -58,6 +61,8 @@ public class LoginController extends BaseController {
 	private UserBaseService userBaseService;
 	@Resource
 	private CaptchaManager captchaManager;
+	@Autowired
+	private AdminService adminService;
 
 	/**
 	 * 根路径访问
@@ -87,34 +92,41 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "apis/islogin.do", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult islogin() {
-		Object object = SecurityUtils.getSubject().getPrincipal();
-		if(object==null){
+		ShiroUser user = getCurrentShiroUser();
+		if(user==null){
 			return error("请先登录");
 		}else{
-			return success("已经登录").setMessage("已经登录");
+			UserBase base = userBaseService.findUserByUserId(user.getId());
+			if(base.getIsWarn()==1){
+				adminService.warnAccount(user.getId(),0);
+				JSONObject object = new JSONObject();
+				object.put("iswarn", base.getExpireTime());
+				return success(object).setMessage("已经登录");
+			}
+			return success("").setMessage("已经登录");
 		}
 	}
 	
 	/**
 	 * 未登录
-	 * 
-	 * @return 返回消息
 	 */
 	@RequestMapping(value = "apis/login.do", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult login() {
-		return error("请先登录");
+	public void login(HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		JSONObject object = new JSONObject();
+		object.put("code", "1002");
+		ShiroUtil.writeResponse(response, object);
 	}
 	
 	/**
 	 * 没有权限
-	 * 
-	 * @return 返回消息
 	 */
 	@RequestMapping(value = "apis/unauthorized.do", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult unauthorized() {
-		return error("您没有该权限");
+	public void unauthorized(HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		JSONObject object = new JSONObject();
+		object.put("code", "1004");
+		ShiroUtil.writeResponse(response, object);
 	}
 	/**
 	 * 登录过滤器放行后进入此接口
@@ -136,10 +148,10 @@ public class LoginController extends BaseController {
 		if (error != null) {
 			if (error.equals(IncorrectCredentialsException.class.getName())) {
 				message = MsgConstant.CREDENTIAL_ERROR;
-			} else if (error.equals(IncorrectCaptchaException.class.getName())) {
-				message = MsgConstant.INCORRECT_CAPTCHA;
-			} else if (error.equals(AccountExpiredException.class.getName())) {
+			}else if (error.equals(AccountExpiredException.class.getName())) {
 				message = MsgConstant.ACCOUNTEXPIRED;
+			}else if (error.equals(AccountStartException.class.getName())) {
+				message = MsgConstant.ACCOUNTSTART;
 			}else if (error.equals(ExcessiveAttemptsException.class.getName())) {
 				message = MsgConstant.LOCKING;
 			}
@@ -197,7 +209,6 @@ public class LoginController extends BaseController {
 		}
 		String telphone = param.getTelphone();
 		String type = param.getType();
-		String userAccount = param.getUserAccount();
 		if (StringUtil.isEmpty(telphone)) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -208,8 +219,6 @@ public class LoginController extends BaseController {
 		if ("findPassword".equals(type)) {
 			if(user == null){
 				return error("该手机号未被注册");
-			}else if(!user.getUserAccount().equals(userAccount)){
-				return error(MsgConstant.PHONE_ERROR);
 			}
 		} else {
 			if (user != null) {

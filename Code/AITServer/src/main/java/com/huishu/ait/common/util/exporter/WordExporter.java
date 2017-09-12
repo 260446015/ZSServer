@@ -6,7 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
+import com.huishu.ait.common.export.ContentSub;
 import com.huishu.ait.common.export.News;
 import com.huishu.ait.common.util.StringUtil;
 import com.lowagie.text.Cell;
@@ -104,21 +108,21 @@ public class WordExporter {
 			}
 
 			if (StringUtils.isNotBlank(echartImage)) {
-				String[] arr = echartImage.split("base64,");
-				if (arr.length > 1) {
-					byte[] buffer = Base64.decodeBase64(arr[1]);
-					// 添加图片
-					Image img = Image.getInstance(buffer);
-					img.setAbsolutePosition(0, 0);
-					img.setAlignment(Image.ALIGN_CENTER);
-					img.scaleAbsolute(100, 100);
-					img.scalePercent(100);// 设置图片按原图大小显示
-					img.setRotation(30);
-					img.setOriginalType(Image.ORIGINAL_PNG);
-					document.add(img);
-				}
+				// String[] arr = echartImage.split("base64,");
+				// if (arr.length > 1) {
+				byte[] buffer = Base64.decodeBase64(echartImage);
+				// 添加图片
+				Image img = Image.getInstance(buffer);
+				img.setAbsolutePosition(0, 0);
+				img.setAlignment(Image.ALIGN_CENTER);
+				img.scaleAbsolute(100, 100);
+				img.scalePercent(100);// 设置图片按原图大小显示
+				img.setRotation(30);
+				img.setOriginalType(Image.ORIGINAL_PNG);
+				document.add(img);
 			}
-			Paragraph context = new Paragraph("");
+			// }
+			Paragraph context = new Paragraph("dewfejfef");
 			// 离上一段落（标题）空的行数
 			context.setSpacingBefore(20);
 			// 设置第一行空的列数
@@ -155,15 +159,31 @@ public class WordExporter {
 			publishTime.setAlignment(Element.ALIGN_CENTER);
 			publishTime.setFont(contentFont);
 			document.add(publishTime);
-			Paragraph content = new Paragraph(artic.getContent(), contentFont);
-			// 正文格式左对齐
-			content.setAlignment(Element.ALIGN_LEFT);
-			content.setFont(contentFont);
-			// 离上一段落（标题）空的行数
-			content.setSpacingBefore(20);
-			// 设置第一行空的列数
-			content.setFirstLineIndent(20);
-			document.add(content);
+			String contentTxt = artic.getContent();
+			if (contentTxt.contains("<img")) {
+				List<ContentSub> contentList = getContentSplitByImg(contentTxt);
+				contentList.forEach(sub -> {
+					try {
+						Paragraph content = new Paragraph(sub.getContent(), contentFont);
+						document.add(content);
+						Image img = Image.getInstance(new URL(sub.getSrc()));
+						document.add(img);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				});
+			} else {
+				Paragraph content = new Paragraph(contentTxt, contentFont);
+				// 正文格式左对齐
+				content.setAlignment(Element.ALIGN_LEFT);
+				content.setFont(contentFont);
+				// 离上一段落（标题）空的行数
+				content.setSpacingBefore(20);
+				// 设置第一行空的列数
+				content.setFirstLineIndent(20);
+				document.add(content);
+			}
+
 			// 设置情报采集
 			Paragraph source = new Paragraph("情报采集:" + artic.getSource(), contentFont);
 			publishTime.setAlignment(Element.ALIGN_CENTER);
@@ -174,6 +194,10 @@ public class WordExporter {
 			publishTime.setAlignment(Element.ALIGN_CENTER);
 			publishTime.setFont(contentFont);
 			document.add(sourceLink);
+			// URL url = new
+			// URL("http://i3.sinaimg.cn/cj/2013/0304/U5566P1081DT20130304094711.jpg");
+			// Image img = Image.getInstance(url);
+			// document.add(img);
 			setHeader(request, response, fileName);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -349,10 +373,10 @@ public class WordExporter {
 			if (response != null) {
 				String filename = "";
 				if (StringUtil.isIE(request)) {
-					filename = new String(fileName + ".doc");
+					filename = new String(fileName);
 					filename = URLEncoder.encode(filename, "UTF-8");
 				} else {
-					filename = new String((fileName + ".doc").getBytes(), "iso-8859-1");
+					filename = new String((fileName).getBytes(), "iso-8859-1");
 				}
 				String header = "attachment; filename=\"" + filename + "\"";
 				response.reset();
@@ -386,7 +410,6 @@ public class WordExporter {
 			 */
 			WordExporter ex = new WordExporter(os, document);
 			String a = ex.imageToBase64("C:\\Users\\yindawei\\Desktop\\a.jpg");
-			// ex.exportImage(null, a, null, "abc.png");
 			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -414,5 +437,24 @@ public class WordExporter {
 	public void export(HttpServletRequest request, HttpServletResponse response, String fileName) throws Exception {
 		setHeader(request, response, fileName);
 		document.close();
+	}
+
+	private List<ContentSub> getContentSplitByImg(String str) {
+		String jiequ = "";
+		String shengyu = str;
+		List<ContentSub> listStr = new ArrayList<>();
+		String src = "";
+		while (shengyu.contains("<img")) {
+			ContentSub sub = new ContentSub();
+			int startIndex = shengyu.indexOf("<img");
+			jiequ = shengyu.substring(0, startIndex);
+			sub.setContent(jiequ);
+			src = shengyu.substring(shengyu.indexOf("src=\"") + 5,
+					shengyu.indexOf("\"", shengyu.indexOf("src=\"") + 5));
+			sub.setSrc(src);
+			shengyu = shengyu.substring(shengyu.indexOf("/>") + 2);
+			listStr.add(sub);
+		}
+		return listStr;
 	}
 }

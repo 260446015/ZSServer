@@ -320,6 +320,16 @@ public abstract class DateUtils {
 		ZoneId zone = ZoneId.systemDefault();
 		return Date.from(datetime.atZone(zone).toInstant());
 	}
+	/**
+	 * 
+	 * @return
+	 */
+	public static Calendar getNow(){
+		Calendar c = Calendar.getInstance();  
+		c.setTime(new Date());
+		Calendar nextDate = (Calendar) c.clone();  
+		return nextDate;
+	}
 	
 	/**
 	 * @return

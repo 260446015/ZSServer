@@ -2,23 +2,11 @@ package com.huishu.ait.controller;
 
 import static com.huishu.ait.common.util.UtilsHelper.getValueByFieldName;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.interfaces.RSAPrivateKey;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.CheckUtils;
 
@@ -26,7 +14,7 @@ import com.huishu.ait.common.util.CheckUtils;
 //import org.springframework.beans.factory.annotation.Autowired;
 
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.entity.dto.AreaSearchDTO;
+import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.es.entity.dto.AbstractDTO;
 import com.huishu.ait.security.Digests;
 import com.huishu.ait.security.Encodes;
@@ -172,9 +160,8 @@ public abstract class BaseController {
      * @param data     查询出来的数据集合
      * @return
      */
-	protected JSONObject changeObject(AreaSearchDTO searchModel,JSONArray data){
+	protected JSONObject changeObject(SearchModel searchModel,Object data){
 		JSONObject object = new JSONObject();
-		object.put("park", searchModel.getPark());
 		object.put("list",data);
 		object.put("totalSize", searchModel.getTotalSize());
 		object.put("totalPage", searchModel.getTotalPage());

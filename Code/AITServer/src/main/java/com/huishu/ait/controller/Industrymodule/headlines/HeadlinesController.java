@@ -198,40 +198,70 @@ public class HeadlinesController extends BaseController {
         String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_DATE); //今天的当前时间（获取服务端时间）
         String startTime = DateUtil.getFormatDate(DateUtil.getStartTime(), DateUtil.FORMAT_DATE); //今天的起始时间
         String yesterAgo = DateUtil.getFormatDate(DateUtil.getYesterAgoStartTime(date), DateUtil.FORMAT_DATE); //昨天的起始时间
-        String weekAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_DATE); //近7天的起始时间
+        String weekAgo = DateUtil.getFormatDate(DateUtil.getWeekAgoStartTime(date), DateUtil.FORMAT_DATE); //近7天的起始时间
         String monthAgo = DateUtil.getFormatDate(DateUtil.getMonthAgoStartTime(date), DateUtil.FORMAT_DATE); //一个月内
         String halfYearAgo = DateUtil.getFormatDate(DateUtil.getHalfYearStartTime(date), DateUtil.FORMAT_DATE); //半年内
         String yearAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_DATE); //一年内
         
         //对时间段进行判断
-        if(dto.getPeriodDate().equals("今日")){
+        String periodDate = dto.getPeriodDate();
+        
+        if(periodDate.equals("今日")){
             dto.setStartDate(startTime);
             dto.setEndDate(endTime);
         }
-        if(dto.getPeriodDate().equals("昨天")){
+        if(periodDate.equals("昨天")){
             dto.setStartDate(yesterAgo);
             dto.setEndDate(startTime);
         }
-        if(dto.getPeriodDate().equals("近7天")){
+        if(periodDate.equals("近七天")){
             dto.setStartDate(weekAgo);
             dto.setEndDate(endTime);
         }
-        if(dto.getPeriodDate().equals("1个月")){
+        if(periodDate.equals("1个月")){
             dto.setStartDate(monthAgo);
             dto.setEndDate(endTime);
         }
-        if(dto.getPeriodDate().equals("半年")){
+        if(periodDate.equals("半年")){
             dto.setStartDate(halfYearAgo);
             dto.setEndDate(endTime);
         }
-        if(dto.getPeriodDate().equals("一年")){
+        if(periodDate.equals("一年")){
             dto.setStartDate(yearAgo);
             dto.setEndDate(endTime);
         }
-        if(dto.getPeriodDate().equals("不限")){
+        if(periodDate.equals("不限")){
             dto.setStartDate("1980-01-01");
             dto.setEndDate(endTime);
         }
+       /* if(dto.getPeriodDate().equals("今日")){
+        	dto.setStartDate(startTime);
+        	dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("昨天")){
+        	dto.setStartDate(yesterAgo);
+        	dto.setEndDate(startTime);
+        }
+        if(dto.getPeriodDate().equals("近7天")){
+        	dto.setStartDate(weekAgo);
+        	dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("1个月")){
+        	dto.setStartDate(monthAgo);
+        	dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("半年")){
+        	dto.setStartDate(halfYearAgo);
+        	dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("一年")){
+        	dto.setStartDate(yearAgo);
+        	dto.setEndDate(endTime);
+        }
+        if(dto.getPeriodDate().equals("不限")){
+        	dto.setStartDate("1980-01-01");
+        	dto.setEndDate(endTime);
+        }*/
         return dto;
     }
 }

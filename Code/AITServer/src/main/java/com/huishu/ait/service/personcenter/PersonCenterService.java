@@ -8,5 +8,5 @@ public interface PersonCenterService {
 
 	JSONArray getPersonCollection(PersonCollectDto dto);
 
-	News getData(String articleId);
+	News getData(String articleId, Long userId);
 }
