@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.GardenDataDTO;

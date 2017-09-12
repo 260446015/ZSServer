@@ -13,10 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.conf.DBConstant;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
-import com.huishu.ait.es.entity.GardenInformation;
 import com.huishu.ait.es.entity.WarningInformation;
 import com.huishu.ait.es.repository.warning.WarningInformationRepository;
 import com.huishu.ait.repository.company.CompanyRepository;
@@ -38,17 +36,14 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		// 组装查询条件
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("dimension", "疑似外流");
-		map.put("emotion", DBConstant.Emotion.NEGATIVE);
-		// 组装not条件
-		Map<String, String> mapnot = new HashMap<String, String>();
-		mapnot.put("park", searchModel.getPark());
+		map.put("park", searchModel.getPark());
 		// 组装排序字段,按时间和点击量降序排列
 		String[] order = { "publishDate", "hitCount" };
 		List<String> orderList = Arrays.asList(order);
 		// 组装返回数据字段
 		String[] data = { "publishDate","business", "title", "content","warnTime","park"};
 		List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, mapnot,orderList, dataList,true);
+		JSONArray array = getEsData(searchModel, map, null,orderList, dataList,true);
 		return array;
 	}
 
@@ -61,14 +56,11 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		}
 		buffer.append("[");
 		for (Company company : list) {
-			//组装查询条件
 			Map<String,String> map = new HashMap<String,String>();
 			map.put("business", company.getCompanyName());
 			map.put("dimension", "企业信息变更");
-			//组装排序字段,按时间和点击量降序排列
 			 String[] order = {"publishDate","hitCount"};
 			 List<String> orderList = Arrays.asList(order);
-			//组装返回数据字段
 			 String[] data = {"publishTime","business", "updateAttribute","businessType"};
 			 List<String> dataList = Arrays.asList(data);
 			JSONArray array = getEsData(searchModel, map, null,orderList, dataList,true);
