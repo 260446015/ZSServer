@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.service.skyeye.SkyEyeService;
@@ -124,5 +125,21 @@ public class SkyEyeController extends BaseController{
 		}
 		return success(obj);
 	}
+	
+	@RequestMapping(value="/searchFromSkyEye",method=RequestMethod.GET)
+	public AjaxResult searchFromSkyEye(String searchName){
+		//增加自动登录功能
+		if(StringUtil.isEmpty(searchName)){
+			//调用天眼查搜索接口
+		}else{
+			//调用天眼查搜索详细查询功能
+		}
+		return success("");
+	}
+	
+	public AjaxResult findInfoChanges(){
+		return success("");
+	}
+	
 	
 }

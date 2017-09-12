@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.Constans;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.GardenUser;
@@ -133,6 +134,22 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			// }else{//
 			findGardensPage = gardenRepository.findByAreaLikeAndIndustryLikeOrderByIdDesc(area, industryType,
 					pageRequest);
+			findGardensPage.forEach(GardenData ->{
+				String gardenIntroduce = GardenData.getGardenIntroduce();
+				String gardenSuperiority = GardenData.getGardenSuperiority();
+				String address = GardenData.getAddress();
+				if(gardenIntroduce==null||StringUtil.isEmpty(gardenIntroduce)||gardenIntroduce.equals("NULL")){
+					if(gardenSuperiority==null || StringUtil.isEmpty(gardenSuperiority)||gardenSuperiority.equals("NULL")){
+						GardenData.setGardenIntroduce("暂无");
+					}else{
+						GardenData.setGardenIntroduce(gardenSuperiority);
+					}
+				}
+				if(address==null || StringUtil.isEmpty(address)||address.equals("NULL")){
+					GardenData.setAddress("暂无");
+				}
+				
+			});
 			// }
 			data.add(findGardensPage);
 		} catch (Exception e) {
@@ -166,8 +183,16 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		String area = dto.getArea();
 		String industryType = dto.getIndustryType();
 		try {
-			PageRequest pageRequest = new PageRequest(dto.getPageNumber() - 1, dto.getPageSize());
-			return gardenUserRepository.findAll(getSpec(area, industryType,userId), pageRequest);
+			PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize());
+			
+			Page<GardenUser> findAll = gardenUserRepository.findAll(getSpec(area, industryType,userId), pageRequest);
+			findAll.forEach(GardenUser ->{
+				String description = GardenUser.getDescription();
+				if(description==null||StringUtil.isEmpty(description)||description.equals("NULL")){
+					GardenUser.setDescription("暂无");
+				}
+			});
+			return findAll;
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			return null;
@@ -195,7 +220,12 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					gu.setArea(garden.getArea());
 					gu.setAttentionDate(
 							new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(System.currentTimeMillis()).toString());
-					gu.setDescription(garden.getGardenIntroduce());
+					String gardenIntroduce = garden.getGardenIntroduce();
+					if(gardenIntroduce==null || StringUtil.isEmpty(gardenIntroduce)||gardenIntroduce.equals("NULL")){
+						gu.setDescription("暂无");
+					}else{
+						gu.setDescription(garden.getGardenIntroduce());
+					}
 					gu.setUserId(Integer.parseInt(userId));
 					gu.setGardenPicture(garden.getGardenPicture());
 					gu.setIndustryType(garden.getIndustry());

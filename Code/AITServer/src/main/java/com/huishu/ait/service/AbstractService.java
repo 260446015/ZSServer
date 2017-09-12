@@ -5,11 +5,16 @@ import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX1;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import java.security.interfaces.RSAPrivateKey;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -39,14 +44,17 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.hankcs.analysis.Analysis;
+import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.UtilsHelper;
+import com.huishu.ait.common.util.datasort.SerieDataComparator;
 import com.huishu.ait.echart.series.Serie.SerieData;
-import com.huishu.ait.entity.common.Ratio;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
+import com.huishu.ait.es.entity.dto.IndicatorDTO;
 import com.huishu.ait.security.Digests;
 import com.huishu.ait.security.Encodes;
 import com.huishu.ait.security.RSAUtils;
@@ -108,7 +116,30 @@ public abstract class AbstractService {
 			}
 			return json;
 		});
-		return result;
+		return sortArray(result);
+	}
+	/**
+	 * @param result
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private JSONArray sortArray(JSONArray array) {
+		List<SerieData<Long>> list = new ArrayList<SerieData<Long> >();
+		
+		for(int i = 0; i<array.size();i++){
+			SerieData<Long> obj = (SerieData<Long>)array.get(i);
+			list.add(obj);
+		}
+		//排序操作
+		Collections.sort(list, new SerieDataComparator());
+		  //把数据放回去 
+        array.clear();
+        for (int i = 0; i < list.size(); i++) {
+        	SerieData<Long> obj = null;
+            obj = list.get(i);
+            array.add(obj);
+        }
+		return array;
 	}
     /**
      *  产业头条--关键词云
@@ -263,6 +294,7 @@ public abstract class AbstractService {
 	/**
 	 * @param source
 	 * @param dto
+	 * 获取文章内容
 	 * @return
 	 */
 	private void  getDtoInfo( List<HeadlinesArticleListDTO> list,Map<String, Object> source) {
@@ -270,7 +302,7 @@ public abstract class AbstractService {
 		dto.setId(source.get("_id").toString());
 		dto.setArticleLink(source.get("articleLink").toString());
 		dto.setContent(source.get("content").toString());
-		dto.setPublishDate(source.get("publishDate").toString());
+		dto.setPublishTime(source.get("publishTime").toString());
 		dto.setSource(source.get("source").toString());
 		dto.setSourceLink(source.get("sourceLink").toString());
 		dto.setTitle(source.get("title").toString());
@@ -280,10 +312,39 @@ public abstract class AbstractService {
 		dto.setHitCount( (int) source.get("hitCount"));
 		dto.setReplyCount( (int) source.get("replyCount"));
 		dto.setSupportCount( (int) source.get("supportCount"));
-		dto.setHot(UtilsHelper.getRound(supportCount/hitCount*1.0));
+		if(hitCount.intValue()==0){
+			dto.setHot(UtilsHelper.getRound(supportCount/(hitCount+1)*1.0));
+		}else{
+			dto.setHot(UtilsHelper.getRound(supportCount/hitCount*1.0));
+		}
+		String summary = (String)source.get("summary");
+		if(StringUtils.isEmpty(summary)){
+			/**如果文章摘要不存在，则将内容的前一百数据取出作为摘要*/
+			summary = dto.getContent().substring(0, 100);
+			dto.setSummary(summary);
+		}else{
+			dto.setSummary(summary);	
+		}
+		Set<String> set = getBusiness(dto.getTitle(),dto.getContent());
+		dto.setBus(set);
 		list.add(dto);
 	}
 	
+	/**
+	 * @param title
+	 * @param content
+	 * 提取文章内部公司名录
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	protected Set<String> getBusiness(String title, String content) {
+		JSONObject findCompany = Analysis.findCompany(title, content);
+		if(findCompany != null && findCompany.getBooleanValue("status")){
+		Set<String> set = (Set<String>) findCompany.get("result");
+			return set;
+		}
+		return null;
+	}
 	/**
 	 * ES的分页查询数据方法
 	 * @param searchModel  查询Model
@@ -356,7 +417,7 @@ public abstract class AbstractService {
 	protected AreaSearchDTO getAreaSearchDTODemo(String gardenName){
 		AreaSearchDTO searchModel = new AreaSearchDTO();
 		searchModel.setPark(gardenName);
-		searchModel.setPageSize(5);
+		searchModel.setPageSize(6);
 		return searchModel;
 	}
 	
@@ -387,14 +448,186 @@ public abstract class AbstractService {
 	 * @param ratio
 	 * @return
 	 */
-	protected List<Ratio> convertData(List<Ratio> ratio){
+	protected Map<String,Float> convertData(List<Object[]> ratio){
+		Map<String,Float> map= new HashMap<String,Float>();
 		int sum=0;
-		for (Ratio ratio2 : ratio) {
-			sum+=ratio2.getNum();
+		for (int i = 0; i < ratio.size(); i++) {
+			Object[] objects=ratio.get(i);
+			if(objects[1]==null||objects[1].equals("")){
+				continue;
+			}
+			String name=(String)objects[1];
+			String[] split = name.split(",");
+			if(split.length!=1){
+				for (int j = 0; j < split.length; j++) {
+					Object[] data={objects[0],split[j]};
+					if(map.containsKey(data[1])){
+						Float value=map.get(data[1]);
+		                map.put((String)data[1], Integer.parseInt(String.valueOf(data[0]))+value);
+		            }else{
+		                map.put((String)data[1], Float.parseFloat(String.valueOf(data[0])));
+		            }
+					sum+=Integer.parseInt(String.valueOf(objects[0]));
+				}
+			}else{
+				if(map.containsKey(ratio.get(i)[1])){
+					Float value=map.get(ratio.get(i)[1]);
+	                map.put((String)ratio.get(i)[1], Integer.parseInt(String.valueOf(ratio.get(i)[0]))+value);
+	            }else{
+	                map.put((String)ratio.get(i)[1], Float.parseFloat(String.valueOf(ratio.get(i)[0])));
+	            }
+				sum+=Integer.parseInt(String.valueOf(objects[0]));
+			}
 		}
-		for (Ratio ratio2 : ratio) {
-			ratio2.setPercent(ratio2.getNum()/(float)sum);
+		Set<String> set = map.keySet();
+		for (String key : set) {
+			map.put(key, (float)map.get(key)/sum);
 		}
-		return ratio;
+		return map;
+	}
+	/**
+	 * @param bq
+	 */
+	protected JSONArray getIndicatorInfo(BoolQueryBuilder bq) {
+		JSONArray data = new JSONArray();
+		SearchRequestBuilder requestBuilder = ESUtils.getSearchBuilder(client);
+		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
+		TermsBuilder secondIndicatorBuilder = AggregationBuilders.terms("industryTwo").field("industryTwo");
+		TermsBuilder thirdIndicatorBuilder = AggregationBuilders.terms("industryThree").field("industryThree");
+		TermsBuilder fourIndicatorBuilder = AggregationBuilders.terms("industryFour").field("industryFour");
+		//聚合产业分类信息
+		thirdIndicatorBuilder.subAggregation(fourIndicatorBuilder);
+		secondIndicatorBuilder.subAggregation(thirdIndicatorBuilder);
+		firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
+		//获取返回结果
+		SearchResponse response = requestBuilder.addAggregation(firstIndicatorBuilder).setSize(2000).setQuery(bq).execute().actionGet();
+	
+		Terms agg = response.getAggregations().get("industryOne");
+		if(agg != null){
+			for(Terms.Bucket e1 :agg.getBuckets()){
+				Terms firsts = e1.getAggregations().get("industryTwo");
+				for(Terms.Bucket e2 :firsts.getBuckets()){
+					Terms seconds = e2.getAggregations().get("industryThree");
+					for(Terms.Bucket e3: seconds.getBuckets()){
+						Terms thirds=  e3.getAggregations().get("industryFour");
+						for(Terms.Bucket e4: thirds.getBuckets()){
+								JSONObject json = new JSONObject();
+								json.put("firstIndicator", e1.getKey());
+								json.put("secondIndicator", e2.getKey());
+								json.put("thirdIndicator", e3.getKey());
+								json.put("fourIndicator", e4.getKey());
+								data.add(json);
+							
+						}
+					}
+				}
+			}
+		}
+		return data;
+	}
+	
+	/**
+	 * @param bq
+	 * @return
+	 */
+	protected JSONArray getBusinessByIndicator(BoolQueryBuilder bq) {
+		JSONArray data = new JSONArray();
+		SearchRequestBuilder requestBuilder = ESUtils.getSearchBuilder(client);
+		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
+		TermsBuilder secondIndicatorBuilder = AggregationBuilders.terms("industryTwo").field("industryTwo");
+		TermsBuilder thirdIndicatorBuilder = AggregationBuilders.terms("industryThree").field("industryThree");
+		TermsBuilder fourIndicatorBuilder = AggregationBuilders.terms("industryFour").field("industryFour");
+		TermsBuilder businessBuilder = AggregationBuilders.terms("business").field("business");
+		//企业聚合到四级分类下
+		fourIndicatorBuilder.subAggregation(businessBuilder);
+		thirdIndicatorBuilder.subAggregation(fourIndicatorBuilder);
+		secondIndicatorBuilder.subAggregation(thirdIndicatorBuilder);
+		firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
+		requestBuilder.addAggregation(firstIndicatorBuilder).setSize(2000).setQuery(bq);
+	
+//		logger.info(String.format(" %n requestBuilder: %s", requestBuilder));
+		
+		//获取返回结果
+		SearchResponse response = requestBuilder.execute().actionGet();
+		Terms agg = response.getAggregations().get("industryOne");
+		if(agg != null){
+			for(Terms.Bucket e1 :agg.getBuckets()){
+				Terms firsts = e1.getAggregations().get("industryTwo");
+				for(Terms.Bucket e2 :firsts.getBuckets()){
+					Terms seconds = e2.getAggregations().get("industryThree");
+					for(Terms.Bucket e3: seconds.getBuckets()){
+						Terms thirds=  e3.getAggregations().get("industryFour");
+						for(Terms.Bucket e4: thirds.getBuckets()){
+							Terms fours = e4.getAggregations().get("business");
+							for(Terms.Bucket e5 :fours.getBuckets()){
+								JSONObject json = new JSONObject();
+								json.put("firstIndicator", e1.getKey());
+								json.put("secondIndicator", e2.getKey());
+								json.put("thirdIndicator", e3.getKey());
+								json.put("fourIndicator", e4.getKey());
+								json.put("business", e5.getKey());
+								data.add(json);
+							}
+						}
+					}
+				}
+			}
+		}
+		return data;
+	}
+	
+	/**
+	 * 建立关于产业分类的查询条件筛选器
+	 * @param dto
+	 * @return
+	 */
+	protected  BoolQueryBuilder getIndicatorContentBuilder(IndicatorDTO dto){
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		String firstIndicator = dto.getFirstIndicator();
+		if(StringUtils.isNotEmpty(firstIndicator)){
+			bq.must(QueryBuilders.termQuery("industryOne", firstIndicator));
+		}
+		String secondIndicator = dto.getSecondIndicator();
+		if(StringUtils.isNotEmpty(secondIndicator)){
+			bq.must(QueryBuilders.termQuery("industryTwo", secondIndicator));
+		}
+		
+		String thirdIndicator = dto.getThirdIndicator();
+		if(StringUtils.isNotEmpty(thirdIndicator)){
+			bq.must(QueryBuilders.termQuery("industryThree", thirdIndicator));
+		}
+		
+		String fourIndicator = dto.getFourIndicator();
+		if(StringUtils.isNotEmpty(fourIndicator)){
+			bq.must(QueryBuilders.termQuery("industryFour", fourIndicator));
+		}
+		
+		return bq;
+	}
+	
+	protected String[] analysisDate(String day){
+		String time1;
+		String time2;
+		Calendar nextDate = DateUtils.getNow();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if(day.equals("今日")){
+			nextDate.add(Calendar.DATE, +1);
+			time1=sdf.format(new Date());
+			time2=sdf.format(nextDate.getTime());
+		}else if(day.equals("昨日")){
+			nextDate.add(Calendar.DATE, -1);
+			time2=sdf.format(new Date());
+			time1=sdf.format(nextDate.getTime());
+		}else if(day.equals("近一周")){
+			nextDate.add(Calendar.DATE, -6);
+			time1=sdf.format(nextDate.getTime());
+			nextDate.add(Calendar.DATE, +7);
+			time2=sdf.format(nextDate.getTime());
+		}else {
+			time1="2017-01-01";
+			time2=sdf.format(nextDate.getTime());
+		}
+		String[] times={time1,time2};
+		return times;
 	}
 }
