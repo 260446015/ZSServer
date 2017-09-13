@@ -37,7 +37,6 @@ import java.util.Map;
 public class ResourceController extends BaseController {
 	private static Logger logger = LoggerFactory.getLogger(ResourceController.class);
 	private static final String ENCODE = "UTF-8";
-	private String username = getCurrentShiroUser().getLoginName();
 
 	private Cache cache;
 
@@ -50,13 +49,13 @@ public class ResourceController extends BaseController {
 	public void loginOpenEye(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String accessToken = getToken();
 		Map<String, String> params = new LinkedHashMap<>();
-		params.put(ConstantKey.DEFAULT_USERNAME_PARAM, username);
+		params.put(ConstantKey.DEFAULT_USERNAME_PARAM, getCurrentShiroUser().getLoginName());
 		params.put(ConstantKey.DEFAULT_REDIRECT_PARAM, ConstantKey.OAUTH_CLIENT_REDIRECT_URI);
 		params.put(ConstantKey.DEFAULT_AUTH_ID_PARAM, ConstantKey.OAUTH_AUTH_ID);
 		params.put(ConstantKey.DEFAULT_REDIRECT_ID_PARAM, ConstantKey.OAUTH_CLIENT_REDIRECT_URI_ID);
 		String sign = getSign(params, accessToken);
 		Map<String, String> uriParams = new LinkedHashMap<>();
-		uriParams.put("username", username);
+		uriParams.put("username", getCurrentShiroUser().getLoginName());
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		uriParams.put("redirect_uri", ConstantKey.OAUTH_CLIENT_REDIRECT_URI);
@@ -108,13 +107,13 @@ public class ResourceController extends BaseController {
 		JSONObject obj = JSONObject.parseObject(responseBody);
 		String id = obj.getString("data");
 		Map<String, String> paramsLogin = new LinkedHashMap<>();
-		paramsLogin.put(ConstantKey.DEFAULT_USERNAME_PARAM, username);
+		paramsLogin.put(ConstantKey.DEFAULT_USERNAME_PARAM, getCurrentShiroUser().getLoginName());
 		paramsLogin.put(ConstantKey.DEFAULT_REDIRECT_PARAM, ConstantKey.OAUTH_CLIENT_REDIRECT_URI);
 		paramsLogin.put(ConstantKey.DEFAULT_AUTH_ID_PARAM, ConstantKey.OAUTH_AUTH_ID);
 		paramsLogin.put(ConstantKey.DEFAULT_REDIRECT_ID_PARAM, ConstantKey.OAUTH_CLIENT_REDIRECT_URI_ID+"company/"+id+"/icinfo");
 		String sign2 = getSign(paramsLogin, accessToken);
 		Map<String, String> uriParams2 = new LinkedHashMap<>();
-		uriParams2.put("username", username);
+		uriParams2.put("username", getCurrentShiroUser().getLoginName());
 		uriParams2.put("sign", URLEncoder.encode(sign2,ENCODE));
 		uriParams2.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		uriParams2.put("redirect_uri", ConstantKey.OAUTH_CLIENT_REDIRECT_URI);
@@ -132,11 +131,11 @@ public class ResourceController extends BaseController {
 		String accessToken = getToken();
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
-		params.put("username", username);
+		params.put("username", getCurrentShiroUser().getLoginName());
 		String sign = getSign(params, accessToken);
 		Map<String, String> uriParams = new LinkedHashMap<>();
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
-		uriParams.put("username", username);
+		uriParams.put("username", getCurrentShiroUser().getLoginName());
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.ATTENTION_GROUP, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
@@ -153,7 +152,7 @@ public class ResourceController extends BaseController {
 		}
 		String accessToken = getToken();
 		Map<String, String> params = new LinkedHashMap<>();
-		params.put("username", username);
+		params.put("username", getCurrentShiroUser().getLoginName());
 		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		params.put("tags", tags);
 		params.put("pn", "1");
@@ -161,7 +160,7 @@ public class ResourceController extends BaseController {
 		String sign = getSign(params, accessToken);
 		Map<String, String> uriParams = new LinkedHashMap<>();
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
-		uriParams.put("username", username);
+		uriParams.put("username", getCurrentShiroUser().getLoginName());
 		uriParams.put("tags", tags);
 		uriParams.put("pn", "1");
 		uriParams.put("ps", "10");
