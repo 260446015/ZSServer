@@ -183,7 +183,7 @@ public class ResourceController extends BaseController {
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		uriParams.put("username", getCurrentShiroUser().getLoginName());
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
-		String responseBody = HttpUtils.sendGet(ConstantKey.GID_COMPANY, uriParams);
+		String responseBody = HttpUtils.sendGet(ConstantKey.SEARCH_TRACK, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
 		return success(obj.get("data"));
 	}
