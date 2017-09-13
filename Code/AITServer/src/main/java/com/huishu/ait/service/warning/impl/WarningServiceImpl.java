@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
+import com.huishu.ait.entity.dto.InformationSearchDTO;
 import com.huishu.ait.es.entity.WarningInformation;
 import com.huishu.ait.es.repository.warning.WarningInformationRepository;
 import com.huishu.ait.repository.company.CompanyRepository;
@@ -48,7 +50,7 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 	}
 
 	@Override
-	public JSONArray getInformationChangeList(AreaSearchDTO searchModel) {
+	public JSONArray getInformationChangeList(InformationSearchDTO searchModel) {
 		StringBuffer buffer = new StringBuffer();
 		List<Company> list = companyRepository.findByPark(searchModel.getPark());
 		if (list == null || list.size() == 0) {

@@ -25,6 +25,8 @@ public interface GardenRepository extends CrudRepository<GardenData, Integer>{
 	 * @return
 	 */
 	List<GardenData> findGardensByAddressLikeAndIndustryLike(String area,String industry);
+	
+	GardenData findByGardenName(String gardenName);
 
 //	@Query(value="select id,name,description,address,area,industryType from Garden g where g.name like CONCAT('%',:keyName,'%')")
 //	Page<Garden> findByNameLike(@Param("keyName")String name,Pageable pagealbe);

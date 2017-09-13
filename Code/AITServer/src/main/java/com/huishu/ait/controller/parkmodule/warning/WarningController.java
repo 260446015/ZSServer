@@ -16,6 +16,7 @@ import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
+import com.huishu.ait.entity.dto.InformationSearchDTO;
 import com.huishu.ait.service.warning.WarningService;
 
 /**
@@ -62,10 +63,7 @@ public class WarningController extends BaseController{
 	 */
 	@RequestMapping(value="getInformationChangeList.json",method=RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getInformationChangeList(@RequestBody AreaSearchDTO searchModel){
-		if(StringUtil.isEmpty(getUserPark())){
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
+	public AjaxResult getInformationChangeList(@RequestBody InformationSearchDTO searchModel){
 		searchModel.setPark(getUserPark());
 		if(null==searchModel || null==searchModel.getPark()){
 			return error(MsgConstant.ILLEGAL_PARAM);

@@ -3,10 +3,9 @@ package com.huishu.ait.service.gardenSupervise;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.CompanyGroup;
 import com.huishu.ait.entity.CompanyGroupMiddle;
+import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.dto.CompanyDTO;
 
 /**
@@ -17,7 +16,7 @@ import com.huishu.ait.entity.dto.CompanyDTO;
 public interface GardenSuperviseService {
 
 	// 获取园区的信息
-	public JSONObject getGardenInfo(String park);
+	public GardenData getGardenInfo(String park);
 
 	// 获取园区内所有企业的信息
 	public JSONArray getCompanyFromGarden(String park);

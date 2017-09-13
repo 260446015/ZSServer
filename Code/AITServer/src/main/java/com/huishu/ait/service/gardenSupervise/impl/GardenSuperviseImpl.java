@@ -26,10 +26,12 @@ import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.CompanyGroup;
 import com.huishu.ait.entity.CompanyGroupMiddle;
+import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.dto.CompanyDTO;
 import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.repository.companyGroup.CompanyGroupRepository;
 import com.huishu.ait.repository.company_group_middle.CompanyGroupMiddleRepository;
+import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
 
 /**
@@ -50,42 +52,14 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 	private CompanyGroupMiddleRepository middleRepository;
 	@Autowired
 	private CompanyRepository companyRepository;
+	@Autowired
+	private GardenRepository gardenRepository;
 
 	/*
 	 * 方法名：getGardenInfo 描述：获取园区的信息
 	 */
-	public JSONObject getGardenInfo(String park) {
-		try {
-			JSONObject json = new JSONObject();
-			SearchRequestBuilder srb = ESUtils.getSearchRequestBuilder(client);
-			BoolQueryBuilder bq = new BoolQueryBuilder();
-			if (StringUtils.isNotBlank(park)) {
-				bq.must(QueryBuilders.termQuery("park", park));
-			}
-			SearchResponse actionGet = srb.setQuery(bq).execute().actionGet();
-			if (null != actionGet && null != actionGet.getHits()) {
-				SearchHits hits = actionGet.getHits();
-				for (SearchHit hit : hits) {
-					Map<String, Object> map = hit.getSource();
-					if (null != map && map.size() > 0) {
-						map.put("_id", hit.getId());
-						json.put("id", map.get("_id"));
-						json.put("park", map.get("park"));
-						json.put("area", map.get("area"));
-						json.put("position", map.get("position"));
-						json.put("parkType", map.get("parkType"));
-						// 占地面积
-						json.put("floorArea", map.get("floorArea"));
-						// 建筑面积
-						json.put("tructureArea", map.get("tructureArea"));
-					}
-				}
-			}
-			return json;
-		} catch (Exception e) {
-			log.error("获取园区信息失败", e.getMessage());
-			return null;
-		}
+	public GardenData getGardenInfo(String park) {
+		return gardenRepository.findByGardenName(park);
 	}
 
 	/*

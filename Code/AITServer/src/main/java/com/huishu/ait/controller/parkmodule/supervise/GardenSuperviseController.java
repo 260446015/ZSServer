@@ -19,6 +19,7 @@ import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.CompanyGroup;
 import com.huishu.ait.entity.CompanyGroupMiddle;
+import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CompanyDTO;
 import com.huishu.ait.service.gardenSupervise.GardenSuperviseService;
@@ -44,7 +45,7 @@ public class GardenSuperviseController extends BaseController {
 	public AjaxResult getGardenInfo() {
 		try {
 			String park = getUserPark();
-			JSONObject json = gardenSuperviseService.getGardenInfo(park);
+			GardenData json = gardenSuperviseService.getGardenInfo(park);
 			return success(json);
 		} catch (Exception e) {
 			log.error("获取园区信息失败", e.getMessage());
