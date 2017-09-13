@@ -169,6 +169,24 @@ public class ResourceController extends BaseController {
 		JSONObject obj = JSONObject.parseObject(responseBody);
 		return success(obj.get("data"));
 	}
+	/**
+	 * 获取用户查询记录
+	 */
+	@RequestMapping(value="/getSearchTrack.json",method=RequestMethod.GET)
+	public AjaxResult getSearchTrack(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String accessToken = getToken();
+		Map<String, String> params = new LinkedHashMap<>();
+		params.put("username", getCurrentShiroUser().getLoginName());
+		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
+		String sign = getSign(params, accessToken);
+		Map<String, String> uriParams = new LinkedHashMap<>();
+		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
+		uriParams.put("username", getCurrentShiroUser().getLoginName());
+		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
+		String responseBody = HttpUtils.sendGet(ConstantKey.SEARCH_TRACK, uriParams);
+		JSONObject obj = JSONObject.parseObject(responseBody);
+		return success(obj.get("data"));
+	}
 
 	/**
 	 * 签名程序
