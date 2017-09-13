@@ -60,13 +60,10 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 	@Override
 	public Page<ExternalFlow> getBusinessOutflowList(AreaSearchDTO searchModel) {
 		// 组装查询条件
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("dimension", "疑似外流");
-		map.put("park", searchModel.getPark());
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("dimension", "疑似外流")).must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		Sort sort = new Sort(Direction.DESC, "publishDate");
-		PageRequest pageable = new PageRequest(searchModel.getPageNumber(), searchModel.getPageSize(), sort);
+		PageRequest pageable = new PageRequest(searchModel.getPageNumber() - 1, searchModel.getPageSize(), sort);
 		Page<ExternalFlow> page = externalFlowRepository.search(bq, pageable);
 		return page;
 	}
