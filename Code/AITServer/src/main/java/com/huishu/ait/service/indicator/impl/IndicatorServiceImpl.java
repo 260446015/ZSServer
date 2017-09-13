@@ -1,12 +1,18 @@
 package com.huishu.ait.service.indicator.impl;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.TreeNode.TreeNode;
 import com.huishu.ait.es.entity.dto.IndicatorDTO;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.indicator.IndicatorService;
@@ -28,10 +34,10 @@ public class IndicatorServiceImpl extends AbstractService implements IndicatorSe
 	/**
 	 * 获取产业分类信息
 	 */
-	public JSONArray getIndicatorList(IndicatorDTO dto) {
+	public List<TreeNode> getIndicatorList(IndicatorDTO dto) {
 		
 		BoolQueryBuilder bq = getIndicatorContentBuilder(dto);
-		JSONArray  json =	getIndicatorInfo(bq);
+		List<TreeNode>  json =	getIndicatorInfo(bq);
 		return json;
 	}
 	

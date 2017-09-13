@@ -45,6 +45,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hankcs.analysis.Analysis;
+import com.huishu.ait.TreeNode.TreeNode;
 import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.UtilsHelper;
@@ -505,46 +506,191 @@ public abstract class AbstractService {
 		}
 		return map;
 	}
+	protected List<TreeNode> getIndicatorInfo(BoolQueryBuilder bq){
+//		SearchRequestBuilder requestBuilder = ESUtils.getSearchBuilder(client);
+		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
+		//获取返回结果
+		SearchQuery query = getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
+		JSONArray result = template.query(query, res -> {	
+		JSONArray json = new JSONArray();
+		Terms first = res.getAggregations().get("industryOne");
+		
+		for( Terms.Bucket e1:first.getBuckets()){
+			TreeNode node = new TreeNode();
+			int count = 1;
+			//一级指标作为根节点
+			 node = getNode(count,node, e1.getKeyAsString());
+			 count++;
+			//将结果存到jsonArray
+			json.add(node);
+		}
+		return json;
+		});
+		List<TreeNode> list = new ArrayList<TreeNode>();
+		for(int i = 0; i<result.size();i++){
+			TreeNode obj = (TreeNode)result.get(i);
+			list.add(obj);
+		}
+		return list;
+	}
 	/**
-	 * @param bq
+	 * @param keyAsString
+	 * @return
+	 * 构造一级节点
 	 */
-	protected JSONArray getIndicatorInfo(BoolQueryBuilder bq) {
-		JSONArray data = new JSONArray();
-		SearchRequestBuilder requestBuilder = ESUtils.getSearchBuilder(client);
+	private TreeNode getNode(int count ,TreeNode node,String keyAsString) {
+		node.setName(keyAsString);
+		node.setId(count);
+		List<TreeNode> children = getFirstChildren(node,keyAsString);
+		node.setChildren(children);
+		return node;
+	}
+	/**
+	 * 获取一级节点的子节点
+	 * @param keyAsString 
+	 * @return
+	 */
+	private List<TreeNode> getFirstChildren(TreeNode node,String keyAsString) {
+		IndicatorDTO dto = new IndicatorDTO();
+		dto.setFirstIndicator(keyAsString);
+		BoolQueryBuilder bq = getIndicatorContentBuilder(dto);
+		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
+		TermsBuilder secondIndicatorBuilder = AggregationBuilders.terms("industryTwo").field("industryTwo");
+		//聚合一级分类下的二级分类
+		firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
+		//获取返回结果
+		SearchQuery query = getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
+		JSONArray json = template.query(query, res -> {
+			JSONArray jsonArray = new JSONArray();
+			Terms first = res.getAggregations().get("industryOne");
+			for(Terms.Bucket e1 : first.getBuckets()){
+				Terms second = e1.getAggregations().get("industryTwo");
+				 for(Terms.Bucket e2 : second.getBuckets() ){
+					 Integer pid = node.getId();
+					 if(pid==0){
+						 pid=1;
+					 }
+					 Integer count = 0;
+					 TreeNode treeNode = new TreeNode();
+					 treeNode.setName(e2.getKeyAsString());
+					 treeNode.setId(count+(pid*100));
+					 count ++;
+					 List<TreeNode> children = getSecondChild(treeNode,e1.getKeyAsString(),e2.getKeyAsString());
+					 treeNode.setChildren(children);
+					 jsonArray.add(treeNode);
+				 }
+			}
+			return jsonArray;
+		});
+		List<TreeNode> list = new ArrayList<TreeNode>();
+		for(int i = 0; i<json.size();i++){
+			TreeNode obj = (TreeNode)json.get(i);
+			list.add(obj);
+		}
+		return list;
+	}
+	/**
+	 * @param treeNode
+	 * @param keyAsString
+	 * @param keyAsString2
+	 * @return
+	 */
+	private List<TreeNode> getSecondChild(TreeNode treeNode, String keyAsString, String keyAsString2) {
+		IndicatorDTO dto = new IndicatorDTO();
+		dto.setFirstIndicator(keyAsString);
+		dto.setSecondIndicator(keyAsString2);
+		BoolQueryBuilder bq = getIndicatorContentBuilder(dto);
+		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
+		TermsBuilder secondIndicatorBuilder = AggregationBuilders.terms("industryTwo").field("industryTwo");
+		TermsBuilder thirdIndicatorBuilder = AggregationBuilders.terms("industryThree").field("industryThree");
+		secondIndicatorBuilder.subAggregation(thirdIndicatorBuilder);
+		firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
+		//获取返回结果
+		SearchQuery query = getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
+		JSONArray json = template.query(query, res -> {
+			JSONArray jsonArray = new JSONArray();
+			Terms first = res.getAggregations().get("industryOne");
+			for(Terms.Bucket e1 : first.getBuckets()){
+				Terms second = e1.getAggregations().get("industryTwo");
+				 for(Terms.Bucket e2 : second.getBuckets() ){
+					Terms third =  e2.getAggregations().get("industryThree");
+					for(Terms.Bucket e3:third.getBuckets()){
+						Integer pid = treeNode.getId();
+						int count = 0;
+						 TreeNode treeNode1 = new TreeNode();
+						 treeNode1.setName(e3.getKeyAsString());
+						 treeNode1.setId(count+(pid*1000));
+						 count ++;
+						 List<TreeNode> children = getThirdChild(treeNode1,e1.getKeyAsString(),e2.getKeyAsString(),e3.getKeyAsString());
+						 treeNode1.setChildren(children);
+						 jsonArray.add(treeNode1);
+						}
+				 	}
+				 }
+			return jsonArray;
+		});
+		List<TreeNode> list = new ArrayList<TreeNode>();
+		for(int i = 0; i<json.size();i++){
+			TreeNode obj = (TreeNode)json.get(i);
+			list.add(obj);
+		}
+		return list;
+	}
+	/**
+	 * 获取四级的数据
+	 * @param treeNode1
+	 * @param keyAsString
+	 * @param keyAsString2
+	 * @param keyAsString3
+	 * @return
+	 */
+	private List<TreeNode> getThirdChild(TreeNode treeNode1, String keyAsString, String keyAsString2,
+			String keyAsString3) {
+		IndicatorDTO dto = new IndicatorDTO();
+		dto.setFirstIndicator(keyAsString);
+		dto.setSecondIndicator(keyAsString2);
+		dto.setThirdIndicator(keyAsString3);
+		BoolQueryBuilder bq = getIndicatorContentBuilder(dto);
 		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
 		TermsBuilder secondIndicatorBuilder = AggregationBuilders.terms("industryTwo").field("industryTwo");
 		TermsBuilder thirdIndicatorBuilder = AggregationBuilders.terms("industryThree").field("industryThree");
 		TermsBuilder fourIndicatorBuilder = AggregationBuilders.terms("industryFour").field("industryFour");
-		//聚合产业分类信息
 		thirdIndicatorBuilder.subAggregation(fourIndicatorBuilder);
 		secondIndicatorBuilder.subAggregation(thirdIndicatorBuilder);
 		firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
 		//获取返回结果
-		SearchResponse response = requestBuilder.addAggregation(firstIndicatorBuilder).setSize(2000).setQuery(bq).execute().actionGet();
-	
-		Terms agg = response.getAggregations().get("industryOne");
-		if(agg != null){
-			for(Terms.Bucket e1 :agg.getBuckets()){
-				Terms firsts = e1.getAggregations().get("industryTwo");
-				for(Terms.Bucket e2 :firsts.getBuckets()){
-					Terms seconds = e2.getAggregations().get("industryThree");
-					for(Terms.Bucket e3: seconds.getBuckets()){
-						Terms thirds=  e3.getAggregations().get("industryFour");
-						for(Terms.Bucket e4: thirds.getBuckets()){
-							JSONObject json = new JSONObject();
-							
-								json.put("firstIndicator", e1.getKey());
-								json.put("secondIndicator", e2.getKey());
-								json.put("thirdIndicator", e3.getKey());
-								json.put("fourIndicator", e4.getKey());
-								data.add(json);
-							
-						}
-					}
-				}
-			}
+		SearchQuery query = getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
+		JSONArray json = template.query(query, res -> {
+			JSONArray jsonArray = new JSONArray();
+			Terms first = res.getAggregations().get("industryOne");
+			for(Terms.Bucket e1 : first.getBuckets()){
+				System.out.println("一级分类为："+e1.getKeyAsString());
+				Terms second = e1.getAggregations().get("industryTwo");
+				 for(Terms.Bucket e2 : second.getBuckets() ){
+					System.out.println("一级为:"+e1.getKeyAsString()+"一级分类下的二级分类为:"+e2.getKeyAsString());
+					Terms third =  e2.getAggregations().get("industryThree");
+					for(Terms.Bucket e3:third.getBuckets()){
+						Terms four = e3.getAggregations().get("industryFour");
+						 for(Terms.Bucket e4:four.getBuckets()){
+							 Integer pid = treeNode1.getId();
+								int count = 0;
+								 TreeNode treeNode2 = new TreeNode();
+								 treeNode2.setName(e4.getKeyAsString());
+								 treeNode2.setId(count+(pid*1000));
+								 count ++;
+								 List<TreeNode> children = new ArrayList<TreeNode>();
+								 treeNode2.setChildren(children);
+								 jsonArray.add(treeNode2);
+						 }
+					}}}
+				return jsonArray;
+			});
+		List<TreeNode> list = new ArrayList<TreeNode>();
+		for(int i = 0; i<json.size();i++){
+			TreeNode obj = (TreeNode)json.get(i);
+			list.add(obj);
 		}
-		return data;
+		return list;
 	}
 	
 	/**

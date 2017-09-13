@@ -1,12 +1,16 @@
 package com.huishu.ait.controller.Investmentmodule.search;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
+import com.huishu.ait.TreeNode.TreeNode;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
@@ -36,10 +40,8 @@ public class IndicatorController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/getIndicator.json",method=RequestMethod.POST)
 	public  AjaxResult  getIndicator(IndicatorDTO dto){
-//		if(dto == null){
-//			return error(MsgConstant.ILLEGAL_PARAM);
-//		}
-		JSONArray jsonArray = service.getIndicatorList(dto);
+		
+		List<TreeNode> jsonArray = service.getIndicatorList(dto);
 		return success(jsonArray);
 	}
 	/**
@@ -50,7 +52,7 @@ public class IndicatorController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getBusinessByIndicator.json",method=RequestMethod.POST)
-	public  AjaxResult  getBusinessByIndicator(IndicatorDTO dto){
+	public  AjaxResult  getBusinessByIndicator(@RequestBody IndicatorDTO dto){
 		if(dto == null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
