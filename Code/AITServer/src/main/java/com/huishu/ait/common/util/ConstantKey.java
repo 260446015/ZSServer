@@ -67,5 +67,9 @@ public class ConstantKey {
 	 * 获取关注分组下的所有企业
 	 */
 	public static final String GID_COMPANY = "http://yufa.std.tianyancha.com/auth/user/tags/company.json";
+	/**
+	 * 获取用户查询记录
+	 */
+	public static final String SEARCH_TRACK = "http://yufa.std.tianyancha.com/auth/user/record/search.json";
 
 }
