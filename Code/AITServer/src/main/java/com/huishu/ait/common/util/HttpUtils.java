@@ -24,6 +24,10 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,28 +64,27 @@ public class HttpUtils {
 		return null;
 	}
 
-	public static String sendGet(String spec, Map<String, String> params) {
+	public static String sendGet(String spec, Map<String, String> params) throws IOException {
 		spec = spec + "?" + assembling(params);
-		HttpURLConnection conn = null; 
+		HttpClient client = HttpClients.createDefault();
+		HttpGet get = new HttpGet(spec);
+		InputStream in = null;
 		try {
-			URL url = new URL(spec);
-			conn = (HttpURLConnection)url.openConnection();
-			conn.setRequestProperty("content-type", "text/html");
-			conn.setRequestProperty("Accept-Charset", "utf-8");
-			conn.setRequestProperty("contentType", "utf-8");
-			conn.setRequestMethod("GET");
-			conn.setDoOutput(false);
-			conn.setDoInput(true);
-			conn.setUseCaches(false);
-			conn.connect();
-			
-			
-			return result(conn);
-		} catch (MalformedURLException e) {
-			logger.error(e.getMessage());
-		} catch (IOException e) {
+			HttpResponse response = client.execute(get);
+			in = response.getEntity().getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+			String str = "";
+			StringBuffer sb = new StringBuffer();
+			while((str = reader.readLine())!= null){
+				sb.append(str);
+			}
+			return sb.toString();
+		}catch (IOException e) {
 			logger.error(e.getMessage());
 		}finally{
+			if(in!=null){
+				in.close();
+			}
 		}
 		return null;
 	}
@@ -182,5 +185,10 @@ public class HttpUtils {
         	logger.error(e.getMessage());
         }
     }
+
+	public static String getParamConcat(String spec, Map<String, String> params) {
+		spec = spec + "?" + assembling(params);
+		return spec;
+	}
 	
 }

@@ -163,6 +163,13 @@ public abstract class AbstractService {
 			}
 			JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, wordCloudNum);
 			if(keywordCloud.getBooleanValue("status")){
+				List<KeywordModel> list = (List<KeywordModel>)keywordCloud.get("result");
+				list.forEach(KeywordModel->{
+					String name = KeywordModel.getName();
+					if(name.equals("/n ")){
+						list.remove(KeywordModel);
+					}
+				});
 				jsonArray.add((List<KeywordModel>)keywordCloud.get("result"));
 			}
 			
@@ -511,7 +518,8 @@ public abstract class AbstractService {
 					for(Terms.Bucket e3: seconds.getBuckets()){
 						Terms thirds=  e3.getAggregations().get("industryFour");
 						for(Terms.Bucket e4: thirds.getBuckets()){
-								JSONObject json = new JSONObject();
+							JSONObject json = new JSONObject();
+							
 								json.put("firstIndicator", e1.getKey());
 								json.put("secondIndicator", e2.getKey());
 								json.put("thirdIndicator", e3.getKey());

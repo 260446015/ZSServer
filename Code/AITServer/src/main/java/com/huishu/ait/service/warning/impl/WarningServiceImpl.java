@@ -6,25 +6,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.InformationSearchDTO;
+import com.huishu.ait.es.entity.ExternalFlow;
 import com.huishu.ait.es.entity.WarningInformation;
+import com.huishu.ait.es.repository.ExternalFlowRepository;
 import com.huishu.ait.es.repository.warning.WarningInformationRepository;
 import com.huishu.ait.repository.company.CompanyRepository;
-import com.huishu.ait.service.SkyEyeAbstractService;
+import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.warning.WarningService;
 
 @Service
-public class WarningServiceImpl extends SkyEyeAbstractService implements WarningService {
+public class WarningServiceImpl extends AbstractService implements WarningService {
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(WarningServiceImpl.class);
 
@@ -32,8 +39,10 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 	private CompanyRepository companyRepository;
 	@Autowired
 	private WarningInformationRepository warningInformationRepository;
+	@Autowired
+	private ExternalFlowRepository externalFlowRepository;
 
-	@Override
+	/*@Override
 	public JSONArray getBusinessOutflowList(AreaSearchDTO searchModel) {
 		// 组装查询条件
 		Map<String, String> map = new HashMap<String, String>();
@@ -47,6 +56,17 @@ public class WarningServiceImpl extends SkyEyeAbstractService implements Warning
 		List<String> dataList = Arrays.asList(data);
 		JSONArray array = getEsData(searchModel, map, null,orderList, dataList,true);
 		return array;
+	}*/
+	
+	@Override
+	public Page<ExternalFlow> getBusinessOutflowList(AreaSearchDTO searchModel) {
+		// 组装查询条件
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		bq.must(QueryBuilders.termQuery("dimension", "疑似外流")).must(QueryBuilders.termQuery("park", searchModel.getPark()));
+		Sort sort = new Sort(Direction.DESC, "publishDate");
+		PageRequest pageable = new PageRequest(searchModel.getPageNumber() - 1, searchModel.getPageSize(), sort);
+		Page<ExternalFlow> page = externalFlowRepository.search(bq, pageable);
+		return page;
 	}
 
 	@Override

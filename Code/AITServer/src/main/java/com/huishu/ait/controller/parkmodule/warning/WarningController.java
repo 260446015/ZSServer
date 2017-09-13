@@ -3,6 +3,7 @@ package com.huishu.ait.controller.parkmodule.warning;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.InformationSearchDTO;
+import com.huishu.ait.es.entity.ExternalFlow;
+//gitlab.junquan.com.cn/hskj/pd_210_merchantssys.git
 import com.huishu.ait.service.warning.WarningService;
 
 /**
@@ -48,8 +51,8 @@ public class WarningController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONArray array = warningService.getBusinessOutflowList(searchModel);
-			return success(changeObject(searchModel, array));
+			Page<ExternalFlow> page = warningService.getBusinessOutflowList(searchModel);
+			return success(page);
 		} catch (Exception e) {
 			LOGGER.error("getBusinessOutflowList查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -104,8 +107,9 @@ public class WarningController extends BaseController{
 		AreaSearchDTO searchModel = new AreaSearchDTO();
 		searchModel.setPark(getUserPark());
 		JSONObject obj = new JSONObject();
-		JSONArray arr = warningService.getBusinessOutflowList(searchModel);
-		obj.put("count", arr.size());
+		Page<ExternalFlow> page = warningService.getBusinessOutflowList(searchModel);
+		
+		obj.put("count", page.getTotalElements());
 		return success(obj);
 	}
 	
