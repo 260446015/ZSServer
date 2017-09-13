@@ -59,6 +59,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/islogin.do", "anon");
 		filterChainDefinitionMap.put("/apis/imageUpload.do", "anon");
 		filterChainDefinitionMap.put("/apis/unauthorized.do", "anon");
+		filterChainDefinitionMap.put("/apis/oauth/*", "anon");
 		
 		filterChainDefinitionMap.put("/apis/business/**", "perms[\"Industrymodule,parkmodule\"]");
 		filterChainDefinitionMap.put("/apis/expert/**", "perms[Industrymodule]");

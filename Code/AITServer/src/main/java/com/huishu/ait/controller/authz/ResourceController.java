@@ -32,10 +32,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Created by Irving on 2014/11/23. OAuth2 资源服务
+ * 
+ * @author yindawei 
+ * @date 2017年9月13日上午9:17:56
+ * @description 本地访问天眼查的Controller,先获取token,再生成签名
+ * @version
  */
 @RestController
-@RequestMapping("/oauth2")
+@RequestMapping("/apis/oauth")
 public class ResourceController extends BaseController {
 	private static Logger logger = LoggerFactory.getLogger(ResourceController.class);
 	private static final String ENCODE = "UTF-8";

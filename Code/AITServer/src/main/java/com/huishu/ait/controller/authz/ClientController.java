@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version
  */
 @Controller
-@RequestMapping("/client")
+@RequestMapping("/apis/oauth")
 public class ClientController {
 
 	private static Logger logger = LoggerFactory.getLogger(ClientController.class);

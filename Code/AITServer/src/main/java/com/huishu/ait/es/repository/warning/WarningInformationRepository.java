@@ -1,6 +1,6 @@
 package com.huishu.ait.es.repository.warning;
 
-import org.springframework.data.elasticsearch.repository.ElasticsearchCrudRepository;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import com.huishu.ait.es.entity.WarningInformation;
 
@@ -9,5 +9,5 @@ import com.huishu.ait.es.entity.WarningInformation;
  * @author yindq
  * @date 2017年8月21日
  */
-public interface WarningInformationRepository extends ElasticsearchCrudRepository<WarningInformation, String>{
+public interface WarningInformationRepository extends ElasticsearchRepository<WarningInformation, String>{
 }

@@ -3,8 +3,11 @@ package com.huishu.ait.service.warning;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.data.domain.Page;
+
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
+import com.huishu.ait.es.entity.ExternalFlow;
 import com.huishu.ait.es.entity.GardenInformation;
 import com.huishu.ait.es.entity.WarningInformation;
 
@@ -19,7 +22,8 @@ public interface WarningService {
 	 * @param searchModel    查询条件
 	 * @return
 	 */
-	JSONArray getBusinessOutflowList(AreaSearchDTO searchModel);
+//	JSONArray getBusinessOutflowList(AreaSearchDTO searchModel);
+	Page<ExternalFlow> getBusinessOutflowList(AreaSearchDTO searchModel);
 	/**
 	 * 获取信息变更预警列表
 	 * @param searchModel    查询条件

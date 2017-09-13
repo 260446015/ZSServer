@@ -1,7 +1,11 @@
 package com.huishu.ait.common.util;
 
 /**
- * Created by Irving on 2014/11/23.
+ * 
+ * @author yindawei 
+ * @date 2017年9月13日上午9:21:29
+ * @description 存储天眼查oauth2的一些信息
+ * @version
  */
 public class ConstantKey {
 
@@ -27,10 +31,10 @@ public class ConstantKey {
 
     //OAUTH2_URL
     public static final String OAUTH_CLIENT_TIANYANCHA = "http://yufa.std.tianyancha.com";
-    public static final String OAUTH_CLIENT_CALLBACK = "http://localhost:8092/client/oauth_callback";
+    public static final String OAUTH_CLIENT_CALLBACK = "http://localhost:8092/apis/oauth/oauth_callback";
     public static final String OAUTH_CLIENT_ACCESS_CODE = "http://yufa.std.tianyancha.com/auth/code.json";
     public static final String OAUTH_CLIENT_ACCESS_TOKEN = "http://yufa.std.tianyancha.com/auth/token.json";
-    public static final String OAUTH_CLIENT_GET_RESOURCE = "http://localhost:8092/oauth2/get_resource";
+    public static final String OAUTH_CLIENT_GET_RESOURCE = "http://localhost:8092/apis/oauth/get_resource";
     
     
     //存储常量
@@ -47,12 +51,6 @@ public class ConstantKey {
     
     //存储天眼查各个访问url
     public static final String LOGIN_URI = "http://yufa.std.tianyancha.com/auth/login.json";
-    /**
-	 * 存储获取企业基本信息url
-	 * https://open.api.tianyancha.com/services/v3/open/baseinfo.json?name=
-	 * 北京百度网讯科技有限公司 天眼查接口ID 89
-	 */
-	public static final String OPEN_BASEINFO = "http://yufa.std.tianyancha.com/#/search";
 	/**
 	 * 获取用户关注分组
 	 */
