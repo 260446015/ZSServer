@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Company;
@@ -138,6 +139,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				String gardenIntroduce = GardenData.getGardenIntroduce();
 				String gardenSuperiority = GardenData.getGardenSuperiority();
 				String address = GardenData.getAddress();
+				String picture = GardenData.getGardenPicture();
 				if(gardenIntroduce==null||StringUtil.isEmpty(gardenIntroduce)||gardenIntroduce.equals("NULL")){
 					if(gardenSuperiority==null || StringUtil.isEmpty(gardenSuperiority)||gardenSuperiority.equals("NULL")){
 						GardenData.setGardenIntroduce("暂无");
@@ -148,7 +150,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				if(address==null || StringUtil.isEmpty(address)||address.equals("NULL")){
 					GardenData.setAddress("暂无");
 				}
-				
+				if(picture==null || StringUtil.isEmpty(picture)||picture.equals("NULL")){
+					GardenData.setGardenPicture(ImgConstant.IP_PORT+"park_img/default.jpg");
+				}
 			});
 			// }
 			data.add(findGardensPage);
@@ -187,9 +191,13 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			
 			Page<GardenUser> findAll = gardenUserRepository.findAll(getSpec(area, industryType,userId), pageRequest);
 			findAll.forEach(GardenUser ->{
+				String picture = GardenUser.getGardenPicture();
 				String description = GardenUser.getDescription();
 				if(description==null||StringUtil.isEmpty(description)||description.equals("NULL")){
 					GardenUser.setDescription("暂无");
+				}
+				if(picture==null || StringUtil.isEmpty(picture)||picture.equals("NULL")){
+					GardenUser.setGardenPicture(ImgConstant.IP_PORT+"park_img/default.jpg");
 				}
 			});
 			return findAll;

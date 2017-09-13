@@ -47,6 +47,7 @@ public class ClientController {
 
 	@Autowired
 	public ClientController(EhCacheManager ehCacheManager) {
+		ehCacheManager.setCacheManagerConfigFile("classpath:ehcache-client.xml");
 		this.cache = ehCacheManager.getCache("oauth2-cache");
 	}
 

@@ -23,6 +23,7 @@ import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 import com.huishu.ait.es.repository.supervise.BusinessRepository;
 import com.huishu.ait.repository.companyCount.CompanyCountRepository;
+import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.supervise.BusinessService;
 
 /**
@@ -32,7 +33,7 @@ import com.huishu.ait.service.supervise.BusinessService;
  * @createDate 2017-8-3
  */
 @Service
-public class BusinessServiceImpl implements BusinessService {
+public class BusinessServiceImpl extends AbstractService implements BusinessService {
 
     private static Logger logger = LoggerFactory.getLogger(BusinessServiceImpl.class);
     
@@ -57,7 +58,8 @@ public class BusinessServiceImpl implements BusinessService {
             } else {
                 page = businessRepository.findByParkAndDimension(park, dimension, pageable);
             }
-            return page;
+            Page<AITInfo> pageBusiness = setPageBusiness(page);
+            return pageBusiness;
         }catch(Exception e){
             logger.error("获取企业动态数据失败",e);
             return null;

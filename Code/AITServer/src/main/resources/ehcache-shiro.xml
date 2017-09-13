@@ -1,6 +1,6 @@
 <ehcache updateCheck="false" name="shiroCache">
 
-	<defaultCache
+	 	<defaultCache
 		maxElementsInMemory="10000"
 		eternal="false"
 		timeToIdleSeconds="1200" 
@@ -8,12 +8,4 @@
 		overflowToDisk="false"
 		diskPersistent="false" 
 		diskExpiryThreadIntervalSeconds="120" />
-		
-	 <cache name="oauth2-cache"
-           maxEntriesLocalHeap="2000"
-           eternal="false"
-           timeToIdleSeconds="1800"
-           timeToLiveSeconds="0"
-           overflowToDisk="false"
-           statistics="true" />
 </ehcache>

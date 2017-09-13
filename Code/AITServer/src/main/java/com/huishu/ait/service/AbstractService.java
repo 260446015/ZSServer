@@ -52,6 +52,7 @@ import com.huishu.ait.common.util.datasort.SerieDataComparator;
 import com.huishu.ait.echart.series.Serie.SerieData;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
+import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 import com.huishu.ait.es.entity.dto.IndicatorDTO;
@@ -144,7 +145,7 @@ public abstract class AbstractService {
     /**
      *  产业头条--关键词云
      */
-	@SuppressWarnings("static-access" )
+	@SuppressWarnings({ "static-access", "unchecked" } )
 	protected JSONArray getCloudWordList(QueryBuilder queryBuilder){
 		List<String> contentList = new ArrayList<String>();
 		JSONArray data = new JSONArray();
@@ -336,7 +337,19 @@ public abstract class AbstractService {
 		dto.setBus(set);
 		list.add(dto);
 	}
-	
+
+	/**
+	 * 加工文章集合，获取公司
+	 * @param page
+	 * @return
+	 */
+	protected Page<AITInfo> setPageBusiness(Page<AITInfo> page) {
+		 page.forEach(essay ->{
+			 Set<String> bus = getBusiness(essay.getTitle(),essay.getContent());
+			 essay.setBus(bus);
+			});
+		return page;
+	}
 	/**
 	 * @param title
 	 * @param content

@@ -1,9 +1,6 @@
 package com.huishu.ait.service.industrialPolicy.impl;
 
 
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
@@ -66,14 +62,16 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
           //按文章类型按照维度获取数据 1,政策解读 2, 高峰论坛  3,科学研究
             dto.setDimension("政策解读");
             Page<AITInfo> page1 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
+            Page<AITInfo> pageBusiness1 = setPageBusiness(page1);
             dto.setDimension("高峰论坛");
             Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
+            Page<AITInfo> pageBusiness2 = setPageBusiness(page2);
             dto.setDimension("科学研究");
             Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
-            
-            map.put("policy", page1); //政策解读
-            map.put("forum", page2);  //高峰论坛
-            map.put("research", page3);  //科学研究
+            Page<AITInfo> pageBusiness3 = setPageBusiness(page3);
+            map.put("policy", pageBusiness1); //政策解读
+            map.put("forum", pageBusiness2);  //高峰论坛
+            map.put("research", pageBusiness3);  //科学研究
             
             array.add(map);
             

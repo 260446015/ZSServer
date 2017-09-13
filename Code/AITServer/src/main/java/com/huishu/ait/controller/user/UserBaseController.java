@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
@@ -41,6 +42,7 @@ public class UserBaseController extends BaseController {
 	public AjaxResult findMyInformation() {
 		try {
 			UserBase base = userBaseService.findUserByUserId(getUserId());
+			base.setImageUrl(ImgConstant.IP_PORT+base.getImageUrl());
 			base.setPassword(null);
 			base.setSalt(null);
 			return success(base);

@@ -61,6 +61,9 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/unauthorized.do", "anon");
 		filterChainDefinitionMap.put("/apis/oauth/*", "anon");
 		
+		filterChainDefinitionMap.put("/apis/**", "authc");
+//		filterChainDefinitionMap.put("/apis/**", "anon");
+		
 		filterChainDefinitionMap.put("/apis/business/**", "perms[\"Industrymodule,parkmodule\"]");
 		filterChainDefinitionMap.put("/apis/expert/**", "perms[Industrymodule]");
 		filterChainDefinitionMap.put("/apis/area/**", "perms[Industrymodule]");
@@ -72,8 +75,7 @@ public class ShiroConfiguration {
 		
 		filterChainDefinitionMap.put("/apis/indus/**", "perms[Investmentmodule]");
 		filterChainDefinitionMap.put("/apis/comp/**", "perms[Investmentmodule]");
-		filterChainDefinitionMap.put("/apis/**", "authc");
-//		filterChainDefinitionMap.put("/apis/**", "anon");
+
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		
 		filters.put("ajaxSessionFilter", getMyUserFilter());
