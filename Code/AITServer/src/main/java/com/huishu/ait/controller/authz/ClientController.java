@@ -21,13 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ConstantKey;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,9 +72,7 @@ public class ClientController {
 			HttpPost post = new HttpPost(ConstantKey.OAUTH_CLIENT_ACCESS_TOKEN);
 			List<NameValuePair> list = new ArrayList<>();
 			list.add(new BasicNameValuePair("code", code));
-//				list.add(new BasicNameValuePair("client_id", ConstantKey.OAUTH_LOGIN_CLIENT_ID));
 			list.add(new BasicNameValuePair("client_id", ConstantKey.OAUTH_CLIENT_ID));
-//				list.add(new BasicNameValuePair("client_secret", ConstantKey.OAUTH_LOGIN_CLIENT_SECRET));
 			list.add(new BasicNameValuePair("client_secret", ConstantKey.OAUTH_CLIENT_SECRET));
 			list.add(new BasicNameValuePair("grant_type", ConstantKey.OAUTH_CLIENT_GRANT_TYPE));
 			list.add(new BasicNameValuePair("redirect_uri", ConstantKey.OAUTH_CLIENT_CALLBACK));
