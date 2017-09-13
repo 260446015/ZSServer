@@ -18,7 +18,6 @@ import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils.DateUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 import com.huishu.ait.service.headline.HeadlinesService;
@@ -218,7 +217,7 @@ public class HeadlinesController extends BaseController {
             dto.setStartDate(weekAgo);
             dto.setEndDate(endTime);
         }
-        if(periodDate.equals("1个月")){
+        if(periodDate.equals("一个月")){
             dto.setStartDate(monthAgo);
             dto.setEndDate(endTime);
         }

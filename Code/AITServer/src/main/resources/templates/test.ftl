@@ -90,6 +90,7 @@
 		            <input type="button" value="登出" onclick="logout()"/>
 		            <input type="button" value="查看园区预警数量（测权限用）" onclick="haha()"/>
 		            <input type="button" value="查看后台园区管理列表" onclick="hahaha()"/>
+		            <a href="../apis/oauth/loginOpenEye.json" target="_blank">*****</a>
 		        </div>
 		    </fieldset>
 		</form>
