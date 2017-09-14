@@ -16,7 +16,6 @@ import com.huishu.ait.common.util.SignatureUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.service.skyeye.SkyeyeService;
 
 
 import javax.servlet.http.HttpServletRequest;
