@@ -48,6 +48,8 @@ public class ConstantKey {
     public static final String DEFAULT_CODE_PARAM = "code";
     public static final String DEFAULT_NAME_PARAM = "name";
     public static final String DEFAULT_TAGS_PARAM = "tags";
+    public static final String DEFAULT_PS_PARAM = "pageSize";
+    public static final String DEFAULT_PN_PARAM = "pageNumber";
     
     //存储天眼查各个访问url
     public static final String LOGIN_URI = "http://yufa.std.tianyancha.com/auth/login.json";

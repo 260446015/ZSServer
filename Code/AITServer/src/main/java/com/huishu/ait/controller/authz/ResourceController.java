@@ -69,21 +69,23 @@ public class ResourceController extends BaseController {
 	@RequestMapping(value="/getChangeInfo.json",method=RequestMethod.GET)
 	public void getChangeInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String name = request.getParameter(ConstantKey.DEFAULT_NAME_PARAM);
-		if(StringUtil.isEmpty(name)){
+		String ps = request.getParameter(ConstantKey.DEFAULT_PS_PARAM);
+		String pn = request.getParameter(ConstantKey.DEFAULT_PN_PARAM);
+		if(StringUtil.isEmpty(name)||StringUtil.isEmpty(ps)||StringUtil.isEmpty(pn)){
 			throw new Exception("name can not be null");
 		}
 		String accessToken = getToken();
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		params.put("name", name);
-		params.put("pn", "1");
-		params.put("ps", "10");
+		params.put("pn", pn);
+		params.put("ps", ps);
 		String sign = getSign(params, accessToken);
 		Map<String, String> uriParams = new LinkedHashMap<>();
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		uriParams.put("name", URLEncoder.encode(name,ENCODE));
-		uriParams.put("pn", "1");
-		uriParams.put("ps", "10");
+		uriParams.put("pn", pn);
+		uriParams.put("ps", ps);
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String redirectUri = HttpUtils.getParamConcat(ConstantKey.CHANGE_INFO, uriParams);
 		response.sendRedirect(redirectUri);
@@ -148,23 +150,25 @@ public class ResourceController extends BaseController {
 	@RequestMapping(value="/getCompanyByGroup.json",method=RequestMethod.GET)
 	public AjaxResult getCompanyByGroup(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String tags = request.getParameter(ConstantKey.DEFAULT_TAGS_PARAM);
-		if(StringUtil.isEmpty(tags)){
-			throw new Exception("tags can not be null");
+		String ps = request.getParameter(ConstantKey.DEFAULT_PS_PARAM);
+		String pn = request.getParameter(ConstantKey.DEFAULT_PN_PARAM);
+		if(StringUtil.isEmpty(tags) || StringUtil.isEmpty(ps) || StringUtil.isEmpty(pn)){
+			throw new Exception("tags,ps,pn can not be null");
 		}
 		String accessToken = getToken();
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("username", getCurrentShiroUser().getLoginName());
 		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		params.put("tags", tags);
-		params.put("pn", "1");
-		params.put("ps", "10");
+		params.put("pn", pn);
+		params.put("ps", ps);
 		String sign = getSign(params, accessToken);
 		Map<String, String> uriParams = new LinkedHashMap<>();
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		uriParams.put("username", getCurrentShiroUser().getLoginName());
 		uriParams.put("tags", tags);
-		uriParams.put("pn", "1");
-		uriParams.put("ps", "10");
+		uriParams.put("pn", pn);
+		uriParams.put("ps", ps);
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.GID_COMPANY, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
