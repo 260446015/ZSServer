@@ -39,10 +39,36 @@ public class IndustrialController extends BaseController {
      * @param IndustrialPolicyDTO 产业政策查询对象
      * @return AjaxResult 返回一个对象，里面是数据
      */
-    @RequestMapping(value="getIndustrialPolicyList.json", method = RequestMethod.POST)
+    @RequestMapping(value="/getIndustrialPolicyList.json", method = RequestMethod.POST)
     @ResponseBody
     public AjaxResult getIndustrialPolicyList(@RequestBody IndustrialPolicyDTO dto){
         try{
+            if (null == dto || 2!=dto.getMsg().length){
+                return error(MsgConstant.ILLEGAL_PARAM);
+            }
+            String[] labels = dto.getMsg();
+
+            if (!StringUtil.isEmpty(labels[0])) {
+                dto.setIndustry(labels[0]);
+            }
+            if (!StringUtil.isEmpty(labels[1])) {
+                dto.setIndustryLabel(labels[1]);
+            }
+            JSONArray array = new JSONArray();
+            
+            dto = pageInit(dto);
+                /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
+            array = industrialPolicyService.getIndustrialPolicyList(dto);
+            return success(array).setSuccess(true);
+        } catch(Exception e) {
+            log.error("获取产业政策列表失败："+e.getMessage());
+            return error("获取产业政策列表失败"); 
+        }
+    }
+    @RequestMapping(value="/getIndustrialList.json", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult getIndustraiList(@RequestBody IndustrialPolicyDTO dto){
+    	try{
             if (null == dto || 3!=dto.getMsg().length){
                 return error(MsgConstant.ILLEGAL_PARAM);
             }
@@ -73,7 +99,7 @@ public class IndustrialController extends BaseController {
      * @param id 产业政策id
      * @return
      */
-    @RequestMapping(value="getIndustrialPolicyDetailById.json", method = RequestMethod.GET)
+    @RequestMapping(value="/getIndustrialPolicyDetailById.json", method = RequestMethod.GET)
     @ResponseBody
     public AjaxResult getIndustrialPolicyDetailById(String id){
         try{
