@@ -98,7 +98,7 @@ public class ResourceController extends BaseController {
 		String accessToken = getToken();
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
-		params.put("name", name);
+		params.put("name",  name);
 		String sign = getSign(params, accessToken);
 		Map<String, String> uriParams = new LinkedHashMap<>();
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
@@ -207,6 +207,7 @@ public class ResourceController extends BaseController {
 	 */
 	private String getToken() throws IOException{
 		if(cache.get("accessToken") == null){
+			logger.info("缓存中数据被清空,重新获取token");
 			Map<String, String> params = new HashMap<>();
 			params.put("client_id", ConstantKey.OAUTH_CLIENT_ID);
 			params.put("response_type", "code");
