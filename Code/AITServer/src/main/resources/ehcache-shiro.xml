@@ -12,8 +12,8 @@
 		 <cache name="oauth2-cache"
            maxElementsInMemory="5000"
            eternal="false"
-           timeToIdleSeconds="1500"   
-           timeToLiveSeconds="1700"
+           timeToIdleSeconds="1100"   
+           timeToLiveSeconds="1200"
            overflowToDisk="false"
            statistics="true" />
 </ehcache>
