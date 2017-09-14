@@ -39,8 +39,6 @@ import java.util.Map;
 public class ResourceController extends BaseController {
 	private static Logger logger = LoggerFactory.getLogger(ResourceController.class);
 	private static final String ENCODE = "UTF-8";
-	@Autowired
-	private SkyeyeService skyeyeService;
 
 	private Cache cache;
 
