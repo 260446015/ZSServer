@@ -51,6 +51,7 @@ public class HeadlinesController extends BaseController {
             }
 			boolean b = checkDTO(dto);
 			if (b) {
+				dto.setDimension("产业头条");
 				JSONArray cloud = service.getWordCloud(dto);
 				return success(cloud);
 			}
