@@ -359,7 +359,15 @@ public abstract class AbstractService {
 	 */
 	@SuppressWarnings("unchecked")
 	protected Set<String> getBusiness(String title, String content) {
+		
 		JSONObject findCompany = Analysis.findCompany(title, content);
+//		JSONObject findCompany=null;
+//		try {
+//			findCompany = Analysis.getCompany(title, content);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		if(findCompany != null && findCompany.getBooleanValue("status")){
 		Set<String> set = (Set<String>) findCompany.get("result");
 			return set;
