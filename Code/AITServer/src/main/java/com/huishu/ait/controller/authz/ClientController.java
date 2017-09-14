@@ -8,13 +8,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.oltu.oauth2.client.OAuthClient;
-import org.apache.oltu.oauth2.client.URLConnectionClient;
-import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
-import org.apache.oltu.oauth2.client.response.OAuthAuthzResponse;
-import org.apache.oltu.oauth2.client.response.OAuthJSONAccessTokenResponse;
-import org.apache.oltu.oauth2.common.OAuth;
-import org.apache.oltu.oauth2.common.message.types.GrantType;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.slf4j.Logger;
@@ -71,7 +64,6 @@ public class ClientController {
 	 */
 	@RequestMapping(value = "/oauth_callback", method = RequestMethod.GET)
 	public void getTokenLogin(HttpServletRequest request, Model model) {
-		OAuthAuthzResponse oauthAuthzResponse = null;
 		try {
 			String code = request.getParameter(ConstantKey.DEFAULT_CODE_PARAM);
 //			oauthAuthzResponse = OAuthAuthzResponse.oauthCodeAuthzResponse(request);

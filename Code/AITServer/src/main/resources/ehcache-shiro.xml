@@ -10,10 +10,10 @@
 		diskExpiryThreadIntervalSeconds="120" />
 		
 		 <cache name="oauth2-cache"
-           maxEntriesLocalHeap="12"
+           maxEntriesLocalHeap="1900"
            eternal="false"
-           timeToIdleSeconds="10"
-           timeToLiveSeconds="10"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="1800"
            overflowToDisk="false"
            statistics="true" />
 </ehcache>

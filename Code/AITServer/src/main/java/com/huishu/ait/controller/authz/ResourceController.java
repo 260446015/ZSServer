@@ -9,15 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ConstantKey;
 import com.huishu.ait.common.util.HttpUtils;
 import com.huishu.ait.common.util.SignatureUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
-import com.huishu.ait.entity.SearchTrack;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.service.skyeye.SkyeyeService;
 
@@ -26,10 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -194,15 +189,15 @@ public class ResourceController extends BaseController {
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.SEARCH_TRACK, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
-		JSONObject data = obj.getJSONObject("data");
-		JSONArray items = data.getJSONArray("items");
-		List<SearchTrack> list = new ArrayList<SearchTrack>();
-		items.forEach((st)->{
-			SearchTrack searchTrack = JSON.parseObject(st.toString(), SearchTrack.class);
-			list.add(searchTrack);
+//		JSONObject data = obj.getJSONObject("data");
+//		JSONArray items = data.getJSONArray("items");
+//		List<SearchTrack> list = new ArrayList<SearchTrack>();
+//		items.forEach((st)->{
+//			SearchTrack searchTrack = JSON.parseObject(st.toString(), SearchTrack.class);
+//			list.add(searchTrack);
 //			SearchTrack st2 = JSONObject.parseObject(st, SearchTrack.class);
-		});
-		skyeyeService.saveSearchTrack(list);
+//		});
+//		skyeyeService.saveSearchTrack(list);
 		return success(obj.get("data"));
 	}
 
