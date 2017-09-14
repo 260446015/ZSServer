@@ -65,6 +65,12 @@ public class IndustrialController extends BaseController {
             return error("获取产业政策列表失败"); 
         }
     }
+    
+    /**
+     * 产业政策-政策解读
+     * @param dto
+     * @return
+     */
     @RequestMapping(value="/getIndustrialList.json", method = RequestMethod.POST)
     @ResponseBody
     public AjaxResult getIndustraiList(@RequestBody IndustrialPolicyDTO dto){
@@ -87,7 +93,7 @@ public class IndustrialController extends BaseController {
             
             dto = pageInit(dto);
                 /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
-            array = industrialPolicyService.getIndustrialPolicyList(dto);
+            array = industrialPolicyService.getIndustrialList(dto);
             return success(array).setSuccess(true);
         } catch(Exception e) {
             log.error("获取产业政策列表失败："+e.getMessage());

@@ -3,6 +3,7 @@ package com.huishu.ait.es.entity.dto;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
 import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Id;
@@ -46,15 +47,26 @@ public class HeadlinesArticleListDTO {
 	private Double hot;
 
 	/** 公司名录集合 */
-	private Set<String> bus;
+//	private Set<String> bus;
+	private List<String> bus;
 
 	
 
-	public Set<String> getBus() {
+//	public Set<String> getBus() {
+//		return bus;
+//	}
+//
+//	public void setBus(Set<String> bus) {
+//		this.bus = bus;
+//	}
+
+	
+
+	public List<String> getBus() {
 		return bus;
 	}
 
-	public void setBus(Set<String> bus) {
+	public void setBus(List<String> bus) {
 		this.bus = bus;
 	}
 

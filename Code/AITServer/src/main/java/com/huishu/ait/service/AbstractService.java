@@ -44,7 +44,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hankcs.analysis.Analysis;
+import com.forget.analysis.Analysis;
 import com.huishu.ait.TreeNode.TreeNode;
 import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.common.util.ESUtils;
@@ -334,7 +334,8 @@ public abstract class AbstractService {
 		}else{
 			dto.setSummary(summary);	
 		}
-		Set<String> set = getBusiness(dto.getTitle(),dto.getContent());
+//		Set<String> set = getBusiness(dto.getTitle(),dto.getContent());
+		List<String> set = getBusiness(dto.getTitle(),dto.getContent());
 		dto.setBus(set);
 		list.add(dto);
 	}
@@ -346,7 +347,7 @@ public abstract class AbstractService {
 	 */
 	protected Page<AITInfo> setPageBusiness(Page<AITInfo> page) {
 		 page.forEach(essay ->{
-			 Set<String> bus = getBusiness(essay.getTitle(),essay.getContent());
+			 List<String> bus = getBusiness(essay.getTitle(),essay.getContent());
 			 essay.setBus(bus);
 			});
 		return page;
@@ -358,18 +359,18 @@ public abstract class AbstractService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	protected Set<String> getBusiness(String title, String content) {
+	protected List<String>  getBusiness(String title, String content) {
 		
-		JSONObject findCompany = Analysis.findCompany(title, content);
-//		JSONObject findCompany=null;
-//		try {
-//			findCompany = Analysis.getCompany(title, content);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+//		JSONObject findCompany = Analysis.findCompany(title, content);
+		JSONObject findCompany=null;
+		try {
+			findCompany = Analysis.getCompany(title, content);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(findCompany != null && findCompany.getBooleanValue("status")){
-		Set<String> set = (Set<String>) findCompany.get("result");
+			List<String> set =(List<String>) findCompany.get("result");
 			return set;
 		}
 		return null;

@@ -2,6 +2,7 @@ package com.huishu.ait.service.industrialPolicy.impl;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -87,7 +88,7 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
         JSONObject obj = new JSONObject();
         
         AITInfo info = elasticsearch.findOne(id);
-        Set<String> business = getBusiness(info.getTitle(),info.getContent());
+        List<String> business = getBusiness(info.getTitle(),info.getContent());
         info.setBus(business);
         obj = (JSONObject) JSONObject.toJSON(info);
         if (null == userCollectionRepository.findByArticleIdAndUserId(id, userId)) {
