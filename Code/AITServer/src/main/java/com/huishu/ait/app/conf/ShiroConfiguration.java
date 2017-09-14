@@ -59,7 +59,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/islogin.do", "anon");
 		filterChainDefinitionMap.put("/apis/imageUpload.do", "anon");
 		filterChainDefinitionMap.put("/apis/unauthorized.do", "anon");
-		filterChainDefinitionMap.put("/apis/oauth/*", "anon");
+		filterChainDefinitionMap.put("/apis/oauth/oauth_callback", "anon");
 		
 		filterChainDefinitionMap.put("/apis/**", "authc");
 //		filterChainDefinitionMap.put("/apis/**", "anon");
