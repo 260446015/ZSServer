@@ -1,7 +1,6 @@
 package com.huishu.ait.service.skyeye.impl;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.entity.ChangeInfo;
 import com.huishu.ait.entity.SearchTrack;
+import com.huishu.ait.repository.skyeye.ChangeRepository;
 import com.huishu.ait.repository.skyeye.SearchTrackRepository;
 import com.huishu.ait.service.skyeye.SkyeyeService;
 
@@ -21,6 +22,9 @@ public class SkyeyeServiceImpl implements SkyeyeService{
 
 	@Autowired
 	private SearchTrackRepository searchTrackRepository;
+	
+	@Autowired
+	private ChangeRepository changeRepository;
 	@Override
 	public boolean saveSearchTrack(Collection<SearchTrack> s) {
 		Iterable<SearchTrack> it = searchTrackRepository.save(s);
@@ -46,6 +50,15 @@ public class SkyeyeServiceImpl implements SkyeyeService{
 			e.printStackTrace();
 		}
 		return obj;
+	}
+	@Override
+	public boolean saveChangeInfo(Collection<ChangeInfo> s) {
+		Iterable<ChangeInfo> it = changeRepository.save(s);
+		if(it != null){
+			return true;
+		}
+		return false;
+		
 	}
 
 }

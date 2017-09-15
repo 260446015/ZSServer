@@ -3,6 +3,7 @@ package com.huishu.ait.controller.authz;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,8 +29,10 @@ import com.huishu.ait.common.util.HttpUtils;
 import com.huishu.ait.common.util.SignatureUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.ChangeInfo;
 import com.huishu.ait.entity.SearchTrack;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.service.company.CompanyService;
 import com.huishu.ait.service.skyeye.SkyeyeService;
 
 /**
@@ -46,6 +49,8 @@ public class ResourceController extends BaseController {
 	private static final String ENCODE = "UTF-8";
 	@Autowired
 	private SkyeyeService skyeyeService;
+	@Autowired
+	private CompanyService companyService;
 
 	private Cache cache;
 
@@ -69,34 +74,79 @@ public class ResourceController extends BaseController {
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		uriParams.put("redirect_uri", ConstantKey.OAUTH_CLIENT_REDIRECT_URI);
 		uriParams.put("redirect_uri_id", ConstantKey.OAUTH_CLIENT_REDIRECT_URI_ID);
+		String responseBody = HttpUtils.sendGet(ConstantKey.LOGIN_URI, uriParams);
+		JSONObject obj = JSONObject.parseObject(responseBody);
+		if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+			cache.remove(accessToken);
+			accessToken = getToken();
+			sign = getSign(params, accessToken);
+			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
+			responseBody = HttpUtils.sendGet(ConstantKey.LOGIN_URI, uriParams);
+			obj = JSONObject.parseObject(responseBody);
+		}
 		String redirectUri = HttpUtils.getParamConcat(ConstantKey.LOGIN_URI, uriParams);
 		logger.info("重定向到天眼查的地址:"+redirectUri);
 		response.sendRedirect(redirectUri);
 		
 	}
 	@RequestMapping(value="/getChangeInfo.json",method=RequestMethod.GET)
-	public void getChangeInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String name = request.getParameter(ConstantKey.DEFAULT_NAME_PARAM);
-		String ps = request.getParameter(ConstantKey.DEFAULT_PS_PARAM);
-		String pn = request.getParameter(ConstantKey.DEFAULT_PN_PARAM);
-		if(StringUtil.isEmpty(name)||StringUtil.isEmpty(ps)||StringUtil.isEmpty(pn)){
-			throw new Exception("name can not be null");
-		}
+	public AjaxResult getChangeInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String userpark = getUserPark();
+		List<String> cnames = companyService.findCname(userpark);
 		String accessToken = getToken();
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
-		params.put("name", name);
-		params.put("pn", pn);
-		params.put("ps", ps);
-		String sign = getSign(params, accessToken);
-		Map<String, String> uriParams = new LinkedHashMap<>();
-		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
-		uriParams.put("name", URLEncoder.encode(name,ENCODE));
-		uriParams.put("pn", pn);
-		uriParams.put("ps", ps);
-		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
-		String redirectUri = HttpUtils.getParamConcat(ConstantKey.CHANGE_INFO, uriParams);
-		response.sendRedirect(redirectUri);
+		params.put("pn", "1");
+		params.put("ps", "10");
+		JSONArray arr = new JSONArray();
+		try{
+			for (String name : cnames) {
+				params.put("name", name);
+				String sign = getSign(params, accessToken);
+				Map<String, String> uriParams = new LinkedHashMap<>();
+				uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
+				uriParams.put("name", URLEncoder.encode(name,ENCODE));
+				uriParams.put("pn", "1");
+				uriParams.put("ps", "10");
+				uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
+				String responseBody = HttpUtils.sendGet(ConstantKey.CHANGE_INFO, uriParams);
+				JSONObject obj = JSONObject.parseObject(responseBody);
+				JSONObject data = new JSONObject();
+				JSONArray save = new JSONArray();
+				if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+					cache.remove(accessToken);
+					accessToken = getToken();
+					sign = getSign(params, accessToken);
+					uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
+					responseBody = HttpUtils.sendGet(ConstantKey.CHANGE_INFO, uriParams);
+					logger.info("responseBody:"+responseBody);
+					obj = JSONObject.parseObject(responseBody);
+					data = obj.getJSONObject("data");
+					save = data.getJSONArray("result");
+					arr.add(save);
+				}
+				data = obj.getJSONObject("data");
+				if(data == null){
+					continue;
+				}
+				save = data.getJSONArray("result");
+				List<ChangeInfo> list = new ArrayList<ChangeInfo>();
+				save.forEach((change)->{
+					ChangeInfo info = JSON.parseObject(change.toString(), ChangeInfo.class);
+					info.setCompany(name);
+					info.setId(info.toString().hashCode());
+					info.setDr(0);
+					info.setPark(userpark);
+					info.setTag("企业");
+					list.add(info);
+				});
+				skyeyeService.saveChangeInfo(list);
+				arr.add(save);
+			}
+		}catch(Exception e){
+			logger.error("获取信息变更预警失败!",e.getMessage());
+		}
+		return success(arr);
 	}
 	
 	@RequestMapping(value="/getCompanyDetail.json",method=RequestMethod.GET)
@@ -116,6 +166,14 @@ public class ResourceController extends BaseController {
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.GID, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
+		if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+			cache.remove(accessToken);
+			accessToken = getToken();
+			sign = getSign(params, accessToken);
+			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
+			responseBody = HttpUtils.sendGet(ConstantKey.GID, uriParams);
+			obj = JSONObject.parseObject(responseBody);
+		}
 		String id = obj.getString("data");
 		Map<String, String> paramsLogin = new LinkedHashMap<>();
 		paramsLogin.put(ConstantKey.DEFAULT_USERNAME_PARAM, getCurrentShiroUser().getLoginName());
@@ -150,6 +208,14 @@ public class ResourceController extends BaseController {
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.ATTENTION_GROUP, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
+		if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+			cache.remove(accessToken);
+			accessToken = getToken();
+			sign = getSign(params, accessToken);
+			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
+			responseBody = HttpUtils.sendGet(ConstantKey.ATTENTION_GROUP, uriParams);
+			obj = JSONObject.parseObject(responseBody);
+		}
 		return success(obj.get("data"));
 	}
 	/**
@@ -180,6 +246,14 @@ public class ResourceController extends BaseController {
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.GID_COMPANY, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
+		if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+			cache.remove(accessToken);
+			accessToken = getToken();
+			sign = getSign(params, accessToken);
+			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
+			responseBody = HttpUtils.sendGet(ConstantKey.GID_COMPANY, uriParams);
+			obj = JSONObject.parseObject(responseBody);
+		}
 		return success(obj.get("data"));
 	}
 	/**
@@ -198,6 +272,14 @@ public class ResourceController extends BaseController {
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.SEARCH_TRACK, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
+		if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+			cache.remove(accessToken);
+			accessToken = getToken();
+			sign = getSign(params, accessToken);
+			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
+			responseBody = HttpUtils.sendGet(ConstantKey.SEARCH_TRACK, uriParams);
+			obj = JSONObject.parseObject(responseBody);
+		}
 		JSONObject data = obj.getJSONObject("data");
 		JSONArray items = data.getJSONArray("items");
 		List<SearchTrack> list = new ArrayList<SearchTrack>();

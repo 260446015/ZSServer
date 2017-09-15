@@ -1,5 +1,7 @@
 package com.huishu.ait.controller.parkmodule.warning;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.ChangeInfo;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.InformationSearchDTO;
@@ -72,8 +75,8 @@ public class WarningController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONArray array = warningService.getInformationChangeList(searchModel);
-			return success(changeObject(searchModel, array));
+			Page<ChangeInfo> findAll = warningService.getInformationChangeList(searchModel);
+			return success(findAll);
 		} catch (Exception e) {
 			LOGGER.error("getBusinessOutflowList查询失败！",e);
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -107,10 +110,20 @@ public class WarningController extends BaseController{
 		AreaSearchDTO searchModel = new AreaSearchDTO();
 		searchModel.setPark(getUserPark());
 		JSONObject obj = new JSONObject();
-		Page<ExternalFlow> page = warningService.getBusinessOutflowList(searchModel);
-		
-		obj.put("count", page.getTotalElements());
+		List<ChangeInfo> changeList = warningService.getChangeInfo(getUserPark());
+//		Page<ExternalFlow> page = warningService.getBusinessOutflowList(searchModel);
+//		obj.put("count", page.getTotalElements());
+		obj.put("count", changeList.size());
 		return success(obj);
+	}
+	/**
+	 * 删除预警信息
+	 */
+	@RequestMapping(value="deleteWarning.json",method=RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult deleteWarning(String id){
+		boolean flag = warningService.deleteWarning(id);
+		return success(flag);
 	}
 	
 }

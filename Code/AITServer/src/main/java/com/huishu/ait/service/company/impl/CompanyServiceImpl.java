@@ -2,8 +2,9 @@ package com.huishu.ait.service.company.impl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -22,7 +23,9 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
+import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.dto.CompanyDTO;
+import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.service.company.CompanyService;
 /**
  * 企业排行榜实现类
@@ -36,6 +39,8 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	private Client client;
+	@Autowired
+	private CompanyRepository companyRepository;
 
 	/**
 	 * 查询企业排行
@@ -87,5 +92,16 @@ public class CompanyServiceImpl implements CompanyService {
 			LOGGER.error("企业排行榜查询出错:"+e.getMessage());
 		}
 		return data;
+	}
+
+	@Override
+	public List<String> findCname(String park) {
+		List<Company> all = companyRepository.findByPark(park);
+		List<String> names = new ArrayList<>();
+		all.forEach((c)->{
+			names.add(c.getCompanyName());
+		});
+		return names;
+		
 	}
 }

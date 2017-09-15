@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.entity.ChangeInfo;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.InformationSearchDTO;
@@ -27,6 +28,7 @@ import com.huishu.ait.es.entity.WarningInformation;
 import com.huishu.ait.es.repository.ExternalFlowRepository;
 import com.huishu.ait.es.repository.warning.WarningInformationRepository;
 import com.huishu.ait.repository.company.CompanyRepository;
+import com.huishu.ait.repository.skyeye.ChangeRepository;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.warning.WarningService;
 
@@ -41,6 +43,8 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 	private WarningInformationRepository warningInformationRepository;
 	@Autowired
 	private ExternalFlowRepository externalFlowRepository;
+	@Autowired
+	private ChangeRepository changeRepository;
 
 	/*@Override
 	public JSONArray getBusinessOutflowList(AreaSearchDTO searchModel) {
@@ -70,72 +74,46 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 	}
 
 	@Override
-	public JSONArray getInformationChangeList(InformationSearchDTO searchModel) {
-		StringBuffer buffer = new StringBuffer();
+	public Page<ChangeInfo> getInformationChangeList(InformationSearchDTO searchModel) {
 		List<Company> list = companyRepository.findByPark(searchModel.getPark());
 		if (list == null || list.size() == 0) {
 			return null;
 		}
-		buffer.append("[");
-		for (Company company : list) {
-			Map<String,String> map = new HashMap<String,String>();
-			map.put("business", company.getCompanyName());
-			map.put("dimension", "企业信息变更");
-			 String[] order = {"publishDate","hitCount"};
-			 List<String> orderList = Arrays.asList(order);
-			 String[] data = {"publishTime","business", "updateAttribute","businessType"};
-			 List<String> dataList = Arrays.asList(data);
-			JSONArray array = getEsData(searchModel, map, null,orderList, dataList,true);
-			// 将所有的JSONArray拼接成一个JSONString
-			try {
-				for (int i = 0; i < array.size(); i++) {
-					JSONObject item = (JSONObject) array.get(i);
-					if (item != null) {
-						if (i == array.size() - 1)
-							buffer.append(item.toString());
-						else
-							buffer.append(item.toString()).append(",");
-					}
-					
-				}
-			} catch (Exception e) {
-				LOGGER.error("拼接字符串出错", e);
-				continue;
-			}
+		Sort sort = new Sort(Direction.DESC, "createTime");
+		PageRequest pageRequest = new PageRequest(searchModel.getPageNumber() - 1, searchModel.getPageSize(),sort);
+		Page<ChangeInfo> findAll = null;
+		try{
+			findAll = changeRepository.findAll(pageRequest);
+		}catch(Exception e){
+			LOGGER.error("查询信息变更失败");
 		}
-		buffer.append("]");
-		JSONArray jsonArr = JSONArray.parseArray(buffer.toString());
-		if (jsonArr == null || jsonArr.size() == 0) {
-			return null;
-		}
-		JSONArray sortedJsonArray = new JSONArray();
-		List<JSONObject> jsonValues = new ArrayList<JSONObject>();
-		for (int i = 0; i < jsonArr.size(); i++) {
-			jsonValues.add(jsonArr.getJSONObject(i));
-		}
-		// 对数据进行排序，按照变更时间先后
-		jsonValues.sort((JSONObject a, JSONObject b) -> {
-			String valA = (String) a.get("publishTime");
-			String valB = (String) b.get("publishTime");
-			return valB.compareTo(valA);
-		});
-		for (int i = 0; i < jsonValues.size(); i++) {
-			sortedJsonArray.add(jsonValues.get(i));
-		}
-		// 实现分页功能
-		JSONArray resultJsonArray = new JSONArray();
-		searchModel.setTotalSize(sortedJsonArray.size());
-		Integer from = searchModel.getPageFrom();
-		Integer pageSize = searchModel.getPageSize();
-		for (int i=from;i<(sortedJsonArray.size()<from+pageSize? sortedJsonArray.size():from+pageSize); i++) {
-			resultJsonArray.add(sortedJsonArray.get(i));
-		}
-		return resultJsonArray;
+		return findAll;
 	}
 
 	@Override
-	public WarningInformation getInformationChangeById(String id) {
-		return warningInformationRepository.findOne(id);
+	public ChangeInfo getInformationChangeById(String id) {
+		return changeRepository.findOne(Integer.valueOf(id));
+	}
+
+	@Override
+	public List<ChangeInfo> getChangeInfo(String park) {
+		List<ChangeInfo> list = changeRepository.findByParkAndDr(park, 0);
+		return list;
+		
+	}
+
+	@Override
+	public boolean deleteWarning(String id) {
+		try{
+			ChangeInfo findOne = changeRepository.findOne(Integer.valueOf(id));
+			findOne.setDr(1);
+			changeRepository.save(findOne);
+			return true;
+		}catch(Exception e){
+			LOGGER.error("删除预警数量失败");
+		}
+		return false;
+		
 	}
 
 }
