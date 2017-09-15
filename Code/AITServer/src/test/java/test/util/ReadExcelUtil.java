@@ -45,16 +45,16 @@ public class ReadExcelUtil {
 				/*// 读取左上端单元格
 				XSSFRow row = sheet.getRow(i);
 				// 行不为空
-				if (row != null) {*/
+				if (row != 暂无) {*/
 					String value = "";
 					// 遍历列
 					String b_id = null;
 					for (int j = 0; j < max_cells; j++) {
 						// 获取到列的值
 						XSSFCell cell = sheet.getRow(i).getCell(j);
-						// 把所有是空值的都换成NULL
+						// 把所有是空值的都换成暂无
 						if (cell == null) {
-							value += "NULL---";
+							value += "暂无---";
 						} else {
 							switch (cell.getCellType()) {
 							// 如果是公式的话，就读取得出的值
@@ -82,16 +82,16 @@ public class ReadExcelUtil {
 								break;
 							case XSSFCell.CELL_TYPE_STRING:
 								String ss = cell.getStringCellValue().replaceAll("'", "");
-								// 如果文本有空值的话，就把它写成null
+								// 如果文本有空值的话，就把它写成暂无
 								if (ss == null || "".equals(ss)) {
-									value += "NULL---";
+									value += "暂无---";
 								} else {
 									value += cell.getStringCellValue().replaceAll("'", "") + "---";
 								}
 
 								break;
 							default:
-								value += "NULL---";
+								value += "暂无---";
 								break;
 							}
 						}
