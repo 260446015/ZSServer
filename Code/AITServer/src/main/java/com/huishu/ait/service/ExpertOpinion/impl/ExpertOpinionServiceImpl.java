@@ -2,8 +2,6 @@ package com.huishu.ait.service.ExpertOpinion.impl;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -30,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.Constans;
-import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.UserCollection;
 import com.huishu.ait.es.entity.AITInfo;
@@ -79,6 +76,10 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			SearchRequestBuilder searchBuilder = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = QueryBuilders.boolQuery();
 			bq.must(QueryBuilders.termQuery("dimension", Constans.BAIJIALUN));
+			bq.must(QueryBuilders.termQuery("industry", industry));
+			if(!industryLabel.equals("不限")){
+				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
+			}
 			//根据条件查询
 			SearchRequestBuilder requestBuilder = searchBuilder.setQuery(bq)
 					.setSize(requestParam.getPageSize()).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC));
