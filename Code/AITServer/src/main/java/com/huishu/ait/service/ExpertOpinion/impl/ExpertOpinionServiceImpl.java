@@ -2,8 +2,6 @@ package com.huishu.ait.service.ExpertOpinion.impl;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -30,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.Constans;
-import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.entity.UserCollection;
 import com.huishu.ait.es.entity.AITInfo;
