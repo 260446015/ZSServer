@@ -8,4 +8,12 @@
 		overflowToDisk="false"
 		diskPersistent="false" 
 		diskExpiryThreadIntervalSeconds="120" />
+		
+		 <cache name="oauth2-cache"
+           maxElementsInMemory="5000"
+           eternal="false"
+           timeToIdleSeconds="1100"   
+           timeToLiveSeconds="1200"
+           overflowToDisk="false"
+           statistics="true" />
 </ehcache>

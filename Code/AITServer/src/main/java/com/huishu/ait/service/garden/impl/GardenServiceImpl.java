@@ -283,6 +283,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				JSONObject obj = new JSONObject();
 				obj.put("address", garden.getAddress());
 				obj.put("name", garden.getGardenName());
+				obj.put("id", garden.getId());
 				obj.put("industryType", garden.getLeadingIndustry());
 				arr.add(obj);
 			}
@@ -310,7 +311,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				obj.put("industry", industry.getIndustry());
 				int value = 0;
 				switch (industry.getIndustry()) {
-				case "互联网+":
+				case "互联网":
 					value = 0;
 					break;
 				case "高科技":
@@ -332,7 +333,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					break;
 				}
 				obj.put("value", value);
-				if (industry.getIndustry().equals("互联网+")) {
+				if (industry.getIndustry().equals("互联网")) {
 					hulianwang.add(obj);
 				} else if (industry.getIndustry().equals("高科技")) {
 					gaokeji.add(obj);

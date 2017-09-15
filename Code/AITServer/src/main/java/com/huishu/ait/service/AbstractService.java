@@ -44,7 +44,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hankcs.analysis.Analysis;
+import com.forget.analysis.Analysis;
 import com.huishu.ait.TreeNode.TreeNode;
 import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.common.util.ESUtils;
@@ -334,7 +334,8 @@ public abstract class AbstractService {
 		}else{
 			dto.setSummary(summary);	
 		}
-		Set<String> set = getBusiness(dto.getTitle(),dto.getContent());
+//		Set<String> set = getBusiness(dto.getTitle(),dto.getContent());
+		List<String> set = getBusiness(dto.getTitle(),dto.getContent());
 		dto.setBus(set);
 		list.add(dto);
 	}
@@ -346,7 +347,7 @@ public abstract class AbstractService {
 	 */
 	protected Page<AITInfo> setPageBusiness(Page<AITInfo> page) {
 		 page.forEach(essay ->{
-			 Set<String> bus = getBusiness(essay.getTitle(),essay.getContent());
+			 List<String> bus = getBusiness(essay.getTitle(),essay.getContent());
 			 essay.setBus(bus);
 			});
 		return page;
@@ -358,10 +359,18 @@ public abstract class AbstractService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	protected Set<String> getBusiness(String title, String content) {
-		JSONObject findCompany = Analysis.findCompany(title, content);
+	protected List<String>  getBusiness(String title, String content) {
+		
+//		JSONObject findCompany = Analysis.findCompany(title, content);
+		JSONObject findCompany=null;
+		try {
+			findCompany = Analysis.getCompany(title, content);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(findCompany != null && findCompany.getBooleanValue("status")){
-		Set<String> set = (Set<String>) findCompany.get("result");
+			List<String> set =(List<String>) findCompany.get("result");
 			return set;
 		}
 		return null;
@@ -664,10 +673,8 @@ public abstract class AbstractService {
 			JSONArray jsonArray = new JSONArray();
 			Terms first = res.getAggregations().get("industryOne");
 			for(Terms.Bucket e1 : first.getBuckets()){
-				System.out.println("一级分类为："+e1.getKeyAsString());
 				Terms second = e1.getAggregations().get("industryTwo");
 				 for(Terms.Bucket e2 : second.getBuckets() ){
-					System.out.println("一级为:"+e1.getKeyAsString()+"一级分类下的二级分类为:"+e2.getKeyAsString());
 					Terms third =  e2.getAggregations().get("industryThree");
 					for(Terms.Bucket e3:third.getBuckets()){
 						Terms four = e3.getAggregations().get("industryFour");
@@ -698,26 +705,23 @@ public abstract class AbstractService {
 	 * @return
 	 */
 	protected JSONArray getBusinessByIndicator(BoolQueryBuilder bq) {
-		JSONArray data = new JSONArray();
-		SearchRequestBuilder requestBuilder = ESUtils.getSearchBuilder(client);
+		
 		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
 		TermsBuilder secondIndicatorBuilder = AggregationBuilders.terms("industryTwo").field("industryTwo");
 		TermsBuilder thirdIndicatorBuilder = AggregationBuilders.terms("industryThree").field("industryThree");
 		TermsBuilder fourIndicatorBuilder = AggregationBuilders.terms("industryFour").field("industryFour");
 		TermsBuilder businessBuilder = AggregationBuilders.terms("business").field("business");
 		//企业聚合到四级分类下
-		fourIndicatorBuilder.subAggregation(businessBuilder);
+		fourIndicatorBuilder.subAggregation(businessBuilder).size(3000);
 		thirdIndicatorBuilder.subAggregation(fourIndicatorBuilder);
 		secondIndicatorBuilder.subAggregation(thirdIndicatorBuilder);
 		firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
-		requestBuilder.addAggregation(firstIndicatorBuilder).setSize(2000).setQuery(bq);
+		SearchQuery query =getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
 	
-//		logger.info(String.format(" %n requestBuilder: %s", requestBuilder));
-		
-		//获取返回结果
-		SearchResponse response = requestBuilder.execute().actionGet();
-		Terms agg = response.getAggregations().get("industryOne");
-		if(agg != null){
+		JSONArray result = template.query(query, res -> {
+			JSONArray data = new JSONArray();
+			Terms agg = res.getAggregations().get("industryOne");
+			
 			for(Terms.Bucket e1 :agg.getBuckets()){
 				Terms firsts = e1.getAggregations().get("industryTwo");
 				for(Terms.Bucket e2 :firsts.getBuckets()){
@@ -739,8 +743,13 @@ public abstract class AbstractService {
 					}
 				}
 			}
-		}
+		
 		return data;
+			
+		});
+		return result;
+
+		
 	}
 	
 	/**

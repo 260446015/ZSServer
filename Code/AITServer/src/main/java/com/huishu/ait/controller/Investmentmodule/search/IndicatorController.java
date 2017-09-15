@@ -56,7 +56,20 @@ public class IndicatorController extends BaseController{
 		if(dto == null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		dto = chack(dto);
 		JSONArray jsonArray = service.getBusinessByIndicator(dto);
 		return success(jsonArray);
+	}
+	/**
+	 * @param dto
+	 * @return
+	 */
+	private IndicatorDTO chack(IndicatorDTO dto) {
+		String[] msg = dto.getMsg();
+		dto.setFirstIndicator(msg[0]);
+		dto.setSecondIndicator(msg[1]);
+		dto.setThirdIndicator(msg[2]);
+		dto.setFourIndicator(msg[3]);
+		return dto;
 	}
 }

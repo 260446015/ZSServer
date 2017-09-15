@@ -31,10 +31,10 @@ public class ConstantKey {
 
     //OAUTH2_URL
     public static final String OAUTH_CLIENT_TIANYANCHA = "http://yufa.std.tianyancha.com";
-    public static final String OAUTH_CLIENT_CALLBACK = "http://localhost:8092/apis/oauth/oauth_callback";
+    public static final String OAUTH_CLIENT_CALLBACK = "http://58.16.181.24:9208/apis/oauth/oauth_callback";
     public static final String OAUTH_CLIENT_ACCESS_CODE = "http://yufa.std.tianyancha.com/auth/code.json";
     public static final String OAUTH_CLIENT_ACCESS_TOKEN = "http://yufa.std.tianyancha.com/auth/token.json";
-    public static final String OAUTH_CLIENT_GET_RESOURCE = "http://localhost:8092/apis/oauth/get_resource";
+    public static final String OAUTH_CLIENT_GET_RESOURCE = "http://58.16.181.24:9208/apis/oauth/get_resource";
     
     
     //存储常量
@@ -48,6 +48,8 @@ public class ConstantKey {
     public static final String DEFAULT_CODE_PARAM = "code";
     public static final String DEFAULT_NAME_PARAM = "name";
     public static final String DEFAULT_TAGS_PARAM = "tags";
+    public static final String DEFAULT_PS_PARAM = "pageSize";
+    public static final String DEFAULT_PN_PARAM = "pageNumber";
     
     //存储天眼查各个访问url
     public static final String LOGIN_URI = "http://yufa.std.tianyancha.com/auth/login.json";

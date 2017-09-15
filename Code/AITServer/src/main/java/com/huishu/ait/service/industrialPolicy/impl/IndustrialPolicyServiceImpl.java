@@ -2,6 +2,7 @@ package com.huishu.ait.service.industrialPolicy.impl;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -54,29 +55,19 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
         if (dto.getIndustryLabel().equals("不限")){
             dto.setIndustryLabel(null);
         }
-        if (dto.getArea().equals("全部") || dto.getArea().equals("不限")){
-            dto.setArea(null);
-        }
         try{
             Map<String, Object> map = new HashMap<String, Object>();
-          //按文章类型按照维度获取数据 1,政策解读 2, 高峰论坛  3,科学研究
-            dto.setDimension("政策解读");
-            Page<AITInfo> page1 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
-            Page<AITInfo> pageBusiness1 = setPageBusiness(page1);
             dto.setDimension("高峰论坛");
             Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
             Page<AITInfo> pageBusiness2 = setPageBusiness(page2);
             dto.setDimension("科学研究");
             Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
             Page<AITInfo> pageBusiness3 = setPageBusiness(page3);
-            map.put("policy", pageBusiness1); //政策解读
             map.put("forum", pageBusiness2);  //高峰论坛
             map.put("research", pageBusiness3);  //科学研究
             
             array.add(map);
             
-            //获取查询结果
-//            Page<AITInfo> pagedata  = industrialPolicyRepository.search(bq,dto.builderPageRequest());
             return array;
         }
         catch(Exception e){
@@ -97,7 +88,7 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
         JSONObject obj = new JSONObject();
         
         AITInfo info = elasticsearch.findOne(id);
-        Set<String> business = getBusiness(info.getTitle(),info.getContent());
+        List<String> business = getBusiness(info.getTitle(),info.getContent());
         info.setBus(business);
         obj = (JSONObject) JSONObject.toJSON(info);
         if (null == userCollectionRepository.findByArticleIdAndUserId(id, userId)) {
@@ -107,6 +98,35 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
         }
         return obj;
     }
+
+	/**
+	 * 获取政策解读数据
+	 */
+	@Override
+	public JSONArray getIndustrialList(IndustrialPolicyDTO dto) {
+		  JSONArray array = new JSONArray();
+	        if (dto.getIndustryLabel().equals("不限")){
+	            dto.setIndustryLabel(null);
+	        }
+	        if (dto.getArea().equals("全部") || dto.getArea().equals("不限")){
+	            dto.setArea(null);
+	        }
+	        try{
+	            Map<String, Object> map = new HashMap<String, Object>();
+	          //按文章类型按照维度获取数据 1,政策解读 
+	            dto.setDimension("政策解读");
+	            Page<AITInfo> page1 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
+	            Page<AITInfo> pageBusiness1 = setPageBusiness(page1);
+	            map.put("policy", pageBusiness1); //政策解读
+	            array.add(map);
+	            
+	            return array;
+	        }
+	        catch(Exception e){
+	            log.error("查询产业政策列表失败",e);
+	            return array;
+	        }
+	}
     
     
 }

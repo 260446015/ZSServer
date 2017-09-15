@@ -1,5 +1,16 @@
 package com.huishu.ait.controller.authz;
 
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.slf4j.Logger;
@@ -9,21 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ConstantKey;
 import com.huishu.ait.common.util.HttpUtils;
 import com.huishu.ait.common.util.SignatureUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.SearchTrack;
 import com.huishu.ait.entity.common.AjaxResult;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.huishu.ait.service.skyeye.SkyeyeService;
 
 /**
  * 
@@ -37,6 +44,8 @@ import java.util.Map;
 public class ResourceController extends BaseController {
 	private static Logger logger = LoggerFactory.getLogger(ResourceController.class);
 	private static final String ENCODE = "UTF-8";
+	@Autowired
+	private SkyeyeService skyeyeService;
 
 	private Cache cache;
 
@@ -68,21 +77,23 @@ public class ResourceController extends BaseController {
 	@RequestMapping(value="/getChangeInfo.json",method=RequestMethod.GET)
 	public void getChangeInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String name = request.getParameter(ConstantKey.DEFAULT_NAME_PARAM);
-		if(StringUtil.isEmpty(name)){
+		String ps = request.getParameter(ConstantKey.DEFAULT_PS_PARAM);
+		String pn = request.getParameter(ConstantKey.DEFAULT_PN_PARAM);
+		if(StringUtil.isEmpty(name)||StringUtil.isEmpty(ps)||StringUtil.isEmpty(pn)){
 			throw new Exception("name can not be null");
 		}
 		String accessToken = getToken();
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		params.put("name", name);
-		params.put("pn", "1");
-		params.put("ps", "10");
+		params.put("pn", pn);
+		params.put("ps", ps);
 		String sign = getSign(params, accessToken);
 		Map<String, String> uriParams = new LinkedHashMap<>();
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		uriParams.put("name", URLEncoder.encode(name,ENCODE));
-		uriParams.put("pn", "1");
-		uriParams.put("ps", "10");
+		uriParams.put("pn", pn);
+		uriParams.put("ps", ps);
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String redirectUri = HttpUtils.getParamConcat(ConstantKey.CHANGE_INFO, uriParams);
 		response.sendRedirect(redirectUri);
@@ -97,7 +108,7 @@ public class ResourceController extends BaseController {
 		String accessToken = getToken();
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
-		params.put("name", name);
+		params.put("name",  name);
 		String sign = getSign(params, accessToken);
 		Map<String, String> uriParams = new LinkedHashMap<>();
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
@@ -147,23 +158,25 @@ public class ResourceController extends BaseController {
 	@RequestMapping(value="/getCompanyByGroup.json",method=RequestMethod.GET)
 	public AjaxResult getCompanyByGroup(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String tags = request.getParameter(ConstantKey.DEFAULT_TAGS_PARAM);
-		if(StringUtil.isEmpty(tags)){
-			throw new Exception("tags can not be null");
+		String ps = request.getParameter(ConstantKey.DEFAULT_PS_PARAM);
+		String pn = request.getParameter(ConstantKey.DEFAULT_PN_PARAM);
+		if(StringUtil.isEmpty(tags) || StringUtil.isEmpty(ps) || StringUtil.isEmpty(pn)){
+			throw new Exception("tags,ps,pn can not be null");
 		}
 		String accessToken = getToken();
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("username", getCurrentShiroUser().getLoginName());
 		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		params.put("tags", tags);
-		params.put("pn", "1");
-		params.put("ps", "10");
+		params.put("pn", pn);
+		params.put("ps", ps);
 		String sign = getSign(params, accessToken);
 		Map<String, String> uriParams = new LinkedHashMap<>();
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		uriParams.put("username", getCurrentShiroUser().getLoginName());
 		uriParams.put("tags", tags);
-		uriParams.put("pn", "1");
-		uriParams.put("ps", "10");
+		uriParams.put("pn", pn);
+		uriParams.put("ps", ps);
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.GID_COMPANY, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
@@ -185,7 +198,16 @@ public class ResourceController extends BaseController {
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.SEARCH_TRACK, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
-		return success(obj.get("data"));
+		JSONObject data = obj.getJSONObject("data");
+		JSONArray items = data.getJSONArray("items");
+		List<SearchTrack> list = new ArrayList<SearchTrack>();
+		items.forEach((st)->{
+			SearchTrack searchTrack = JSON.parseObject(st.toString(), SearchTrack.class);
+			list.add(searchTrack);
+		});
+		skyeyeService.saveSearchTrack(list);
+		JSONObject returnData = skyeyeService.findSearchTrack();
+		return success(returnData);
 	}
 
 	/**
@@ -197,12 +219,14 @@ public class ResourceController extends BaseController {
 	 */
 	private String getToken() throws IOException{
 		if(cache.get("accessToken") == null){
+			logger.info("缓存中数据被清空,重新获取token");
 			Map<String, String> params = new HashMap<>();
 			params.put("client_id", ConstantKey.OAUTH_CLIENT_ID);
 			params.put("response_type", "code");
 			params.put("redirect_uri", ConstantKey.OAUTH_CLIENT_CALLBACK);
 			HttpUtils.sendGet(ConstantKey.OAUTH_CLIENT_ACCESS_CODE, params);
 		}
+		logger.info("缓存中的accessToken:"+cache.get("accessToken"));
 		return (String) cache.get("accessToken");
 	}
 	
