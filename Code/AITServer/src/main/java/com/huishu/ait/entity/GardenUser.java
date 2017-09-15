@@ -43,6 +43,8 @@ public class GardenUser implements Serializable{
 	
 	@Column(name="garden_picture")
 	private String gardenPicture;
+	@Column(name="garden_id")
+	private String gardenId;
 	
 	/**
 	 * 
@@ -110,4 +112,11 @@ public class GardenUser implements Serializable{
     public void setGardenPicture(String gardenPicture) {
         this.gardenPicture = gardenPicture;
     }
+	public String getGardenId() {
+		return gardenId;
+	}
+	public void setGardenId(String gardenId) {
+		this.gardenId = gardenId;
+	}
+    
 }

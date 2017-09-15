@@ -238,12 +238,16 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					}
 					gu.setUserId(Integer.parseInt(userId));
 					gu.setGardenPicture(garden.getGardenPicture());
+					gu.setGardenId(gardenId);
 					gu.setIndustryType(garden.getIndustry());
 					gardenUserRepository.save(gu);
 					return gu;
 				}
 			} else {
-				gardenUserRepository.delete(Integer.parseInt(gardenId));
+				GardenUser gu = gardenUserRepository.findByGardenIdAndUserId(gardenId,Integer.valueOf(userId));
+				if(gu != null){
+					gardenUserRepository.delete(gu);
+				}
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());

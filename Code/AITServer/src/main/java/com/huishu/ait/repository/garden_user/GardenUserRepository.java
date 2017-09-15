@@ -32,4 +32,6 @@ public interface GardenUserRepository extends CrudRepository<GardenUser, Integer
 	Integer deleteByGardenName(String gardenName);
 	GardenUser findByGardenName(String gardenName);
 	GardenUser findByGardenNameAndUserId(String gardenName,Integer userId);
+	
+	GardenUser findByGardenIdAndUserId(String gardenId,Integer userId);
 }

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ConstantKey;
 import com.huishu.ait.common.util.HttpUtils;
@@ -75,14 +76,17 @@ public class ResourceController extends BaseController {
 		uriParams.put("redirect_uri", ConstantKey.OAUTH_CLIENT_REDIRECT_URI);
 		uriParams.put("redirect_uri_id", ConstantKey.OAUTH_CLIENT_REDIRECT_URI_ID);
 		String responseBody = HttpUtils.sendGet(ConstantKey.LOGIN_URI, uriParams);
-		JSONObject obj = JSONObject.parseObject(responseBody);
+		JSONObject obj = new JSONObject();
+		try{
+			obj = JSONObject.parseObject(responseBody);
+		}catch(JSONException e){
+			obj.put(ConstantKey.INVALID_SPECIAL, ConstantKey.OPENEYE_WARN_TOKEN_461);
+		}
 		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
 			cache.remove("accessToken");
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
 			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
-			responseBody = HttpUtils.sendGet(ConstantKey.LOGIN_URI, uriParams);
-			obj = JSONObject.parseObject(responseBody);
 		}
 		String redirectUri = HttpUtils.getParamConcat(ConstantKey.LOGIN_URI, uriParams);
 		logger.info("重定向到天眼查的地址:"+redirectUri);
