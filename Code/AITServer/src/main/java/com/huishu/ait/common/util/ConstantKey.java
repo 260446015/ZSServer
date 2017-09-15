@@ -27,14 +27,19 @@ public class ConstantKey {
     public static final String INVALID_CLIENT_GRANT = "VERIFY_CLIENTID_FAIL";
     public static final String INVALID_CLIENT_SECRET = "VERIFY_CLIENT_SECRET_FAIL";
     public static final String TARGET_URI = "targetUri";
+    public static final String INVALID_SPECIAL = "special";
+    public static final String OPENEYE_WARN_TOKEN_461 = "WARN_TOKEN_461";
+    public static final String OPENEYE_WARN_TOKEN_460 = "WARN_TOKEN_460";
 
 
     //OAUTH2_URL
     public static final String OAUTH_CLIENT_TIANYANCHA = "http://yufa.std.tianyancha.com";
-    public static final String OAUTH_CLIENT_CALLBACK = "http://58.16.181.24:9208/apis/oauth/oauth_callback";
+//    public static final String OAUTH_CLIENT_CALLBACK = "http://58.16.181.24:9208/apis/oauth/oauth_callback";
+    public static final String OAUTH_CLIENT_CALLBACK = "http://localhost:8092/apis/oauth/oauth_callback";
     public static final String OAUTH_CLIENT_ACCESS_CODE = "http://yufa.std.tianyancha.com/auth/code.json";
     public static final String OAUTH_CLIENT_ACCESS_TOKEN = "http://yufa.std.tianyancha.com/auth/token.json";
-    public static final String OAUTH_CLIENT_GET_RESOURCE = "http://58.16.181.24:9208/apis/oauth/get_resource";
+//    public static final String OAUTH_CLIENT_GET_RESOURCE = "http://58.16.181.24:9208/apis/oauth/get_resource";
+    public static final String OAUTH_CLIENT_GET_RESOURCE = "http://localhost:8092/apis/oauth/get_resource";
     
     
     //存储常量

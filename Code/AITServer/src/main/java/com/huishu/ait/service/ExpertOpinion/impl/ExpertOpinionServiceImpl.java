@@ -76,6 +76,10 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			SearchRequestBuilder searchBuilder = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = QueryBuilders.boolQuery();
 			bq.must(QueryBuilders.termQuery("dimension", Constans.BAIJIALUN));
+			bq.must(QueryBuilders.termQuery("industry", industry));
+			if(!industryLabel.equals("不限")){
+				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
+			}
 			//根据条件查询
 			SearchRequestBuilder requestBuilder = searchBuilder.setQuery(bq)
 					.setSize(requestParam.getPageSize()).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC));

@@ -1,8 +1,11 @@
 package com.huishu.ait.service.warning;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
+import com.huishu.ait.entity.ChangeInfo;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.InformationSearchDTO;
 import com.huishu.ait.es.entity.ExternalFlow;
@@ -26,11 +29,20 @@ public interface WarningService {
 	 * @param searchModel    查询条件
 	 * @return
 	 */
-	JSONArray getInformationChangeList(InformationSearchDTO searchModel);
+	Page<ChangeInfo> getInformationChangeList(InformationSearchDTO searchModel);
 	/**
 	 * 根据ID获取信息变更预警详情
 	 * @param id     预警ID
 	 * @return
 	 */
-	WarningInformation getInformationChangeById(String id);
+	ChangeInfo getInformationChangeById(String id);
+	/**
+	 * 获取企业信息变更数量
+	 */
+	List<ChangeInfo> getChangeInfo(String park);
+	/**
+	 * 删除预警数量
+	 * @param id
+	 */
+	boolean deleteWarning(String id);
 }

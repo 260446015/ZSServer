@@ -2,9 +2,9 @@ package com.huishu.ait.service.skyeye;
 
 import java.util.Collection;
 
-import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.entity.ChangeInfo;
 import com.huishu.ait.entity.SearchTrack;
 
 /**
@@ -19,4 +19,6 @@ public interface SkyeyeService {
 	boolean saveSearchTrack(Collection<SearchTrack> s);
 
 	JSONObject findSearchTrack();
+	
+	boolean saveChangeInfo(Collection<ChangeInfo> s);
 }
