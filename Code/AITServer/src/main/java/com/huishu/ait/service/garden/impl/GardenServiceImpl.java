@@ -122,6 +122,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		try {
 			if ("不限".equals(area)) {
 				area = "%%";
+			}else{
+				area = "%" + area + "%";
 			}
 			if ("不限".equals(industryType)) {
 				industryType = "%%";
@@ -133,7 +135,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			// findGardensPage =
 			// gardenRepository.findByNameLike(searchName,pageRequest);
 			// }else{//
-			findGardensPage = gardenRepository.findByAreaLikeAndIndustryLikeOrderByIdDesc(area, industryType,
+			findGardensPage = gardenRepository.findByAddressLikeAndIndustryLikeOrderByIdDesc(area, industryType,
 					pageRequest);
 			findGardensPage.forEach(GardenData ->{
 				String gardenIntroduce = GardenData.getGardenIntroduce();
@@ -278,7 +280,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		try {
 			area = "%" + area + "%";
 			industry = "%" + industry + "%";
-			List<GardenData> list = gardenRepository.findGardensByAddressLikeAndIndustryLike(area,industry);
+			List<GardenData> list = gardenRepository.findByAddressLikeAndIndustryLike(area,industry);
 			for (GardenData garden : list) {
 				JSONObject obj = new JSONObject();
 				obj.put("address", garden.getAddress());
