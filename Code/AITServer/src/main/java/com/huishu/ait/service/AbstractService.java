@@ -438,7 +438,7 @@ public abstract class AbstractService {
 	protected AreaSearchDTO getAreaSearchDTODemo(String gardenName){
 		AreaSearchDTO searchModel = new AreaSearchDTO();
 		searchModel.setPark(gardenName);
-		searchModel.setPageSize(6);
+		searchModel.setPageSize(8);
 		return searchModel;
 	}
 	
