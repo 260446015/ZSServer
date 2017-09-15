@@ -77,7 +77,7 @@ public class ResourceController extends BaseController {
 		String responseBody = HttpUtils.sendGet(ConstantKey.LOGIN_URI, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
 		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
-			cache.remove(accessToken);
+			cache.remove("accessToken");
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
 			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
@@ -114,7 +114,7 @@ public class ResourceController extends BaseController {
 				JSONObject data = new JSONObject();
 				JSONArray save = new JSONArray();
 				if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
-					cache.remove(accessToken);
+					cache.remove("accessToken");
 					accessToken = getToken();
 					sign = getSign(params, accessToken);
 					uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
@@ -167,7 +167,7 @@ public class ResourceController extends BaseController {
 		String responseBody = HttpUtils.sendGet(ConstantKey.GID, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
 		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
-			cache.remove(accessToken);
+			cache.remove("accessToken");
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
 			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
@@ -209,7 +209,7 @@ public class ResourceController extends BaseController {
 		String responseBody = HttpUtils.sendGet(ConstantKey.ATTENTION_GROUP, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
 		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
-			cache.remove(accessToken);
+			cache.remove("accessToken");
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
 			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
@@ -247,7 +247,7 @@ public class ResourceController extends BaseController {
 		String responseBody = HttpUtils.sendGet(ConstantKey.GID_COMPANY, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
 		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
-			cache.remove(accessToken);
+			cache.remove("accessToken");
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
 			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
@@ -273,7 +273,7 @@ public class ResourceController extends BaseController {
 		String responseBody = HttpUtils.sendGet(ConstantKey.SEARCH_TRACK, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
 		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
-			cache.remove(accessToken);
+			cache.remove("accessToken");
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
 			uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
