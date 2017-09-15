@@ -28,6 +28,8 @@ public class ConstantKey {
     public static final String INVALID_CLIENT_SECRET = "VERIFY_CLIENT_SECRET_FAIL";
     public static final String TARGET_URI = "targetUri";
     public static final String INVALID_SPECIAL = "special";
+    public static final String OPENEYE_WARN_TOKEN_461 = "WARN_TOKEN_461";
+    public static final String OPENEYE_WARN_TOKEN_460 = "WARN_TOKEN_460";
 
 
     //OAUTH2_URL

@@ -76,7 +76,7 @@ public class ResourceController extends BaseController {
 		uriParams.put("redirect_uri_id", ConstantKey.OAUTH_CLIENT_REDIRECT_URI_ID);
 		String responseBody = HttpUtils.sendGet(ConstantKey.LOGIN_URI, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
-		if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
 			cache.remove(accessToken);
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
@@ -113,7 +113,7 @@ public class ResourceController extends BaseController {
 				JSONObject obj = JSONObject.parseObject(responseBody);
 				JSONObject data = new JSONObject();
 				JSONArray save = new JSONArray();
-				if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+				if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
 					cache.remove(accessToken);
 					accessToken = getToken();
 					sign = getSign(params, accessToken);
@@ -166,7 +166,7 @@ public class ResourceController extends BaseController {
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.GID, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
-		if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
 			cache.remove(accessToken);
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
@@ -208,7 +208,7 @@ public class ResourceController extends BaseController {
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.ATTENTION_GROUP, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
-		if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
 			cache.remove(accessToken);
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
@@ -246,7 +246,7 @@ public class ResourceController extends BaseController {
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.GID_COMPANY, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
-		if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
 			cache.remove(accessToken);
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
@@ -272,7 +272,7 @@ public class ResourceController extends BaseController {
 		uriParams.put("sign", URLEncoder.encode(sign,ENCODE));
 		String responseBody = HttpUtils.sendGet(ConstantKey.SEARCH_TRACK, uriParams);
 		JSONObject obj = JSONObject.parseObject(responseBody);
-		if("WARN_TOKEN_461".equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
+		if(ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL)) || ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))){
 			cache.remove(accessToken);
 			accessToken = getToken();
 			sign = getSign(params, accessToken);
