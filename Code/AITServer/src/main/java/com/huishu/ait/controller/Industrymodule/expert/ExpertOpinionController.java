@@ -73,7 +73,7 @@ public class ExpertOpinionController extends BaseController {
 	 * @return 查询百家论信息
 	 */
 	@RequestMapping(value = "findaExpertOpinion.json", method = RequestMethod.POST)
-	public AjaxResult getExpertOpinion(ExpertOpinionDTO requestParam) {
+	public AjaxResult getExpertOpinion(@RequestBody ExpertOpinionDTO requestParam) {
 		try {
 			requestParam = initPage(requestParam);
 			String[] msg = requestParam.getMsg();
