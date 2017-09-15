@@ -15,5 +15,5 @@
            timeToIdleSeconds="1100"   
            timeToLiveSeconds="1200"
            overflowToDisk="false"
-           statistics="true" />
+           />
 </ehcache>
