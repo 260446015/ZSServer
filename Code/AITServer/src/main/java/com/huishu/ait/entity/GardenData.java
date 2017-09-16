@@ -72,6 +72,12 @@ public class GardenData implements Serializable{
     private String gardenPicture;
     @Column(name = "remarks") /**备注  */
     private String remarks;
+    @Column(name="create_time")
+    private String createTime;/**成立时间 */
+    @Column(name="enter_company")
+    private String enterCompany;/**入驻企业 */
+    @Column(name="garden_condition")
+    private String gardenCondition;/**园区动态 */
     /**主导产业一级目录*/
     private String industry;
     
@@ -268,6 +274,27 @@ public class GardenData implements Serializable{
 	}
 	public void setIndustry(String industry) {
 		this.industry = industry;
+	}
+	
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	
+	public String getEnterCompany() {
+		return enterCompany;
+	}
+	public void setEnterCompany(String enterCompany) {
+		this.enterCompany = enterCompany;
+	}
+	
+	public String getGardenCondition() {
+		return gardenCondition;
+	}
+	public void setGardenCondition(String gardenCondition) {
+		this.gardenCondition = gardenCondition;
 	}
 	@Override
     public String toString() {
