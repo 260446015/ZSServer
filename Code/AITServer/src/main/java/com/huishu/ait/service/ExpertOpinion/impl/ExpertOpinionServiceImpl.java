@@ -83,16 +83,6 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			//根据条件查询
 			SearchRequestBuilder requestBuilder = searchBuilder.setQuery(bq)
 					.setSize(requestParam.getPageSize()).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC));
-			if (StringUtils.isNotEmpty(industry)) {
-				bq.must(QueryBuilders.termQuery("industry", industry));
-			}
-			if (StringUtils.isNotBlank(industryLabel) && !(Constans.BUXIAN).equals(industryLabel)) {
-				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
-			}
-			/*if (StringUtils.isNotEmpty(startDate) && StringUtils.isNotEmpty(endDate)) {
-				bq.must(QueryBuilders.rangeQuery("publishDate").from(startDate).to(endDate));
-			}*/
-			
 			SearchResponse actionGet = requestBuilder.execute().actionGet();
 			SearchHits hits = actionGet.getHits();
 			if (null !=hits ) {
@@ -102,11 +92,15 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 							JSONObject jsonObject = new JSONObject();
 							map.put("_id", hit.getId());
 							map.put("total", hits.getTotalHits());
+							String summary = (String) map.get("summary");
+							summary=summary.replaceAll("<a href[^>]*>", "");  
+							summary=summary.replaceAll("</a>", "");  
+							summary=summary.replaceAll("<img[^>]*/>", " "); 
 							jsonObject.put("id", map.get("_id"));
 							jsonObject.put("publishDate", map.get("publishDate"));
 							jsonObject.put("title", map.get("title"));
 							jsonObject.put("content", map.get("content"));
-							jsonObject.put("summary", map.get("summary"));
+							jsonObject.put("summary", summary);
 							jsonObject.put("author", map.get("author"));
 							jsonObject.put("sourceLink", map.get("sourceLink"));
 							jsonObject.put("source", map.get("source"));
