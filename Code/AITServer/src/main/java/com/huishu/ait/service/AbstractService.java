@@ -45,9 +45,11 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
+import com.forget.findAddress.FindAddress;
 import com.huishu.ait.TreeNode.TreeNode;
 import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.common.util.ESUtils;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.common.util.UtilsHelper;
 import com.huishu.ait.common.util.datasort.SerieDataComparator;
 import com.huishu.ait.echart.series.Serie.SerieData;
@@ -312,6 +314,7 @@ public abstract class AbstractService {
 		dto.setArticleLink(source.get("articleLink").toString());
 		dto.setContent(source.get("content").toString());
 		dto.setPublishTime(source.get("publishTime").toString());
+		
 		dto.setSource(source.get("source").toString());
 		dto.setSourceLink(source.get("sourceLink").toString());
 		dto.setTitle(source.get("title").toString());
@@ -330,16 +333,17 @@ public abstract class AbstractService {
 		if(StringUtils.isEmpty(summary)){
 			/**如果文章摘要不存在，则将内容的前一百数据取出作为摘要*/
 			summary = dto.getContent().substring(0, 100);
+			summary = StringUtil.replaceHtml(summary);
 			dto.setSummary(summary);
 		}else{
 			dto.setSummary(summary);	
 		}
-//		Set<String> set = getBusiness(dto.getTitle(),dto.getContent());
 		List<String> set = getBusiness(dto.getTitle(),dto.getContent());
 		dto.setBus(set);
 		list.add(dto);
 	}
 
+	
 	/**
 	 * 加工文章集合，获取公司
 	 * @param page
@@ -375,6 +379,10 @@ public abstract class AbstractService {
 		}
 		return null;
 	}
+	protected static Set<String>  getArea(String title, String content){
+		Set<String> findAddress = FindAddress.findAddress(title+";"+content);
+		return findAddress;
+		}
 	/**
 	 * ES的分页查询数据方法
 	 * @param searchModel  查询Model
@@ -515,8 +523,8 @@ public abstract class AbstractService {
 		}
 		return map;
 	}
+	
 	protected List<TreeNode> getIndicatorInfo(BoolQueryBuilder bq){
-//		SearchRequestBuilder requestBuilder = ESUtils.getSearchBuilder(client);
 		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
 		//获取返回结果
 		SearchQuery query = getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
@@ -704,52 +712,127 @@ public abstract class AbstractService {
 	 * @param bq
 	 * @return
 	 */
-	protected JSONArray getBusinessByIndicator(BoolQueryBuilder bq) {
+	protected JSONArray getBusinessByIndicator(BoolQueryBuilder bq,int length) {
 		
 		TermsBuilder firstIndicatorBuilder = AggregationBuilders.terms("industryOne").field("industryOne");
 		TermsBuilder secondIndicatorBuilder = AggregationBuilders.terms("industryTwo").field("industryTwo");
 		TermsBuilder thirdIndicatorBuilder = AggregationBuilders.terms("industryThree").field("industryThree");
 		TermsBuilder fourIndicatorBuilder = AggregationBuilders.terms("industryFour").field("industryFour");
 		TermsBuilder businessBuilder = AggregationBuilders.terms("business").field("business");
-		//企业聚合到四级分类下
-		fourIndicatorBuilder.subAggregation(businessBuilder).size(3000);
-		thirdIndicatorBuilder.subAggregation(fourIndicatorBuilder);
-		secondIndicatorBuilder.subAggregation(thirdIndicatorBuilder);
-		firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
-		SearchQuery query =getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
-	
-		JSONArray result = template.query(query, res -> {
-			JSONArray data = new JSONArray();
-			Terms agg = res.getAggregations().get("industryOne");
-			
-			for(Terms.Bucket e1 :agg.getBuckets()){
-				Terms firsts = e1.getAggregations().get("industryTwo");
-				for(Terms.Bucket e2 :firsts.getBuckets()){
-					Terms seconds = e2.getAggregations().get("industryThree");
-					for(Terms.Bucket e3: seconds.getBuckets()){
-						Terms thirds=  e3.getAggregations().get("industryFour");
-						for(Terms.Bucket e4: thirds.getBuckets()){
-							Terms fours = e4.getAggregations().get("business");
-							for(Terms.Bucket e5 :fours.getBuckets()){
+		JSONArray result = null;
+		switch (length){
+			case 1:{
+				//企业聚合到四级分类下
+				firstIndicatorBuilder.subAggregation(businessBuilder).size(3000);
+				SearchQuery query =getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
+				 result = 	template.query(query, res ->{
+					JSONArray data = new JSONArray();
+					Terms agg = res.getAggregations().get("industryOne");
+					for(Terms.Bucket e1 :agg.getBuckets()){
+						Terms firsts = e1.getAggregations().get("business");
+						for(Terms.Bucket e2 :firsts.getBuckets() ){
+							JSONObject json = new JSONObject();
+							json.put("firstIndicator", e1.getKey());
+							json.put("business", e2.getKey());
+							data.add(json);
+						}
+					}
+					return data;
+				});
+			}
+			break;
+			case 2:{
+				secondIndicatorBuilder.subAggregation(businessBuilder).size(3000);
+				firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
+				SearchQuery query =getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
+				 result = 	template.query(query, res ->{
+					JSONArray data = new JSONArray();
+					Terms agg = res.getAggregations().get("industryOne");
+					for(Terms.Bucket e1 :agg.getBuckets()){
+						Terms firsts = e1.getAggregations().get("industryTwo");
+						for(Terms.Bucket e2 :firsts.getBuckets()){
+							Terms seconds = e2.getAggregations().get("business");
+							for (Terms.Bucket e3 :seconds.getBuckets()){
 								JSONObject json = new JSONObject();
 								json.put("firstIndicator", e1.getKey());
 								json.put("secondIndicator", e2.getKey());
-								json.put("thirdIndicator", e3.getKey());
-								json.put("fourIndicator", e4.getKey());
-								json.put("business", e5.getKey());
+								json.put("business", e3.getKey());
 								data.add(json);
+							}
+						}}
+					return data;
+				});
+			}
+			break;
+			case 3:{
+				//企业聚合到四级分类下
+				thirdIndicatorBuilder.subAggregation(businessBuilder).size(3000);
+				secondIndicatorBuilder.subAggregation(thirdIndicatorBuilder);
+				firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
+				SearchQuery query =getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
+				 result = 	template.query(query, res ->{
+					JSONArray data = new JSONArray();
+					Terms agg = res.getAggregations().get("industryOne");
+					for(Terms.Bucket e1 :agg.getBuckets()){
+						Terms firsts = e1.getAggregations().get("industryTwo");
+						for(Terms.Bucket e2 :firsts.getBuckets()){
+							Terms seconds = e2.getAggregations().get("industryThree");
+							for(Terms.Bucket e3: seconds.getBuckets()){
+								Terms  thirds = e3.getAggregations().get("business");
+								for(Terms.Bucket e4 :thirds.getBuckets()){
+									JSONObject json = new JSONObject();
+									json.put("firstIndicator", e1.getKey());
+									json.put("secondIndicator", e2.getKey());
+									json.put("thirdIndicator", e3.getKey());
+									json.put("business", e4.getKey());
+									data.add(json);
+								}
+							}}}
+					return data;	
+				});
+			}
+			break;
+			case 4:{
+				//企业聚合到四级分类下
+				fourIndicatorBuilder.subAggregation(businessBuilder).size(3000);
+				thirdIndicatorBuilder.subAggregation(fourIndicatorBuilder);
+				secondIndicatorBuilder.subAggregation(thirdIndicatorBuilder);
+				firstIndicatorBuilder.subAggregation(secondIndicatorBuilder);
+				SearchQuery query =getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
+			
+				 result = template.query(query, res -> {
+					JSONArray data = new JSONArray();
+					Terms agg = res.getAggregations().get("industryOne");
+					
+					for(Terms.Bucket e1 :agg.getBuckets()){
+						Terms firsts = e1.getAggregations().get("industryTwo");
+						for(Terms.Bucket e2 :firsts.getBuckets()){
+							Terms seconds = e2.getAggregations().get("industryThree");
+							for(Terms.Bucket e3: seconds.getBuckets()){
+								Terms thirds=  e3.getAggregations().get("industryFour");
+								for(Terms.Bucket e4: thirds.getBuckets()){
+									Terms fours = e4.getAggregations().get("business");
+									for(Terms.Bucket e5 :fours.getBuckets()){
+										JSONObject json = new JSONObject();
+										json.put("firstIndicator", e1.getKey());
+										json.put("secondIndicator", e2.getKey());
+										json.put("thirdIndicator", e3.getKey());
+										json.put("fourIndicator", e4.getKey());
+										json.put("business", e5.getKey());
+										data.add(json);
+									}
+								}
 							}
 						}
 					}
-				}
+				
+				return data;
+					
+				});
 			}
-		
-		return data;
-			
-		});
+			break;
+		}
 		return result;
-
-		
 	}
 	
 	/**
@@ -806,4 +889,5 @@ public abstract class AbstractService {
 		String[] times={time1,time2};
 		return times;
 	}
+	
 }

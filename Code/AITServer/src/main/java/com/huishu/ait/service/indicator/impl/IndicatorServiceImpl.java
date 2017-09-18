@@ -45,10 +45,10 @@ public class IndicatorServiceImpl extends AbstractService implements IndicatorSe
 	 * 根据分类指标查询公司信息
 	 */
 	@Override
-	public JSONArray getBusinessByIndicator(IndicatorDTO dto) {
+	public JSONArray getBusinessByIndicator(IndicatorDTO dto,int length) {
 
 		BoolQueryBuilder bq = getIndicatorContentBuilder(dto);
-		JSONArray json = 	getBusinessByIndicator(bq);
+		JSONArray json = 	getBusinessByIndicator(bq, length);
 		return json;
 	}
 	

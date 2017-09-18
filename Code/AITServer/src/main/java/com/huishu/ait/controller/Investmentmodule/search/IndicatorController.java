@@ -57,7 +57,9 @@ public class IndicatorController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		dto = chack(dto);
-		JSONArray jsonArray = service.getBusinessByIndicator(dto);
+		String[] msg = dto.getMsg();
+		
+		JSONArray jsonArray = service.getBusinessByIndicator(dto,msg.length);
 		return success(jsonArray);
 	}
 	/**
@@ -66,10 +68,21 @@ public class IndicatorController extends BaseController{
 	 */
 	private IndicatorDTO chack(IndicatorDTO dto) {
 		String[] msg = dto.getMsg();
-		dto.setFirstIndicator(msg[0]);
-		dto.setSecondIndicator(msg[1]);
-		dto.setThirdIndicator(msg[2]);
-		dto.setFourIndicator(msg[3]);
+		if(msg.length==1){
+			dto.setFirstIndicator(msg[0]);
+		}else if(msg.length==2){
+			dto.setFirstIndicator(msg[0]);
+			dto.setSecondIndicator(msg[1]);
+		}else if(msg.length == 3){
+			dto.setFirstIndicator(msg[0]);
+			dto.setSecondIndicator(msg[1]);
+			dto.setThirdIndicator(msg[2]);
+		}else {
+			dto.setFirstIndicator(msg[0]);
+			dto.setSecondIndicator(msg[1]);
+			dto.setThirdIndicator(msg[2]);
+			dto.setFourIndicator(msg[3]);
+		}
 		return dto;
 	}
 }

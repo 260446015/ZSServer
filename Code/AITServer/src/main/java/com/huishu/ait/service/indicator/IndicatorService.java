@@ -19,6 +19,6 @@ public interface IndicatorService {
 	List<TreeNode> getIndicatorList(IndicatorDTO dto);
 
 	/**根据分类信息，查询企业信息*/
-	JSONArray getBusinessByIndicator(IndicatorDTO dto);
+	JSONArray getBusinessByIndicator(IndicatorDTO dto,int length);
 	
 }
