@@ -67,7 +67,10 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
             	String summary = data.getSummary();
             	summary=summary.replaceAll("<a href[^>]*>", "");  
 				summary=summary.replaceAll("</a>", "");  
+				summary=summary.replaceAll("<A href[^>]*>", "");  
+				summary=summary.replaceAll("</A>", "");  
 				summary=summary.replaceAll("<img[^>]*/>", " "); 
+				summary=summary.replaceAll("<IMG[^>]*/>", " "); 
 				data.setSummary(summary);
             });
 //            Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
@@ -78,7 +81,10 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
             	String summary = data.getSummary();
             	summary=summary.replaceAll("<a href[^>]*>", "");  
 				summary=summary.replaceAll("</a>", "");  
+				summary=summary.replaceAll("<A href[^>]*>", "");  
+				summary=summary.replaceAll("</A>", "");  
 				summary=summary.replaceAll("<img[^>]*/>", " "); 
+				summary=summary.replaceAll("<IMG[^>]*/>", " "); 
 				data.setSummary(summary);
             });
 //            Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());

@@ -95,7 +95,10 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 							String summary = (String) map.get("summary");
 							summary=summary.replaceAll("<a href[^>]*>", "");  
 							summary=summary.replaceAll("</a>", "");  
+							summary=summary.replaceAll("<A href[^>]*>", "");  
+							summary=summary.replaceAll("</A>", "");  
 							summary=summary.replaceAll("<img[^>]*/>", " "); 
+							summary=summary.replaceAll("<IMG[^>]*/>", " "); 
 							jsonObject.put("id", map.get("_id"));
 							jsonObject.put("publishDate", map.get("publishDate"));
 							jsonObject.put("title", map.get("title"));
