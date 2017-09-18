@@ -267,11 +267,13 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		JSONArray array2 = getGardenInformationList(getAreaSearchDTODemo(gardenName));
 		String cs = gardenRepository.findByGardenName(gardenName).getEnterCompany();
 		JSONArray array3 = new JSONArray();
-		String[] enterCompany = cs.split("，");
-		for (int i = 0;i<(enterCompany.length<6?enterCompany.length:5) ;i++) {
-			JSONObject obj = new JSONObject();
-			obj.put("business", enterCompany[i]);
-			array3.add(obj);
+		if(!StringUtil.isEmpty(cs)){
+			String[] enterCompany = cs.split("，");
+			for (int i = 0;i<(enterCompany.length<6?enterCompany.length:5) ;i++) {
+				JSONObject obj = new JSONObject();
+				obj.put("business", enterCompany[i]);
+				array3.add(obj);
+			}
 		}
 //		JSONArray array3 = getGardenBusinessList(getAreaSearchDTODemo(gardenName));
 		GardenUser gu = gardenUserRepository.findByGardenNameAndUserId(gardenName, userId.intValue());
