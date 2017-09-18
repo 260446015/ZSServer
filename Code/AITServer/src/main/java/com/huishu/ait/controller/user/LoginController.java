@@ -69,16 +69,6 @@ public class LoginController extends BaseController {
 	private AdminService adminService;
 
 	/**
-	 * 根路径访问
-	 * 
-	 * @return 返回登录模板页
-	 */
-	@RequestMapping(value = "/")
-	public String tologin() {
-		return "login";
-	}
-	
-	/**
 	 * 测试页面
 	 * 
 	 * @return 
@@ -86,29 +76,6 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "test.html",method = RequestMethod.GET)
 	public String test() {
 		return "test";
-	}
-	
-	/**
-	 * 是否登录
-	 * 
-	 * @return 返回消息
-	 */
-	@RequestMapping(value = "apis/islogin.do", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult islogin() {
-		ShiroUser user = getCurrentShiroUser();
-		if(user==null){
-			return error("请先登录");
-		}else{
-			UserBase base = userBaseService.findUserByUserId(user.getId());
-			if(base.getIsWarn()==1){
-				adminService.warnAccount(user.getId(),0);
-				JSONObject object = new JSONObject();
-				object.put("iswarn", base.getExpireTime());
-				return success(object).setMessage("已经登录");
-			}
-			return success("").setMessage("已经登录");
-		}
 	}
 	
 	/**
