@@ -63,10 +63,24 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
             PageRequest request = new PageRequest(0, 10, new Sort(Direction.DESC, "publishTime"));
             dto.setDimension("高峰论坛");
             Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(), request);
+            page2.getContent().forEach((data)->{
+            	String summary = data.getSummary();
+            	summary=summary.replaceAll("<a href[^>]*>", "");  
+				summary=summary.replaceAll("</a>", "");  
+				summary=summary.replaceAll("<img[^>]*/>", " "); 
+				data.setSummary(summary);
+            });
 //            Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
             Page<AITInfo> pageBusiness2 = setPageBusiness(page2);
             dto.setDimension("科学研究");
             Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(), request);
+            page3.getContent().forEach((data)->{
+            	String summary = data.getSummary();
+            	summary=summary.replaceAll("<a href[^>]*>", "");  
+				summary=summary.replaceAll("</a>", "");  
+				summary=summary.replaceAll("<img[^>]*/>", " "); 
+				data.setSummary(summary);
+            });
 //            Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
             Page<AITInfo> pageBusiness3 = setPageBusiness(page3);
             map.put("forum", pageBusiness2);  //高峰论坛
