@@ -1,8 +1,6 @@
 package com.huishu.ait.controller.user;
 
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -16,7 +14,6 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -326,6 +323,16 @@ public class LoginController extends BaseController {
 			UsernamePasswordToken token = new CaptchaUsernamePasswordToken("xiongan", mi.toCharArray(), false, "", "", "user");
 			Subject currentUser = SecurityUtils.getSubject();
 			currentUser.login(token);
+			String ip = request.getHeader("x-forwarded-for");
+		    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+		        ip = request.getHeader("Proxy-Client-IP");
+		    }
+		    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+		        ip = request.getHeader("WL-Proxy-Client-IP");
+		    }
+		    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+		        ip = request.getRemoteAddr();
+		    }
 			if(getCurrentShiroUser()==null){
 				response.setContentType("application/json");
 			    OutputStream outputStream = response.getOutputStream();
@@ -333,7 +340,7 @@ public class LoginController extends BaseController {
 			    outputStream.flush();
 			    outputStream.close();
 			}
-			response.sendRedirect("http://127.0.0.1:8000/intelligence/headlines");
+			response.sendRedirect("http://"+ip+":8000/intelligence/headlines");
 		} catch (Exception e) {
 			LOGGER.error("免登陆失败！", e);
 		}
