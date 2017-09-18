@@ -82,7 +82,7 @@ public class CompanyServiceImpl implements CompanyService {
 				
 				Date date = format1.parse(companie.getString("publishTime"));
 				String publishDate = format.format(date);
-				obj.put("publishDate", publishDate);
+				obj.put("publishTime", publishDate);
 				obj.put("content", companie.getString("content"));
 				obj.put("title", companie.getString("title"));
 				obj.put("summary", StringUtil.replaceHtml(companie.getString("summary")));
