@@ -34,7 +34,7 @@ import com.huishu.ait.service.warning.WarningService;
 
 @Service
 public class WarningServiceImpl extends AbstractService implements WarningService {
-	
+
 	private static Logger LOGGER = LoggerFactory.getLogger(WarningServiceImpl.class);
 
 	@Autowired
@@ -46,27 +46,25 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 	@Autowired
 	private ChangeRepository changeRepository;
 
-	/*@Override
-	public JSONArray getBusinessOutflowList(AreaSearchDTO searchModel) {
-		// 组装查询条件
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("dimension", "疑似外流");
-		map.put("park", searchModel.getPark());
-		// 组装排序字段,按时间和点击量降序排列
-		String[] order = { "publishDate", "hitCount" };
-		List<String> orderList = Arrays.asList(order);
-		// 组装返回数据字段
-		String[] data = { "publishDate","business", "title", "content","warnTime","park"};
-		List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, null,orderList, dataList,true);
-		return array;
-	}*/
-	
+	/*
+	 * @Override public JSONArray getBusinessOutflowList(AreaSearchDTO
+	 * searchModel) { // 组装查询条件 Map<String, String> map = new HashMap<String,
+	 * String>(); map.put("dimension", "疑似外流"); map.put("park",
+	 * searchModel.getPark()); // 组装排序字段,按时间和点击量降序排列 String[] order = {
+	 * "publishDate", "hitCount" }; List<String> orderList =
+	 * Arrays.asList(order); // 组装返回数据字段 String[] data = {
+	 * "publishDate","business", "title", "content","warnTime","park"};
+	 * List<String> dataList = Arrays.asList(data); JSONArray array =
+	 * getEsData(searchModel, map, null,orderList, dataList,true); return array;
+	 * }
+	 */
+
 	@Override
 	public Page<ExternalFlow> getBusinessOutflowList(AreaSearchDTO searchModel) {
 		// 组装查询条件
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
-		bq.must(QueryBuilders.termQuery("dimension", "疑似外流")).must(QueryBuilders.termQuery("park", searchModel.getPark()));
+		bq.must(QueryBuilders.termQuery("dimension", "疑似外流"))
+				.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		Sort sort = new Sort(Direction.DESC, "publishDate");
 		PageRequest pageable = new PageRequest(searchModel.getPageNumber() - 1, searchModel.getPageSize(), sort);
 		Page<ExternalFlow> page = externalFlowRepository.search(bq, pageable);
@@ -80,11 +78,11 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 			return null;
 		}
 		Sort sort = new Sort(Direction.DESC, "createTime");
-		PageRequest pageRequest = new PageRequest(searchModel.getPageNumber() - 1, searchModel.getPageSize(),sort);
+		PageRequest pageRequest = new PageRequest(searchModel.getPageNumber() - 1, searchModel.getPageSize(), sort);
 		Page<ChangeInfo> findAll = null;
-		try{
-			findAll = changeRepository.findAll(pageRequest);
-		}catch(Exception e){
+		try {
+			findAll = changeRepository.findByPark(searchModel.getPark(), pageRequest);
+		} catch (Exception e) {
 			LOGGER.error("查询信息变更失败");
 		}
 		return findAll;
@@ -99,21 +97,21 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 	public List<ChangeInfo> getChangeInfo(String park) {
 		List<ChangeInfo> list = changeRepository.findByParkAndDr(park, 0);
 		return list;
-		
+
 	}
 
 	@Override
 	public boolean deleteWarning(String id) {
-		try{
+		try {
 			ChangeInfo findOne = changeRepository.findOne(Integer.valueOf(id));
 			findOne.setDr(1);
 			changeRepository.save(findOne);
 			return true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			LOGGER.error("删除预警数量失败");
 		}
 		return false;
-		
+
 	}
 
 }
