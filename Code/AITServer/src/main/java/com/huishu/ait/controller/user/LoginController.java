@@ -1,5 +1,8 @@
 package com.huishu.ait.controller.user;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -13,8 +16,10 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
@@ -29,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ShiroUtil;
@@ -42,6 +48,7 @@ import com.huishu.ait.entity.dto.RegisterDTO;
 import com.huishu.ait.exception.AccountExpiredException;
 import com.huishu.ait.exception.AccountStartException;
 import com.huishu.ait.security.CaptchaManager;
+import com.huishu.ait.security.CaptchaUsernamePasswordToken;
 import com.huishu.ait.security.RSAUtils;
 import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 import com.huishu.ait.service.user.UserBaseService;
@@ -297,6 +304,38 @@ public class LoginController extends BaseController {
 		} catch (Exception e) {
 			LOGGER.error("findPassword失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "apis/temporaryDemo.do", method = RequestMethod.GET)
+	public void temporaryDemo(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			KeyPair keyPair = RSAUtils.getKeys();
+			RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+			RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+			String modulus = publicKey.getModulus().toString();
+			String public_exponent = publicKey.getPublicExponent().toString();
+			String private_exponent = privateKey.getPrivateExponent().toString();
+			// 使用模和指数生成公钥和私钥
+			RSAPublicKey pubKey = RSAUtils.getPublicKey(modulus, public_exponent);
+			RSAPrivateKey priKey = RSAUtils.getPrivateKey(modulus, private_exponent);
+			request.getSession().setAttribute("privateKey", priKey);
+			// 加密后的密文
+			String mi= RSAUtils.encryptByPublicKey("nagnoix", pubKey);
+			
+			UsernamePasswordToken token = new CaptchaUsernamePasswordToken("xiongan", mi.toCharArray(), false, "", "", "user");
+			Subject currentUser = SecurityUtils.getSubject();
+			currentUser.login(token);
+			if(getCurrentShiroUser()==null){
+				response.setContentType("application/json");
+			    OutputStream outputStream = response.getOutputStream();
+			    outputStream.write(JSON.toJSONString("免登陆失败，请联系管理员").getBytes("UTF-8"));
+			    outputStream.flush();
+			    outputStream.close();
+			}
+			response.sendRedirect("http://127.0.0.1:8000/intelligence/headlines");
+		} catch (Exception e) {
+			LOGGER.error("免登陆失败！", e);
 		}
 	}
 }

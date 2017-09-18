@@ -60,4 +60,9 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 		return result.setSuccess(true).setMessage("添加成功");
 	}
 
+	@Override
+	public UserPark findParkInformation(Long id) {
+		return userParkRepository.findOne(id);
+	}
+
 }

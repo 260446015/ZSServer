@@ -7,11 +7,14 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
@@ -27,8 +30,9 @@ import com.huishu.ait.service.user.backstage.AdminService;
  * @author yindq
  * @date 2017年8月24日
  */
+@Controller
 @RestController
-@RequestMapping(value = "/apis/admin")
+@RequestMapping(value = "/apis/back/admin")
 public class AdminController extends BaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
@@ -65,6 +69,7 @@ public class AdminController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		if(searchModel.getType()=="1"){
+			//试用会员申请变成正式会员，状态为9
 			searchModel.setType("9");
 		}
 		try {
@@ -78,6 +83,29 @@ public class AdminController extends BaseController {
 			LOGGER.error("getAccountList查询失败！",e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
+	}
+	
+	/**
+	 * 查看账号详情（即查看名片）
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "getAccountImg.json", method = RequestMethod.GET)
+	public AjaxResult getAccountImg(Long id) {
+		if (null==id) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			UserBase base = userBaseService.findUserByUserId(id);
+			String imgUrl=ImgConstant.IP_PORT+base.getImageUrl();
+			JSONObject object = new JSONObject();
+			object.put("img", imgUrl);
+			return success(object);
+		} catch (Exception e) {
+			LOGGER.error("auditAccount失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
 	}
 	
 	/**

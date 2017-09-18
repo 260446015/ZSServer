@@ -26,5 +26,11 @@ public interface UserParkService {
 	 * @return
 	 */
 	AjaxResult addGarden(UserPark userPark);
+	/**
+	 * 查看园区信息
+	 * @param id
+	 * @return
+	 */
+	UserPark findParkInformation(Long id);
 	
 }

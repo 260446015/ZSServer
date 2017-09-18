@@ -2,7 +2,6 @@ package com.huishu.ait.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,18 +40,11 @@ public class UserPark implements Serializable {
 	private String position;
 	/**简介  */
 	private String introduction;
-	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public String getIntroduction() {
-		return introduction;
-	}
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
 	}
 	public String getName() {
 		return name;
@@ -96,11 +88,11 @@ public class UserPark implements Serializable {
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	public String getintroduction() {
+	public String getIntroduction() {
 		return introduction;
 	}
-	public void setintroduction(String introduction) {
+	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
 	}
-
+	
 }

@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import com.huishu.ait.controller.Industrymodule.garden.GardenController;
 import com.huishu.ait.security.CustomCredentialsMatcher;
 import com.huishu.ait.security.MyFormAuthenticationFilter;
+import com.huishu.ait.security.MySessionManager;
 import com.huishu.ait.security.MyUserFilter;
 import com.huishu.ait.security.ShiroDbRealm;
 
@@ -59,6 +60,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/islogin.do", "anon");
 		filterChainDefinitionMap.put("/apis/imageUpload.do", "anon");
 		filterChainDefinitionMap.put("/apis/unauthorized.do", "anon");
+		filterChainDefinitionMap.put("/apis/temporaryDemo.do", "anon");
 		filterChainDefinitionMap.put("/apis/oauth/oauth_callback", "anon");
 		filterChainDefinitionMap.put("/apis/oauth/getChangeInfo.json", "anon");
 		
@@ -173,9 +175,12 @@ public class ShiroConfiguration {
      */
     @Bean(name = "defaultWebSessionManager")
     public DefaultWebSessionManager getDefaultWebSessionManager(){
-    	 DefaultWebSessionManager manager = new DefaultWebSessionManager();
-    	 //30min  毫秒
+    	MySessionManager manager = new MySessionManager();
+    	 //会话超时时间，单位：毫秒
     	 manager.setGlobalSessionTimeout(1800000);
+    	 //定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话
+    	 manager.setSessionValidationInterval(600000);
+    	 manager.setSessionValidationSchedulerEnabled(true);
     	 manager.setSessionDAO(getEnterpriseCacheSessionDAO());
     	 return manager;
     }
