@@ -136,7 +136,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			// findGardensPage =
 			// gardenRepository.findByNameLike(searchName,pageRequest);
 			// }else{//
-			findGardensPage = gardenRepository.findByAreaAndIndustryLikeOrderByIdDesc(area, industryType,
+			findGardensPage = gardenRepository.findByAreaLikeAndIndustryLikeOrderByIdDesc(area, industryType,
 					pageRequest);
 			findGardensPage.forEach(GardenData ->{
 				String gardenIntroduce = GardenData.getGardenIntroduce();

@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.elasticsearch.client.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +44,6 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
     private UserCollectionRepository userCollectionRepository;
     
     @SuppressWarnings("unused")
-    @Autowired
-    private Client client;
     
     /**
      * 获取产业政策列表
