@@ -218,9 +218,9 @@ public class StringUtil {
 	 * 字符串去掉html标签
 	 */
 	public static String replaceHtml(String str){
-		str=str.replaceAll("<a href[^>]*>", "");  
+		str=str.replaceAll("<a [^>]*>", "");  
 		str=str.replaceAll("</a>", "");  
-		str=str.replaceAll("<A href[^>]*>", "");  
+		str=str.replaceAll("<A [^>]*>", "");  
 		str=str.replaceAll("</A>", "");  
 		str=str.replaceAll("<img[^>]*/>", " "); 
 		str=str.replaceAll("<IMG[^>]*/>", " "); 
