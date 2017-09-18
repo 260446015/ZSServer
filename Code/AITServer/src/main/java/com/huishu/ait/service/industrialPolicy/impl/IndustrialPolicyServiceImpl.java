@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.elasticsearch.client.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +44,6 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
     private UserCollectionRepository userCollectionRepository;
     
     @SuppressWarnings("unused")
-    @Autowired
-    private Client client;
     
     /**
      * 获取产业政策列表
@@ -63,10 +60,30 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
             PageRequest request = new PageRequest(0, 10, new Sort(Direction.DESC, "publishTime"));
             dto.setDimension("高峰论坛");
             Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(), request);
+            page2.getContent().forEach((data)->{
+            	String summary = data.getSummary();
+            	summary=summary.replaceAll("<a href[^>]*>", "");  
+				summary=summary.replaceAll("</a>", "");  
+				summary=summary.replaceAll("<A href[^>]*>", "");  
+				summary=summary.replaceAll("</A>", "");  
+				summary=summary.replaceAll("<img[^>]*/>", " "); 
+				summary=summary.replaceAll("<IMG[^>]*/>", " "); 
+				data.setSummary(summary);
+            });
 //            Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
             Page<AITInfo> pageBusiness2 = setPageBusiness(page2);
             dto.setDimension("科学研究");
             Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(), request);
+            page3.getContent().forEach((data)->{
+            	String summary = data.getSummary();
+            	summary=summary.replaceAll("<a href[^>]*>", "");  
+				summary=summary.replaceAll("</a>", "");  
+				summary=summary.replaceAll("<A href[^>]*>", "");  
+				summary=summary.replaceAll("</A>", "");  
+				summary=summary.replaceAll("<img[^>]*/>", " "); 
+				summary=summary.replaceAll("<IMG[^>]*/>", " "); 
+				data.setSummary(summary);
+            });
 //            Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
             Page<AITInfo> pageBusiness3 = setPageBusiness(page3);
             map.put("forum", pageBusiness2);  //高峰论坛

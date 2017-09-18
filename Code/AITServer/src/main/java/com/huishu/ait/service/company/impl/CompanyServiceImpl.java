@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.ESUtils;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.dto.CompanyDTO;
 import com.huishu.ait.repository.company.CompanyRepository;
@@ -84,7 +85,7 @@ public class CompanyServiceImpl implements CompanyService {
 				obj.put("publishDate", publishDate);
 				obj.put("content", companie.getString("content"));
 				obj.put("title", companie.getString("title"));
-				obj.put("summary", companie.getString("summary"));
+				obj.put("summary", StringUtil.replaceHtml(companie.getString("summary")));
 				data.add(obj);
 			}
 			LOGGER.info("查询到的企业:"+data.toJSONString());

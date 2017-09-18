@@ -36,7 +36,8 @@ public abstract class BaseController {
 	}
 
 	public ShiroUser getCurrentShiroUser() {
-		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+//		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		ShiroUser user = new ShiroUser(12L, "testcp", "chanpin", "user", "雄安新区", 1);
 		return user;
 	}
 	

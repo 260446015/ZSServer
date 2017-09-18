@@ -98,6 +98,7 @@ public class BusinessServiceImpl extends AbstractService implements BusinessServ
                 map.put("publishDate", p.getPublishDate());
                 map.put("title", p.getTitle());
                 map.put("content", p.getContent());
+                map.put("summary", StringUtil.replaceHtml(p.getSummary()));
                 array.add(map);
              }
             return array;
