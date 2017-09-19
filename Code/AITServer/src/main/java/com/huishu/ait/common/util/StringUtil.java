@@ -7,8 +7,6 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 字符串工具类
@@ -16,8 +14,6 @@ import org.slf4j.LoggerFactory;
  * @author gzg
  */
 public class StringUtil {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(StringUtil.class);
 
 	private final static int[] LI_SECPOSVALUE = { 1601, 1637, 1833, 2078, 2274, 2302, 2433, 2594, 2787, 3106, 3212,
 			3472, 3635, 3722, 3730, 3858, 4027, 4086, 4390, 4558, 4684, 4925, 5249, 5590 };
@@ -79,7 +75,6 @@ public class StringUtil {
 		}
 		return str;
 	}
-
 	/**
 	 * 根据用户请求判断用户使用的是否是IE浏览器
 	 * 
@@ -93,7 +88,6 @@ public class StringUtil {
 
 		return isIE;
 	}
-
 	/**
 	 * 校验字符串是否为空或为""
 	 * 
@@ -219,19 +213,20 @@ public class StringUtil {
 		}
 		return true;
 	}
-
+	
 	/**
 	 * 字符串去掉html标签
 	 */
-	public static String replaceHtml(String str) {
-		str = str.replaceAll("<a [^>]*>", "");
-		str = str.replaceAll("</a>", "");
-		str = str.replaceAll("<A [^>]*>", "");
-		str = str.replaceAll("</A>", "");
-		str = str.replaceAll("<img[^>]*/>", " ");
-		str = str.replaceAll("<IMG[^>]*/>", " ");
+	public static String replaceHtml(String str){
+		str=str.replaceAll("<a [^>]*>", "");  
+		str=str.replaceAll("</a>", "");  
+		str=str.replaceAll("<A [^>]*>", "");  
+		str=str.replaceAll("</A>", "");  
+		str=str.replaceAll("<img[^>]*/>", " "); 
+		str=str.replaceAll("<IMG[^>]*/>", " "); 
 		str = str.replaceAll("&nbsp;", "");
-		LOGGER.info("去掉html标签的内容是:" + str);
+		str=str.replaceAll("<a [^>]*", "");  
+		str=str.replaceAll("<img[^>]*", " "); 
 		return str;
 	}
 
