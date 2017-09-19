@@ -106,7 +106,7 @@ public class BusinessController extends BaseController {
         try {
             dto.setPark(getUserPark());
             initPage(dto);
-            dto.setDimension("园区动态");
+            dto.setDimension("企业动态");
             Page<AITInfo> page = businessService.getBusinessBehaviours(dto);
             for (AITInfo p : page) {
                 JSONObject map = new JSONObject();

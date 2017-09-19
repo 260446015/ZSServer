@@ -18,6 +18,7 @@ public class StringUtil {
 	private static final String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式
 	private static final String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; // 定义style的正则表达式
 	private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
+	private static final String regEx_html1 = "<[^>]+"; // 定义HTML标签的正则表达式
 	private static final String regEx_space = "\\s*|\t|\r|\n";// 定义空格回车换行符
 
 	private final static int[] LI_SECPOSVALUE = { 1601, 1637, 1833, 2078, 2274, 2302, 2433, 2594, 2787, 3106, 3212,
@@ -236,6 +237,10 @@ public class StringUtil {
 		Pattern p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
 		Matcher m_html = p_html.matcher(htmlStr);
 		htmlStr = m_html.replaceAll(""); // 过滤html标签
+		
+		Pattern p_html1 = Pattern.compile(regEx_html1, Pattern.CASE_INSENSITIVE);
+		Matcher m_html1 = p_html1.matcher(htmlStr);
+		htmlStr = m_html1.replaceAll(""); // 过滤html标签
 
 		Pattern p_space = Pattern.compile(regEx_space, Pattern.CASE_INSENSITIVE);
 		Matcher m_space = p_space.matcher(htmlStr);
