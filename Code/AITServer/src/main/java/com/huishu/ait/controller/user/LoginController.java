@@ -307,7 +307,7 @@ public class LoginController extends BaseController {
 			    outputStream.flush();
 			    outputStream.close();
 			}
-			response.sendRedirect("http://"+ip+":8000/intelligence/headlines");
+			response.sendRedirect("http://58.16.181.24:9208/intelligence/headlines");
 		} catch (Exception e) {
 			LOGGER.error("免登陆失败！", e);
 		}
