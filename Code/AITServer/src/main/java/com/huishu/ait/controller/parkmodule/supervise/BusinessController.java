@@ -76,7 +76,12 @@ public class BusinessController extends BaseController {
                 map.put("publishDate", p.getPublishDate());
                 map.put("title", p.getTitle());
                 map.put("content", p.getContent());
-                map.put("summary", StringUtil.replaceHtml(p.getSummary()));
+                String summary = p.getSummary();
+                if(StringUtil.isEmpty(summary)){
+                	summary = p.getContent().substring(0, 50);
+                }
+                summary = StringUtil.replaceHtml(summary);
+                map.put("summary", summary);
                 array.add(map);
              }
             Long totleNumber = page.getTotalElements();

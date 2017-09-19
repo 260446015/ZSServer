@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 字符串工具类
@@ -14,6 +16,8 @@ import org.apache.commons.lang.StringUtils;
  * @author gzg
  */
 public class StringUtil {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(StringUtil.class);
 
 	private final static int[] LI_SECPOSVALUE = { 1601, 1637, 1833, 2078, 2274, 2302, 2433, 2594, 2787, 3106, 3212,
 			3472, 3635, 3722, 3730, 3858, 4027, 4086, 4390, 4558, 4684, 4925, 5249, 5590 };
@@ -217,17 +221,25 @@ public class StringUtil {
 	/**
 	 * 字符串去掉html标签
 	 */
-	public static String replaceHtml(String str){
-		str=str.replaceAll("<a [^>]*>", "");  
-		str=str.replaceAll("</a>", "");  
-		str=str.replaceAll("<A [^>]*>", "");  
-		str=str.replaceAll("</A>", "");  
-		str=str.replaceAll("<img[^>]*/>", " "); 
-		str=str.replaceAll("<IMG[^>]*/>", " "); 
-		str = str.replaceAll("&nbsp;", "");
-		str=str.replaceAll("<a [^>]*", "");  
-		str=str.replaceAll("<img[^>]*", " "); 
-		return str;
+	public static String replaceHtml(String htmlStr){
+		String regEx_script="<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式 
+        String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式 
+        String regEx_html="<[^>]+>"; //定义HTML标签的正则表达式 
+         
+        Pattern p_script=Pattern.compile(regEx_script,Pattern.CASE_INSENSITIVE); 
+        Matcher m_script=p_script.matcher(htmlStr); 
+        htmlStr=m_script.replaceAll(""); //过滤script标签 
+         
+        Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE); 
+        Matcher m_style=p_style.matcher(htmlStr); 
+        htmlStr=m_style.replaceAll(""); //过滤style标签 
+         
+        Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE); 
+        Matcher m_html=p_html.matcher(htmlStr); 
+        htmlStr=m_html.replaceAll(""); //过滤html标签 
+
+        LOGGER.info("去除掉html标签后的内容:"+ htmlStr);
+        return htmlStr.trim(); //返回文本字符串 
 	}
 
 }
