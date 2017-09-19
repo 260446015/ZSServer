@@ -15,6 +15,11 @@ import org.apache.commons.lang.StringUtils;
  */
 public class StringUtil {
 
+	private static final String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式
+	private static final String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; // 定义style的正则表达式
+	private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
+	private static final String regEx_space = "\\s*|\t|\r|\n";// 定义空格回车换行符
+
 	private final static int[] LI_SECPOSVALUE = { 1601, 1637, 1833, 2078, 2274, 2302, 2433, 2594, 2787, 3106, 3212,
 			3472, 3635, 3722, 3730, 3858, 4027, 4086, 4390, 4558, 4684, 4925, 5249, 5590 };
 	private final static String[] LC_FIRSTLETTER = { "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n",
@@ -75,6 +80,7 @@ public class StringUtil {
 		}
 		return str;
 	}
+
 	/**
 	 * 根据用户请求判断用户使用的是否是IE浏览器
 	 * 
@@ -88,6 +94,7 @@ public class StringUtil {
 
 		return isIE;
 	}
+
 	/**
 	 * 校验字符串是否为空或为""
 	 * 
@@ -213,21 +220,27 @@ public class StringUtil {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * 字符串去掉html标签
 	 */
-	public static String replaceHtml(String str){
-		str=str.replaceAll("<a [^>]*>", "");  
-		str=str.replaceAll("</a>", "");  
-		str=str.replaceAll("<A [^>]*>", "");  
-		str=str.replaceAll("</A>", "");  
-		str=str.replaceAll("<img[^>]*/>", " "); 
-		str=str.replaceAll("<IMG[^>]*/>", " "); 
-		str = str.replaceAll("&nbsp;", "");
-		str=str.replaceAll("<a [^>]*", "");  
-		str=str.replaceAll("<img[^>]*", " "); 
-		return str;
+	public static String replaceHtml(String htmlStr) {
+		Pattern p_script = Pattern.compile(regEx_script, Pattern.CASE_INSENSITIVE);
+		Matcher m_script = p_script.matcher(htmlStr);
+		htmlStr = m_script.replaceAll(""); // 过滤script标签
+
+		Pattern p_style = Pattern.compile(regEx_style, Pattern.CASE_INSENSITIVE);
+		Matcher m_style = p_style.matcher(htmlStr);
+		htmlStr = m_style.replaceAll(""); // 过滤style标签
+
+		Pattern p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
+		Matcher m_html = p_html.matcher(htmlStr);
+		htmlStr = m_html.replaceAll(""); // 过滤html标签
+
+		Pattern p_space = Pattern.compile(regEx_space, Pattern.CASE_INSENSITIVE);
+		Matcher m_space = p_space.matcher(htmlStr);
+		htmlStr = m_space.replaceAll(""); // 过滤空格回车标签
+		return htmlStr.trim(); // 返回文本字符串
 	}
 
 }
