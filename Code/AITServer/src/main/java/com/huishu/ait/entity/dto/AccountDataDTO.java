@@ -5,10 +5,10 @@ import java.io.Serializable;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 园区数据展示DTO
+ * 账号数据展示DTO
  * 
  * @author yindq
- * @create 2017年9月7日
+ * @create 2017年9月19日
  */
 public class AccountDataDTO implements Serializable {
 	/**
@@ -16,11 +16,11 @@ public class AccountDataDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	/**园区名字*/
+	/** 真实姓名 */
 	private String name;
-	/**地域*/
+	/** 账号 */
 	private String account;
-	/**会员数量*/
+	/** 开通时间  */
 	private String time;
 	
 	public Long getId() {

@@ -2,15 +2,11 @@ package com.huishu.ait.entity.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-
 /**
- * 注册用户DTO
+ * 添加正式用户DTO
+ * 
  * @author yindq
- * @date 2017年8月24日
+ * @create 2017年9月19日
  */
 public class AddAccountDTO implements Serializable {
 	/**
