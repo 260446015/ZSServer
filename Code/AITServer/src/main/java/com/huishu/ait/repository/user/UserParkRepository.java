@@ -105,4 +105,5 @@ public interface UserParkRepository extends CrudRepository<UserPark,Long>{
 	 */
 	@Query(value="SELECT count(1) from t_user_base where user_park =? and user_type='user' and is_check=1",nativeQuery = true)
 	Integer findParkAccountCount(String park);
+
 }

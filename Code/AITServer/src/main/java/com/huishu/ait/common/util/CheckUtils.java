@@ -2,11 +2,8 @@ package com.huishu.ait.common.util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-
-import com.forget.findAddress.FindAddress;
 
 /**
  * 校验工具类
@@ -73,5 +70,10 @@ public abstract class CheckUtils {
 	public static boolean isOneDay(String d1, String d2) {
 		return d1.split(" ")[0].equals(d2.split(" ")[0]);
 	}
-
+	
+	
+	
+	public static void array(){
+		
+	}
 }

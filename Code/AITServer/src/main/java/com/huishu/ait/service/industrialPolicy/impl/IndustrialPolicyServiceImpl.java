@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.repository.ExpertOpinion.BaseElasticsearch;
@@ -62,12 +63,10 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
             Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(), request);
             page2.getContent().forEach((data)->{
             	String summary = data.getSummary();
-            	summary=summary.replaceAll("<a href[^>]*>", "");  
-				summary=summary.replaceAll("</a>", "");  
-				summary=summary.replaceAll("<A href[^>]*>", "");  
-				summary=summary.replaceAll("</A>", "");  
-				summary=summary.replaceAll("<img[^>]*/>", " "); 
-				summary=summary.replaceAll("<IMG[^>]*/>", " "); 
+            	if(StringUtil.isEmpty(summary)){
+            		summary = data.getContent().substring(0, 50);
+            	}
+            	summary = StringUtil.replaceHtml(summary);
 				data.setSummary(summary);
             });
 //            Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
@@ -76,12 +75,10 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
             Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(), request);
             page3.getContent().forEach((data)->{
             	String summary = data.getSummary();
-            	summary=summary.replaceAll("<a href[^>]*>", "");  
-				summary=summary.replaceAll("</a>", "");  
-				summary=summary.replaceAll("<A href[^>]*>", "");  
-				summary=summary.replaceAll("</A>", "");  
-				summary=summary.replaceAll("<img[^>]*/>", " "); 
-				summary=summary.replaceAll("<IMG[^>]*/>", " "); 
+            	if(StringUtil.isEmpty(summary)){
+            		summary = data.getContent().substring(0, 50);
+            	}
+            	summary = StringUtil.replaceHtml(summary);
 				data.setSummary(summary);
             });
 //            Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
