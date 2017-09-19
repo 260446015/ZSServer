@@ -47,9 +47,7 @@ import com.huishu.ait.exception.AccountStartException;
 import com.huishu.ait.security.CaptchaManager;
 import com.huishu.ait.security.CaptchaUsernamePasswordToken;
 import com.huishu.ait.security.RSAUtils;
-import com.huishu.ait.security.ShiroDbRealm.ShiroUser;
 import com.huishu.ait.service.user.UserBaseService;
-import com.huishu.ait.service.user.backstage.AdminService;
 
 /**
  * 用户登录相关
@@ -65,8 +63,6 @@ public class LoginController extends BaseController {
 	private UserBaseService userBaseService;
 	@Resource
 	private CaptchaManager captchaManager;
-	@Autowired
-	private AdminService adminService;
 
 	/**
 	 * 测试页面

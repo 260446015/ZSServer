@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.common.SearchModel;
+import com.huishu.ait.entity.dto.AccountDataDTO;
 import com.huishu.ait.entity.dto.GardenDataDTO;
 import com.huishu.ait.entity.dto.GardenSearchDTO;
 import com.huishu.ait.repository.user.UserParkRepository;
@@ -32,14 +34,14 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 		List<Object[]> list = userParkRepository.findGardenList(searchModel.getArea(), searchModel.getPageFrom(), searchModel.getPageSize(),searchModel.getSearch());
 		for (Object[] str : list) {
 			GardenDataDTO dto = new GardenDataDTO();
-			dto.setId((Long)str[0]);
-			dto.setArea((String)str[2]);
-			dto.setParkName((String)str[1]);
-			Integer accountCount = userParkRepository.findAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
-			Integer checkAccountCount = userParkRepository.findCheckAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
-			Integer expireAccountCount = userParkRepository.findExpireAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
-			Integer normalAccountCount = userParkRepository.findNormalAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
-			Integer dueAccountCount = userParkRepository.findDueAccountCount((String)str[0], searchModel.getType(),times[0], times[1]);
+			dto.setId(Long.valueOf(str[0].toString()));
+			dto.setArea(str[2].toString());
+			dto.setParkName(str[1].toString());
+			Integer accountCount = userParkRepository.findAccountCount(str[0].toString(), searchModel.getType(),times[0], times[1]);
+			Integer checkAccountCount = userParkRepository.findCheckAccountCount(str[0].toString(), searchModel.getType(),times[0], times[1]);
+			Integer expireAccountCount = userParkRepository.findExpireAccountCount(str[0].toString(), searchModel.getType(),times[0], times[1]);
+			Integer normalAccountCount = userParkRepository.findNormalAccountCount(str[0].toString(), searchModel.getType(),times[0], times[1]);
+			Integer dueAccountCount = userParkRepository.findDueAccountCount(str[0].toString(), searchModel.getType(),times[0], times[1]);
 			dto.setAccountCount(accountCount);
 			dto.setCheckAccountCount(checkAccountCount);
 			dto.setDueAccountCount(dueAccountCount);
@@ -63,6 +65,24 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 	@Override
 	public UserPark findParkInformation(Long id) {
 		return userParkRepository.findOne(id);
+	}
+
+	@Override
+	public List<AccountDataDTO> findParkAccount(SearchModel searchModel) {
+		List<AccountDataDTO> listData = new ArrayList<AccountDataDTO>();
+		UserPark park = userParkRepository.findOne(searchModel.getUserId());
+		Integer count = userParkRepository.findParkAccountCount(park.getName());
+		searchModel.setTotalSize(count);
+		List<Object[]> list = userParkRepository.findParkAccount(park.getName(),searchModel.getPageFrom(), searchModel.getPageSize());
+		for (Object[] objects : list) {
+			AccountDataDTO dto = new AccountDataDTO();
+			dto.setId(Long.valueOf(objects[0].toString()));
+			dto.setAccount(objects[1].toString());
+			dto.setName(objects[2].toString());
+			dto.setTime(objects[3].toString());
+			listData.add(dto);
+		}
+		return listData;
 	}
 
 }

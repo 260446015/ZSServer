@@ -55,6 +55,10 @@ public class UserBase implements Serializable {
 	@Column(name = "user_email" )
 	private String userEmail;
 	
+	/**所属职务*/
+	@Column(name = "user_job" )
+	private String userJob;
+	
 	/**部门*/
 	@Column(name = "user_department" )
 	private String userDepartment;
@@ -66,10 +70,6 @@ public class UserBase implements Serializable {
 	/**所属园区*/
 	@Column(name = "user_park" )
 	private String userPark;
-	
-	/** 地域 */
-	@Column
-	private String area;
 
 	/**创建时间*/
 	@Column(name = "create_time")
@@ -107,6 +107,14 @@ public class UserBase implements Serializable {
 	@Transient
 	private List<Long> permissions;
 
+	public String getUserJob() {
+		return userJob;
+	}
+
+	public void setUserJob(String userJob) {
+		this.userJob = userJob;
+	}
+
 	public Integer getIsCheck() {
 		return isCheck;
 	}
@@ -129,14 +137,6 @@ public class UserBase implements Serializable {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
-	}
-
-	public String getArea() {
-		return area;
-	}
-
-	public void setArea(String area) {
-		this.area = area;
 	}
 
 	public Long getId() {

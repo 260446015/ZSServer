@@ -12,59 +12,40 @@ import org.hibernate.validator.constraints.Length;
  * @author yindq
  * @date 2017年8月24日
  */
-public class RegisterDTO implements Serializable {
+public class AddAccountDTO implements Serializable {
 	/**
 	 * 可序列化
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/**手机号*/
-	@Pattern(regexp = "^((13[0-9])|(14[57])|(15[0-9])|(17[01678])|(18[0-9]))\\d{8}$")
+	/** 手机 */
 	private String telphone;
-	/**验证码*/
-	@Length(min = 6, max = 6)
-	private String captcha;
+	/** 姓名 */
+	private String name;
 	/**邮箱*/
-	@Email
 	private String userEmail;
 	/**园区名称*/
-	@Length(min = 4, max = 20)
 	private String park;
 	/**公司名称*/
 	private String company;
 	/**部门名称*/
-	@Length(min = 2, max = 20)
 	private String department;
 	/**所属职务*/
 	private String job;
 	/**用户类型*/
-	@Length(min = 4, max = 5)
 	private String userType;
-	private String imageUrl;
-	
-	public String getJob() {
-		return job;
-	}
-	public void setJob(String job) {
-		this.job = job;
-	}
-	public String getImageUrl() {
-		return imageUrl;
-	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+	/** 试用期限 */
+	private String time;
 	public String getTelphone() {
 		return telphone;
 	}
 	public void setTelphone(String telphone) {
 		this.telphone = telphone;
 	}
-	public String getCaptcha() {
-		return captcha;
+	public String getName() {
+		return name;
 	}
-	public void setCaptcha(String captcha) {
-		this.captcha = captcha;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getUserEmail() {
 		return userEmail;
@@ -90,11 +71,23 @@ public class RegisterDTO implements Serializable {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
 	public String getUserType() {
 		return userType;
 	}
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
 	}
 	
 }

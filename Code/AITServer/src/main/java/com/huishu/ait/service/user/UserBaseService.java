@@ -2,6 +2,7 @@ package com.huishu.ait.service.user;
 
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.AddAccountDTO;
 import com.huishu.ait.entity.dto.FindPasswordDTO;
 import com.huishu.ait.entity.dto.RegisterDTO;
 import com.huishu.ait.entity.dto.UserPasswordDTO;
@@ -68,5 +69,17 @@ public interface UserBaseService {
 	 * @return
 	 */
 	AjaxResult findPassword(FindPasswordDTO param);
+	/**
+	 * 添加园区正事用户
+	 * @param userBase
+	 * @return
+	 */
+	AjaxResult addParkAccount(AddAccountDTO param);
+	/**
+	 * 删除园区用户
+	 * @param id
+	 * @return
+	 */
+	void dropParkAccount(Long id);
 	
 }

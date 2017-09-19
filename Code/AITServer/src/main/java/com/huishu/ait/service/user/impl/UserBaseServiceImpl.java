@@ -1,6 +1,7 @@
 package com.huishu.ait.service.user.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -11,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.huishu.ait.common.conf.ConfConstant;
 import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.AddAccountDTO;
 import com.huishu.ait.entity.dto.FindPasswordDTO;
 import com.huishu.ait.entity.dto.RegisterDTO;
 import com.huishu.ait.entity.dto.UserPasswordDTO;
@@ -129,6 +132,63 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 		} else {
 			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_CHANGE_ERROR);
 		}
+	}
+
+	@Override
+	public AjaxResult addParkAccount(AddAccountDTO param) {
+		AjaxResult result = new AjaxResult();
+		UserBase phone = userBaseRepository.findByTelphoneAndUserType(param.getTelphone(),"user");
+		if (phone != null) {
+			return result.setSuccess(false).setMessage(MsgConstant.PHONE_REPEAT);
+		}
+		UserBase email = userBaseRepository.findByUserEmailAndUserType(param.getUserEmail(),"user");
+		if (email != null) {
+			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_REPEAT);
+		}
+		UserBase save=null;
+		try {
+			UserBase base = new UserBase();
+			byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
+			base.setSalt(Encodes.encodeHex(salt));
+			byte[] password = Digests.sha1(ConfConstant.DEFAULT_PASSWORD.getBytes(), salt, Encodes.HASH_INTERATIONS);
+			base.setPassword(Encodes.encodeHex(password));
+			base.setTelphone(param.getTelphone());
+			base.setRealName(param.getName());
+			base.setUserAccount(param.getTelphone());
+			base.setUserComp(param.getCompany());
+			base.setUserDepartment(param.getDepartment());
+			base.setUserEmail(param.getUserEmail());
+			base.setUserPark(param.getPark());
+			base.setUserType(param.getUserType());
+			base.setImageUrl("/images/default.jpg");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			base.setCreateTime(sdf.format(new Date()));
+			base.setStartTime(sdf.format(new Date()));
+			Calendar nextDate = DateUtils.getNow();
+			if(param.getTime().equals("三年")){
+				nextDate.add(Calendar.YEAR, +3);
+			}else if(param.getTime().equals("两年")){
+				nextDate.add(Calendar.YEAR, +2);
+			}else{
+				nextDate.add(Calendar.YEAR, +1);
+			}
+			base.setExpireTime(sdf.format(nextDate.getTime()));
+			base.setUserLevel(1);
+			base.setIsCheck(1);
+			base.setIsWarn(0);
+			save = userBaseRepository.save(base);
+		} catch (Exception e) {
+			LOGGER.error("保存用户信息出错", e);
+		}
+		if (save == null) {
+			return result.setSuccess(false).setMessage(MsgConstant.REGISTER_ERROR);
+		}
+		return result.setSuccess(true).setMessage("添加成功");
+	}
+
+	@Override
+	public void dropParkAccount(Long id) {
+		userBaseRepository.delete(id);
 	}
 
 }

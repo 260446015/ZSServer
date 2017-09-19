@@ -29,9 +29,6 @@
 		    <fieldset>
 		        <legend>注册（*为必填）</legend>
 		        <div>
-		            <lable>昵称*（登陆账号）:</lable>
-		            <input type="text" name="userAccount2"/></div>
-		        <div>
 		            <lable>手机号*:</lable>
 		            <input type="text" name="telphone2"/></div>
 		            <div>
@@ -145,9 +142,64 @@
 		        </div>
 		    </fieldset>
 		</form>
+		<form>
+		    <fieldset>
+		        <legend>添加正式用户</legend>
+		        <div>
+		            <lable>真实姓名:</lable>
+		            <input type="text" name="realName"/></div>
+		        <div>
+		            <lable>手机号*:</lable>
+		            <input type="text" name="realPhone"/></div>
+		            <div>
+		            <lable>邮箱*:</lable>
+		            <input type="text" name="realEmail"/></div>
+		            <div>
+		            <lable>所在园区*:</lable>
+		            <input type="text" name="realPark"/></div>
+		            <div>
+		            <lable>所在公司:</lable>
+		            <input type="text" name="realCompany"/></div>
+		            <div>
+		            <lable>所在部门:</lable>
+		            <input type="text" name="realDepartment"/></div>
+		            <div>
+		            <lable>职务:</lable>
+		            <input type="text" name="realJob"/></div>
+		        <div>
+		            <lable>提交:</lable>
+		            <input type="button" value="添加" onclick="doadd()"/>
+		        </div>
+		    </fieldset>
+		</form>
 	</body>
 </html>
 <script type="text/javascript">
+	function doadd(){
+		var obj={name: $('input[name=realName]').val(), 
+				telphone: $('input[name=realPhone]').val(), 
+				 userEmail: $('input[name=realEmail]').val(),
+				 park: $('input[name=realPark]').val(),
+				 company: $('input[name=realCompany]').val(),
+				 department: $('input[name=realDepartment]').val(),
+				 jbo: $('input[name=realJob]').val(),
+				 time:'一年',
+				 userType: 'user'};
+		$.ajax({
+            type: 'post',
+            url: "/apis/back/garden/addParkAccount.json",
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(obj),
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
+            }
+        });
+	}
 	function doCaptcha(){
 	var obj={telphone: $('input[name=telphone1]').val(), userAccount: $('input[name=userAccount1]').val(), type:  $('input[name="type1"]:checked').val()};
 		$.ajax({
@@ -168,7 +220,6 @@
 	}
 	function doRegister(){
 	var obj={telphone: $('input[name=telphone2]').val(), 
-			 userAccount: $('input[name=userAccount2]').val(),
 			 userEmail: $('input[name=userEmail2]').val(),
 			 park: $('input[name=park2]').val(),
 			 company: $('input[name=company2]').val(),
@@ -392,10 +443,10 @@
 		datalist.push("全部");         
 	    $.ajax({
             type: 'post',
-            url: "/apis/admin/getGardenList.json",
+            url: "/apis/back/garden/getGardenList.json",
             async: false,
             contentType: 'application/json',
-            data: {msg: datalist},
+            data: JSON.stringify({msg: datalist}),
             success: function (response) {
                 if(response.message!=null){
                 	alert(response.message);

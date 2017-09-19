@@ -1,6 +1,7 @@
 package com.huishu.ait.repository.user;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -88,5 +89,20 @@ public interface UserParkRepository extends CrudRepository<UserPark,Long>{
 	 */
 	@Query(value="SELECT count(1) from t_user_base where user_park =?1 and user_level like ?2 and create_time between ?3 and ?4 and expire_time between now() and adddate(now(),7)",nativeQuery = true)
 	Integer findDueAccountCount(String park,String string,String time1,String time2);
-	
+	/**
+	 * 分页查看园区账号
+	 * @param park
+	 * @param pageFrom
+	 * @param pageSize
+	 * @return
+	 */
+	@Query(value="SELECT id,user_account,real_name,start_time from t_user_base where user_park =?1 and user_type='user' and is_check=1 limit ?2,?3",nativeQuery = true)
+	List<Object[]> findParkAccount(String park,Integer pageFrom,Integer pageSize);
+	/**
+	 * 查看园区账号数量
+	 * @param park
+	 * @return
+	 */
+	@Query(value="SELECT count(1) from t_user_base where user_park =? and user_type='user' and is_check=1",nativeQuery = true)
+	Integer findParkAccountCount(String park);
 }

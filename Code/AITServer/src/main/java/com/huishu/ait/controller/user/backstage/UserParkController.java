@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
-import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.common.SearchModel;
+import com.huishu.ait.entity.dto.AccountDataDTO;
+import com.huishu.ait.entity.dto.AddAccountDTO;
 import com.huishu.ait.entity.dto.GardenDataDTO;
 import com.huishu.ait.entity.dto.GardenSearchDTO;
+import com.huishu.ait.service.user.UserBaseService;
 import com.huishu.ait.service.user.backstage.UserParkService;
 
 /**
@@ -35,6 +37,8 @@ public class UserParkController extends BaseController{
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserParkController.class);
 	@Autowired
 	private UserParkService userParkService;
+	@Autowired
+	private UserBaseService userBaseService;
 	/**
 	 * 查看园区分页列表
 	 * @param searchModel
@@ -42,7 +46,7 @@ public class UserParkController extends BaseController{
 	 */
 	@RequestMapping(value = "getGardenList.json", method = RequestMethod.POST)
 	public AjaxResult getGardenList(@RequestBody GardenSearchDTO searchModel) {
-		if (null==searchModel || null==searchModel.getMsg()) {
+		if (null==searchModel || null==searchModel.getMsg()||3!=searchModel.getMsg().length) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -80,11 +84,14 @@ public class UserParkController extends BaseController{
 	@RequestMapping(value = "findParkInformation.json", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult findParkInformation(Long id) {
+		if (null==id) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
 		try {
 			UserPark park = userParkService.findParkInformation(id);
 			return success(park);
 		} catch (Exception e) {
-			LOGGER.error("findMyInformation失败！", e);
+			LOGGER.error("findParkInformation失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 
@@ -92,17 +99,61 @@ public class UserParkController extends BaseController{
 	
 	/**
 	 * 查看园区账号列表
-	 * @param id    园区ID
+	 * @param searchModel    
 	 * @return
 	 */
-	@RequestMapping(value = "findParkAccount.json", method = RequestMethod.GET)
+	@RequestMapping(value = "findParkAccount.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult findParkAccount(Long id) {
+	public AjaxResult findParkAccount(@RequestBody SearchModel searchModel) {
+		if (null==searchModel || null==searchModel.getUserId()) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
 		try {
-			UserPark park = userParkService.findParkInformation(id);
-			return success(park);
+			List<AccountDataDTO> list = userParkService.findParkAccount(searchModel);
+			return success(changeObject(searchModel, list));
 		} catch (Exception e) {
-			LOGGER.error("findMyInformation失败！", e);
+			LOGGER.error("findParkAccount失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
+	
+	/**
+	 * 添加园区账号列表
+	 * @param userBase    
+	 * @return
+	 */
+	@RequestMapping(value = "addParkAccount.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult addParkAccount(@RequestBody AddAccountDTO dto) {
+		if (null==dto || StringUtil.isEmpty(dto.getTelphone())|| StringUtil.isEmpty(dto.getTime())) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return userBaseService.addParkAccount(dto);
+		} catch (Exception e) {
+			LOGGER.error("addParkAccount失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
+	
+	/**
+	 * 删除园区账号列表
+	 * @param id    
+	 * @return
+	 */
+	@RequestMapping(value = "dropParkAccount.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult dropParkAccount(Long id) {
+		if (null==id) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			userBaseService.dropParkAccount(id);
+			return success(null).setMessage("删除成功");
+		} catch (Exception e) {
+			LOGGER.error("dropParkAccount失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 

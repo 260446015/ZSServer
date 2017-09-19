@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.common.SearchModel;
+import com.huishu.ait.entity.dto.AccountDataDTO;
 import com.huishu.ait.entity.dto.GardenDataDTO;
 import com.huishu.ait.entity.dto.GardenSearchDTO;
 
@@ -32,5 +34,11 @@ public interface UserParkService {
 	 * @return
 	 */
 	UserPark findParkInformation(Long id);
+	/**
+	 * 查看园区账号列表
+	 * @param searchModel
+	 * @return
+	 */
+	List<AccountDataDTO> findParkAccount(SearchModel searchModel);
 	
 }
