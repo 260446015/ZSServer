@@ -332,10 +332,11 @@ public abstract class AbstractService {
 		String summary = (String)source.get("summary");
 		if(StringUtils.isEmpty(summary)){
 			/**如果文章摘要不存在，则将内容的前一百数据取出作为摘要*/
-			summary = dto.getContent().substring(0, 100);
+			summary = dto.getContent().substring(0, 300);
 			summary = StringUtil.replaceHtml(summary);
 			dto.setSummary(summary);
 		}else{
+			summary = StringUtil.replaceHtml(summary);
 			dto.setSummary(summary);	
 		}
 		List<String> set = getBusiness(dto.getTitle(),dto.getContent());
@@ -379,6 +380,12 @@ public abstract class AbstractService {
 		}
 		return null;
 	}
+	/**
+	 * 获取地域的方法
+	 * @param title
+	 * @param content
+	 * @return
+	 */
 	protected static Set<String>  getArea(String title, String content){
 		Set<String> findAddress = FindAddress.findAddress(title+";"+content);
 		return findAddress;

@@ -225,6 +225,8 @@ public class StringUtil {
 		str=str.replaceAll("<img[^>]*/>", " "); 
 		str=str.replaceAll("<IMG[^>]*/>", " "); 
 		str = str.replaceAll("&nbsp;", "");
+		str=str.replaceAll("<a [^>]*", "");  
+		str=str.replaceAll("<img[^>]*", " "); 
 		return str;
 	}
 
