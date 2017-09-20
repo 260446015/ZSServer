@@ -132,10 +132,6 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				industryType = "%" + industryType + "%";
 			}
 			PageRequest pageRequest = new PageRequest(pageNum - 1, pageSize);
-			// if(!StringUtil.isEmpty(searchName)){
-			// findGardensPage =
-			// gardenRepository.findByNameLike(searchName,pageRequest);
-			// }else{//
 			findGardensPage = gardenRepository.findByAreaLikeAndIndustryLikeOrderByIdDesc(area, industryType,
 					pageRequest);
 			findGardensPage.forEach(GardenData ->{
@@ -275,7 +271,6 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				array3.add(obj);
 			}
 		}
-//		JSONArray array3 = getGardenBusinessList(getAreaSearchDTODemo(gardenName));
 		GardenUser gu = gardenUserRepository.findByGardenNameAndUserId(gardenName, userId.intValue());
 		JSONObject object = new JSONObject();
 		object.put("leadCompany", array3);

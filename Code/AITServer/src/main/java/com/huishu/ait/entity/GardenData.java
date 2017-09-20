@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * 园区数据实体类
  * @author jdz
@@ -298,14 +300,6 @@ public class GardenData implements Serializable{
 	}
 	@Override
     public String toString() {
-        return "GardenData [id=" + id + ", gardenName=" + gardenName + ", gardenNewName=" + gardenNewName + ", area="
-                + area + ", gardenWebsite=" + gardenWebsite + ", address=" + address + ", gardenLevel=" + gardenLevel
-                + ", establishDate=" + establishDate + ", propertyType=" + propertyType + ", leadingIndustry="
-                + leadingIndustry + ", gardenType=" + gardenType + ", infrastructure=" + infrastructure
-                + ", gardenSquare=" + gardenSquare + ", gardenOperator=" + gardenOperator + ", landPrice=" + landPrice
-                + ", investmentIntensity=" + investmentIntensity + ", taxRequirements=" + taxRequirements
-                + ", environment=" + environment + ", gardenIntroduce=" + gardenIntroduce + ", gardenSuperiority="
-                + gardenSuperiority + ", supportingFacilities=" + supportingFacilities + ", gardenPlan=" + gardenPlan
-                + ", gardenPolicy=" + gardenPolicy + ", gardenPicture=" + gardenPicture + ", remarks=" + remarks + "]";
-    }
+        return JSONObject.toJSONString(this);
+        		}
 }
