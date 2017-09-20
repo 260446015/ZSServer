@@ -164,16 +164,16 @@ public class CompanyDTO implements Serializable {
 			regCapital = "0,100";
 			break;
 		case "100-200万":
-			regCapital = "100,200";
+			regCapital = "100.001,200";
 			break;
 		case "200-500万":
-			regCapital = "200,500";
+			regCapital = "200.001,500";
 			break;
 		case "500-1000万":
-			regCapital = "500,1000";
+			regCapital = "500.001,1000";
 			break;
 		case "1000万以上":
-			regCapital = "1000,99999";
+			regCapital = "1000.001,99999";
 			break;
 		default:
 			break;
