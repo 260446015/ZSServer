@@ -84,7 +84,7 @@ public abstract class AbstractService {
 	/**
 	 * 媒体聚焦--获取载体分布统计环形图
 	 * 
-	 * @param p
+	 * @param queryBuilder
 	 * @return
 	 */
 	protected JSONArray getVectorDistribution(QueryBuilder queryBuilder) {
@@ -122,8 +122,10 @@ public abstract class AbstractService {
 		});
 		return sortArray(result);
 	}
+
 	/**
-	 * @param result
+	 *
+	 * @param array
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -302,11 +304,11 @@ public abstract class AbstractService {
 				Page<HeadlinesArticleListDTO> results = new PageImpl<>(newList, pageable, total);
 				return results;
 			}
+
 	/**
-	 * @param source
-	 * @param dto
 	 * 获取文章内容
-	 * @return
+	 * @param list
+	 * @param source
 	 */
 	private void  getDtoInfo( List<HeadlinesArticleListDTO> list,Map<String, Object> source) {
 		HeadlinesArticleListDTO dto = new HeadlinesArticleListDTO();
@@ -873,25 +875,31 @@ public abstract class AbstractService {
 	
 	protected String[] analysisDate(String day){
 		String time1;
-		String time2;
-		Calendar nextDate = DateUtils.getNow();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar today = DateUtils.getNow();
+		today.add(Calendar.DATE, +1);
+		String time2=sdf.format(today.getTime());
+		Calendar nextDate = DateUtils.getNow();
 		if(day.equals("今日")){
 			nextDate.add(Calendar.DATE, +1);
 			time1=sdf.format(new Date());
-			time2=sdf.format(nextDate.getTime());
 		}else if(day.equals("昨日")){
 			nextDate.add(Calendar.DATE, -1);
-			time2=sdf.format(new Date());
 			time1=sdf.format(nextDate.getTime());
 		}else if(day.equals("近一周")){
 			nextDate.add(Calendar.DATE, -6);
 			time1=sdf.format(nextDate.getTime());
-			nextDate.add(Calendar.DATE, +7);
-			time2=sdf.format(nextDate.getTime());
+		}else if(day.equals("近三个月")){
+			nextDate.add(Calendar.MONTH, -3);
+			time1=sdf.format(nextDate.getTime());
+		}else if(day.equals("近六个月")){
+			nextDate.add(Calendar.DATE, -6);
+			time1=sdf.format(nextDate.getTime());
+		}else if(day.equals("近一年")){
+			nextDate.add(Calendar.DATE, -6);
+			time1=sdf.format(nextDate.getTime());
 		}else {
-			time1="2017-01-01";
-			time2=sdf.format(nextDate.getTime());
+			time1="2010-01-01";
 		}
 		String[] times={time1,time2};
 		return times;

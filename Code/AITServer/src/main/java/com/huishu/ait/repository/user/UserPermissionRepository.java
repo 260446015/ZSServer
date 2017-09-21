@@ -16,9 +16,9 @@ public interface UserPermissionRepository extends CrudRepository<UserPermission,
 
 	/**
 	 * 根据会员等级查找改用户所拥有的权限
-	 * @param userId
+	 * @param userLevel
 	 * @return
 	 */
-	@Query("select permissionId from UserPermission where userLevel = ?")
+	@Query("select permissionId from UserPermission where userLevel = ?1")
 	List<Long> findPermissionIdByUserLevel(Integer userLevel);
 }

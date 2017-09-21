@@ -65,7 +65,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/oauth/getChangeInfo.json", "anon");
 		
 		filterChainDefinitionMap.put("/apis/**", "authc");
-//		filterChainDefinitionMap.put("/apis/**", "anon");
+		//filterChainDefinitionMap.put("/apis/**", "anon");
 		
 		filterChainDefinitionMap.put("/apis/business/**", "perms[\"Industrymodule,parkmodule\"]");
 		filterChainDefinitionMap.put("/apis/expert/**", "perms[Industrymodule]");

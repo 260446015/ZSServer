@@ -172,9 +172,89 @@
 		        </div>
 		    </fieldset>
 		</form>
+        <form>
+            <fieldset>
+                <legend>添加需求</legend>
+                <div>
+                    <lable>企业名:</lable>
+                    <input type="text" name="a"/></div>
+                <div>
+                    <lable>所属企业*:</lable>
+                    <input type="text" name="b"/></div>
+                <div>
+                    <lable>企业标签*:</lable>
+                    <input type="text" name="c"/></div>
+                <div>
+                    <lable>企业关系:</lable>
+                    <input type="text" name="z"/></div>
+                <div>
+                    <lable>企业关系备注:</lable>
+                    <input type="text" name="d"/></div>
+                <div>
+                    <lable>企业状态:</lable>
+                    <input type="text" name="e"/></div>
+                <div>
+                    <lable>负责人:</lable>
+                    <input type="text" name="f"/></div>
+                <div>
+                    <lable>招商状态:</lable>
+                    <input type="text" name="g"/></div>
+                <div>
+                    <lable>招商备注:</lable>
+                    <input type="text" name="h"/></div>
+                </div>
+                <input type="button" value="添加" onclick="pooladd()"/>
+                <input type="button" value="查看我的需求池" onclick="poolList()"/>
+            </fieldset>
+        </form>
 	</body>
 </html>
 <script type="text/javascript">
+	function poolList() {
+        var datalist= new Array();
+        datalist.push("大数据");
+        datalist.push("未入住");
+        datalist.push("全部");
+        $.ajax({
+            type: 'post',
+            url: "/apis/pool/getMyCompanyList.json",
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify({msg: datalist}),
+            success: function (response) {
+                if(response.message!=null){
+                    alert(response.message);
+                }else{
+                    alert(response.data);
+                }
+            }
+        });
+    }
+	function pooladd() {
+        var obj={name: $('input[name=a]').val(),
+            fatherName: $('input[name=b]').val(),
+            label: $('input[name=c]').val(),
+            relation: $('input[name=z]').val(),
+            relationRemark: $('input[name=d]').val(),
+            companyStatus: $('input[name=e]').val(),
+            responsiblePerson: $('input[name=f]').val(),
+            investmentRemark: $('input[name=h]').val(),
+            investmentStatus:$('input[name=g]').val()};
+        $.ajax({
+            type: 'post',
+            url: "/apis/pool/addPoolCompany.json",
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(obj),
+            success: function (response) {
+                if(response.message!=null){
+                    alert(response.message);
+                }else{
+                    alert(response.data);
+                }
+            }
+        });
+    }
 	function doadd(){
 		var obj={name: $('input[name=realName]').val(), 
 				telphone: $('input[name=realPhone]').val(), 

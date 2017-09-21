@@ -18,22 +18,17 @@ public interface UserParkRepository extends CrudRepository<UserPark,Long>{
 	/**
 	 * 查看园区数量
 	 * @param area
-	 * @param userLevel
-	 * @param time1
-	 * @param time2
 	 * @param search
 	 * @return
 	 */
 	@Query(value="SELECT count(1) from t_user_park where area like ?1 and concat(id,name) like ?2",nativeQuery = true)
 	Integer findGardenListCount(String area,String search);
+
 	/**
 	 * 查看园区列表
 	 * @param area
-	 * @param userLevel
 	 * @param pageFrom
 	 * @param pageSize
-	 * @param time1
-	 * @param time2
 	 * @param search
 	 * @return
 	 */

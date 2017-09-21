@@ -120,7 +120,7 @@ public class UserParkController extends BaseController{
 	
 	/**
 	 * 添加园区账号列表
-	 * @param userBase    
+	 * @param dto
 	 * @return
 	 */
 	@RequestMapping(value = "addParkAccount.json", method = RequestMethod.POST)

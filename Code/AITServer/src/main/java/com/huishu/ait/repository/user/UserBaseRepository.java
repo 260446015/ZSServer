@@ -67,7 +67,6 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	List<Object[]> findAreaRatio(String userType);
 	/**
 	 * 查看园区行业数量
-	 * @param park
 	 * @return
 	 */
 	@Query(value="SELECT count(industry) sum,industry name from t_garden_data GROUP BY industry",nativeQuery = true)
@@ -119,9 +118,6 @@ public interface UserBaseRepository extends CrudRepository<UserBase,Long>{
 	/**
 	 * 查看园区数量
 	 * @param area
-	 * @param userLevel
-	 * @param time1
-	 * @param time2
 	 * @param search
 	 * @return
 	 */
