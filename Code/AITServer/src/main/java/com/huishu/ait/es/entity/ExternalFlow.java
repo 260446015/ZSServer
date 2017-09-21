@@ -28,6 +28,7 @@ public class ExternalFlow implements Serializable{
 	private String content;
 	private String warnTime;
 	private String park;
+	private String hasWarn;
 	public String getId() {
 		return id;
 	}
@@ -69,6 +70,12 @@ public class ExternalFlow implements Serializable{
 	}
 	public void setPark(String park) {
 		this.park = park;
+	}
+	public String getHasWarn() {
+		return hasWarn;
+	}
+	public void setHasWarn(String hasWarn) {
+		this.hasWarn = hasWarn;
 	}
 	
 }
