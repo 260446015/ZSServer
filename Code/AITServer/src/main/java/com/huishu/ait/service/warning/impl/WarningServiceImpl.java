@@ -103,15 +103,28 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 	@Override
 	public boolean deleteWarning(String id) {
 		try {
-			ChangeInfo findOne = changeRepository.findOne(Integer.valueOf(id));
-			findOne.setDr(1);
-			changeRepository.save(findOne);
+			ChangeInfo change = changeRepository.findOne(Integer.valueOf(id));
+			ExternalFlow ex = externalFlowRepository.findOne(id);
+			if(null != change){
+				change.setDr(1);
+				changeRepository.save(change);
+			}else{
+				ex.setHasWarn("false");
+				externalFlowRepository.save(ex);
+			}
 			return true;
 		} catch (Exception e) {
 			LOGGER.error("删除预警数量失败");
 		}
 		return false;
 
+	}
+
+	@Override
+	public List<ExternalFlow> getExternalFlow(String park, String hasWarn) {
+		List<ExternalFlow> list = externalFlowRepository.findByParkAndHasWarn(park,hasWarn);
+		return list;
+		
 	}
 
 }

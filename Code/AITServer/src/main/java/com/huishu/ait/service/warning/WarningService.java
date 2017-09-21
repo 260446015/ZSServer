@@ -41,6 +41,10 @@ public interface WarningService {
 	 */
 	List<ChangeInfo> getChangeInfo(String park);
 	/**
+	 * 获取疑似外流未预警的数量
+	 */
+	List<ExternalFlow> getExternalFlow(String park,String hasWarn);
+	/**
 	 * 删除预警数量
 	 * @param id
 	 */

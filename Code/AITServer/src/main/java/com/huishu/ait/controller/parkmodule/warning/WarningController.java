@@ -111,9 +111,10 @@ public class WarningController extends BaseController{
 		searchModel.setPark(getUserPark());
 		JSONObject obj = new JSONObject();
 		List<ChangeInfo> changeList = warningService.getChangeInfo(getUserPark());
-//		Page<ExternalFlow> page = warningService.getBusinessOutflowList(searchModel);
+		List<ExternalFlow> exList = warningService.getExternalFlow(getUserPark(), "true");
 //		obj.put("count", page.getTotalElements());
-		obj.put("count", changeList.size());
+		int count = changeList.size() + exList.size();
+		obj.put("count", count);
 		return success(obj);
 	}
 	/**
@@ -125,5 +126,4 @@ public class WarningController extends BaseController{
 		boolean flag = warningService.deleteWarning(id);
 		return success(flag);
 	}
-	
 }
