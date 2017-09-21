@@ -67,7 +67,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		map.put("park", searchModel.getPark());
 		map.put("dimension", "园区政策");
 		// 组装排序字段,按时间和点击量降序排列
-		String[] order = { "publishDate", "hitCount" };
+		String[] order = { "publishTime", "hitCount" };
 		List<String> orderList = Arrays.asList(order);
 		// 组装返回数据字段
 		String[] data = { "title", "content" };

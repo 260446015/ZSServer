@@ -731,7 +731,7 @@ public abstract class AbstractService {
 		JSONArray result = null;
 		switch (length){
 			case 1:{
-				//企业聚合到四级分类下
+				//企业聚合到一级分类下
 				firstIndicatorBuilder.subAggregation(businessBuilder).size(3000);
 				SearchQuery query =getSearchBuilder().addAggregation(firstIndicatorBuilder).withQuery(bq).build();
 				 result = 	template.query(query, res ->{
