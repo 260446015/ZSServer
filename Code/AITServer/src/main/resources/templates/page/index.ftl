@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>接口测试页面</title>
-		<style type="text/css">
-			textarea {
-				vertical-align:top;
-				
-			}
-		</style>
-		<link rel="shortcut icon" href="/img/favicon.ico">
-		<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
-	</head>
+           <html>
+           	<head>
+           		<meta charset="UTF-8">
+           		<title>接口测试页面</title>
+           		<style type="text/css">
+           			textarea {
+           				vertical-align:top;
+
+           			}
+           		</style>
+           		<link rel="shortcut icon" href="/img/favicon.ico">
+           		<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+           	</head>
 	<body>
 		<div>
 			<div class="title">参数:</div> 
