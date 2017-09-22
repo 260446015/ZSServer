@@ -303,7 +303,7 @@ public class ResourceController extends BaseController {
 			list.add(searchTrack);
 		});
 		skyeyeService.saveSearchTrack(list);
-		JSONObject returnData = skyeyeService.findSearchTrack();
+		JSONObject returnData = skyeyeService.findSearchTrack(getCurrentShiroUser().getLoginName());
 		return success(returnData);
 	}
 

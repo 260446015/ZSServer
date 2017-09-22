@@ -4,12 +4,10 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.entity.ChangeInfo;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.InformationSearchDTO;
-import com.huishu.ait.es.entity.ExternalFlow;
-import com.huishu.ait.es.entity.WarningInformation;
+import com.huishu.ait.es.entity.AITInfo;
 
 /**
  * 园区预警service
@@ -26,7 +24,7 @@ public interface WarningService {
 	 * @return
 	 */
 	// JSONArray getBusinessOutflowList(AreaSearchDTO searchModel);
-	Page<ExternalFlow> getBusinessOutflowList(AreaSearchDTO searchModel);
+	Page<AITInfo> getBusinessOutflowList(AreaSearchDTO searchModel);
 
 	/**
 	 * 获取信息变更预警列表
@@ -54,7 +52,7 @@ public interface WarningService {
 	/**
 	 * 获取疑似外流未预警的数量
 	 */
-	List<ExternalFlow> getExternalFlow(String park, String hasWarn);
+	List<AITInfo> getExternalFlow(String park, String hasWarn);
 
 	/**
 	 * 删除预警数量

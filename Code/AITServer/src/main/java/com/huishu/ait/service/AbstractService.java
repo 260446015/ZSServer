@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -932,6 +933,30 @@ public abstract class AbstractService {
 		}
 		String[] times = { time1, time2 };
 		return times;
+	}
+	protected List<String> findArea(String title, String content) {
+		try{
+			// 分析方法
+			JSONObject json = Analysis.getCompany(title, content);
+			System.out.println(json);
+			if (json.getBoolean("status")) {
+//				@SuppressWarnings("unchecked")
+//				Map<String, CategoryModel> finder = (Map<String, CategoryModel>) json.get("result");
+//				for (Map.Entry<String, CategoryModel> entry : finder.entrySet()) {
+//					System.out.println("企业名称:" + entry.getKey());
+//					System.out.println("对应情感：" + entry.getValue().getCategory());
+//					System.out.println("============");
+//				}
+	
+				@SuppressWarnings("unchecked")
+				HashSet<String> address = (HashSet<String>) json.get("address");
+				System.out.println("省市名称:" + address);
+				return new ArrayList<>(address);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

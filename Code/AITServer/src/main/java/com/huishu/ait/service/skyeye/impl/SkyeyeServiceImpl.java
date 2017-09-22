@@ -37,18 +37,18 @@ public class SkyeyeServiceImpl implements SkyeyeService {
 	}
 
 	@Override
-	public JSONObject findSearchTrack() {
+	public JSONObject findSearchTrack(String username) {
 		JSONObject obj = new JSONObject();
 		JSONArray arr = new JSONArray();
 		Page<SearchTrack> page = null;
-		try {
-			page = searchTrackRepository.findAll(new PageRequest(0, 10, new Sort(Direction.DESC, "updateTime")));
+		try{
+			page = searchTrackRepository.findByUsername(username, new PageRequest(0, 10, new Sort(Direction.DESC,"updateTime")));
 			obj.put("total", page.getTotalElements());
-			page.getContent().forEach((st) -> {
+			page.getContent().forEach((st)->{
 				arr.add(st);
 			});
 			obj.put("items", arr);
-		} catch (Exception e) {
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return obj;

@@ -17,7 +17,7 @@ public interface SkyeyeService {
 
 	boolean saveSearchTrack(Collection<SearchTrack> s);
 
-	JSONObject findSearchTrack();
+	JSONObject findSearchTrack(String username);
 
 	boolean saveChangeInfo(Collection<ChangeInfo> s);
 }
