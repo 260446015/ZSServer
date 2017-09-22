@@ -1,12 +1,7 @@
 package com.huishu.ait.controller.user;
 
-import com.huishu.ait.common.conf.MsgConstant;
-import com.huishu.ait.common.util.StringUtil;
-import com.huishu.ait.controller.BaseController;
-import com.huishu.ait.entity.PoolCompany;
-import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.entity.dto.CompanySearchDTO;
-import com.huishu.ait.service.user.DemandPoolService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.common.util.StringUtil;
+import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.PoolCompany;
+import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.CompanySearchDTO;
+import com.huishu.ait.service.user.DemandPoolService;
 
 /**
  * 招商需求池
@@ -30,7 +31,7 @@ public class DemandPoolController extends BaseController{
     private static final Logger LOGGER = LoggerFactory.getLogger(DemandPoolController.class);
     @Autowired
     private DemandPoolService demandPoolService;
-
+    
     /**
      * 查看需求池公司列表---领导
      * @param searchModel

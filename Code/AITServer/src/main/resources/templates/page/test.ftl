@@ -205,11 +205,68 @@
                 </div>
                 <input type="button" value="添加" onclick="pooladd()"/>
                 <input type="button" value="查看我的需求池" onclick="poolList()"/>
+                <input type="button" value="获取当前园区需求池中企业标签" onclick="labelList()"/>
+                <input type="button" value="获取我的需求池中企业标签" onclick="labelMyList()"/>
+                <input type="button" value="添加我的需求池中企业标签" onclick="addLabel()"/>
+                <input type="button" value="删除我的需求池中企业标签" onclick="deleteLabel()"/>
             </fieldset>
         </form>
 	</body>
 </html>
 <script type="text/javascript">
+	function labelList(){
+		$.ajax({
+            url: "/apis/label/getLabel.json",
+            success: function (response) {
+                if(response.message!=null){
+                    alert(response.message);
+                }else{
+                    alert(response.data);
+                }
+            }
+        });
+	}
+	function labelMyList(){
+	$.ajax({
+            url: "/apis/label/getMyLabel.json",
+            success: function (response) {
+                if(response.message!=null){
+                    alert(response.message);
+                }else{
+                    alert(response.data);
+                }
+            }
+        });
+	}
+	function addLabel(){
+	$.ajax({
+            url: "/apis/label/addMyLabel.json",
+            contentType: 'application/json',
+            data: {name: '中国500强'},
+            success: function (response) {
+                if(response.message!=null){
+                    alert(response.message);
+                }else{
+                    alert(response.data);
+                }
+            }
+        });
+	}
+    function deleteLabel(){
+    $.ajax({
+            url: "/apis/label/dropMyLabel.json",
+            contentType: 'application/json',
+            data: {id: 1},
+            success: function (response) {
+                if(response.message!=null){
+                    alert(response.message);
+                }else{
+                    alert(response.data);
+                }
+            }
+        });
+    }
+    
 	function poolList() {
         var datalist= new Array();
         datalist.push("大数据");

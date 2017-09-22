@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,13 +66,13 @@ public class LoginController extends BaseController {
 	private CaptchaManager captchaManager;
 
 	/**
-	 * 测试页面
-	 * 
+	 * 直接跳转页面
+	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value = "test.html", method = RequestMethod.GET)
-	public String test() {
-		return "test";
+	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
+	public String show(@PathVariable String page) {
+		return page;
 	}
 
 	/**

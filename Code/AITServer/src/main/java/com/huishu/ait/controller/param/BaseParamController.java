@@ -12,15 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.Param;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.service.param.ParamService;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.conf.ConfConstant;
-import com.huishu.ait.common.conf.ConfConstant.INDUSTRY;
 
 /**
  * @author hhy
