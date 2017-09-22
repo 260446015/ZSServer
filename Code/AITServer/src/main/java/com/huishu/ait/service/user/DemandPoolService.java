@@ -34,4 +34,11 @@ public interface DemandPoolService {
      * @return
      */
     AjaxResult addPoolCompany(PoolCompany company);
+    
+    /**
+     * 修改需求
+     * @param company
+     * @return
+     */
+    AjaxResult editPoolCompany(PoolCompany company);
 }

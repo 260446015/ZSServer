@@ -90,4 +90,23 @@ public class DemandPoolController extends BaseController{
             return error(MsgConstant.SYSTEM_ERROR);
         }
     }
+    
+    /**
+     * 需求池编辑需求
+     * @param poolCompany
+     * @return
+     */
+    @RequestMapping(value = "addPoolCompany.json", method = RequestMethod.POST)
+    public AjaxResult editPoolCompany(@RequestBody PoolCompany poolCompany) {
+        if (null==poolCompany || StringUtil.isEmpty(poolCompany.getInvestmentRemark()) 
+        		|| StringUtil.isEmpty(poolCompany.getInvestmentStatus())||null==poolCompany.getId()) {
+            return error(MsgConstant.ILLEGAL_PARAM);
+        }
+        try {
+            return demandPoolService.editPoolCompany(poolCompany);
+        } catch (Exception e) {
+            LOGGER.error("addPoolCompany查询失败！",e);
+            return error(MsgConstant.SYSTEM_ERROR);
+        }
+    }
 }

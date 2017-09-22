@@ -66,7 +66,7 @@ public class DemandPoolServiceImpl extends AbstractService implements DemandPool
 
     @Override
     public AjaxResult addPoolCompany(PoolCompany company) {
-        AjaxResult result = new AjaxResult();
+    	AjaxResult result = new AjaxResult();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         company.setCreateTime(sdf.format(new Date()));
         PoolCompany save = poolCompanyRepository.save(company);
@@ -75,4 +75,17 @@ public class DemandPoolServiceImpl extends AbstractService implements DemandPool
         }
         return result.setSuccess(true).setMessage("添加成功");
     }
+
+	@Override
+	public AjaxResult editPoolCompany(PoolCompany company) {
+		AjaxResult result = new AjaxResult();
+		PoolCompany one = poolCompanyRepository.findOne(company.getId());
+		one.setInvestmentRemark(company.getInvestmentRemark());
+		one.setInvestmentStatus(company.getInvestmentStatus());
+		PoolCompany save = poolCompanyRepository.save(company);
+        if (save == null) {
+            result.setSuccess(false).setMessage("修改失败，请稍后再试");
+        }
+        return result.setSuccess(true).setMessage("修改成功");
+	}
 }
