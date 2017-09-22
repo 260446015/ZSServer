@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-import com.huishu.ait.es.entity.ExternalFlow;
+import com.huishu.ait.es.entity.AITInfo;
 
 /**
  * 
@@ -13,10 +13,10 @@ import com.huishu.ait.es.entity.ExternalFlow;
  * @description
  * @version
  */
-public interface ExternalFlowRepository extends ElasticsearchRepository<ExternalFlow, String> {
+public interface ExternalFlowRepository extends ElasticsearchRepository<AITInfo, String> {
 
 	/**
 	 * 查询企业疑似外流未预警消息
 	 */
-	List<ExternalFlow> findByParkAndHasWarn(String park, String hasWarn);
+	List<AITInfo> findByParkAndHasWarn(String park, String hasWarn);
 }

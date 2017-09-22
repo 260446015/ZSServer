@@ -94,7 +94,12 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 						jsonObject.put("content", map.get("content"));
 						jsonObject.put("summary", StringUtil.replaceHtml((String) map.get("summary")));
 						String author = (String) map.get("author");
-						jsonObject.put("author", StringUtil.isEmpty(author) ? (String) map.get("source") : author);
+						jsonObject
+								.put("author",
+										StringUtil.isEmpty(author)
+												? StringUtil.isEmpty((String) map.get("source"))
+														? (String) map.get("vector") : (String) map.get("source")
+												: author);
 						jsonObject.put("sourceLink", map.get("sourceLink"));
 						jsonObject.put("source", map.get("source"));
 						jsonObject.put("business", map.get("business"));

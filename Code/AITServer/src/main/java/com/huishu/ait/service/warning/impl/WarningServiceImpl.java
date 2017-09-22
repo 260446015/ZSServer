@@ -23,6 +23,7 @@ import com.huishu.ait.entity.ChangeInfo;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.InformationSearchDTO;
+import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.ExternalFlow;
 import com.huishu.ait.es.entity.WarningInformation;
 import com.huishu.ait.es.repository.ExternalFlowRepository;
@@ -60,14 +61,14 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 	 */
 
 	@Override
-	public Page<ExternalFlow> getBusinessOutflowList(AreaSearchDTO searchModel) {
+	public Page<AITInfo> getBusinessOutflowList(AreaSearchDTO searchModel) {
 		// 组装查询条件
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("dimension", "疑似外流"))
 				.must(QueryBuilders.termQuery("park", searchModel.getPark()));
 		Sort sort = new Sort(Direction.DESC, "publishDate");
 		PageRequest pageable = new PageRequest(searchModel.getPageNumber() - 1, searchModel.getPageSize(), sort);
-		Page<ExternalFlow> page = externalFlowRepository.search(bq, pageable);
+		Page<AITInfo> page = externalFlowRepository.search(bq, pageable);
 		return page;
 	}
 
@@ -103,13 +104,13 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 	@Override
 	public boolean deleteWarning(String id) {
 		try {
-			ChangeInfo change = changeRepository.findOne(Integer.valueOf(id));
-			ExternalFlow ex = externalFlowRepository.findOne(id);
-			if (null != change) {
+			AITInfo ex = externalFlowRepository.findOne(id);
+			if (null == ex) {
+				ChangeInfo change = changeRepository.findOne(Integer.valueOf(id));
 				change.setDr(1);
 				changeRepository.save(change);
 			} else {
-				ex.setHasWarn("false");
+				ex.setHasWarn(false);
 				externalFlowRepository.save(ex);
 			}
 			return true;
@@ -121,8 +122,8 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 	}
 
 	@Override
-	public List<ExternalFlow> getExternalFlow(String park, String hasWarn) {
-		List<ExternalFlow> list = externalFlowRepository.findByParkAndHasWarn(park, hasWarn);
+	public List<AITInfo> getExternalFlow(String park, String hasWarn) {
+		List<AITInfo> list = externalFlowRepository.findByParkAndHasWarn(park, hasWarn);
 		return list;
 
 	}

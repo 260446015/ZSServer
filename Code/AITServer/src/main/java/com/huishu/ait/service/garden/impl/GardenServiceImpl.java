@@ -122,10 +122,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		try {
 			if ("不限".equals(area)) {
 				area = "%%";
+			} else {
+				area = "%" + area + "%";
 			}
-			// else{
-			// area = "%" + area + "%";
-			// }
 			if ("不限".equals(industryType)) {
 				industryType = "%%";
 			} else {
