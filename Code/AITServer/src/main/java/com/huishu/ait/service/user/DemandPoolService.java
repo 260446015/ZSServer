@@ -41,4 +41,11 @@ public interface DemandPoolService {
      * @return
      */
     AjaxResult editPoolCompany(PoolCompany company);
+    
+    /**
+     * 查看需求池需求详情
+     * @param id
+     * @return
+     */
+    PoolCompany findPoolCompanyById(Long id);
 }

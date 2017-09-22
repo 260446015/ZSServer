@@ -88,4 +88,9 @@ public class DemandPoolServiceImpl extends AbstractService implements DemandPool
         }
         return result.setSuccess(true).setMessage("修改成功");
 	}
+
+	@Override
+	public PoolCompany findPoolCompanyById(Long id) {
+		return poolCompanyRepository.findOne(id);
+	}
 }

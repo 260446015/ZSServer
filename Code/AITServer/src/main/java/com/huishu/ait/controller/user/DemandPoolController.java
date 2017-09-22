@@ -92,6 +92,24 @@ public class DemandPoolController extends BaseController{
     }
     
     /**
+     * 查看需求池需求详情
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "findPoolCompanyById.json", method = RequestMethod.GET)
+    public AjaxResult findPoolCompanyById(Long id) {
+        if (null==id) {
+            return error(MsgConstant.ILLEGAL_PARAM);
+        }
+        try {
+            return success(demandPoolService.findPoolCompanyById(id));
+        } catch (Exception e) {
+            LOGGER.error("editPoolCompany查询失败！",e);
+            return error(MsgConstant.SYSTEM_ERROR);
+        }
+    }
+    
+    /**
      * 需求池编辑需求
      * @param poolCompany
      * @return
