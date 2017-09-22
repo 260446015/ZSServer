@@ -6,6 +6,7 @@ import com.huishu.ait.entity.common.SearchModel;
 
 /**
  * 账号查询的DTO
+ * 
  * @author yindq
  * @date 2017年9月5日
  */
@@ -20,7 +21,7 @@ public class AccountSearchDTO extends SearchModel {
 	private String day;
 	/** 搜索条件 */
 	private String search;
-	
+
 	public String getType() {
 		return type;
 	}
@@ -38,10 +39,10 @@ public class AccountSearchDTO extends SearchModel {
 	}
 
 	public String getSearch() {
-		if(StringUtil.isEmpty(search)){
+		if (StringUtil.isEmpty(search)) {
 			search = "%%";
-		}else{
-			search = "%"+search+"%";
+		} else {
+			search = "%" + search + "%";
 		}
 		return search;
 	}

@@ -39,8 +39,8 @@ public class CompanyInfoController extends BaseController {
 		if (company.isEmpty()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		JSONObject  json = (JSONObject) JSONObject.parse(company);
-		String str =(String) json.get("company").toString();
+		JSONObject json = (JSONObject) JSONObject.parse(company);
+		String str = (String) json.get("company").toString();
 		return success(service.findInfo(str).get("data"));
 	}
 }

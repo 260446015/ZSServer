@@ -77,7 +77,7 @@ public class GardenSuperviseController extends BaseController {
 	public AjaxResult addCompanyGroup(String groupName) {
 		JSONObject result = new JSONObject();
 		Long userId = getUserId();
-		if(StringUtil.isEmpty(groupName)){
+		if (StringUtil.isEmpty(groupName)) {
 			return error("企业分组名称不能为空!");
 		}
 		try {

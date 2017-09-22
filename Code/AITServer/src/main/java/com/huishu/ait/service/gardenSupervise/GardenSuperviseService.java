@@ -23,6 +23,7 @@ public interface GardenSuperviseService {
 
 	// 获取园区内所有企业的信息（分页）
 	public JSONArray getCompanyFromGardenForPage(CompanyDTO companyDTO);
+
 	// 获取园区内所有企业的信息（分页）(mysql)
 	public JSONArray getCompanyFromGardenForPage2(CompanyDTO companyDTO);
 
@@ -35,15 +36,17 @@ public interface GardenSuperviseService {
 	// 删除企业分组
 	public boolean dropCompanyGroup(String[] groupNames, Long userId);
 
-
 	/**
 	 * 保存操作的企业到企业分组
-	 * @param middle   userId
+	 * 
+	 * @param middle
+	 *            userId
 	 */
-	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle,Long userId);
+	public boolean saveCompanyByGroupId(CompanyGroupMiddle middle, Long userId);
 
 	/**
 	 * 删除企业分组中的企业
+	 * 
 	 * @param middle
 	 * @return
 	 */

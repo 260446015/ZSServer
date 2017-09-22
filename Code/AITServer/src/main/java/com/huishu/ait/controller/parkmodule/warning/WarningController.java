@@ -27,102 +27,111 @@ import com.huishu.ait.service.warning.WarningService;
 
 /**
  * 园区预警
+ * 
  * @author yindq
  * @date 2017年8月3日
  */
 @Controller
-@RequestMapping(value="/apis/warning")
-public class WarningController extends BaseController{
+@RequestMapping(value = "/apis/warning")
+public class WarningController extends BaseController {
 	private static Logger LOGGER = LoggerFactory.getLogger(WarningController.class);
-	
+
 	@Autowired
 	private WarningService warningService;
-	
+
 	/**
 	 * 企业疑似外流列表
-	 * @param searchModel   查询条件
+	 * 
+	 * @param searchModel
+	 *            查询条件
 	 * @return
 	 */
-	@RequestMapping(value="getBusinessOutflowList.json",method=RequestMethod.POST)
+	@RequestMapping(value = "getBusinessOutflowList.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getBusinessOutflowList(@RequestBody AreaSearchDTO searchModel){
-		if(StringUtil.isEmpty(getUserPark())){
+	public AjaxResult getBusinessOutflowList(@RequestBody AreaSearchDTO searchModel) {
+		if (StringUtil.isEmpty(getUserPark())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		searchModel.setPark(getUserPark());
-		if (null==searchModel || null==searchModel.getPark()) {
+		if (null == searchModel || null == searchModel.getPark()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
 			Page<ExternalFlow> page = warningService.getBusinessOutflowList(searchModel);
 			return success(page);
 		} catch (Exception e) {
-			LOGGER.error("getBusinessOutflowList查询失败！",e);
+			LOGGER.error("getBusinessOutflowList查询失败！", e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
-	
+
 	/**
 	 * 信息变更预警列表
-	 * @param searchModel   查询条件
+	 * 
+	 * @param searchModel
+	 *            查询条件
 	 * @return
 	 */
-	@RequestMapping(value="getInformationChangeList.json",method=RequestMethod.POST)
+	@RequestMapping(value = "getInformationChangeList.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getInformationChangeList(@RequestBody InformationSearchDTO searchModel){
+	public AjaxResult getInformationChangeList(@RequestBody InformationSearchDTO searchModel) {
 		searchModel.setPark(getUserPark());
-		if(null==searchModel || null==searchModel.getPark()){
+		if (null == searchModel || null == searchModel.getPark()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
 			Page<ChangeInfo> findAll = warningService.getInformationChangeList(searchModel);
 			return success(findAll);
 		} catch (Exception e) {
-			LOGGER.error("getBusinessOutflowList查询失败！",e);
+			LOGGER.error("getBusinessOutflowList查询失败！", e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
-	
+
 	/**
 	 * 信息变更预警详情
-	 * @param id   政策ID
+	 * 
+	 * @param id
+	 *            政策ID
 	 * @return
 	 */
-	@RequestMapping(value="getInformationChangeById.json",method=RequestMethod.GET)
+	@RequestMapping(value = "getInformationChangeById.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult getInformationChangeById(String id){
-		if(null==id){
+	public AjaxResult getInformationChangeById(String id) {
+		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
 			return success(warningService.getInformationChangeById(id));
 		} catch (Exception e) {
-			LOGGER.error("getBusinessOutflowById查询失败！",e);
+			LOGGER.error("getBusinessOutflowById查询失败！", e);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
+
 	/**
 	 * 获取辖区预警数量
 	 */
-	@RequestMapping(value="getGardenWarningCout.json",method=RequestMethod.GET)
+	@RequestMapping(value = "getGardenWarningCout.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult getGardenWarningCout(){
+	public AjaxResult getGardenWarningCout() {
 		AreaSearchDTO searchModel = new AreaSearchDTO();
 		searchModel.setPark(getUserPark());
 		JSONObject obj = new JSONObject();
 		List<ChangeInfo> changeList = warningService.getChangeInfo(getUserPark());
 		List<ExternalFlow> exList = warningService.getExternalFlow(getUserPark(), "true");
-//		obj.put("count", page.getTotalElements());
+		// obj.put("count", page.getTotalElements());
 		int count = changeList.size() + exList.size();
 		obj.put("count", count);
 		return success(obj);
 	}
+
 	/**
 	 * 删除预警信息
 	 */
-	@RequestMapping(value="deleteWarning.json",method=RequestMethod.GET)
+	@RequestMapping(value = "deleteWarning.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult deleteWarning(String id){
+	public AjaxResult deleteWarning(String id) {
 		boolean flag = warningService.deleteWarning(id);
 		return success(flag);
 	}

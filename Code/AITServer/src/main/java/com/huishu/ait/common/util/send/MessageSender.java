@@ -4,13 +4,15 @@ import com.huishu.ait.entity.common.AjaxResult;
 
 /**
  * 消息发送器
- * @author yuwei 
+ * 
+ * @author yuwei
  *
  */
 public interface MessageSender {
-	
+
 	/**
 	 * 发送消息
+	 * 
 	 * @param msg
 	 * @return
 	 */

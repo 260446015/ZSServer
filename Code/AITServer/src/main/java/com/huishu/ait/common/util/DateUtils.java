@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import com.huishu.ait.exception.DateParseException;
 
-
 public abstract class DateUtils {
 
 	private static Logger log = LoggerFactory.getLogger(DateUtils.class);
@@ -262,21 +261,21 @@ public abstract class DateUtils {
 		public void setEndDate(String endDate) {
 			this.endDate = endDate;
 		}
-		
+
 		public Date getObjectStartDate() {
 			try {
 				return getDateTimeFormat().parse(startDate);
 			} catch (ParseException e) {
-				//ignore
+				// ignore
 				return null;
 			}
 		}
-		
+
 		public Date getObjectEndDate() {
 			try {
 				return getDateTimeFormat().parse(endDate);
 			} catch (ParseException e) {
-				//ignore
+				// ignore
 				return null;
 			}
 		}
@@ -287,12 +286,12 @@ public abstract class DateUtils {
 		}
 
 	}
-	
+
 	public static Date parseDateTime(String dateTime) {
 		try {
 			return getDateTimeFormat().parse(dateTime);
 		} catch (ParseException e) {
-			throw new IllegalArgumentException(dateTime + " can not parse datetime"); 
+			throw new IllegalArgumentException(dateTime + " can not parse datetime");
 		}
 	}
 
@@ -306,6 +305,7 @@ public abstract class DateUtils {
 
 	/**
 	 * 获取5天后
+	 * 
 	 * @return
 	 */
 	public static Date getSevenDaysAfter() {
@@ -313,111 +313,115 @@ public abstract class DateUtils {
 		long oneDayMills = 1000 * 60 * 60 * 24;
 		return new Date(now + oneDayMills * 7);
 	}
-	
-	
-	
+
 	public static Date toDate(LocalDateTime datetime) {
 		ZoneId zone = ZoneId.systemDefault();
 		return Date.from(datetime.atZone(zone).toInstant());
 	}
+
 	/**
 	 * 
 	 * @return
 	 */
-	public static Calendar getNow(){
-		Calendar c = Calendar.getInstance();  
+	public static Calendar getNow() {
+		Calendar c = Calendar.getInstance();
 		c.setTime(new Date());
-		Calendar nextDate = (Calendar) c.clone();  
+		Calendar nextDate = (Calendar) c.clone();
 		return nextDate;
 	}
-	
+
 	/**
-	 * @return
-	 * 获取今天的时间 返回字符串时间
+	 * @return 获取今天的时间 返回字符串时间
 	 */
 	public static String getTodayDate1() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar c = Calendar.getInstance();
-        //今天
-        c.setTime(new Date());
-        c.add(Calendar.DATE, - 0);
-        Date a = c.getTime();
-        String day1 = format.format(a);
+		Calendar c = Calendar.getInstance();
+		// 今天
+		c.setTime(new Date());
+		c.add(Calendar.DATE, -0);
+		Date a = c.getTime();
+		String day1 = format.format(a);
 		return day1;
-	} 
+	}
+
 	/**
-	 * @return
-	 * 获取昨天的时间 返回昨天的时间字符串
+	 * @return 获取昨天的时间 返回昨天的时间字符串
 	 */
 	public static String getYesterdayDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar c = Calendar.getInstance();
-		//昨天
-        c.setTime(new Date());
-        c.add(Calendar.DATE, - 1);
-        Date b = c.getTime();
-        String day2 = format.format(b);
+		Calendar c = Calendar.getInstance();
+		// 昨天
+		c.setTime(new Date());
+		c.add(Calendar.DATE, -1);
+		Date b = c.getTime();
+		String day2 = format.format(b);
 		return day2;
-	} 
+	}
+
 	public static String getLast3Date() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar c = Calendar.getInstance();
-		 //过去三天
-        c.setTime(new Date());
-        c.add(Calendar.DATE, - 3);
-        Date d = c.getTime();
-        String day = format.format(d);
+		Calendar c = Calendar.getInstance();
+		// 过去三天
+		c.setTime(new Date());
+		c.add(Calendar.DATE, -3);
+		Date d = c.getTime();
+		String day = format.format(d);
 		return day;
-	} 
+	}
+
 	public static String getLast7Date() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar c = Calendar.getInstance();
-		 //过去七天
-        c.setTime(new Date());
-        c.add(Calendar.DATE, - 7);
-        Date d = c.getTime();
-        String day = format.format(d);
+		Calendar c = Calendar.getInstance();
+		// 过去七天
+		c.setTime(new Date());
+		c.add(Calendar.DATE, -7);
+		Date d = c.getTime();
+		String day = format.format(d);
 		return day;
-	} 
+	}
+
 	public static String getLast30Date() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar c = Calendar.getInstance();
-		  //过去一月
-        c.setTime(new Date());
-        c.add(Calendar.MONTH, -1);
-        Date m = c.getTime();
-        String mon = format.format(m);
+		Calendar c = Calendar.getInstance();
+		// 过去一月
+		c.setTime(new Date());
+		c.add(Calendar.MONTH, -1);
+		Date m = c.getTime();
+		String mon = format.format(m);
 		return mon;
-	} 
+	}
+
 	public static String getLast90Date() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
-		  //过去三个月
-        c.setTime(new Date());
-        c.add(Calendar.MONTH, -3);
-        Date m3 = c.getTime();
-        String mon3 = format.format(m3);
+		// 过去三个月
+		c.setTime(new Date());
+		c.add(Calendar.MONTH, -3);
+		Date m3 = c.getTime();
+		String mon3 = format.format(m3);
 		return mon3;
-	} 
+	}
+
 	public static String getHalfYearDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
-		 //过去一年
-        c.setTime(new Date());
-        c.add(Calendar.MONTH, -6);
-        Date m6 = c.getTime();
-        String mon6 = format.format(m6);
+		// 过去一年
+		c.setTime(new Date());
+		c.add(Calendar.MONTH, -6);
+		Date m6 = c.getTime();
+		String mon6 = format.format(m6);
 		return mon6;
 	}
+
 	public static String getLast365Date() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
-		//过去一年
+		// 过去一年
 		c.setTime(new Date());
 		c.add(Calendar.YEAR, -1);
 		Date y = c.getTime();
 		String year = format.format(y);
 		return year;
 	}
-	
+
 }

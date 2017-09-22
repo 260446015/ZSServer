@@ -26,15 +26,15 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
 	@Autowired
 	private UserBaseRepository userBaseRepository;
-	
+
 	@Override
 	public Boolean auditAccount(UserBase base) {
 		try {
 			Calendar nextDate = DateUtils.getNow();
-			//试用会员一个月，正式会员一年
-			if(base.getUserLevel()==0){
+			// 试用会员一个月，正式会员一年
+			if (base.getUserLevel() == 0) {
 				nextDate.add(Calendar.MONTH, +1);
-			}else{
+			} else {
 				nextDate.add(Calendar.YEAR, +1);
 				base.setUserLevel(1);
 			}
@@ -44,7 +44,7 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 			userBaseRepository.save(base);
 			return true;
 		} catch (Exception e) {
-			LOGGER.error("auditAccount失败！",e);
+			LOGGER.error("auditAccount失败！", e);
 			return false;
 		}
 	}
@@ -60,36 +60,39 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		object.put("memberNum", memberNum);
 		object.put("expireMemberNum", expireMemberNum);
 		object.put("areaRatio", convertData(areaRatio));
-		object.put("industryRatio",convertData(industryRatio ));
+		object.put("industryRatio", convertData(industryRatio));
 		return result.setSuccess(true).setData(object);
 	}
 
 	@Override
 	public List<UserBase> getAccountList(AccountSearchDTO searchModel) {
 		String[] times = analysisDate(searchModel.getDay());
-		Integer count = userBaseRepository.findUserListCount(Integer.valueOf(searchModel.getType()),times[0], times[1],searchModel.getSearch());
+		Integer count = userBaseRepository.findUserListCount(Integer.valueOf(searchModel.getType()), times[0], times[1],
+				searchModel.getSearch());
 		searchModel.setTotalSize(count);
-		List<UserBase> list = userBaseRepository.findUserList(Integer.valueOf(searchModel.getType()), searchModel.getPageFrom(), searchModel.getPageSize(),times[0], times[1],searchModel.getSearch());
+		List<UserBase> list = userBaseRepository.findUserList(Integer.valueOf(searchModel.getType()),
+				searchModel.getPageFrom(), searchModel.getPageSize(), times[0], times[1], searchModel.getSearch());
 		return list;
 	}
-	
 
 	@Override
 	public List<UserBase> getWarningAccountList(AccountSearchDTO searchModel) {
 		String[] times = analysisDate(searchModel.getDay());
-		Integer count = userBaseRepository.findWarningUserListCount(Integer.valueOf(searchModel.getType()),times[0], times[1],searchModel.getSearch());
+		Integer count = userBaseRepository.findWarningUserListCount(Integer.valueOf(searchModel.getType()), times[0],
+				times[1], searchModel.getSearch());
 		searchModel.setTotalSize(count);
-		List<UserBase> list = userBaseRepository.findWarningUserList(Integer.valueOf(searchModel.getType()), searchModel.getPageFrom(), searchModel.getPageSize(),times[0], times[1],searchModel.getSearch());
+		List<UserBase> list = userBaseRepository.findWarningUserList(Integer.valueOf(searchModel.getType()),
+				searchModel.getPageFrom(), searchModel.getPageSize(), times[0], times[1], searchModel.getSearch());
 		return list;
 	}
-	
+
 	@Override
-	public AjaxResult warnAccount(Long id,Integer status) {
+	public AjaxResult warnAccount(Long id, Integer status) {
 		AjaxResult result = new AjaxResult();
 		UserBase base = userBaseRepository.findOne(id);
 		base.setIsWarn(status);
 		userBaseRepository.save(base);
 		return result.setSuccess(true).setMessage("操作成功");
 	}
-	
+
 }

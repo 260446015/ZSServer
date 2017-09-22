@@ -11,7 +11,7 @@ import com.huishu.ait.entity.dto.EnterpriseDTO;
  * @author hhy
  * @date 2017年8月11日
  * @Parem
- * @return 
+ * @return
  * 
  */
 public interface EnterPriseRepository extends CrudRepository<EnterpriseDTO, Long> {
@@ -20,7 +20,7 @@ public interface EnterPriseRepository extends CrudRepository<EnterpriseDTO, Long
 	 * @param company
 	 * @return
 	 */
-	@Query(value="from EnterpriseDTO e where e.company=?1")
+	@Query(value = "from EnterpriseDTO e where e.company=?1")
 	List<EnterpriseDTO> findByCompany(String company);
 
 }

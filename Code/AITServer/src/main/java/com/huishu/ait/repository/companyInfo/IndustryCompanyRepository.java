@@ -10,10 +10,10 @@ import com.huishu.ait.entity.IndusCompany;
  * @author hhy
  * @date 2017年8月11日
  * @Parem
- * @return 
+ * @return
  * 
  */
-public interface IndustryCompanyRepository extends CrudRepository<IndusCompany, Long>{
+public interface IndustryCompanyRepository extends CrudRepository<IndusCompany, Long> {
 
 	/**
 	 * @param industry

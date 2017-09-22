@@ -28,9 +28,11 @@ import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.dto.CompanyDTO;
 import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.service.company.CompanyService;
+
 /**
  * 企业排行榜实现类
- * @author yindawei   
+ * 
+ * @author yindawei
  *
  */
 @Service
@@ -50,25 +52,27 @@ public class CompanyServiceImpl implements CompanyService {
 	public JSONArray findCompaniesOder(CompanyDTO dto) {
 		JSONArray data = new JSONArray();
 		try {
-			SearchRequestBuilder requestBuilder =  ESUtils.getSearchRequestBuilder(client);
+			SearchRequestBuilder requestBuilder = ESUtils.getSearchRequestBuilder(client);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
 			String[] msg = dto.getMsg();
-			String industry = msg[0];//获取前台传递的产业字段
-			String industryLabel = msg[1];//获取前台传递的产业标签字段
-			String publishTime = msg[2];//获取前台传递的发布时间字段这里用的是publishTime只有年份查询
-			if(null != industry){
+			String industry = msg[0];// 获取前台传递的产业字段
+			String industryLabel = msg[1];// 获取前台传递的产业标签字段
+			String publishTime = msg[2];// 获取前台传递的发布时间字段这里用的是publishTime只有年份查询
+			if (null != industry) {
 				bq.must(QueryBuilders.termQuery("industry", industry));
 			}
-			if(!"不限".equals(industryLabel)){
+			if (!"不限".equals(industryLabel)) {
 				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 			}
-			if(null != publishTime){
+			if (null != publishTime) {
 				bq.must(QueryBuilders.termQuery("publishYear", publishTime));
 			}
-			String dimension = "企业排行";//这里只做排行榜，先写死
-			
+			String dimension = "企业排行";// 这里只做排行榜，先写死
+
 			bq.must(QueryBuilders.termQuery("dimension", dimension));
-			SearchResponse response = requestBuilder.setQuery(bq).addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC)).setSize(dto.getPageSize()).execute().actionGet();
+			SearchResponse response = requestBuilder.setQuery(bq)
+					.addSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC)).setSize(dto.getPageSize())
+					.execute().actionGet();
 			SearchHits hits = response.getHits();
 			for (SearchHit searchHit : hits) {
 				JSONObject obj = new JSONObject();
@@ -79,7 +83,7 @@ public class CompanyServiceImpl implements CompanyService {
 				obj.put("business", companie.getString("business"));
 				DateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
 				DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-				
+
 				Date date = format1.parse(companie.getString("publishTime"));
 				String publishDate = format.format(date);
 				obj.put("publishTime", publishDate);
@@ -88,9 +92,9 @@ public class CompanyServiceImpl implements CompanyService {
 				obj.put("summary", StringUtil.replaceHtml(companie.getString("summary")));
 				data.add(obj);
 			}
-			LOGGER.info("查询到的企业:"+data.toJSONString());
+			LOGGER.info("查询到的企业:" + data.toJSONString());
 		} catch (Exception e) {
-			LOGGER.error("企业排行榜查询出错:"+e.getMessage());
+			LOGGER.error("企业排行榜查询出错:" + e.getMessage());
 		}
 		return data;
 	}
@@ -99,10 +103,10 @@ public class CompanyServiceImpl implements CompanyService {
 	public List<String> findCname(String park) {
 		List<Company> all = companyRepository.findByPark(park);
 		List<String> names = new ArrayList<>();
-		all.forEach((c)->{
+		all.forEach((c) -> {
 			names.add(c.getCompanyName());
 		});
 		return names;
-		
+
 	}
 }

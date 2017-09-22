@@ -17,21 +17,21 @@ public class GardenDataDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	/**园区名字*/
+	/** 园区名字 */
 	private String parkName;
-	/**地域*/
+	/** 地域 */
 	private String area;
-	/**会员数量*/
+	/** 会员数量 */
 	private Integer accountCount;
-	/**未审核会员数量*/
+	/** 未审核会员数量 */
 	private Integer checkAccountCount;
-	/**过期会员数量*/
+	/** 过期会员数量 */
 	private Integer expireAccountCount;
-	/**未过期会员数量*/
+	/** 未过期会员数量 */
 	private Integer normalAccountCount;
-	/**即将过期会员数量*/
+	/** 即将过期会员数量 */
 	private Integer dueAccountCount;
-	
+
 	public Long getId() {
 		return id;
 	}

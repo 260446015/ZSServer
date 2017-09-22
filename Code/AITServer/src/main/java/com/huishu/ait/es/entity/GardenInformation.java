@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * 园区情报实体
+ * 
  * @author yindq
  * @date
  */
@@ -33,69 +34,90 @@ public class GardenInformation {
 	private String content;
 	/** 编辑 */
 	private String author;
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getVector() {
 		return vector;
 	}
+
 	public void setVector(String vector) {
 		this.vector = vector;
 	}
+
 	public String getPublishDateTime() {
 		return publishDateTime;
 	}
+
 	public void setPublishDateTime(String publishDateTime) {
 		this.publishDateTime = publishDateTime;
 	}
+
 	public String getArticleLink() {
 		return articleLink;
 	}
+
 	public void setArticleLink(String articleLink) {
 		this.articleLink = articleLink;
 	}
+
 	public String getSource() {
 		return source;
 	}
+
 	public void setSource(String source) {
 		this.source = source;
 	}
+
 	public String getBusiness() {
 		return business;
 	}
+
 	public void setBusiness(String business) {
 		this.business = business;
 	}
+
 	public String getSourceLink() {
 		return sourceLink;
 	}
+
 	public void setSourceLink(String sourceLink) {
 		this.sourceLink = sourceLink;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public String getAuthor() {
 		return author;
 	}
+
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+
 	@Override
 	public String toString() {
 		return JSONObject.toJSONString(this);
 	}
-	
+
 }

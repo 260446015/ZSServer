@@ -16,22 +16,25 @@ public class InformationSearchDTO extends SearchModel {
 	private static final long serialVersionUID = 1L;
 	/** 园区 */
 	private String park;
-	
+
 	private String search;
-	
+
 	public String getSearch() {
 		return search;
 	}
+
 	public void setSearch(String search) {
 		this.search = search;
 	}
+
 	public String getPark() {
 		return park;
 	}
+
 	public void setPark(String park) {
 		this.park = park;
 	}
-	
+
 	@Override
 	public String toString() {
 		return JSONObject.toJSONString(this);

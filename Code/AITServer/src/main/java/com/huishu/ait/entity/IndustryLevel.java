@@ -17,25 +17,25 @@ import com.alibaba.fastjson.JSONObject;
  * @author yindq
  * @date 2017年9月1日
  */
-@Table(name="t_industry_level")
+@Table(name = "t_industry_level")
 @Entity
-public class IndustryLevel implements Serializable{
+public class IndustryLevel implements Serializable {
 
 	private static final long serialVersionUID = 5200560994830588853L;
-	/**id*/
+	/** id */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	/**产业*/
+
+	/** 产业 */
 	@Column(name = "industry_name")
 	private String industryName;
-	
-	/**产业等级*/
+
+	/** 产业等级 */
 	@Column(name = "level")
 	private Integer level;
-	
-	/**父级ID*/
+
+	/** 父级ID */
 	@Column(name = "father_id")
 	private Long fatherId;
 
@@ -70,10 +70,10 @@ public class IndustryLevel implements Serializable{
 	public void setFatherId(Long fatherId) {
 		this.fatherId = fatherId;
 	}
-	
+
 	@Override
 	public String toString() {
 		return JSONObject.toJSONString(this);
 	}
-	
+
 }

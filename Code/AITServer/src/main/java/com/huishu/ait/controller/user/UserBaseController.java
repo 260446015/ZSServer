@@ -42,7 +42,7 @@ public class UserBaseController extends BaseController {
 	public AjaxResult findMyInformation() {
 		try {
 			UserBase base = userBaseService.findUserByUserId(getUserId());
-			base.setImageUrl(ImgConstant.IP_PORT+base.getImageUrl());
+			base.setImageUrl(ImgConstant.IP_PORT + base.getImageUrl());
 			base.setPassword(null);
 			base.setSalt(null);
 			return success(base);
@@ -74,7 +74,7 @@ public class UserBaseController extends BaseController {
 		}
 
 	}
-	
+
 	/**
 	 * 修改邮箱
 	 * 
@@ -88,7 +88,7 @@ public class UserBaseController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			return userBaseService.modifyEmail(getUserId(),email);
+			return userBaseService.modifyEmail(getUserId(), email);
 		} catch (Exception e) {
 			LOGGER.error("modifyEmail失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);

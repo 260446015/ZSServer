@@ -123,9 +123,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			if ("不限".equals(area)) {
 				area = "%%";
 			}
-//			else{
-//				area = "%" + area + "%";
-//			}
+			// else{
+			// area = "%" + area + "%";
+			// }
 			if ("不限".equals(industryType)) {
 				industryType = "%%";
 			} else {
@@ -134,23 +134,24 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			PageRequest pageRequest = new PageRequest(pageNum - 1, pageSize);
 			findGardensPage = gardenRepository.findByAreaLikeAndIndustryLikeOrderByIdDesc(area, industryType,
 					pageRequest);
-			findGardensPage.forEach(GardenData ->{
+			findGardensPage.forEach(GardenData -> {
 				String gardenIntroduce = GardenData.getGardenIntroduce();
 				String gardenSuperiority = GardenData.getGardenSuperiority();
 				String address = GardenData.getAddress();
 				String picture = GardenData.getGardenPicture();
-				if(gardenIntroduce==null||StringUtil.isEmpty(gardenIntroduce)||gardenIntroduce.equals("NULL")){
-					if(gardenSuperiority==null || StringUtil.isEmpty(gardenSuperiority)||gardenSuperiority.equals("NULL")){
+				if (gardenIntroduce == null || StringUtil.isEmpty(gardenIntroduce) || gardenIntroduce.equals("NULL")) {
+					if (gardenSuperiority == null || StringUtil.isEmpty(gardenSuperiority)
+							|| gardenSuperiority.equals("NULL")) {
 						GardenData.setGardenIntroduce("暂无");
-					}else{
+					} else {
 						GardenData.setGardenIntroduce(gardenSuperiority);
 					}
 				}
-				if(address==null || StringUtil.isEmpty(address)||address.equals("NULL")){
+				if (address == null || StringUtil.isEmpty(address) || address.equals("NULL")) {
 					GardenData.setAddress("暂无");
 				}
-				if(picture==null || StringUtil.isEmpty(picture)||picture.equals("NULL")){
-					GardenData.setGardenPicture(ImgConstant.IP_PORT+"park_img/default.jpg");
+				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
+					GardenData.setGardenPicture(ImgConstant.IP_PORT + "park_img/default.jpg");
 				}
 			});
 			// }
@@ -187,16 +188,16 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		String industryType = dto.getIndustryType();
 		try {
 			PageRequest pageRequest = new PageRequest(dto.getPageNumber() - 1, dto.getPageSize());
-			
-			Page<GardenUser> findAll = gardenUserRepository.findAll(getSpec(area, industryType,userId), pageRequest);
-			findAll.forEach(GardenUser ->{
+
+			Page<GardenUser> findAll = gardenUserRepository.findAll(getSpec(area, industryType, userId), pageRequest);
+			findAll.forEach(GardenUser -> {
 				String picture = GardenUser.getGardenPicture();
 				String description = GardenUser.getDescription();
-				if(description==null||StringUtil.isEmpty(description)||description.equals("NULL")){
+				if (description == null || StringUtil.isEmpty(description) || description.equals("NULL")) {
 					GardenUser.setDescription("暂无");
 				}
-				if(picture==null || StringUtil.isEmpty(picture)||picture.equals("NULL")){
-					GardenUser.setGardenPicture(ImgConstant.IP_PORT+"park_img/default.jpg");
+				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
+					GardenUser.setGardenPicture(ImgConstant.IP_PORT + "park_img/default.jpg");
 				}
 			});
 			return findAll;
@@ -228,9 +229,10 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					gu.setAttentionDate(
 							new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(System.currentTimeMillis()).toString());
 					String gardenIntroduce = garden.getGardenIntroduce();
-					if(gardenIntroduce==null || StringUtil.isEmpty(gardenIntroduce)||gardenIntroduce.equals("NULL")){
+					if (gardenIntroduce == null || StringUtil.isEmpty(gardenIntroduce)
+							|| gardenIntroduce.equals("NULL")) {
 						gu.setDescription("暂无");
-					}else{
+					} else {
 						gu.setDescription(garden.getGardenIntroduce());
 					}
 					gu.setUserId(Integer.parseInt(userId));
@@ -241,8 +243,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					return gu;
 				}
 			} else {
-				GardenUser gu = gardenUserRepository.findByGardenIdAndUserId(gardenId,Integer.valueOf(userId));
-				if(gu != null){
+				GardenUser gu = gardenUserRepository.findByGardenIdAndUserId(gardenId, Integer.valueOf(userId));
+				if (gu != null) {
 					gardenUserRepository.delete(gu);
 				}
 			}
@@ -263,9 +265,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		JSONArray array2 = getGardenInformationList(getAreaSearchDTODemo(gardenName));
 		String cs = gardenRepository.findByGardenName(gardenName).getEnterCompany();
 		JSONArray array3 = new JSONArray();
-		if(!StringUtil.isEmpty(cs)){
+		if (!StringUtil.isEmpty(cs)) {
 			String[] enterCompany = cs.split("，");
-			for (int i = 0;i<(enterCompany.length<6?enterCompany.length:5) ;i++) {
+			for (int i = 0; i < (enterCompany.length < 6 ? enterCompany.length : 5); i++) {
 				JSONObject obj = new JSONObject();
 				obj.put("business", enterCompany[i]);
 				array3.add(obj);
@@ -290,7 +292,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		try {
 			area = "%" + area + "%";
 			industry = "%" + industry + "%";
-			List<GardenData> list = gardenRepository.findByAddressLikeAndIndustryLike(area,industry);
+			List<GardenData> list = gardenRepository.findByAddressLikeAndIndustryLike(area, industry);
 			for (GardenData garden : list) {
 				JSONObject obj = new JSONObject();
 				obj.put("address", garden.getAddress());
@@ -371,21 +373,21 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		return data;
 	}
 
-	private Specification<GardenUser> getSpec(String area,String industryType,Integer userId) {
+	private Specification<GardenUser> getSpec(String area, String industryType, Integer userId) {
 		return new Specification<GardenUser>() {
 			List<Predicate> predicates = new ArrayList<Predicate>();
 
 			@Override
 			public Predicate toPredicate(Root<GardenUser> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				if(!"不限".equals(area)){
-					predicates.add(cb.equal(root.<String>get("area"), area));
+				if (!"不限".equals(area)) {
+					predicates.add(cb.equal(root.<String> get("area"), area));
 				}
-				if(!"不限".equals(industryType)){
-					predicates.add(cb.like(root.<String>get("industryType"), industryType));
+				if (!"不限".equals(industryType)) {
+					predicates.add(cb.like(root.<String> get("industryType"), industryType));
 				}
 				predicates.add(cb.equal(root.get("userId"), userId));
 				return query.where(predicates.toArray(new Predicate[predicates.size()])).getGroupRestriction();
-				
+
 			}
 		};
 	}

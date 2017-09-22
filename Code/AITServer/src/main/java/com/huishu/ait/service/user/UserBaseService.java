@@ -53,14 +53,14 @@ public interface UserBaseService {
 	 * @return
 	 */
 	AjaxResult modifyPassword(UserPasswordDTO param);
-	
+
 	/**
 	 * 修改用户邮箱
 	 * 
 	 * @param param
 	 * @return
 	 */
-	AjaxResult modifyEmail(Long userId , String email);
+	AjaxResult modifyEmail(Long userId, String email);
 
 	/**
 	 * 重置用户密码
@@ -69,17 +69,21 @@ public interface UserBaseService {
 	 * @return
 	 */
 	AjaxResult findPassword(FindPasswordDTO param);
+
 	/**
 	 * 添加园区正事用户
+	 * 
 	 * @param userBase
 	 * @return
 	 */
 	AjaxResult addParkAccount(AddAccountDTO param);
+
 	/**
 	 * 删除园区用户
+	 * 
 	 * @param id
 	 * @return
 	 */
 	void dropParkAccount(Long id);
-	
+
 }

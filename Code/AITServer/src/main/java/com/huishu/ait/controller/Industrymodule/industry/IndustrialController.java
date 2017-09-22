@@ -1,6 +1,5 @@
 package com.huishu.ait.controller.Industrymodule.industry;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,124 +19,129 @@ import com.huishu.ait.service.industrialPolicy.IndustrialPolicyService;
 
 /**
  * 产业政策相关接口
+ * 
  * @author jdz
  * @version 1.0Bate
  * @CreateTime 2017-7-27 17:18:16
  */
 @Controller
-@RequestMapping(value="/apis/industry")
+@RequestMapping(value = "/apis/industry")
 public class IndustrialController extends BaseController {
 
-    //加载日志
-    private static Logger log = LoggerFactory.getLogger(IndustrialController.class);
-    
-    @Autowired      //产业政策service
-    private IndustrialPolicyService industrialPolicyService;
-    
-    /**
-     * 获取产业政策列表接口
-     * @param IndustrialPolicyDTO 产业政策查询对象
-     * @return AjaxResult 返回一个对象，里面是数据
-     */
-    @RequestMapping(value="/getIndustrialPolicyList.json", method = RequestMethod.POST)
-    @ResponseBody
-    public AjaxResult getIndustrialPolicyList(@RequestBody IndustrialPolicyDTO dto){
-        try{
-            if (null == dto || 2!=dto.getMsg().length){
-                return error(MsgConstant.ILLEGAL_PARAM);
-            }
-            String[] labels = dto.getMsg();
+	// 加载日志
+	private static Logger log = LoggerFactory.getLogger(IndustrialController.class);
 
-            if (!StringUtil.isEmpty(labels[0])) {
-                dto.setIndustry(labels[0]);
-            }
-            if (!StringUtil.isEmpty(labels[1])) {
-                dto.setIndustryLabel(labels[1]);
-            }
-            JSONArray array = new JSONArray();
-            
-            dto = pageInit(dto);
-                /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
-            array = industrialPolicyService.getIndustrialPolicyList(dto);
-            return success(array).setSuccess(true);
-        } catch(Exception e) {
-            log.error("获取产业政策列表失败："+e.getMessage());
-            return error("获取产业政策列表失败"); 
-        }
-    }
-    
-    /**
-     * 产业政策-政策解读
-     * @param dto
-     * @return
-     */
-    @RequestMapping(value="/getIndustrialList.json", method = RequestMethod.POST)
-    @ResponseBody
-    public AjaxResult getIndustraiList(@RequestBody IndustrialPolicyDTO dto){
-    	try{
-            if (null == dto || 3!=dto.getMsg().length){
-                return error(MsgConstant.ILLEGAL_PARAM);
-            }
-            String[] labels = dto.getMsg();
+	@Autowired // 产业政策service
+	private IndustrialPolicyService industrialPolicyService;
 
-            if (!StringUtil.isEmpty(labels[0])) {
-                dto.setIndustry(labels[0]);
-            }
-            if (!StringUtil.isEmpty(labels[1])) {
-                dto.setIndustryLabel(labels[1]);
-            }
-            if (!StringUtil.isEmpty(labels[2])) {
-                dto.setArea(labels[2]);
-            }
-            JSONArray array = new JSONArray();
-            
-            dto = pageInit(dto);
-                /** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
-            array = industrialPolicyService.getIndustrialList(dto);
-            return success(array).setSuccess(true);
-        } catch(Exception e) {
-            log.error("获取产业政策列表失败："+e.getMessage());
-            return error("获取产业政策列表失败"); 
-        }
-    }
-    /**
-     * 获取产业政策详情
-     * @param id 产业政策id
-     * @return
-     */
-    @RequestMapping(value="/getIndustrialPolicyDetailById.json", method = RequestMethod.GET)
-    @ResponseBody
-    public AjaxResult getIndustrialPolicyDetailById(String id){
-        try{
-            if(!StringUtil.isEmpty(id) && getUserId() != null){
-                return success(industrialPolicyService.getIndustrialPolicyDetail(id,getUserId()));
-            }else{
-                return error(MsgConstant.ILLEGAL_PARAM);
-            }
-        }catch(Exception e){
-            log.error("获取产业政策详情失败："+e.getMessage());
-            return error("获取产业政策详情失败");    
-        }
-    }
-    
-    /**
-     * 分页初始处理
-     */
-    private IndustrialPolicyDTO pageInit(IndustrialPolicyDTO dto){
-        /*
-         * 如果没传入当前页，将当前页设定为0
-         * 如果没有单页最大数据量，将数据量设定为15
-         * 如果单页数据量大于1000，将其设定为1000
-         */
-        if(dto.getPageNumber()==null){
-            dto.setPageNumber(0);
-        }
-        if(dto.getPageSize()==null){
-            dto.setPageSize(10);
-        }
-        if(dto.getPageSize()>1000){
-            dto.setPageSize(1000);
-        }
-        return dto;
-    }
+	/**
+	 * 获取产业政策列表接口
+	 * 
+	 * @param IndustrialPolicyDTO
+	 *            产业政策查询对象
+	 * @return AjaxResult 返回一个对象，里面是数据
+	 */
+	@RequestMapping(value = "/getIndustrialPolicyList.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult getIndustrialPolicyList(@RequestBody IndustrialPolicyDTO dto) {
+		try {
+			if (null == dto || 2 != dto.getMsg().length) {
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			String[] labels = dto.getMsg();
+
+			if (!StringUtil.isEmpty(labels[0])) {
+				dto.setIndustry(labels[0]);
+			}
+			if (!StringUtil.isEmpty(labels[1])) {
+				dto.setIndustryLabel(labels[1]);
+			}
+			JSONArray array = new JSONArray();
+
+			dto = pageInit(dto);
+			/** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
+			array = industrialPolicyService.getIndustrialPolicyList(dto);
+			return success(array).setSuccess(true);
+		} catch (Exception e) {
+			log.error("获取产业政策列表失败：" + e.getMessage());
+			return error("获取产业政策列表失败");
+		}
+	}
+
+	/**
+	 * 产业政策-政策解读
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "/getIndustrialList.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult getIndustraiList(@RequestBody IndustrialPolicyDTO dto) {
+		try {
+			if (null == dto || 3 != dto.getMsg().length) {
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			String[] labels = dto.getMsg();
+
+			if (!StringUtil.isEmpty(labels[0])) {
+				dto.setIndustry(labels[0]);
+			}
+			if (!StringUtil.isEmpty(labels[1])) {
+				dto.setIndustryLabel(labels[1]);
+			}
+			if (!StringUtil.isEmpty(labels[2])) {
+				dto.setArea(labels[2]);
+			}
+			JSONArray array = new JSONArray();
+
+			dto = pageInit(dto);
+			/** 创建一个 indusPolList对象，用于存储产业政策文章列表 */
+			array = industrialPolicyService.getIndustrialList(dto);
+			return success(array).setSuccess(true);
+		} catch (Exception e) {
+			log.error("获取产业政策列表失败：" + e.getMessage());
+			return error("获取产业政策列表失败");
+		}
+	}
+
+	/**
+	 * 获取产业政策详情
+	 * 
+	 * @param id
+	 *            产业政策id
+	 * @return
+	 */
+	@RequestMapping(value = "/getIndustrialPolicyDetailById.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getIndustrialPolicyDetailById(String id) {
+		try {
+			if (!StringUtil.isEmpty(id) && getUserId() != null) {
+				return success(industrialPolicyService.getIndustrialPolicyDetail(id, getUserId()));
+			} else {
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+		} catch (Exception e) {
+			log.error("获取产业政策详情失败：" + e.getMessage());
+			return error("获取产业政策详情失败");
+		}
+	}
+
+	/**
+	 * 分页初始处理
+	 */
+	private IndustrialPolicyDTO pageInit(IndustrialPolicyDTO dto) {
+		/*
+		 * 如果没传入当前页，将当前页设定为0 如果没有单页最大数据量，将数据量设定为15 如果单页数据量大于1000，将其设定为1000
+		 */
+		if (dto.getPageNumber() == null) {
+			dto.setPageNumber(0);
+		}
+		if (dto.getPageSize() == null) {
+			dto.setPageSize(10);
+		}
+		if (dto.getPageSize() > 1000) {
+			dto.setPageSize(1000);
+		}
+		return dto;
+	}
 }

@@ -261,10 +261,10 @@ public class GardenController extends BaseController {
 	 */
 	@RequestMapping(value = "/findGardensByArea.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult findGardensByArea(String area,String industry) {
+	public AjaxResult findGardensByArea(String area, String industry) {
 		JSONArray data = null;
 		try {
-			data = gardenService.findGardensByAreaAndIndustry(area,industry);
+			data = gardenService.findGardensByAreaAndIndustry(area, industry);
 		} catch (Exception e) {
 			LOGGER.error("按地域查询多个园区失败", e);
 			error("按地域查询多个园区失败");

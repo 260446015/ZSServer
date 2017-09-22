@@ -28,7 +28,6 @@ import com.huishu.ait.common.conf.DBConstant;
  */
 public class ESUtils {
 
-
 	/**
 	 * 获取更多条件查询器
 	 * 
@@ -40,7 +39,7 @@ public class ESUtils {
 	 */
 	public static BoolQueryBuilder getMoreQueryBuilder(String fiedName, JSONArray more) {
 		BoolQueryBuilder or = new BoolQueryBuilder();
-		if(more != null){
+		if (more != null) {
 			for (int i = 0; i < more.size(); i++) {
 				JSONObject data = more.getJSONObject(i);
 				or.should(QueryBuilders.termQuery(fiedName, data.getString("value")));
@@ -48,7 +47,7 @@ public class ESUtils {
 		}
 		return or;
 	}
-	
+
 	/**
 	 * 获取更多条件查询器，参数为用逗号分隔的String字符串
 	 * 
@@ -61,15 +60,14 @@ public class ESUtils {
 	public static BoolQueryBuilder getMoreQueryBuilder(String fiedName, String more) {
 		BoolQueryBuilder or = new BoolQueryBuilder();
 		String[] moreArr = more.split(",");
-		if(moreArr != null){
+		if (moreArr != null) {
 			for (int i = 0; i < moreArr.length; i++) {
 				or.should(QueryBuilders.termQuery(fiedName, moreArr[i]));
 			}
 		}
 		return or;
 	}
-	
-	
+
 	/**
 	 * 获取更多条件查询器 用逗号分割
 	 * 
@@ -81,7 +79,7 @@ public class ESUtils {
 	 */
 	public static BoolQueryBuilder getMoreQueryBuilderString(String fiedName, String values) {
 		BoolQueryBuilder or = new BoolQueryBuilder();
-		if(StringUtils.isNotEmpty(values)){
+		if (StringUtils.isNotEmpty(values)) {
 			String[] split = values.split(",");
 			for (int i = 0; i < split.length; i++) {
 				or.should(QueryBuilders.termQuery(fiedName, split[i]));
@@ -89,39 +87,38 @@ public class ESUtils {
 		}
 		return or;
 	}
-	
+
 	public static BoolQueryBuilder getMoreCitysWildCard(String fiedName, String values) {
 		BoolQueryBuilder or = new BoolQueryBuilder();
-		//北京市，天津市，上海市，重庆市
-		if(StringUtils.isNotEmpty(values)){
+		// 北京市，天津市，上海市，重庆市
+		if (StringUtils.isNotEmpty(values)) {
 			String[] split = values.split(",");
 			for (int i = 0; i < split.length; i++) {
-				if("北京".equals(split[i])||"天津".equals(split[i])||"上海".equals(split[i])||"重庆".equals(split[i])){
-					or.should(QueryBuilders.wildcardQuery(fiedName, "*"+split[i]+"*"));
-				}else{
+				if ("北京".equals(split[i]) || "天津".equals(split[i]) || "上海".equals(split[i]) || "重庆".equals(split[i])) {
+					or.should(QueryBuilders.wildcardQuery(fiedName, "*" + split[i] + "*"));
+				} else {
 					or.should(QueryBuilders.termQuery(fiedName, split[i]));
 				}
 			}
 		}
 		return or;
 	}
-	
+
 	public static BoolQueryBuilder getMoreCitysAndAreaWildCard(String fiedName, String values) {
 		BoolQueryBuilder or = new BoolQueryBuilder();
-		//北京市，天津市，上海市，重庆市
-		if(StringUtils.isNotEmpty(values)){
+		// 北京市，天津市，上海市，重庆市
+		if (StringUtils.isNotEmpty(values)) {
 			String[] split = values.split(",");
 			for (int i = 0; i < split.length; i++) {
-				if("北京".equals(split[i])||"天津".equals(split[i])||"上海".equals(split[i])||"重庆".equals(split[i])){
-					or.should(QueryBuilders.wildcardQuery(fiedName, "*"+split[i]+"*"));
-				}else{
+				if ("北京".equals(split[i]) || "天津".equals(split[i]) || "上海".equals(split[i]) || "重庆".equals(split[i])) {
+					or.should(QueryBuilders.wildcardQuery(fiedName, "*" + split[i] + "*"));
+				} else {
 					or.should(QueryBuilders.termQuery("city", split[i]));
 				}
 			}
 		}
 		return or;
 	}
-
 
 	/**
 	 * 获取默认的ES 搜索请求构造器
@@ -132,6 +129,7 @@ public class ESUtils {
 	public static SearchRequestBuilder getSearchRequestBuilder(Client client) {
 		return client.prepareSearch(DBConstant.EsConfig.INDEX).setTypes(DBConstant.EsConfig.TYPE);
 	}
+
 	/**
 	 * 获取默认的ES 搜索请求构造器
 	 * 
@@ -141,14 +139,13 @@ public class ESUtils {
 	public static SearchRequestBuilder getSearchBuilder(Client client) {
 		return client.prepareSearch(DBConstant.EsConfig.INDEX1).setTypes(DBConstant.EsConfig.TYPE1);
 	}
-	
-	
+
 	public static RangeQueryBuilder getPublishDateQuery(String startDate, String endDate) {
 		RangeQueryBuilder range = QueryBuilders.rangeQuery("publishDate");
 		range.from(startDate).to(endDate);
 		return range;
 	}
-	
+
 	public static RangeQueryBuilder getBuyDateQuery(String startDate, String endDate) {
 		RangeQueryBuilder range = QueryBuilders.rangeQuery("buyDate");
 		range.from(startDate).to(endDate);
@@ -182,7 +179,6 @@ public class ESUtils {
 		return existsResponse.isExists();
 	}
 
-	
 	/**
 	 * 获取属性的范围值
 	 * 

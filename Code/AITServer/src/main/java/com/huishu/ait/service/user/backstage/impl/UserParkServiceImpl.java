@@ -15,12 +15,13 @@ import com.huishu.ait.entity.dto.GardenSearchDTO;
 import com.huishu.ait.repository.user.UserParkRepository;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.user.backstage.UserParkService;
+
 @Service
 public class UserParkServiceImpl extends AbstractService implements UserParkService {
-	
+
 	@Autowired
 	private UserParkRepository userParkRepository;
-	
+
 	@Override
 	public List<GardenDataDTO> getGardenList(GardenSearchDTO searchModel) {
 		List<GardenDataDTO> listData = new ArrayList<GardenDataDTO>();
@@ -29,19 +30,25 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 		searchModel.setType(msg[1]);
 		searchModel.setDay(msg[2]);
 		String[] times = analysisDate(searchModel.getDay());
-		Integer count = userParkRepository.findGardenListCount(searchModel.getArea(),searchModel.getSearch());
+		Integer count = userParkRepository.findGardenListCount(searchModel.getArea(), searchModel.getSearch());
 		searchModel.setTotalSize(count);
-		List<Object[]> list = userParkRepository.findGardenList(searchModel.getArea(), searchModel.getPageFrom(), searchModel.getPageSize(),searchModel.getSearch());
+		List<Object[]> list = userParkRepository.findGardenList(searchModel.getArea(), searchModel.getPageFrom(),
+				searchModel.getPageSize(), searchModel.getSearch());
 		for (Object[] str : list) {
 			GardenDataDTO dto = new GardenDataDTO();
 			dto.setId(Long.valueOf(str[0].toString()));
 			dto.setArea(str[2].toString());
 			dto.setParkName(str[1].toString());
-			Integer accountCount = userParkRepository.findAccountCount(str[0].toString(), searchModel.getType(),times[0], times[1]);
-			Integer checkAccountCount = userParkRepository.findCheckAccountCount(str[0].toString(), searchModel.getType(),times[0], times[1]);
-			Integer expireAccountCount = userParkRepository.findExpireAccountCount(str[0].toString(), searchModel.getType(),times[0], times[1]);
-			Integer normalAccountCount = userParkRepository.findNormalAccountCount(str[0].toString(), searchModel.getType(),times[0], times[1]);
-			Integer dueAccountCount = userParkRepository.findDueAccountCount(str[0].toString(), searchModel.getType(),times[0], times[1]);
+			Integer accountCount = userParkRepository.findAccountCount(str[0].toString(), searchModel.getType(),
+					times[0], times[1]);
+			Integer checkAccountCount = userParkRepository.findCheckAccountCount(str[0].toString(),
+					searchModel.getType(), times[0], times[1]);
+			Integer expireAccountCount = userParkRepository.findExpireAccountCount(str[0].toString(),
+					searchModel.getType(), times[0], times[1]);
+			Integer normalAccountCount = userParkRepository.findNormalAccountCount(str[0].toString(),
+					searchModel.getType(), times[0], times[1]);
+			Integer dueAccountCount = userParkRepository.findDueAccountCount(str[0].toString(), searchModel.getType(),
+					times[0], times[1]);
 			dto.setAccountCount(accountCount);
 			dto.setCheckAccountCount(checkAccountCount);
 			dto.setDueAccountCount(dueAccountCount);
@@ -51,7 +58,7 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 		}
 		return listData;
 	}
-	
+
 	@Override
 	public AjaxResult addGarden(UserPark userPark) {
 		AjaxResult result = new AjaxResult();
@@ -73,7 +80,8 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 		UserPark park = userParkRepository.findOne(searchModel.getUserId());
 		Integer count = userParkRepository.findParkAccountCount(park.getName());
 		searchModel.setTotalSize(count);
-		List<Object[]> list = userParkRepository.findParkAccount(park.getName(),searchModel.getPageFrom(), searchModel.getPageSize());
+		List<Object[]> list = userParkRepository.findParkAccount(park.getName(), searchModel.getPageFrom(),
+				searchModel.getPageSize());
 		for (Object[] objects : list) {
 			AccountDataDTO dto = new AccountDataDTO();
 			dto.setId(Long.valueOf(objects[0].toString()));

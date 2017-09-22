@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * 信息变更预警详情
+ * 
  * @author yindq
  * @date 2017年8月3日
  */
@@ -19,7 +20,7 @@ public class WarningInformation {
 	private String title;
 	/** 类型标签 */
 	private String businessType;
-	/** 公司名称*/
+	/** 公司名称 */
 	private String business;
 	/** 更新属性 */
 	private String updateAttribute;
@@ -31,7 +32,7 @@ public class WarningInformation {
 	private String publishTime;
 	/** 更新来源 */
 	private String source;
-	
+
 	public String getId() {
 		return id;
 	}
@@ -79,7 +80,6 @@ public class WarningInformation {
 	public void setUpdateAttribute(String updateAttribute) {
 		this.updateAttribute = updateAttribute;
 	}
-
 
 	public String getTitle() {
 		return title;

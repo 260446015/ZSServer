@@ -27,7 +27,7 @@
 
 <!-- Pages JS -->
 <script src="/assets/js/pages/table-advanced.js"></script>
-
+<script src="assets/js/pages/table-editable.js"></script>
 <!--  -->
 <script src="/assets/js/pages/ui-modals.js"></script>
 

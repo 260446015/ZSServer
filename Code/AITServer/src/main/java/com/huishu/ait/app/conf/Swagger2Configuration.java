@@ -17,20 +17,13 @@ public class Swagger2Configuration {
 
 	@Bean
 	public Docket createRestApi() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.apiInfo(apiInfo())
-				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.huishu.ait.controller"))
-				.paths(PathSelectors.any())
+		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
+				.apis(RequestHandlerSelectors.basePackage("com.huishu.ait.controller")).paths(PathSelectors.any())
 				.build();
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder()
-				.title("慧数招商RESTful接口测试")
-				.contact("慧数招商")
-				.version("2.0")
-				.build();
+		return new ApiInfoBuilder().title("慧数招商RESTful接口测试").contact("慧数招商").version("2.0").build();
 	}
 
 }

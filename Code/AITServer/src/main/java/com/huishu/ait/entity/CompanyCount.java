@@ -10,51 +10,49 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *  @author jdz
- *  @version 1.0
- *  @createDate 2017-8-10
- *  @description 公司被搜索次数实体类
+ * @author jdz
+ * @version 1.0
+ * @createDate 2017-8-10
+ * @description 公司被搜索次数实体类
  */
 @Entity
 @Table(name = "t_company_count")
-public class CompanyCount implements Serializable{
+public class CompanyCount implements Serializable {
 
-    private static final long serialVersionUID = -8569241036296289963L;
+	private static final long serialVersionUID = -8569241036296289963L;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
-    
-    @Column(name="company_name")
-    private String companyName;
-    
-    @Column(name="search_count")
-    private int searchCount;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 
-    public int getId() {
-        return id;
-    }
+	@Column(name = "company_name")
+	private String companyName;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	@Column(name = "search_count")
+	private int searchCount;
 
-    public String getCompanyName() {
-        return companyName;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public int getSearchCount() {
-        return searchCount;
-    }
+	public String getCompanyName() {
+		return companyName;
+	}
 
-    public void setSearchCount(int searchCount) {
-        this.searchCount = searchCount;
-    }
-    
-    
-    
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public int getSearchCount() {
+		return searchCount;
+	}
+
+	public void setSearchCount(int searchCount) {
+		this.searchCount = searchCount;
+	}
+
 }

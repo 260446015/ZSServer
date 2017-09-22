@@ -19,13 +19,14 @@ import com.huishu.ait.entity.common.AjaxResult;
 
 /**
  * 邮件发送器
+ * 
  * @author yuwei
  *
  */
 @Component("EMailSender")
 public class EMailSender implements MessageSender {
 	private static final Logger logger = LoggerFactory.getLogger(EMailSender.class);
-	
+
 	private static final String URL = "http://zz.253.com/emailcard/api/send.html";
 	private static final String ACCOUNT = "E9857084";
 	private static final String PASSWORD = "TpNgeaD41n8a7b";
@@ -46,7 +47,7 @@ public class EMailSender implements MessageSender {
 			parameters.add(new BasicNameValuePair("subject", SUBJECT));
 			parameters.add(new BasicNameValuePair("html", msg));
 			parameters.add(new BasicNameValuePair("fromName", FROMNAME));
-			
+
 			HttpPost post = new HttpPost(URL);
 			post.setEntity(new UrlEncodedFormEntity(parameters, "utf-8"));
 			HttpResponse response = client.execute(post);
@@ -65,5 +66,5 @@ public class EMailSender implements MessageSender {
 			return result.setSuccess(false);
 		}
 	}
-	
+
 }

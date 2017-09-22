@@ -21,14 +21,15 @@ import com.huishu.ait.entity.common.AjaxResult;
 
 /**
  * 短信发送器
+ * 
  * @author yuwei
  *
  */
 @Component("SMSSender")
 public class SMSSender implements MessageSender {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(SMSSender.class);
-	
+
 	/**
 	 * 短信接口的签名
 	 */
@@ -53,7 +54,7 @@ public class SMSSender implements MessageSender {
 	 * 扩展码
 	 */
 	public static final String ex = null;
-	
+
 	/**
 	 * 短信息接口的发送结果映射信息
 	 */
@@ -86,7 +87,7 @@ public class SMSSender implements MessageSender {
 		}
 	};
 
-	public static String getSmsReplyResult(String replyCode){
+	public static String getSmsReplyResult(String replyCode) {
 		return smsResultMap.get(replyCode);
 	}
 
@@ -102,7 +103,7 @@ public class SMSSender implements MessageSender {
 			parameters.add(new BasicNameValuePair("rd", rd));
 			parameters.add(new BasicNameValuePair("msg", msg));
 			parameters.add(new BasicNameValuePair("ex", ex));
-			
+
 			HttpPost post = new HttpPost(url);
 			post.setEntity(new UrlEncodedFormEntity(parameters, "utf-8"));
 			HttpResponse response = client.execute(post);
@@ -121,5 +122,5 @@ public class SMSSender implements MessageSender {
 			return result.setSuccess(false);
 		}
 	}
-	
+
 }

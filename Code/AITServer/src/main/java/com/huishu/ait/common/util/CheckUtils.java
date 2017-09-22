@@ -19,6 +19,7 @@ public abstract class CheckUtils {
 
 	/**
 	 * 校验日期格式 yyyy-MM-dd
+	 * 
 	 * @param date
 	 * @return
 	 */
@@ -36,9 +37,10 @@ public abstract class CheckUtils {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 校验日期时间格式 yyyy-MM-dd HH:mm:ss
+	 * 
 	 * @param date
 	 * @return
 	 */
@@ -59,21 +61,22 @@ public abstract class CheckUtils {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 判断两个日期是否是同一天<br/>
 	 * 这个方法的参数必须是已经通过校验的参数
-	 * @param d1 yyyy-MM-dd HH:mm:ss 格式
-	 * @param d2 yyyy-MM-dd HH:mm:ss 格式
+	 * 
+	 * @param d1
+	 *            yyyy-MM-dd HH:mm:ss 格式
+	 * @param d2
+	 *            yyyy-MM-dd HH:mm:ss 格式
 	 * @return
 	 */
 	public static boolean isOneDay(String d1, String d2) {
 		return d1.split(" ")[0].equals(d2.split(" ")[0]);
 	}
-	
-	
-	
-	public static void array(){
-		
+
+	public static void array() {
+
 	}
 }

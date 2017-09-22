@@ -8,5 +8,5 @@ public class Line<T> extends Serie<T> {
 	public Line() {
 		super("line");
 	}
-	
+
 }

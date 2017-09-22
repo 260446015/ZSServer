@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * Created by hhy on 2017/7/26 
+ * Created by hhy on 2017/7/26
  */
 @Configuration
 @ComponentScan(basePackages = "com.huishu.ait")

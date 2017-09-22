@@ -12,7 +12,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	@Autowired
 	private PermissionRepository permissionRepository;
-	
+
 	@Override
 	public Permission getPermissionByPermissionId(Long permissionId) {
 		return permissionRepository.findOne(permissionId);

@@ -4,15 +4,16 @@ import java.util.HashMap;
 
 /**
  * 地图
+ * 
  * @author yuwei
  * @param <T>
  */
 public class Map<T> extends Serie<T> {
-	
+
 	private String mapType;
-	
+
 	private java.util.Map<String, Object> label;
-	
+
 	public Map() {
 		super("map");
 		this.label = new HashMap<>();
@@ -37,5 +38,5 @@ public class Map<T> extends Serie<T> {
 	public void setLabel(java.util.Map<String, Object> label) {
 		this.label = label;
 	}
-	
+
 }

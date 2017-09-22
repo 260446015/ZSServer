@@ -10,6 +10,6 @@ import com.huishu.ait.entity.IndustryLevel;
  * @author yindq
  * @date 2017年9月1日
  */
-public interface IndustryLevelRepository extends CrudRepository<IndustryLevel, Long>{
-    
+public interface IndustryLevelRepository extends CrudRepository<IndustryLevel, Long> {
+
 }

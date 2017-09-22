@@ -67,13 +67,13 @@ public class LoginController extends BaseController {
 	/**
 	 * 测试页面
 	 * 
-	 * @return 
+	 * @return
 	 */
-	@RequestMapping(value = "test.html",method = RequestMethod.GET)
+	@RequestMapping(value = "test.html", method = RequestMethod.GET)
 	public String test() {
 		return "test";
 	}
-	
+
 	/**
 	 * 未登录
 	 */
@@ -84,7 +84,7 @@ public class LoginController extends BaseController {
 		object.put("code", "1002");
 		ShiroUtil.writeResponse(response, object);
 	}
-	
+
 	/**
 	 * 没有权限
 	 */
@@ -95,6 +95,7 @@ public class LoginController extends BaseController {
 		object.put("code", "1004");
 		ShiroUtil.writeResponse(response, object);
 	}
+
 	/**
 	 * 登录过滤器放行后进入此接口
 	 * 
@@ -104,7 +105,7 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value = "apis/login.do", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult loginAjax(HttpServletRequest request,String username,String password) {
+	public AjaxResult loginAjax(HttpServletRequest request, String username, String password) {
 		if (request.getAttribute("success") != null && (boolean) request.getAttribute("success")) {
 			return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
 		}
@@ -115,19 +116,19 @@ public class LoginController extends BaseController {
 		if (error != null) {
 			if (error.equals(IncorrectCredentialsException.class.getName())) {
 				message = MsgConstant.CREDENTIAL_ERROR;
-			}else if (error.equals(AccountExpiredException.class.getName())) {
+			} else if (error.equals(AccountExpiredException.class.getName())) {
 				message = MsgConstant.ACCOUNTEXPIRED;
-			}else if (error.equals(AccountStartException.class.getName())) {
+			} else if (error.equals(AccountStartException.class.getName())) {
 				message = MsgConstant.ACCOUNTSTART;
-			}else if (error.equals(ExcessiveAttemptsException.class.getName())) {
+			} else if (error.equals(ExcessiveAttemptsException.class.getName())) {
 				message = MsgConstant.LOCKING;
 			}
 		} else if (null != getCurrentShiroUser()) {
-			RSAPrivateKey priKey = (RSAPrivateKey)request.getSession().getAttribute("privateKey");
+			RSAPrivateKey priKey = (RSAPrivateKey) request.getSession().getAttribute("privateKey");
 			UserBase base = userBaseService.findUserByUserAccount(username);
-			String inPassword = getInPassword( password, base.getSalt(), priKey);
+			String inPassword = getInPassword(password, base.getSalt(), priKey);
 			String dbPassword = base.getPassword();
-			if(dbPassword.equals(inPassword)){
+			if (dbPassword.equals(inPassword)) {
 				return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
 			}
 			message = MsgConstant.CREDENTIAL_ERROR;
@@ -142,7 +143,7 @@ public class LoginController extends BaseController {
 	 *            http请求
 	 * @return 返回公钥
 	 */
-	@RequestMapping(value = "apis/security/generateKey.do",method = RequestMethod.GET)
+	@RequestMapping(value = "apis/security/generateKey.do", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult generateKeyAjax(HttpServletRequest request) {
 		AjaxResult result = new AjaxResult();
@@ -184,7 +185,7 @@ public class LoginController extends BaseController {
 		}
 		UserBase user = userBaseService.findUserByTelphone(telphone);
 		if ("findPassword".equals(type)) {
-			if(user == null){
+			if (user == null) {
 				return error("该手机号未被注册");
 			}
 		} else {
@@ -220,29 +221,29 @@ public class LoginController extends BaseController {
 		}
 		return userBaseService.addRegisterUser(dto);
 	}
-	
+
 	/**
-     * 用户登出
-     *
-     * @return
-     */
-    @RequestMapping(value = "apis/logOut.do",method = RequestMethod.GET)
-    public void logOut(HttpServletResponse response) {
-        Subject subject = SecurityUtils.getSubject();
-        try {
+	 * 用户登出
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "apis/logOut.do", method = RequestMethod.GET)
+	public void logOut(HttpServletResponse response) {
+		Subject subject = SecurityUtils.getSubject();
+		try {
 			if (subject.isAuthenticated()) {
-			    if (LOGGER.isDebugEnabled()) {
-			        LOGGER.debug("user {} to logout", subject.getPrincipal());
-			    }
-			    subject.logout();
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("user {} to logout", subject.getPrincipal());
+				}
+				subject.logout();
 			}
 		} catch (Exception e) {
 			LOGGER.error("logout失败！", e);
 			ShiroUtil.writeResponse(response, MsgConstant.SYSTEM_ERROR);
 		}
-        ShiroUtil.writeResponse(response, "注销成功");
-    }
-    
+		ShiroUtil.writeResponse(response, "注销成功");
+	}
+
 	/**
 	 * 找回密码
 	 * 
@@ -266,7 +267,7 @@ public class LoginController extends BaseController {
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
-	
+
 	@RequestMapping(value = "apis/temporaryDemo.do", method = RequestMethod.GET)
 	public void temporaryDemo(HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -281,29 +282,30 @@ public class LoginController extends BaseController {
 			RSAPrivateKey priKey = RSAUtils.getPrivateKey(modulus, private_exponent);
 			request.getSession().setAttribute("privateKey", priKey);
 			// 加密后的密文
-			String mi= RSAUtils.encryptByPublicKey("nagnoix", pubKey);
-			
-			UsernamePasswordToken token = new CaptchaUsernamePasswordToken("xiongan", mi.toCharArray(), false, "", "", "user");
+			String mi = RSAUtils.encryptByPublicKey("nagnoix", pubKey);
+
+			UsernamePasswordToken token = new CaptchaUsernamePasswordToken("xiongan", mi.toCharArray(), false, "", "",
+					"user");
 			Subject currentUser = SecurityUtils.getSubject();
 			currentUser.login(token);
 			String ip = request.getHeader("x-forwarded-for");
-		    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
-		        ip = request.getHeader("Proxy-Client-IP");
-		    }
-		    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
-		        ip = request.getHeader("WL-Proxy-Client-IP");
-		    }
-		    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
-		        ip = request.getRemoteAddr();
-		    }
-			if(getCurrentShiroUser()==null){
-				response.setContentType("application/json");
-			    OutputStream outputStream = response.getOutputStream();
-			    outputStream.write(JSON.toJSONString("免登陆失败，请联系管理员").getBytes("UTF-8"));
-			    outputStream.flush();
-			    outputStream.close();
+			if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+				ip = request.getHeader("Proxy-Client-IP");
 			}
-			//response.sendRedirect("http://58.16.181.24:9208/intelligence/headlines");
+			if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+				ip = request.getHeader("WL-Proxy-Client-IP");
+			}
+			if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+				ip = request.getRemoteAddr();
+			}
+			if (getCurrentShiroUser() == null) {
+				response.setContentType("application/json");
+				OutputStream outputStream = response.getOutputStream();
+				outputStream.write(JSON.toJSONString("免登陆失败，请联系管理员").getBytes("UTF-8"));
+				outputStream.flush();
+				outputStream.close();
+			}
+			// response.sendRedirect("http://58.16.181.24:9208/intelligence/headlines");
 			response.sendRedirect("http://127.0.0.1:8000/intelligence/headlines");
 		} catch (Exception e) {
 			LOGGER.error("免登陆失败！", e);

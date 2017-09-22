@@ -5,9 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.huishu.ait.es.entity.AITInfo;
 
-
 @Repository
-public interface BaseElasticsearch extends ElasticsearchRepository<AITInfo, String>{
-	
-	
+public interface BaseElasticsearch extends ElasticsearchRepository<AITInfo, String> {
+
 }

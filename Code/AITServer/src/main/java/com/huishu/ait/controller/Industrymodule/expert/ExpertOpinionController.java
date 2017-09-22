@@ -141,7 +141,7 @@ public class ExpertOpinionController extends BaseController {
 			if (StringUtil.isEmpty(id) || getUserId() == null) {
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
-			JSONObject json = expertOpinionService.cancelExpertOpinionCollect(id,getUserId());
+			JSONObject json = expertOpinionService.cancelExpertOpinionCollect(id, getUserId());
 			return success(json);
 		} catch (Exception e) {
 			log.error("取消收藏失败：", e.getMessage());

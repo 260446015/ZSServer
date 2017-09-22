@@ -65,5 +65,4 @@ public class Encodes {
 		return new String(chars);
 	}
 
-	
 }

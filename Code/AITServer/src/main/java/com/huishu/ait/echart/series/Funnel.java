@@ -2,6 +2,7 @@ package com.huishu.ait.echart.series;
 
 /**
  * 漏斗图
+ * 
  * @author yuwei
  * @param <SerieData>
  */

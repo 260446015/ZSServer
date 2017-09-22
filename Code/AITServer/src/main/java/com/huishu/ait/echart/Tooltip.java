@@ -7,11 +7,11 @@ import java.util.Map;
  * Created by yuwei on 2016/12/26
  */
 public class Tooltip {
-	
+
 	private String trigger;
-	
+
 	private Map<String, String> axisPointer = new HashMap<>();
-	
+
 	public Tooltip() {
 		this.trigger = "axis";
 		String axisPointerType = EchartConfig.getInstance().getAxisPointerType();
@@ -35,5 +35,5 @@ public class Tooltip {
 		this.axisPointer = axisPointer;
 		return this;
 	}
-	
+
 }

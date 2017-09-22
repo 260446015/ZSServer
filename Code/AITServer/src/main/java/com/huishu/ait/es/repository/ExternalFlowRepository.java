@@ -8,15 +8,15 @@ import com.huishu.ait.es.entity.ExternalFlow;
 
 /**
  * 
- * @author yindawei 
+ * @author yindawei
  * @date 2017年9月12日下午8:52:10
- * @description 
+ * @description
  * @version
  */
-public interface ExternalFlowRepository extends ElasticsearchRepository<ExternalFlow, String>{
+public interface ExternalFlowRepository extends ElasticsearchRepository<ExternalFlow, String> {
 
 	/**
 	 * 查询企业疑似外流未预警消息
 	 */
-	List<ExternalFlow> findByParkAndHasWarn(String park,String hasWarn);
+	List<ExternalFlow> findByParkAndHasWarn(String park, String hasWarn);
 }

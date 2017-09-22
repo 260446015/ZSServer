@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import com.huishu.ait.exception.IllegalFieldException;
 
-
 /**
  * 工具类
  */
@@ -16,6 +15,7 @@ public abstract class UtilsHelper {
 
 	/**
 	 * 字符串首字母转大写
+	 * 
 	 * @param str
 	 * @return
 	 */
@@ -25,27 +25,30 @@ public abstract class UtilsHelper {
 		}
 		return (new StringBuilder()).append(Character.toUpperCase(str.charAt(0))).append(str.substring(1)).toString();
 	}
-	
+
 	/**
 	 * 获取属性的get方法名
+	 * 
 	 * @param field
 	 * @return
 	 */
 	public static String getGetMethodName(String field) {
 		return "get" + toUpperCaseFirstOne(field);
 	}
-	
+
 	/**
 	 * 获取属性的set方法名
+	 * 
 	 * @param field
 	 * @return
 	 */
 	public static String getSetMethodName(String field) {
 		return "set" + toUpperCaseFirstOne(field);
 	}
-	
+
 	/**
 	 * 反射通过属性名获取属性值, 改属性必须有get方法
+	 * 
 	 * @param o
 	 * @param field
 	 * @return
@@ -59,9 +62,10 @@ public abstract class UtilsHelper {
 			throw new IllegalFieldException(o.getClass() + " 找不到 [" + field + "]属性 get方法");
 		}
 	}
-	
+
 	/**
 	 * 反射调用set方法
+	 * 
 	 * @param o
 	 * @param field
 	 * @param value
@@ -81,26 +85,28 @@ public abstract class UtilsHelper {
 			throw new IllegalFieldException(o.getClass() + " 找不到 [" + field + "]属性 set 方法");
 		}
 	}
-	
+
 	/**
 	 * 四舍五入保留两位小数
+	 * 
 	 * @param value
 	 * @return
 	 */
-	public static Double getRound(Double value){
+	public static Double getRound(Double value) {
 		return getRound(value, 2);
 	}
-	
+
 	/**
 	 * 四舍五入
+	 * 
 	 * @param value
 	 * @return
 	 */
-	public static Double getRound(Double value ,int scale) {
+	public static Double getRound(Double value, int scale) {
 		BigDecimal decimal = new BigDecimal(value);
 		return Double.valueOf(decimal.setScale(scale, BigDecimal.ROUND_HALF_UP).doubleValue());
 	}
-	
+
 	// 将map转换为bean
 	public static <T> T transMapToBean(Map<String, Object> map, Class<T> clazz) {
 		T instance = null;

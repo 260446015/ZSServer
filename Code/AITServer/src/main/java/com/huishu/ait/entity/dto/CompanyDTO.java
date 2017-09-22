@@ -40,40 +40,40 @@ public class CompanyDTO implements Serializable {
 	 */
 	private String regCapital;
 	/**
-     * 每页数据存储个数
-     */
-    private Integer pageSize;
-    /**
-     * 当前页码数
-     */
-    private Integer pageNumber;
-    /**
-     * 所属园区
-     */
-    private String park;
-    /**
-     * 
-     * 传递数组
-     */
-    private String[] msg;
-    
-    /**
-     * 传递企业分组的id
-     */
-    private Long groupId;
-    /**
-     * 查询注册资本起始资金
-     */
-    private double start;
-    /**
-     * 查询注册资本结束资金
-     */
-    private double end;
-    private String groupname;
-    private Long userId;
+	 * 每页数据存储个数
+	 */
+	private Integer pageSize;
+	/**
+	 * 当前页码数
+	 */
+	private Integer pageNumber;
+	/**
+	 * 所属园区
+	 */
+	private String park;
+	/**
+	 * 
+	 * 传递数组
+	 */
+	private String[] msg;
+
+	/**
+	 * 传递企业分组的id
+	 */
+	private Long groupId;
+	/**
+	 * 查询注册资本起始资金
+	 */
+	private double start;
+	/**
+	 * 查询注册资本结束资金
+	 */
+	private double end;
+	private String groupname;
+	private Long userId;
 
 	public String getIndustry() {
-		if("全部".equals("industry")){
+		if ("全部".equals("industry")) {
 			industry = "%%";
 		}
 		return industry;
@@ -115,7 +115,6 @@ public class CompanyDTO implements Serializable {
 		this.pageSize = pageSize;
 	}
 
-
 	public Integer getPageNumber() {
 		return pageNumber;
 	}
@@ -131,10 +130,6 @@ public class CompanyDTO implements Serializable {
 	public void setMsg(String[] msg) {
 		this.msg = msg;
 	}
-
-	
-
-	
 
 	public String getPark() {
 		return park;
@@ -153,7 +148,7 @@ public class CompanyDTO implements Serializable {
 	}
 
 	public String getRegCapital() {
-		if(regCapital == null){
+		if (regCapital == null) {
 			return regCapital;
 		}
 		switch (regCapital) {
@@ -226,6 +221,5 @@ public class CompanyDTO implements Serializable {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
-	
+
 }

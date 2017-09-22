@@ -15,18 +15,19 @@ import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
  * @author hhy
  * @date 2017年7月27日
  * @Parem
- * @return 
+ * @return
  * 
  */
 public interface HeadlinesService {
 	/** 产业头条--关键词云 */
-	JSONArray  getWordCloud(HeadlinesDTO headlinesDTO); 
-	
+	JSONArray getWordCloud(HeadlinesDTO headlinesDTO);
+
 	/** 产业头条--媒体云图 */
-	JSONArray  getCarClondChartList(HeadlinesDTO headlinesDTO);
+	JSONArray getCarClondChartList(HeadlinesDTO headlinesDTO);
 
 	/**
 	 * 产业头条--根据载体查询文章
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -34,6 +35,7 @@ public interface HeadlinesService {
 
 	/**
 	 * 根据关键词来查询文章列表
+	 * 
 	 * @param headlinesDTO
 	 * @return
 	 */

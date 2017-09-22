@@ -46,7 +46,7 @@ public class PersonCenterServiceImpl implements PersonCenterService {
 	}
 
 	@Override
-	public News getData(String articleId,Long userId) {
+	public News getData(String articleId, Long userId) {
 		News download = null;
 		try {
 			UserCollection findOne = userCollectionRepository.findByArticleIdAndUserId(articleId, userId);

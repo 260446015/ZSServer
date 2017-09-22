@@ -1,6 +1,5 @@
 package com.huishu.ait.service.headline.impl;
 
-
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,32 +20,33 @@ import com.huishu.ait.service.headline.HeadlinesService;
  * @author hhy
  * @date 2017年7月27日
  * @Parem
- * @return 
+ * @return
  * 
  */
 @Service
 public class HeadlinesServiceImpl extends AbstractService implements HeadlinesService {
-	
+
 	private static Logger logger = LoggerFactory.getLogger(HeadlinesServiceImpl.class);
+
 	/**
-	 *  产业头条--关键词云
+	 * 产业头条--关键词云
 	 */
 	@Override
 	public JSONArray getWordCloud(HeadlinesDTO headlinesDTO) {
-	try {
-		
-		BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
-		
-		return getCloudWordList(bq);
-	} catch (Exception e) {
-		logger.error("获取词云失败：",e);
-		return null;
-	}
-	
+		try {
+
+			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
+
+			return getCloudWordList(bq);
+		} catch (Exception e) {
+			logger.error("获取词云失败：", e);
+			return null;
+		}
+
 	}
 
 	/**
-	 *  产业头条---云图
+	 * 产业头条---云图
 	 */
 	@Override
 	public JSONArray getCarClondChartList(HeadlinesDTO headlinesDTO) {
@@ -54,7 +54,7 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
 			return getVectorDistribution(bq);
 		} catch (Exception e) {
-			logger.error("获取媒体云图失败：",e);
+			logger.error("获取媒体云图失败：", e);
 			return null;
 		}
 	}
@@ -64,14 +64,14 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	 */
 	@Override
 	public Page<HeadlinesArticleListDTO> findArticleByVector(HeadlinesDTO headlinesDTO) {
-		try{
+		try {
 			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
-			 Pageable pageable = new PageRequest(0, 8,new Sort(Direction.DESC, "hot"));
-		    Page<HeadlinesArticleListDTO> page = getArticleRank(bq, null, pageable);
-		       
+			Pageable pageable = new PageRequest(0, 8, new Sort(Direction.DESC, "hot"));
+			Page<HeadlinesArticleListDTO> page = getArticleRank(bq, null, pageable);
+
 			return page;
-		}catch(Exception e ){
-			logger.error("根据载体查询文章列表失败：",e);
+		} catch (Exception e) {
+			logger.error("根据载体查询文章列表失败：", e);
 			return null;
 		}
 	}
@@ -83,14 +83,13 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	public Page<HeadlinesArticleListDTO> findArticleByKeyWord(HeadlinesDTO headlinesDTO) {
 		try {
 			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
-			 Pageable pageable = new PageRequest(0, 8,new Sort(Direction.DESC, "hot"));
-		    Page<HeadlinesArticleListDTO> page = getArticleRank(bq, null, pageable);
+			Pageable pageable = new PageRequest(0, 8, new Sort(Direction.DESC, "hot"));
+			Page<HeadlinesArticleListDTO> page = getArticleRank(bq, null, pageable);
 			return page;
 		} catch (Exception e) {
-			logger.error("根据关键词查询文章失败：",e);
+			logger.error("根据关键词查询文章失败：", e);
 			return null;
 		}
 	}
-	
-	
+
 }

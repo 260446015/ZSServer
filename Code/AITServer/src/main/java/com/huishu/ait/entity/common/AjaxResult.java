@@ -1,22 +1,20 @@
 package com.huishu.ait.entity.common;
 
-
-
 /**
  * @author hhy
  * @date 2017年7月26日
  * @Parem
- * @return 
+ * @return
  * 
  */
 public class AjaxResult {
-	
-    private boolean success;
-	
+
+	private boolean success;
+
 	private Object data;
-	
+
 	private String message;
-	
+
 	private int status;
 
 	public boolean isSuccess() {

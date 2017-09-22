@@ -9,13 +9,15 @@ import com.huishu.ait.entity.UserPermission;
 
 /**
  * 用户权限持久化类
+ * 
  * @author yindq
  * @date 2017年8月8日
  */
-public interface UserPermissionRepository extends CrudRepository<UserPermission,Integer>{
+public interface UserPermissionRepository extends CrudRepository<UserPermission, Integer> {
 
 	/**
 	 * 根据会员等级查找改用户所拥有的权限
+	 * 
 	 * @param userLevel
 	 * @return
 	 */

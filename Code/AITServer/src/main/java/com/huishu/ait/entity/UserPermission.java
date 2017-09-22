@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * 用户权限
+ * 
  * @author yindq
  * @date 2017年8月8日
  */
@@ -21,18 +22,18 @@ import com.alibaba.fastjson.JSONObject;
 public class UserPermission implements Serializable {
 
 	private static final long serialVersionUID = -4143346559497698848L;
-	
-	/**id*/
+
+	/** id */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
 	private Long id;
-	
-	/**会员等级*/
+
+	/** 会员等级 */
 	@Column(name = "user_level", nullable = false)
 	private Integer userLevel;
-	
-	/**权限id*/
+
+	/** 权限id */
 	@Column(name = "permission_id", nullable = false)
 	private Long permissionId;
 
@@ -59,7 +60,7 @@ public class UserPermission implements Serializable {
 	public void setPermissionId(Long permissionId) {
 		this.permissionId = permissionId;
 	}
-	
+
 	@Override
 	public String toString() {
 		return JSONObject.toJSONString(this);

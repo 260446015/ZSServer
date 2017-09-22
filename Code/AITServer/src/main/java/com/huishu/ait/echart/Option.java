@@ -11,31 +11,31 @@ import com.huishu.ait.echart.series.Serie;
  * Created by yuwei on 2016/12/26
  */
 public class Option {
-	
+
 	private Title title;
-	
+
 	private Legend legend;
-	
-//	private Grid grid;
-	
+
+	// private Grid grid;
+
 	private XAxis xAxis;
-	
+
 	private YAxis yAxis;
-	
+
 	private Tooltip tooltip;
-	
+
 	private TextStyle textStyle;
-	
+
 	private List<Serie<?>> series;
-	
+
 	private VisualMap visualMap;
-	
-	//供雷达图使用
+
+	// 供雷达图使用
 	private Collection<Radar<?>> radars;
 	private RadarIndicator radar;
-	
+
 	public Option() {
-//		this.grid = new Grid();
+		// this.grid = new Grid();
 		this.tooltip = new Tooltip();
 		this.textStyle = new TextStyle();
 	}
@@ -58,14 +58,14 @@ public class Option {
 		return this;
 	}
 
-//	public Grid getGrid() {
-//		return grid;
-//	}
-//
-//	public Option setGrid(Grid grid) {
-//		this.grid = grid;
-//		return this;
-//	}
+	// public Grid getGrid() {
+	// return grid;
+	// }
+	//
+	// public Option setGrid(Grid grid) {
+	// this.grid = grid;
+	// return this;
+	// }
 
 	public XAxis getxAxis() {
 		return xAxis;
@@ -96,7 +96,7 @@ public class Option {
 		series.add(serie);
 		return this;
 	}
-	
+
 	public Option setSeries(List<Serie<?>> series) {
 		this.series = series;
 		return this;
@@ -142,5 +142,5 @@ public class Option {
 	public void setVisualMap(VisualMap visualMap) {
 		this.visualMap = visualMap;
 	}
-	
+
 }

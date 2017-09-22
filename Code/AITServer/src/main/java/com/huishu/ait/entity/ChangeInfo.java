@@ -12,17 +12,16 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.alibaba.fastjson.JSONObject;
 
-
 /**
  * 
- * @author yindawei 
+ * @author yindawei
  * @date 2017年9月14日下午9:04:09
  * @description 天眼查信息变更实体类
  * @version
  */
 @Entity
-@Table(name="t_changeinfo")
-public class ChangeInfo implements Serializable{
+@Table(name = "t_changeinfo")
+public class ChangeInfo implements Serializable {
 
 	/**
 	 * 
@@ -30,18 +29,18 @@ public class ChangeInfo implements Serializable{
 	private static final long serialVersionUID = 7026144386657590459L;
 	@Id
 	private Integer id;
-	@Column(name="change_time")
+	@Column(name = "change_time")
 	private String changeTime;
-	@Column(name="content_after",length=500)
+	@Column(name = "content_after", length = 500)
 	private String contentAfter;
-	@Column(name="create_time")
+	@Column(name = "create_time")
 	private String createTime;
-	@Column(name="content_before",length=500)
+	@Column(name = "content_before", length = 500)
 	private String contentBefore;
 	/**
 	 * 更新属性
 	 */
-	@Column(name="change_item")
+	@Column(name = "change_item")
 	private String changeItem;
 	private String company;
 	/**
@@ -56,77 +55,96 @@ public class ChangeInfo implements Serializable{
 	 * 类型标签
 	 */
 	private String tag;
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getChangeTime() {
 		return changeTime;
 	}
+
 	public void setChangeTime(String changeTime) {
 		this.changeTime = changeTime;
 	}
+
 	public String getContentAfter() {
 		return contentAfter;
 	}
+
 	public void setContentAfter(String contentAfter) {
 		this.contentAfter = contentAfter;
 	}
+
 	public String getCreateTime() {
 		return createTime;
 	}
+
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
+
 	public String getContentBefore() {
 		return contentBefore;
 	}
+
 	public void setContentBefore(String contentBefore) {
 		this.contentBefore = contentBefore;
 	}
+
 	public String getChangeItem() {
 		return changeItem;
 	}
+
 	public void setChangeItem(String changeItem) {
 		this.changeItem = changeItem;
 	}
+
 	public String getCompany() {
 		return company;
 	}
+
 	public void setCompany(String company) {
 		this.company = company;
 	}
-	
+
 	public Integer getDr() {
 		return dr;
 	}
+
 	public void setDr(Integer dr) {
 		this.dr = dr;
 	}
-	
+
 	public String getPark() {
 		return park;
 	}
+
 	public void setPark(String park) {
 		this.park = park;
 	}
-	
+
 	public String getTag() {
 		return tag;
 	}
+
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		return super.equals(obj);
-		
+
 	}
+
 	@Override
 	public String toString() {
 		return JSONObject.toJSONString(this);
 	}
-	
+
 }

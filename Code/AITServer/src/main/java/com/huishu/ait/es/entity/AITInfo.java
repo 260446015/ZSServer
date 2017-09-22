@@ -20,7 +20,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
  */
 @Document(indexName = INDEX, type = TYPE)
 public class AITInfo {
-    private String id;
+	private String id;
 	/** 发布时间 yyyy-MM-dd HH:mm:ss */
 	private String publishDateTime;
 
@@ -37,8 +37,6 @@ public class AITInfo {
 
 	/** 文章标题 */
 	private String title;
-
-	
 
 	/** 文章内容 */
 	private String content;
@@ -76,7 +74,7 @@ public class AITInfo {
 
 	/** 企业名称 */
 	private String business;
-	/**企业法人*/
+	/** 企业法人 */
 	private String businessLegal;
 	/** 企业类型 */
 	private String businessType;
@@ -98,13 +96,12 @@ public class AITInfo {
 
 	/** 维度 */
 	private String dimension;
-	
+
 	/** 摘要 */
 	private String summary;
-	
+
 	/** 公司名录集合 */
 	private List<String> bus;
-	
 
 	public List<String> getBus() {
 		return bus;
@@ -115,14 +112,14 @@ public class AITInfo {
 	}
 
 	public String getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getDimension() {
+	public String getDimension() {
 		return dimension;
 	}
 
@@ -289,6 +286,7 @@ public class AITInfo {
 	public void setHasWarn(Boolean hasWarn) {
 		this.hasWarn = hasWarn;
 	}
+
 	public String getPublishDateTime() {
 		return publishDateTime;
 	}
@@ -328,7 +326,6 @@ public class AITInfo {
 	public void setBusinessLegal(String businessLegal) {
 		this.businessLegal = businessLegal;
 	}
-	
 
 	public String getSummary() {
 		return summary;
@@ -350,7 +347,4 @@ public class AITInfo {
 				+ replyCount + ", hasWarn=" + hasWarn + ", dimension=" + dimension + "]";
 	}
 
-	
-	
 }
-

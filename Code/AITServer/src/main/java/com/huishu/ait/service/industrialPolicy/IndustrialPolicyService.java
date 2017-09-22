@@ -23,10 +23,12 @@ public interface IndustrialPolicyService {
 	 * @return
 	 */
 	JSONArray getIndustrialPolicyList(IndustrialPolicyDTO dto);
+
 	/**
 	 * 
 	 */
 	JSONArray getIndustrialList(IndustrialPolicyDTO dto);
+
 	/**
 	 * 根据产业政策id，获取其详细信息
 	 * 

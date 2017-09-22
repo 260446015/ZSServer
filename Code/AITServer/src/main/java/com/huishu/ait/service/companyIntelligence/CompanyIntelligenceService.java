@@ -14,13 +14,12 @@ import com.huishu.ait.es.entity.dto.CompanyIntelligenceDTO;
  */
 public interface CompanyIntelligenceService {
 	/**
-	 * @return
-	 * 获取企业情报列表信息
+	 * @return 获取企业情报列表信息
 	 */
 	public JSONArray getCompanyIntelligenceList(CompanyIntelligenceDTO dto);
+
 	/**
-	 * @return
-	 * 通过id获取企业情报信息对象
+	 * @return 通过id获取企业情报信息对象
 	 */
 	public List<AITInfo> getCompanyIntelligenceByIds(String[] ids);
 }

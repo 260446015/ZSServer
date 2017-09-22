@@ -6,9 +6,10 @@ import com.huishu.ait.es.entity.GardenInformation;
 
 /**
  * 园区情报
+ * 
  * @author yindq
- * @date   2017-7-29
+ * @date 2017-7-29
  */
-public interface GardenInformationRepository extends ElasticsearchCrudRepository<GardenInformation, String>{
+public interface GardenInformationRepository extends ElasticsearchCrudRepository<GardenInformation, String> {
 
 }

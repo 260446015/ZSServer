@@ -15,6 +15,7 @@ import com.huishu.ait.entity.common.AjaxResult;
 
 /**
  * 短信验证码管理
+ * 
  * @author yuwei
  */
 @Component
@@ -55,8 +56,10 @@ public class CaptchaManager {
 	public CaptchaManager() {
 		new Thread(cleanupRunnable).start();
 	}
+
 	/**
 	 * 发送短信验证码
+	 * 
 	 * @param phoneNumber
 	 * @return
 	 */
@@ -100,8 +103,10 @@ public class CaptchaManager {
 		container.put(phoneNumber, myCaptcha);
 		return true;
 	}
+
 	/**
 	 * 发送通知
+	 * 
 	 * @param phoneNumber
 	 * @return
 	 */
@@ -118,6 +123,7 @@ public class CaptchaManager {
 		}
 		return true;
 	}
+
 	/**
 	 * 校验验证码是否正确
 	 */

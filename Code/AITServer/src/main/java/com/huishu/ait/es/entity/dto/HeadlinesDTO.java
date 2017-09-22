@@ -6,8 +6,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author hhy
  * @date 2017年7月28日
  * @Parem
- * @return
- * 产业头条的dto
+ * @return 产业头条的dto
  */
 public class HeadlinesDTO extends AbstractDTO {
 
@@ -30,7 +29,7 @@ public class HeadlinesDTO extends AbstractDTO {
 	/** 数组，用来接收前台传过来的参数 */
 	private String[] msg;
 	private String dimension;
-	
+
 	public String getDimension() {
 		return dimension;
 	}

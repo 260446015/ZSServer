@@ -237,7 +237,7 @@ public class StringUtil {
 		Pattern p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
 		Matcher m_html = p_html.matcher(htmlStr);
 		htmlStr = m_html.replaceAll(""); // 过滤html标签
-		
+
 		Pattern p_html1 = Pattern.compile(regEx_html1, Pattern.CASE_INSENSITIVE);
 		Matcher m_html1 = p_html1.matcher(htmlStr);
 		htmlStr = m_html1.replaceAll(""); // 过滤html标签

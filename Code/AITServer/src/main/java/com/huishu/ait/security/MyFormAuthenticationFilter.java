@@ -48,7 +48,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 			subject.login(token);// 正常验证
 			return onLoginSuccess(token, subject, request, response);
 		} catch (AuthenticationException e) {
-			log.error("登录失败."+e);
+			log.error("登录失败." + e);
 			return onLoginFailure(token, e, request, response);
 		}
 	}
@@ -93,7 +93,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 				Subject subject = this.getSubject(request, response);
 				ShiroUser user = (ShiroUser) subject.getPrincipal();
 				if (account != null && user != null && !account.equals(user.getLoginName())) {
-					//本来这么写是可以解决问题的但是，因为session里存了私钥，所以对密码解不了密
+					// 本来这么写是可以解决问题的但是，因为session里存了私钥，所以对密码解不了密
 					subject.logout();
 				}
 			}

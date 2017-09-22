@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * @create 2017年9月8日
  */
 @Entity
-@Table(name="t_user_park")
+@Table(name = "t_user_park")
 public class UserPark implements Serializable {
 	/**
 	 * 可序列化
@@ -24,75 +24,93 @@ public class UserPark implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	/**园区名称 */
+	/** 园区名称 */
 	private String name;
-	/**所属地  */
-    private String area;
-	/**详细地址  */
+	/** 所属地 */
+	private String area;
+	/** 详细地址 */
 	private String address;
-	/**产业*/
+	/** 产业 */
 	private String industry;
-	/**负责人  */
+	/** 负责人 */
 	private String boss;
-	/**电话  */
+	/** 电话 */
 	private String phone;
-	/**职位  */
+	/** 职位 */
 	private String position;
-	/**简介  */
+	/** 简介 */
 	private String introduction;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getArea() {
 		return area;
 	}
+
 	public void setArea(String area) {
 		this.area = area;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getIndustry() {
 		return industry;
 	}
+
 	public void setIndustry(String industry) {
 		this.industry = industry;
 	}
+
 	public String getBoss() {
 		return boss;
 	}
+
 	public void setBoss(String boss) {
 		this.boss = boss;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	public String getPosition() {
 		return position;
 	}
+
 	public void setPosition(String position) {
 		this.position = position;
 	}
+
 	public String getIntroduction() {
 		return introduction;
 	}
+
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
 	}
-	
+
 }

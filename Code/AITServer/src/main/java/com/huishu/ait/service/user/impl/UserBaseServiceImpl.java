@@ -35,26 +35,26 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 
 	@Override
 	public UserBase findUserByUserAccount(String userAccount) {
-		return userBaseRepository.findByUserAccountAndUserType(userAccount,"user");
+		return userBaseRepository.findByUserAccountAndUserType(userAccount, "user");
 	}
 
 	@Override
 	public UserBase findUserByTelphone(String telphone) {
-		return userBaseRepository.findByTelphoneAndUserType(telphone,"user");
+		return userBaseRepository.findByTelphoneAndUserType(telphone, "user");
 	}
 
 	@Override
 	public AjaxResult addRegisterUser(RegisterDTO dto) {
 		AjaxResult result = new AjaxResult();
-		UserBase email = userBaseRepository.findByUserEmailAndUserType(dto.getUserEmail(),"user");
+		UserBase email = userBaseRepository.findByUserEmailAndUserType(dto.getUserEmail(), "user");
 		if (email != null) {
 			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_REPEAT);
 		}
-		UserBase type = userBaseRepository.findByUserParkAndUserLevelAndUserTypeAndIsCheck(dto.getPark(), 0, "user",1);
+		UserBase type = userBaseRepository.findByUserParkAndUserLevelAndUserTypeAndIsCheck(dto.getPark(), 0, "user", 1);
 		if (type != null) {
 			return result.setSuccess(false).setMessage("该园区已注册过测试账号");
 		}
-		UserBase save=null;
+		UserBase save = null;
 		try {
 			UserBase base = new UserBase();
 			byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
@@ -68,7 +68,7 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 			base.setUserEmail(dto.getUserEmail());
 			base.setUserPark(dto.getPark());
 			base.setUserType(dto.getUserType());
-			base.setImageUrl(dto.getImageUrl().equals("")?"/images/default.jpg":dto.getImageUrl());
+			base.setImageUrl(dto.getImageUrl().equals("") ? "/images/default.jpg" : dto.getImageUrl());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			base.setCreateTime(sdf.format(new Date()));
 			base.setUserLevel(0);
@@ -94,8 +94,8 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 		AjaxResult result = new AjaxResult();
 		Long userId = param.getUserId();
 		UserBase one = userBaseRepository.findOne(userId);
-		String oldPassword = getPasswordDB(param.getOldPassword(),one.getSalt());
-		String newPassword = getPasswordDB(param.getNewPassword(),one.getSalt());
+		String oldPassword = getPasswordDB(param.getOldPassword(), one.getSalt());
+		String newPassword = getPasswordDB(param.getNewPassword(), one.getSalt());
 		if (one != null && oldPassword.equals(one.getPassword())) {
 			one.setPassword(newPassword);
 			UserBase save = userBaseRepository.save(one);
@@ -111,9 +111,9 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 	@Override
 	public AjaxResult findPassword(FindPasswordDTO param) {
 		AjaxResult result = new AjaxResult();
-		UserBase one = userBaseRepository.findByUserAccountAndUserType(param.getTelphone(),"user");
+		UserBase one = userBaseRepository.findByUserAccountAndUserType(param.getTelphone(), "user");
 		if (one != null) {
-			String newPassword = getPasswordDB(param.getNewPassword(),one.getSalt());
+			String newPassword = getPasswordDB(param.getNewPassword(), one.getSalt());
 			one.setPassword(newPassword);
 			userBaseRepository.save(one);
 			return result.setSuccess(false).setMessage(MsgConstant.CHANGE_ERROR);
@@ -137,15 +137,15 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 	@Override
 	public AjaxResult addParkAccount(AddAccountDTO param) {
 		AjaxResult result = new AjaxResult();
-		UserBase phone = userBaseRepository.findByTelphoneAndUserType(param.getTelphone(),"user");
+		UserBase phone = userBaseRepository.findByTelphoneAndUserType(param.getTelphone(), "user");
 		if (phone != null) {
 			return result.setSuccess(false).setMessage(MsgConstant.PHONE_REPEAT);
 		}
-		UserBase email = userBaseRepository.findByUserEmailAndUserType(param.getUserEmail(),"user");
+		UserBase email = userBaseRepository.findByUserEmailAndUserType(param.getUserEmail(), "user");
 		if (email != null) {
 			return result.setSuccess(false).setMessage(MsgConstant.EMAIL_REPEAT);
 		}
-		UserBase save=null;
+		UserBase save = null;
 		try {
 			UserBase base = new UserBase();
 			byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
@@ -165,11 +165,11 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 			base.setCreateTime(sdf.format(new Date()));
 			base.setStartTime(sdf.format(new Date()));
 			Calendar nextDate = DateUtils.getNow();
-			if(param.getTime().equals("三年")){
+			if (param.getTime().equals("三年")) {
 				nextDate.add(Calendar.YEAR, +3);
-			}else if(param.getTime().equals("两年")){
+			} else if (param.getTime().equals("两年")) {
 				nextDate.add(Calendar.YEAR, +2);
-			}else{
+			} else {
 				nextDate.add(Calendar.YEAR, +1);
 			}
 			base.setExpireTime(sdf.format(nextDate.getTime()));

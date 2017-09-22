@@ -10,13 +10,13 @@ import com.huishu.ait.entity.Specialist;
  * @author hhy
  * @date 2017年7月28日
  * @Parem
- * @return 
+ * @return
  * 
  */
-public interface SpecialistRepository extends PagingAndSortingRepository<Specialist, Long>  {
+public interface SpecialistRepository extends PagingAndSortingRepository<Specialist, Long> {
 
 	Specialist getSpecialistByName(String name);
-	
+
 	Page<Specialist> findAllOrderById(Pageable pageable);
 
 }

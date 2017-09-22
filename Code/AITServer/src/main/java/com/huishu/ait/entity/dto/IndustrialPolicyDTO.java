@@ -5,133 +5,134 @@ import com.huishu.ait.es.entity.dto.AbstractDTO;
 
 /**
  * 产业政策的DTO类
+ * 
  * @author jdz
  * @version 1.0
  * @createDate 2017-7-28
  */
 public class IndustrialPolicyDTO extends AbstractDTO {
-    
-    /** 产业类型：(互联网、生态科技、环保产业、物流产业...等) */
-    private String industry;
 
-    /** 产业标签：(互联网-->不限、电子竞技、大数据、电子上午、网络视听...等) */
-    private String industryLabel;
-    
-    /** 地区：(不限、北京、上海、深圳...)*/
-    private String area;
-    
-    /** 每页数据存储个数 */
-    private Integer pageSize;
-    
-   /** 当前页码  */
-    private Integer pageNumber;
-    
-    /** 开始时间 */
-    private String startDate;
-    
-    /** 结束时间 */
-    private String endDate;
-    
-    /** 时间段 */
-    private String periodDate;
-    
-    /** 文章类型  */
-    private String articleType;
-    
-    private String dimension;
-    
-    public String getDimension() {
-        return dimension;
-    }
+	/** 产业类型：(互联网、生态科技、环保产业、物流产业...等) */
+	private String industry;
 
-    public void setDimension(String dimension) {
-        this.dimension = dimension;
-    }
+	/** 产业标签：(互联网-->不限、电子竞技、大数据、电子上午、网络视听...等) */
+	private String industryLabel;
 
-    private String[] msg;
-    
-    public String[] getMsg() {
-        return msg;
-    }
+	/** 地区：(不限、北京、上海、深圳...) */
+	private String area;
 
-    public void setMsg(String[] msg) {
-        this.msg = msg;
-    }
+	/** 每页数据存储个数 */
+	private Integer pageSize;
 
-    public String getArticleType() {
-        return articleType;
-    }
+	/** 当前页码 */
+	private Integer pageNumber;
 
-    public void setArticleType(String articleType) {
-        this.articleType = articleType;
-    }
+	/** 开始时间 */
+	private String startDate;
 
-    public String getPeriodDate() {
-        return periodDate;
-    }
+	/** 结束时间 */
+	private String endDate;
 
-    public void setPeriodDate(String periodDate) {
-        this.periodDate = periodDate;
-    }
+	/** 时间段 */
+	private String periodDate;
 
-    public String getIndustry() {
-        return industry;
-    }
+	/** 文章类型 */
+	private String articleType;
 
-    public void setIndustry(String industry) {
-        this.industry = industry;
-    }
+	private String dimension;
 
-    public String getIndustryLabel() {
-        return industryLabel;
-    }
+	public String getDimension() {
+		return dimension;
+	}
 
-    public void setIndustryLabel(String industryLabel) {
-        this.industryLabel = industryLabel;
-    }
+	public void setDimension(String dimension) {
+		this.dimension = dimension;
+	}
 
-    public String getArea() {
-        return area;
-    }
+	private String[] msg;
 
-    public void setArea(String area) {
-        this.area = area;
-    }
+	public String[] getMsg() {
+		return msg;
+	}
 
-    public Integer getPageSize() {
-        return pageSize;
-    }
+	public void setMsg(String[] msg) {
+		this.msg = msg;
+	}
 
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
+	public String getArticleType() {
+		return articleType;
+	}
 
-    public Integer getPageNumber() {
-        return pageNumber;
-    }
+	public void setArticleType(String articleType) {
+		this.articleType = articleType;
+	}
 
-    public void setPageNumber(Integer pageNumber) {
-        this.pageNumber = pageNumber;
-    }
+	public String getPeriodDate() {
+		return periodDate;
+	}
 
-    public String getStartDate() {
-        return startDate;
-    }
+	public void setPeriodDate(String periodDate) {
+		this.periodDate = periodDate;
+	}
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+	public String getIndustry() {
+		return industry;
+	}
 
-    public String getEndDate() {
-        return endDate;
-    }
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
+	public String getIndustryLabel() {
+		return industryLabel;
+	}
 
-    @Override
-    public String toString() {
-        return JSONObject.toJSONString(this);
-    }
+	public void setIndustryLabel(String industryLabel) {
+		this.industryLabel = industryLabel;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public Integer getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(Integer pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
 }

@@ -4,9 +4,9 @@ package com.huishu.ait.echart;
  * Created by yuwei on 2016/12/26
  */
 public class Title {
-	
+
 	private String text;
-	
+
 	private String subText;
 
 	public String getText() {
@@ -26,5 +26,5 @@ public class Title {
 		this.subText = subText;
 		return this;
 	}
-	
+
 }

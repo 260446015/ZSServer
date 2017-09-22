@@ -1,17 +1,17 @@
 package com.huishu.ait.echart;
 
 public class TextStyle {
-	
+
 	private String color = "#434f70";
-	
+
 	private String fontStyle = "normal";
-	
+
 	private String fontWeight = "normal";
-	
+
 	private String fontFamily = "sans-serif";
-	
+
 	private Integer fontSize = 12;
-	
+
 	public String getColor() {
 		return color;
 	}
@@ -51,5 +51,5 @@ public class TextStyle {
 	public void setFontSize(Integer fontSize) {
 		this.fontSize = fontSize;
 	}
-	
+
 }

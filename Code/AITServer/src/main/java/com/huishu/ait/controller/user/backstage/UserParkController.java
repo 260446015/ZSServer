@@ -32,59 +32,64 @@ import com.huishu.ait.service.user.backstage.UserParkService;
  */
 @RestController
 @RequestMapping(value = "/apis/back/garden")
-public class UserParkController extends BaseController{
-	
+public class UserParkController extends BaseController {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserParkController.class);
 	@Autowired
 	private UserParkService userParkService;
 	@Autowired
 	private UserBaseService userBaseService;
+
 	/**
 	 * 查看园区分页列表
+	 * 
 	 * @param searchModel
 	 * @return
 	 */
 	@RequestMapping(value = "getGardenList.json", method = RequestMethod.POST)
 	public AjaxResult getGardenList(@RequestBody GardenSearchDTO searchModel) {
-		if (null==searchModel || null==searchModel.getMsg()||3!=searchModel.getMsg().length) {
+		if (null == searchModel || null == searchModel.getMsg() || 3 != searchModel.getMsg().length) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
 			List<GardenDataDTO> list = userParkService.getGardenList(searchModel);
 			return success(changeObject(searchModel, list));
 		} catch (Exception e) {
-			LOGGER.error("getAccountList查询失败！",e);
+			LOGGER.error("getAccountList查询失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
-	
+
 	/**
 	 * 添加园区
+	 * 
 	 * @param userPark
 	 * @return
 	 */
 	@RequestMapping(value = "addGarden.json", method = RequestMethod.POST)
-	public AjaxResult addGarden(@RequestBody UserPark userPark){
-		if (null==userPark || StringUtil.isEmpty(userPark.getName())) {
+	public AjaxResult addGarden(@RequestBody UserPark userPark) {
+		if (null == userPark || StringUtil.isEmpty(userPark.getName())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
 			return userParkService.addGarden(userPark);
 		} catch (Exception e) {
-			LOGGER.error("addGarden添加失败！",e);
+			LOGGER.error("addGarden添加失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
-	
+
 	/**
 	 * 查看园区详细信息
-	 * @param id    园区ID
+	 * 
+	 * @param id
+	 *            园区ID
 	 * @return
 	 */
 	@RequestMapping(value = "findParkInformation.json", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult findParkInformation(Long id) {
-		if (null==id) {
+		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -96,16 +101,17 @@ public class UserParkController extends BaseController{
 		}
 
 	}
-	
+
 	/**
 	 * 查看园区账号列表
-	 * @param searchModel    
+	 * 
+	 * @param searchModel
 	 * @return
 	 */
 	@RequestMapping(value = "findParkAccount.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult findParkAccount(@RequestBody SearchModel searchModel) {
-		if (null==searchModel || null==searchModel.getUserId()) {
+		if (null == searchModel || null == searchModel.getUserId()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -117,16 +123,17 @@ public class UserParkController extends BaseController{
 		}
 
 	}
-	
+
 	/**
 	 * 添加园区账号列表
+	 * 
 	 * @param dto
 	 * @return
 	 */
 	@RequestMapping(value = "addParkAccount.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult addParkAccount(@RequestBody AddAccountDTO dto) {
-		if (null==dto || StringUtil.isEmpty(dto.getTelphone())|| StringUtil.isEmpty(dto.getTime())) {
+		if (null == dto || StringUtil.isEmpty(dto.getTelphone()) || StringUtil.isEmpty(dto.getTime())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -137,16 +144,17 @@ public class UserParkController extends BaseController{
 		}
 
 	}
-	
+
 	/**
 	 * 删除园区账号列表
-	 * @param id    
+	 * 
+	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "dropParkAccount.json", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult dropParkAccount(Long id) {
-		if (null==id) {
+		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {

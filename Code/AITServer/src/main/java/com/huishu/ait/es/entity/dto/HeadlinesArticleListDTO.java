@@ -47,20 +47,16 @@ public class HeadlinesArticleListDTO {
 	private Double hot;
 
 	/** 公司名录集合 */
-//	private Set<String> bus;
+	// private Set<String> bus;
 	private List<String> bus;
 
-	
-
-//	public Set<String> getBus() {
-//		return bus;
-//	}
-//
-//	public void setBus(Set<String> bus) {
-//		this.bus = bus;
-//	}
-
-	
+	// public Set<String> getBus() {
+	// return bus;
+	// }
+	//
+	// public void setBus(Set<String> bus) {
+	// this.bus = bus;
+	// }
 
 	public List<String> getBus() {
 		return bus;
@@ -157,7 +153,6 @@ public class HeadlinesArticleListDTO {
 	public void setSource(String source) {
 		this.source = source;
 	}
-
 
 	public String getPublishTime() {
 		return publishTime;

@@ -2,16 +2,17 @@ package com.huishu.ait.common.util.send;
 
 /**
  * 寄件人
+ * 
  * @author yuwei
  */
 public class AddresserDTO {
-	
+
 	private String username;
-	
+
 	private char[] password;
-	
+
 	private String token;
-	
+
 	private String message;
 
 	public String getUsername() {
@@ -45,5 +46,5 @@ public class AddresserDTO {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
+
 }

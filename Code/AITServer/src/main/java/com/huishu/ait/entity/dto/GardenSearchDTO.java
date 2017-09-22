@@ -15,18 +15,18 @@ public class GardenSearchDTO extends SearchModel {
 	 * 序列化
 	 */
 	private static final long serialVersionUID = 1L;
-	/**地域*/
+	/** 地域 */
 	private String area;
-	/**会员级别*/
+	/** 会员级别 */
 	private String type;
-	/**时间*/
+	/** 时间 */
 	private String day;
 	/** 搜索条件 */
 	private String search;
-	private String[] msg={};
-	
+	private String[] msg = {};
+
 	public String getArea() {
-		if("全部".equals(area)){
+		if ("全部".equals(area)) {
 			area = "%%";
 		}
 		return area;
@@ -37,7 +37,7 @@ public class GardenSearchDTO extends SearchModel {
 	}
 
 	public String getType() {
-		if("全部".equals(type)){
+		if ("全部".equals(type)) {
 			type = "%%";
 		}
 		return type;
@@ -56,10 +56,10 @@ public class GardenSearchDTO extends SearchModel {
 	}
 
 	public String getSearch() {
-		if(StringUtil.isEmpty(search)){
+		if (StringUtil.isEmpty(search)) {
 			search = "%%";
-		}else{
-			search = "%"+search+"%";
+		} else {
+			search = "%" + search + "%";
 		}
 		return search;
 	}

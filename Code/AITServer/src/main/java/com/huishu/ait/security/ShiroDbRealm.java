@@ -31,11 +31,12 @@ import com.huishu.ait.service.user.UserPermissionService;
 
 /**
  * 身份校验核心类
+ * 
  * @author yindq
  * @date 2017年8月8日
  */
 public class ShiroDbRealm extends AuthorizingRealm {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ShiroDbRealm.class);
 
 	@Autowired
@@ -44,7 +45,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	private UserPermissionService userPermissionService;
 	@Autowired
 	private PermissionService permissionService;
-	
+
 	/**
 	 * 授权
 	 */
@@ -52,10 +53,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		LOGGER.info("===============进行权限配置================");
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		ShiroUser user  = (ShiroUser)principals.getPrimaryPrincipal();
-		//获取权限
+		ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
+		// 获取权限
 		List<Long> permissionIds = userPermissionService.getPermissionIdsByUserId(user.getId());
-		if (permissionIds != null && permissionIds.size()!=0) {
+		if (permissionIds != null && permissionIds.size() != 0) {
 			authorizationInfo.addRole(user.getUserLevel().toString());
 			for (Long permissionId : permissionIds) {
 				Permission permission = permissionService.getPermissionByPermissionId(permissionId);
@@ -71,55 +72,56 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		LOGGER.info("===============进行登陆认证================");
-		CaptchaUsernamePasswordToken myToken =(CaptchaUsernamePasswordToken) token;
-		//获取用户的输入的账号.
+		CaptchaUsernamePasswordToken myToken = (CaptchaUsernamePasswordToken) token;
+		// 获取用户的输入的账号.
 		String userAccount = myToken.getUsername();
 		UserBase user = userBaseService.findUserByUserAccount(userAccount);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String today = format.format(new Date());
-		if(user==null){
+		if (user == null) {
 			LOGGER.debug("user {} is not exist.", myToken.getUsername());
 			throw new IncorrectCredentialsException();
-		}else if(user.getIsCheck()==0){
+		} else if (user.getIsCheck() == 0) {
 			LOGGER.debug("user {} is not examine.", myToken.getUsername());
 			throw new AccountStartException();
-		}else if(today.compareTo(user.getExpireTime())>0){
+		} else if (today.compareTo(user.getExpireTime()) > 0) {
 			LOGGER.debug("user {} be overdue.", myToken.getUsername());
 			throw new AccountExpiredException();
 		}
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-    		   new ShiroUser(user.getId(),user.getUserAccount(),user.getRealName(),user.getUserType(),user.getUserPark(),user.getUserLevel()),
-				user.getPassword(),
-				ByteSource.Util.bytes(user.getSalt()),
-				getName());
-       return authenticationInfo;
+				new ShiroUser(user.getId(), user.getUserAccount(), user.getRealName(), user.getUserType(),
+						user.getUserPark(), user.getUserLevel()),
+				user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());
+		return authenticationInfo;
 	}
 
 	@Override
-    public void onLogout(PrincipalCollection principals) {
-        super.clearCachedAuthorizationInfo(principals);
-        ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-        removeUserCache(shiroUser);
-    }
+	public void onLogout(PrincipalCollection principals) {
+		super.clearCachedAuthorizationInfo(principals);
+		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
+		removeUserCache(shiroUser);
+	}
 
-    /**
-     * 清除用户缓存
-     * @param shiroUser
-     */
-    public void removeUserCache(ShiroUser shiroUser){
-        removeUserCache(shiroUser.getLoginName());
-    }
+	/**
+	 * 清除用户缓存
+	 * 
+	 * @param shiroUser
+	 */
+	public void removeUserCache(ShiroUser shiroUser) {
+		removeUserCache(shiroUser.getLoginName());
+	}
 
-    /**
-     * 清除用户缓存
-     * @param loginName
-     */
-    public void removeUserCache(String loginName){
-        SimplePrincipalCollection principals = new SimplePrincipalCollection();
-        principals.add(loginName, super.getName());
-        super.clearCachedAuthenticationInfo(principals);
-    }
-	
+	/**
+	 * 清除用户缓存
+	 * 
+	 * @param loginName
+	 */
+	public void removeUserCache(String loginName) {
+		SimplePrincipalCollection principals = new SimplePrincipalCollection();
+		principals.add(loginName, super.getName());
+		super.clearCachedAuthenticationInfo(principals);
+	}
+
 	/**
 	 * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
 	 */
@@ -131,8 +133,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		private String type;
 		private String park;
 		private Integer userLevel;
-		
-		public ShiroUser(Long id, String loginName, String name, String type, String park,Integer userLevel) {
+
+		public ShiroUser(Long id, String loginName, String name, String type, String park, Integer userLevel) {
 			super();
 			this.id = id;
 			this.loginName = loginName;
@@ -142,36 +144,30 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			this.userLevel = userLevel;
 		}
 
-
 		public Integer getUserLevel() {
 			return userLevel;
 		}
-
 
 		public void setUserLevel(Integer userLevel) {
 			this.userLevel = userLevel;
 		}
 
-
 		public String getLoginName() {
 			return loginName;
 		}
-
 
 		public void setLoginName(String loginName) {
 			this.loginName = loginName;
 		}
 
-
 		public void setName(String name) {
 			this.name = name;
 		}
 
-
 		public String getName() {
 			return name;
 		}
-		
+
 		public Long getId() {
 			return id;
 		}
@@ -179,7 +175,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		public void setId(Long id) {
 			this.id = id;
 		}
-		
+
 		public String getType() {
 			return type;
 		}
@@ -192,11 +188,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			return park;
 		}
 
-
 		public void setPark(String park) {
 			this.park = park;
 		}
-
 
 		/**
 		 * 本函数输出将作为默认的<shiro:principal/>输出.
@@ -237,7 +231,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 				return false;
 			}
 			return true;
-		}	
+		}
 	}
-	
+
 }

@@ -7,7 +7,7 @@ public class Radar<T> {
 	private String name;
 	private String type;
 	private Data<T> data;
-	
+
 	public Radar() {
 		this.setType("radar");
 	}
@@ -35,6 +35,5 @@ public class Radar<T> {
 	public void setData(Data<T> data) {
 		this.data = data;
 	}
-	
-	
+
 }

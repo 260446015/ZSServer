@@ -105,10 +105,10 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 		try {
 			ChangeInfo change = changeRepository.findOne(Integer.valueOf(id));
 			ExternalFlow ex = externalFlowRepository.findOne(id);
-			if(null != change){
+			if (null != change) {
 				change.setDr(1);
 				changeRepository.save(change);
-			}else{
+			} else {
 				ex.setHasWarn("false");
 				externalFlowRepository.save(ex);
 			}
@@ -122,9 +122,9 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 
 	@Override
 	public List<ExternalFlow> getExternalFlow(String park, String hasWarn) {
-		List<ExternalFlow> list = externalFlowRepository.findByParkAndHasWarn(park,hasWarn);
+		List<ExternalFlow> list = externalFlowRepository.findByParkAndHasWarn(park, hasWarn);
 		return list;
-		
+
 	}
 
 }

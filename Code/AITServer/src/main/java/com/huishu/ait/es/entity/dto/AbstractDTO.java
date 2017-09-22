@@ -20,7 +20,6 @@ import org.springframework.data.domain.Sort.Order;
 
 import com.huishu.ait.common.conf.ConfConstant;
 
-
 /**
  * <pre>
  * 抽象的数据传输对象
@@ -31,17 +30,17 @@ import com.huishu.ait.common.conf.ConfConstant;
  * @author yuwei
  */
 public abstract class AbstractDTO {
-	
+
 	private static Logger log = LoggerFactory.getLogger(AbstractDTO.class);
-	
+
 	/**
 	 * 特殊的属性名
 	 */
-	private static final List<String> KEYWORDS = Arrays.asList("startDate", "endDate",
-			"keyword", "keywords", "orders", "pageNumber", "pageSize");
-	
+	private static final List<String> KEYWORDS = Arrays.asList("startDate", "endDate", "keyword", "keywords", "orders",
+			"pageNumber", "pageSize");
+
 	private List<String> fieldNames;
-	
+
 	public AbstractDTO() {
 		fieldNames = new ArrayList<>();
 		Field[] fields = getClass().getDeclaredFields();
@@ -49,25 +48,24 @@ public abstract class AbstractDTO {
 			fieldNames.add(f.getName());
 		}
 	}
-	
-	
+
 	public BoolQueryBuilder builderQuery() {
 		BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-		
+
 		for (String name : fieldNames) {
 			if (KEYWORDS.contains(name)) {
 				continue;
 			}
 			Object value = getValueByFieldName(this, name);
-			
+
 			if (value != null) {
 				if (value instanceof String) {
-					queryBuilder.must(QueryBuilders.termQuery(name, (String)value));
+					queryBuilder.must(QueryBuilders.termQuery(name, (String) value));
 				} else if (value instanceof Boolean) {
-					queryBuilder.must(QueryBuilders.termQuery(name, (Boolean)value));
+					queryBuilder.must(QueryBuilders.termQuery(name, (Boolean) value));
 				} else if (value instanceof List) {
 					@SuppressWarnings({ "rawtypes", "unchecked" })
-					List<String> values = (List)value;
+					List<String> values = (List) value;
 					if (values.isEmpty()) {
 						continue;
 					}
@@ -79,35 +77,32 @@ public abstract class AbstractDTO {
 				}
 			}
 		}
-		
+
 		if (fieldNames.contains("startDate") && fieldNames.contains("endDate")) {
 			String startDate = (String) getValueByFieldName(this, "startDate");
 			String endDate = (String) getValueByFieldName(this, "endDate");
-			
+
 			if (!isEmpty(startDate) && !isEmpty(endDate)) {
-			    if (startDate.length()>10) { 
-    				QueryBuilder range = QueryBuilders
-    						.rangeQuery("publishDateTime") //yyyy-MM-dd HH:mm:ss
-    						.gte(startDate)
-    						.lte(endDate);
-    				queryBuilder.must(range);
-			    } else {
-			        QueryBuilder range = QueryBuilders
-			                .rangeQuery("publishDate") //yyyy-MM-dd
-			                .gte(startDate)
-			                .lte(endDate);
-			        queryBuilder.must(range);
-			    }
+				if (startDate.length() > 10) {
+					QueryBuilder range = QueryBuilders.rangeQuery("publishDateTime") // yyyy-MM-dd
+																						// HH:mm:ss
+							.gte(startDate).lte(endDate);
+					queryBuilder.must(range);
+				} else {
+					QueryBuilder range = QueryBuilders.rangeQuery("publishDate") // yyyy-MM-dd
+							.gte(startDate).lte(endDate);
+					queryBuilder.must(range);
+				}
 			}
 		}
-		
+
 		if (fieldNames.contains("keyword")) {
 			String keyword = (String) getValueByFieldName(this, "keyword");
 			if (!isEmpty(keyword)) {
 				queryBuilder.must(QueryBuilders.wildcardQuery("content", "*" + keyword + "*"));
 			}
 		}
-		
+
 		if (fieldNames.contains("keywords")) {
 			@SuppressWarnings("unchecked")
 			List<String> keywords = (List<String>) getValueByFieldName(this, "keywords");
@@ -119,21 +114,21 @@ public abstract class AbstractDTO {
 				queryBuilder.must(bool);
 			}
 		}
-		
+
 		if (log.isDebugEnabled()) {
 			log.debug("builderQuery: \n {}", queryBuilder);
 		}
-		
+
 		return queryBuilder;
 	}
-	
+
 	/**
 	 * 构建 PageRequest
 	 * 
 	 * @return PageRequest
 	 */
 	public PageRequest builderPageRequest() {
-		
+
 		Integer pageNumber = (Integer) getValueByFieldName(this, "pageNumber");
 		Integer pageSize = (Integer) getValueByFieldName(this, "pageSize");
 		if (pageNumber == null) {
@@ -143,7 +138,7 @@ public abstract class AbstractDTO {
 		} else if (pageNumber < ConfConstant.MIN_PAGE_NUMBER) {
 			pageNumber = ConfConstant.MIN_PAGE_NUMBER;
 		}
-		
+
 		if (pageSize == null) {
 			pageSize = ConfConstant.DEFAULT_PAGE_SIZE;
 		} else if (pageSize > ConfConstant.MAX_PAGE_SIZE) {
@@ -151,15 +146,14 @@ public abstract class AbstractDTO {
 		} else if (pageSize < ConfConstant.MIN_PAGE_SIZE) {
 			pageSize = ConfConstant.MIN_PAGE_SIZE;
 		}
-		
+
 		Order[] o = builderOrders();
 		if (o == null) {
 			return new PageRequest(pageNumber, pageSize);
 		}
 		return new PageRequest(pageNumber, pageSize, new Sort(o));
 	}
-	
-	
+
 	/**
 	 * 构建 Order
 	 * 
@@ -174,7 +168,7 @@ public abstract class AbstractDTO {
 		if (orders == null || orders.isEmpty()) {
 			return null;
 		}
-		Order o [] = new Order[orders.size()];
+		Order o[] = new Order[orders.size()];
 		for (int i = 0; i < orders.size(); i++) {
 			MyOrder myOrder = orders.get(i);
 			if (isEmpty(myOrder.getDirection()) || isEmpty(myOrder.getProperty())) {
@@ -191,34 +185,37 @@ public abstract class AbstractDTO {
 		}
 		return o;
 	}
-	
-	
+
 	/**
 	 * 自定义Order对象用于接收数据
 	 */
 	public static class MyOrder {
-		
+
 		private String direction;
-		
+
 		private String property;
-		
-		public MyOrder() {}
-		
+
+		public MyOrder() {
+		}
+
 		public MyOrder(String direction, String property) {
 			super();
 			this.direction = direction;
 			this.property = property;
 		}
-		
+
 		public String getDirection() {
 			return direction;
 		}
+
 		public void setDirection(String direction) {
 			this.direction = direction;
 		}
+
 		public String getProperty() {
 			return property;
 		}
+
 		public void setProperty(String property) {
 			this.property = property;
 		}

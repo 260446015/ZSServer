@@ -10,18 +10,18 @@ public class IncorrectCaptchaException extends AuthenticationException {
 	private static final long serialVersionUID = 6910802627078585722L;
 
 	public IncorrectCaptchaException() {
-        super();
-    }
-	
+		super();
+	}
+
 	public IncorrectCaptchaException(String message) {
-        super(message);
-    }
-	
+		super(message);
+	}
+
 	public IncorrectCaptchaException(Throwable cause) {
-        super(cause);
-    }
-	
+		super(cause);
+	}
+
 	public IncorrectCaptchaException(String message, Throwable cause) {
-        super(message, cause);
-    }
+		super(message, cause);
+	}
 }

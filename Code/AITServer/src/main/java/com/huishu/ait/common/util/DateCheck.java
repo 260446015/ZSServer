@@ -8,11 +8,11 @@ import org.apache.commons.lang3.StringUtils;
  * @功能描述：获取前台传递的时间标识 进行解析成字符串
  */
 public abstract class DateCheck {
-	
+
 	public static String dateCheck(String str) {
 		if (StringUtils.isNotBlank(str)) {
 			String endDate = DateUtils.getTodayDate1();
-			String startDate=null;
+			String startDate = null;
 			if ("今日".equals(str)) {
 				startDate = DateUtils.getTodayDate1();
 			}
@@ -37,7 +37,7 @@ public abstract class DateCheck {
 			if ("一年".equals(str)) {
 				startDate = DateUtils.getLast365Date();
 			}
-			return  startDate+"@"+endDate;
+			return startDate + "@" + endDate;
 		}
 		return null;
 	}

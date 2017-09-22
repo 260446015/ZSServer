@@ -20,9 +20,9 @@ public class AccountDataDTO implements Serializable {
 	private String name;
 	/** 账号 */
 	private String account;
-	/** 开通时间  */
+	/** 开通时间 */
 	private String time;
-	
+
 	public Long getId() {
 		return id;
 	}

@@ -42,9 +42,10 @@ public class AdminController extends BaseController {
 	private UserBaseService userBaseService;
 	@Resource
 	private CaptchaManager captchaManager;
-	
+
 	/**
 	 * 全局管理
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "globalManagement.json", method = RequestMethod.GET)
@@ -57,19 +58,20 @@ public class AdminController extends BaseController {
 		}
 
 	}
-	
+
 	/**
 	 * 查看待审核会员账号分页列表
+	 * 
 	 * @param searchModel
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountList.json", method = RequestMethod.POST)
 	public AjaxResult getAccountList(@RequestBody AccountSearchDTO searchModel) {
-		if (null==searchModel || null==searchModel.getType()|| null==searchModel.getDay()) {
+		if (null == searchModel || null == searchModel.getType() || null == searchModel.getDay()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		if(searchModel.getType()=="1"){
-			//试用会员申请变成正式会员，状态为9
+		if (searchModel.getType() == "1") {
+			// 试用会员申请变成正式会员，状态为9
 			searchModel.setType("9");
 		}
 		try {
@@ -80,24 +82,25 @@ public class AdminController extends BaseController {
 			}
 			return success(changeObject(searchModel, list));
 		} catch (Exception e) {
-			LOGGER.error("getAccountList查询失败！",e);
+			LOGGER.error("getAccountList查询失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
-	
+
 	/**
 	 * 查看账号详情（即查看名片）
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountImg.json", method = RequestMethod.GET)
 	public AjaxResult getAccountImg(Long id) {
-		if (null==id) {
+		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
 			UserBase base = userBaseService.findUserByUserId(id);
-			String imgUrl=ImgConstant.IP_PORT+base.getImageUrl();
+			String imgUrl = ImgConstant.IP_PORT + base.getImageUrl();
 			JSONObject object = new JSONObject();
 			object.put("img", imgUrl);
 			return success(object);
@@ -107,23 +110,24 @@ public class AdminController extends BaseController {
 		}
 
 	}
-	
+
 	/**
 	 * 账号审核
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "auditAccount.json", method = RequestMethod.GET)
 	public AjaxResult auditAccount(Long id) {
-		if (null==id) {
+		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
 			UserBase base = userBaseService.findUserByUserId(id);
 			Boolean status = adminService.auditAccount(base);
-			if(status){
+			if (status) {
 				boolean result = captchaManager.notice(base.getTelphone());
-				return  result ? success(null).setMessage("审核成功，用户将收到短信通知") : error("短信发送失败，请稍后再试");
+				return result ? success(null).setMessage("审核成功，用户将收到短信通知") : error("短信发送失败，请稍后再试");
 			}
 			return error("审核失败，请稍后再试");
 		} catch (Exception e) {
@@ -132,15 +136,16 @@ public class AdminController extends BaseController {
 		}
 
 	}
-	
+
 	/**
 	 * 查看预到期会员账号分页列表
+	 * 
 	 * @param searchModel
 	 * @return
 	 */
 	@RequestMapping(value = "getWarningAccountList.json", method = RequestMethod.POST)
 	public AjaxResult getWarningAccountList(@RequestBody AccountSearchDTO searchModel) {
-		if (null==searchModel || null==searchModel.getType()|| null==searchModel.getDay()) {
+		if (null == searchModel || null == searchModel.getType() || null == searchModel.getDay()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -151,28 +156,29 @@ public class AdminController extends BaseController {
 			}
 			return success(changeObject(searchModel, list));
 		} catch (Exception e) {
-			LOGGER.error("getAccountList查询失败！",e);
+			LOGGER.error("getAccountList查询失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
-	
+
 	/**
 	 * 账号预警
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "warnAccount.json", method = RequestMethod.GET)
 	public AjaxResult warnAccount(Long id) {
-		if (null==id) {
+		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			return adminService.warnAccount(id,1);
+			return adminService.warnAccount(id, 1);
 		} catch (Exception e) {
 			LOGGER.error("auditAccount失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 
 	}
-	
+
 }

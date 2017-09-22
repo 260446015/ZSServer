@@ -2,14 +2,15 @@ package com.huishu.ait.common.util.send;
 
 /**
  * 收件人
+ * 
  * @author yuwei
  */
 public class RecipientDTO {
-	
-	/** 地址（手机号/邮箱）*/
+
+	/** 地址（手机号/邮箱） */
 	private String address;
-	
-	/**姓名*/
+
+	/** 姓名 */
 	private String name;
 
 	public String getAddress() {
@@ -27,5 +28,5 @@ public class RecipientDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

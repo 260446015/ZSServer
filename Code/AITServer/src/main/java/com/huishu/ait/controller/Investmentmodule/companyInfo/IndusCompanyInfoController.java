@@ -24,7 +24,7 @@ import com.huishu.ait.service.indusCompany.IndusCompanyService;
 public class IndusCompanyInfoController extends BaseController {
 	@Autowired
 	private IndusCompanyService service;
-	
+
 	/**
 	 * 根据产业名查询公司的信息
 	 * 

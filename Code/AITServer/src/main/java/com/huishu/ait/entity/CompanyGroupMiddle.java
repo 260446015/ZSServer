@@ -11,36 +11,35 @@ import javax.persistence.Table;
 
 /**
  * 
- * @author yindawei 
+ * @author yindawei
  * @date 2017年8月21日上午11:22:34
  * @description 企业分组与企业的中间关联表
  * @version
  */
-@Table(name="t_company_group_middle")
+@Table(name = "t_company_group_middle")
 @Entity
-public class CompanyGroupMiddle implements Serializable{
+public class CompanyGroupMiddle implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="company_group_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "company_group_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private Long id;
-	
-	@Column(name="company_id")
+
+	@Column(name = "company_id")
 	private Long companyId;
-	
-	@Column(name="group_id")
+
+	@Column(name = "group_id")
 	private Long groupId;
-	
+
 	private String groupname;
-	
-	@Column(name="user_id")
+
+	@Column(name = "user_id")
 	private Long userId;
-	
 
 	public Long getId() {
 		return id;
@@ -81,6 +80,5 @@ public class CompanyGroupMiddle implements Serializable{
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
-	
+
 }

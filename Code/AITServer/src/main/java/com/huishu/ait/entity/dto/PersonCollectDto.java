@@ -42,7 +42,7 @@ public class PersonCollectDto implements Serializable {
 	}
 
 	public String getQuery() {
-		return "%"+query+"%";
+		return "%" + query + "%";
 	}
 
 	public void setQuery(String query) {

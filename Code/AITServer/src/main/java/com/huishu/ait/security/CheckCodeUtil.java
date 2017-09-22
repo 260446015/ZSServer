@@ -100,8 +100,7 @@ public abstract class CheckCodeUtil {
 				temp = String.valueOf((char) itmp);
 				break;
 			}
-			Color color = new Color(20 + random.nextInt(20),
-					20 + random.nextInt(20), 20 + random.nextInt(20));
+			Color color = new Color(20 + random.nextInt(20), 20 + random.nextInt(20), 20 + random.nextInt(20));
 			g.setColor(color);
 			// 想文字旋转一定的角度
 			AffineTransform trans = new AffineTransform();
@@ -120,8 +119,7 @@ public abstract class CheckCodeUtil {
 	}
 
 	public static String getImageCode(HttpServletResponse response) {
-		BufferedImage image = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_BGR);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
 		Graphics2D g = image.createGraphics();
 		// 定义字体样式
 		Font myFont = new Font(Font.DIALOG, Font.BOLD, 20);
@@ -135,25 +133,26 @@ public abstract class CheckCodeUtil {
 		String code = drawRandomString(4, g);
 		g.dispose();
 		try {
-			// Set to expire far in the past.  
-	        response.setDateHeader("Expires", 0);  
-	        // Set standard HTTP/1.1 no-cache headers.  
-	        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");  
-	        // Set IE extended HTTP/1.1 no-cache headers (use addHeader).  
-	        response.addHeader("Cache-Control", "post-check=0, pre-check=0");  
-	        // Set standard HTTP/1.0 no-cache header.  
-	        response.setHeader("Pragma", "no-cache");  
-	        // return a jpeg  
-	        response.setContentType("image/jpeg"); 
+			// Set to expire far in the past.
+			response.setDateHeader("Expires", 0);
+			// Set standard HTTP/1.1 no-cache headers.
+			response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+			// Set IE extended HTTP/1.1 no-cache headers (use addHeader).
+			response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+			// Set standard HTTP/1.0 no-cache header.
+			response.setHeader("Pragma", "no-cache");
+			// return a jpeg
+			response.setContentType("image/jpeg");
 			ImageIO.write(image, "JPEG", response.getOutputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return code;
 	}
-	
+
 	/**
 	 * 随机生成6位数短信验证码
+	 * 
 	 * @return
 	 */
 	public static String getRandomPhoneCaptcha() {
@@ -163,5 +162,5 @@ public abstract class CheckCodeUtil {
 		}
 		return code.toString();
 	}
-	
+
 }

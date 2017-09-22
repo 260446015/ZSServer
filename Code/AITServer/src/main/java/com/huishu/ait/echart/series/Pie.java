@@ -7,13 +7,13 @@ import java.util.List;
  * Created by yuwei on 2016/12/26
  */
 public class Pie<T> extends Serie<T> {
-	
+
 	private List<String> radius;
-	
+
 	public Pie() {
 		super("pie");
 	}
-	
+
 	public List<String> getRadius() {
 		return radius;
 	}
@@ -31,5 +31,4 @@ public class Pie<T> extends Serie<T> {
 		return this;
 	}
 
-	
 }

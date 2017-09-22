@@ -6,21 +6,20 @@ import com.alibaba.fastjson.JSONObject;
  * @author hhy
  * @date 2017年9月6日
  * @Parem
- * @return 
- * 产业智图的参数dto
+ * @return 产业智图的参数dto
  */
 public class IndicatorDTO {
-	
+
 	private String firstIndicator;
-	
+
 	private String secondIndicator;
-	
+
 	private String thirdIndicator;
-	
-	private String  fourIndicator;
-	
+
+	private String fourIndicator;
+
 	private String[] msg;
-	
+
 	public String[] getMsg() {
 		return msg;
 	}
@@ -65,7 +64,5 @@ public class IndicatorDTO {
 	public String toString() {
 		return JSONObject.toJSONString(this);
 	}
-	
-	
-	
+
 }

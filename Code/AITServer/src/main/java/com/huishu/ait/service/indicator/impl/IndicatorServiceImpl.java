@@ -1,6 +1,5 @@
 package com.huishu.ait.service.indicator.impl;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,36 +20,33 @@ import com.huishu.ait.service.indicator.IndicatorService;
  * @author hhy
  * @date 2017年9月6日
  * @Parem
- * @return 
+ * @return
  * 
  */
 @Service
 public class IndicatorServiceImpl extends AbstractService implements IndicatorService {
 
-	
 	private static Logger logger = LoggerFactory.getLogger(IndicatorServiceImpl.class);
-
 
 	/**
 	 * 获取产业分类信息
 	 */
 	public List<TreeNode> getIndicatorList(IndicatorDTO dto) {
-		
+
 		BoolQueryBuilder bq = getIndicatorContentBuilder(dto);
-		List<TreeNode>  json =	getIndicatorInfo(bq);
+		List<TreeNode> json = getIndicatorInfo(bq);
 		return json;
 	}
-	
+
 	/**
 	 * 根据分类指标查询公司信息
 	 */
 	@Override
-	public JSONArray getBusinessByIndicator(IndicatorDTO dto,int length) {
+	public JSONArray getBusinessByIndicator(IndicatorDTO dto, int length) {
 
 		BoolQueryBuilder bq = getIndicatorContentBuilder(dto);
-		JSONArray json = 	getBusinessByIndicator(bq, length);
+		JSONArray json = getBusinessByIndicator(bq, length);
 		return json;
 	}
-	
 
 }

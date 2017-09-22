@@ -9,16 +9,15 @@ public class MySessionManager extends DefaultWebSessionManager {
 	/**
 	 * 屏蔽no session的错误
 	 */
-    @Override
-    protected Session retrieveSession(SessionKey sessionKey)
-            throws UnknownSessionException {
-        
-        try {
-            return super.retrieveSession(sessionKey);
-        } catch (Exception e) {
-            //获取不到SESSION不报错
-            return null;
-        }
-        
-    }
+	@Override
+	protected Session retrieveSession(SessionKey sessionKey) throws UnknownSessionException {
+
+		try {
+			return super.retrieveSession(sessionKey);
+		} catch (Exception e) {
+			// 获取不到SESSION不报错
+			return null;
+		}
+
+	}
 }

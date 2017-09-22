@@ -9,11 +9,11 @@ import java.util.Map;
  * Created by yuwei on 2016/12/26
  */
 public abstract class XAxis {
-	
+
 	private String type;
-	
+
 	private List<String> data;
-	
+
 	private Map<String, Object> axisLabel = new HashMap<String, Object>() {
 		private static final long serialVersionUID = -1673654673767724327L;
 		{
@@ -38,7 +38,7 @@ public abstract class XAxis {
 		this.data = data;
 		return this;
 	}
-	
+
 	public XAxis addData(String obj) {
 		if (data == null) {
 			data = new ArrayList<>();
@@ -55,25 +55,3 @@ public abstract class XAxis {
 		return axisLabel;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

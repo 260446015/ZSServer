@@ -33,24 +33,24 @@ import com.huishu.ait.security.ShiroDbRealm;
 @Configuration
 public class ShiroConfiguration {
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenController.class);
-	//拦截器，必须保证有序
+	// 拦截器，必须保证有序
 	private final static Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 	private final static Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
 
 	/**
 	 * ShiroFilter
+	 * 
 	 * @return
 	 */
 	@Bean(name = "shiroFilter")
 	public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-		
+
 		/*
-		 * 配置访问权限
-		 * anon：表示全部放权的资源路径，authc：表示需要认证才可以访问
+		 * 配置访问权限 anon：表示全部放权的资源路径，authc：表示需要认证才可以访问
 		 */
 		filterChainDefinitionMap.put("/apis/logout.do", "logout");
-		
+
 		filterChainDefinitionMap.put("/apis/security/generateKey.do", "anon");
 		filterChainDefinitionMap.put("/apis/security/captcha.do", "anon");
 		filterChainDefinitionMap.put("/apis/register.json", "anon");
@@ -63,24 +63,24 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/temporaryDemo.do", "anon");
 		filterChainDefinitionMap.put("/apis/oauth/oauth_callback", "anon");
 		filterChainDefinitionMap.put("/apis/oauth/getChangeInfo.json", "anon");
-		
+
 		filterChainDefinitionMap.put("/apis/**", "authc");
-		//filterChainDefinitionMap.put("/apis/**", "anon");
-		
+		// filterChainDefinitionMap.put("/apis/**", "anon");
+
 		filterChainDefinitionMap.put("/apis/business/**", "perms[\"Industrymodule,parkmodule\"]");
 		filterChainDefinitionMap.put("/apis/expert/**", "perms[Industrymodule]");
 		filterChainDefinitionMap.put("/apis/area/**", "perms[Industrymodule]");
 		filterChainDefinitionMap.put("/apis/Headlines/**", "perms[Industrymodule]");
 		filterChainDefinitionMap.put("/apis/industry/**", "perms[Industrymodule]");
-		
+
 		filterChainDefinitionMap.put("/apis/supervise/**", "perms[parkmodule]");
 		filterChainDefinitionMap.put("/apis/warning/**", "perms[parkmodule]");
-		
+
 		filterChainDefinitionMap.put("/apis/indus/**", "perms[Investmentmodule]");
 		filterChainDefinitionMap.put("/apis/comp/**", "perms[Investmentmodule]");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-		
+
 		filters.put("ajaxSessionFilter", getMyUserFilter());
 
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
@@ -90,9 +90,10 @@ public class ShiroConfiguration {
 		shiroFilterFactoryBean.setFilters(filters);
 		return shiroFilterFactoryBean;
 	}
-	
+
 	/**
 	 * 配置核心安全事务管理器
+	 * 
 	 * @return
 	 */
 	@Bean(name = "securityManager")
@@ -103,21 +104,21 @@ public class ShiroConfiguration {
 		LOGGER.info("===============shiro已经加载================");
 		// 用户授权/认证信息Cache
 		securityManager.setCacheManager(getEhCacheManager());
-//		securityManager.setRememberMeManager(rememberMeManager);
+		// securityManager.setRememberMeManager(rememberMeManager);
 		return securityManager;
 	}
-	
+
 	/**
-	 * 配置自定义的权限登录器
-	 * (这个需要自己写，账号密码校验；权限等)
+	 * 配置自定义的权限登录器 (这个需要自己写，账号密码校验；权限等)
+	 * 
 	 * @return
 	 */
 	@Bean(name = "shiroDbRealm")
 	public ShiroDbRealm getShiroDbRealm() {
 		ShiroDbRealm shiroRealm = new ShiroDbRealm();
-		//配置自定义的密码比较器
+		// 配置自定义的密码比较器
 		shiroRealm.setCredentialsMatcher(getCustomCredentialsMatcher());
-		//启用身份验证缓存，即缓存AuthenticationInfo信息，默认false
+		// 启用身份验证缓存，即缓存AuthenticationInfo信息，默认false
 		shiroRealm.setAuthenticationCachingEnabled(true);
 		shiroRealm.setCacheManager(getEhCacheManager());
 		shiroRealm.setCredentialsMatcher(getCustomCredentialsMatcher());
@@ -126,6 +127,7 @@ public class ShiroConfiguration {
 
 	/**
 	 * 配置EhCache 缓存
+	 * 
 	 * @return
 	 */
 	@Bean
@@ -136,72 +138,79 @@ public class ShiroConfiguration {
 	}
 
 	@Bean(name = "lifecycleBeanPostProcessor")
-	    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
-	        return new LifecycleBeanPostProcessor();
-    }
-	
+	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+		return new LifecycleBeanPostProcessor();
+	}
+
 	/**
 	 * 处理session超时
+	 * 
 	 * @return
 	 */
 	@Bean(name = "myUserFilter")
-    public MyUserFilter getMyUserFilter(){
-        return new MyUserFilter();
+	public MyUserFilter getMyUserFilter() {
+		return new MyUserFilter();
 	}
-	
+
 	/**
 	 * 开启shiro aop注解支持.
+	 * 
 	 * @return
 	 */
-    @Bean(name = "authorizationAttributeSourceAdvisor")
-    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor() {
-        AuthorizationAttributeSourceAdvisor auth = new AuthorizationAttributeSourceAdvisor();
-        auth.setSecurityManager(getDefaultWebSecurityManager());
-        return auth;
-    }
-    
-    /**
-     * FormAuthenticationFilter
-     * @return
-     */
-    @Bean(name = "loginFormAuthenticationFilter")
-    public MyFormAuthenticationFilter getMyFormAuthenticationFilter() {
-        return new MyFormAuthenticationFilter();
-    }
-    
-    /**
-     * DefaultWebSessionManager
-     * @return
-     */
-    @Bean(name = "defaultWebSessionManager")
-    public DefaultWebSessionManager getDefaultWebSessionManager(){
-    	MySessionManager manager = new MySessionManager();
-    	 //会话超时时间，单位：毫秒
-    	 manager.setGlobalSessionTimeout(1800000);
-    	 //定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话
-    	 manager.setSessionValidationInterval(600000);
-    	 manager.setSessionValidationSchedulerEnabled(true);
-    	 manager.setSessionDAO(getEnterpriseCacheSessionDAO());
-    	 return manager;
-    }
-    /**
-     * 自定义校验密码
-     * @return
-     */
-    @Bean(name = "customCredentialsMatcher")
-    public CustomCredentialsMatcher getCustomCredentialsMatcher() {
-        CustomCredentialsMatcher matcher = new CustomCredentialsMatcher(getEhCacheManager());
-        return matcher;
-    }
-    
-    /**
-     * SessionDAO
-     * @return
-     */
-    @Bean(name = "enterpriseCacheSessionDAO")
-    public EnterpriseCacheSessionDAO getEnterpriseCacheSessionDAO() {
-         EnterpriseCacheSessionDAO dao = new EnterpriseCacheSessionDAO();
-		 dao.setCacheManager(getEhCacheManager());
-         return dao;
-    }
+	@Bean(name = "authorizationAttributeSourceAdvisor")
+	public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor() {
+		AuthorizationAttributeSourceAdvisor auth = new AuthorizationAttributeSourceAdvisor();
+		auth.setSecurityManager(getDefaultWebSecurityManager());
+		return auth;
+	}
+
+	/**
+	 * FormAuthenticationFilter
+	 * 
+	 * @return
+	 */
+	@Bean(name = "loginFormAuthenticationFilter")
+	public MyFormAuthenticationFilter getMyFormAuthenticationFilter() {
+		return new MyFormAuthenticationFilter();
+	}
+
+	/**
+	 * DefaultWebSessionManager
+	 * 
+	 * @return
+	 */
+	@Bean(name = "defaultWebSessionManager")
+	public DefaultWebSessionManager getDefaultWebSessionManager() {
+		MySessionManager manager = new MySessionManager();
+		// 会话超时时间，单位：毫秒
+		manager.setGlobalSessionTimeout(1800000);
+		// 定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话
+		manager.setSessionValidationInterval(600000);
+		manager.setSessionValidationSchedulerEnabled(true);
+		manager.setSessionDAO(getEnterpriseCacheSessionDAO());
+		return manager;
+	}
+
+	/**
+	 * 自定义校验密码
+	 * 
+	 * @return
+	 */
+	@Bean(name = "customCredentialsMatcher")
+	public CustomCredentialsMatcher getCustomCredentialsMatcher() {
+		CustomCredentialsMatcher matcher = new CustomCredentialsMatcher(getEhCacheManager());
+		return matcher;
+	}
+
+	/**
+	 * SessionDAO
+	 * 
+	 * @return
+	 */
+	@Bean(name = "enterpriseCacheSessionDAO")
+	public EnterpriseCacheSessionDAO getEnterpriseCacheSessionDAO() {
+		EnterpriseCacheSessionDAO dao = new EnterpriseCacheSessionDAO();
+		dao.setCacheManager(getEhCacheManager());
+		return dao;
+	}
 }

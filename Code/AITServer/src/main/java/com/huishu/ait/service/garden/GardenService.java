@@ -99,7 +99,7 @@ public interface GardenService {
 	 *            地区
 	 * @return
 	 */
-	JSONArray findGardensByAreaAndIndustry(String area,String leadIndustry);
+	JSONArray findGardensByAreaAndIndustry(String area, String leadIndustry);
 
 	/**
 	 * 园区情报中获取所有园区内容

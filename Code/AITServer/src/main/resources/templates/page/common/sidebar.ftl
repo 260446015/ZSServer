@@ -1,36 +1,51 @@
 <!-- Sidebar -->
-<div class="sidebar">
-	<div class="sidebar-collapse">
-		<!-- Sidebar Header Logo-->
-		<div class="sidebar-header">
-			<img src="/assets/img/logo.png" class="img-responsive" alt="" />
-		</div>
-		<!-- Sidebar Menu-->
-		<div class="sidebar-menu">
-			<nav id="menu" class="nav-main" role="navigation">
-				<ul class="nav nav-sidebar">
-					<div class="panel-body text-center">
-						<div class="flag">
-							<img src="/assets/img/flags/USA.png" class="img-flags" alt="" />
+				<div class="sidebar">
+					<div class="sidebar-collapse">
+						<!-- Sidebar Header Logo-->
+						<div class="sidebar-header">
+							<img src="assets/img/logo.png" class="img-responsive" alt="" />
 						</div>
+						<!-- Sidebar Menu-->
+						<div class="sidebar-menu">
+							<nav id="menu" class="nav-main" role="navigation">
+								<ul class="nav nav-sidebar">
+									
+									<li class="active">
+										<a href="index.html">
+											<i class="fa fa-laptop" aria-hidden="true"></i><span>全局管理</span>
+										</a>
+									</li>
+									<li class="active">
+										<a href="index.html">
+											<i class="fa fa-laptop" aria-hidden="true"></i><span>账户审核</span>
+										</a>
+									</li>
+									<li class="active">
+										<a href="index.html">
+											<i class="fa fa-laptop" aria-hidden="true"></i><span>产业管理</span>
+										</a>
+									</li>
+									<li class="active">
+										<a href="index.html">
+											<i class="fa fa-laptop" aria-hidden="true"></i><span>园区管理</span>
+										</a>
+									</li>
+									<li class="active">
+										<a href="index.html">
+											<i class="fa fa-laptop" aria-hidden="true"></i><span>模板管理</span>
+										</a>
+									</li>
+									<li class="active">
+										<a href="index.html">
+											<i class="fa fa-laptop" aria-hidden="true"></i><span>订单管理</span>
+										</a>
+									</li>
+					</ul>
+							</nav>
+						</div>
+						<!-- End Sidebar Menu-->
 					</div>
-				    	
-				<ul class="dropdown-menu update-menu" role="menu">
-                			<li><a href="#"><i class="fa fa-database bk-fg-primary"></i>全局管理 </a></li>
-                			<li><a href="#"><i class="fa fa-bar-chart-o bk-fg-primary"></i>账号审核</a></li>
-                			<li><a href="#"><i class="fa fa-bell bk-fg-primary"></i>产业管理</a></li>
-                			<li><a href="#"><i class="fa fa-envelope bk-fg-primary"></i>园区管理</a></li>
-                			<li><a href="#"><i class="fa fa-flash bk-fg-primary"></i>模板管理</a></li>
-                			<li><a href="#"><i class="fa fa-credit-card bk-fg-primary"></i>订单管理</a></li>
-                </ul>
-				    
-				    
-				</ul>
-			</nav>
-		</div>
-		<!-- End Sidebar Menu-->
-	</div>
-	<!-- Sidebar Footer-->
+					<!-- Sidebar Footer-->
 	<div class="sidebar-footer">
 		<div class="small-chart-visits">
 			<div class="small-chart" id="sparklineLineVisits"></div>
@@ -41,5 +56,5 @@
 		</div>
 	</div>
 	<!-- End Sidebar Footer-->
-</div>
-<!-- End Sidebar -->
+				</div>
+				<!-- End Sidebar -->

@@ -10,8 +10,7 @@ import com.huishu.ait.entity.Param;
  * @author hhy
  * @date 2017年8月3日
  * @Parem
- * @return 
- * 针对公用参数的service方法
+ * @return 针对公用参数的service方法
  */
 public interface ParamService {
 
@@ -42,11 +41,11 @@ public interface ParamService {
 	 * @param list
 	 */
 	boolean saveParams(List<Param> list);
-	
+
 	/**
 	 * @param param
 	 * @return
 	 */
-	boolean getInsertParam(List<Param> params,Long userId);
+	boolean getInsertParam(List<Param> params, Long userId);
 
 }

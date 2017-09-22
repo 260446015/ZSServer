@@ -15,47 +15,47 @@ import com.alibaba.fastjson.JSONObject;
  * @date
  * 
  * @Parem
- * @return 
+ * @return
  * 
  */
 @Entity
-@Table(name="t_enterprise")
-public class EnterpriseDTO implements Serializable{
+@Table(name = "t_enterprise")
+public class EnterpriseDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name = "id", nullable = false)
 	private Long id;
-	
-	/**产业类型*/
-	@Column(name="industry_type")
+
+	/** 产业类型 */
+	@Column(name = "industry_type")
 	private String industryType;
-	
-	/**公司名*/
+
+	/** 公司名 */
 	private String company;
-	
-	/**法定代表*/
-	private String  boss;
-	
-	/**注册资金*/
-	@Column(name="register_capital")
+
+	/** 法定代表 */
+	private String boss;
+
+	/** 注册资金 */
+	@Column(name = "register_capital")
 	private String registerCapital;
-	
-	/**注册时间*/
-	@Column(name="register_time")
+
+	/** 注册时间 */
+	@Column(name = "register_time")
 	private String createTime;
-	
-	/**行业领域*/
+
+	/** 行业领域 */
 	private String industry;
-	
-	/**注册地址*/
-	@Column(name="register_address")
+
+	/** 注册地址 */
+	@Column(name = "register_address")
 	private String registerAddress;
-	
-	/**天眼查超链接*/
-	@Column(name="company_url" )
+
+	/** 天眼查超链接 */
+	@Column(name = "company_url")
 	private String companyUrl;
 
 	public String getCompanyUrl() {
@@ -134,7 +134,5 @@ public class EnterpriseDTO implements Serializable{
 	public String toString() {
 		return JSONObject.toJSONString(this);
 	}
-	
-	
 
 }

@@ -8,9 +8,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.huishu.ait.entity.ChangeInfo;
 
-public interface ChangeRepository extends PagingAndSortingRepository<ChangeInfo, Integer>{
+public interface ChangeRepository extends PagingAndSortingRepository<ChangeInfo, Integer> {
 
-	List<ChangeInfo> findByParkAndDr(String park,Integer dr);
-	
-	Page<ChangeInfo> findByPark(String park,Pageable pageable);
+	List<ChangeInfo> findByParkAndDr(String park, Integer dr);
+
+	Page<ChangeInfo> findByPark(String park, Pageable pageable);
 }

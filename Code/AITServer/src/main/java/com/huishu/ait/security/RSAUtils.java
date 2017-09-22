@@ -21,8 +21,7 @@ public class RSAUtils {
 	public static KeyPair getKeys() {
 		KeyPairGenerator keyPairGen = null;
 		try {
-			keyPairGen = KeyPairGenerator.getInstance("RSA",
-					new org.bouncycastle.jce.provider.BouncyCastleProvider());
+			keyPairGen = KeyPairGenerator.getInstance("RSA", new org.bouncycastle.jce.provider.BouncyCastleProvider());
 		} catch (NoSuchAlgorithmException e) {
 			// ignore
 			e.printStackTrace();

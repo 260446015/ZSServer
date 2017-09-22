@@ -23,16 +23,16 @@ public class CompanySearchDTO extends SearchModel {
 	private String time;
 	/** 企业标签 */
 	private String label;
-	
+
 	private String search;
-	
-	private String[] msg={};
-	
+
+	private String[] msg = {};
+
 	public String getSearch() {
-		if(StringUtil.isEmpty(search)){
+		if (StringUtil.isEmpty(search)) {
 			search = "%%";
-		}else{
-			search = "%"+search+"%";
+		} else {
+			search = "%" + search + "%";
 		}
 		return search;
 	}
@@ -48,7 +48,7 @@ public class CompanySearchDTO extends SearchModel {
 	public void setPark(String park) {
 		this.park = park;
 	}
-	
+
 	public String[] getMsg() {
 		return msg;
 	}
@@ -78,9 +78,9 @@ public class CompanySearchDTO extends SearchModel {
 	}
 
 	public String getStatus() {
-		if("全部".equals(status)){
+		if ("全部".equals(status)) {
 			status = "%%";
-		}else if("不限".equals(status)){
+		} else if ("不限".equals(status)) {
 			status = "%%";
 		}
 		return status;
