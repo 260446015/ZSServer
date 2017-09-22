@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
@@ -21,7 +20,7 @@ import com.huishu.ait.entity.ChangeInfo;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.InformationSearchDTO;
-import com.huishu.ait.es.entity.ExternalFlow;
+import com.huishu.ait.es.entity.AITInfo;
 //gitlab.junquan.com.cn/hskj/pd_210_merchantssys.git
 import com.huishu.ait.service.warning.WarningService;
 
@@ -57,7 +56,7 @@ public class WarningController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			Page<ExternalFlow> page = warningService.getBusinessOutflowList(searchModel);
+			Page<AITInfo> page = warningService.getBusinessOutflowList(searchModel);
 			return success(page);
 		} catch (Exception e) {
 			LOGGER.error("getBusinessOutflowList查询失败！", e);
@@ -119,7 +118,7 @@ public class WarningController extends BaseController {
 		searchModel.setPark(getUserPark());
 		JSONObject obj = new JSONObject();
 		List<ChangeInfo> changeList = warningService.getChangeInfo(getUserPark());
-		List<ExternalFlow> exList = warningService.getExternalFlow(getUserPark(), "true");
+		List<AITInfo> exList = warningService.getExternalFlow(getUserPark(), "true");
 		// obj.put("count", page.getTotalElements());
 		int count = changeList.size() + exList.size();
 		obj.put("count", count);
