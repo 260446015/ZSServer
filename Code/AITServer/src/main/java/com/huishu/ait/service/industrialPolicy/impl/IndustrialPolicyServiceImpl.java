@@ -67,6 +67,12 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
 				}
 				summary = StringUtil.replaceHtml(summary);
 				data.setSummary(summary);
+				String area = data.getArea();
+				if(StringUtil.isEmpty(area)){
+					List<String> areas = findArea(data.getTitle(), data.getContent());
+					area = areas.get(0);
+				}
+				data.setArea(area);
 			});
 			// Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(),
 			// dto.builderPageRequest());
@@ -80,6 +86,12 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
 				}
 				summary = StringUtil.replaceHtml(summary);
 				data.setSummary(summary);
+				String area = data.getArea();
+				if(StringUtil.isEmpty(area)){
+					List<String> areas = findArea(data.getTitle(), data.getContent());
+					area = areas.get(0);
+				}
+				data.setArea(area);
 			});
 			// Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(),
 			// dto.builderPageRequest());
