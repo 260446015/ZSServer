@@ -395,7 +395,7 @@
                         type: 'post',
                         url: "/apis/login.do",
                         async: false,
-                        data: {username: $('input[name=username]').val(), password: encrypedPwd, type: 'user'},
+                        data: {username: $('input[name=username]').val(), password: encrypedPwd, type: 'admin'},
                         success: function (response) {
 	                        if(response.message!=null){
 	                        	alert(response.message);

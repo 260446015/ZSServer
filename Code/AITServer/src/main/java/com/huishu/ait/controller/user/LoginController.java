@@ -106,7 +106,7 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value = "apis/login.do", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult loginAjax(HttpServletRequest request, String username, String password) {
+	public AjaxResult loginAjax(HttpServletRequest request, String username,String type, String password) {
 		if (request.getAttribute("success") != null && (boolean) request.getAttribute("success")) {
 			return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
 		}
@@ -126,7 +126,7 @@ public class LoginController extends BaseController {
 			}
 		} else if (null != getCurrentShiroUser()) {
 			RSAPrivateKey priKey = (RSAPrivateKey) request.getSession().getAttribute("privateKey");
-			UserBase base = userBaseService.findUserByUserAccount(username);
+			UserBase base = userBaseService.findUserByUserAccount(username,type);
 			String inPassword = getInPassword(password, base.getSalt(), priKey);
 			String dbPassword = base.getPassword();
 			if (dbPassword.equals(inPassword)) {

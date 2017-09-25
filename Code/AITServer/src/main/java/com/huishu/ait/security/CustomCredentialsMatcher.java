@@ -64,11 +64,8 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 		} else {
 			passwordRetryCache.put(username, retryCount);
 		}
-		// 获得用户输入的密码
 		String inPassword = getInPassword(utoken);
-		// 获得数据库中的密码
 		String dbPassword = (String) info.getCredentials();
-		// 进行密码的比对
 		boolean matches = this.equals(inPassword, dbPassword);
 		if (matches) {
 			// clear retry data
@@ -86,7 +83,6 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 	private String getInPassword(CaptchaUsernamePasswordToken utoken) {
 		String pass = String.valueOf(utoken.getPassword());
 		Subject currentUser = SecurityUtils.getSubject();
-		// 获取当前用户的私钥
 		Object priKey = currentUser.getSession().getAttribute("privateKey");
 		if (priKey == null) {
 			return null;
@@ -99,7 +95,7 @@ public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
 			LOGGER.error("私钥解密失败", e);
 			return null;
 		}
-		UserBase user = userBaseRepository.findByUserAccountAndUserType(utoken.getUsername(), "user");
+		UserBase user = userBaseRepository.findByUserAccountAndUserType(utoken.getUsername(), utoken.getType());
 		if (user == null) {
 			return null;
 		}

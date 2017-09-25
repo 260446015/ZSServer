@@ -73,20 +73,23 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		LOGGER.info("===============进行登陆认证================");
 		CaptchaUsernamePasswordToken myToken = (CaptchaUsernamePasswordToken) token;
-		// 获取用户的输入的账号.
 		String userAccount = myToken.getUsername();
-		UserBase user = userBaseService.findUserByUserAccount(userAccount);
+		String type = myToken.getType();
+		UserBase user = userBaseService.findUserByUserAccount(userAccount,type);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String today = format.format(new Date());
 		if (user == null) {
 			LOGGER.debug("user {} is not exist.", myToken.getUsername());
 			throw new IncorrectCredentialsException();
-		} else if (user.getIsCheck() == 0) {
-			LOGGER.debug("user {} is not examine.", myToken.getUsername());
-			throw new AccountStartException();
-		} else if (today.compareTo(user.getExpireTime()) > 0) {
-			LOGGER.debug("user {} be overdue.", myToken.getUsername());
-			throw new AccountExpiredException();
+		} 
+		if(type.equals("user")){
+			if (user.getIsCheck() == 0) {
+				LOGGER.debug("user {} is not check.", myToken.getUsername());
+				throw new AccountStartException();
+			} else if (today.compareTo(user.getExpireTime()) > 0) {
+				LOGGER.debug("user {} be overdue.", myToken.getUsername());
+				throw new AccountExpiredException();
+			}
 		}
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
 				new ShiroUser(user.getId(), user.getUserAccount(), user.getRealName(), user.getUserType(),

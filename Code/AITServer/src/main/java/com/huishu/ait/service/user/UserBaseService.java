@@ -20,7 +20,7 @@ public interface UserBaseService {
 	 * @param userAccount
 	 * @return
 	 */
-	UserBase findUserByUserAccount(String userAccount);
+	UserBase findUserByUserAccount(String userAccount,String type);
 
 	/**
 	 * 通过电话查找用户信息

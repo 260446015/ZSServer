@@ -34,8 +34,8 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 	private UserBaseRepository userBaseRepository;
 
 	@Override
-	public UserBase findUserByUserAccount(String userAccount) {
-		return userBaseRepository.findByUserAccountAndUserType(userAccount, "user");
+	public UserBase findUserByUserAccount(String userAccount,String type) {
+		return userBaseRepository.findByUserAccountAndUserType(userAccount, type);
 	}
 
 	@Override
