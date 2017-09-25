@@ -71,7 +71,7 @@ public interface UserBaseService {
 	AjaxResult findPassword(FindPasswordDTO param);
 
 	/**
-	 * 添加园区正事用户
+	 * 添加园区正式用户
 	 * 
 	 * @param userBase
 	 * @return
