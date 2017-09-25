@@ -172,6 +172,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			Sort sortx = new Sort(new Sort.Order(Sort.Direction.DESC, "publishDate"));
 			PageRequest pageRequest = new PageRequest(dto.getPageNumber() - 1, dto.getPageSize(), sortx);
 			Page<AITInfo> search = gardenEsRepository.search(bq, pageRequest);
+			search.forEach((ait)->{
+				ait.setSummary(StringUtil.replaceHtml(ait.getSummary()));
+			});
 			data.add(search);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
