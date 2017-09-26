@@ -101,7 +101,7 @@ footer {
 												</span>
 											</div>
 										</div>
-										<div>
+										<#-- <div>
 											<input type="text" name="captcha" id="captcha"
 												class="form-control" style="width: 200px; display: inline;"
 												placeholder="输入验证码" required/> <img id='captchaImg' src="/security/captcha"
@@ -113,10 +113,10 @@ footer {
 													<input id="rememberMe" name="rememberMe" type="checkbox"/>
 													<label for="rememberMe">记住我</label>
 												</div>
-											</div>
+											</div> -->
 											<div class="col-sm-8">
 												<label for="errorMsg" class="errorMsg" style="font-weight: 800;color: red;font-size: 1.1em;">
-													<#if errorMsg??>
+													<#if errorMsg?exists>
 														${errorMsg}
 													</#if>
 												</label>
@@ -154,7 +154,6 @@ footer {
 	<script src="/assets/js/pages/page-login.js"></script>
 	<!-- end: JavaScript-->
 	<script src="/assets/js/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="/assets/js/login/login.js"></script>
 	<script src="/assets/js/md5.js"></script>
 </body>
 </html>
