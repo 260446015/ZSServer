@@ -188,7 +188,14 @@
 				  content: '<img src='+data.imageUrl+'  alt="个人名片" />'
 				});
 		    } else if(obj.event === 'warn'){
-		      layer.alert('编辑行：<br>'+ JSON.stringify(data))
+		      $.ajax({
+			            url: "/apis/back/admin/warnAccount.json",
+			            contentType: 'application/json',
+			            data: {id: data.id},
+			            success: function (response) {
+			                 layer.alert(response.message);
+			            }
+			        });
 		    } else if(obj.event === 'edit'){
 		      layer.confirm('确定为该用户开通服务？', function(index){
 		        $.ajax({
