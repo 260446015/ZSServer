@@ -41,6 +41,7 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			base.setStartTime(sdf.format(new Date()));
 			base.setExpireTime(sdf.format(nextDate.getTime()));
+			base.setIsCheck(1);
 			userBaseRepository.save(base);
 			return true;
 		} catch (Exception e) {
