@@ -49,6 +49,7 @@
 <!-- Page CSS -->
 <link href="/assets/css/style.css" rel="stylesheet" />
 <link href="/assets/css/add-ons.min.css" rel="stylesheet" />
+<link href="/layui/css/layui.css" rel="stylesheet" />
 
 <style>
 footer {
@@ -57,11 +58,12 @@ footer {
 </style>
 
 <!-- end: CSS file-->
-
-
+<script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/assets/js/security.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.tablesort.js"></script>
+<script type="text/javascript" src="/assets/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/layui/layui.js"></script>
 <!-- Head Libs -->
-<script src="/assets/plugins/modernizr/js/modernizr.js"></script>
-
 </head>
 
 <body>
@@ -77,8 +79,7 @@ footer {
 								<div class="header bk-margin-bottom-20 text-center" style="background: #3BBFB4;">
 									<img src="assets/img/logo.png" class="img-responsive" style="margin: auto;padding: 20px;" alt="" />
 								</div>
-								<form id="signupLogin" class="form-horizontal login"
-									method="post">
+								<form id="signupLogin" class="form-horizontal login" method="post">
 									<input type="hidden" id="password" name="password">
 									<div class="bk-padding-left-20 bk-padding-right-20">
 										<div class="form-group">
@@ -114,15 +115,8 @@ footer {
 													<label for="rememberMe">记住我</label>
 												</div>
 											</div> -->
-											<div class="col-sm-8">
-												<label for="errorMsg" class="errorMsg" style="font-weight: 800;color: red;font-size: 1.1em;">
-													<#if errorMsg?exists>
-														${errorMsg}
-													</#if>
-												</label>
-											</div>
 											<div class="col-sm-4 text-right">
-												<button type="submit" class="btn btn-primary hidden-xs">登陆</button>
+												<button type="button" class="btn btn-primary hidden-xs"  onclick="doLogin()">登陆</button>
 											</div>
 										</div>
 									</div>
@@ -136,24 +130,39 @@ footer {
 		</div>
 	</div>
 	<!--/container-->
-
-
-	<!-- start: JavaScript-->
-
-	<!-- Vendor JS-->
-	<script src="/assets/vendor/js/jquery.min.js"></script>
-	<script src="/assets/vendor/js/jquery-2.1.1.min.js"></script>
-	<script src="/assets/vendor/js/jquery-migrate-1.2.1.min.js"></script>
-	<script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/assets/vendor/skycons/js/skycons.js"></script>
-
-	<!-- Theme JS -->
-	<script src="/assets/js/jquery.mmenu.min.js"></script>
-
-	<!-- Pages JS -->
-	<script src="/assets/js/pages/page-login.js"></script>
-	<!-- end: JavaScript-->
-	<script src="/assets/js/jquery.validate.min.js"></script>
-	<script src="/assets/js/md5.js"></script>
+	<script type="text/javascript">
+		function doLogin() {
+	        $.ajax({
+	            url: "/apis/security/generateKey.do",
+	            dataType: "json",
+	            success: function (response) {
+	                if (response.success) {
+	                    var exponent = response.data.publicKeyExponent;
+	                    var modulus = response.data.publicKeyModulus;
+	                    RSAUtils.setMaxDigits(200);
+	                    var key = new RSAUtils.getKeyPair(exponent, "", modulus);
+	                    var password = $("#userPassword").val();
+	                    var encrypedPwd = RSAUtils.encryptedString(key, password);
+	                    $.ajax({
+	                        type: 'post',
+	                        url: "/apis/login.do",
+	                        async: false,
+	                        data: {username: $("#username").val(), password: encrypedPwd, type: 'admin'},
+	                        success: function (response) {
+		                        layui.use('layer', function(){
+								  var layer = layui.layer;
+								  if(response.success){
+								 		window.location.href="apis/back/admin/globalManagement.json";
+			                        }else{
+			                       		layer.alert(response.message);
+			                        }
+								});              
+	                        }
+	                    });
+	                }
+	            }
+	        });
+	    }
+    </script>
 </body>
 </html>
