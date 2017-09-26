@@ -61,6 +61,7 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		object.put("expireMemberNum", expireMemberNum);
 		object.put("areaRatio", convertData(areaRatio));
 		object.put("industryRatio", convertData(industryRatio));
+		object.put("areaNum", areaRatio);
 		return result.setSuccess(true).setData(object);
 	}
 

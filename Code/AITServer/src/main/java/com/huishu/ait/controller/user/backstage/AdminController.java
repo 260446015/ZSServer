@@ -51,7 +51,7 @@ public class AdminController extends BaseController {
 	public String globalManagement(Model model) {
 		try {
 			AjaxResult result = adminService.globalManagement();
-			model.addAttribute(result);
+			model.addAttribute("data",result);
 		} catch (Exception e) {
 			LOGGER.error("globalManagement失败！", e);
 		}

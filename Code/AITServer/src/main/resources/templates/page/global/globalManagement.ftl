@@ -23,12 +23,12 @@
                 <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
                     <span style="color: #1E9FFF;" class="layui-icon">&#xe629;</span>
                     <span>园区会员总数</span>
-                    <span style="color: #1E9FFF; margin-left: 15px;">42</span>
+                    <span style="color: #1E9FFF; margin-left: 15px;">${Request.data.data.memberNum} </span>
                 </div>
                 <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
                     <span class="layui-icon" style="color: #ff992c;">&#xe637;</span>
                     <span>即将到期会员总数</span>
-                    <span style=" color: #ff992c;margin-left: 15px;">7</span>
+                    <span style=" color: #ff992c;margin-left: 15px;">${Request.data.data.expireMemberNum} </span>
                 </div>
             </blockquote>
 
@@ -58,6 +58,22 @@
     </div>
 	<#include "/common/script.ftl">
 	<script>
+		var areaRatio= new Array();
+		<#list Request.data.data.areaRatio?keys as key>
+			var obj = {value:'${Request.data.data.areaRatio[key]}', name:'${key}'}; 
+			areaRatio.push(obj);
+		</#list>
+		var industryRatio= new Array();
+		<#list Request.data.data.industryRatio?keys as key>
+			var obj = {value:'${Request.data.data.industryRatio[key]}', name:'${key}'}; 
+			industryRatio.push(obj);
+		</#list>
+		var myName= new Array();
+		var myValue= new Array();
+		<#list Request.data.data.areaNum as list>
+			myName.push('${list[1]}');
+			myValue.push('${list[0]}');
+		</#list>
     // 基于准备好的dom，初始化echarts实例
     var myChart1 = echarts.init(document.getElementById('chart1'));
     var myChart2 = echarts.init(document.getElementById('chart2'));
@@ -70,13 +86,7 @@
                 type:'pie',
                 radius: ['50%', '70%'],
 
-                data:[
-                    {value:335, name:'天津'},
-                    {value:310, name:'北京'},
-                    {value:234, name:'上海'},
-                    {value:135, name:'郑州'},
-                    {value:23, name:'某某'}
-                ]
+                data:areaRatio
             }
         ]
     };
@@ -87,12 +97,7 @@
                 name:'访问来源',
                 type:'pie',
                 radius: ['50%', '70%'],
-                data:[
-                    {value:335, name:'影视'},
-                    {value:310, name:'外贸'},
-                    {value:234, name:'生物医药'},
-                    {value:135, name:'互联网'},
-                ]
+                data:industryRatio
             },
         ]
     };
@@ -114,7 +119,7 @@
         xAxis : [
             {
                 type : 'category',
-                data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                data : myName,
                 axisTick: {
                     alignWithLabel: true
                 }
@@ -130,7 +135,7 @@
                 name:'直接访问',
                 type:'bar',
                 barWidth: '60%',
-                data:[10, 52, 200, 334, 390, 330, 220,100, 52, 200, 334, 390, 330, 220]
+                data:myValue
             }
         ]
     };

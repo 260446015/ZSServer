@@ -86,7 +86,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase, Long> {
 	 * 
 	 * @return
 	 */
-	@Query(value = "SELECT count(industry) sum,industry name from t_garden_data GROUP BY industry", nativeQuery = true)
+	@Query(value = "SELECT count(industry) sum,industry name from t_user_park GROUP BY industry", nativeQuery = true)
 	List<Object[]> findIndustryRatio();
 
 	/**

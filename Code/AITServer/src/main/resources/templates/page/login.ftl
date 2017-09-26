@@ -152,7 +152,7 @@ footer {
 		                        layui.use('layer', function(){
 								  var layer = layui.layer;
 								  if(response.success){
-								 		window.location.href="apis/back/admin/globalManagement.json";
+								 		window.location.href="/apis/back/admin/globalManagement.json";
 			                        }else{
 			                       		layer.alert(response.message);
 			                        }
