@@ -9,106 +9,134 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <#include "/common/link.ftl">
 </head>
-<body>
+<body class="">
+<div class="layui-layout layui-layout-admin">
 	<#include "/common/header.ftl">
 	<!-- Start: Content -->
-	<div class="container-fluid content">
-		<div class="row">
-			<#include "/common/sidebar.ftl">
+	
+	<#include "/common/sidebar.ftl">
 	<!-- 内容 Page -->
-	<div class="main ">
-				<!-- Page Header -->
-				<div class="page-header">
-						<div class="pull-left">
-							<ol class="breadcrumb visible-sm visible-md visible-lg">
-								<li><a href="index.html"><i class="icon fa fa-home"></i>首页</a></li>
-							</ol>
-						</div>
-					</div>
-<!-- End Page Header -->
-	
-		<div class="row">
-					<div class="panel-heading panel-heading-transparent bk-border-off">
-						<h4><strong>园区会员总数：42</strong></h4>
-						<h4><strong>即将到期会员：7</strong></h4>
-						<h5><strong>会员分布</strong></h5>
-					</div>
-					<div class="col-sm-6">
-						<div class="panel panel-default bk-bg-white">
-							<div class="panel-heading bk-bg-white">
-								<h6><i class="fa fa-random red"></i><span class="break"></span>会员区域分布</h6>
-								<div class="panel-actions">
-									<a href="#" class="btn-minimize"><i class="fa fa-caret-up"></i></a>
-									<a href="#" class="btn-close"><i class="fa fa-times"></i></a>
-								</div>
-							</div>
-							<div class="panel-body">
-								<div id="donutchart" style="height:300px"></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="panel panel-default bk-bg-white">
-							<div class="panel-heading bk-bg-white">
-								<h6><i class="fa fa-random red"></i><span class="break"></span>产业在园区中的占比</h6>
-								<div class="panel-actions">
-									<a href="#" class="btn-minimize"><i class="fa fa-caret-up"></i></a>
-									<a href="#" class="btn-close"><i class="fa fa-times"></i></a>
-								</div>
-							</div>
-							<div class="panel-body">
-								<div id="donutchart" style="height:300px"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="panel panel-default bk-bg-white">
-							<div class="panel-heading bk-bg-white">
-								<h6><i class="fa fa-table red"></i><span class="break"></span>数量统计</h6>
-								<div class="panel-actions">
-									<a href="#" class="btn-minimize"><i class="fa fa-caret-up"></i></a>
-									<a href="#" class="btn-close"><i class="fa fa-times"></i></a>
-								</div>
-							</div>
-							<div class="panel-body">
-								<table class="table table-bordered table-striped table-condensed mb-none">
+	<div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <blockquote class="layui-elem-quote layui-row">
+                <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
+                    <span style="color: #1E9FFF;" class="layui-icon">&#xe629;</span>
+                    <span>园区会员总数</span>
+                    <span style="color: #1E9FFF; margin-left: 15px;">42</span>
+                </div>
+                <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
+                    <span class="layui-icon" style="color: #ff992c;">&#xe637;</span>
+                    <span>即将到期会员总数</span>
+                    <span style=" color: #ff992c;margin-left: 15px;">7</span>
+                </div>
+            </blockquote>
 
-									<tbody>
-									<tr>
-										<td class="text-right">北京</td>
-										<td class="text-right hidden-xs hidden-sm">上海</td>
-										<td class="text-right hidden-xs">深圳</td>
-										<td class="text-right">广州</td>
-										<td class="text-right hidden-xs hidden-sm">天津</td>
-										<td class="text-right hidden-xs hidden-sm">苏州</td>
-										<td class="text-right">青岛</td>
-									</tr>
-									<tr>
-										<td class="text-right">4</td>
-										<td class="text-right hidden-xs hidden-sm">3</td>
-										<td class="text-right hidden-xs">2</td>
-										<td class="text-right">5</td>
-										<td class="text-right hidden-xs hidden-sm">10</td>
-										<td class="text-right hidden-xs hidden-sm">6</td>
-										<td class="text-right">8</td>
-									</tr>
-									</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-	
-	
-	<!-- 内容 END Page -->
-			<#include "/common/footer.ftl">
-		</div>
-	</div>
-<!--/container-->
-	<div class="clearfix"></div>
+            <div class="layui-row">
+                <div class="layui-col-md6 " >
+                    会员区域分布
+                </div>
+                <div class="layui-col-md6 " >
+                    产业在园区中的占比
+                </div>
+
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md6 ">
+                    <div id="chart1" style="width: 500px;height: 220px; border: 1px solid #e6e6e6;"></div>
+                </div>
+                <div class="layui-col-md6 ">
+                    <div id="chart2" style="width: 500px;height: 220px; border: 1px solid #e6e6e6 ;"></div>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md12 ">
+                    <div id="barChart" style="width: 1000px;height: 400px; border-top: 1px solid #e6e6e6;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 	<#include "/common/script.ftl">
-</body>
+	<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart1 = echarts.init(document.getElementById('chart1'));
+    var myChart2 = echarts.init(document.getElementById('chart2'));
+    var barChart = echarts.init(document.getElementById('barChart'));
+    option1 = {
+        color: ['#3398DB','#FFB800','#2F4056','#009688','#4AAD44'],
+        series: [
+            {
+                name:'访问来源',
+                type:'pie',
+                radius: ['50%', '70%'],
 
-</html>	
+                data:[
+                    {value:335, name:'天津'},
+                    {value:310, name:'北京'},
+                    {value:234, name:'上海'},
+                    {value:135, name:'郑州'},
+                    {value:23, name:'某某'}
+                ]
+            }
+        ]
+    };
+    option2 = {
+        color: ['#3398DB','#FFB800','#2F4056','#009688','#4AAD44'],
+        series: [
+            {
+                name:'访问来源',
+                type:'pie',
+                radius: ['50%', '70%'],
+                data:[
+                    {value:335, name:'影视'},
+                    {value:310, name:'外贸'},
+                    {value:234, name:'生物医药'},
+                    {value:135, name:'互联网'},
+                ]
+            },
+        ]
+    };
+
+    option3 = {
+        color: ['#3398DB'],
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'直接访问',
+                type:'bar',
+                barWidth: '60%',
+                data:[10, 52, 200, 334, 390, 330, 220,100, 52, 200, 334, 390, 330, 220]
+            }
+        ]
+    };
+
+    myChart1.setOption(option1);
+    myChart2.setOption(option2);
+    barChart.setOption(option3);
+  </script>
+</body>
