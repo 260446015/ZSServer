@@ -2,16 +2,11 @@
 
 <!-- Vendor JS-->				
 
-
 <script src="/assets/js/jquery-1.10.2.min.js"></script>
 <script src="/assets/vendor/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
  
 <script src="/assets/vendor/skycons/js/skycons.js"></script>	
-<script src="assets/vendor/js/jquery.min.js"></script>
-<script src="assets/vendor/js/jquery-2.1.1.min.js"></script>
-
-<script src="assets/vendor/js/pace.min.js"></script>
 
 <!-- Plugins JS-->
 <script src="/assets/plugins/moment/js/moment.min.js"></script>
@@ -27,7 +22,6 @@
 
 <!-- Theme JS -->		
 <script src="/assets/js/jquery.mmenu.min.js"></script>
-<script src="/assets/js/core.min.js"></script> 
 
 <!-- Pages JS -->
 <script src="/assets/js/pages/table-advanced.js"></script>
@@ -37,15 +31,9 @@
 <script src="/assets/js/pages/ui-modals.js"></script>
 
 <!--  -->
-<script src="/assets/plugins/jqPaginator.min.js"></script>
-<script src="/assets/plugins/all.js"></script>
-<script src="/assets/js/area.js"></script>
 <script src="/assets/js/dateFormat.js"></script>
 <script src="/assets/js/public.js"></script>
 <script src="/assets/js/jquery.validate.min.js"></script>
 <script src="/assets/js/jquery-form.js"></script>
-<script src="/assets/plugins/my97datepicker/WdatePicker.js"></script>
-<script src="/assets/js/md5.js"></script>
-<script src="/assets/js/message/bootstrap-select.min.js"></script>
 
 <!-- end: JavaScript-->

@@ -132,7 +132,7 @@
         ],
         series : [
             {
-                name:'直接访问',
+                name:'人数',
                 type:'bar',
                 barWidth: '60%',
                 data:myValue
