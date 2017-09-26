@@ -8,10 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.ImgConstant;
@@ -31,7 +31,6 @@ import com.huishu.ait.service.user.backstage.AdminService;
  * @date 2017年8月24日
  */
 @Controller
-@RestController
 @RequestMapping(value = "/apis/back/admin")
 public class AdminController extends BaseController {
 
@@ -45,18 +44,18 @@ public class AdminController extends BaseController {
 
 	/**
 	 * 全局管理
-	 * 
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "globalManagement.json", method = RequestMethod.GET)
-	public AjaxResult globalManagement() {
+	public String globalManagement(Model model) {
 		try {
-			return adminService.globalManagement();
+			AjaxResult result = adminService.globalManagement();
+			model.addAttribute(result);
 		} catch (Exception e) {
 			LOGGER.error("globalManagement失败！", e);
-			return error(MsgConstant.SYSTEM_ERROR);
 		}
-
+		return "global/globalManagement";
 	}
 
 	/**
