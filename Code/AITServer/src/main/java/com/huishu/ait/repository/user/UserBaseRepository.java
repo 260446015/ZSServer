@@ -90,18 +90,6 @@ public interface UserBaseRepository extends CrudRepository<UserBase, Long> {
 	List<Object[]> findIndustryRatio();
 
 	/**
-	 * 查看会员数量
-	 * 
-	 * @param userLevel
-	 * @param time1
-	 * @param time2
-	 * @param search
-	 * @return
-	 */
-	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and concat(real_name, user_park) like ?4 and createTime between ?2 and ?3 and is_check=0")
-	Integer findUserListCount(Integer userLevel, String time1, String time2, String search);
-
-	/**
 	 * 查看会员列表
 	 * 
 	 * @param userLevel
@@ -112,21 +100,8 @@ public interface UserBaseRepository extends CrudRepository<UserBase, Long> {
 	 * @param search
 	 * @return
 	 */
-	@Query(value = "SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?6 and create_time between ?4 and ?5 and is_check=0 limit ?2,?3", nativeQuery = true)
-	ArrayList<UserBase> findUserList(Integer userLevel, Integer pageFrom, Integer pageSize, String time1, String time2,
-			String search);
-
-	/**
-	 * 查看预到期会员数量
-	 * 
-	 * @param userLevel
-	 * @param time1
-	 * @param time2
-	 * @param search
-	 * @return
-	 */
-	@Query("SELECT count(1) from UserBase where userType='user' and userLevel=?1 and concat(real_name, user_park) like ?4 and createTime between ?2 and ?3 and expire_time between now() and adddate(now(),7)")
-	Integer findWarningUserListCount(Integer userLevel, String time1, String time2, String search);
+	@Query(value = "SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?4 and create_time between ?2 and ?3 and is_check=0", nativeQuery = true)
+	ArrayList<UserBase> findUserList(Integer userLevel, String time1, String time2,String search);
 
 	/**
 	 * 查看预到期会员列表
@@ -139,9 +114,8 @@ public interface UserBaseRepository extends CrudRepository<UserBase, Long> {
 	 * @param search
 	 * @return
 	 */
-	@Query(value = "SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?6 and create_time between ?4 and ?5 and expire_time between now() and adddate(now(),7) limit ?2,?3", nativeQuery = true)
-	ArrayList<UserBase> findWarningUserList(Integer userLevel, Integer pageFrom, Integer pageSize, String time1,
-			String time2, String search);
+	@Query(value = "SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?4 and create_time between ?2 and ?3 and expire_time between now() and adddate(now(),7)", nativeQuery = true)
+	ArrayList<UserBase> findWarningUserList(Integer userLevel,String time1,String time2, String search);
 
 	/**
 	 * 查看园区数量

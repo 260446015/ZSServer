@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.ImgConstant;
@@ -65,6 +66,7 @@ public class AdminController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountList.json", method = RequestMethod.POST)
+	@ResponseBody
 	public AjaxResult getAccountList(@RequestBody AccountSearchDTO searchModel) {
 		if (null == searchModel || null == searchModel.getType() || null == searchModel.getDay()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -79,7 +81,9 @@ public class AdminController extends BaseController {
 				base.setPassword(null);
 				base.setSalt(null);
 			}
-			return success(changeObject(searchModel, list));
+			//return success(changeObject(searchModel, list));
+			//前台分页
+			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("getAccountList查询失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -93,6 +97,7 @@ public class AdminController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountImg.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult getAccountImg(Long id) {
 		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -117,6 +122,7 @@ public class AdminController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "auditAccount.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult auditAccount(Long id) {
 		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -143,6 +149,7 @@ public class AdminController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getWarningAccountList.json", method = RequestMethod.POST)
+	@ResponseBody
 	public AjaxResult getWarningAccountList(@RequestBody AccountSearchDTO searchModel) {
 		if (null == searchModel || null == searchModel.getType() || null == searchModel.getDay()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -153,7 +160,7 @@ public class AdminController extends BaseController {
 				base.setPassword(null);
 				base.setSalt(null);
 			}
-			return success(changeObject(searchModel, list));
+			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("getAccountList查询失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -167,6 +174,7 @@ public class AdminController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "warnAccount.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult warnAccount(Long id) {
 		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);

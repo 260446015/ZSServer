@@ -68,22 +68,16 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	@Override
 	public List<UserBase> getAccountList(AccountSearchDTO searchModel) {
 		String[] times = analysisDate(searchModel.getDay());
-		Integer count = userBaseRepository.findUserListCount(Integer.valueOf(searchModel.getType()), times[0], times[1],
-				searchModel.getSearch());
-		searchModel.setTotalSize(count);
 		List<UserBase> list = userBaseRepository.findUserList(Integer.valueOf(searchModel.getType()),
-				searchModel.getPageFrom(), searchModel.getPageSize(), times[0], times[1], searchModel.getSearch());
+				times[0], times[1], searchModel.getSearch());
 		return list;
 	}
 
 	@Override
 	public List<UserBase> getWarningAccountList(AccountSearchDTO searchModel) {
 		String[] times = analysisDate(searchModel.getDay());
-		Integer count = userBaseRepository.findWarningUserListCount(Integer.valueOf(searchModel.getType()), times[0],
-				times[1], searchModel.getSearch());
-		searchModel.setTotalSize(count);
 		List<UserBase> list = userBaseRepository.findWarningUserList(Integer.valueOf(searchModel.getType()),
-				searchModel.getPageFrom(), searchModel.getPageSize(), times[0], times[1], searchModel.getSearch());
+				times[0], times[1], searchModel.getSearch());
 		return list;
 	}
 

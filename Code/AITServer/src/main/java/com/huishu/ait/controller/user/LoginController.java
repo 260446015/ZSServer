@@ -74,6 +74,16 @@ public class LoginController extends BaseController {
 	public String show(@PathVariable String page) {
 		return page;
 	}
+	
+	/**
+	 * 直接跳转页面
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value = "account/{page}", method = RequestMethod.GET)
+	public String showAccount(@PathVariable String page) {
+		return "account/"+page;
+	}
 
 	/**
 	 * 未登录
