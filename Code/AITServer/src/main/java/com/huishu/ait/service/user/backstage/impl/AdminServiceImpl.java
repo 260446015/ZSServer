@@ -86,9 +86,12 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	public AjaxResult warnAccount(Long id, Integer status) {
 		AjaxResult result = new AjaxResult();
 		UserBase base = userBaseRepository.findOne(id);
+		if(base.getIsWarn()==1){
+			return result.setSuccess(true).setMessage("已经预警，无需预警");
+		}
 		base.setIsWarn(status);
 		userBaseRepository.save(base);
-		return result.setSuccess(true).setMessage("操作成功");
+		return result.setSuccess(true).setMessage("预警成功");
 	}
 
 }
