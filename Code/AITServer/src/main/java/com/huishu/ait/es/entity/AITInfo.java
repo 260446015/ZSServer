@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.huishu.ait.common.util.StringUtil;
+
 /**
  * @author hhy
  * @date 2017年7月25日
@@ -332,6 +334,8 @@ public class AITInfo {
 	}
 
 	public void setSummary(String summary) {
+		if(!StringUtil.isEmpty(summary))
+			summary = StringUtil.replaceHtml(summary);
 		this.summary = summary;
 	}
 
