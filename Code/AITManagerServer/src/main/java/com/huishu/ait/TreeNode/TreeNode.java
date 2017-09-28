@@ -15,7 +15,6 @@ import com.alibaba.fastjson.JSONObject;
 public class TreeNode {
 	private Integer id;
 	private String name;
-	// private String description;
 	private Integer parentid;
 	private List<TreeNode> children = new ArrayList<TreeNode>();
 
@@ -51,13 +50,7 @@ public class TreeNode {
 		this.children = children;
 	}
 
-	// public String getDescription() {
-	// return description;
-	// }
-	//
-	// public void setDescription(String description) {
-	// this.description = description;
-	// }
+	
 
 	@Override
 	public String toString() {

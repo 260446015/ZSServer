@@ -1,12 +1,19 @@
 package com.huishu.ait.common.util;
 
+import static com.huishu.ait.common.conf.ConfConstant.EscapeSpecialChar.SPACE_AND_SPACE;
+
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 字符串工具类
@@ -14,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
  * @author gzg
  */
 public class StringUtil {
-
+	private static final Logger logger = Logger.getLogger(StringUtil.class);
 	private static final String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式
 	private static final String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; // 定义style的正则表达式
 	private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
@@ -247,5 +254,80 @@ public class StringUtil {
 		htmlStr = m_space.replaceAll(""); // 过滤空格回车标签
 		return htmlStr.trim(); // 返回文本字符串
 	}
+	/**
+	 * 将参数转化为JSONObject对象 参数格式:id=w+w==&name=lisi 参数中有 = 的情况
+	 * 
+	 * @param param
+	 * @return JSONObject
+	 */
+	public static JSONObject paramSpecialToJson(String param) {
+		if (isEmpty(param)) {
+			return null;
+		}
+		JSONObject jsonObj = new JSONObject();
+		try {
+//			param = param.replaceAll("%(?![0-9a-fA-F]{2})", "%25");  
+//			param = param.replaceAll("\\+", "%2B"); 
+			String decodedParam = URLDecoder.decode(param, "utf-8");
+			String[] params = decodedParam.split("&");
+			for (String str : params) {
+				jsonObj.put(str.substring(0, str.indexOf("=")), str.substring(str.indexOf("=") + 1, str.length()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jsonObj;
+	}
+	/**
+	 * 将参数转化为JSONObject对象 参数格式:username=a111&age=12
+	 * 
+	 * @param param
+	 * @return JSONObject
+	 */
+	public static JSONObject paramToJson(String param) {
+		if (isEmpty(param)) {
+			return null;
+		}
+		JSONObject jsonObj = new JSONObject();
+		try {
+			String decodedParam = URLDecoder.decode(param, "utf-8");
 
+			if (logger.isDebugEnabled()) {
+				logger.debug("decodedParam :" + decodedParam);
+			}
+			
+			if (decodedParam.contains(" & ")) {
+				decodedParam = decodedParam.replaceAll(" & ", SPACE_AND_SPACE);
+			}
+			
+			String[] params = decodedParam.split("&");
+			for (String str : params) {
+				
+				if (str.contains(SPACE_AND_SPACE)) {
+					str.replaceAll(SPACE_AND_SPACE, " & ");
+				}
+				
+				try {
+					String[] strs = str.split("=");
+					if (strs.length == 2) {
+						if (strs[1].startsWith("[")) {
+							JSONArray jsons = JSONArray.parseArray(strs[1]);
+							jsonObj.put(strs[0], jsons);
+						} else if (strs[1].startsWith("{")) {
+							JSONObject jsons = JSONObject.parseObject(strs[1]);
+							jsonObj.put(strs[0], jsons);
+						} else {
+							jsonObj.put(strs[0], strs[1].replace("\"", ""));
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return jsonObj;
+	}
 }

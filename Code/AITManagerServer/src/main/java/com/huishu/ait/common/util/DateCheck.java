@@ -2,6 +2,8 @@ package com.huishu.ait.common.util;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * @author yxq
  * @date 2017年8月7日
@@ -9,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public abstract class DateCheck {
 
-	public static String dateCheck(String str) {
+	public static JSONObject dateCheck(String str,JSONObject param) {
 		if (StringUtils.isNotBlank(str)) {
 			String endDate = DateUtils.getTodayDate1();
 			String startDate = null;
@@ -37,8 +39,15 @@ public abstract class DateCheck {
 			if ("一年".equals(str)) {
 				startDate = DateUtils.getLast365Date();
 			}
-			return startDate + "@" + endDate;
+			if("全部".equals(str)){
+				startDate = "";
+				endDate="";
+			}
+			param.put("startDate",startDate );
+			param.put("endDate", endDate);
+			return param;
 		}
 		return null;
 	}
+	
 }

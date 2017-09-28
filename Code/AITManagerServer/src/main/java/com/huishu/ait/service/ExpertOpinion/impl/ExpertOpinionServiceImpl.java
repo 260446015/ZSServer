@@ -1,6 +1,7 @@
 package com.huishu.ait.service.ExpertOpinion.impl;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -28,13 +29,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.Constans;
+import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
+import com.huishu.ait.entity.Specialist;
 import com.huishu.ait.entity.UserCollection;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
+import com.huishu.ait.es.entity.dto.ArticleListDTO;
 import com.huishu.ait.es.repository.ExpertOpinion.BaseElasticsearch;
+import com.huishu.ait.repository.Specialist.SpecialistRepository;
 import com.huishu.ait.repository.expertOpinionDetail.UserCollectionRepository;
+import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
 
 /**
@@ -42,7 +48,7 @@ import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
  */
 @Service
 @Transactional
-public class ExpertOpinionServiceImpl implements ExpertOpinionService {
+public class ExpertOpinionServiceImpl extends AbstractService implements ExpertOpinionService {
 
 	private static Logger log = LoggerFactory.getLogger(ExpertOpinionServiceImpl.class);
 
@@ -52,7 +58,9 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	private BaseElasticsearch baseElasticsearch;
 	@Resource
 	private UserCollectionRepository userCollectionRepository;
-
+	
+	@Autowired
+	private  SpecialistRepository repository;
 	/*
 	 * 方法名：getExertOpinionList 描述：根据条件获取百家论观点信息
 	 */
@@ -131,7 +139,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			Sort sort = new Sort(Direction.DESC, "publishTime");
 			PageRequest pageRequest = new PageRequest(pageNumber - 1, pageSize, sort);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
-			bq.must(QueryBuilders.termQuery("dimension", Constans.ZHUANJIALUN));
+			bq.must(QueryBuilders.termQuery("dimension", Constans.BAIJIALUN));
 			if (StringUtils.isNotBlank(author)) {
 				bq.must(QueryBuilders.termQuery("author", author));
 			}
@@ -161,7 +169,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			uc.setArticleId(param.getId());
 			uc.setAuthor(param.getAuthor());
 			uc.setCollectTime(new Date().toString());
-			uc.setPublishTime(param.getPublishDateTime());
+			
 			uc.setTitle(param.getTitle());
 			uc.setContent(param.getContent());
 			uc.setSource(param.getSource());
@@ -197,5 +205,39 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			log.error("取消收藏失败：", e.getMessage());
 			return json;
 		}
+	}
+
+	/**
+	 * 查看专家论和百家论的信息
+	 */
+	
+	@Override
+	public Page<ArticleListDTO> findExpertOpinionArticleList(JSONObject param) {
+		String type = param.getString("type");
+		JSONArray json = new JSONArray();
+		if(type.equals("专家论")){
+			String industryLabel = param.getString("industryLabel");
+			List<Specialist> list = null;
+			if(industryLabel.equals("全部")){
+				list =   repository.findByIndustry(param.getString("industry"));
+			}else{
+				
+				list =   repository.findByIndustryAndIndustryLabel(param.getString("industry"),param.getString("industryLabel"));
+			}
+		 list.forEach(specialist->{
+			 JSONObject obj = new JSONObject();
+			 obj.put("value",specialist.getName());
+			 json.add(obj);
+		 });
+		}
+		param.put("anthor", json);
+		param.put("dimension", "百家论");
+		param.remove("type");
+		String time = param.getString("time");
+		param = DateCheck.dateCheck(time, param);
+		param.remove("time");
+		BoolQueryBuilder bq = getIndustryBuilder(param);
+		Page<ArticleListDTO> list = getArtivleList(bq);
+		return list;
 	}
 }
