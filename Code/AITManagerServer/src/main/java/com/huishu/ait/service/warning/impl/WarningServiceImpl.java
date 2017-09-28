@@ -1,11 +1,16 @@
 package com.huishu.ait.service.warning.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.huishu.ait.entity.ChangeInfo;
+import com.huishu.ait.entity.Company;
+import com.huishu.ait.entity.dto.AreaSearchDTO;
+import com.huishu.ait.entity.dto.InformationSearchDTO;
+import com.huishu.ait.es.entity.AITInfo;
+import com.huishu.ait.es.repository.ExternalFlowRepository;
+import com.huishu.ait.es.repository.warning.WarningInformationRepository;
+import com.huishu.ait.repository.company.CompanyRepository;
+import com.huishu.ait.repository.skyeye.ChangeRepository;
+import com.huishu.ait.service.AbstractService;
+import com.huishu.ait.service.warning.WarningService;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
@@ -17,21 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.entity.ChangeInfo;
-import com.huishu.ait.entity.Company;
-import com.huishu.ait.entity.dto.AreaSearchDTO;
-import com.huishu.ait.entity.dto.InformationSearchDTO;
-import com.huishu.ait.es.entity.AITInfo;
-import com.huishu.ait.es.entity.ExternalFlow;
-import com.huishu.ait.es.entity.WarningInformation;
-import com.huishu.ait.es.repository.ExternalFlowRepository;
-import com.huishu.ait.es.repository.warning.WarningInformationRepository;
-import com.huishu.ait.repository.company.CompanyRepository;
-import com.huishu.ait.repository.skyeye.ChangeRepository;
-import com.huishu.ait.service.AbstractService;
-import com.huishu.ait.service.warning.WarningService;
+import java.util.List;
 
 @Service
 public class WarningServiceImpl extends AbstractService implements WarningService {

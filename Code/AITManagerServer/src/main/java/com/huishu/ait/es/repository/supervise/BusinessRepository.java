@@ -42,8 +42,8 @@ public interface BusinessRepository extends ElasticsearchRepository<AITInfo, Str
 	/**
 	 * 获取某企业的动态列表
 	 * 
-	 * @param business
-	 *            企业名称
+	 * @param park
+	 *            园区名称
 	 * @param emotion
 	 *            情感
 	 * @param dimension

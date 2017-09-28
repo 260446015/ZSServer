@@ -71,7 +71,7 @@ public class AdminController extends BaseController {
 		if (null == searchModel || null == searchModel.getType() || null == searchModel.getDay()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		if (searchModel.getType() == "1") {
+		if (searchModel.getType().equals("1")) {
 			// 试用会员申请变成正式会员，状态为9
 			searchModel.setType("9");
 		}

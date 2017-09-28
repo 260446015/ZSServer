@@ -157,8 +157,9 @@ public abstract class BaseController {
 
 	/**
 	 * 对token中获取的密码进行特殊处理
-	 * 
-	 * @param utoken
+	 * @param pass
+	 * @param salts
+	 * @param priKey
 	 * @return
 	 */
 	protected String getInPassword(String pass, String salts, RSAPrivateKey priKey) {

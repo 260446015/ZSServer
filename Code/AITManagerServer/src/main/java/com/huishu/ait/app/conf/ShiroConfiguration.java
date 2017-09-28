@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.Filter;
 
+import com.huishu.ait.security.*;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -17,18 +18,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
-import com.huishu.ait.security.CustomCredentialsMatcher;
-import com.huishu.ait.security.MyFormAuthenticationFilter;
-import com.huishu.ait.security.MySessionManager;
-import com.huishu.ait.security.MyUserFilter;
-import com.huishu.ait.security.ShiroDbRealm;
-
 /**
  * shiro的配置
  * 
  * @author yindq
- * @date 2017年8月2日
+ * @date 2017年9月28日
  */
 @Configuration
 public class ShiroConfiguration {
@@ -52,17 +46,9 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/logout.do", "logout");
 
 		filterChainDefinitionMap.put("/apis/security/generateKey.do", "anon");
-		filterChainDefinitionMap.put("/apis/security/captcha.do", "anon");
-		filterChainDefinitionMap.put("/apis/register.json", "anon");
-		filterChainDefinitionMap.put("/apis/getPhoneCaptcha.json", "anon");
 		filterChainDefinitionMap.put("/apis/findPassword.json", "anon");
 		filterChainDefinitionMap.put("/apis/login.do", "anon");
-		filterChainDefinitionMap.put("/apis/islogin.do", "anon");
 		filterChainDefinitionMap.put("/apis/imageUpload.do", "anon");
-		filterChainDefinitionMap.put("/apis/unauthorized.do", "anon");
-		filterChainDefinitionMap.put("/apis/temporaryDemo.do", "anon");
-		filterChainDefinitionMap.put("/apis/oauth/oauth_callback", "anon");
-		filterChainDefinitionMap.put("/apis/oauth/getChangeInfo.json", "anon");
 
 		filterChainDefinitionMap.put("/apis/**", "authc");
 		// filterChainDefinitionMap.put("/apis/**", "anon");
@@ -86,7 +72,7 @@ public class ShiroConfiguration {
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
 		shiroFilterFactoryBean.setLoginUrl("/apis/login.do");
 		shiroFilterFactoryBean.setSuccessUrl("/");
-		shiroFilterFactoryBean.setUnauthorizedUrl("/apis/unauthorized.do");
+		shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
 		shiroFilterFactoryBean.setFilters(filters);
 		return shiroFilterFactoryBean;
 	}

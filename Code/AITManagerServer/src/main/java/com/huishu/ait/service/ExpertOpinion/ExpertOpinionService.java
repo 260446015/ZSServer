@@ -1,7 +1,5 @@
 package com.huishu.ait.service.ExpertOpinion;
 
-import java.util.List;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;

@@ -522,7 +522,7 @@ public abstract class AbstractService {
 				continue;
 			}
 			String name = (String) objects[1];
-			String[] split = name.split(",");
+			String[] split = name.split("、");
 			if (split.length != 1) {
 				for (int j = 0; j < split.length; j++) {
 					Object[] data = { objects[0], split[j] };

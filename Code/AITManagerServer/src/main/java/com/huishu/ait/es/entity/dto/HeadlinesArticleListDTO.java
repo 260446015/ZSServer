@@ -1,16 +1,12 @@
 package com.huishu.ait.es.entity.dto;
 
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
-
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.Id;
-
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import com.alibaba.fastjson.JSONObject;
+import java.util.List;
+
+import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
+import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 /**
  * @author hhy

@@ -8,10 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.ImgConstant;
@@ -31,7 +33,6 @@ import com.huishu.ait.service.user.backstage.AdminService;
  * @date 2017年8月24日
  */
 @Controller
-@RestController
 @RequestMapping(value = "/apis/back/admin")
 public class AdminController extends BaseController {
 
@@ -44,19 +45,29 @@ public class AdminController extends BaseController {
 	private CaptchaManager captchaManager;
 
 	/**
+	 * 直接跳转页面
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value = "{page}", method = RequestMethod.GET)
+	public String showAccount(@PathVariable String page) {
+		return "account/"+page;
+	}
+	
+	/**
 	 * 全局管理
-	 * 
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "globalManagement.json", method = RequestMethod.GET)
-	public AjaxResult globalManagement() {
+	public String globalManagement(Model model) {
 		try {
-			return adminService.globalManagement();
+			AjaxResult result = adminService.globalManagement();
+			model.addAttribute("data",result);
 		} catch (Exception e) {
 			LOGGER.error("globalManagement失败！", e);
-			return error(MsgConstant.SYSTEM_ERROR);
 		}
-
+		return "global/globalManagement";
 	}
 
 	/**
@@ -66,11 +77,12 @@ public class AdminController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountList.json", method = RequestMethod.POST)
+	@ResponseBody
 	public AjaxResult getAccountList(@RequestBody AccountSearchDTO searchModel) {
 		if (null == searchModel || null == searchModel.getType() || null == searchModel.getDay()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		if (searchModel.getType() == "1") {
+		if (searchModel.getType().equals("1")) {
 			// 试用会员申请变成正式会员，状态为9
 			searchModel.setType("9");
 		}
@@ -80,7 +92,9 @@ public class AdminController extends BaseController {
 				base.setPassword(null);
 				base.setSalt(null);
 			}
-			return success(changeObject(searchModel, list));
+			//return success(changeObject(searchModel, list));
+			//前台分页
+			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("getAccountList查询失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -94,6 +108,7 @@ public class AdminController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountImg.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult getAccountImg(Long id) {
 		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -118,6 +133,7 @@ public class AdminController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "auditAccount.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult auditAccount(Long id) {
 		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -144,6 +160,7 @@ public class AdminController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getWarningAccountList.json", method = RequestMethod.POST)
+	@ResponseBody
 	public AjaxResult getWarningAccountList(@RequestBody AccountSearchDTO searchModel) {
 		if (null == searchModel || null == searchModel.getType() || null == searchModel.getDay()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -154,7 +171,7 @@ public class AdminController extends BaseController {
 				base.setPassword(null);
 				base.setSalt(null);
 			}
-			return success(changeObject(searchModel, list));
+			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("getAccountList查询失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -168,6 +185,7 @@ public class AdminController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "warnAccount.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult warnAccount(Long id) {
 		if (null == id) {
 			return error(MsgConstant.ILLEGAL_PARAM);

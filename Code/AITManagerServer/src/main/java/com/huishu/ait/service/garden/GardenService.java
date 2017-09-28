@@ -1,14 +1,11 @@
 package com.huishu.ait.service.garden;
 
-import org.springframework.data.domain.Page;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.entity.GardenUser;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.GardenDTO;
-import com.huishu.ait.es.entity.GardenInformation;
-import com.huishu.ait.es.entity.GardenPolicy;
+import org.springframework.data.domain.Page;
 
 /**
  * 全景辖区概览service
@@ -56,7 +53,7 @@ public interface GardenService {
 	/**
 	 * 根据园区名字获取园区信息
 	 * 
-	 * @param id
+	 * @param gardenName
 	 *            动态ID
 	 * @return
 	 */
