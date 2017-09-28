@@ -25,7 +25,7 @@ public interface UserBaseService {
 	/**
 	 * 通过电话查找用户信息
 	 * 
-	 * @param userAccount
+	 * @param telphone
 	 * @return
 	 */
 	UserBase findUserByTelphone(String telphone);
@@ -33,7 +33,7 @@ public interface UserBaseService {
 	/**
 	 * 通过ID查找用户信息
 	 * 
-	 * @param userAccount
+	 * @param id
 	 * @return
 	 */
 	UserBase findUserByUserId(long id);
@@ -56,8 +56,8 @@ public interface UserBaseService {
 
 	/**
 	 * 修改用户邮箱
-	 * 
-	 * @param param
+	 * @param userId
+	 * @param email
 	 * @return
 	 */
 	AjaxResult modifyEmail(Long userId, String email);
@@ -73,7 +73,7 @@ public interface UserBaseService {
 	/**
 	 * 添加园区正式用户
 	 * 
-	 * @param userBase
+	 * @param param
 	 * @return
 	 */
 	AjaxResult addParkAccount(AddAccountDTO param);

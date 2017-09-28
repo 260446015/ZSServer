@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Basic -->
-<meta charset="UTF-8" />
-<title>慧数招商后台系统</title>
-<!-- Mobile Metas -->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Basic -->
+    <meta charset="UTF-8" />
+    <title>慧数招商后台系统</title>
+    <!-- Mobile Metas -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <#include "/common/link.ftl">
 </head>
 <body class="">
 <div class="layui-layout layui-layout-admin">
-	<#include "/common/header.ftl">
-	<!-- Start: Content -->
-	
-	<#include "/common/sidebar.ftl">
-	<!-- 内容 Page -->
-	<div class="layui-body">
+<#include "/common/header.ftl">
+    <!-- Start: Content -->
+
+<#include "/common/sidebar.ftl">
+    <!-- 内容 Page -->
+    <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <blockquote class="layui-elem-quote layui-row">
                 <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
                     <span style="color: #1E9FFF;" class="layui-icon">&#xe629;</span>
                     <span>园区会员总数</span>
-                    <span style="color: #1E9FFF; margin-left: 15px;">42</span>
+                    <span style="color: #1E9FFF; margin-left: 15px;">${Request.data.data.memberNum} </span>
                 </div>
                 <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
                     <span class="layui-icon" style="color: #ff992c;">&#xe637;</span>
                     <span>即将到期会员总数</span>
-                    <span style=" color: #ff992c;margin-left: 15px;">7</span>
+                    <span style=" color: #ff992c;margin-left: 15px;">${Request.data.data.expireMemberNum} </span>
                 </div>
             </blockquote>
 
@@ -56,88 +56,92 @@
             </div>
         </div>
     </div>
-	<#include "/common/script.ftl">
-	<#include "/layui/js/global.js">
-	<!--<script>
-    // 基于准备好的dom，初始化echarts实例
-    var myChart1 = echarts.init(document.getElementById('chart1'));
-    var myChart2 = echarts.init(document.getElementById('chart2'));
-    var barChart = echarts.init(document.getElementById('barChart'));
-    option1 = {
-        color: ['#3398DB','#FFB800','#2F4056','#009688','#4AAD44'],
-        series: [
-            {
-                name:'访问来源',
-                type:'pie',
-                radius: ['50%', '70%'],
+<#include "/common/script.ftl">
+    <script>
+        var areaRatio= new Array();
+        <#list Request.data.data.areaRatio?keys as key>
+        var obj = {value:'${Request.data.data.areaRatio[key]}', name:'${key}'};
+        areaRatio.push(obj);
+        </#list>
+        var industryRatio= new Array();
+        <#list Request.data.data.industryRatio?keys as key>
+        var obj = {value:'${Request.data.data.industryRatio[key]}', name:'${key}'};
+        industryRatio.push(obj);
+        </#list>
+        var myName= new Array();
+        var myValue= new Array();
+        <#list Request.data.data.areaNum as list>
+        myName.push('${list[1]}');
+        myValue.push('${list[0]}');
+        </#list>
+        // 基于准备好的dom，初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('chart1'));
+        var myChart2 = echarts.init(document.getElementById('chart2'));
+        var barChart = echarts.init(document.getElementById('barChart'));
+        option1 = {
+            color: ['#3398DB','#FFB800','#2F4056','#009688','#4AAD44'],
+            series: [
+                {
+                    name:'访问来源',
+                    type:'pie',
+                    radius: ['50%', '70%'],
 
-                data:[
-                    {value:335, name:'天津'},
-                    {value:310, name:'北京'},
-                    {value:234, name:'上海'},
-                    {value:135, name:'郑州'},
-                    {value:23, name:'某某'}
-                ]
-            }
-        ]
-    };
-    option2 = {
-        color: ['#3398DB','#FFB800','#2F4056','#009688','#4AAD44'],
-        series: [
-            {
-                name:'访问来源',
-                type:'pie',
-                radius: ['50%', '70%'],
-                data:[
-                    {value:335, name:'影视'},
-                    {value:310, name:'外贸'},
-                    {value:234, name:'生物医药'},
-                    {value:135, name:'互联网'},
-                ]
-            },
-        ]
-    };
-
-    option3 = {
-        color: ['#3398DB'],
-        tooltip : {
-            trigger: 'axis',
-            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-            }
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis : [
-            {
-                type : 'category',
-                data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                axisTick: {
-                    alignWithLabel: true
+                    data:areaRatio
                 }
-            }
-        ],
-        yAxis : [
-            {
-                type : 'value'
-            }
-        ],
-        series : [
-            {
-                name:'直接访问',
-                type:'bar',
-                barWidth: '60%',
-                data:[10, 52, 200, 334, 390, 330, 220,100, 52, 200, 334, 390, 330, 220]
-            }
-        ]
-    };
+            ]
+        };
+        option2 = {
+            color: ['#3398DB','#FFB800','#2F4056','#009688','#4AAD44'],
+            series: [
+                {
+                    name:'访问来源',
+                    type:'pie',
+                    radius: ['50%', '70%'],
+                    data:industryRatio
+                },
+            ]
+        };
 
-    myChart1.setOption(option1);
-    myChart2.setOption(option2);
-    barChart.setOption(option3);
-  </script>-->
+        option3 = {
+            color: ['#3398DB'],
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    data : myName,
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'人数',
+                    type:'bar',
+                    barWidth: '60%',
+                    data:myValue
+                }
+            ]
+        };
+
+        myChart1.setOption(option1);
+        myChart2.setOption(option2);
+        barChart.setOption(option3);
+    </script>
 </body>

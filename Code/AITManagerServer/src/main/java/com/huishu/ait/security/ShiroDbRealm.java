@@ -83,7 +83,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			throw new IncorrectCredentialsException();
 		} 
 		if(type.equals("user")){
-			if (user.getIsCheck() == 0) {
+			if (user.getIsCheck() == 0&&user.getUserLevel()!=9) {
 				LOGGER.debug("user {} is not check.", myToken.getUsername());
 				throw new AccountStartException();
 			} else if (today.compareTo(user.getExpireTime()) > 0) {

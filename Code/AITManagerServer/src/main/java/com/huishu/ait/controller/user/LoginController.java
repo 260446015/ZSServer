@@ -74,27 +74,23 @@ public class LoginController extends BaseController {
 	public String show(@PathVariable String page) {
 		return page;
 	}
+	
+	/**
+	 * 直接跳转页面
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value = "account/{page}", method = RequestMethod.GET)
+	public String showAccount(@PathVariable String page) {
+		return "account/"+page;
+	}
 
 	/**
 	 * 未登录
 	 */
 	@RequestMapping(value = "apis/login.do", method = RequestMethod.GET)
-	public void login(HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		JSONObject object = new JSONObject();
-		object.put("code", "1002");
-		ShiroUtil.writeResponse(response, object);
-	}
-
-	/**
-	 * 没有权限
-	 */
-	@RequestMapping(value = "apis/unauthorized.do", method = RequestMethod.GET)
-	public void unauthorized(HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		JSONObject object = new JSONObject();
-		object.put("code", "1004");
-		ShiroUtil.writeResponse(response, object);
+	public String login(HttpServletResponse response) {
+		return "login";
 	}
 
 	/**
@@ -164,66 +160,6 @@ public class LoginController extends BaseController {
 	}
 
 	/**
-	 * 获取手机验证码
-	 *
-	 * @param param
-	 *            参数
-	 * @return 获取结果
-	 */
-	@ResponseBody
-	@RequestMapping(value = "apis/getPhoneCaptcha.json", method = RequestMethod.POST)
-	public AjaxResult getPhoneCaptcha(@RequestBody CaptchaDTO param) {
-		if (param == null) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		String telphone = param.getTelphone();
-		String type = param.getType();
-		if (StringUtil.isEmpty(telphone)) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		if (StringUtils.isEmpty(type)) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		UserBase user = userBaseService.findUserByTelphone(telphone);
-		if ("findPassword".equals(type)) {
-			if (user == null) {
-				return error("该手机号未被注册");
-			}
-		} else {
-			if (user != null) {
-				return error(MsgConstant.PHONE_REPEAT);
-			}
-		}
-		boolean result = captchaManager.send(telphone);
-		return result ? success(null).setMessage("验证码已发送") : error("如未收到验证码请稍后再试");
-	}
-
-	/**
-	 * 申请试用
-	 *
-	 * @param dto
-	 *            试用用户dto
-	 * @param result
-	 *            参数验证结果
-	 * @return 申请结果
-	 */
-	@ResponseBody
-	@RequestMapping(value = "apis/register.json", method = RequestMethod.POST)
-	public AjaxResult register(@Valid @RequestBody RegisterDTO dto, BindingResult result) {
-		if (result.hasErrors()) {
-			StringBuffer sb = new StringBuffer();
-			for (ObjectError objectError : result.getAllErrors()) {
-				sb.append(((FieldError) objectError).getField() + " : ").append(objectError.getDefaultMessage());
-			}
-			return error(sb.toString());
-		}
-		if (!captchaManager.checkCaptcha(dto.getTelphone(), dto.getCaptcha())) {
-			return error(MsgConstant.INCORRECT_CAPTCHA);
-		}
-		return userBaseService.addRegisterUser(dto);
-	}
-
-	/**
 	 * 用户登出
 	 *
 	 * @return
@@ -266,50 +202,6 @@ public class LoginController extends BaseController {
 		} catch (Exception e) {
 			LOGGER.error("findPassword失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
-		}
-	}
-
-	@RequestMapping(value = "apis/temporaryDemo.do", method = RequestMethod.GET)
-	public void temporaryDemo(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			KeyPair keyPair = RSAUtils.getKeys();
-			RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-			RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-			String modulus = publicKey.getModulus().toString();
-			String public_exponent = publicKey.getPublicExponent().toString();
-			String private_exponent = privateKey.getPrivateExponent().toString();
-			// 使用模和指数生成公钥和私钥
-			RSAPublicKey pubKey = RSAUtils.getPublicKey(modulus, public_exponent);
-			RSAPrivateKey priKey = RSAUtils.getPrivateKey(modulus, private_exponent);
-			request.getSession().setAttribute("privateKey", priKey);
-			// 加密后的密文
-			String mi = RSAUtils.encryptByPublicKey("nagnoix", pubKey);
-
-			UsernamePasswordToken token = new CaptchaUsernamePasswordToken("xiongan", mi.toCharArray(), false, "", "",
-					"user");
-			Subject currentUser = SecurityUtils.getSubject();
-			currentUser.login(token);
-			String ip = request.getHeader("x-forwarded-for");
-			if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-				ip = request.getHeader("Proxy-Client-IP");
-			}
-			if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-				ip = request.getHeader("WL-Proxy-Client-IP");
-			}
-			if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-				ip = request.getRemoteAddr();
-			}
-			if (getCurrentShiroUser() == null) {
-				response.setContentType("application/json");
-				OutputStream outputStream = response.getOutputStream();
-				outputStream.write(JSON.toJSONString("免登陆失败，请联系管理员").getBytes("UTF-8"));
-				outputStream.flush();
-				outputStream.close();
-			}
-			// response.sendRedirect("http://58.16.181.24:9208/intelligence/headlines");
-			response.sendRedirect("http://127.0.0.1:8000/intelligence/headlines");
-		} catch (Exception e) {
-			LOGGER.error("免登陆失败！", e);
 		}
 	}
 }

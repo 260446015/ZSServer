@@ -78,7 +78,7 @@ public class UserBaseController extends BaseController {
 	/**
 	 * 修改邮箱
 	 * 
-	 * @param param
+	 * @param email
 	 * @return
 	 */
 	@RequestMapping(value = "modifyEmail.json", method = RequestMethod.GET)

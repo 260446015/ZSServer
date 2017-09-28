@@ -1,16 +1,12 @@
 package com.huishu.ait.entity;
 
-import java.io.Serializable;
+import com.alibaba.fastjson.JSONObject;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.alibaba.fastjson.JSONObject;
+import java.io.Serializable;
 
 /**
  * 

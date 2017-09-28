@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.entity.Enterprise;
 import com.huishu.ait.entity.IndusCompany;
 import com.huishu.ait.entity.dto.EnterpriseDTO;
 import com.huishu.ait.repository.companyInfo.EnterPriseRepository;

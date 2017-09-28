@@ -1,15 +1,9 @@
 package com.huishu.ait.service.headline;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.echart.Option;
-import com.huishu.ait.es.entity.AITInfo;
-import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesDTO;
+import org.springframework.data.domain.Page;
 
 /**
  * @author hhy
