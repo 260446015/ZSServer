@@ -1,9 +1,9 @@
 <html>
 	<head>
-		<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
-	    <script type="text/javascript" src="/js/security.js"></script>
-	    <script type="text/javascript" src="/js/jquery.tablesort.js"></script>
-	    <script type="text/javascript" src="/js/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="/assets/js/security.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.tablesort.js"></script>
+		<script type="text/javascript" src="/assets/js/ajaxfileupload.js"></script>
 	</head>
 	<body>
 		<form>

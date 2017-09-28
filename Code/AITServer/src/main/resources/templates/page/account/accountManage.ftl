@@ -66,6 +66,9 @@
 <script  type="text/html" id="operation">
  <a class="layui-btn layui-btn-mini" lay-event="edit">开通试用</a>
 </script>
+<script  type="text/html" id="ration">
+ <a class="layui-btn layui-btn-mini" lay-event="edit">开通正式账号</a>
+</script>
 <script  type="text/html" id="warning">
  <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="warn">预警提醒</a>
 </script>
@@ -114,17 +117,31 @@
                 layui.use('layer', function(){
 								  var layer = layui.layer;
 								  if(response.success){
-								  	var colList=[ //标题栏
-								      {field: 'id', title: 'ID', width: 80, sort: true}
-								      ,{field: 'userPark', title: '园区', width: 170}
-								      ,{field: 'telphone', title: '手机号', width: 150}
-								      ,{field: 'realName', title: '称呼', width: 120}
-								      ,{field: 'userJob', title: '职务', width: 120}
-								      ,{field: 'userEmail', title: '邮箱', width: 170}
-									  ,{field: 'appendix', title: '附录', width: 110 ,toolbar: '#appendix'}
-									  ,{field: 'createTime', title: '申请日期', width: 195}
-									  ,{fixed: 'right',  align:'center', title: '操作', width: 110 ,toolbar: '#operation'}
-								    ]
+									  if(obj.type==1){
+							            	var colList=[ //标题栏
+										      {field: 'id', title: 'ID', width: 80, sort: true}
+										      ,{field: 'userPark', title: '园区', width: 170}
+										      ,{field: 'telphone', title: '手机号', width: 150}
+										      ,{field: 'realName', title: '称呼', width: 120}
+										      ,{field: 'userJob', title: '职务', width: 120}
+										      ,{field: 'userEmail', title: '邮箱', width: 170}
+											  ,{field: 'appendix', title: '附录', width: 110 ,toolbar: '#appendix'}
+											  ,{field: 'createTime', title: '申请日期', width: 195}
+											  ,{fixed: 'right',  align:'center', title: '操作', width: 110 ,toolbar: '#ration'}
+										    ]
+							           }else{
+								           var colList=[ //标题栏
+										      {field: 'id', title: 'ID', width: 80, sort: true}
+										      ,{field: 'userPark', title: '园区', width: 170}
+										      ,{field: 'telphone', title: '手机号', width: 150}
+										      ,{field: 'realName', title: '称呼', width: 120}
+										      ,{field: 'userJob', title: '职务', width: 120}
+										      ,{field: 'userEmail', title: '邮箱', width: 170}
+											  ,{field: 'appendix', title: '附录', width: 110 ,toolbar: '#appendix'}
+											  ,{field: 'createTime', title: '申请日期', width: 195}
+											  ,{fixed: 'right',  align:'center', title: '操作', width: 110 ,toolbar: '#operation'}
+										    ]
+							           }
 								 		showTable(response.data,colList);
 			                        }else{
 			                        	if(response.code!=null){
