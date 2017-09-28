@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.Filter;
 
+import com.huishu.ait.security.*;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -16,13 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-
-import com.huishu.ait.security.CustomCredentialsMatcher;
-import com.huishu.ait.security.MyFormAuthenticationFilter;
-import com.huishu.ait.security.MySessionManager;
-import com.huishu.ait.security.MyUserFilter;
-import com.huishu.ait.security.ShiroDbRealm;
 
 /**
  * shiro的配置
@@ -86,7 +80,7 @@ public class ShiroConfiguration {
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
 		shiroFilterFactoryBean.setLoginUrl("/apis/login.do");
 		shiroFilterFactoryBean.setSuccessUrl("/");
-		shiroFilterFactoryBean.setUnauthorizedUrl("/apis/unauthorized.do");
+		shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
 		shiroFilterFactoryBean.setFilters(filters);
 		return shiroFilterFactoryBean;
 	}

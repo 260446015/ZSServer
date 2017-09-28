@@ -3,7 +3,6 @@ package com.huishu.ait.controller.authz;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;

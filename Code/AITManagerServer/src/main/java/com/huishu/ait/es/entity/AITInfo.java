@@ -1,15 +1,12 @@
 package com.huishu.ait.es.entity;
 
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
+import com.huishu.ait.common.util.StringUtil;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.List;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
+import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
+import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 /**
  * @author hhy
@@ -332,6 +329,8 @@ public class AITInfo {
 	}
 
 	public void setSummary(String summary) {
+		if(!StringUtil.isEmpty(summary))
+			summary = StringUtil.replaceHtml(summary);
 		this.summary = summary;
 	}
 

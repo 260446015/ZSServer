@@ -3,7 +3,6 @@ package com.huishu.ait.entity.dto;
 import java.io.Serializable;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.entity.common.SearchModel;
 
 /**
  * 园区数据展示DTO

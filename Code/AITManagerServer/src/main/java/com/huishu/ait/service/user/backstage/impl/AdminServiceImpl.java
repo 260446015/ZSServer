@@ -41,6 +41,7 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			base.setStartTime(sdf.format(new Date()));
 			base.setExpireTime(sdf.format(nextDate.getTime()));
+			base.setIsCheck(1);
 			userBaseRepository.save(base);
 			return true;
 		} catch (Exception e) {
@@ -61,28 +62,23 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		object.put("expireMemberNum", expireMemberNum);
 		object.put("areaRatio", convertData(areaRatio));
 		object.put("industryRatio", convertData(industryRatio));
+		object.put("areaNum", areaRatio);
 		return result.setSuccess(true).setData(object);
 	}
 
 	@Override
 	public List<UserBase> getAccountList(AccountSearchDTO searchModel) {
 		String[] times = analysisDate(searchModel.getDay());
-		Integer count = userBaseRepository.findUserListCount(Integer.valueOf(searchModel.getType()), times[0], times[1],
-				searchModel.getSearch());
-		searchModel.setTotalSize(count);
 		List<UserBase> list = userBaseRepository.findUserList(Integer.valueOf(searchModel.getType()),
-				searchModel.getPageFrom(), searchModel.getPageSize(), times[0], times[1], searchModel.getSearch());
+				times[0], times[1], searchModel.getSearch());
 		return list;
 	}
 
 	@Override
 	public List<UserBase> getWarningAccountList(AccountSearchDTO searchModel) {
 		String[] times = analysisDate(searchModel.getDay());
-		Integer count = userBaseRepository.findWarningUserListCount(Integer.valueOf(searchModel.getType()), times[0],
-				times[1], searchModel.getSearch());
-		searchModel.setTotalSize(count);
 		List<UserBase> list = userBaseRepository.findWarningUserList(Integer.valueOf(searchModel.getType()),
-				searchModel.getPageFrom(), searchModel.getPageSize(), times[0], times[1], searchModel.getSearch());
+				times[0], times[1], searchModel.getSearch());
 		return list;
 	}
 
@@ -90,9 +86,12 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	public AjaxResult warnAccount(Long id, Integer status) {
 		AjaxResult result = new AjaxResult();
 		UserBase base = userBaseRepository.findOne(id);
+		if(base.getIsWarn()==1){
+			return result.setSuccess(true).setMessage("已经预警，无需预警");
+		}
 		base.setIsWarn(status);
 		userBaseRepository.save(base);
-		return result.setSuccess(true).setMessage("操作成功");
+		return result.setSuccess(true).setMessage("预警成功");
 	}
 
 }

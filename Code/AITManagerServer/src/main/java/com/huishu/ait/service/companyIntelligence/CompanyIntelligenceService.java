@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.es.entity.AITInfo;
-import com.huishu.ait.es.entity.ExpertOpinionDTO;
 import com.huishu.ait.es.entity.dto.CompanyIntelligenceDTO;
 
 /**

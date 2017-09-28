@@ -12,7 +12,7 @@ public interface UserPermissionService {
 	/**
 	 * 通过用户ID查找改用户所拥有的权限
 	 * 
-	 * @param userId
+	 * @param id
 	 * @return
 	 */
 	List<Long> getPermissionIdsByUserId(Long id);
