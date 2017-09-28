@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +44,16 @@ public class AdminController extends BaseController {
 	@Resource
 	private CaptchaManager captchaManager;
 
+	/**
+	 * 直接跳转页面
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value = "{page}", method = RequestMethod.GET)
+	public String showAccount(@PathVariable String page) {
+		return "account/"+page;
+	}
+	
 	/**
 	 * 全局管理
 	 * @param model

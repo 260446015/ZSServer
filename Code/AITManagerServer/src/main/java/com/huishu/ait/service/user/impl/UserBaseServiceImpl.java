@@ -161,6 +161,7 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 			base.setUserPark(param.getPark());
 			base.setUserType(param.getUserType());
 			base.setImageUrl("/images/default.jpg");
+			base.setArea(param.getArea());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			base.setCreateTime(sdf.format(new Date()));
 			base.setStartTime(sdf.format(new Date()));

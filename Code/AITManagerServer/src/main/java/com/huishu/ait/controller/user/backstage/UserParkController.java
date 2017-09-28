@@ -133,7 +133,8 @@ public class UserParkController extends BaseController {
 	@RequestMapping(value = "addParkAccount.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult addParkAccount(@RequestBody AddAccountDTO dto) {
-		if (null == dto || StringUtil.isEmpty(dto.getTelphone()) || StringUtil.isEmpty(dto.getTime())) {
+		if (null == dto || StringUtil.isEmpty(dto.getTelphone()) || StringUtil.isEmpty(dto.getTime())
+				|| StringUtil.isEmpty(dto.getArea()) || StringUtil.isEmpty(dto.getUserType())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {

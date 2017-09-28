@@ -1,6 +1,5 @@
 package com.huishu.ait.controller.user;
 
-import java.io.OutputStream;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -10,43 +9,32 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ShiroUtil;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.entity.dto.CaptchaDTO;
 import com.huishu.ait.entity.dto.FindPasswordDTO;
-import com.huishu.ait.entity.dto.RegisterDTO;
 import com.huishu.ait.exception.AccountExpiredException;
 import com.huishu.ait.exception.AccountStartException;
 import com.huishu.ait.security.CaptchaManager;
-import com.huishu.ait.security.CaptchaUsernamePasswordToken;
 import com.huishu.ait.security.RSAUtils;
 import com.huishu.ait.service.user.UserBaseService;
 
@@ -75,16 +63,6 @@ public class LoginController extends BaseController {
 		return page;
 	}
 	
-	/**
-	 * 直接跳转页面
-	 * @param page
-	 * @return
-	 */
-	@RequestMapping(value = "account/{page}", method = RequestMethod.GET)
-	public String showAccount(@PathVariable String page) {
-		return "account/"+page;
-	}
-
 	/**
 	 * 未登录
 	 */

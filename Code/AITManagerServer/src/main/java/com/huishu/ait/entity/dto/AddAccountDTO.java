@@ -21,6 +21,7 @@ public class AddAccountDTO implements Serializable {
 	private String userEmail;
 	/** 园区名称 */
 	private String park;
+	private String area;
 	/** 公司名称 */
 	private String company;
 	/** 部门名称 */
@@ -31,6 +32,14 @@ public class AddAccountDTO implements Serializable {
 	private String userType;
 	/** 试用期限 */
 	private String time;
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 
 	public String getTelphone() {
 		return telphone;
