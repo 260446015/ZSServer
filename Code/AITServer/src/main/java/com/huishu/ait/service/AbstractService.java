@@ -899,7 +899,10 @@ public abstract class AbstractService {
 		if (StringUtils.isNotEmpty(fourIndicator)) {
 			bq.must(QueryBuilders.termQuery("industryFour", fourIndicator));
 		}
-
+		/*String dimension = dto.getDimension();
+		if (StringUtils.isNotEmpty(dimension)) {
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
+		}*/
 		return bq;
 	}
 
