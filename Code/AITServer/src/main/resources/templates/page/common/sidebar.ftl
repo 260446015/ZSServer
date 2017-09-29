@@ -5,7 +5,7 @@
 					<li class="layui-nav-item layui-nav-itemed"><a href="/apis/back/admin/globalManagement.json">全局管理</a></li>
 					<li class="layui-nav-item"><a href="/account/accountManage">账号审核</a></li>
 					<li class="layui-nav-item"><a href="">产业管理</a></li>
-					<li class="layui-nav-item"><a href="/apis/back/admin/gardenManagement.json">园区管理</a></li>
+					<li class="layui-nav-item"><a href="园区管理.html">园区管理</a></li>
 					<li class="layui-nav-item"><a href="">模块管理</a></li>
 					<li class="layui-nav-item"><a href="">订单管理</a></li>
 				</ul>
