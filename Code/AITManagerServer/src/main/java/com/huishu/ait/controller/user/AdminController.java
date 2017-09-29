@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.user.backstage;
+package com.huishu.ait.controller.user;
 
 import java.util.List;
 

@@ -1,156 +1,57 @@
 package com.huishu.ait.entity.dto;
 
-import java.io.Serializable;
+import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.StringUtil;
+import com.huishu.ait.entity.common.SearchModel;
 
 /**
  * 查询园区的DTO
  * 
- * @author yindawei
- * @version 1.0
- * @createDate 2017-7-29
+ * @author yindq
+ * @create 2017年9月28日
  */
-public class GardenDTO implements Serializable {
-
+public class GardenDTO extends SearchModel {
 	/**
-	 * 
+	 * 序列化
 	 */
 	private static final long serialVersionUID = 1L;
-	private Integer id;
-	private String name;
-	private String description;
-	private String address;
+	/** 产业类型 */
+	private String type;
+	/** 地域 */
 	private String area;
-	private String industryType;
-	private Integer userId;
-	private String serarchName;
-	private String[] msg;
-	/**
-	 * 分页中每页大小
-	 */
-	private Integer pageSize;
-	/**
-	 * 分页当前数
-	 */
-	private Integer pageNumber;
-
-	/**
-	 * 
-	 * @return 园区id
-	 */
-	public Integer getId() {
-		return id;
+	/** 搜索条件 */
+	private String search;
+	public String getType() {
+		if (StringUtil.isEmpty(search)||type.equals("不限")) {
+			type = "%%";
+		}
+		return type;
 	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	public void setType(String type) {
+		this.type = type;
 	}
-
-	/**
-	 * 
-	 * @return 园区名称
-	 */
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * 
-	 * @return 园区描述
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	/**
-	 * 
-	 * @return 园区详细地址
-	 */
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	/**
-	 * 
-	 * @return 园区地理位置
-	 */
 	public String getArea() {
+		if (StringUtil.isEmpty(search)||area.equals("不限")) {
+			area = "%%";
+		}
 		return area;
 	}
-
 	public void setArea(String area) {
 		this.area = area;
 	}
-
-	/**
-	 * 
-	 * @return 园区产业类型
-	 */
-	public String getIndustryType() {
-		return industryType;
+	public String getSearch() {
+		if (StringUtil.isEmpty(search)) {
+			search = "%%";
+		} else {
+			search = "%" + search + "%";
+		}
+		return search;
 	}
-
-	public void setIndustryType(String industryType) {
-		this.industryType = industryType;
+	public void setSearch(String search) {
+		this.search = search;
 	}
-
-	/**
-	 * 
-	 * @return 获取关注的用户id
-	 */
-	public Integer getUserId() {
-		return userId;
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
 	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	/**
-	 * 
-	 * @return 获取前台搜索框中的内容
-	 */
-	public String getSerarchName() {
-		return serarchName;
-	}
-
-	public void setSerarchName(String serarchName) {
-		this.serarchName = serarchName;
-	}
-
-	public Integer getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public Integer getPageNumber() {
-		return pageNumber;
-	}
-
-	public void setPageNumber(Integer pageNumber) {
-		this.pageNumber = pageNumber;
-	}
-
-	public String[] getMsg() {
-		return msg;
-	}
-
-	public void setMsg(String[] msg) {
-		this.msg = msg;
-	}
-
 }
