@@ -6,14 +6,19 @@
 					<li class="layui-nav-item"><a href="/apis/back/admin/accountManage">账号审核</a></li>
 					<li class="layui-nav-item"><a href="">产业管理</a></li>
 					<li class="layui-nav-item"><a href="园区管理.html">园区管理</a></li>
-					<li class="layui-nav-item">
-						<a href="javascript:void(0)">模块管理</a>
-						<dl class="layui-nav-child">
-							<dd><a href="">招商情报管理</a></dd>
-							<dd><a href="">园区监管管理</a></dd>
-							<dd><a href="">精准招商管理</a></dd>
-						</dl>
+					<li class="layui-nav-item "><a href="javascript:;">模块管理</a></li>
+					<li class="layui-nav-item ">
+								<a href="javascript:;">招商情报</a>
+										<dl class="layui-nav-child">
+										<dd><a href="javascript:;">产业头条</a></dd>
+										<dd><a href="javascript:;">产业政策</a></dd>
+										<dd><a href="javascript:;">专家观点</a></dd>
+										<dd><a href="">企业排行</a></dd>
+										<dd><a href="">园区情报</a></dd>
+								</dl>
 					</li>
+					<li class="layui-nav-item "><a href="javascript:;">园区监管</a></li>
+					<li class="layui-nav-item "><a href="javascript:;">精准招商</a></li>
 					<li class="layui-nav-item"><a href="">订单管理</a></li>
 				</ul>
         </div>
