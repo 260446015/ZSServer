@@ -102,19 +102,6 @@
 												</span>
                                         </div>
                                     </div>
-								<#-- <div>
-                                    <input type="text" name="captcha" id="captcha"
-                                        class="form-control" style="width: 200px; display: inline;"
-                                        placeholder="输入验证码" required/> <img id='captchaImg' src="/security/captcha"
-                                        alt="图形验证码" />
-                                </div>
-                                <div class="row bk-margin-top-20 bk-margin-bottom-10">
-                                    <div class="col-sm-8">
-                                        <div class="checkbox-custom checkbox-default">
-                                            <input id="rememberMe" name="rememberMe" type="checkbox"/>
-                                            <label for="rememberMe">记住我</label>
-                                        </div>
-                                    </div> -->
                                     <div class="col-sm-4 text-right">
                                         <button type="button" class="btn btn-primary hidden-xs"  onclick="doLogin()">登陆</button>
                                     </div>
