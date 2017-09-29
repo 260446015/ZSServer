@@ -14,7 +14,7 @@
 <div class="layui-layout layui-layout-admin">
 	<#include "/common/header.ftl">
 	<!-- Start: Content -->
-	
+	<!--产业头条 -->
 	<#include "/common/sidebar.ftl">
 	<!-- 内容 Page -->
 	<div class="layui-body">
