@@ -1,0 +1,201 @@
+.noborder tbody tr td{
+	border:none;
+}
+.chose{
+	height:268px;
+}
+.contitle{
+	margin:20px;
+	padding-right: 40px;
+}
+.contitle span h1{
+	font-size: 24px;
+	font-weight: bold;
+}
+.contitle p{ 
+	text-indent:2em; 
+	font-size: 16px;
+}
+.padding20{
+	padding: 20px 20px 20px 20px;
+}
+.paddingR10{
+	padding-right: 10px
+}
+.paddingL10{
+	padding-left: 10px;
+}
+.paddingT10{
+	padding-top: 10px;
+}
+.paddingL20{
+	padding-left: 20px;
+}
+.paddingX20{
+    padding: 0 20px 0 20px;
+}
+.paddingY10{
+	padding:10px 0 10px 0;
+}
+.marginY20{
+	margin:20px 0 20px 0;
+}
+.marginR20{
+	margin-right: 20px;
+}
+.marginL20{
+	margin-left: 20px;
+}
+.marginT10{
+	margin-top:10px;
+}
+/*帐号基本信息*/
+.layui-table td, .layui-table th{
+	font-size: 13px;
+}
+.cho{
+	width: 260px;
+	position: relative;
+	left: 0; right: 0;top:20px;bottom: 0;
+	margin:0 auto;
+	z-index: 1
+}
+.cho a{
+	padding:5px
+}
+.selected{
+	background:#04a6ff;
+	border-radius: 12px;
+	font-color:#fff !important;
+}
+/*关注产业*/
+.hlwP .circle{
+	position: relative;
+	left: 60px;top:40px;
+	width:150px;
+	height:150px;
+	border: 1px dashed #04a6ff;
+	border-radius: 50%;
+}
+.hlwP .circle .circle1{
+    width:100px;
+	height:100px;
+	background: #04a6ff;
+	border-radius: 50%;
+	position: absolute;
+	left: 0;right:0;bottom: 0;top: 0;
+	margin: auto;
+}
+.hlwP .circle .dian1{
+	width:10px;
+	height:10px;
+	background: #04a6ff;
+	border-radius: 50%;
+	position: absolute;
+	left: 16px;top:16px;
+	z-index: 5;
+}
+.hlwP .circle .dian2{
+	width:10px;
+	height:10px;
+	background: #04a6ff;
+	border-radius: 50%;
+	position: absolute;
+	left: 122px;top:16px;
+	z-index: 5;
+}
+.hlwP .circle .dian3{
+	width:10px;
+	height:10px;
+	background: #04a6ff;
+	border-radius: 50%;
+	position: absolute;
+	left:78px;top:145px;
+	z-index: 5;
+}
+.hlwP .circle .cirCon1{
+    position: absolute;
+    left: -45px;top:8px;
+}
+.hlwP .circle .cirCon2{
+	position: absolute;
+	left: 134px;top:10px;
+}
+.hlwP .circle .cirCon3{
+	position: absolute;
+	left:55px;top:158px;
+}
+/*圆2*/
+.hlwP .circle-2{
+	position: absolute;
+	left: 350px;top:70px;
+	width:150px;
+	height:150px;
+	border: 1px dashed #00e8a9;
+	border-radius: 50%;
+}
+.hlwP .circle-2 .circle1{
+    width:100px;
+	height:100px;
+	background: #00e8a9;
+	border-radius: 50%;
+	position: absolute;
+	left: 0;right:0;bottom: 0;top: 0;
+	margin: auto;
+}
+.hlwP .circle-2 .dian1{
+	width:10px;
+	height:10px;
+	background: #00e8a9;
+	border-radius: 50%;
+	position: absolute;
+	left: 16px;top:16px;
+	z-index: 5;
+}
+.hlwP .circle-2 .dian2{
+	width:10px;
+	height:10px;
+	background: #00e8a9;
+	border-radius: 50%;
+	position: absolute;
+	left: 122px;top:16px;
+	z-index: 5;
+}
+.hlwP .circle-2 .dian3{
+	width:10px;
+	height:10px;
+	background: #00e8a9;
+	border-radius: 50%;
+	position: absolute;
+	left:78px;top:145px;
+	z-index: 5;
+}
+.hlwP .circle-2 .dian4{
+	width:10px;
+	height:10px;
+	background: #00e8a9;
+	border-radius: 50%;
+	position: absolute;
+	left:0px;top:100px;
+	z-index: 5;
+}
+.hlwP .circle-2 .cirCon1{
+    position: absolute;
+    left: -40px;top:4px;
+    background:#00e8a9;
+}
+.hlwP .circle-2 .cirCon2{
+	position: absolute;
+	left: 135px;top:8px;
+	background:#00e8a9;
+}
+.hlwP .circle-2 .cirCon3{
+	position: absolute;
+	left:78px;top:145px;;
+	background:#00e8a9;
+}
+.hlwP .circle-2 .cirCon4{
+	position: absolute;
+	left:-60px;top:95px;;
+	background:#00e8a9;
+}
