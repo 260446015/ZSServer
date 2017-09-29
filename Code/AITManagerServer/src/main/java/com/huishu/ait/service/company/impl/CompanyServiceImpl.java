@@ -18,15 +18,19 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.dto.CompanyDTO;
+import com.huishu.ait.es.entity.dto.ArticleListDTO;
 import com.huishu.ait.repository.company.CompanyRepository;
+import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.company.CompanyService;
 
 /**
@@ -36,7 +40,7 @@ import com.huishu.ait.service.company.CompanyService;
  *
  */
 @Service
-public class CompanyServiceImpl implements CompanyService {
+public class CompanyServiceImpl extends AbstractService implements CompanyService {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
@@ -108,5 +112,22 @@ public class CompanyServiceImpl implements CompanyService {
 		});
 		return names;
 
+	}
+
+	/**
+	 * 查询文章列表
+	 */
+	@Override
+	public Page<ArticleListDTO> findArticleList(JSONObject param) {
+		String type = param.getString("type");
+		param.put("dimension", type);
+		param.remove("type");
+		String time = param.getString("time");
+		param = DateCheck.dateCheck(time, param);
+		param.remove("time");
+		BoolQueryBuilder bq = getIndustryBuilder(param);
+		Page<ArticleListDTO> list = getArtivleList(bq);
+		
+		return list;
 	}
 }

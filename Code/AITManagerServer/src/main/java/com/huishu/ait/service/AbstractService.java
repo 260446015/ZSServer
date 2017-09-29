@@ -57,6 +57,7 @@ import com.huishu.ait.echart.series.Serie.SerieData;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.AITInfo;
+import com.huishu.ait.es.entity.dto.ArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 import com.huishu.ait.es.entity.dto.IndicatorDTO;
@@ -81,77 +82,11 @@ public abstract class AbstractService {
 	@Autowired
 	protected ElasticsearchTemplate template;
 
-	/**
-	 * 媒体聚焦--获取载体分布统计环形图
-	 * 
-	 * @param queryBuilder
-	 * @return
-	 */
-	protected JSONArray getVectorDistribution(QueryBuilder queryBuilder) {
-
-		TermsBuilder vectorBuilder = AggregationBuilders.terms("vector").field("vector");
-
-		TermsBuilder articleBuilder = AggregationBuilders.terms("articleLink").field("articleLink");
-		articleBuilder.subAggregation(vectorBuilder).size(1000);
-		SearchQuery query = getSearchQueryBuilder().addAggregation(articleBuilder).withQuery(queryBuilder).build();
-		JSONArray result = template.query(query, res -> {
-			Terms articleLink = res.getAggregations().get("articleLink");
-			String key = null;
-			long count = 0;
-			JSONArray json = new JSONArray();
-			Map<String, Object> map = new HashMap<String, Object>();
-			if (articleLink != null) {
-				for (Terms.Bucket e1 : articleLink.getBuckets()) {
-					Terms vector = e1.getAggregations().get("vector");
-					for (Bucket bucket : vector.getBuckets()) {
-						key = bucket.getKeyAsString();
-						count = bucket.getDocCount();
-						if (map.get(key) != null) {
-							map.put(key, (long) map.get(key) + count);
-						} else {
-							map.put(key, count);
-						}
-					}
-				}
-				for (Entry<String, Object> entry : map.entrySet()) {
-					SerieData<Long> data = new SerieData<>(entry.getKey(), (Long) entry.getValue());
-					json.add(data);
-				}
-			}
-			return json;
-		});
-		return sortArray(result);
-	}
-
-	/**
-	 *
-	 * @param array
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	private JSONArray sortArray(JSONArray array) {
-		List<SerieData<Long>> list = new ArrayList<SerieData<Long>>();
-
-		for (int i = 0; i < array.size(); i++) {
-			SerieData<Long> obj = (SerieData<Long>) array.get(i);
-			list.add(obj);
-		}
-		// 排序操作
-		Collections.sort(list, new SerieDataComparator());
-		// 把数据放回去
-		array.clear();
-		for (int i = 0; i < list.size(); i++) {
-			SerieData<Long> obj = null;
-			obj = list.get(i);
-			array.add(obj);
-		}
-		return array;
-	}
 
 	/**
 	 * 产业头条--关键词云
 	 */
-	@SuppressWarnings({ "static-access", "unchecked" })
+	@SuppressWarnings( "unchecked" )
 	protected JSONArray getCloudWordList(QueryBuilder queryBuilder) {
 		List<String> contentList = new ArrayList<String>();
 		JSONArray data = new JSONArray();
@@ -184,7 +119,36 @@ public abstract class AbstractService {
 		});
 		return data;
 	}
+	/**
+	 * 获取文章列表
+	 * @param bq
+	 * @return
+	 */
+	protected Page<ArticleListDTO> getArtivleList(BoolQueryBuilder bq) {
+		SearchQuery authorQuery = getSearchQueryBuilder().withQuery(bq).build();
+		Page<ArticleListDTO> infos = template.queryForPage(authorQuery, ArticleListDTO.class);
+		return infos;
+		}
 
+	/**
+	 * @param list
+	 * @param source
+	 */
+	private void getArticleDTOInfo(List<ArticleListDTO> list, Map<String, Object> source) {
+		ArticleListDTO dto = new ArticleListDTO();
+		dto.setId(source.get("_id").toString());
+		dto.setContent(source.get("content").toString());
+		dto.setPublishTime(source.get("publishTime").toString());
+		dto.setTitle(source.get("title").toString());
+		String sour = source.get("source").toString();
+		if(StringUtil.isEmpty(sour)){
+			dto.setSource(source.get("vector").toString());
+		}else{
+			dto.setSource(sour);
+		}
+		list.add(dto);
+		
+	}
 	/**
 	 * 查询es库，获取更多条件查询
 	 * 
@@ -202,7 +166,57 @@ public abstract class AbstractService {
 	protected NativeSearchQueryBuilder getSearchBuilder() {
 		return new NativeSearchQueryBuilder().withIndices(INDEX1).withTypes(TYPE);
 	}
-
+	/**
+	 * 建立查询条件
+	 * @param param
+	 * @return
+	 */
+	protected BoolQueryBuilder getIndustryBuilder(JSONObject param) {
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		/**产业 */
+		String industry = param.getString("industry");
+		if (StringUtils.isNotEmpty(industry)) {
+			bq.must(QueryBuilders.termQuery("industry", industry));
+		}
+		/** 产业标签 */
+		String industryLabel = param.getString("industryLabel");
+		if (StringUtils.isNotEmpty(industryLabel)) {
+			if(industryLabel.equals("全部")){
+//				bq.must(QueryBuilders.termQuery("industryLabel", ""));
+			}else{
+				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
+			}
+		}
+		/** 时间 */
+		String startDate = param.getString("startDate");
+		String endDate = param.getString("endDate");
+		if (StringUtils.isNotEmpty(startDate) && StringUtils.isNotEmpty(endDate)) {
+			bq.must(QueryBuilders.rangeQuery("publishTime").from(startDate).to(endDate));
+		}
+		/**维度*/
+		String dimension = param.getString("dimension");
+		if(StringUtils.isNotEmpty(dimension)){
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
+		}
+		
+		/** 关键词 */
+		String keyword = param.getString("keyword");
+		if (StringUtils.isNotEmpty(keyword)) {
+			bq.must(QueryBuilders.wildcardQuery("content", "*" + keyword + "*"));
+		}
+		/** 作者 */
+		JSONArray json =  param.getJSONArray("anthor");
+		if( json != null){
+			for(int i=0;i<json.size();i++){
+				JSONObject obj = json.getJSONObject(i);
+				bq.should(QueryBuilders.termQuery("auhtor", obj.getString("value")));
+			}
+		}
+//		bq = ESUtils.getMoreQueryBuilder("author",json);
+		
+		return bq;
+	}
+	
 	/**
 	 * 建立查询条件筛选
 	 */
@@ -522,7 +536,7 @@ public abstract class AbstractService {
 				continue;
 			}
 			String name = (String) objects[1];
-			String[] split = name.split("、");
+			String[] split = name.split(",");
 			if (split.length != 1) {
 				for (int j = 0; j < split.length; j++) {
 					Object[] data = { objects[0], split[j] };

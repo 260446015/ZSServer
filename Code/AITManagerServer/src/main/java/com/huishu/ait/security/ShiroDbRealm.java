@@ -76,20 +76,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		String userAccount = myToken.getUsername();
 		String type = myToken.getType();
 		UserBase user = userBaseService.findUserByUserAccount(userAccount,type);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String today = format.format(new Date());
 		if (user == null) {
 			LOGGER.debug("user {} is not exist.", myToken.getUsername());
 			throw new IncorrectCredentialsException();
-		} 
-		if(type.equals("user")){
-			if (user.getIsCheck() == 0&&user.getUserLevel()!=9) {
-				LOGGER.debug("user {} is not check.", myToken.getUsername());
-				throw new AccountStartException();
-			} else if (today.compareTo(user.getExpireTime()) > 0) {
-				LOGGER.debug("user {} be overdue.", myToken.getUsername());
-				throw new AccountExpiredException();
-			}
 		}
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
 				new ShiroUser(user.getId(), user.getUserAccount(), user.getRealName(), user.getUserType(),

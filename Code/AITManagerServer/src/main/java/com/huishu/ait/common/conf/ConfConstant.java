@@ -36,4 +36,13 @@ public class ConfConstant {
 		public static final String THIRD_industry = "文化创意";
 		public static final String FOURTH_industry = "精英配套";
 	}
+	/**
+	 * 特殊字符转义
+	 */
+	public static class EscapeSpecialChar {
+		/**
+		 * 转义 " & " -> " huishu_@@@ "
+		 */
+		public static final String SPACE_AND_SPACE = " huishu_@@@ ";
+	}
 }

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * @author yxq 专家实体类
  */
@@ -35,6 +37,26 @@ public class Specialist implements Serializable {
 	private String picUrl;
 	@Column(name = "article_id")
 	private String articleId;
+	private String industry;
+	
+	@Column(name="industry_label")
+	private String industryLabel;
+	
+	public String getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+
+	public String getIndustryLabel() {
+		return industryLabel;
+	}
+
+	public void setIndustryLabel(String industryLabel) {
+		this.industryLabel = industryLabel;
+	}
 
 	public Long getId() {
 		return id;
@@ -123,4 +145,10 @@ public class Specialist implements Serializable {
 	public void setArticleId(String articleId) {
 		this.articleId = articleId;
 	}
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
+	
 }

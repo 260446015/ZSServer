@@ -3,9 +3,11 @@ package com.huishu.ait.service.industrialPolicy.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,11 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
 import com.huishu.ait.es.entity.AITInfo;
+import com.huishu.ait.es.entity.dto.ArticleListDTO;
 import com.huishu.ait.es.repository.ExpertOpinion.BaseElasticsearch;
 import com.huishu.ait.repository.expertOpinionDetail.UserCollectionRepository;
 import com.huishu.ait.service.AbstractService;
@@ -155,6 +159,28 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
 			log.error("查询产业政策列表失败", e);
 			return array;
 		}
+	}
+
+	
+	/**
+	 * 获取产业政策下的文章（政策解读，高峰论坛，科学研究）
+	 */
+	@Override
+	public Page<ArticleListDTO> findArticleList(JSONObject param) {
+		String type = param.getString("type");
+		if(type.equals("产业政策")){
+			param.put("dimension", "政策解读");
+		}else{
+			param.put("dimension", type);
+		}
+		param.remove("type");
+		String time = param.getString("time");
+		param = DateCheck.dateCheck(time, param);
+		param.remove("time");
+		BoolQueryBuilder bq = getIndustryBuilder(param);
+		Page<ArticleListDTO> list = getArtivleList(bq);
+		
+		return list;
 	}
 
 }

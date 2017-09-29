@@ -1,12 +1,17 @@
 package com.huishu.ait.es.entity;
 
-import com.huishu.ait.common.util.StringUtil;
-import org.springframework.data.elasticsearch.annotations.Document;
+import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
+import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 
 import java.util.List;
 
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author hhy
@@ -18,8 +23,7 @@ import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
 @Document(indexName = INDEX, type = TYPE)
 public class AITInfo {
 	private String id;
-	/** 发布时间 yyyy-MM-dd HH:mm:ss */
-	private String publishDateTime;
+	
 
 	/** 发布时间 10 */
 	private String publishTime;
@@ -284,13 +288,7 @@ public class AITInfo {
 		this.hasWarn = hasWarn;
 	}
 
-	public String getPublishDateTime() {
-		return publishDateTime;
-	}
-
-	public void setPublishDateTime(String publishDateTime) {
-		this.publishDateTime = publishDateTime;
-	}
+	
 
 	public String getPublishTime() {
 		return publishTime;
@@ -329,21 +327,12 @@ public class AITInfo {
 	}
 
 	public void setSummary(String summary) {
-		if(!StringUtil.isEmpty(summary))
-			summary = StringUtil.replaceHtml(summary);
 		this.summary = summary;
 	}
 
 	@Override
 	public String toString() {
-		return "AITInfo [publishDateTime=" + publishDateTime + ", publishTime=" + publishTime + ", publishDate="
-				+ publishDate + ", ossLink=" + ossLink + ", articleLink=" + articleLink + ", title=" + title
-				+ ", content=" + content + ", author=" + author + ", sourceLink=" + sourceLink + ", source=" + source
-				+ ", articleType=" + articleType + ", area=" + area + ", industry=" + industry + ", industryLabel="
-				+ industryLabel + ", vector=" + vector + ", industryType=" + industryType + ", park=" + park
-				+ ", business=" + business + ", businessLegal=" + businessLegal + ", businessType=" + businessType
-				+ ", emotion=" + emotion + ", hitCount=" + hitCount + ", supportCount=" + supportCount + ", replyCount="
-				+ replyCount + ", hasWarn=" + hasWarn + ", dimension=" + dimension + "]";
+		return JSONObject.toJSONString(this);
 	}
 
 }

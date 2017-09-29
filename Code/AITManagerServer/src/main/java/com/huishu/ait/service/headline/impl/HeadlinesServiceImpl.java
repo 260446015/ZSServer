@@ -1,5 +1,9 @@
 package com.huishu.ait.service.headline.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,13 +12,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
+import com.huishu.ait.common.util.DateCheck;
+import com.huishu.ait.es.entity.dto.ArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.headline.HeadlinesService;
+import com.merchantKey.itemModel.KeywordModel;
 
 /**
  * @author hhy
@@ -28,37 +37,7 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 
 	private static Logger logger = LoggerFactory.getLogger(HeadlinesServiceImpl.class);
 
-	/**
-	 * 产业头条--关键词云
-	 */
-	@Override
-	public JSONArray getWordCloud(HeadlinesDTO headlinesDTO) {
-		try {
-
-			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
-
-			return getCloudWordList(bq);
-		} catch (Exception e) {
-			logger.error("获取词云失败：", e);
-			return null;
-		}
-
-	}
-
-	/**
-	 * 产业头条---云图
-	 */
-	@Override
-	public JSONArray getCarClondChartList(HeadlinesDTO headlinesDTO) {
-		try {
-			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
-			return getVectorDistribution(bq);
-		} catch (Exception e) {
-			logger.error("获取媒体云图失败：", e);
-			return null;
-		}
-	}
-
+	
 	/**
 	 * 产业头条--根据载体查询文章
 	 */
@@ -91,5 +70,59 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 			return null;
 		}
 	}
+	
+	/**
+	 * 根据请求参数获取文章列表
+	 */
+	@Override
+	public Page<ArticleListDTO> findArticleList(JSONObject param) {
+		String type = param.getString("type");
+		if(type.equals("产业头条")||type.equals("产业云图")){
+			param.put("dimension", "产业头条");
+		}
+		param.remove("type");
+		String time = param.getString("time");
+		param = DateCheck.dateCheck(time, param);
+		param.remove("time");
+		BoolQueryBuilder bq = getIndustryBuilder(param);
+		Page<ArticleListDTO> list = getArtivleList(bq);
+		
+		return list;
+	}
 
+	
+
+	/**
+	 * 根据条件获得关键词
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<KeywordModel> findArticleKeyword(JSONObject param) {
+		String type = param.getString("type");
+		if(type.equals("产业头条")||type.equals("产业云图")){
+			param.put("dimension", "产业头条");
+		}
+		param.remove("type");
+		String time = param.getString("time");
+		param = DateCheck.dateCheck(time, param);
+		param.remove("time");
+		BoolQueryBuilder bq = getIndustryBuilder(param);
+		JSONArray json = getCloudWordList(bq);
+		List<KeywordModel> list = new ArrayList<KeywordModel>();
+		Iterator<Object> iterator = json.iterator();
+		while(iterator.hasNext()){
+			List<KeywordModel> next = (List<KeywordModel>)iterator.next();
+			Iterator<KeywordModel> iterator2 = next.iterator();
+			while(iterator2.hasNext()){
+				KeywordModel next2 = iterator2.next();
+				
+				list.add(next2);
+			}
+		}
+		return list;
+	}
+
+	
+
+	
 }

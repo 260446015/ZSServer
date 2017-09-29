@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
  * shiro的配置
  * 
  * @author yindq
- * @date 2017年8月2日
+ * @date 2017年9月28日
  */
 @Configuration
 public class ShiroConfiguration {
@@ -46,17 +46,9 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/apis/logout.do", "logout");
 
 		filterChainDefinitionMap.put("/apis/security/generateKey.do", "anon");
-		filterChainDefinitionMap.put("/apis/security/captcha.do", "anon");
-		filterChainDefinitionMap.put("/apis/register.json", "anon");
-		filterChainDefinitionMap.put("/apis/getPhoneCaptcha.json", "anon");
 		filterChainDefinitionMap.put("/apis/findPassword.json", "anon");
 		filterChainDefinitionMap.put("/apis/login.do", "anon");
-		filterChainDefinitionMap.put("/apis/islogin.do", "anon");
 		filterChainDefinitionMap.put("/apis/imageUpload.do", "anon");
-		filterChainDefinitionMap.put("/apis/unauthorized.do", "anon");
-		filterChainDefinitionMap.put("/apis/temporaryDemo.do", "anon");
-		filterChainDefinitionMap.put("/apis/oauth/oauth_callback", "anon");
-		filterChainDefinitionMap.put("/apis/oauth/getChangeInfo.json", "anon");
 
 		filterChainDefinitionMap.put("/apis/**", "authc");
 		// filterChainDefinitionMap.put("/apis/**", "anon");

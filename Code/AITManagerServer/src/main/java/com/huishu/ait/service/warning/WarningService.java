@@ -23,7 +23,7 @@ public interface WarningService {
 	 *            查询条件
 	 * @return
 	 */
-	// JSONArray getBusinessOutflowList(AreaSearchDTO searchModel);
+	
 	Page<AITInfo> getBusinessOutflowList(AreaSearchDTO searchModel);
 
 	/**

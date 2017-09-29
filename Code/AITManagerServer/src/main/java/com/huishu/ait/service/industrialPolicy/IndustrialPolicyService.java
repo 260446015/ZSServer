@@ -1,11 +1,16 @@
 package com.huishu.ait.service.industrialPolicy;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+
 //import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 //import com.huishu.ait.entity.IndustrialPolicy;
 import com.huishu.ait.entity.dto.IndustrialPolicyDTO;
+import com.huishu.ait.es.entity.dto.ArticleListDTO;
 
 /**
  * 产业政策相关service
@@ -35,5 +40,12 @@ public interface IndustrialPolicyService {
 	 * @param id
 	 */
 	JSONObject getIndustrialPolicyDetail(String id, Long userId);
+	
 
+	/**
+	 * @param param
+	 * @return
+	 */
+	Page<ArticleListDTO> findArticleList(JSONObject param);
 }
+
