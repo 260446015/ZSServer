@@ -127,7 +127,7 @@
                                     ,{field: 'userEmail', title: '邮箱', width: 170}
                                     ,{field: 'appendix', title: '附录', width: 110 ,toolbar: '#appendix'}
                                     ,{field: 'createTime', title: '申请日期', width: 195}
-                                    ,{fixed: 'right',  align:'center', title: '操作', width: 110 ,toolbar: '#ration'}
+                                    ,{fixed: 'right',  align:'center', title: '操作', width: 130 ,toolbar: '#ration'}
                                 ]
                             }else{
                                 var colList=[ //标题栏

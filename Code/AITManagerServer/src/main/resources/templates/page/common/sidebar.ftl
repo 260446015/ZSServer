@@ -10,7 +10,7 @@
 						<a href="javascript:void(0)">模块管理</a>
 						<dl class="layui-nav-child">
 							<dd><a href="">招商情报管理</a></dd>
-							<dd><a href="">园区监管管理</a></dd>
+							<dd><a href="/apis/area/parkSupervision">园区监管管理</a></dd>
 							<dd><a href="">精准招商管理</a></dd>
 						</dl>
 					</li>

@@ -1,50 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>园区监管管理 </title>
-    <link rel="stylesheet" href="../layui/css/layui.css">
-    <link rel="stylesheet" href="../layui/css/add.css">
-    <script src="../layui/js/jquery-1.8.2.min.js"></script>
-    <script src="../layui/layui.js"></script>
-    <script src="../layui/echarts.min.js"></script>
+    <!-- Basic -->
+    <meta charset="UTF-8" />
+    <title>慧数招商后台系统</title>
+    <!-- Mobile Metas -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<#include "/common/link.ftl">
 </head>
 <body class="">
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header layui-bg-blue">
-        <div class="layui-logo " style="color: #ffffff;">
-            <img src="" alt="">慧数招商
-        </div>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item"><a href="">个人中心<span
-                    class="layui-badge-dot"></span></a></li>
-            <li class="layui-nav-item"><a href="">退出</a></li>
-            <span class="layui-nav-bar"
-                  style="left: 76px; top: 55px; width: 0px; opacity: 0;"></span>
-        </ul>
-    </div>
-
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree">
-                <li class="layui-nav-item layui-nav-itemed"><a href="全局管理.html">全局管理</a></li>
-                <li class="layui-nav-item"><a href="账号审核.html">账号审核</a></li>
-                <li class="layui-nav-item"><a href="">产业管理</a></li>
-                <li class="layui-nav-item"><a href="园区管理.html">园区管理</a></li>
-                <li class="layui-nav-item"><a href="">模块管理</a></li>
-                <li class="layui-nav-item"><a href="">订单管理</a></li>
-            </ul>
-        </div>
-    </div>
-
+<#include "/common/header.ftl">
+<#include "/common/sidebar.ftl">
     <div class="layui-body">
         <div class="layui-nav layui-bg-cyan">
             <ul class="" lay-filter="">
-                <li class="layui-nav-item"><a href="">筛选设置:</a></li>
+                <li class="layui-nav-item"><a>筛选设置:</a></li>
             </ul>
             <ul class="" lay-filter="">
-                <li class="layui-nav-item"><a href="">产业类型：</a></li>
+                <li class="layui-nav-item"><a>产业类型：</a></li>
                 <li class="layui-nav-item layui-this"><a href="">不限</a></li>
                 <li class="layui-nav-item"><a href="">节能环保</a></li>
                 <li class="layui-nav-item"><a href="">动漫产业</a></li>
@@ -56,7 +31,7 @@
                 <li class="layui-nav-item"><a href="">影视产业</a></li>
             </ul>
             <ul class="" lay-filter="">
-                <li class="layui-nav-item"><a href="">区域</a></li>
+                <li class="layui-nav-item"><a>区域</a></li>
                 <li class="layui-nav-item layui-this"><a href="">不限</a></li>
                 <li class="layui-nav-item"><a href="">北京</a></li>
                 <li class="layui-nav-item"><a href="">上海</a></li>
@@ -69,120 +44,102 @@
                 <li class="layui-nav-item"><a href="">江苏</a></li>
             </ul>
         </div>
-        <div class="layui-col-md12 paddingX20" style="margin-top:20px;">
-            <form class="layui-form" action="">
-                <div class="layui-form-item">
-                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入搜索内容" autocomplete="off" class="layui-input" style="width:200px;display:inline"><button class="layui-btn layui-btn-normal">搜索</button>
+        <div style="height: 15px;"></div>
+        <div class="paddingX20">
+         <div class="layui-row">
+                <div class="layui-col-md3">
+                    <input type="text" name="title" placeholder="请输入园区名称/人物称呼"  class="layui-input">
                 </div>
-            </form>
-            <table class="layui-table" lay-size="lg">
-                <colgroup>
-                    <col width="70">
-                    <col width="70">
-                    <col width="70">
-                    <col width="150">
-                    <col width="150">
-                    <col width="80">
-                    <col width="100">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>园区名称</th>
-                    <th>园区级别</th>
-                    <th>地域(城市)</th>
-                    <th>具体地址</th>
-                    <th>园区产业产业</th>
-                    <th>成立时间</th>
-                    <th>园区面积</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><a href="园区监管.html">清华创业园</a></td>
-                    <td>市级</td>
-                    <td>北京</td>
-                    <td>海淀区清华科技园学研大厦A308</td>
-                    <td>互联网+光伏机电生物医药食品加工精英配套石油化工文化创意其他</td>
-                    <td>1999年8月20日</td>
-                    <td>0平方公里(已开发0平方公里)</td>
-                </tr>
-                <tr>
-                    <td><a href="园区监管.html">清华创业园</a></td>
-                    <td>市级</td>
-                    <td>北京</td>
-                    <td>海淀区清华科技园学研大厦A308</td>
-                    <td>互联网+光伏机电生物医药食品加工精英配套石油化工文化创意其他</td>
-                    <td>1999年8月20日</td>
-                    <td>0平方公里(已开发0平方公里)</td>
-                </tr>
-                <tr>
-                    <td><a href="园区监管.html">清华创业园</a></td>
-                    <td>市级</td>
-                    <td>北京</td>
-                    <td>海淀区清华科技园学研大厦A308</td>
-                    <td>互联网+光伏机电生物医药食品加工精英配套石油化工文化创意其他</td>
-                    <td>1999年8月20日</td>
-                    <td>0平方公里(已开发0平方公里)</td>
-                </tr>
-                <tr>
-                    <td><a href="园区监管.html">清华创业园</a></td>
-                    <td>市级</td>
-                    <td>北京</td>
-                    <td>海淀区清华科技园学研大厦A308</td>
-                    <td>互联网+光伏机电生物医药食品加工精英配套石油化工文化创意其他</td>
-                    <td>1999年8月20日</td>
-                    <td>0平方公里(已开发0平方公里)</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                <div class="layui-col-md4 ">
+                    <button class="layui-btn layui-btn-normal layui-btn-radius" onclick="mySearch()">搜索</button>
+                </div>
+            </div>
+            <table id="demo" lay-filter="filter"></table></div>
     </div>
 
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
-    </div>
 </div>
-<script src="../layui/js/index.js"></script>
+<#include "/common/script.ftl">
+<script  type="text/html" id="appendix">
+    <a class="layui-btn layui-btn-mini" lay-event="detail">查看详情</a>
+</script>
 <script>
-    function onDel(){
-        layer.open({
-            content: '确认删除该片数据'
-            ,btn: ['确认', '取消']
-            ,yes: function(index, layero){
-                //按钮【按钮一】的回调
+     var tab=0;
+        var type='不限';
+        var day='不限';
+        $(function(){
+            myClick('不限','不限');
+        })
+        function mySearch(){
+            var search=$('input[name=title]').val();
+            var obj={type:type,
+                day:day,
+                search:search};
+            myRequest(obj);
+        }
+        function myClick(a,b){
+            if(a==0){
+                tab=b;
+            }else if(a==1){
+                day=b;
             }
-            ,btn2: function(index, layero){
-                //按钮【按钮二】的回调
+            var obj={type:type,area:day};
+            myRequest(obj);
+        }
+        function myRequest(obj){
+            $.ajax({
+                type: 'post',
+                url: "/apis/area/findGardensList.json",
+                async: false,
+                contentType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (response) {
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        if(response.success){
+                            var colList=[ //标题栏
+                                {field: 'gardenName', title: '园区名称', width: 170}
+                                ,{field: 'gardenLevel', title: '园区级别', width: 150}
+                                ,{field: 'area', title: '地域(城市)', width: 120}
+                                ,{field: 'address', title: '具体地址', width: 120}
+                                ,{field: 'industry', title: '园区产业', width: 170}
+                                ,{field: 'establishDate', title: '成立时间', width: 195}
+                                ,{field: 'gardenSquare', title: '园区面积', width: 195}
+                                ,{fixed: 'right',  align:'center', title: '操作', width: 110 ,toolbar: '#appendix'}
+                            ]
+                            showTable(response.data,colList);
+                        }else{
+                            if(response.code!=null){
+                                window.location.href="/login";
+                            }else{
+                                layer.alert(response.message);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        function showTable(dataList,colList){
+            layui.use('table', function(){
+                var table = layui.table;
+                //监听工具条
+                table.on('tool(filter)', function(obj){
+                    window.location.href="/apis/area/parkDetail";
+                });
+                //展示已知数据
+                table.render({
+                    elem: '#demo'
+                    ,data:dataList
+                    ,height: 272
+                    ,cols: [colList]
+                    ,skin: 'row' //表格风格
+                    ,even: true
+                    ,page: true //是否显示分页
+                    ,limits: [5, 7, 10]
+                    ,limit: 5 //每页默认显示的数量
+                });
+            });
+        }
 
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-            ,cancel: function(){
-                //右上角关闭回调
-
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-        });
-    }
-    function toTop(){
-        layer.open({
-            content: '确认置顶该片数据'
-            ,btn: ['确认', '取消']
-            ,yes: function(index, layero){
-                //按钮【按钮一】的回调
-            }
-            ,btn2: function(index, layero){
-                //按钮【按钮二】的回调
-
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-            ,cancel: function(){
-                //右上角关闭回调
-
-                //return false 开启该代码可禁止点击该按钮关闭
-            }
-        });
-    }
 </script>
 </body>
 </html>
