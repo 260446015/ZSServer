@@ -49,4 +49,11 @@ public interface UserParkService {
 	 */
 	List<AccountDataDTO> findParkAccount(SearchModel searchModel);
 
+	/**
+	 * 按名称模糊查找园区
+	 * @param search
+	 * @return
+	 */
+	List<GardenDataDTO> getGardenList(String search);
+
 }

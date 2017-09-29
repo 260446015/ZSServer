@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.UserPark;
+import com.huishu.ait.entity.dto.GardenDataDTO;
 
 /**
  * 用户园区权限持久化类
@@ -116,5 +117,12 @@ public interface UserParkRepository extends CrudRepository<UserPark, Long> {
 	 */
 	@Query(value = "SELECT count(1) from t_user_base where user_park =? and user_type='user' and is_check=1", nativeQuery = true)
 	Integer findParkAccountCount(String park);
+
+	/**
+	 * 按名称模糊查找园区列表
+	 * @param string
+	 * @return
+	 */
+	List<GardenDataDTO> findByNameLike(String string);
 
 }
