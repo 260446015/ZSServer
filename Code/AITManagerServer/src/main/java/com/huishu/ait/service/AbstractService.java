@@ -8,13 +8,11 @@ import java.security.interfaces.RSAPrivateKey;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -29,7 +27,6 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -52,8 +49,6 @@ import com.huishu.ait.common.util.DateUtils;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.common.util.UtilsHelper;
-import com.huishu.ait.common.util.datasort.SerieDataComparator;
-import com.huishu.ait.echart.series.Serie.SerieData;
 import com.huishu.ait.entity.common.SearchModel;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.es.entity.AITInfo;
@@ -536,7 +531,7 @@ public abstract class AbstractService {
 				continue;
 			}
 			String name = (String) objects[1];
-			String[] split = name.split(",");
+			String[] split = name.split("、");
 			if (split.length != 1) {
 				for (int j = 0; j < split.length; j++) {
 					Object[] data = { objects[0], split[j] };

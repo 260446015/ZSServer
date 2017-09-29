@@ -22,8 +22,10 @@ public class GardenDTO extends SearchModel {
 	/** 搜索条件 */
 	private String search;
 	public String getType() {
-		if (StringUtil.isEmpty(search)||type.equals("不限")) {
+		if (StringUtil.isEmpty(type)||type.equals("不限")) {
 			type = "%%";
+		} else {
+			type = "%" + type + "%";
 		}
 		return type;
 	}
@@ -31,8 +33,10 @@ public class GardenDTO extends SearchModel {
 		this.type = type;
 	}
 	public String getArea() {
-		if (StringUtil.isEmpty(search)||area.equals("不限")) {
+		if (StringUtil.isEmpty(area)||area.equals("不限")) {
 			area = "%%";
+		} else {
+			area = "%" + area + "%";
 		}
 		return area;
 	}

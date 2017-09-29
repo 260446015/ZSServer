@@ -1,6 +1,9 @@
 package com.huishu.ait.service.garden.impl;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -8,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.dto.GardenDTO;
+import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.garden.GardenService;
@@ -53,5 +58,21 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			LOGGER.error(e.getMessage());
 		}
 		return findGardensPage;
+	}
+
+	@Override
+	public JSONArray getBusinessBehaviours(BusinessSuperviseDTO searchModel) {
+		// 组装查询条件
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("park", searchModel.getPark());
+		map.put("dimension",searchModel.getDimension());
+		// 组装排序字段,按时间和点击量降序排列
+		String[] order = { "publishTime", "hitCount" };
+		List<String> orderList = Arrays.asList(order);
+		// 组装返回数据字段
+		String[] data = { "title","summary", "content","publishDate","source"};
+		List<String> dataList = Arrays.asList(data);
+		JSONArray array = getEsData(searchModel, map, null, orderList, dataList, true);
+		return array;
 	}
 }

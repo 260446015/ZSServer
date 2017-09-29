@@ -61,7 +61,7 @@
 
 <#include "/common/script.ftl">
     <script  type="text/html" id="appendix">
-        <a class="layui-btn layui-btn-mini" lay-event="detail">查看详情</a>
+        <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="detail">查看详情</a>
     </script>
     <script  type="text/html" id="operation">
         <a class="layui-btn layui-btn-mini" lay-event="edit">开通试用</a>

@@ -14,75 +14,79 @@
 <#include "/common/header.ftl">
 <#include "/common/sidebar.ftl">
     <div class="layui-body">
-        <div class="layui-nav layui-bg-cyan">
-            <ul class="" lay-filter="">
-                <li class="layui-nav-item"><a>筛选设置:</a></li>
-            </ul>
-            <ul class="" lay-filter="">
-                <li class="layui-nav-item"><a>产业类型：</a></li>
-                <li class="layui-nav-item layui-this"><a href="">不限</a></li>
-                <li class="layui-nav-item"><a href="">节能环保</a></li>
-                <li class="layui-nav-item"><a href="">动漫产业</a></li>
-                <li class="layui-nav-item"><a href="">新能源</a></li>
-                <li class="layui-nav-item"><a href="">信息技术</a></li>
-                <li class="layui-nav-item"><a href="">生态科技</a></li>
-                <li class="layui-nav-item"><a href="">新一代信息技术</a></li>
-                <li class="layui-nav-item"><a href="">高端设备制造</a></li>
-                <li class="layui-nav-item"><a href="">影视产业</a></li>
-            </ul>
-            <ul class="" lay-filter="">
-                <li class="layui-nav-item"><a>区域</a></li>
-                <li class="layui-nav-item layui-this"><a href="">不限</a></li>
-                <li class="layui-nav-item"><a href="">北京</a></li>
-                <li class="layui-nav-item"><a href="">上海</a></li>
-                <li class="layui-nav-item"><a href="">天津</a></li>
-                <li class="layui-nav-item"><a href="">深圳</a></li>
-                <li class="layui-nav-item"><a href="">广州</a></li>
-                <li class="layui-nav-item"><a href="">贵阳</a></li>
-                <li class="layui-nav-item"><a href="">浙江</a></li>
-                <li class="layui-nav-item"><a href="">河北</a></li>
-                <li class="layui-nav-item"><a href="">江苏</a></li>
-            </ul>
-        </div>
+        <div style="padding: 15px;">
+        <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-nav-item"><a>筛选设置:</a></li>
+                </ul>
+            </div>
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li ><i class="layui-icon">&#xe756;</i>产业类型</li>
+                    <li class="layui-this" onclick="myClick(1,'不限')">不限</li>
+                    <li onclick="myClick(1,'互联网+')">互联网+</li>
+                    <li onclick="myClick(1,'高科技')">高科技</li>
+	                <li onclick="myClick(1,'文化创意')">文化创意</li>
+	                <li onclick="myClick(1,'精英配套')">精英配套</li>
+	                <li onclick="myClick(1,'港口物流')">港口物流</li>
+	                <li onclick="myClick(1,'其他')">其他</li>
+                </ul>
+            </div>
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title" type="hidden">
+                    <li ><i class="layui-icon">&#xe756;</i>区域</li>
+                    <li class="layui-this" onclick="myClick(2,'不限')">不限</li>
+	                <li onclick="myClick(2,'北京')">北京</li>
+	                <li onclick="myClick(2,'上海')">上海</li>
+	                <li onclick="myClick(2,'广州')">广州</li>
+	                <li onclick="myClick(2,'深圳')">深圳</li>
+	                <li onclick="myClick(2,'杭州')">杭州</li>
+	                <li onclick="myClick(2,'苏州')">苏州</li>
+	                <li onclick="myClick(2,'南京')">南京</li>
+	                <li onclick="myClick(2,'天津')">天津</li>
+	                <li onclick="myClick(2,'青岛')">青岛</li>
+	                <li onclick="myClick(2,'大连')">大连</li>
+                </ul>
+            </div>
         <div style="height: 15px;"></div>
-        <div class="paddingX20">
          <div class="layui-row">
                 <div class="layui-col-md3">
-                    <input type="text" name="title" placeholder="请输入园区名称/人物称呼"  class="layui-input">
+                    <input type="text" name="title" placeholder="请输入园区名称"  class="layui-input">
                 </div>
                 <div class="layui-col-md4 ">
                     <button class="layui-btn layui-btn-normal layui-btn-radius" onclick="mySearch()">搜索</button>
                 </div>
             </div>
             <table id="demo" lay-filter="filter"></table></div>
+        </div>
     </div>
 
 </div>
 <#include "/common/script.ftl">
 <script  type="text/html" id="appendix">
-    <a class="layui-btn layui-btn-mini" lay-event="detail">查看详情</a>
+    <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="detail">查看详情</a>
 </script>
 <script>
      var tab=0;
         var type='不限';
-        var day='不限';
+        var area='不限';
         $(function(){
-            myClick('不限','不限');
+            myClick(0,0);
         })
         function mySearch(){
             var search=$('input[name=title]').val();
             var obj={type:type,
-                day:day,
+                area:area,
                 search:search};
             myRequest(obj);
         }
         function myClick(a,b){
-            if(a==0){
-                tab=b;
-            }else if(a==1){
-                day=b;
-            }
-            var obj={type:type,area:day};
+        	if(a==1){
+        		type=b;
+        	}else if(a==2){
+        		area=b;
+        	}
+            var obj={type:type,area:area};
             myRequest(obj);
         }
         function myRequest(obj){
@@ -108,11 +112,7 @@
                             ]
                             showTable(response.data,colList);
                         }else{
-                            if(response.code!=null){
-                                window.location.href="/login";
-                            }else{
-                                layer.alert(response.message);
-                            }
+                            layer.alert(response.message);
                         }
                     });
                 }
@@ -123,7 +123,8 @@
                 var table = layui.table;
                 //监听工具条
                 table.on('tool(filter)', function(obj){
-                    window.location.href="/apis/area/parkDetail";
+                	var data = obj.data;
+                    window.location.href="/apis/area/parkDetail?park="+data.gardenName;
                 });
                 //展示已知数据
                 table.render({

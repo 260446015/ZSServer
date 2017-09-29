@@ -4,17 +4,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.GardenDTO;
+import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 import com.huishu.ait.service.garden.GardenService;
 
 /**
@@ -37,7 +40,10 @@ public class GardenController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "{page}", method = RequestMethod.GET)
-	public String showAccount(@PathVariable String page) {
+	public String showAccount(@PathVariable String page,String park,Model model) {
+		if(!StringUtil.isEmpty(park)){
+			model.addAttribute("park",park);
+		}
 		return "moduleManagement/"+page;
 	}
 	
@@ -58,6 +64,26 @@ public class GardenController extends BaseController {
 		} catch (Exception e) {
 			LOGGER.error("查询园区列表失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	/**
+	 * 获取园区内企业动态
+	 * @param searchModel
+	 * @return
+	 */
+	@RequestMapping(value = "/findDynamicList.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult findDynamicList(@RequestBody BusinessSuperviseDTO searchModel) {
+		if (StringUtil.isEmpty(searchModel.getPark())||StringUtil.isEmpty(searchModel.getDimension())) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			JSONArray array = gardenService.getBusinessBehaviours(searchModel);
+			return success(changeObject(searchModel, array));
+		} catch (Exception e) {
+			LOGGER.error("获取企业动态失败：", e);
+			return error("获取园区内企业动态列表失败");
 		}
 	}
 
