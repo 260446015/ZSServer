@@ -69,6 +69,14 @@ public class AdminController extends BaseController {
 		}
 		return "global/globalManagement";
 	}
+	/**
+	 * 园区管理
+	 * @return
+	 */
+	@RequestMapping(value = "gardenManagement.json", method = RequestMethod.GET)
+	public String gardenManagement(){
+		return "yuanquguanli/gardenManagement";
+	}
 
 	/**
 	 * 查看待审核会员账号分页列表

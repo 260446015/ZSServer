@@ -86,7 +86,9 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 		param.remove("time");
 		BoolQueryBuilder bq = getIndustryBuilder(param);
 		Page<ArticleListDTO> list = getArtivleList(bq);
-		
+		list.forEach(action->{
+		action.setContent(action.getContent().substring(0,300));
+		});
 		return list;
 	}
 

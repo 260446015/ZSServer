@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
@@ -48,12 +49,12 @@ public class UserParkController extends BaseController {
 	 */
 	@RequestMapping(value = "getGardenList.json", method = RequestMethod.POST)
 	public AjaxResult getGardenList(@RequestBody GardenSearchDTO searchModel) {
-		if (null == searchModel || null == searchModel.getMsg() || 3 != searchModel.getMsg().length) {
+		if (null == searchModel || null == searchModel.getMsg() || 3 > searchModel.getMsg().length) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
 			List<GardenDataDTO> list = userParkService.getGardenList(searchModel);
-			return success(changeObject(searchModel, list));
+			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("getAccountList查询失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -88,17 +89,15 @@ public class UserParkController extends BaseController {
 	 */
 	@RequestMapping(value = "findParkInformation.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult findParkInformation(Long id) {
-		if (null == id) {
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
+	public ModelAndView findParkInformation(Long id,ModelAndView model) {
 		try {
 			UserPark park = userParkService.findParkInformation(id);
-			return success(park);
+			model.addObject("park", park);
+			model.setViewName("yuanquguanli/gardenManagement2");
 		} catch (Exception e) {
 			LOGGER.error("findParkInformation失败！", e);
-			return error(MsgConstant.SYSTEM_ERROR);
 		}
+		return model;
 
 	}
 
@@ -116,7 +115,7 @@ public class UserParkController extends BaseController {
 		}
 		try {
 			List<AccountDataDTO> list = userParkService.findParkAccount(searchModel);
-			return success(changeObject(searchModel, list));
+			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("findParkAccount失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
