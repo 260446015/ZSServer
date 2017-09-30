@@ -83,12 +83,15 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			throw new IncorrectCredentialsException();
 		} 
 		if(type.equals("user")){
-			if (user.getIsCheck() == 0&&user.getUserLevel()!=9) {
+			if (user.getIsCheck() == 0) {
 				LOGGER.debug("user {} is not check.", myToken.getUsername());
 				throw new AccountStartException();
-			} else if (today.compareTo(user.getExpireTime()) > 0) {
+			} else if (today.compareTo(user.getExpireTime()) > 0&&user.getUserLevel()!=9) {
 				LOGGER.debug("user {} be overdue.", myToken.getUsername());
 				throw new AccountExpiredException();
+			}else if (today.compareTo(user.getExpireTime()) > 0&&user.getUserLevel()==9) {
+				LOGGER.debug("user {} is not check.", myToken.getUsername());
+				throw new AccountStartException();
 			}
 		}
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
