@@ -39,15 +39,15 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 			dto.setId(Long.valueOf(str[0].toString()));
 			dto.setArea(str[2].toString());
 			dto.setParkName(str[1].toString());
-			Integer accountCount = userParkRepository.findAccountCount(str[0].toString(), searchModel.getType(),
+			Integer accountCount = userParkRepository.findAccountCount(str[1].toString(), searchModel.getType(),
 					times[0], times[1]);
-			Integer checkAccountCount = userParkRepository.findCheckAccountCount(str[0].toString(),
+			Integer checkAccountCount = userParkRepository.findCheckAccountCount(str[1].toString(),
 					searchModel.getType(), times[0], times[1]);
-			Integer expireAccountCount = userParkRepository.findExpireAccountCount(str[0].toString(),
+			Integer expireAccountCount = userParkRepository.findExpireAccountCount(str[1].toString(),
 					searchModel.getType(), times[0], times[1]);
-			Integer normalAccountCount = userParkRepository.findNormalAccountCount(str[0].toString(),
+			Integer normalAccountCount = userParkRepository.findNormalAccountCount(str[1].toString(),
 					searchModel.getType(), times[0], times[1]);
-			Integer dueAccountCount = userParkRepository.findDueAccountCount(str[0].toString(), searchModel.getType(),
+			Integer dueAccountCount = userParkRepository.findDueAccountCount(str[1].toString(), searchModel.getType(),
 					times[0], times[1]);
 			dto.setAccountCount(accountCount);
 			dto.setCheckAccountCount(checkAccountCount);

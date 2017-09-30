@@ -46,7 +46,7 @@ public class GardenDTO extends SearchModel {
 	public String getSearch() {
 		if (StringUtil.isEmpty(search)) {
 			search = "%%";
-		} else {
+		} else if(!search.equals("%%")){
 			search = "%" + search + "%";
 		}
 		return search;
