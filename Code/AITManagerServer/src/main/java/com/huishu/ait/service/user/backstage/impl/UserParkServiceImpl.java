@@ -93,9 +93,4 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 		return listData;
 	}
 
-	@Override
-	public List<GardenDataDTO> getGardenList(String search) {
-		return userParkRepository.findByNameLike("%"+search+"%");
-	}
-
 }
