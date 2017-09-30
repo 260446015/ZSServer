@@ -30,10 +30,7 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 		searchModel.setType(msg[1]);
 		searchModel.setDay(msg[2]);
 		String[] times = analysisDate(searchModel.getDay());
-		Integer count = userParkRepository.findGardenListCount(searchModel.getArea(), searchModel.getSearch());
-		searchModel.setTotalSize(count);
-		List<Object[]> list = userParkRepository.findGardenList(searchModel.getArea(), searchModel.getPageFrom(),
-				searchModel.getPageSize(), searchModel.getSearch());
+		List<Object[]> list = userParkRepository.findGardenList(searchModel.getArea(), searchModel.getSearch());
 		for (Object[] str : list) {
 			GardenDataDTO dto = new GardenDataDTO();
 			dto.setId(Long.valueOf(str[0].toString()));
@@ -78,10 +75,7 @@ public class UserParkServiceImpl extends AbstractService implements UserParkServ
 	public List<AccountDataDTO> findParkAccount(SearchModel searchModel) {
 		List<AccountDataDTO> listData = new ArrayList<AccountDataDTO>();
 		UserPark park = userParkRepository.findOne(searchModel.getUserId());
-		Integer count = userParkRepository.findParkAccountCount(park.getName());
-		searchModel.setTotalSize(count);
-		List<Object[]> list = userParkRepository.findParkAccount(park.getName(), searchModel.getPageFrom(),
-				searchModel.getPageSize());
+		List<Object[]> list = userParkRepository.findParkAccount(park.getName());
 		for (Object[] objects : list) {
 			AccountDataDTO dto = new AccountDataDTO();
 			dto.setId(Long.valueOf(objects[0].toString()));

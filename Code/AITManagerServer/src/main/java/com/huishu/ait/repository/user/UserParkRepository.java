@@ -35,8 +35,8 @@ public interface UserParkRepository extends CrudRepository<UserPark, Long> {
 	 * @param search
 	 * @return
 	 */
-	@Query(value = "SELECT id,name,area from t_user_park where area like ?1 and concat(id,name) like ?4 limit ?2,?3", nativeQuery = true)
-	ArrayList<Object[]> findGardenList(String area, Integer pageFrom, Integer pageSize, String search);
+	@Query(value = "SELECT id,name,area from t_user_park where area like ?1 and concat(id,name) like ?2", nativeQuery = true)
+	ArrayList<Object[]> findGardenList(String area, String search);
 
 	/**
 	 * 查看园区总账号数
@@ -106,8 +106,8 @@ public interface UserParkRepository extends CrudRepository<UserPark, Long> {
 	 * @param pageSize
 	 * @return
 	 */
-	@Query(value = "SELECT id,user_account,real_name,start_time from t_user_base where user_park =?1 and user_type='user' and is_check=1 limit ?2,?3", nativeQuery = true)
-	List<Object[]> findParkAccount(String park, Integer pageFrom, Integer pageSize);
+	@Query(value = "SELECT id,user_account,real_name,start_time from t_user_base where user_park =? and user_type='user' and is_check=1", nativeQuery = true)
+	List<Object[]> findParkAccount(String park);
 
 	/**
 	 * 查看园区账号数量

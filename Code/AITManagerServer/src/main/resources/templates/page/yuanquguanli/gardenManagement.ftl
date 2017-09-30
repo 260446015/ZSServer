@@ -136,7 +136,7 @@
 		      ,{field: 'parkName', title: '园区名称', width: 170}
 		      ,{field: 'area', title: '所属地区', width: 150}
 		      ,{field: 'accountCount', title: '账号总数', width: 120}
-		      ,{field: 'checkAccountCount', title: '开通账号', width: 120}
+		      ,{field: 'checkAccountCount', title: '未审核', width: 120}
 		      ,{field: 'expireAccountCount', title: '已到期', width: 170}
 			  ,{field: 'normalAccountCount', title: '未到期', width: 110}
 			  ,{field: 'dueAccountCount', title: '即将到期', width: 195}
