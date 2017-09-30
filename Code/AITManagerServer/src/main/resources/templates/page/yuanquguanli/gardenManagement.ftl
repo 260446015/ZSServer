@@ -25,31 +25,31 @@
 				</ul>
 				<ul class="layui-tab-title" lay-filter="" id="area">
 					<li>地区:</li>
-					<li class="layui-this" onclick="myClick('全部',type,day)">全部</li>
-					<li onclick="myClick('安徽',type,day)">安徽</li>
-					<li onclick="myClick('北京',type,day)">北京</li>
-					<li onclick="myClick('河北',type,day)">河北</li>
-					<li onclick="myClick('山西',type,day)">山西</li>
-					<li onclick="myClick('内蒙古',type,day)">内蒙古</li>
-					<li onclick="myClick('辽宁',type,day)">辽宁</li>
-					<li onclick="myClick('吉林',type,day)">吉林</li>
-					<li onclick="myClick('黑龙江',type,day)">黑龙江</li>
-					<li onclick="myClick('上海',type,day)">上海</li>
-					<li onclick="myClick('江苏',type,day)">江苏</li>
-					<li onclick="myClick('浙江',type,day)">浙江</li>
+					<li class="layui-this" onclick="myClick('全部',1)">全部</li>
+					<li onclick="myClick('安徽',1)">安徽</li>
+					<li onclick="myClick('北京',1)">北京</li>
+					<li onclick="myClick('河北',1)">河北</li>
+					<li onclick="myClick('山西',1)">山西</li>
+					<li onclick="myClick('内蒙古',1)">内蒙古</li>
+					<li onclick="myClick('辽宁',1)">辽宁</li>
+					<li onclick="myClick('吉林',1)">吉林</li>
+					<li onclick="myClick('黑龙江',1)">黑龙江</li>
+					<li onclick="myClick('上海',1)">上海</li>
+					<li onclick="myClick('江苏',1)">江苏</li>
+					<li onclick="myClick('浙江',1)">浙江</li>
 				</ul>
 				<ul class="layui-tab-title" lay-filter="" id="level">
 					<li>会员级别:</li>
-					<li class="layui-this" onclick="myClick(area,'全部',day)">全部</li>
-					<li onclick="myClick(area,'0',day)">试用会员</li>
-					<li onclick="myClick(area,'1',day)">正式会员</li>
+					<li class="layui-this" onclick="myClick('全部',2)">全部</li>
+					<li onclick="myClick('0',2)">试用会员</li>
+					<li onclick="myClick('1',2)">正式会员</li>
 				</ul>
 				<ul class="layui-tab-title" lay-filter="">
 					<li>新增会员:</li>
-					<li class="layui-this" onclick="myClick(area,type,'全部')">全部</li>
-					<li onclick="myClick(area,type,'今日')">今日新增</li>
-					<li onclick="myClick(area,type,'昨日')">昨日新增</li>
-					<li onclick="myClick(area,type,'近一周')">近7天新增</li>
+					<li class="layui-this" onclick="myClick('全部',3)">全部</li>
+					<li onclick="myClick('今日',3)">今日新增</li>
+					<li onclick="myClick('昨日',3)">昨日新增</li>
+					<li onclick="myClick('近一周',3)">近7天新增</li>
 				</ul>
 			</div>
 			<div class="layui-row">
@@ -82,16 +82,20 @@
             myRequest(obj);
 	}
 	$(function(){
-		myClick(area,type,day);
+		myClick(0,0);
 	});
-	function myClick(a,t,d){
-		area = a;
-		type = t;
-		day = d;
+	function myClick(a,b){
+		if(b==1){
+			area=a;
+		}else if(b==2){
+			type=a;
+		}else if(b==3){
+			day=a;
+		}
 		var datalist= new Array();
-			datalist.push(a);         
-			datalist.push(t);         
-			datalist.push(d); 
+			datalist.push(area);         
+			datalist.push(type);         
+			datalist.push(day); 
 		var obj={msg:datalist};
         myRequest(obj);
 	}
