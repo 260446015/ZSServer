@@ -419,12 +419,10 @@ public abstract class AbstractService {
 	 *            需要排序的字段集合。 PS：请注意先后顺序
 	 * @param dataField
 	 *            返回的数据存在的字段集合。 PS：ID属性默认有
-	 * @param isPage
-	 *            是否分页
 	 * @return
 	 */
 	protected JSONArray getEsData(SearchModel searchModel, Map<String, String> termField,
-			Map<String, String> notTermField, List<String> orderField, List<String> dataField, boolean isPage) {
+			Map<String, String> notTermField, List<String> orderField, List<String> dataField) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		// 查询条件
 		if (null != termField && termField.size() != 0) {
@@ -444,12 +442,9 @@ public abstract class AbstractService {
 		if (null != orderField && orderField.size() != 0) {
 			orderField.forEach((string) -> srb.addSort(SortBuilders.fieldSort(string).order(SortOrder.DESC)));
 		}
-		Integer pageSize = searchModel.getPageSize();
-		Integer pageNumber = searchModel.getPageNumber();
-		SearchResponse searchResponse = srb.setQuery(bq).setSize(pageSize * pageNumber).execute().actionGet();
+		SearchResponse searchResponse = srb.setQuery(bq).setFrom(searchModel.getPageFrom()).setSize(searchModel.getPageSize()).execute().actionGet();
 
 		JSONArray rows = new JSONArray();
-		JSONArray data = new JSONArray();
 		Long total = null;
 		if (null != searchResponse && null != searchResponse.getHits()) {
 			SearchHits hits = searchResponse.getHits();
@@ -467,13 +462,7 @@ public abstract class AbstractService {
 				rows.add(obj);
 			});
 		}
-		if (isPage) {
-			searchModel.setTotalSize(Integer.valueOf(total.toString()));
-			for (int i = searchModel.getPageFrom(); i < rows.size(); i++) {
-				data.add(rows.get(i));
-			}
-			return data;
-		}
+		searchModel.setTotalSize(Integer.valueOf(total.toString()));
 		return rows;
 
 	}

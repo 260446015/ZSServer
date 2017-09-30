@@ -33,7 +33,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	public List<GardenData> findGardensList(GardenDTO dto) {
 		List<GardenData> findGardensPage=null;
 		try {
-			findGardensPage = gardenRepository.findByAreaLikeAndIndustryLikeOrderByIdDesc(dto.getArea(), dto.getType());
+			findGardensPage = gardenRepository.findByAreaLikeAndGardenNameLikeAndIndustryLikeOrderByIdDesc(dto.getArea(), dto.getSearch() ,dto.getType());
 			findGardensPage.forEach(GardenData -> {
 				String gardenIntroduce = GardenData.getGardenIntroduce();
 				String gardenSuperiority = GardenData.getGardenSuperiority();
@@ -61,7 +61,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	}
 
 	@Override
-	public JSONArray getBusinessBehaviours(BusinessSuperviseDTO searchModel) {
+	public JSONArray findDynamicList(BusinessSuperviseDTO searchModel) {
 		// 组装查询条件
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("park", searchModel.getPark());
@@ -70,9 +70,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		String[] order = { "publishTime", "hitCount" };
 		List<String> orderList = Arrays.asList(order);
 		// 组装返回数据字段
-		String[] data = { "title","summary", "content","publishDate","source"};
+		String[] data = {"author","title","summary", "content","publishDate","source"};
 		List<String> dataList = Arrays.asList(data);
-		JSONArray array = getEsData(searchModel, map, null, orderList, dataList, true);
+		JSONArray array = getEsData(searchModel, map, null, orderList, dataList);
 		return array;
 	}
 }

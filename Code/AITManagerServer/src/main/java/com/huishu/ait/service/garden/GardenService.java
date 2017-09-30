@@ -22,9 +22,9 @@ public interface GardenService {
 	 */
 	List<GardenData> findGardensList(GardenDTO dto);
 	/**
-	 * 获取园区动态列表
+	 * 获取园区内企业动态/疑似外流
 	 * @param searchModel
 	 * @return
 	 */
-	JSONArray getBusinessBehaviours(BusinessSuperviseDTO searchModel);
+	JSONArray findDynamicList(BusinessSuperviseDTO searchModel);
 }

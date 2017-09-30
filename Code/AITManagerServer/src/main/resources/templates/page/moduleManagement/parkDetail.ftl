@@ -23,8 +23,8 @@
         <!-- 选项卡 -->
         <div class="layui-tab layui-tab-brief">
             <ul class="layui-tab-title">
-                <li class="layui-this" onclick="myClick(0)">企业动态</li>
-                <li onclick="myClick(1)">疑似外流</li>
+                <li class="layui-this" onclick="myClick('企业动态')">企业动态</li>
+                <li onclick="myClick('疑似外流')">疑似外流</li>
             </ul>
         </div>
     <ul id="biuuu_city_list"></ul> 
@@ -45,10 +45,12 @@
     <a class="layui-btn layui-btn-warm layui-btn-mini" lay-event="top">置顶</a>
 </script>
 <script>
+	var dimension;
 	$(function(){
         myClick("企业动态");
     })
     function myClick(type){
+    	dimension=type;
     	var obj={dimension:type,park:'${Request.park}'};
 		$.ajax({
                 type: 'post',
@@ -57,7 +59,14 @@
                 contentType: 'application/json',
                 data: JSON.stringify(obj),
                 success: function (response) {
-                	alert(1);
+	                if(response.data.totalSize=='0'){
+	                	document.getElementById('biuuu_city_list').innerHTML =
+	                	"<div style='margin-top:10%;margin-left:40%;'><i class='layui-icon' style='font-size: 50px; color: #1E9FFF;'>&#xe69c;</i>"+
+	                	"</br>暂无数据</div>";
+	                	document.getElementById('demo').innerHTML="";
+	                }else{
+	                	showTable(response.data);
+                	}
                 }
             });
 	}
@@ -68,24 +77,51 @@
 			//调用分页
 			laypage.render({
 				elem: 'demo'
-			    ,count: data.length
+			    ,count: data.totalSize
 			    ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-			    ,jump: function(obj){
-					//模拟渲染
-					document.getElementById('biuuu_city_list').innerHTML = function(){
-				        var arr = []
-				        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-				        
-				        // thisdata是数据集合
-				        layui.each(thisData, function(index, item){
-				        	//item是循环对象
-				          arr.push('<li>'+ item +'</li>');
-				        });
-				        return arr.join('');
-					}();
+			    ,jump: function(obj, first){
+			    	if(first){
+			    		show(data.list);
+			    	}
+				    //首次不执行
+				    if(!first){
+				    	var obj={dimension:dimension,
+				    			park:'${Request.park}',
+				    			pageNumber:obj.curr,
+				    			pageSize:obj.limit};
+				     	$.ajax({
+			                type: 'post',
+			                url: "/apis/area/findDynamicList.json",
+			                async: false,
+			                contentType: 'application/json',
+			                data: JSON.stringify(obj),
+			                success: function (response) {
+			                	document.getElementById('biuuu_city_list').innerHTML ="";
+				                show(response.data.list);
+			                }
+			            });
+				    }
 				}
 			});
 		});
+		function show(d){
+			//模拟渲染
+			document.getElementById('biuuu_city_list').innerHTML = function(){
+				var before='<table class="layui-table" lay-even="" lay-skin="nob">'+
+					 	'<colgroup><col width="90"><col width="200"><col width="450"><col width="200"><col width="220"><col></colgroup>'+
+					 	'<thead><tr><th>作者</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
+		        var arr = []
+		        // thisdata是数据集合
+		        layui.each(d, function(index, item){
+		        	//item是循环对象
+		          arr.push('<tr><td>'+item.author+'</td><td>'+item.title+'</td><td>'+'item.summary有标签，读取有BUG'+
+		          			'</td><td>'+item.publishDate+'</td><td>'+item.source+'</td><td>操作</td></tr>');
+		        });
+		        var inner=arr.join('');
+		        var after='</tbody></table> ';
+		        return before+inner+after;
+			}();
+		}
   	}
 </script>
 </html>

@@ -7,14 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 import com.huishu.ait.entity.GardenData;
 
 /**
- * @author ydw
- * @date 2017年7月29日
- * @Parem
- * @return
  * 
+ * 
+ * @author yindq
+ * @create 2017年9月30日
  */
 public interface GardenRepository extends CrudRepository<GardenData, Integer> {
 
-	List<GardenData> findByAreaLikeAndIndustryLikeOrderByIdDesc(String area, String industry);
+	List<GardenData> findByAreaLikeAndGardenNameLikeAndIndustryLikeOrderByIdDesc(String area,String gardenName,String industry);
 
 }

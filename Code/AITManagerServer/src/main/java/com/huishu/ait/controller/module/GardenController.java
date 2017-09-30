@@ -68,7 +68,7 @@ public class GardenController extends BaseController {
 	}
 	
 	/**
-	 * 获取园区内企业动态
+	 * 获取园区内企业动态/疑似外流
 	 * @param searchModel
 	 * @return
 	 */
@@ -79,11 +79,11 @@ public class GardenController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			JSONArray array = gardenService.getBusinessBehaviours(searchModel);
+			JSONArray array = gardenService.findDynamicList(searchModel);
 			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
-			LOGGER.error("获取企业动态失败：", e);
-			return error("获取园区内企业动态列表失败");
+			LOGGER.error("获取ES列表失败：", e);
+			return error("获取ES列表失败");
 		}
 	}
 
