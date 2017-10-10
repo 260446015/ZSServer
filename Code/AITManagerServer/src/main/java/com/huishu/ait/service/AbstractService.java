@@ -31,6 +31,8 @@ import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -43,6 +45,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
+import com.forget.category.CategoryModel;
 import com.forget.findAddress.FindAddress;
 import com.huishu.ait.TreeNode.TreeNode;
 import com.huishu.ait.common.util.DateUtils;
@@ -70,7 +73,8 @@ import com.merchantKey.itemModel.KeywordModel;
  * 
  */
 public abstract class AbstractService {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractService.class);
+	
 	@Autowired
 	private Client client;
 
@@ -378,7 +382,7 @@ public abstract class AbstractService {
 	 */
 	@SuppressWarnings("unchecked")
 	protected List<String> getBusiness(String title, String content) {
-
+		List<String> set = new ArrayList<String>();
 		// JSONObject findCompany = Analysis.findCompany(title, content);
 		JSONObject findCompany = null;
 		try {
@@ -388,7 +392,16 @@ public abstract class AbstractService {
 			e.printStackTrace();
 		}
 		if (findCompany != null && findCompany.getBooleanValue("status")) {
-			List<String> set = (List<String>) findCompany.get("result");
+			
+			Map<String,CategoryModel> finder = (Map<String, CategoryModel>) findCompany.get("result");
+			
+			for(Map.Entry<String, CategoryModel>  entry: finder.entrySet()){
+				LOGGER.info("获取的公司名称为：" + entry.getKey());
+				set.add(entry.getKey());
+				LOGGER.info("对应情感为 ：" + entry.getValue().getCategory());
+				
+			}
+//			List<String> set = (List<String>) findCompany.get("result");
 			return set;
 		}
 		return null;

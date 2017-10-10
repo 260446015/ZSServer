@@ -114,8 +114,8 @@
 		        // thisdata是数据集合
 		        layui.each(d, function(index, item){
 		        	//item是循环对象
-		          arr.push('<tr><td>'+item.author+'</td><td>'+item.title+'</td><td>'+'item.summary有标签，读取有BUG'+
-		          			'</td><td>'+item.publishDate+'</td><td>'+item.source+'</td><td>操作</td></tr>');
+		          arr.push('<tr><td>'+item.author+'</td><td>'+item.title+'</td><td>'+item.summary+
+		          			'</td><td>'+item.publishTime+'</td><td>'+item.source+'</td><td id="appendix">操作</td></tr>');
 		        });
 		        var inner=arr.join('');
 		        var after='</tbody></table> ';

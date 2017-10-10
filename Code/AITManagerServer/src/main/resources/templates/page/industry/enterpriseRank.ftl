@@ -23,13 +23,13 @@
 				            
 				            <ul class="" lay-filter="">
 					            <li class="layui-nav-item"><a href="">产业分类：</a></li>
-					            <li class="layui-nav-item layui-this"><a href="">互联网</a></li>
-					            <li class="layui-nav-item"><a href="">生态科技</a></li>
-					            <li class="layui-nav-item"><a href="">环保产业</a></li>
-					            <li class="layui-nav-item"><a href="">物流产业</a></li>
-					            <li class="layui-nav-item"><a href="">制造产业</a></li>
-					            <li class="layui-nav-item"><a href="">医药化学</a></li>
-					            <li class="layui-nav-item"><a href="">新能源</a></li>
+					            <li class="layui-nav-item layui-this"><a href="">不限</a></li>
+					            <li class="layui-nav-item "><a href="">互联网+</a></li>
+					            <li class="layui-nav-item"><a href="">高科技</a></li>
+					            <li class="layui-nav-item"><a href="">文化创意</a></li>
+					            <li class="layui-nav-item"><a href="">精英配套</a></li>
+					            <li class="layui-nav-item"><a href="">滨海旅游</a></li>
+					            <li class="layui-nav-item"><a href="">港口物流</a></li>
 				            </ul>
 				            <ul class="" lay-filter="">
 					            <li class="layui-nav-item"><a href="">产业子类：</a></li>
