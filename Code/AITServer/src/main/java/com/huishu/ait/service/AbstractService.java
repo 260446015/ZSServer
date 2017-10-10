@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -46,6 +47,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
+import com.forget.category.CategoryModel;
 import com.forget.findAddress.FindAddress;
 import com.huishu.ait.TreeNode.TreeNode;
 import com.huishu.ait.common.util.DateUtils;
@@ -74,7 +76,7 @@ import com.merchantKey.itemModel.KeywordModel;
  * 
  */
 public abstract class AbstractService {
-
+	private static Logger LOGGER = Logger.getLogger(AbstractService.class);
 	@Autowired
 	private Client client;
 
@@ -378,9 +380,16 @@ public abstract class AbstractService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (findCompany != null && findCompany.getBooleanValue("status")) {
-			List<String> set = (List<String>) findCompany.get("result");
-			return set;
+		List<String> set = new ArrayList<String>();
+		if(findCompany.getBoolean("status")){
+			Map<String,CategoryModel> finder = (Map<String, CategoryModel>) findCompany.get("result");
+			
+			for(Map.Entry<String, CategoryModel>  entry: finder.entrySet()){
+				LOGGER.info("获取的公司名称为：" + entry.getKey());
+				set.add(entry.getKey());
+				LOGGER.info("对应情感为 ：" + entry.getValue().getCategory());
+				
+			}
 		}
 		return null;
 	}

@@ -7,6 +7,9 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,11 +144,17 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
 		}
 		if (dto.getArea().equals("全部") || dto.getArea().equals("不限")) {
 			dto.setArea(null);
+		}else{
+				if(!dto.getArea().equals("全国")){
+					String area = dto.getArea()+"市";
+					dto.setArea(area);
+				}
 		}
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			// 按文章类型按照维度获取数据 1,政策解读
 			dto.setDimension("政策解读");
+//			QueryBuilder query =  getBuilderQuery(dto);
 			Page<AITInfo> page1 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
 			Page<AITInfo> pageBusiness1 = setPageBusiness(page1);
 			map.put("policy", pageBusiness1); // 政策解读
@@ -158,4 +167,15 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
 		}
 	}
 
+	/**
+	 * @param dto
+	 * @return
+	 */
+	/*private QueryBuilder getBuilderQuery(IndustrialPolicyDTO dto) {
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		String area = dto.getArea();
+		String industry = dto.getIndustry();
+		return null;
+	}*/
+	
 }
