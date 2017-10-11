@@ -12,15 +12,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.es.entity.dto.ArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesDTO;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.headline.HeadlinesService;
 import com.merchantKey.itemModel.KeywordModel;

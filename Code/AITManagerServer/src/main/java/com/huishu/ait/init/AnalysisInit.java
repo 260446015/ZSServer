@@ -1,6 +1,5 @@
 package com.huishu.ait.init;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -9,7 +8,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
 import com.forget.category.CategoryModel;

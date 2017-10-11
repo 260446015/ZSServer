@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 
 /**
