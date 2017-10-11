@@ -390,6 +390,7 @@ public abstract class AbstractService {
 				LOGGER.info("对应情感为 ：" + entry.getValue().getCategory());
 				
 			}
+			return set;
 		}
 		return null;
 	}
