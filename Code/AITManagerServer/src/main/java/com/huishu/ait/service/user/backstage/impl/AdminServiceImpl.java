@@ -1,5 +1,6 @@
 package com.huishu.ait.service.user.backstage.impl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -92,6 +93,30 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 		base.setIsWarn(status);
 		userBaseRepository.save(base);
 		return result.setSuccess(true).setMessage("预警成功");
+	}
+
+	@Override
+	public List<UserBase> getDelayAccountList(AccountSearchDTO searchModel) {
+		return userBaseRepository.findDelayUserList(Integer.valueOf(searchModel.getType()), searchModel.getSearch());
+	}
+
+	@Override
+	public AjaxResult delayAccount(Long id, Integer month) {
+		AjaxResult result = new AjaxResult();
+		try {
+			UserBase base = userBaseRepository.findOne(id);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar c = Calendar.getInstance();
+			c.setTime(sdf.parse(base.getExpireTime()));
+			c.add(Calendar.MONTH, +month);
+			String nextDate = sdf.format(c.getTime());
+			base.setExpireTime(nextDate);
+			userBaseRepository.save(base);
+			return result.setSuccess(true).setMessage("操作成功");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return result.setSuccess(false).setMessage("操作失败，请稍后再试");
+		}
 	}
 
 }

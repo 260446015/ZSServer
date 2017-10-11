@@ -25,9 +25,18 @@ public interface AdminService {
 	 * 账号预警
 	 * 
 	 * @param id
+	 * @param status
 	 * @return
 	 */
 	AjaxResult warnAccount(Long id, Integer status);
+	
+	/**
+	 * 账号延期
+	 * @param id
+	 * @param month
+	 * @return
+	 */
+	AjaxResult delayAccount(Long id, Integer month);
 
 	/**
 	 * 查看全局管理数据
@@ -53,4 +62,11 @@ public interface AdminService {
 	 * @return
 	 */
 	List<UserBase> getWarningAccountList(AccountSearchDTO searchModel);
+	
+	/**
+	 * 获取已经到期账号列表
+	 * @param searchModel
+	 * @return
+	 */
+	List<UserBase> getDelayAccountList(AccountSearchDTO searchModel);
 }

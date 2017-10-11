@@ -100,8 +100,6 @@ public class AdminController extends BaseController {
 				base.setPassword(null);
 				base.setSalt(null);
 			}
-			//return success(changeObject(searchModel, list));
-			//前台分页
 			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("getAccountList查询失败！", e);
@@ -181,7 +179,7 @@ public class AdminController extends BaseController {
 			}
 			return success(list);
 		} catch (Exception e) {
-			LOGGER.error("getAccountList查询失败！", e);
+			LOGGER.error("getWarningAccountList查询失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
@@ -201,10 +199,55 @@ public class AdminController extends BaseController {
 		try {
 			return adminService.warnAccount(id, 1);
 		} catch (Exception e) {
-			LOGGER.error("auditAccount失败！", e);
+			LOGGER.error("warnAccount失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 
 	}
+	
+	/**
+	 * 查看已到期会员账号分页列表
+	 * 
+	 * @param searchModel
+	 * @return
+	 */
+	@RequestMapping(value = "getDelayAccountList.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult getDelayAccountList(@RequestBody AccountSearchDTO searchModel) {
+		if (null == searchModel || null == searchModel.getType() || null == searchModel.getDay()) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			List<UserBase> list = adminService.getDelayAccountList(searchModel);
+			for (UserBase base : list) {
+				base.setPassword(null);
+				base.setSalt(null);
+			}
+			return success(list);
+		} catch (Exception e) {
+			LOGGER.error("getDelayAccountList查询失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
 
+	/**
+	 * 账号延期
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "delayAccount.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult delayAccount(Long id,Integer month) {
+		if (null == id || month == null) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return adminService.delayAccount(id, month);
+		} catch (Exception e) {
+			LOGGER.error("delayAccount失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
 }
