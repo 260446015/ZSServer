@@ -60,7 +60,7 @@ public interface UserBaseRepository extends CrudRepository<UserBase, Long> {
 	 * @param userType
 	 * @return
 	 */
-	@Query("select count(1) from UserBase where userType=? and expireTime > sysdate()")
+	@Query("select count(1) from UserBase where userType=? and expireTime > now()")
 	Integer findMemberNum(String userType);
 
 	/**
@@ -112,6 +112,16 @@ public interface UserBaseRepository extends CrudRepository<UserBase, Long> {
 	 */
 	@Query(value = "SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?4 and create_time between ?2 and ?3 and expire_time between now() and adddate(now(),7)", nativeQuery = true)
 	ArrayList<UserBase> findWarningUserList(Integer userLevel,String time1,String time2, String search);
+	
+	/**
+	 * 查看已到期会员列表
+	 * 
+	 * @param userLevel
+	 * @param search
+	 * @return
+	 */
+	@Query(value = "SELECT * from t_user_base where user_type='user' and user_level=?1 and concat(real_name, user_park) like ?2 and expire_time < now()", nativeQuery = true)
+	ArrayList<UserBase> findDelayUserList(Integer userLevel, String search);
 
 	/**
 	 * 查看园区数量
