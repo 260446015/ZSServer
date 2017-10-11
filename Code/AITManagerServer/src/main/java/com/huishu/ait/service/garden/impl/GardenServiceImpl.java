@@ -7,11 +7,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.GardenData;
@@ -73,6 +75,22 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		String[] data = {"author","title","summary", "content","publishTime","source"};
 		List<String> dataList = Arrays.asList(data);
 		JSONArray array = getEsData(searchModel, map, null, orderList, dataList);
+		for (Object object : array) {
+			JSONObject obj = (JSONObject)object;
+			String summary;
+			if (null==obj.get("summary")) {
+				summary = String.valueOf(obj.get("content")).substring(0, 300);
+				summary = StringUtil.replaceHtml(summary);
+			} else {
+				summary = StringUtil.replaceHtml(String.valueOf(obj.get("summary")));
+				if(StringUtil.isEmpty(summary)){
+					int i = String.valueOf(obj.get("content")).length();
+					summary = String.valueOf(obj.get("content")).substring(0, 300<i?300:i);
+					summary = StringUtil.replaceHtml(summary);
+				}
+			}
+			obj.put("summary", summary);
+		}
 		return array;
 	}
-}
+} 

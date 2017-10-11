@@ -348,7 +348,8 @@ public abstract class AbstractService {
 		String summary = (String) source.get("summary");
 		if (StringUtils.isEmpty(summary)) {
 			/** 如果文章摘要不存在，则将内容的前一百数据取出作为摘要 */
-			summary = dto.getContent().substring(0, 300);
+			int i = dto.getContent().length();
+			summary = dto.getContent().substring(0, 300<i?300:i);
 			summary = StringUtil.replaceHtml(summary);
 			dto.setSummary(summary);
 		} else {
