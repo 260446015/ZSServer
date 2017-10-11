@@ -22,7 +22,7 @@
             </div>
             <div class="layui-tab layui-tab-brief">
                 <ul class="layui-tab-title">
-                    <li ><i class="layui-icon">&#xe756;</i>产业类型</li>
+                    <li ><i class="layui-icon">&#xe68e;</i>产业类型</li>
                     <li class="layui-this" onclick="myClick(1,'不限')">不限</li>
                     <li onclick="myClick(1,'互联网+')">互联网+</li>
                     <li onclick="myClick(1,'高科技')">高科技</li>
@@ -34,7 +34,7 @@
             </div>
             <div class="layui-tab layui-tab-brief">
                 <ul class="layui-tab-title" type="hidden">
-                    <li ><i class="layui-icon">&#xe756;</i>区域</li>
+                    <li ><i class="layui-icon">&#xe715;</i>区域</li>
                     <li class="layui-this" onclick="myClick(2,'不限')">不限</li>
 	                <li onclick="myClick(2,'北京')">北京</li>
 	                <li onclick="myClick(2,'上海')">上海</li>

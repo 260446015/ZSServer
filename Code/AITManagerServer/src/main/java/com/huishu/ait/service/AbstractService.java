@@ -128,26 +128,6 @@ public abstract class AbstractService {
 		Page<ArticleListDTO> infos = template.queryForPage(authorQuery, ArticleListDTO.class);
 		return infos;
 		}
-
-	/**
-	 * @param list
-	 * @param source
-	 */
-	private void getArticleDTOInfo(List<ArticleListDTO> list, Map<String, Object> source) {
-		ArticleListDTO dto = new ArticleListDTO();
-		dto.setId(source.get("_id").toString());
-		dto.setContent(source.get("content").toString());
-		dto.setPublishTime(source.get("publishTime").toString());
-		dto.setTitle(source.get("title").toString());
-		String sour = source.get("source").toString();
-		if(StringUtil.isEmpty(sour)){
-			dto.setSource(source.get("vector").toString());
-		}else{
-			dto.setSource(sour);
-		}
-		list.add(dto);
-		
-	}
 	/**
 	 * 查询es库，获取更多条件查询
 	 * 
@@ -389,7 +369,6 @@ public abstract class AbstractService {
 		try {
 			findCompany = Analysis.getCompany(title, content);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (findCompany != null && findCompany.getBooleanValue("status")) {

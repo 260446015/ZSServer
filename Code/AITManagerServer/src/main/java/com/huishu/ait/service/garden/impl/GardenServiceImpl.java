@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,8 +16,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.GardenData;
+import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
+import com.huishu.ait.es.repository.garden.GardenInformationRepository;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.garden.GardenService;
@@ -28,6 +29,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 
 	@Resource
 	private GardenRepository gardenRepository;
+	@Resource
+	private GardenInformationRepository gardenInformationRepository;
 
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
 
@@ -68,11 +71,14 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("park", searchModel.getPark());
 		map.put("dimension",searchModel.getDimension());
+		if(!searchModel.getEmotion().equals("全部")){
+			map.put("emotion",searchModel.getEmotion());
+		}
 		// 组装排序字段,按时间和点击量降序排列
 		String[] order = { "publishDate", "hitCount" };
 		List<String> orderList = Arrays.asList(order);
 		// 组装返回数据字段
-		String[] data = {"author","title","summary", "content","publishTime","source"};
+		String[] data = {"author","title","summary", "content","publishTime","source","emotion"};
 		List<String> dataList = Arrays.asList(data);
 		JSONArray array = getEsData(searchModel, map, null, orderList, dataList);
 		for (Object object : array) {
@@ -92,5 +98,10 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			obj.put("summary", summary);
 		}
 		return array;
+	}
+
+	@Override
+	public void dropEssay(String id) {
+		gardenInformationRepository.delete(id);
 	}
 } 

@@ -18,27 +18,31 @@ public class BusinessSuperviseDTO extends SearchModel {
 	/** 所属园区 */
 	private String park;
 	private String dimension;
-
-
-	public String getDimension() {
-		return dimension;
-	}
-
-
-	public void setDimension(String dimension) {
-		this.dimension = dimension;
-	}
-
-
+	private String emotion;
+	
 	public String getPark() {
 		return park;
 	}
-
 
 	public void setPark(String park) {
 		this.park = park;
 	}
 
+	public String getDimension() {
+		return dimension;
+	}
+
+	public void setDimension(String dimension) {
+		this.dimension = dimension;
+	}
+
+	public String getEmotion() {
+		return emotion;
+	}
+
+	public void setEmotion(String emotion) {
+		this.emotion = emotion;
+	}
 
 	@Override
 	public String toString() {

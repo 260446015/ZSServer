@@ -75,7 +75,8 @@ public class GardenController extends BaseController {
 	@RequestMapping(value = "/findDynamicList.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult findDynamicList(@RequestBody BusinessSuperviseDTO searchModel) {
-		if (StringUtil.isEmpty(searchModel.getPark())||StringUtil.isEmpty(searchModel.getDimension())) {
+		if (StringUtil.isEmpty(searchModel.getPark())||StringUtil.isEmpty(searchModel.getDimension())
+				||StringUtil.isEmpty(searchModel.getEmotion())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -84,6 +85,26 @@ public class GardenController extends BaseController {
 		} catch (Exception e) {
 			LOGGER.error("获取ES列表失败：", e);
 			return error("获取ES列表失败");
+		}
+	}
+	
+	/**
+	 * 删除文章
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/dropEssay.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult dropEssay(String id) {
+		if (id==null) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			gardenService.dropEssay(id);
+			return success(null).setMessage("删除成功");
+		} catch (Exception e) {
+			LOGGER.error("删除文章失败：", e);
+			return error("删除文章失败");
 		}
 	}
 
