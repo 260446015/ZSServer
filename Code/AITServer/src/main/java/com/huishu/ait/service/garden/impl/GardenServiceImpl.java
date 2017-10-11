@@ -174,6 +174,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			Page<AITInfo> search = gardenEsRepository.search(bq, pageRequest);
 			search.forEach((ait)->{
 				ait.setSummary(StringUtil.replaceHtml(ait.getSummary()));
+				List<String> business = getBusiness(ait.getTitle(),ait.getContent());
+				ait.setBus(business);
 			});
 			data.add(search);
 		} catch (Exception e) {
