@@ -26,7 +26,7 @@ public class GardenData implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	@Column(name = "garden_name") /** 园区名称 */
 	private String gardenName;
 	@Column(name = "garden_new_name") /** 园区新名称 */
@@ -91,7 +91,7 @@ public class GardenData implements Serializable {
 		super();
 	}
 
-	public GardenData(int id, String gardenName, String gardenNewName, String area, String gardenWebsite,
+	public GardenData(Integer id, String gardenName, String gardenNewName, String area, String gardenWebsite,
 			String address, String gardenLevel, String establishDate, String propertyType, String leadingIndustry,
 			String gardenType, String infrastructure, String gardenSquare, String gardenOperator, String landPrice,
 			String investmentIntensity, String taxRequirements, String environment, String gardenIntroduce,
@@ -125,11 +125,11 @@ public class GardenData implements Serializable {
 		this.remarks = remarks;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

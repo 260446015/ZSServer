@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.entity.GardenData;
+import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 
@@ -22,15 +23,33 @@ public interface GardenService {
 	 */
 	List<GardenData> findGardensList(GardenDTO dto);
 	/**
+	 * 查看园区详情
+	 * @param id
+	 * @return
+	 */
+	GardenData findGarden(Integer id);
+	/**
 	 * 获取园区内企业动态/疑似外流
 	 * @param searchModel
 	 * @return
 	 */
 	JSONArray findDynamicList(BusinessSuperviseDTO searchModel);
 	/**
+	 * 获取园区内入驻企业/园区政策/园区情报
+	 * @param searchModel
+	 * @return
+	 */
+	JSONArray findInformationList(BusinessSuperviseDTO searchModel);
+	/**
 	 * 删除文章
 	 * @param id
 	 * @return
 	 */
 	void dropEssay(String id);
+	/**
+	 * 删除企业
+	 * @param id
+	 * @return
+	 */
+	void dropCompany(Long id);
 }

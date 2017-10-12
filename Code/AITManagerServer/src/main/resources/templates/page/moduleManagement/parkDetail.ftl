@@ -17,29 +17,28 @@
         <!-- 内容主体区域 -->
         <div class="layui-col-md12" style="margin:20px;">
             <span style="float:left;margin-left:10px;"><a class="layui-btn layui-btn-primary" href="/apis/area/parkSupervision">返回上一页</a></span>
-        
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-		</fieldset>
-        <!-- 选项卡 -->
-        <div class="layui-tab layui-tab-brief">
-            <ul class="layui-tab-title">
-                <li class="layui-this" onclick="myClick(0,'企业动态')">企业动态</li>
-                <li onclick="myClick(0,'疑似外流')">疑似外流</li>
-            </ul>
-        </div>
-        <div class="layui-tab layui-tab-brief" id="tt">
-            <ul class="layui-tab-title">
-                <li ><i class="layui-icon">&#xe650;</i>情感</li>
-                <li class="layui-this" onclick="myClick(1,'全部')">全部</li>
-                <li onclick="myClick(1,'positive')">正面</li>
-                <li onclick="myClick(1,'negative')" >负面</li>
-                <li onclick="myClick(1,'neutral')" >中性</li>
-            </ul>
-        </div>
-    <ul id="biuuu_city_list"></ul> 
-    <div id="demo"></div>
-    </div>
-    </div>
+	        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+			</fieldset>
+	        <!-- 选项卡 -->
+	        <div class="layui-tab layui-tab-brief">
+	            <ul class="layui-tab-title">
+	                <li class="layui-this" onclick="myClick(0,'企业动态')">企业动态</li>
+	                <li onclick="myClick(0,'疑似外流')">疑似外流</li>
+	            </ul>
+	        </div>
+	        <div class="layui-tab layui-tab-brief" id="tt">
+	            <ul class="layui-tab-title">
+	                <li ><i class="layui-icon">&#xe650;</i>情感</li>
+	                <li class="layui-this" onclick="myClick(1,'全部')">全部</li>
+	                <li onclick="myClick(1,'positive')">正面</li>
+	                <li onclick="myClick(1,'negative')" >负面</li>
+	                <li onclick="myClick(1,'neutral')" >中性</li>
+	            </ul>
+	        </div>
+		    <ul id="biuuu_city_list"></ul> 
+		    <div id="demo"></div>
+		</div>
+	</div>
     <div class="layui-footer">
         <!-- 底部固定区域 -->
         © layui.com - 底部固定区域
@@ -132,20 +131,50 @@
 		}
   	}
   	function myTop(id){
-  		alert('置顶是干嘛')
+  		layer.open({
+            type: 1,
+            offset: 'auto',
+            title:false,
+            id: 'layerDemo' , //防止重复弹出
+            content: '<div style="padding: 20px 100px;">确认置顶该数据？</div>',
+            btn: ["确定","取消"],
+            btnAlign: 'c', //按钮居中
+            shade: 0.8, //不显示遮罩
+            yes: function() {
+            	layer.closeAll();
+                layer.msg("置顶还没写");
+            },
+            btn2: function(){
+                layer.closeAll();
+            }
+        });
   	}
   	function myDrop(id){
-  		layer.confirm('确定删除该文章？', function(index){
-            $.ajax({
-                url: "/apis/area/dropEssay.json",
-                contentType: 'application/json',
-                data: {id: id},
-                success: function (response) {
-                    layer.alert(response.message);
-                    myClick(2,0)
-                }
-            });
-            layer.close(index);
+  	layer.open({
+            type: 1,
+            offset: 'auto',
+            title:false,
+            id: 'layerDemo' , //防止重复弹出
+            content: '<div style="padding: 20px 100px;">确认删除该文章数据吗</div>',
+            btn: ["确定","取消"],
+            btnAlign: 'c', //按钮居中
+            shade: 0.8, //不显示遮罩
+            yes: function() {
+                $.ajax({
+	                url: "/apis/area/dropEssay.json",
+	                async: false,
+	                contentType: 'application/json',
+	                data: {id:id},
+	                success: function (response) {
+	                	layer.closeAll();
+	                	layer.msg(response.message);
+                    	myClick(2,0)
+	                }
+	            });
+            },
+            btn2: function(){
+                layer.closeAll();
+            }
         });
   	}
 </script>

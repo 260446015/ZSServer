@@ -84,7 +84,7 @@ public class GardenController extends BaseController {
 			return success(changeObject(searchModel, array));
 		} catch (Exception e) {
 			LOGGER.error("获取ES列表失败：", e);
-			return error("获取ES列表失败");
+			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
 	
@@ -104,7 +104,7 @@ public class GardenController extends BaseController {
 			return success(null).setMessage("删除成功");
 		} catch (Exception e) {
 			LOGGER.error("删除文章失败：", e);
-			return error("删除文章失败");
+			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
 

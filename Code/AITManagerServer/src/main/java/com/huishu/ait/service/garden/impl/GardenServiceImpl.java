@@ -15,10 +15,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.util.StringUtil;
+import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.GardenData;
+import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 import com.huishu.ait.es.repository.garden.GardenInformationRepository;
+import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.repository.garden.GardenRepository;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.garden.GardenService;
@@ -28,6 +31,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 
 	@Resource
 	private GardenRepository gardenRepository;
+	@Resource
+	private CompanyRepository companyRepository;
 	@Resource
 	private GardenInformationRepository gardenInformationRepository;
 
@@ -102,5 +107,57 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	@Override
 	public void dropEssay(String id) {
 		gardenInformationRepository.delete(id);
+	}
+
+	@Override
+	public GardenData findGarden(Integer id) {
+		return gardenRepository.findOne(id);
+	}
+
+	@Override
+	public JSONArray findInformationList(BusinessSuperviseDTO searchModel) {
+		JSONArray array = new JSONArray();
+		if(searchModel.getDimension().equals("企业库")){
+			Integer count = companyRepository.findByParkCount(searchModel.getPark());
+			searchModel.setTotalSize(count);
+			List<Company> list = companyRepository.findByPark(searchModel.getPark(), searchModel.getPageFrom(), searchModel.getPageSize());
+			if (list==null ||list.isEmpty()) {
+	            return array;
+	        }
+	        for (Object object : list) {
+	        	array.add(object);
+	        }
+		}else{
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("park", searchModel.getPark());
+			map.put("dimension",searchModel.getDimension());
+			String[] order = { "publishDate", "hitCount" };
+			List<String> orderList = Arrays.asList(order);
+			String[] data = {"author","title","summary", "content","publishTime","source","emotion"};
+			List<String> dataList = Arrays.asList(data);
+			array = getEsData(searchModel, map, null, orderList, dataList);
+			for (Object object : array) {
+				JSONObject obj = (JSONObject)object;
+				String summary;
+				if (null==obj.get("summary")) {
+					summary = String.valueOf(obj.get("content")).substring(0, 300);
+					summary = StringUtil.replaceHtml(summary);
+				} else {
+					summary = StringUtil.replaceHtml(String.valueOf(obj.get("summary")));
+					if(StringUtil.isEmpty(summary)){
+						int i = String.valueOf(obj.get("content")).length();
+						summary = String.valueOf(obj.get("content")).substring(0, 300<i?300:i);
+						summary = StringUtil.replaceHtml(summary);
+					}
+				}
+				obj.put("summary", summary);
+			}
+		}
+		return array;
+	}
+
+	@Override
+	public void dropCompany(Long id) {
+		companyRepository.delete(id);
 	}
 } 
