@@ -73,6 +73,7 @@ public class GardenSuperviseImpl implements GardenSuperviseService {
 			if (StringUtils.isNotBlank(park)) {
 				bq.must(QueryBuilders.termQuery("park", park));
 			}
+			bq.must(QueryBuilders.termQuery("dimension", "企业库"));
 			SearchResponse actionGet = srb.setQuery(bq).execute().actionGet();
 			if (null != actionGet && null != actionGet.getHits()) {
 				SearchHits hits = actionGet.getHits();
