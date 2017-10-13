@@ -17,7 +17,6 @@ import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.GardenData;
-import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 import com.huishu.ait.es.repository.garden.GardenInformationRepository;
@@ -159,5 +158,15 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	@Override
 	public void dropCompany(Long id) {
 		companyRepository.delete(id);
+	}
+
+	@Override
+	public void changeGarden(GardenData garden) {
+		gardenRepository.save(garden);
+	}
+
+	@Override
+	public void addCompany(Company company) {
+		companyRepository.save(company);
 	}
 } 

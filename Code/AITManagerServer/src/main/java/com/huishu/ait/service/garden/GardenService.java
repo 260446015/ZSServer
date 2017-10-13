@@ -3,8 +3,8 @@ package com.huishu.ait.service.garden;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
+import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.GardenData;
-import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 
@@ -29,6 +29,12 @@ public interface GardenService {
 	 */
 	GardenData findGarden(Integer id);
 	/**
+	 * 修改园区信息
+	 * @param garden
+	 * @return
+	 */
+	void changeGarden(GardenData garden);
+	/**
 	 * 获取园区内企业动态/疑似外流
 	 * @param searchModel
 	 * @return
@@ -52,4 +58,10 @@ public interface GardenService {
 	 * @return
 	 */
 	void dropCompany(Long id);
+	/**
+	 * 添加企业
+	 * @param company
+	 * @return
+	 */
+	void addCompany(Company company);
 }

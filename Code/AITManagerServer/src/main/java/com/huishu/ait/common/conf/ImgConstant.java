@@ -10,9 +10,9 @@ public class ImgConstant {
 	/**
 	 * local
 	 */
-	// public static final String IP_PORT = "http://localhost:8092/" ;
+	 public static final String IP_PORT = "http://localhost:8093/" ;
 	/**
 	 * On-line
 	 */
-	public static final String IP_PORT = "http://58.16.181.24:9208/";
+//	public static final String IP_PORT = "http://58.16.181.24:9208/";
 }

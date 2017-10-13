@@ -126,7 +126,7 @@ public class AdminController extends BaseController {
 			object.put("img", imgUrl);
 			return success(object);
 		} catch (Exception e) {
-			LOGGER.error("auditAccount失败！", e);
+			LOGGER.error("getAccountImg失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 

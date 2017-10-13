@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
@@ -62,6 +63,24 @@ public class parkInformationController extends BaseController{
 		}
 		return "industry/parkDetails";
 	}
+	
+	/**
+	 * 修改园区信息
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "changeGarden.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult changeGarden(@RequestBody GardenData garden){
+		try {
+			gardenService.changeGarden(garden);
+			return success(null).setMessage("操作成功");
+		} catch (Exception e) {
+			LOGGER.error("changeGarden失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
 
 	/**
 	 * 获取园区内入驻企业/园区政策/园区情报
@@ -99,6 +118,26 @@ public class parkInformationController extends BaseController{
 			return success(null).setMessage("操作成功");
 		} catch (Exception e) {
 			LOGGER.error("删除园区企业失败：", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	/**
+	 * 添加园区内入驻企业
+	 * @param searchModel
+	 * @return
+	 */
+	@RequestMapping(value = "/addCompany.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult addCompany(@RequestBody Company company) {
+		if (company==null) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			gardenService.addCompany(company);
+			return success(null).setMessage("操作成功");
+		} catch (Exception e) {
+			LOGGER.error("添加园区企业失败：", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}

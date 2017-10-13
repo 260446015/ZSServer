@@ -26,8 +26,8 @@ public class ConfConstant {
 	/** 会员默认初始密码 */
 	public final static String DEFAULT_PASSWORD = "huishuzhaoshang2017";
 
-	/** 会员名片默认存放地址 */
-	public final static String DEFAULT_URL = "images";
+	/** 园区默认存放地址 */
+	public final static String DEFAULT_LOGOURL = "logo";
 
 	/** 产业 */
 	public static class INDUSTRY {

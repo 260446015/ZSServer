@@ -19,7 +19,7 @@
             </fieldset>
 	        <div class="layui-row layui-col-space30 ">
 	            <div class="layui-col-xs8">
-	                <p><a href="#">编辑</a></p>
+	                <a  data-toggle="modal" data-target="#myModal">编辑</a>
 	                <table class="info-table layui-table">
 	                    <tr>
 	                        <td>园区名称</td>
@@ -38,7 +38,7 @@
 	                        <td>${Request.garden.address}</td>
 	                    </tr>
 	                    <tr>
-	                        <td>园区产业产业</td>
+	                        <td>园区产业</td>
 	                        <td>${Request.garden.industry}</td>
 	                    </tr>
 	                    <tr>
@@ -71,6 +71,72 @@
 		    <ul id="biuuu_city_list"></ul> 
 		    <div id="demo"></div>
 	    </div>
+    </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		            <h4 class="modal-title" id="myModalLabel"> 修改园区信息</h4>
+                </div>
+                <div class="modal-body">
+                   <form class="layui-form" action="" id="myForm">
+                       <div class="layui-form-item">
+                            <label class="layui-form-label">园区名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入园区名称" value="${Request.garden.gardenName}" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">园区级别</label>
+                            <div class="layui-input-block">
+                                <select name="city" lay-verify="required">
+                                    <option value="国家级">国家级</option>
+                                    <option value="省级">省级</option>
+                                    <option value="地市级">地市级</option>
+                                    <option value="县级">县级</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">地域（城市）</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入地域" value="${Request.garden.area}" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">具体地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入具体地址" value="${Request.garden.address}" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">园区产业</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入园区产业" value="${Request.garden.industry}" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">成立时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入成立时间" value="${Request.garden.establishDate}" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">园区面积</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入园区面积" value="${Request.garden.gardenSquare}" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                   </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">提交更改</button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="layui-footer">
         <!-- 底部固定区域 -->
@@ -266,7 +332,7 @@
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#test1'
-            ,url: '/upload/'
+            ,url: '/apis/imageUpload.do?id=${Request.garden.id}'
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
@@ -274,11 +340,10 @@
                 });
             }
             ,done: function(res){
-                //如果上传失败
-                if(res.code > 0){
-                    return layer.msg('上传失败');
+                if(res.success){
+                     return layer.msg('上传成功');
                 }
-                //上传成功
+                return layer.msg('上传失败');
             }
             ,error: function(){
                 //演示失败状态，并实现重传
