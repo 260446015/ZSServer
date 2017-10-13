@@ -22,11 +22,10 @@ import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 import com.huishu.ait.service.garden.GardenService;
 
 /**
- * @author hhy
- * @date 2017年10月9日
- * @Parem
- * @return 
  * 园区情报的相关内容
+ * 
+ * @author yindq
+ * @create 2017年10月13日
  */
 @Controller
 @RequestMapping("/apis/parkInfo")
@@ -127,7 +126,7 @@ public class parkInformationController extends BaseController{
 	 * @param searchModel
 	 * @return
 	 */
-	@RequestMapping(value = "/addCompany.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/addCompany.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult addCompany(@RequestBody Company company) {
 		if (company==null) {

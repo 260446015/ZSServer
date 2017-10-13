@@ -7,7 +7,21 @@
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <#include "/common/link.ftl">
 </head>
-
+<style>
+	.layui-form-label{
+		width : 150px;
+	}
+	.layui-input-block {
+	  margin-left:150px;
+	}
+	form{   
+	 width: 500px;
+    margin: 0 auto;
+    }
+    #demo1,#demo2{
+      border:1px solid #ddd;
+    }
+</style>
 <body class="">
 <div class="layui-layout layui-layout-admin">
 <#include "/common/header.ftl">
@@ -54,7 +68,7 @@
 	            <div class="layui-col-xs4 upLoad">
 	                <div class="layui-upload">
 	                    <div class="layui-upload-list">
-	                        <img class="layui-upload-img" id="demo1" src="${Request.garden.gardenPicture}" alt="logo" width="200px" height="100px">
+	                        <img class="layui-upload-img" id="demo1" src="${Request.garden.gardenPicture!''}" alt="logo" width="200px" height="100px">
 	                        <p id="demoText"></p>
 	                    </div>
 	                    <button type="button" class="layui-btn" id="test1">上传LOGO</button>
@@ -62,7 +76,7 @@
 	            </div>
 	        </div>
 	        <div class="layui-tab layui-tab-brief">
-	            <ul class="layui-tab-title">
+	            <ul class="layui-tab-title" style="clear:both;">
 	                <li class="layui-this" onclick="myClick('企业库')">入驻企业</li>
 	                <li class="" onclick="myClick('园区政策')">园区政策</li>
 	                <li class="" onclick="myClick('园区情报')">园区情报</li>
@@ -85,13 +99,13 @@
                        <div class="layui-form-item">
                             <label class="layui-form-label">园区名称</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入园区名称" value="${Request.garden.gardenName}" autocomplete="off" class="layui-input">
+                                <input type="text" id="gardenName" required  lay-verify="required" placeholder="请输入园区名称" value="${Request.garden.gardenName}" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">园区级别</label>
                             <div class="layui-input-block">
-                                <select name="city" lay-verify="required">
+                                <select id="level" lay-verify="required">
                                     <option value="国家级">国家级</option>
                                     <option value="省级">省级</option>
                                     <option value="地市级">地市级</option>
@@ -102,42 +116,127 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">地域（城市）</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入地域" value="${Request.garden.area}" autocomplete="off" class="layui-input">
+                                <input type="text" id="area" required  lay-verify="required" placeholder="请输入地域" value="${Request.garden.area}" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">具体地址</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入具体地址" value="${Request.garden.address}" autocomplete="off" class="layui-input">
+                                <input type="text" id="address" required  lay-verify="required" placeholder="请输入具体地址" value="${Request.garden.address}" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">园区产业</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入园区产业" value="${Request.garden.industry}" autocomplete="off" class="layui-input">
+                                <input type="text" id="industry" required  lay-verify="required" placeholder="请输入园区产业" value="${Request.garden.industry}" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">成立时间</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入成立时间" value="${Request.garden.establishDate}" autocomplete="off" class="layui-input">
+                                <input type="text" id="establishDate" required  lay-verify="required" placeholder="请输入成立时间" value="${Request.garden.establishDate}" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">园区面积</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入园区面积" value="${Request.garden.gardenSquare}" autocomplete="off" class="layui-input">
+                                <input type="text" id="gardenSquare" required  lay-verify="required" placeholder="请输入园区面积" value="${Request.garden.gardenSquare}" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">提交更改</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="myChange()">提交更改</button>
                 </div>
             </div>
         </div>
     </div>
+        <div class="modal fade" id="addCompany" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		            <h4 class="modal-title" id="myModalLabel">添加园区企业</h4>
+                </div>
+                <div class="modal-body">
+                   <form class="layui-form" action="" id="myForm">
+                       <div class="layui-form-item">
+                            <label class="layui-form-label">企业名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="companyName" required  lay-verify="required" placeholder="请输入企业名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">地域（城市）</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="area2" required  lay-verify="required" placeholder="请输入地域（城市）" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">具体地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="address2" required  lay-verify="required" placeholder="请输入具体地址" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">公司法人</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="boss" required  lay-verify="required" placeholder="请输入公司法人" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">公司产业</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="industry2" required  lay-verify="required" placeholder="请输入公司产业" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">注册状态</label>
+                            <div class="layui-input-block">
+                                <select id="engageState" lay-verify="required">
+                                    <option value="存续">存续</option>
+                                    <option value="在业">在业</option>
+                                    <option value="吊销">吊销</option>
+                                    <option value="注销">注销</option>
+                                    <option value="迁出">迁出</option>
+                                    <option value="迁入">迁入</option>
+                                    <option value="停业">停业</option>
+                                    <option value="清算">清算</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">注册资金</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="registerCapital" required  lay-verify="required" placeholder="请输入注册资金" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">注册时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="registerDate" required  lay-verify="required" placeholder="请输入注册时间" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                         <div class="layui-form-item" style="padding-left: 150px;">
+		                     <div class="layui-upload">
+				                    <div class="layui-upload-list">
+				                        <img class="layui-upload-img" id="demo2" src="" alt="logo" width="200px" height="100px">
+				                        <p id="demoText2"></p>
+				                    </div>
+			                    <button type="button" class="layui-btn" id="test2">上传LOGO</button>
+			                </div>
+			             </div>	   
+                   </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="myAdd()">添加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="layui-footer">
         <!-- 底部固定区域 -->
         © layui.com - 底部固定区域
@@ -147,9 +246,60 @@
 <#include "/common/script.ftl">
 <script>
 	var dimension="企业库";
+	var logoSrc="";
 	$(function(){
         myClick("企业库");
     })
+    function myChange(){
+    	var gardenName=$('#gardenName').val();
+    	var gardenLevel=$('#level').val();
+    	var area=$('#area').val();
+    	var address=$('#address').val();
+    	var industry=$('#industry').val();
+    	var establishDate=$('#establishDate').val();
+    	var gardenSquare=$('#gardenSquare').val();
+    	var obj={gardenName:gardenName,id:'${Request.garden.id}',gardenLevel:gardenLevel,
+    			area:area,address:address,industry:industry,establishDate:establishDate,gardenSquare:gardenSquare};
+		$.ajax({
+                type: 'post',
+                url: "/apis/parkInfo/changeGarden.json",
+                async: false,
+                contentType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (response) {
+	                if(response.success){
+		               window.location.reload();
+	                }
+	                layer.msg(response.message)
+                }
+            });
+    }
+    function myAdd(){
+    	var companyName=$('#companyName').val();
+    	var boss=$('#boss').val();
+    	var area=$('#area2').val();
+    	var address=$('#address2').val();
+    	var industry=$('#industry2').val();
+    	var engageState=$('#engageState').val();
+    	var registerCapital=$('#registerCapital').val();
+    	var registerDate=$('#registerDate').val();
+    	var obj={companyName:companyName,boss:boss,park:'${Request.garden.gardenName}',engageState:engageState,
+    		registerCapital:registerCapital,registerDate:registerDate,address:address,
+    		area:area,logo:logoSrc,industry:industry};
+		$.ajax({
+                type: 'post',
+                url: "/apis/parkInfo/addCompany.json",
+                async: false,
+                contentType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (response) {
+	                if(response.success){
+		               window.location.reload();
+	                }
+	                layer.msg(response.message)
+                }
+            });
+    }
     function myClick(a){
 	    dimension=a;
     	var obj={dimension:dimension,park:'${Request.garden.gardenName}'};
@@ -235,7 +385,7 @@
 				var before='<table class="layui-table" lay-even="" lay-skin="nob">'+
 					 	'<colgroup><col width="90"><col width="300"><col width="700"><col></colgroup>'+
 					 	'<thead><tr><th>编号</th><th>公司名</th><th>详细地址</th><th>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-					 	'<a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="detail" onclick="myAdd()">添加企业</a>'+
+					 	'<a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="detail" data-toggle="modal" data-target="#addCompany">添加企业</a>'+
 					 	'</th></tr></thead><tbody>';
 		        var arr = []
 		        layui.each(d, function(index, item){
@@ -352,9 +502,35 @@
                 demoText.find('.demo-reload').on('click', function(){
                     uploadInst.upload();
                 });
+                
             }
         });
-    });
+        
+        //上传企业LOGO
+        var uploadInst2 = upload.render({
+            elem: '#test2'
+            ,url: '/apis/logoUpload.do'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo2').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                if(res.success){
+                    logoSrc=res.data;
+                }
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText2');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst2.upload();
+                });
+             }
+    	});
+    	});
 
 </script>
 </html>

@@ -55,7 +55,7 @@ public class UploadController extends BaseController {
 	 * 文件上传
 	 * 
 	 * @param file
-	 * @param filePre
+	 * @param id
 	 * @param request
 	 * @param response
 	 * @return
@@ -94,6 +94,54 @@ public class UploadController extends BaseController {
 				GardenData garden = gardenService.findGarden(Integer.valueOf(id));
 				garden.setGardenPicture(ImgConstant.IP_PORT+ConfConstant.DEFAULT_LOGOURL + "/" + newname);
 				gardenService.changeGarden(garden);
+				return success(ImgConstant.IP_PORT+ConfConstant.DEFAULT_LOGOURL + "/" + newname).setMessage("上传成功");
+			} catch (Exception e) {
+				LOGGER.error("imageUpload失败！", e);
+				return error("上传失败");
+			}
+		} else {
+			return error("没有文件上传");
+		}
+	}
+	
+	/**
+	 * 文件上传
+	 * 
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/logoUpload.do", method = RequestMethod.POST)
+	public AjaxResult logoUpload(@RequestParam("file") MultipartFile file,HttpServletRequest request, HttpServletResponse response) {
+		LOGGER.info("file name is :" + file.getOriginalFilename());
+		if (!file.isEmpty()) {
+			if (file.getSize() > fileSize) {
+				return error("文件超过上传大小");
+			}
+			String OriginalFilename = file.getOriginalFilename();
+			String fileSuffix = OriginalFilename.substring(OriginalFilename.lastIndexOf(".") + 1).toLowerCase();
+			if (!Arrays.asList(TypeMap.get("image").split(",")).contains(fileSuffix)) {
+				return error("文件格式错误");
+			}
+			if (!ServletFileUpload.isMultipartContent(request)) {
+				return error("没有文件上传");
+			}
+			File uploadDir = new File("images");
+			if (!uploadDir.isDirectory()) {
+				if (!uploadDir.mkdir()) {
+					return error("上传文件路径非法");
+				}
+			}
+			if (!uploadDir.canWrite()) {
+				return error("上传目录没有写权限");
+			}
+			String newname = "";
+			newname += UUID.randomUUID() + "." + fileSuffix;
+			try {
+				String url = request.getSession().getServletContext().getRealPath("/") + ConfConstant.DEFAULT_LOGOURL;
+				File saveFile = new File(url, newname);
+				file.transferTo(saveFile);
 				return success(ImgConstant.IP_PORT+ConfConstant.DEFAULT_LOGOURL + "/" + newname).setMessage("上传成功");
 			} catch (Exception e) {
 				LOGGER.error("imageUpload失败！", e);
