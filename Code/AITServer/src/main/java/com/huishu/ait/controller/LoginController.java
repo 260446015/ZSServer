@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.user;
+package com.huishu.ait.controller;
 
 import java.io.OutputStream;
 import java.security.KeyPair;
@@ -37,7 +37,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ShiroUtil;
 import com.huishu.ait.common.util.StringUtil;
-import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.UserBase;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CaptchaDTO;
