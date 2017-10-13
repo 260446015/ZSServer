@@ -17,7 +17,17 @@ public class AjaxResult {
 
 	private int status;
 	
+	private int level;
+	
 	private String time;
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
 
 	public String getTime() {
 		return time;

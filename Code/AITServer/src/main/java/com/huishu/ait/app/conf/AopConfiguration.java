@@ -61,6 +61,7 @@ public class AopConfiguration {
         	if(base.getIsWarn()==1){
                 adminService.warnAccount(id,0);
                 ajaxResult.setTime(base.getExpireTime());
+                ajaxResult.setLevel(base.getUserLevel());
             }
         }
         return result;
