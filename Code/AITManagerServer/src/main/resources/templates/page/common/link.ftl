@@ -5,3 +5,4 @@
 <script src="/layui/js/jquery-1.8.2.min.js"></script>
 <script src="/layui/layui.js"></script>
 <script src="/layui/echarts.min.js"></script>
+<script src="/assets/js/common.js"></script>

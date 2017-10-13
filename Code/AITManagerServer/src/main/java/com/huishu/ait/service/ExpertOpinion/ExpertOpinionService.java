@@ -1,10 +1,13 @@
 package com.huishu.ait.service.ExpertOpinion;
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
 import com.huishu.ait.es.entity.dto.ArticleListDTO;
 
@@ -30,5 +33,12 @@ public interface ExpertOpinionService {
 	 * @param param
 	 * @return
 	 */
-	Page<ArticleListDTO> findExpertOpinionArticleList(JSONObject param);
+	Page<AITInfo> findExpertOpinionArticleList(JSONObject param);
+
+	/**
+	 * 查询文章详情
+	 * @param id
+	 * @return
+	 */
+	AITInfo findDetail(String id);
 }

@@ -10,10 +10,10 @@
 					<li class="layui-nav-item ">
 								<a href="javascript:;">招商情报</a>
 										<dl class="layui-nav-child">
-										<dd><a href="javascript:;">产业头条</a></dd>
-										<dd><a href="javascript:;">产业政策</a></dd>
-										<dd><a href="javascript:;">专家观点</a></dd>
-										<dd><a href="/apis/enterprise/enterpriseRank">企业排行</a></dd>
+										<dd><a href="/head/headlines">产业头条</a></dd>
+										<dd><a href="/head/industryPolicy">产业政策</a></dd>
+										<dd><a href="/head/expertOpint">专家观点</a></dd>
+										<dd><a href="/head/enterpriseRank">企业排行</a></dd>
 										<dd><a href="/apis/parkInfo/parkInformation">园区情报</a></dd>
 								</dl>
 					</li>

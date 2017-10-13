@@ -5,7 +5,7 @@
 <meta charset="UTF-8" />
 <title>慧数招商后台系统</title>
 <!-- Mobile Metas -->
-<!--企业排行 -->
+<!--专家观点-->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <#include "/common/link.ftl">
@@ -14,134 +14,63 @@
 <div class="layui-layout layui-layout-admin">
 	<#include "/common/header.ftl">
 	<!-- Start: Content -->
-	<!--企业排行-->
+	
 	<#include "/common/sidebar.ftl">
 	<!-- 内容 Page -->
 	<div class="layui-body">
-		<!-- 内容主体区域 -->
-		 <div class="layui-nav layui-bg-cyan">
+	<!-- 内容主体区域 -->
+		<div class="layui-tab">
+				<div class="layui-tab-content">
+				<!-- 选项卡1 -->
+					<div class="layui-tab-item layui-show">
+					    <div class="layui-nav layui-bg-cyan">
 				            
 				            <ul class="" lay-filter="">
-					            <li class="layui-nav-item"><a href="">产业分类：</a></li>
-					            <li class="layui-nav-item layui-this"><a href="">不限</a></li>
-					            <li class="layui-nav-item "><a href="">互联网+</a></li>
-					            <li class="layui-nav-item"><a href="">高科技</a></li>
-					            <li class="layui-nav-item"><a href="">文化创意</a></li>
-					            <li class="layui-nav-item"><a href="">精英配套</a></li>
-					            <li class="layui-nav-item"><a href="">滨海旅游</a></li>
-					            <li class="layui-nav-item"><a href="">港口物流</a></li>
-				            </ul>
+								<li class="layui-nav-item"><a href="">产业分类：</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="getLabel('互联网+');myClick('互联网+', industryLabel, time, '企业排行');">互联网+</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('高科技');myClick('高科技', industryLabel, time, '企业排行');">高科技</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('港口物流');myClick('港口物流', industryLabel, time, '企业排行');">港口物流</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('文化创意');myClick('文化创意', industryLabel, time, '企业排行');">文化创意</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('其他');myClick('其他', industryLabel, time, '企业排行');">其他</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('精英配套');myClick('精英配套', industryLabel, time, '企业排行');">精英配套</a></li>
+							</ul>
+				            <ul class="" lay-filter="" id="label">
+							</ul>
 				            <ul class="" lay-filter="">
-					            <li class="layui-nav-item"><a href="">产业子类：</a></li>
-					            <li class="layui-nav-item layui-this"><a href="">不限</a></li>
-					            <li class="layui-nav-item"><a href="">电子竞技</a></li>
-					            <li class="layui-nav-item"><a href="">大数据</a></li>
-					            <li class="layui-nav-item"><a href="">电子商务</a></li>
-					            <li class="layui-nav-item"><a href="">网络视听</a></li>
-					            <li class="layui-nav-item"><a href="">移动阅读</a></li>
-					            <li class="layui-nav-item"><a href="">智能硬件</a></li>
-				            </ul>
-				            <ul class="" lay-filter="">
-					            <li class="layui-nav-item"><a href="">时排序间：</a></li>
-					            <li class="layui-nav-item layui-this"><a href="">全部</a></li>
-					            <li class="layui-nav-item"><a href="">今日</a></li>
-					            <li class="layui-nav-item"><a href="">昨日</a></li>
-					            <li class="layui-nav-item"><a href="">近3天</a></li>
-				            </ul>
+								<li class="layui-nav-item"><a href="">时排序间：</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '企业排行');">全部</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '企业排行');">今日</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '企业排行');">昨日</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '企业排行');">近3天</a></li>
+							</ul>
 			            </div>
-			            <div class="layui-col-md12 paddingX20">
-			            <form class="layui-form" action="">
-			                <div class="layui-form-item" style="margin-top:20px;width:400px;float:right;">
-                                <label class="layui-form-label">地域:</label>
-                                <div class="layui-input-block">
-                                    <select name="city" lay-verify="required" style="width:100px;size:20">
-                                        <option value=""></option>
-                                        <option value="0">北京</option>
-                                        <option value="1">上海</option>
-                                        <option value="2">广州</option>
-                                        <option value="3">深圳</option>
-                                        <option value="4">杭州</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-			            <table class="layui-table" lay-size="lg">
-			            	<colgroup>
-			            		<col width="100">
-			            		<col width="200">
-			            		<col width="500">
-			            		<col width="150">
-			            		<col width="150">
-			            		<col width="100">
-			            	</colgroup>
-			            	<thead>
-			            		<tr>
-			            			<th>编号</th>
-			            			<th>标题</th>
-			            			<th>详情</th>
-			            			<th>时间</th>
-			            			<th>来源</th>
-			            			<th>操作</th>
-			            		</tr>
-			            	</thead>
-			            	<tbody>
-			            		<tr>
-			            			<td>1</td>
-			            			<td><a href="招商情报管理内容详情.html">中欧基金：后3300点时代 股指“持续上攻”尚需观察</a></td>
-			            			<td><a href="招商情报管理内容详情.html">中欧基金：后3300点时代 股指“持续上攻”尚需观察 上周，上证综指上涨1.92%，上证50上涨3.56%，创业板指微跌0.49%，银行、非银金融、家用电器、有色金属、采掘等行业涨幅居前，投资者情绪有所回暖。中欧基金认为，股指会否突破3300点且形成上升趋势尚需观察；目前来看个股向</a></td>
-			            			<td>2017-08-29</td>
-			            			<td>21世纪经济报道</td>
-			            			<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            		</tr>
-			            		<tr>
-			            			<td>2</td>
-			            			<td><a href="招商情报管理内容详情.html">基金等机构持仓底牌揭晓：茅台招行平安是"吉祥三宝"</a></td>
-			            			<td><a href="招商情报管理内容详情.html">报记者 王丹 实习生 黄佶滢 上海报道 又到了半年度的盘点季。截至8月30日，半年报披露接近尾声，公募基金半年报于前一日披露完毕，随着各项统计数据的出炉，包括公募基金在内，几大类重要机构上半年的投资路线清晰浮水。 据同花顺iFinD</a></td>
-			            			<td>2017-08-31</td>
-			            			<td>21世纪经济报道</td>
-			            			<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            		</tr>
-			            		<tr>
-			            			<td>3</td>
-			            			<td><a href="招商情报管理内容详情.html">中欧基金：后3300点时代 股指“持续上攻”尚需观察</a></td>
-			            			<td><a href="招商情报管理内容详情.html">中欧基金：后3300点时代 股指“持续上攻”尚需观察 上周，上证综指上涨1.92%，上证50上涨3.56%，创业板指微跌0.49%，银行、非银金融、家用电器、有色金属、采掘等行业涨幅居前，投资者情绪有所回暖。中欧基金认为，股指会否突破3300点且形成上升趋势尚需观察；目前来看个股向</a></td>
-			            			<td>2017-08-29</td>
-			            			<td>证券时报</td>
-			            			<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            		</tr>
-			            		<tr>
-			            			<td>4</td>
-			            			<td><a href="招商情报管理内容详情.html">基金等机构持仓底牌揭晓：茅台招行平安是"吉祥三宝"</a></td>
-			            			<td><a href="招商情报管理内容详情.html">报记者 王丹 实习生 黄佶滢 上海报道 又到了半年度的盘点季。截至8月30日，半年报披露接近尾声，公募基金半年报于前一日披露完毕，随着各项统计数据的出炉，包括公募基金在内，几大类重要机构上半年的投资路线清晰浮水。 据同花顺iFinD</a></td>
-			            			<td>2017-08-31</td>
-			            			<td>21世纪经济报道</td>
-			            			<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            		</tr>
-			            	</tbody>
-			            </table>
-			        </div>	
+			            <div class="layui-col-md12">
+			            	<div>
+			            	 <ul id="biuuu_city_list_1"></ul> 
+    						<div id="demo1"></div>
+			            </div>
+			            </div>
+				    </div>
+			</div>		
 			
 	</div>
 	</div>
 	<#include "/common/script.ftl">
-	<script>
-	function onDel(){
-		layer.open({
-           content: '确认删除该片数据'
-           ,btn: ['确认', '取消']
-           ,yes: function(index, layero){
-           //按钮【按钮一】的回调
-          }
-          ,btn2: function(index, layero){
-           //按钮【按钮二】的回调
-    
-           //return false 开启该代码可禁止点击该按钮关闭
-          }
-          ,cancel: function(){ 
-          //右上角关闭回调
-    
-          //return false 开启该代码可禁止点击该按钮关闭
-           }
+	
+</body>
+<script>
+		function onDel(id){
+		layer.confirm('确定删除该文章？', function(index){
+            $.ajax({
+                url: "/art/delete",
+                contentType: 'application/json',
+                data: {id: id},
+                success: function (response) {
+                    layer.alert(response.data);
+           		    myClick(industry, industryLabel, time, dimension,current);
+                }
+            });
+            layer.close(index);
         });
 	}
 	function toTop(){
@@ -163,7 +92,66 @@
            }
         });
 	}
-	</script>
-</body>
-
+  $(function(){
+  		getLabel(industry);
+		myClick(industry,industryLabel,time,'企业排行');
+	});
+	function getLabel(industry){
+	$.ajax({
+		type : 'get',
+		url : '/head/getLabel.json?industry='+industry,
+		success : function(response){
+			var before = '<li class="layui-nav-item"><a href="">产业子类：</a></li><li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(\''+response.industry+'\',\'不限\',\''+time+'\',\'企业排行\');">不限</a></li>';
+			var arr = [];
+			for(var i=0;i<response.label.length;i++){
+				arr.push('<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(\''+response.industry+'\',\''+response.label[i]+'\',\''+time+'\',\'企业排行\')" >'+response.label[i]+'</a></li>');
+			}
+			var s=before+arr.join('');
+			$("#label").html(s);
+		}
+	});
+}
+	function myRequest(str,url){
+		$.ajax({
+            type: 'post',
+            url: url,
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(str),
+            success: function (response) {
+                layui.use('layer', function(){
+								  var layer = layui.layer;
+								  if(response.success){
+							 			showTable(response.data,'demo1',str.dimension);
+			                        }else{
+			                        	if(response.code!=null){
+			                        		window.location.href="/login";
+			                        	}else{
+			                       			layer.alert(response.message);
+			                       		}
+			                        }
+								}); 
+            }
+        });
+	}
+	function show(d,dimension){
+			var showTab = document.getElementById('biuuu_city_list_1');
+			showTab.innerHTML = function(){
+				var before='<table class="layui-table" lay-even="" lay-skin="nob">'+
+					 	'<colgroup><col width="90"><col width="200"><col width="450"><col width="200"><col width="220"><col></colgroup>'+
+					 	'<thead><tr><th>作者</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
+		        var arr = []
+		        layui.each(d, function(index, item){
+		          arr.push('<tr><td>'+item.author+'</td><td>'+item.title+'</td><td><a href="/head/getDetail.json?id='+item.id+'">'+item.summary+
+		          			'</a></td><td>'+item.publishTime+'</td><td>'+item.source+
+		          			'</td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="onDel(\''+item.id+'\')">删除</a>'+
+		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" onclick="myTop(\''+item.id+'\')">置顶</a></td></tr>');
+		        });
+		        var inner=arr.join('');
+		        var after='</tbody></table> ';
+		        return before+inner+after;
+			}();
+		}
+</script>
+	
 </html>	

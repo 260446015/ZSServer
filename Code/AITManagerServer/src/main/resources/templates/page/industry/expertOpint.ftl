@@ -21,100 +21,41 @@
 	<!-- 内容主体区域 -->
 		<div class="layui-tab">
 				<ul class="layui-tab-title">
-					<li class="layui-this">专家说</li>
-					<li>百家论</li>
+					<li class="layui-this" onclick="myClick(industry,industryLabel,time,'专家观点')">专家说</li>
+					<li onclick="myClick(industry,industryLabel,time,'百家论')">百家论</li>
 				</ul>
 				<div class="layui-tab-content">
 				<!-- 选项卡1 -->
 					<div class="layui-tab-item layui-show">
 					    <div class="layui-nav layui-bg-cyan">
 				            
-				            <ul class="" lay-filter="">
-					            <li class="layui-nav-item"><a href="">产业分类：</a></li>
-					            <li class="layui-nav-item layui-this"><a href="">互联网</a></li>
-					            <li class="layui-nav-item"><a href="">生态科技</a></li>
-					            <li class="layui-nav-item"><a href="">环保产业</a></li>
-					            <li class="layui-nav-item"><a href="">物流产业</a></li>
-					            <li class="layui-nav-item"><a href="">制造产业</a></li>
-					            <li class="layui-nav-item"><a href="">医药化学</a></li>
-					            <li class="layui-nav-item"><a href="">新能源</a></li>
-				            </ul>
-				            <ul class="" lay-filter="">
-					            <li class="layui-nav-item"><a href="">产业子类：</a></li>
-					            <li class="layui-nav-item layui-this"><a href="">不限</a></li>
-					            <li class="layui-nav-item"><a href="">电子竞技</a></li>
-					            <li class="layui-nav-item"><a href="">大数据</a></li>
-					            <li class="layui-nav-item"><a href="">电子商务</a></li>
-					            <li class="layui-nav-item"><a href="">网络视听</a></li>
-					            <li class="layui-nav-item"><a href="">移动阅读</a></li>
-					            <li class="layui-nav-item"><a href="">智能硬件</a></li>
-				            </ul>
-				            <ul class="" lay-filter="">
-					            <li class="layui-nav-item"><a href="">时排序间：</a></li>
-					            <li class="layui-nav-item layui-this"><a href="">全部</a></li>
-					            <li class="layui-nav-item"><a href="">今日</a></li>
-					            <li class="layui-nav-item"><a href="">昨日</a></li>
-					            <li class="layui-nav-item"><a href="">近3天</a></li>
-				            </ul>
+				           <ul class="" lay-filter="">
+								<li class="layui-nav-item"><a href="">产业分类：</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="getLabel('互联网+');myClick('互联网+', '不限', time, '专家观点');">互联网+</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('高科技');myClick('高科技', '不限', time, '专家观点');">高科技</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('港口物流');myClick('港口物流', '不限', time, '专家观点');">港口物流</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('文化创意');myClick('文化创意', '不限', time, '专家观点');">文化创意</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('其他');myClick('其他', '不限', time, '专家观点');">其他</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('精英配套');myClick('精英配套', '不限', time, '专家观点');">精英配套</a></li>
+							</ul>
+				            <ul class="" lay-filter="" id="label">
+							</ul>
+							<ul class="" lay-filter="">
+								<li class="layui-nav-item"><a href="">时排序间：</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '专家观点');">全部</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '专家观点');">今日</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '专家观点');">昨日</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '专家观点');">近3天</a></li>
+							</ul>
 			            </div>
 			            <div class="layui-col-md12">
 			                <div class="add-article marginY20" style="float:right;">
-			                	<a href="新建文章.html" class="layui-btn layui-btn-normal">新建文章</a>
+			                	<a href="/head/createArt" class="layui-btn layui-btn-normal">新建文章</a>
 			                </div>
-			            	<table class="layui-table" lay-size="lg">
-			            		<colgroup>
-			            			<col width="100">
-			            			<col width="200">
-			            			<col width="500">
-			            			<col width="150">
-			            			<col width="150">
-			            			<col width="100">
-			            		</colgroup>
-			            		<thead>
-			            			<tr>
-			            				<th>作者</th>
-			            				<th>标题</th>
-			            				<th>详情</th>
-			            				<th>时间</th>
-			            				<th>点击量</th>
-			            				<th>操作</th>
-			            			</tr>
-			            		</thead>
-			            		<tbody>
-			            			<tr>
-			            				<td>张伟</td>
-			            				<td><a href="招商情报管理内容详情.html">中欧基金：后3300点时代 股指“持续上攻”尚需观察</a></td>
-			            				<td><a href="招商情报管理内容详情.html">中欧基金：后3300点时代 股指“持续上攻”尚需观察 上周，上证综指上涨1.92%，上证50上涨3.56%，创业板指微跌0.49%，银行、非银金融、家用电器、有色金属、采掘等行业涨幅居前，投资者情绪有所回暖。中欧基金认为，股指会否突破3300点且形成上升趋势尚需观察；目前来看个股向</a></td>
-			            				<td>2017-08-29</td>
-			            				<td>232121</td>
-			            				<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            			</tr>
-			            			<tr>
-			            				<td>张伟</td>
-			            				<td><a href="招商情报管理内容详情.html">基金等机构持仓底牌揭晓：茅台招行平安是"吉祥三宝"</a></td>
-			            				<td><a href="招商情报管理内容详情.html">报记者 王丹 实习生 黄佶滢 上海报道 又到了半年度的盘点季。截至8月30日，半年报披露接近尾声，公募基金半年报于前一日披露完毕，随着各项统计数据的出炉，包括公募基金在内，几大类重要机构上半年的投资路线清晰浮水。 据同花顺iFinD</a></td>
-			            				<td>2017-08-31</td>
-			            				<td>2131</td>
-			            				<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            			</tr>
-			            			<tr>
-			            				<td>张薇</td>
-			            				<td><a href="招商情报管理内容详情.html">中欧基金：后3300点时代 股指“持续上攻”尚需观察</a></td>
-			            				<td><a href="招商情报管理内容详情.html">中欧基金：后3300点时代 股指“持续上攻”尚需观察 上周，上证综指上涨1.92%，上证50上涨3.56%，创业板指微跌0.49%，银行、非银金融、家用电器、有色金属、采掘等行业涨幅居前，投资者情绪有所回暖。中欧基金认为，股指会否突破3300点且形成上升趋势尚需观察；目前来看个股向</a></td>
-			            				<td>2017-08-29</td>
-			            				<td>21321</td>
-			            				<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            			</tr>
-			            			<tr>
-			            				<td>张薇</td>
-			            				<td><a href="招商情报管理内容详情.html">基金等机构持仓底牌揭晓：茅台招行平安是"吉祥三宝"</a></td>
-			            				<td><a href="招商情报管理内容详情.html">报记者 王丹 实习生 黄佶滢 上海报道 又到了半年度的盘点季。截至8月30日，半年报披露接近尾声，公募基金半年报于前一日披露完毕，随着各项统计数据的出炉，包括公募基金在内，几大类重要机构上半年的投资路线清晰浮水。 据同花顺iFinD</a></td>
-			            				<td>2017-08-31</td>
-			            				<td>1312</td>
-			            				<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            			</tr>
-			            		</tbody>
-			            	</table>
+			            	<div>
+			            	 <ul id="biuuu_city_list_1"></ul> 
+    						<div id="demo1"></div>
+			            </div>
 			            </div>
 				    </div>
                      <!--选项卡2-->
@@ -122,88 +63,27 @@
                          <div class="layui-nav layui-bg-cyan">
 				           
 				            <ul class="" lay-filter="">
-					            <li class="layui-nav-item"><a href="">产业分类：</a></li>
-					            <li class="layui-nav-item layui-this"><a href="">互联网</a></li>
-					            <li class="layui-nav-item"><a href="">生态科技</a></li>
-					            <li class="layui-nav-item"><a href="">环保产业</a></li>
-					            <li class="layui-nav-item"><a href="">物流产业</a></li>
-					            <li class="layui-nav-item"><a href="">制造产业</a></li>
-					            <li class="layui-nav-item"><a href="">医药化学</a></li>
-					            <li class="layui-nav-item"><a href="">新能源</a></li>
-				            </ul>
-				            <ul class="" lay-filter="">
-					            <li class="layui-nav-item"><a href="">产业子类：</a></li>
-					            <li class="layui-nav-item layui-this"><a href="">不限</a></li>
-					            <li class="layui-nav-item"><a href="">电子竞技</a></li>
-					            <li class="layui-nav-item"><a href="">大数据</a></li>
-					            <li class="layui-nav-item"><a href="">电子商务</a></li>
-					            <li class="layui-nav-item"><a href="">网络视听</a></li>
-					            <li class="layui-nav-item"><a href="">移动阅读</a></li>
-					            <li class="layui-nav-item"><a href="">智能硬件</a></li>
-				            </ul>
-				            <ul class="" lay-filter="">
-					            <li class="layui-nav-item"><a href="">时排序间：</a></li>
-					            <li class="layui-nav-item layui-this"><a href="">全部</a></li>
-					            <li class="layui-nav-item"><a href="">今日</a></li>
-					            <li class="layui-nav-item"><a href="">昨日</a></li>
-					            <li class="layui-nav-item"><a href="">近3天</a></li>
-				            </ul>
+								<li class="layui-nav-item"><a href="">产业分类：</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="getLabel2('互联网+');myClick('互联网+', '不限', time, 百家论');">互联网+</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel2('高科技');myClick('高科技', '不限', time, '百家论');">高科技</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel2('港口物流');myClick('港口物流', '不限', time, '百家论');">港口物流</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel2('文化创意');myClick('文化创意', '不限', time, '百家论');">文化创意</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel2('其他');myClick('其他', '不限', time, '百家论');">其他</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel2('精英配套');myClick('精英配套', '不限', time, '百家论');">精英配套</a></li>
+							</ul>
+				           <ul class="" lay-filter="" id="label2">
+							</ul>
+				           <ul class="" lay-filter="">
+								<li class="layui-nav-item"><a href="">时排序间：</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '百家论');">全部</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '百家论');">今日</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '百家论');">昨日</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '百家论');">近3天</a></li>
+							</ul>
 			            </div>
 			            <div>
-			            	<table class="layui-table" lay-size="lg">
-			            		<colgroup>
-			            			<col width="100">
-			            			<col width="200">
-			            			<col width="500">
-			            			<col width="150">
-			            			<col width="150">
-			            			<col width="100">
-			            		</colgroup>
-			            		<thead>
-			            			<tr>
-			            				<th>编号</th>
-			            				<th>标题</th>
-			            				<th>详情</th>
-			            				<th>时间</th>
-			            				<th>点击量</th>
-			            				<th>操作</th>
-			            			</tr>
-			            		</thead>
-			            		<tbody>
-			            			<tr>
-			            				<td>1</td>
-			            				<td>中欧基金：后3300点时代 股指“持续上攻”尚需观察</td>
-			            				<td>中欧基金：后3300点时代 股指“持续上攻”尚需观察 上周，上证综指上涨1.92%，上证50上涨3.56%，创业板指微跌0.49%，银行、非银金融、家用电器、有色金属、采掘等行业涨幅居前，投资者情绪有所回暖。中欧基金认为，股指会否突破3300点且形成上升趋势尚需观察；目前来看个股向</td>
-			            				<td>2017-08-29</td>
-			            				<td>2134</td>
-			            				<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            			</tr>
-			            			<tr>
-			            				<td>2</td>
-			            				<td>基金等机构持仓底牌揭晓：茅台招行平安是"吉祥三宝"</td>
-			            				<td>报记者 王丹 实习生 黄佶滢 上海报道 又到了半年度的盘点季。截至8月30日，半年报披露接近尾声，公募基金半年报于前一日披露完毕，随着各项统计数据的出炉，包括公募基金在内，几大类重要机构上半年的投资路线清晰浮水。 据同花顺iFinD</td>
-			            				<td>2017-08-31</td>
-			            				<td>423423</td>
-			            				<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            			</tr>
-			            			<tr>
-			            				<td>3</td>
-			            				<td>中欧基金：后3300点时代 股指“持续上攻”尚需观察</td>
-			            				<td>中欧基金：后3300点时代 股指“持续上攻”尚需观察 上周，上证综指上涨1.92%，上证50上涨3.56%，创业板指微跌0.49%，银行、非银金融、家用电器、有色金属、采掘等行业涨幅居前，投资者情绪有所回暖。中欧基金认为，股指会否突破3300点且形成上升趋势尚需观察；目前来看个股向</td>
-			            				<td>2017-08-29</td>
-			            				<td>432432</td>
-			            				<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            			</tr>
-			            			<tr>
-			            				<td>4</td>
-			            				<td>基金等机构持仓底牌揭晓：茅台招行平安是"吉祥三宝"</td>
-			            				<td>报记者 王丹 实习生 黄佶滢 上海报道 又到了半年度的盘点季。截至8月30日，半年报披露接近尾声，公募基金半年报于前一日披露完毕，随着各项统计数据的出炉，包括公募基金在内，几大类重要机构上半年的投资路线清晰浮水。 据同花顺iFinD</td>
-			            				<td>2017-08-31</td>
-			            				<td>432432</td>
-			            				<td><div style="width:80px;height:40px"><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="onDel()">删除</button><button class="layui-btn layui-btn-mini" lay-event="detail" onclick="toTop()">置顶</button></div></td>
-			            			</tr>
-			            		</tbody>
-			            	</table>
+			            	 <ul id="biuuu_city_list_2"></ul> 
+    						<div id="demo2"></div>
 			            </div>
                     </div>
                     
@@ -212,26 +92,24 @@
 	</div>
 	</div>
 	<#include "/common/script.ftl">
-	<script>
-		function onDel(){
-		layer.open({
-           content: '确认删除该片数据'
-           ,btn: ['确认', '取消']
-           ,yes: function(index, layero){
-           //按钮【按钮一】的回调
-          }
-          ,btn2: function(index, layero){
-           //按钮【按钮二】的回调
-    
-           //return false 开启该代码可禁止点击该按钮关闭
-          }
-          ,cancel: function(){ 
-          //右上角关闭回调
-    
-          //return false 开启该代码可禁止点击该按钮关闭
-           }
+	
+</body>
+<script>
+		function onDel(id){
+		layer.confirm('确定删除该文章？', function(index){
+            $.ajax({
+                url: "/art/delete",
+                contentType: 'application/json',
+                data: {id: id},
+                success: function (response) {
+                    layer.alert(response.data);
+            		myClick(industry, industryLabel, time, dimension,current);
+                }
+            });
+            layer.close(index);
         });
 	}
+
 	function toTop(){
 		layer.open({
            content: '确认置顶该片数据'
@@ -251,7 +129,91 @@
            }
         });
 	}
-	</script>
-</body>
-
+  $(function(){
+  		getLabel(industry,'专家观点');
+  		getLabel2(industry,'百家论');
+		myClick(industry,industryLabel,time,'专家观点');
+	});
+	function getLabel(industry){
+	$.ajax({
+		type : 'get',
+		url : '/head/getLabel.json?industry='+industry,
+		success : function(response){
+			var before = '<li class="layui-nav-item"><a href="">产业子类：</a></li><li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(\''+response.industry+'\',\'不限\',\''+time+'\',\'专家观点\');">不限</a></li>';
+			var arr = [];
+			for(var i=0;i<response.label.length;i++){
+				arr.push('<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(\''+response.industry+'\',\''+response.label[i]+'\',\''+time+'\',\'专家观点\')" >'+response.label[i]+'</a></li>');
+			}
+			var s=before+arr.join('');
+			$("#label").html(s);
+		}
+	});
+}
+function getLabel2(industry){
+	$.ajax({
+		type : 'get',
+		url : '/head/getLabel.json?industry='+industry,
+		success : function(response){
+			var before = '<li class="layui-nav-item"><a href="">产业子类：</a></li><li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(\''+response.industry+'\',\'不限\',\''+time+'\',\'百家论\');">不限</a></li>';
+			var arr = [];
+			for(var i=0;i<response.label.length;i++){
+				arr.push('<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(\''+response.industry+'\',\''+response.label[i]+'\',\''+time+'\',\'百家论\')" >'+response.label[i]+'</a></li>');
+			}
+			var s=before+arr.join('');
+			$("#label2").html(s);
+		}
+	});
+}
+	function myRequest(str,url){
+		$.ajax({
+            type: 'post',
+            url: url,
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(str),
+            success: function (response) {
+                layui.use('layer', function(){
+								  var layer = layui.layer;
+								  if(response.success){
+								  		if('专家论' == str.dimension){
+								 			showTable(response.data,'demo1',str.dimension);
+								  		}else{
+								  			showTable(response.data,'demo2',str.dimension);
+								  		}
+			                        }else{
+			                        	if(response.code!=null){
+			                        		window.location.href="/login";
+			                        	}else{
+			                       			layer.alert(response.message);
+			                       		}
+			                        }
+								}); 
+            }
+        });
+	}
+	function show(d,dimension){
+			var showTab;
+			if('专家论' == dimension){
+				showTab = document.getElementById('biuuu_city_list_1');
+			}else{
+				showTab = document.getElementById('biuuu_city_list_2');
+			}
+			showTab.innerHTML = function(){
+				var before='<table class="layui-table" lay-even="" lay-skin="nob">'+
+					 	'<colgroup><col width="90"><col width="200"><col width="450"><col width="200"><col width="220"><col></colgroup>'+
+					 	'<thead><tr><th>作者</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
+		        var arr = []
+		        layui.each(d, function(index, item){
+		          arr.push('<tr><td>'+item.author+'</td><td>'+item.title+'</td><td><a href="/head/getDetail.json?id='+item.id+'">'+item.summary+
+		          			'</a></td><td>'+item.publishTime+'</td><td>'+item.source+
+		          			'</td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="onDel(\''+item.id+'\')">删除</a>'+
+		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" onclick="myTop(\''+item.id+'\')">置顶</a></td></tr>');
+		        });
+		        var inner=arr.join('');
+		        var after='</tbody></table> ';
+		        return before+inner+after;
+			}();
+		}
+</script>
+	
 </html>	

@@ -1,5 +1,6 @@
 package com.huishu.ait.service.ExpertOpinion.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -212,32 +213,32 @@ public class ExpertOpinionServiceImpl extends AbstractService implements ExpertO
 	 */
 	
 	@Override
-	public Page<ArticleListDTO> findExpertOpinionArticleList(JSONObject param) {
-		String type = param.getString("type");
-		JSONArray json = new JSONArray();
-		if(type.equals("专家论")){
-			String industryLabel = param.getString("industryLabel");
-			List<Specialist> list = null;
-			if(industryLabel.equals("全部")){
-				list =   repository.findByIndustry(param.getString("industry"));
-			}else{
-				
-				list =   repository.findByIndustryAndIndustryLabel(param.getString("industry"),param.getString("industryLabel"));
-			}
-		 list.forEach(specialist->{
-			 JSONObject obj = new JSONObject();
-			 obj.put("value",specialist.getName());
-			 json.add(obj);
-		 });
-		}
-		param.put("anthor", json);
-		param.put("dimension", "百家论");
-		param.remove("type");
+	public Page<AITInfo> findExpertOpinionArticleList(JSONObject param) {
+		String dimension = param.getString("dimension");
+		String industry = param.getString("industry");
+		String industryLabel = param.getString("industryLabel");
 		String time = param.getString("time");
-		param = DateCheck.dateCheck(time, param);
+		int pageNum = param.getIntValue("pageNum");
+		int pageSize = param.getIntValue("pageSize");
+		DateCheck.dateCheck(time, param);
 		param.remove("time");
-		BoolQueryBuilder bq = getIndustryBuilder(param);
-		Page<ArticleListDTO> list = getArtivleList(bq);
-		return list;
+		String startDate = param.getString("startDate");
+		String endDate = param.getString("endDate");
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		Sort sort = new Sort(Direction.DESC, "publishTime");
+		PageRequest pageRequest = new PageRequest(pageNum, pageSize, sort);
+		bq.must(QueryBuilders.termQuery("dimension", dimension));
+		bq.must(QueryBuilders.termQuery("industry", industry));
+		if(!"不限".equals(industryLabel))
+			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
+		bq.must(QueryBuilders.rangeQuery("publishTime").from(startDate).to(endDate));
+		
+		Page<AITInfo> pageList = baseElasticsearch.search(bq,pageRequest);
+		return pageList;
+	}
+
+	@Override
+	public AITInfo findDetail(String id) {
+		return baseElasticsearch.findOne(id);
 	}
 }

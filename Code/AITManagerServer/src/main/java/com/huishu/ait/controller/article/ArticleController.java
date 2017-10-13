@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.ait.common.conf.MsgConstant;
@@ -37,7 +39,8 @@ public class ArticleController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public AjaxResult deleteArticleById(@PathVariable String id) {
+	@ResponseBody
+	public AjaxResult deleteArticleById(String id) {
 		if (StringUtil.isEmpty(id)) {
 			logger.debug(MsgConstant.ILLEGAL_PARAM);
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -47,7 +50,7 @@ public class ArticleController extends BaseController {
 		if (info) {
 			return success("删除成功！");
 		} else {
-			return error("删除失败！");
+			return success("删除失败！");
 		}
 	}
 
@@ -77,7 +80,7 @@ public class ArticleController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/findInfo", method = RequestMethod.GET)
-	public AjaxResult findArticleInfoById(@PathVariable String id,Map<String,Object>map) {
+	public AjaxResult findArticleInfoById(String id,Map<String,Object>map) {
 		if (StringUtil.isEmpty(id)) {
 			logger.debug(MsgConstant.ILLEGAL_PARAM);
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -85,5 +88,16 @@ public class ArticleController extends BaseController {
 		AITInfo info = service.findArticleInfoById(id);
 		map.put("message", info);
 		return success(map);
+	}
+	
+	/**
+	 * 保存专家观点新增文章的功能
+	 * @param ait
+	 * @return
+	 */
+	@RequestMapping(value = "/saveArt.json", method = RequestMethod.POST)
+	public String saveArt( AITInfo ait){
+		service.saveArt(ait);
+		return "industry/expertOpint";
 	}
 }

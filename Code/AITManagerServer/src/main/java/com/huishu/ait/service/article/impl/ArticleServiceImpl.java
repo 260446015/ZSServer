@@ -34,8 +34,10 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 			search.delete(id);
 			logger.info("执行删除操作");
 			
+			return true;
+		}else{
+			return false;
 		}
-		return true;
 
 	}
 	/**
@@ -67,6 +69,18 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 		List<String> list = getBusiness(one.getTitle(),one.getContent());
 		one.setBus(list);
 		return one;
+	}
+	@Override
+	public boolean saveArt(AITInfo ait) {
+		boolean flag = false;
+		try{
+			search.save(ait);
+			flag = true;
+		}catch(Exception e){
+			logger.error("新增专家观点文章出错",e.getMessage());
+		}
+		return flag;
+		
 	}
 
 }

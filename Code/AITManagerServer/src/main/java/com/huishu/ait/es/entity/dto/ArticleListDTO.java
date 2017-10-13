@@ -1,5 +1,10 @@
 package com.huishu.ait.es.entity.dto;
 
+import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
+import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
+
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -9,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
  * @return 
  * 
  */
+@Document(indexName = INDEX, type = TYPE)
 public class ArticleListDTO {
 	
 	

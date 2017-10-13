@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.StringUtil;
 
 /**
  * @author hhy
@@ -137,6 +138,8 @@ public class AITInfo {
 	}
 
 	public void setTitle(String title) {
+		if(!StringUtil.isEmpty(title))
+			title = StringUtil.replaceHtml(title);
 		this.title = title;
 	}
 
@@ -323,6 +326,8 @@ public class AITInfo {
 	}
 
 	public void setSummary(String summary) {
+		if(!StringUtil.isEmpty(summary))
+			summary = StringUtil.replaceHtml(summary);
 		this.summary = summary;
 	}
 

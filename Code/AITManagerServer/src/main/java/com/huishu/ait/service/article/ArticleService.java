@@ -31,4 +31,12 @@ public interface ArticleService {
 	 */
 	AITInfo findArticleInfoById(String id);
 
+	/**
+	 * 保存新增的文章
+	 * @param ait
+	 * @return
+	 */
+	boolean saveArt(AITInfo ait);
+
+
 }
