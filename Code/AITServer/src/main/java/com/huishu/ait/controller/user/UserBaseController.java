@@ -95,5 +95,23 @@ public class UserBaseController extends BaseController {
 		}
 
 	}
+	
+	/**
+	 * 修改邮箱
+	 * 
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping(value = "applyFormal.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult applyFormal() {
+		try {
+			return userBaseService.applyFormal(getUserId());
+		} catch (Exception e) {
+			LOGGER.error("applyFormal失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
 
 }

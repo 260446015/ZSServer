@@ -61,6 +61,12 @@ public interface UserBaseService {
 	 * @return
 	 */
 	AjaxResult modifyEmail(Long userId, String email);
+	/**
+	 * 试用会员申请转为正式会员
+	 * @param userId
+	 * @return
+	 */
+	AjaxResult applyFormal(Long userId);
 
 	/**
 	 * 重置用户密码

@@ -191,4 +191,17 @@ public class UserBaseServiceImpl extends AbstractService implements UserBaseServ
 		userBaseRepository.delete(id);
 	}
 
+	@Override
+	public AjaxResult applyFormal(Long userId) {
+		AjaxResult result = new AjaxResult();
+		UserBase one = userBaseRepository.findOne(userId);
+		one.setUserLevel(9);
+		UserBase save = userBaseRepository.save(one);
+		if (save != null) {
+			return result.setSuccess(true).setMessage("操作成功");
+		} else {
+			return result.setSuccess(false).setMessage("操作失败，请稍后再试");
+		}
+	}
+
 }
