@@ -60,8 +60,10 @@ public class AopConfiguration {
         	UserBase base = userBaseService.findUserByUserId(id);
         	if(base.getIsWarn()==1){
                 adminService.warnAccount(id,0);
-                ajaxResult.setTime(base.getExpireTime());
-                ajaxResult.setLevel(base.getUserLevel());
+                JSONObject object = new JSONObject();
+                object.put("time", base.getExpireTime());
+                object.put("level", base.getUserLevel());
+                ajaxResult.setUser(object);
             }
         }
         return result;

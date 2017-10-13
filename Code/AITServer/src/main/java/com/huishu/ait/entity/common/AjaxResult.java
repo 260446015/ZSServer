@@ -1,5 +1,7 @@
 package com.huishu.ait.entity.common;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * @author hhy
  * @date 2017年7月26日
@@ -17,24 +19,14 @@ public class AjaxResult {
 
 	private int status;
 	
-	private int level;
-	
-	private String time;
+	private JSONObject user;
 
-	public int getLevel() {
-		return level;
+	public JSONObject getUser() {
+		return user;
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
+	public void setUser(JSONObject user) {
+		this.user = user;
 	}
 
 	public boolean isSuccess() {
