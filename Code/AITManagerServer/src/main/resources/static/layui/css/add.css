@@ -199,3 +199,11 @@
 	left:-60px;top:95px;;
 	background:#00e8a9;
 }
+ul{margin:0;}
+.nav-label-title{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 60px;
+    padding:0 20px;
+}

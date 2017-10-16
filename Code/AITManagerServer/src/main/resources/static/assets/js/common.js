@@ -4,6 +4,9 @@ var time = '一年';
 var current = 0;
 var dimension = '专家论';
 function myClick(a, b, c, d,e) {
+	$('#label-list>ul').on('click','li',function(){
+        $(this).addClass("layui-this").siblings().removeClass('layui-this');
+     })
 	layui.use('element', function() {
 
 		var element = layui.element;
