@@ -1,5 +1,6 @@
 package com.huishu.ait.service.garden.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -117,15 +118,25 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	public JSONArray findInformationList(BusinessSuperviseDTO searchModel) {
 		JSONArray array = new JSONArray();
 		if(searchModel.getDimension().equals("企业库")){
-			Integer count = companyRepository.findByParkCount(searchModel.getPark());
-			searchModel.setTotalSize(count);
-			List<Company> list = companyRepository.findByPark(searchModel.getPark(), searchModel.getPageFrom(), searchModel.getPageSize());
-			if (list==null ||list.isEmpty()) {
-	            return array;
-	        }
-	        for (Object object : list) {
-	        	array.add(object);
-	        }
+			GardenData gardenName = gardenRepository.findByGardenName(searchModel.getPark());
+			if(gardenName!=null){
+				String company = gardenName.getEnterCompany();
+				if(!StringUtil.isEmpty(company)){
+					String[] split = company.split("、");
+					List<String> list = new ArrayList<String>();
+					for (String string : split) {
+						if(!StringUtil.isEmpty(string)){
+							list.add(string);
+						}
+					}
+					searchModel.setTotalSize(list.size());
+					Integer after=searchModel.getPageFrom()+searchModel.getPageSize();
+					for (int i = searchModel.getPageFrom(); i < (list.size()>after?after:list.size()); i++) {
+						array.add(list.get(i));
+					}
+				}
+			}
+			return array;
 		}else{
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("park", searchModel.getPark());
@@ -156,8 +167,15 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	}
 
 	@Override
-	public void dropCompany(Long id) {
-		companyRepository.delete(id);
+	public void dropCompany(String park,String companyName) {
+		GardenData data = gardenRepository.findByGardenName(park);
+		String company = data.getEnterCompany();
+		if(!StringUtil.isEmpty(company)){
+			String replace = company.replace(companyName, "");
+			data.setEnterCompany(replace);
+			gardenRepository.save(data);
+		}
+		companyRepository.deleteByCompanyName(companyName);
 	}
 
 	@Override
@@ -167,6 +185,10 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 
 	@Override
 	public void addCompany(Company company) {
+		GardenData data = gardenRepository.findByGardenName(company.getPark());
+		String enterCompany = data.getEnterCompany();
+		data.setEnterCompany(enterCompany+"、"+company.getCompanyName());
+		gardenRepository.save(data);
 		companyRepository.save(company);
 	}
 } 

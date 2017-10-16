@@ -54,14 +54,13 @@ public interface GardenService {
 	void dropEssay(String id);
 	/**
 	 * 删除企业
-	 * @param id
-	 * @return
+	 * @param park
+	 * @param companyName
 	 */
-	void dropCompany(Long id);
+	void dropCompany(String park,String companyName);
 	/**
 	 * 添加企业
 	 * @param company
-	 * @return
 	 */
 	void addCompany(Company company);
 }
