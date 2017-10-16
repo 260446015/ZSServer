@@ -40,12 +40,12 @@ public class ArticleController extends BaseController {
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult deleteArticleById(String id) {
-		if (StringUtil.isEmpty(id)) {
+	public AjaxResult deleteArticleById(String[] ids) {
+		if (StringUtil.isEmpty(ids.toString())) {
 			logger.debug(MsgConstant.ILLEGAL_PARAM);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		Boolean info = service.delArticleById(id);
+		Boolean info = service.delArticleById(ids);
 		logger.info("根据文章id删除文章的结果是" + info);
 		if (info) {
 			return success("删除成功！");

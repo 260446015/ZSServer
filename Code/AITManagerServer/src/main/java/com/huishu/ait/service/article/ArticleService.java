@@ -16,7 +16,7 @@ public interface ArticleService {
 	 * @return
 	 * 根据文章id,删除文章
 	 */
-	Boolean delArticleById(String id);
+	Boolean delArticleById(String[] ids);
 
 	/**
 	 * 根据文章id,更新情感

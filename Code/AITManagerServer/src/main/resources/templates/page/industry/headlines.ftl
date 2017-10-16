@@ -19,11 +19,11 @@
 		<!-- 内容 Page -->
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
-			<div class="layui-tab">
+			<div class="layui-tab" lay-filter="demo">
 				<ul class="layui-tab-title">
-					<li class="layui-this"
+					<li lay-id="11" class="layui-this"
 						onclick="myClick(industry,industryLabel,time,'产业头条')">产业头条</li>
-					<li onclick="myClick(industry,industryLabel,time,'产业云图')">产业云图</li>
+					<li lay-id="22" onclick="myClick2(industry,industryLabel,time,'产业云图')">产业云图</li>
 				</ul>
 				<div class="layui-tab-content">
 					<!-- 选项卡1 -->
@@ -48,11 +48,18 @@
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '产业头条');">昨日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '产业头条');">近3天</a></li>
 							</ul>
+							<ul  style="display:none">
+								<li class="layui-nav-item"><a href="">关键词：</a></li>
+							    <li id="searchName" style="position:relative;display:inline-block;">
+							     <span></span>
+							     <i class="layui-icon" style="position:absolute;right:-10px;top:-10px;cursor:pointer;" class="remove" onclick="remove();">&#x1007;</i>  	
+							    </li>
+							</ul>
 						</div>
 						<div class="layui-col-md12">
 							<div>
 								<ul id="biuuu_city_list_1"></ul>
-								<div id="demo1"></div>
+								<li id="demo1"></li>
 							</div>
 						</div>
 					</div>
@@ -93,6 +100,10 @@
 		<#include "/common/script.ftl">
 </body>
 <script>
+	function remove(){
+		$("#searchName").parent().css("display","none");
+		myClick(industry, industryLabel, time, '产业头条');
+	}
 	function onDel(id) {
 		layer.confirm('确定删除该文章？', function(index) {
 			$.ajax({
@@ -129,8 +140,8 @@
 		});
 	}
 	$(function() {
-		getLabel('产业头条');
-		getLabel2('产业云图');
+		getLabel(industry);
+		getLabel2(industry);
 		myClick(industry, industryLabel, time, '产业头条');
 		myClick2(industry, industryLabel, time, '产业云图');
 	});
@@ -178,7 +189,7 @@ function getLabel2(industry){
 						if ('产业头条' == str.dimension) {
 							showTable(response.data, 'demo1', str.dimension);
 						} else {
-							showTable2(response.data, 'demo2', str.dimension);
+							showTable2(response.data, 'demo2', str.type);
 						}
 					} else {
 						if (response.code != null) {
@@ -200,7 +211,8 @@ function getLabel2(industry){
 	dimension = d;
 	var req = {
 		type : '产业云图',
-		"msg" : ["互联网","不限","今日"]
+		"msg" : ["互联网","不限","今日"],
+		time : '一年'
 		//industry : industry,
 		//industryLabel : industryLabel,
 		//time : time,
@@ -209,7 +221,34 @@ function getLabel2(industry){
 		//pageSize : 10
 	};
 	myRequest(req, '/head/getHeadlineKeyWord.json');
-};
+}
+	function myClick3(a, b, c, d,e) {
+
+	industry = a;
+	industryLabel = b;
+	time = c;
+	dimension = d;
+	var req = {
+		//type : '产业云图',
+		//"msg" : ["互联网","不限","今日"],
+		//time : '一年'
+		industry : a,
+		industryLabel : b,
+		time : c,
+		dimension : d,
+		searchName : e,
+		pageNum : 0,
+		pageSize : 10
+	};
+	myRequest(req, '/head/getExpertOpinion.json');
+	$("#searchName").find('span').text(e);
+	$("#searchName").parent().css("display","block");
+	layui.use('element', function() {
+
+		var element = layui.element;
+		element.tabChange('demo', '11');
+	});
+}
 	function showTable2(data, elem, dimension) {
 	layui.use('table', function() {
 		var table = layui.table;
@@ -221,7 +260,7 @@ function getLabel2(industry){
 			curr:current+1,
 			jump : function(obj, first) {
 				if (first) {
-					show(data.content, dimension);
+					show(data, dimension);
 				}
 				// 模拟渲染
 				if (!first) {
@@ -243,7 +282,7 @@ function getLabel2(industry){
 						success : function(response) {
 							// document.getElementById('biuuu_city_list').innerHTML
 							// ="";
-							show(response.data.content, dimension);
+							show(response, dimension);
 						}
 					});
 				}
@@ -255,10 +294,7 @@ function getLabel2(industry){
 		var showTab;
 		if ('产业头条' == dimension) {
 			showTab = document.getElementById('biuuu_city_list_1');
-		} else {
-			showTab = document.getElementById('biuuu_city_list_2');
-		}
-		showTab.innerHTML = function() {
+			showTab.innerHTML = function() {
 			var before = '<table class="layui-table" lay-even="" lay-skin="nob">' + '<colgroup><col width="90"><col width="200"><col width="450"><col width="200"><col width="220"><col></colgroup>'
 					+ '<thead><tr><th>作者</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
 			var arr = []
@@ -272,6 +308,23 @@ function getLabel2(industry){
 			var after = '</tbody></table> ';
 			return before + inner + after;
 		}();
+		} else {
+			showTab = document.getElementById('biuuu_city_list_2');
+			showTab.innerHTML = function() {
+			var before = '<table class="layui-table" lay-even="" lay-skin="nob">' + '<colgroup><col width="90"><col width="200"><col width="450"><col width="200"><col width="220"><col></colgroup>'
+					+ '<thead><tr><th>编号</th><th>名称</th><th>数值</th></tr></thead><tbody>';
+			var arr = []
+			layui.each(d, function(index, item){
+		          arr.push('<tr><td>'+index+'</td><td>'+item.value+'</td><td><a href="javascript:void(0);" onclick="myClick3(\''+industry+'\',\''+industryLabel+'\',\''+time+'\',\'产业头条\',\''+item.name+'\');">'+item.name+
+		          			'</a></td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="onDel(\''+item.id+'\')">删除</a>'+
+		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" onclick="myTop(\''+item.id+'\')">置顶</a></td></tr>');
+		        });
+		    var inner = arr.join('');
+			var after = '</tbody></table> ';
+			return before + inner + after;
+			}();
+		}
+		
 	}
 </script>
 
