@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -33,11 +34,9 @@ import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.common.util.DateCheck;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
-import com.huishu.ait.entity.Specialist;
 import com.huishu.ait.entity.UserCollection;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
-import com.huishu.ait.es.entity.dto.ArticleListDTO;
 import com.huishu.ait.es.repository.ExpertOpinion.BaseElasticsearch;
 import com.huishu.ait.repository.Specialist.SpecialistRepository;
 import com.huishu.ait.repository.expertOpinionDetail.UserCollectionRepository;
@@ -218,6 +217,7 @@ public class ExpertOpinionServiceImpl extends AbstractService implements ExpertO
 		String industry = param.getString("industry");
 		String industryLabel = param.getString("industryLabel");
 		String time = param.getString("time");
+		String searchName = param.getString("searchName");
 		int pageNum = param.getIntValue("pageNum");
 		int pageSize = param.getIntValue("pageSize");
 		DateCheck.dateCheck(time, param);
@@ -234,6 +234,16 @@ public class ExpertOpinionServiceImpl extends AbstractService implements ExpertO
 		bq.must(QueryBuilders.rangeQuery("publishTime").from(startDate).to(endDate));
 		
 		Page<AITInfo> pageList = baseElasticsearch.search(bq,pageRequest);
+		if(!StringUtil.isEmpty(searchName)){
+			List<AITInfo> newList = new ArrayList<>();
+			for (AITInfo ait : pageList) {
+				if(ait.getContent().contains(searchName) || ait.getTitle().contains(searchName) ){
+					newList.add(ait);
+				}
+			}
+			PageImpl<AITInfo> impl = new PageImpl<>(newList);
+			return impl;
+		}
 		return pageList;
 	}
 

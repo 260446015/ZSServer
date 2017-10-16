@@ -28,16 +28,20 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 	 * 删除文章通过id
 	 */
 	@Override
-	public Boolean delArticleById(String id) {
-		AITInfo findOne = search.findOne(id);
-		if(findOne!= null){
-			search.delete(id);
-			logger.info("执行删除操作");
-			
-			return true;
-		}else{
+	public Boolean delArticleById(String[] ids) {
+		try{
+			for (String id : ids) {
+				AITInfo findOne = search.findOne(id);
+				if(findOne!= null){
+					search.delete(id);
+					logger.info("执行删除操作");
+				}
+			}
+		}catch(Exception e){
+			logger.error("删除文章内容失败!", e.getMessage());
 			return false;
 		}
+		return true;
 
 	}
 	/**

@@ -2,9 +2,13 @@ var industry = '互联网+';
 var industryLabel = '不限';
 var time = '一年';
 var current = 0;
-// var dimension = '专家论';
+var dimension = '专家论';
 function myClick(a, b, c, d,e) {
+	layui.use('element', function() {
 
+		var element = layui.element;
+		element.tabChange('demo', '11');
+	});
 	industry = a;
 	industryLabel = b;
 	time = c;
@@ -21,9 +25,10 @@ function myClick(a, b, c, d,e) {
 };
 
 function showTable(data, elem, dimension) {
-	layui.use('table', function() {
+	layui.use(['table','element'], function() {
 		var table = layui.table;
 		var laypage = layui.laypage;
+	
 		// 调用分页
 		laypage.render({
 			elem : elem,
