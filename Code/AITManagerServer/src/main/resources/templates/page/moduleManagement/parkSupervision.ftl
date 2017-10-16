@@ -101,13 +101,13 @@
                         var layer = layui.layer;
                         if(response.success){
                             var colList=[ //标题栏
-                                {field: 'gardenName', title: '园区名称', width: 170}
-                                ,{field: 'gardenLevel', title: '园区级别', width: 150}
+                                {field: 'name', title: '园区名称', width: 170}
                                 ,{field: 'area', title: '地域(城市)', width: 120}
                                 ,{field: 'address', title: '具体地址', width: 120}
                                 ,{field: 'industry', title: '园区产业', width: 170}
-                                ,{field: 'establishDate', title: '成立时间', width: 195}
-                                ,{field: 'gardenSquare', title: '园区面积', width: 195}
+                                ,{field: 'boss', title: '负责人', width: 195}
+                                ,{field: 'phone', title: '电话', width: 195}
+                                ,{field: 'position', title: '职位', width: 195}
                                 ,{fixed: 'right',  align:'center', title: '操作', width: 110 ,toolbar: '#appendix'}
                             ]
                             showTable(response.data,colList);
@@ -124,7 +124,7 @@
                 //监听工具条
                 table.on('tool(filter)', function(obj){
                 	var data = obj.data;
-                    window.location.href="/apis/area/parkDetail?park="+data.gardenName;
+                    window.location.href="/apis/area/parkDetail?park="+data.name;
                 });
                 //展示已知数据
                 table.render({

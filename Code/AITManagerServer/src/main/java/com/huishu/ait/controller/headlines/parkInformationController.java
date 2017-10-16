@@ -16,7 +16,7 @@ import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.Company;
-import com.huishu.ait.entity.GardenData;
+import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 import com.huishu.ait.service.garden.GardenService;
@@ -53,9 +53,9 @@ public class parkInformationController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "parkDetails.json", method = RequestMethod.GET)
-	public String parkDetails(Integer id,Model model){
+	public String parkDetails(Long id,Model model){
 		try {
-			GardenData garden = gardenService.findGarden(id);
+			UserPark garden = gardenService.findGarden(id);
 			model.addAttribute("garden",garden);
 		} catch (Exception e) {
 			LOGGER.error("parkDetails失败！", e);
@@ -70,7 +70,7 @@ public class parkInformationController extends BaseController{
 	 */
 	@RequestMapping(value = "changeGarden.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult changeGarden(@RequestBody GardenData garden){
+	public AjaxResult changeGarden(@RequestBody UserPark garden){
 		try {
 			gardenService.changeGarden(garden);
 			return success(null).setMessage("操作成功");

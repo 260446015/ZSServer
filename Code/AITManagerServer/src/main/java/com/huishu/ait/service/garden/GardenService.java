@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ait.entity.Company;
-import com.huishu.ait.entity.GardenData;
+import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 
@@ -21,19 +21,19 @@ public interface GardenService {
 	 * @param dto
 	 * @return
 	 */
-	List<GardenData> findGardensList(GardenDTO dto);
+	List<UserPark> findGardensList(GardenDTO dto);
 	/**
 	 * 查看园区详情
 	 * @param id
 	 * @return
 	 */
-	GardenData findGarden(Integer id);
+	UserPark findGarden(Long id);
 	/**
 	 * 修改园区信息
 	 * @param garden
 	 * @return
 	 */
-	void changeGarden(GardenData garden);
+	void changeGarden(UserPark garden);
 	/**
 	 * 获取园区内企业动态/疑似外流
 	 * @param searchModel

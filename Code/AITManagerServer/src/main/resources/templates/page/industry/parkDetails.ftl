@@ -37,11 +37,7 @@
 	                <table class="info-table layui-table">
 	                    <tr>
 	                        <td>园区名称</td>
-	                        <td>${Request.garden.gardenName}</td>
-	                    </tr>
-	                    <tr>
-	                        <td>园区级别</td>
-	                        <td>${Request.garden.gardenLevel}</td>
+	                        <td>${Request.garden.name}</td>
 	                    </tr>
 	                    <tr>
 	                        <td>地域（城市）</td>
@@ -56,12 +52,20 @@
 	                        <td>${Request.garden.industry}</td>
 	                    </tr>
 	                    <tr>
-	                        <td>成立时间</td>
-	                        <td>${Request.garden.establishDate}</td>
+	                        <td>负责人</td>
+	                        <td>${Request.garden.boss}</td>
 	                    </tr>
 	                    <tr>
-	                        <td>园区面积</td>
-	                        <td>${Request.garden.gardenSquare}</td>
+	                        <td>电话</td>
+	                        <td>${Request.garden.phone}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>职位</td>
+	                        <td>${Request.garden.position}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>园区描述</td>
+	                        <td>${Request.garden.introduction}</td>
 	                    </tr>
 	                </table>
 	            </div>
@@ -99,18 +103,7 @@
                        <div class="layui-form-item">
                             <label class="layui-form-label">园区名称</label>
                             <div class="layui-input-block">
-                                <input type="text" id="gardenName" required  lay-verify="required" placeholder="请输入园区名称" value="${Request.garden.gardenName}" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">园区级别</label>
-                            <div class="layui-input-block">
-                                <select id="level" lay-verify="required">
-                                    <option value="国家级">国家级</option>
-                                    <option value="省级">省级</option>
-                                    <option value="地市级">地市级</option>
-                                    <option value="县级">县级</option>
-                                </select>
+                                <input type="text" id="gardenName" required  lay-verify="required" placeholder="请输入园区名称" value="${Request.garden.name}" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -132,15 +125,27 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">成立时间</label>
+                            <label class="layui-form-label">负责人</label>
                             <div class="layui-input-block">
-                                <input type="text" id="establishDate" required  lay-verify="required" placeholder="请输入成立时间" value="${Request.garden.establishDate}" autocomplete="off" class="layui-input">
+                                <input type="text" id="establishDate" required  lay-verify="required" placeholder="请输入负责人" value="${Request.garden.boss}" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">园区面积</label>
+                            <label class="layui-form-label">负责人电话</label>
                             <div class="layui-input-block">
-                                <input type="text" id="gardenSquare" required  lay-verify="required" placeholder="请输入园区面积" value="${Request.garden.gardenSquare}" autocomplete="off" class="layui-input">
+                                <input type="text" id="gardenSquare" required  lay-verify="required" placeholder="请输入负责人电话" value="${Request.garden.phone}" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">负责人职位</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="gardenSquare" required  lay-verify="required" placeholder="请输入负责人职位" value="${Request.garden.position}" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">园区描述</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="gardenSquare" required  lay-verify="required" placeholder="请输入园区描述" value="${Request.garden.introduction}" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                    </form>
@@ -283,7 +288,7 @@
     	var engageState=$('#engageState').val();
     	var registerCapital=$('#registerCapital').val();
     	var registerDate=$('#registerDate').val();
-    	var obj={companyName:companyName,boss:boss,park:'${Request.garden.gardenName}',engageState:engageState,
+    	var obj={companyName:companyName,boss:boss,park:'${Request.garden.name}',engageState:engageState,
     		registerCapital:registerCapital,registerDate:registerDate,address:address,
     		area:area,logo:logoSrc,industry:industry};
 		$.ajax({
@@ -302,7 +307,7 @@
     }
     function myClick(a){
 	    dimension=a;
-    	var obj={dimension:dimension,park:'${Request.garden.gardenName}'};
+    	var obj={dimension:dimension,park:'${Request.garden.name}'};
 		$.ajax({
                 type: 'post',
                 url: "/apis/parkInfo/findInformationList.json",
@@ -341,7 +346,7 @@
 				    //首次不执行
 				    if(!first){
 				    	var obj={dimension:dimension,
-				    			park:'${Request.garden.gardenName}',
+				    			park:'${Request.garden.name}',
 				    			pageNumber:obj.curr,
 				    			pageSize:obj.limit};
 				     	$.ajax({
@@ -440,7 +445,7 @@
 	                url: "/apis/parkInfo/dropCompany.json",
 	                async: false,
 	                contentType: 'application/json',
-	                data: {companyName:name,park:'${Request.garden.gardenName}'},
+	                data: {companyName:name,park:'${Request.garden.name}'},
 	                success: function (response) {
 	                	layer.closeAll();
 	                	layer.msg(response.message);

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.dto.GardenDataDTO;
 
@@ -16,6 +17,14 @@ import com.huishu.ait.entity.dto.GardenDataDTO;
  * @create 2017年9月8日
  */
 public interface UserParkRepository extends CrudRepository<UserPark, Long> {
+	/**
+	 * 查看园区列表
+	 * @param area
+	 * @param name
+	 * @param industry
+	 * @return
+	 */
+	List<UserPark> findByAreaLikeAndNameLikeAndIndustryLikeOrderByIdDesc(String area,String name,String industry);
 	/**
 	 * 查看园区数量
 	 * 

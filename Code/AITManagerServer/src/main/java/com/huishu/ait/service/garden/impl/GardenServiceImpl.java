@@ -10,19 +10,21 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.GardenData;
+import com.huishu.ait.entity.UserPark;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 import com.huishu.ait.es.repository.garden.GardenInformationRepository;
 import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.repository.garden.GardenRepository;
+import com.huishu.ait.repository.user.UserParkRepository;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.garden.GardenService;
 
@@ -33,34 +35,22 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	private GardenRepository gardenRepository;
 	@Resource
 	private CompanyRepository companyRepository;
+	@Autowired
+	private UserParkRepository userParkRepository;
 	@Resource
 	private GardenInformationRepository gardenInformationRepository;
 
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
 
 	@Override
-	public List<GardenData> findGardensList(GardenDTO dto) {
-		List<GardenData> findGardensPage=null;
+	public List<UserPark> findGardensList(GardenDTO dto) {
+		List<UserPark> findGardensPage=null;
 		try {
-			findGardensPage = gardenRepository.findByAreaLikeAndGardenNameLikeAndIndustryLikeOrderByIdDesc(dto.getArea(), dto.getSearch() ,dto.getType());
+			findGardensPage=userParkRepository.findByAreaLikeAndNameLikeAndIndustryLikeOrderByIdDesc(dto.getArea(), dto.getSearch() ,dto.getType());
 			findGardensPage.forEach(GardenData -> {
-				String gardenIntroduce = GardenData.getGardenIntroduce();
-				String gardenSuperiority = GardenData.getGardenSuperiority();
 				String address = GardenData.getAddress();
-				String picture = GardenData.getGardenPicture();
-				if (gardenIntroduce == null || StringUtil.isEmpty(gardenIntroduce) || gardenIntroduce.equals("NULL")) {
-					if (gardenSuperiority == null || StringUtil.isEmpty(gardenSuperiority)
-							|| gardenSuperiority.equals("NULL")) {
-						GardenData.setGardenIntroduce("暂无");
-					} else {
-						GardenData.setGardenIntroduce(gardenSuperiority);
-					}
-				}
 				if (address == null || StringUtil.isEmpty(address) || address.equals("NULL")) {
 					GardenData.setAddress("暂无");
-				}
-				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
-					GardenData.setGardenPicture(ImgConstant.IP_PORT + "park_img/default.jpg");
 				}
 			});
 		} catch (Exception e) {
@@ -110,8 +100,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	}
 
 	@Override
-	public GardenData findGarden(Integer id) {
-		return gardenRepository.findOne(id);
+	public UserPark findGarden(Long id) {
+		return userParkRepository.findOne(id);
 	}
 
 	@Override
@@ -179,8 +169,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	}
 
 	@Override
-	public void changeGarden(GardenData garden) {
-		gardenRepository.save(garden);
+	public void changeGarden(UserPark garden) {
+		userParkRepository.save(garden);
 	}
 
 	@Override

@@ -40,6 +40,15 @@ public class UserPark implements Serializable {
 	private String position;
 	/** 简介 */
 	private String introduction;
+	private String logo;
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
 
 	public Long getId() {
 		return id;
