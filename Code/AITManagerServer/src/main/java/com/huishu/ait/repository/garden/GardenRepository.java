@@ -15,5 +15,6 @@ import com.huishu.ait.entity.GardenData;
 public interface GardenRepository extends CrudRepository<GardenData, Integer> {
 
 	List<GardenData> findByAreaLikeAndGardenNameLikeAndIndustryLikeOrderByIdDesc(String area,String gardenName,String industry);
+	GardenData findByGardenName(String gardenName);
 
 }

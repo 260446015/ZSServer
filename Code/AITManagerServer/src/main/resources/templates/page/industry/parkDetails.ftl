@@ -383,14 +383,13 @@
 		function show2(d){
 			document.getElementById('biuuu_city_list').innerHTML = function(){
 				var before='<table class="layui-table" lay-even="" lay-skin="nob">'+
-					 	'<colgroup><col width="90"><col width="300"><col width="700"><col></colgroup>'+
-					 	'<thead><tr><th>编号</th><th>公司名</th><th>详细地址</th><th>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+					 	'<colgroup><col width="700"><col></colgroup>'+
+					 	'<thead><tr><th>公司名</th><th>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
 					 	'<a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="detail" data-toggle="modal" data-target="#addCompany">添加企业</a>'+
 					 	'</th></tr></thead><tbody>';
 		        var arr = []
 		        layui.each(d, function(index, item){
-		          arr.push('<tr><td>'+item.cid+'</td><td>'+item.companyName+'</td><td>'+item.address+
-		          			'</td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="myDrop2(\''+item.cid+'\')">删除</a>');
+		          arr.push('<tr><td>'+item+'</td></td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="myDrop2(\''+item+'\')">删除</a>');
 		        });
 		        var inner=arr.join('');
 		        var after='</tbody></table> ';
@@ -426,7 +425,7 @@
             }
         });
     }
-    function myDrop2(id){
+    function myDrop2(name){
         layer.open({
             type: 1,
             offset: 'auto',
@@ -441,7 +440,7 @@
 	                url: "/apis/parkInfo/dropCompany.json",
 	                async: false,
 	                contentType: 'application/json',
-	                data: {id:id},
+	                data: {companyName:name,park:'${Request.garden.gardenName}'},
 	                success: function (response) {
 	                	layer.closeAll();
 	                	layer.msg(response.message);

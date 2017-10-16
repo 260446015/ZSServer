@@ -65,8 +65,7 @@ public class parkInformationController extends BaseController{
 	
 	/**
 	 * 修改园区信息
-	 * @param id
-	 * @param model
+	 * @param garden
 	 * @return
 	 */
 	@RequestMapping(value = "changeGarden.json", method = RequestMethod.POST)
@@ -103,17 +102,18 @@ public class parkInformationController extends BaseController{
 	
 	/**
 	 * 删除园区内入驻企业
-	 * @param searchModel
+	 * @param companyName
+	 * @param park
 	 * @return
 	 */
 	@RequestMapping(value = "/dropCompany.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult dropCompany(Long id) {
-		if (id==null) {
+	public AjaxResult dropCompany(String companyName,String park) {
+		if (companyName==null) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			gardenService.dropCompany(id);
+			gardenService.dropCompany(park,companyName);
 			return success(null).setMessage("操作成功");
 		} catch (Exception e) {
 			LOGGER.error("删除园区企业失败：", e);
@@ -123,7 +123,7 @@ public class parkInformationController extends BaseController{
 	
 	/**
 	 * 添加园区内入驻企业
-	 * @param searchModel
+	 * @param company
 	 * @return
 	 */
 	@RequestMapping(value = "/addCompany.json", method = RequestMethod.POST)
