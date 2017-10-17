@@ -925,20 +925,18 @@ public abstract class AbstractService {
 		String[] times = { time1, time2 };
 		return times;
 	}
+	/**
+	 * 获取地域的方法
+	 * @param title
+	 * @param content
+	 * @return
+	 */
 	protected List<String> findArea(String title, String content) {
 		try{
 			// 分析方法
 			JSONObject json = Analysis.getCompany(title, content);
 			System.out.println(json);
 			if (json.getBoolean("status")) {
-//				@SuppressWarnings("unchecked")
-//				Map<String, CategoryModel> finder = (Map<String, CategoryModel>) json.get("result");
-//				for (Map.Entry<String, CategoryModel> entry : finder.entrySet()) {
-//					System.out.println("企业名称:" + entry.getKey());
-//					System.out.println("对应情感：" + entry.getValue().getCategory());
-//					System.out.println("============");
-//				}
-	
 				@SuppressWarnings("unchecked")
 				HashSet<String> address = (HashSet<String>) json.get("address");
 				System.out.println("省市名称:" + address);
@@ -949,5 +947,19 @@ public abstract class AbstractService {
 		}
 		return null;
 	}
-
+	/**
+	 * 添加企业到词库
+	 * @param company
+	 * @return
+	 */
+	protected 	boolean inputBusiness(String company ) {
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = Analysis.updateCompany(company);
+			return jsonObject.getBoolean("status");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false ; 
+		}
+	}
 }
