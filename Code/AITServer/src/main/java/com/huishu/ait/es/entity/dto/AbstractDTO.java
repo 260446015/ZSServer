@@ -36,7 +36,7 @@ public abstract class AbstractDTO {
 	/**
 	 * 特殊的属性名
 	 */
-	private static final List<String> KEYWORDS = Arrays.asList("startDate", "endDate", "keyword", "keywords", "orders",
+	private static final List<String> KEYWORDS = Arrays.asList("startDate", "endDate", "keyWord", "keywords", "orders",
 			"pageNumber", "pageSize");
 
 	private List<String> fieldNames;
@@ -84,20 +84,20 @@ public abstract class AbstractDTO {
 
 			if (!isEmpty(startDate) && !isEmpty(endDate)) {
 				if (startDate.length() > 10) {
-					QueryBuilder range = QueryBuilders.rangeQuery("publishDateTime") // yyyy-MM-dd
+					QueryBuilder range = QueryBuilders.rangeQuery("publishDate") // yyyy-MM-dd
 																						// HH:mm:ss
 							.gte(startDate).lte(endDate);
 					queryBuilder.must(range);
 				} else {
-					QueryBuilder range = QueryBuilders.rangeQuery("publishDate") // yyyy-MM-dd
+					QueryBuilder range = QueryBuilders.rangeQuery("publishTime") // yyyy-MM-dd
 							.gte(startDate).lte(endDate);
 					queryBuilder.must(range);
 				}
 			}
 		}
 
-		if (fieldNames.contains("keyword")) {
-			String keyword = (String) getValueByFieldName(this, "keyword");
+		if (fieldNames.contains("keyWord")) {
+			String keyword = (String) getValueByFieldName(this, "keyWord");
 			if (!isEmpty(keyword)) {
 				queryBuilder.must(QueryBuilders.wildcardQuery("content", "*" + keyword + "*"));
 			}
