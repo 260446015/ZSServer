@@ -270,7 +270,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		String cs = gardenRepository.findByGardenName(gardenName).getEnterCompany();
 		JSONArray array3 = new JSONArray();
 		if (!StringUtil.isEmpty(cs)) {
-			String[] enterCompany = cs.split("，");
+			String[] enterCompany = cs.split("、");
 			for (int i = 0; i < (enterCompany.length < 6 ? enterCompany.length : 5); i++) {
 				JSONObject obj = new JSONObject();
 				obj.put("business", enterCompany[i]);
