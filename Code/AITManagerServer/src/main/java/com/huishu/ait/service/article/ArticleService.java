@@ -1,5 +1,6 @@
 package com.huishu.ait.service.article;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.es.entity.AITInfo;
 
 /**
@@ -29,7 +30,7 @@ public interface ArticleService {
 	 * @param id
 	 * @return
 	 */
-	AITInfo findArticleInfoById(String id);
+	JSONObject findArticleInfoById(String id, Long userId);
 
 	/**
 	 * 保存新增的文章
@@ -37,6 +38,23 @@ public interface ArticleService {
 	 * @return
 	 */
 	boolean saveArt(AITInfo ait);
+
+	
+	/**
+	 * 收藏文章
+	 * @param id
+	 * @param userId
+	 * @return
+	 */
+	JSONObject expertOpinionCollect(String id, Long userId);
+
+	/**
+	 * 取消收藏
+	 * @param id
+	 * @param userId
+	 * @return
+	 */
+	JSONObject cancelExpertOpinionCollect(String id, Long userId);
 
 
 }

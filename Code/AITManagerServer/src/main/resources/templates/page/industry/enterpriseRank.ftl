@@ -27,12 +27,12 @@
 				            <div class="layui-nav layui-bg-cyan">
 				            <ul class="" lay-filter="">
 								<li class="nav-label-title">产业分类：</li>
-								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="getLabel('互联网+');myClick('互联网+', industryLabel, time, '企业排行');">互联网+</a></li>
-								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('高科技');myClick('高科技', industryLabel, time, '企业排行');">高科技</a></li>
-								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('港口物流');myClick('港口物流', industryLabel, time, '企业排行');">港口物流</a></li>
-								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('文化创意');myClick('文化创意', industryLabel, time, '企业排行');">文化创意</a></li>
-								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('其他');myClick('其他', industryLabel, time, '企业排行');">其他</a></li>
-								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('精英配套');myClick('精英配套', industryLabel, time, '企业排行');">精英配套</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="getLabel('互联网+');myClick('互联网+', '不限', time, '企业排行');">互联网+</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('高科技');myClick('高科技', '不限', time, '企业排行');">高科技</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('港口物流');myClick('港口物流', '不限', time, '企业排行');">港口物流</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('文化创意');myClick('文化创意', '不限', time, '企业排行');">文化创意</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('其他');myClick('其他', '不限', time, '企业排行');">其他</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="getLabel('精英配套');myClick('精英配套', '不限', time, '企业排行');">精英配套</a></li>
 							</ul>
 							</div>
 							<div class="layui-nav layui-bg-cyan" id="label-list">
@@ -69,7 +69,7 @@
             $.ajax({
                 url: "/art/delete",
                 contentType: 'application/json',
-                data: {id: id},
+                data: {ids: id},
                 success: function (response) {
                     layer.alert(response.data);
            		    myClick(industry, industryLabel, time, dimension,current);
@@ -142,16 +142,15 @@
 	function show(d,dimension){
 			var showTab = document.getElementById('biuuu_city_list_1');
 			showTab.innerHTML = function(){
-				var before='<table class="layui-table" lay-even="" lay-skin="nob">'+
-					 	'<colgroup><col width="90"><col width="200"><col width="450"><col width="150"><col width="220"><col></colgroup>'+
-					 	'<thead><tr><th>作者</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
-		        var arr = []
-		        layui.each(d, function(index, item){
-		          arr.push('<tr><td>'+item.author+'</td><td>'+item.title+'</td><td>'+item.summary+
+				var before = '<table class="layui-table" lay-even="" lay-skin="nob">' + '<colgroup><col width="7%"><col width="7%"><col width="15%"><col width="30%"><col width="10%"><col width="15%"></colgroup>'
+					+ '<thead><tr><th><input type="checkbox" name="" style="vertical-align:top;" id="allcheck" onclick="checkall();"><a class="layui-btn layui-btn-danger layui-btn-mini" href="javascript:void(0);" onclick="deleteCheck();">删除</a></th><th>作者</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
+			var arr = []
+			layui.each(d, function(index, item){
+		          arr.push('<tr><td><input type="checkbox" value="'+item.id+'" name="checkname"/></td><td>'+item.author+'</td><td>'+item.title+'</td><td>'+item.summary+
 		          			'</td><td>'+item.publishTime+'</td><td>'+item.source+
-		          			'</td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="onDel(\''+item.id+'\')">删除</a>'+
+		          			'</td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="onDel([\''+item.id+'\'])">删除</a>'+
 		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" onclick="myTop(\''+item.id+'\')">置顶</a>'+
-		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" href="/head/getDetail.json?id='+item.id+'">查看详情</a></td></tr>');
+		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" href="/art/findInfo?id='+item.id+'">查看详情</a></td></tr>');
 		        });
 		        var inner=arr.join('');
 		        var after='</tbody></table> ';

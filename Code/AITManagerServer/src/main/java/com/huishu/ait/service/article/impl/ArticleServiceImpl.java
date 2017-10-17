@@ -1,5 +1,6 @@
 package com.huishu.ait.service.article.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -7,8 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.entity.UserCollection;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.repository.ExpertOpinion.BaseElasticsearch;
+import com.huishu.ait.repository.expertOpinionDetail.UserCollectionRepository;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.article.ArticleService;
 
@@ -24,6 +28,9 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 	private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 	@Autowired
 	private BaseElasticsearch  search;
+	
+	@Autowired
+	private UserCollectionRepository userCollectionRepository;
 	/**
 	 * 删除文章通过id
 	 */
@@ -68,11 +75,19 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 	
 	
 	@Override
-	public AITInfo findArticleInfoById(String id) {
+	public JSONObject findArticleInfoById(String id, Long userId) {
+		JSONObject obj = new JSONObject();
 		AITInfo one = search.findOne(id);
 		List<String> list = getBusiness(one.getTitle(),one.getContent());
-		one.setBus(list);
-		return one;
+//		one.setBus(list);
+		obj = (JSONObject) JSONObject.toJSON(one);
+		obj.put("bus", list.toString());
+		if (null == userCollectionRepository.findByArticleIdAndUserId(id, userId)) {
+			obj.put("isCollect", "收藏");
+		} else {
+			obj.put("isCollect", "取消收藏");
+		}
+		return obj;
 	}
 	@Override
 	public boolean saveArt(AITInfo ait) {
@@ -84,6 +99,56 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 			logger.error("新增专家观点文章出错",e.getMessage());
 		}
 		return flag;
+		
+	}
+	@Override
+	public JSONObject expertOpinionCollect(String articleId, Long userId) {
+		JSONObject json = new JSONObject();
+		try {
+			AITInfo param = search.findOne(articleId);
+			UserCollection findOne = userCollectionRepository.findByArticleIdAndUserId(articleId, userId);
+			// 如果不为空先删除
+			if (null != findOne) {
+				userCollectionRepository.delete(findOne);
+			}
+			// 保存
+			UserCollection uc = new UserCollection();
+			uc.setArticleId(param.getId());
+			uc.setAuthor(param.getAuthor());
+			uc.setCollectTime(new Date().toString());
+			uc.setPublishTime(param.getPublishTime());
+			uc.setTitle(param.getTitle());
+			uc.setContent(param.getContent());
+			uc.setSource(param.getSource());
+			uc.setSourceLink(param.getSourceLink());
+			uc.setIndustry(param.getIndustry());
+			uc.setLanmu(param.getDimension());
+			uc.setUserId(userId);
+			userCollectionRepository.save(uc);
+			json.put("state", "success");
+			return json;
+		} catch (Exception e) {
+			json.put("state", "failure");
+			logger.error("收藏失败：", e.getMessage());
+			return json;
+		}
+	}
+	@Override
+	public JSONObject cancelExpertOpinionCollect(String articleId, Long userId) {
+		JSONObject json = new JSONObject();
+		try {
+			UserCollection findOne = userCollectionRepository.findByArticleIdAndUserId(articleId, userId);
+			if (null == findOne) {
+				json.put("state", "failure");
+			}
+			userCollectionRepository.delete(findOne);
+			json.put("state", "success");
+			return json;
+		} catch (Exception e) {
+			json.put("state", "failure");
+			logger.error("取消收藏失败：", e.getMessage());
+			return json;
+		}
 		
 	}
 
