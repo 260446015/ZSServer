@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.entity.Company;
 import com.huishu.ait.entity.GardenData;
@@ -60,6 +61,37 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	}
 
 	@Override
+	public List<GardenData> findAllGardensList(GardenDTO dto) {
+		List<GardenData> findGardensPage=null;
+		try {
+			findGardensPage = gardenRepository.findByAreaLikeAndGardenNameLikeAndIndustryLikeOrderByIdDesc(dto.getArea(), dto.getSearch() ,dto.getType());
+			findGardensPage.forEach(GardenData -> {
+				String gardenIntroduce = GardenData.getGardenIntroduce();
+				String gardenSuperiority = GardenData.getGardenSuperiority();
+				String address = GardenData.getAddress();
+				String picture = GardenData.getGardenPicture();
+				if (gardenIntroduce == null || StringUtil.isEmpty(gardenIntroduce) || gardenIntroduce.equals("NULL")) {
+					if (gardenSuperiority == null || StringUtil.isEmpty(gardenSuperiority)
+							|| gardenSuperiority.equals("NULL")) {
+						GardenData.setGardenIntroduce("暂无");
+					} else {
+						GardenData.setGardenIntroduce(gardenSuperiority);
+					}
+				}
+				if (address == null || StringUtil.isEmpty(address) || address.equals("NULL")) {
+					GardenData.setAddress("暂无");
+				}
+				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
+					GardenData.setGardenPicture(ImgConstant.IP_PORT + "park_img/default.jpg");
+				}
+			});
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		}
+		return findGardensPage;
+	}
+	
+	@Override
 	public JSONArray findDynamicList(BusinessSuperviseDTO searchModel) {
 		// 组装查询条件
 		Map<String, String> map = new HashMap<String, String>();
@@ -100,8 +132,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	}
 
 	@Override
-	public UserPark findGarden(Long id) {
-		return userParkRepository.findOne(id);
+	public GardenData findGarden(Integer id) {
+		return gardenRepository.findOne(id);
 	}
 
 	@Override
@@ -124,6 +156,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					for (int i = searchModel.getPageFrom(); i < (list.size()>after?after:list.size()); i++) {
 						array.add(list.get(i));
 					}
+				}else{
+					searchModel.setTotalSize(0);
 				}
 			}
 			return array;
@@ -169,8 +203,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 	}
 
 	@Override
-	public void changeGarden(UserPark garden) {
-		userParkRepository.save(garden);
+	public void changeGarden(GardenData garden) {
+		gardenRepository.save(garden);
 	}
 
 	@Override
@@ -181,4 +215,5 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		gardenRepository.save(data);
 		companyRepository.save(company);
 	}
+
 } 

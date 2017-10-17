@@ -1,5 +1,7 @@
 package com.huishu.ait.repository.garden;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.GardenData;
@@ -13,5 +15,7 @@ import com.huishu.ait.entity.GardenData;
 public interface GardenRepository extends CrudRepository<GardenData, Integer> {
 
 	GardenData findByGardenName(String gardenName);
+	
+	List<GardenData> findByAreaLikeAndGardenNameLikeAndIndustryLikeOrderByIdDesc(String area,String gardenName,String industry);
 
 }

@@ -16,8 +16,10 @@ import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.Company;
-import com.huishu.ait.entity.UserPark;
+import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.GardenChangeDTO;
+import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.dto.BusinessSuperviseDTO;
 import com.huishu.ait.service.garden.GardenService;
 
@@ -47,15 +49,35 @@ public class parkInformationController extends BaseController{
 	}
 	
 	/**
+	 * 获取园区列表
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "/findGardensList.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult findGardensList(@RequestBody GardenDTO dto) {
+		if (StringUtil.isEmpty(dto.getArea())||StringUtil.isEmpty(dto.getType())) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(gardenService.findAllGardensList(dto));
+		} catch (Exception e) {
+			LOGGER.error("查询园区列表失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	/**
 	 * 获取园区信息
 	 * @param id
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "parkDetails.json", method = RequestMethod.GET)
-	public String parkDetails(Long id,Model model){
+	public String parkDetails(Integer id,Model model){
 		try {
-			UserPark garden = gardenService.findGarden(id);
+			GardenData garden = gardenService.findGarden(id);
 			model.addAttribute("garden",garden);
 		} catch (Exception e) {
 			LOGGER.error("parkDetails失败！", e);
@@ -70,9 +92,18 @@ public class parkInformationController extends BaseController{
 	 */
 	@RequestMapping(value = "changeGarden.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult changeGarden(@RequestBody UserPark garden){
+	public AjaxResult changeGarden(@RequestBody GardenChangeDTO garden){
 		try {
-			gardenService.changeGarden(garden);
+			GardenData data = new GardenData();
+			data.setAddress(garden.getAddress());
+			data.setArea(garden.getArea());
+			data.setEstablishDate(garden.getEstablishDate());
+			data.setGardenLevel(garden.getGardenLevel());
+			data.setGardenName(garden.getGardenName());
+			data.setGardenSquare(garden.getGardenSquare());
+			data.setId(Integer.valueOf(garden.getId().replace(",", "")));
+			data.setIndustry(garden.getIndustry());
+			gardenService.changeGarden(data);
 			return success(null).setMessage("操作成功");
 		} catch (Exception e) {
 			LOGGER.error("changeGarden失败！", e);

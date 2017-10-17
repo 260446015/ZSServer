@@ -1,19 +1,24 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Basic -->
-    <meta charset="UTF-8" />
-    <title>慧数招商后台系统</title>
-    <!-- Mobile Metas -->
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Basic -->
+<meta charset="UTF-8" />
+<title>慧数招商后台系统</title>
+<!-- Mobile Metas -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <#include "/common/link.ftl">
 </head>
 <body class="">
 <div class="layui-layout layui-layout-admin">
-<#include "/common/header.ftl">
-<#include "/common/sidebar.ftl">
-    <div class="layui-body">
+	<#include "/common/header.ftl">
+	<!-- Start: Content -->
+	
+	<#include "/common/sidebar.ftl">
+	<!-- 内容 Page -->
+		 <div class="layui-body">
         <div style="padding: 15px;">
         <div class="layui-tab layui-tab-brief">
                 <ul class="layui-tab-title">
@@ -22,7 +27,7 @@
             </div>
             <div class="layui-tab layui-tab-brief">
                 <ul class="layui-tab-title">
-                    <li ><i class="layui-icon">&#xe68e;</i>产业类型</li>
+                    <li ><i class="layui-icon">&#xe756;</i>产业类型</li>
                     <li class="layui-this" onclick="myClick(1,'不限')">不限</li>
                     <li onclick="myClick(1,'互联网+')">互联网+</li>
                     <li onclick="myClick(1,'高科技')">高科技</li>
@@ -34,7 +39,7 @@
             </div>
             <div class="layui-tab layui-tab-brief">
                 <ul class="layui-tab-title" type="hidden">
-                    <li ><i class="layui-icon">&#xe715;</i>区域</li>
+                    <li ><i class="layui-icon">&#xe756;</i>区域</li>
                     <li class="layui-this" onclick="myClick(2,'不限')">不限</li>
 	                <li onclick="myClick(2,'北京')">北京</li>
 	                <li onclick="myClick(2,'上海')">上海</li>
@@ -60,13 +65,13 @@
             <table id="demo" lay-filter="filter"></table></div>
         </div>
     </div>
-
-</div>
-<#include "/common/script.ftl">
+		
+	</div>
+	<#include "/common/script.ftl">
 <script  type="text/html" id="appendix">
     <a class="layui-btn layui-btn-normal layui-btn-mini" lay-event="detail">查看详情</a>
 </script>
-<script>
+	<script>
      var tab=0;
         var type='不限';
         var area='不限';
@@ -92,7 +97,7 @@
         function myRequest(obj){
             $.ajax({
                 type: 'post',
-                url: "/apis/area/findGardensList.json",
+                url: "/apis/parkInfo/findGardensList.json",
                 async: false,
                 contentType: 'application/json',
                 data: JSON.stringify(obj),
@@ -101,13 +106,13 @@
                         var layer = layui.layer;
                         if(response.success){
                             var colList=[ //标题栏
-                                {field: 'name', title: '园区名称', width: 170}
+                                {field: 'gardenName', title: '园区名称', width: 170}
+                                ,{field: 'gardenLevel', title: '园区级别', width: 150}
                                 ,{field: 'area', title: '地域(城市)', width: 120}
                                 ,{field: 'address', title: '具体地址', width: 120}
                                 ,{field: 'industry', title: '园区产业', width: 170}
-                                ,{field: 'boss', title: '负责人', width: 195}
-                                ,{field: 'phone', title: '电话', width: 195}
-                                ,{field: 'position', title: '职位', width: 195}
+                                ,{field: 'establishDate', title: '成立时间', width: 195}
+                                ,{field: 'gardenSquare', title: '园区面积', width: 195}
                                 ,{fixed: 'right',  align:'center', title: '操作', width: 110 ,toolbar: '#appendix'}
                             ]
                             showTable(response.data,colList);
@@ -143,4 +148,6 @@
 
 </script>
 </body>
-</html>
+
+</html>	
+

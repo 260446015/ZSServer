@@ -1,3 +1,5 @@
+
+
 package com.huishu.ait.controller.user;
 
 import java.io.File;
@@ -20,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.huishu.ait.common.conf.ConfConstant;
 import com.huishu.ait.common.conf.ImgConstant;
 import com.huishu.ait.controller.BaseController;
-import com.huishu.ait.entity.UserPark;
+import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.service.garden.GardenService;
 
@@ -62,7 +64,7 @@ public class UploadController extends BaseController {
 	 */
 	@RequestMapping(value = "/imageUpload.do", method = RequestMethod.POST)
 	public AjaxResult imageUpload(@RequestParam("file") MultipartFile file,
-			@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
+			@RequestParam(required = false) String id, HttpServletRequest request, HttpServletResponse response) {
 		LOGGER.info("file name is :" + file.getOriginalFilename());
 		if (!file.isEmpty()) {
 			if (file.getSize() > fileSize) {
@@ -91,8 +93,8 @@ public class UploadController extends BaseController {
 				String url = request.getSession().getServletContext().getRealPath("/") + ConfConstant.DEFAULT_LOGOURL;
 				File saveFile = new File(url, newname);
 				file.transferTo(saveFile);
-				UserPark garden = gardenService.findGarden(id);
-				garden.setLogo(ImgConstant.IP_PORT+ConfConstant.DEFAULT_LOGOURL + "/" + newname);
+				GardenData garden = gardenService.findGarden(Integer.valueOf(id));
+				garden.setGardenPicture(ImgConstant.IP_PORT+ConfConstant.DEFAULT_LOGOURL + "/" + newname);
 				gardenService.changeGarden(garden);
 				return success(ImgConstant.IP_PORT+ConfConstant.DEFAULT_LOGOURL + "/" + newname).setMessage("上传成功");
 			} catch (Exception e) {
@@ -152,3 +154,4 @@ public class UploadController extends BaseController {
 		}
 	}
 }
+
