@@ -207,3 +207,25 @@ ul{margin:0;}
     line-height: 60px;
     padding:0 20px;
 }
+.layui-btn+.layui-btn{
+	margin-left:0;
+}
+/*文章页面*/
+.article-details{
+	padding:20px 25px;
+}
+.article-details .btns{
+	margin-top:-15px;
+}
+.sub-info {
+    margin: 15px 0;
+    color: #999999;
+}
+
+.sub-info>span {
+    margin-right: 20px;
+}
+
+.sub-info>span img {
+    margin-top: -3px;
+}

@@ -77,8 +77,6 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
 				}
 				data.setArea(area);
 			});
-			// Page<AITInfo> page2 = elasticsearch.search(dto.builderQuery(),
-			// dto.builderPageRequest());
 			Page<AITInfo> pageBusiness2 = setPageBusiness(page2);
 			dto.setDimension("科学研究");
 			Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(), request);
@@ -96,8 +94,6 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
 				}
 				data.setArea(area);
 			});
-			// Page<AITInfo> page3 = elasticsearch.search(dto.builderQuery(),
-			// dto.builderPageRequest());
 			Page<AITInfo> pageBusiness3 = setPageBusiness(page3);
 			map.put("forum", pageBusiness2); // 高峰论坛
 			map.put("research", pageBusiness3); // 科学研究
@@ -154,8 +150,8 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
 			Map<String, Object> map = new HashMap<String, Object>();
 			// 按文章类型按照维度获取数据 1,政策解读
 			dto.setDimension("政策解读");
-//			QueryBuilder query =  getBuilderQuery(dto);
-			Page<AITInfo> page1 = elasticsearch.search(dto.builderQuery(), dto.builderPageRequest());
+			PageRequest request = new PageRequest(0, 10, new Sort(Direction.DESC, "publishTime"));
+			Page<AITInfo> page1 = elasticsearch.search(dto.builderQuery(), request);
 			Page<AITInfo> pageBusiness1 = setPageBusiness(page1);
 			map.put("policy", pageBusiness1); // 政策解读
 			array.add(map);

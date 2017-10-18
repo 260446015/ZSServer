@@ -260,7 +260,7 @@ public abstract class AbstractService {
 				.order(Order.count(false)).size(500);
 
 		SearchQuery authorQuery = getSearchQueryBuilder().withQuery(bq).addAggregation(articleLinkBuilder).build();
-
+		
 		List<HeadlinesArticleListDTO> jsonArray = template.query(authorQuery, res -> {
 			List<HeadlinesArticleListDTO> list = new ArrayList<HeadlinesArticleListDTO>();
 
@@ -294,16 +294,32 @@ public abstract class AbstractService {
 				}
 				return v2.compareTo(v1);
 			});
+			
 		});
-
+		
+		
 		for (int i = 0; i < jsonArray.size(); i++) {
 			jsonArray.get(i).setRank(i + 1);
 		}
+		//排名后对时间进行排序
+		pageable.getSort().forEach(order -> {
+			String property = "publishTime";
+			Direction direction = order.getDirection();
+			jsonArray.sort((o1, o2) -> {
+				String v1 = (String) UtilsHelper.getValueByFieldName(o1, property);
+				String v2 = (String) UtilsHelper.getValueByFieldName(o2, property);
 
+				if (Direction.ASC.equals(direction)) {
+					return v1.compareTo(v2);
+				}
+				return v2.compareTo(v1);
+			});
+		});
 		List<HeadlinesArticleListDTO> newList = new ArrayList<>();
 		jsonArray.stream().skip(pageNumber * pageSize).limit(pageSize).forEach(newList::add);
 
 		Page<HeadlinesArticleListDTO> results = new PageImpl<>(newList, pageable, total);
+		
 		return results;
 	}
 

@@ -2,6 +2,8 @@
 package com.huishu.ait.controller.Industrymodule.headlines;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +20,11 @@ import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils.DateUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesKeyWordDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesVectorDTO;
 import com.huishu.ait.service.headline.HeadlinesService;
 
 /**
@@ -47,7 +52,10 @@ public class HeadlinesController extends BaseController {
 		try {
 			HeadlinesDTO dto = CheckDTO(headlinesDTO);
 			if (dto.getPeriodDate() != null) {
-				dto = dateInit(dto);
+				Map<String,Object> map = new HashMap<String,Object>();
+				map = dateInit(dto.getPeriodDate(),map);
+				dto.setStartDate((String) map.get("startTime"));
+				dto.setEndDate((String)map.get("endTime"));
 				dto.setPeriodDate(null);
 			}
 			boolean b = checkDTO(dto);
@@ -97,7 +105,10 @@ public class HeadlinesController extends BaseController {
 		try {
 			HeadlinesDTO dto = CheckDTO(headlinesDTO);
 			if (dto.getPeriodDate() != null) {
-				dto = dateInit(dto);
+				Map<String,Object> map = new HashMap<String,Object>();
+				map = dateInit(dto.getPeriodDate(),map);
+				dto.setStartDate((String) map.get("startTime"));
+				dto.setEndDate((String)map.get("endTime"));
 				dto.setPeriodDate(null);
 			}
 			boolean b = checkDTO(dto);
@@ -121,21 +132,24 @@ public class HeadlinesController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getArticleByVectorList.json", method = RequestMethod.POST)
-	public AjaxResult getArticleByVectorList(@RequestBody HeadlinesDTO headlinesDTO) {
+	public AjaxResult getArticleByVectorList(@RequestBody HeadlinesVectorDTO headlinesDTO) {
 		try {
-			HeadlinesDTO dto = new HeadlinesDTO();
+			HeadlinesVectorDTO dto = new HeadlinesVectorDTO();
 			String[] msg = headlinesDTO.getMsg();
 			dto.setIndustry(msg[0]);
 			String industrtLabel = msg[1];
 			if (industrtLabel.equals("不限")) {
-				dto.setIndustryLabel("");
+				dto.setIndustryLabel(null);
 			} else {
 				dto.setIndustryLabel(msg[1]);
 			}
 			dto.setPeriodDate(msg[2]);
 			dto.setVector(msg[3]);
 			if (dto.getPeriodDate() != null) {
-				dto = dateInit(dto);
+				Map<String,Object> map = new HashMap<String,Object>();
+				map = dateInit(dto.getPeriodDate(),map);
+				dto.setStartDate((String) map.get("startTime"));
+				dto.setEndDate((String)map.get("endTime"));
 				dto.setPeriodDate(null);
 			}
 			boolean b = checkDTO(dto);
@@ -159,15 +173,16 @@ public class HeadlinesController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getArticleByKeyWordList.json", method = RequestMethod.POST)
-	public AjaxResult getArticleByKeyWordList(@RequestBody HeadlinesDTO headlinesDTO) {
+	public AjaxResult getArticleByKeyWordList(@RequestBody HeadlinesKeyWordDTO headlinesDTO) {
 		try {
-			HeadlinesDTO dto = new HeadlinesDTO();
+			HeadlinesKeyWordDTO dto = new HeadlinesKeyWordDTO();
 			String[] msg = headlinesDTO.getMsg();
 			dto.setIndustry(msg[0]);
 			String industrtLabel = msg[1];
 
 			if (industrtLabel.equals("不限")) {
-				dto.setIndustryLabel("");
+				
+				dto.setIndustryLabel(null);
 			} else {
 				dto.setIndustryLabel(msg[1]);
 			}
@@ -175,12 +190,15 @@ public class HeadlinesController extends BaseController {
 			dto.setKeyWord(msg[3]);
 
 			if (dto.getPeriodDate() != null) {
-				dto = dateInit(dto);
+				Map<String,Object> map = new HashMap<String,Object>();
+				map = dateInit(dto.getPeriodDate(),map);
+				dto.setStartDate((String) map.get("startTime"));
+				dto.setEndDate((String)map.get("endTime"));
 				dto.setPeriodDate(null);
 			}
 			boolean b = checkDTO(dto);
 			if (b) {
-
+				dto.setDimension("产业头条");
 				Page<HeadlinesArticleListDTO> page = service.findArticleByKeyWord(dto);
 				return success(page);
 			}
@@ -190,14 +208,17 @@ public class HeadlinesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
-
+		
+	
+	
+	
 	/**
 	 * 时间初始处理 yyyy-MM-dd
 	 * 
 	 * @param dto
 	 * @return
 	 */
-	private HeadlinesDTO dateInit(HeadlinesDTO dto) {
+	private Map<String,Object> dateInit(String periodDate,Map<String,Object> map ) {
 		Date date = new Date();
 		String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_DATE); // 今天的当前时间（获取服务端时间）
 		String startTime = DateUtil.getFormatDate(DateUtil.getStartTime(), DateUtil.FORMAT_DATE); // 今天的起始时间
@@ -208,49 +229,42 @@ public class HeadlinesController extends BaseController {
 		String yearAgo = DateUtil.getFormatDate(DateUtil.getYearStartTime(date), DateUtil.FORMAT_DATE); // 一年内
 
 		// 对时间段进行判断
-		String periodDate = dto.getPeriodDate();
 
 		if (periodDate.equals("今日")) {
-			dto.setStartDate(startTime);
-			dto.setEndDate(endTime);
+			map.put("startTime", startTime);
+			map.put("endTime", endTime);
+			
 		}
 		if (periodDate.equals("昨天")) {
-			dto.setStartDate(yesterAgo);
-			dto.setEndDate(startTime);
+			map.put("startTime", yesterAgo);
+			map.put("endTime", yesterAgo);
+			
 		}
 		if (periodDate.equals("近七天")) {
-			dto.setStartDate(weekAgo);
-			dto.setEndDate(endTime);
+			map.put("startTime", weekAgo);
+			map.put("endTime", endTime);
+			
 		}
 		if (periodDate.equals("一个月")) {
-			dto.setStartDate(monthAgo);
-			dto.setEndDate(endTime);
+			map.put("startTime", monthAgo);
+			map.put("endTime", endTime);
+			
 		}
 		if (periodDate.equals("半年")) {
-			dto.setStartDate(halfYearAgo);
-			dto.setEndDate(endTime);
+			map.put("startTime",halfYearAgo);
+			map.put("endTime", endTime);
+			
 		}
 		if (periodDate.equals("一年")) {
-			dto.setStartDate(yearAgo);
-			dto.setEndDate(endTime);
+			map.put("startTime", yearAgo);
+			map.put("endTime", endTime);
+			
 		}
 		if (periodDate.equals("不限")) {
-			dto.setStartDate("1980-01-01");
-			dto.setEndDate(endTime);
+			map.put("startTime", "1980-01-01");
+			map.put("endTime", endTime);
 		}
-		/*
-		 * if(dto.getPeriodDate().equals("今日")){ dto.setStartDate(startTime);
-		 * dto.setEndDate(endTime); } if(dto.getPeriodDate().equals("昨天")){
-		 * dto.setStartDate(yesterAgo); dto.setEndDate(startTime); }
-		 * if(dto.getPeriodDate().equals("近7天")){ dto.setStartDate(weekAgo);
-		 * dto.setEndDate(endTime); } if(dto.getPeriodDate().equals("1个月")){
-		 * dto.setStartDate(monthAgo); dto.setEndDate(endTime); }
-		 * if(dto.getPeriodDate().equals("半年")){ dto.setStartDate(halfYearAgo);
-		 * dto.setEndDate(endTime); } if(dto.getPeriodDate().equals("一年")){
-		 * dto.setStartDate(yearAgo); dto.setEndDate(endTime); }
-		 * if(dto.getPeriodDate().equals("不限")){ dto.setStartDate("1980-01-01");
-		 * dto.setEndDate(endTime); }
-		 */
-		return dto;
+		
+		return map;
 	}
 }

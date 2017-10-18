@@ -8,14 +8,13 @@ import com.alibaba.fastjson.JSONObject;
  * @Parem
  * @return 产业头条的dto
  */
-public class HeadlinesDTO extends AbstractDTO {
+public class HeadlinesKeyWordDTO extends AbstractDTO {
 
 	/** 产业 */
 	private String industry;
 	/** 产业标签 */
 	private String industryLabel;
-	/** 载体 */
-	private String vector;
+	
 	/** 开始时间 */
 	private String startDate;
 	/** 结束时间 */
@@ -24,8 +23,7 @@ public class HeadlinesDTO extends AbstractDTO {
 	private String periodDate;
 	/** 词云关键词 */
 	private String keyWord;
-	/** 词云数目 */
-	private Integer wordCloudNum;
+	
 	/** 数组，用来接收前台传过来的参数 */
 	private String[] msg;
 	private String dimension;
@@ -86,13 +84,7 @@ public class HeadlinesDTO extends AbstractDTO {
 		this.msg = msg;
 	}
 
-	public Integer getWordCloudNum() {
-		return wordCloudNum;
-	}
-
-	public void setWordCloudNum(Integer wordCloudNum) {
-		this.wordCloudNum = wordCloudNum;
-	}
+	
 
 	public String getIndustry() {
 		return industry;
@@ -110,14 +102,7 @@ public class HeadlinesDTO extends AbstractDTO {
 		this.industryLabel = industryLabel;
 	}
 
-	public String getVector() {
-		return vector;
-	}
-
-	public void setVector(String vector) {
-		this.vector = vector;
-	}
-
+	
 	public String getStartDate() {
 		return startDate;
 	}

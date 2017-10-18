@@ -15,7 +15,7 @@ public class ConstantKey {
 	public static final String OAUTH_AUTH_ID = "5";
 
 	public static final String OAUTH_CLIENT_SCOPE = "user,order";
-	public static final String OAUTH_CLIENT_REDIRECT_URI = "http://yufa.std.tianyancha.com";
+	public static final String OAUTH_CLIENT_REDIRECT_URI = "https://std.tianyancha.com";
 	// public static final String OAUTH_CLIENT_REDIRECT_URI_ID =
 	// "/#/company/24416401/icinfo";
 	public static final String OAUTH_CLIENT_REDIRECT_URI_ID = "/";
@@ -30,15 +30,13 @@ public class ConstantKey {
 	public static final String OPENEYE_WARN_TOKEN_460 = "WARN_TOKEN_460";
 
 	// OAUTH2_URL
-	public static final String OAUTH_CLIENT_TIANYANCHA = "http://yufa.std.tianyancha.com";
-	public static final String OAUTH_CLIENT_CALLBACK = "http://58.16.181.24:9208/apis/oauth/oauth_callback";
-	// public static final String OAUTH_CLIENT_CALLBACK =
-	// "http://localhost:8092/apis/oauth/oauth_callback";
-	public static final String OAUTH_CLIENT_ACCESS_CODE = "http://yufa.std.tianyancha.com/auth/code.json";
-	public static final String OAUTH_CLIENT_ACCESS_TOKEN = "http://yufa.std.tianyancha.com/auth/token.json";
-	public static final String OAUTH_CLIENT_GET_RESOURCE = "http://58.16.181.24:9208/apis/oauth/get_resource";
-	// public static final String OAUTH_CLIENT_GET_RESOURCE =
-	// "http://localhost:8092/apis/oauth/get_resource";
+	public static final String OAUTH_CLIENT_TIANYANCHA = "https://std.tianyancha.com";
+//	public static final String OAUTH_CLIENT_CALLBACK = "http://58.16.181.24:9208/apis/oauth/oauth_callback";
+	public static final String OAUTH_CLIENT_CALLBACK = "http://localhost:8093/apis/oauth/oauth_callback";
+	public static final String OAUTH_CLIENT_ACCESS_CODE = "https://std.tianyancha.com/auth/code.json";
+	public static final String OAUTH_CLIENT_ACCESS_TOKEN = "https://std.tianyancha.com/auth/token.json";
+//	public static final String OAUTH_CLIENT_GET_RESOURCE = "http://58.16.181.24:9208/apis/oauth/get_resource";
+	public static final String OAUTH_CLIENT_GET_RESOURCE = "http://localhost:8093/apis/oauth/get_resource";
 
 	// 存储常量
 	public static final String DEFAULT_USERNAME_PARAM = "username";
@@ -55,26 +53,26 @@ public class ConstantKey {
 	public static final String DEFAULT_PN_PARAM = "pageNumber";
 
 	// 存储天眼查各个访问url
-	public static final String LOGIN_URI = "http://yufa.std.tianyancha.com/auth/login.json";
+	public static final String LOGIN_URI = "https://std.tianyancha.com/auth/login.json";
 	/**
 	 * 获取用户关注分组
 	 */
-	public static final String ATTENTION_GROUP = "http://yufa.std.tianyancha.com/auth/user/tags.json";
+	public static final String ATTENTION_GROUP = "https://std.tianyancha.com/auth/user/tags.json";
 	/**
 	 * 获取企业信息变更
 	 */
-	public static final String CHANGE_INFO = "http://yufa.std.tianyancha.com/auth/company/change.json";
+	public static final String CHANGE_INFO = "https://std.tianyancha.com/auth/company/change.json";
 	/**
 	 * 获取企业gid
 	 */
-	public static final String GID = "http://yufa.std.tianyancha.com/auth/company/gid.json";
+	public static final String GID = "https://std.tianyancha.com/auth/company/gid.json";
 	/**
 	 * 获取关注分组下的所有企业
 	 */
-	public static final String GID_COMPANY = "http://yufa.std.tianyancha.com/auth/user/tags/company.json";
+	public static final String GID_COMPANY = "https://std.tianyancha.com/auth/user/tags/company.json";
 	/**
 	 * 获取用户查询记录
 	 */
-	public static final String SEARCH_TRACK = "http://yufa.std.tianyancha.com/auth/user/record/search.json";
+	public static final String SEARCH_TRACK = "https://std.tianyancha.com/auth/user/record/search.json";
 
 }

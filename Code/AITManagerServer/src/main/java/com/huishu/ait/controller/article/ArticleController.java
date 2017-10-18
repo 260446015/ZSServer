@@ -6,12 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.controller.BaseController;
@@ -40,7 +41,7 @@ public class ArticleController extends BaseController {
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult deleteArticleById(String[] ids) {
+	public AjaxResult deleteArticleById(@RequestParam(value="ids[]") String[] ids) {
 		if (StringUtil.isEmpty(ids.toString())) {
 			logger.debug(MsgConstant.ILLEGAL_PARAM);
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -80,14 +81,14 @@ public class ArticleController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/findInfo", method = RequestMethod.GET)
-	public AjaxResult findArticleInfoById(String id,Map<String,Object>map) {
-		if (StringUtil.isEmpty(id)) {
+	public ModelAndView findArticleInfoById(String id,ModelAndView model) {
+		if (StringUtil.isEmpty(id) && getUserId()!=null) {
 			logger.debug(MsgConstant.ILLEGAL_PARAM);
-			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		AITInfo info = service.findArticleInfoById(id);
-		map.put("message", info);
-		return success(map);
+		JSONObject info = service.findArticleInfoById(id, getUserId());
+		model.addObject("detail", info);
+		model.setViewName("industry/detail");
+		return model;
 	}
 	
 	/**
@@ -99,5 +100,43 @@ public class ArticleController extends BaseController {
 	public String saveArt( AITInfo ait){
 		service.saveArt(ait);
 		return "industry/expertOpint";
+	}
+	
+	/**
+	 * @param requestParam
+	 * @return 收藏专家观点
+	 */
+	@RequestMapping(value = "collectExpertOpinion.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult collectExpertOpinion(String id) {
+		try {
+			if (StringUtil.isEmpty(id) || getUserId() == null) {
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			JSONObject json = service.expertOpinionCollect(id, getUserId());
+			return success(json);
+		} catch (Exception e) {
+			logger.error("收藏失败：", e.getMessage());
+			return null;
+		}
+	}
+	
+	/**
+	 * @param requestParam
+	 * @return 取消收藏专家观点
+	 */
+	@RequestMapping(value = "cancelCollectExpertOpinion.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult cancelCollectExpertOpinion(String id) {
+		try {
+			if (StringUtil.isEmpty(id) || getUserId() == null) {
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			JSONObject json = service.cancelExpertOpinionCollect(id, getUserId());
+			return success(json);
+		} catch (Exception e) {
+			logger.error("取消收藏失败：", e.getMessage());
+			return null;
+		}
 	}
 }

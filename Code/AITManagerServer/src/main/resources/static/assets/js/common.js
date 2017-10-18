@@ -3,10 +3,10 @@ var industryLabel = '不限';
 var time = '一年';
 var current = 0;
 var dimension = '专家论';
-function myClick(a, b, c, d,e) {
-	$('#label-list>ul').on('click','li',function(){
-        $(this).addClass("layui-this").siblings().removeClass('layui-this');
-     })
+function myClick(a, b, c, d, e) {
+	$('#label-list>ul').on('click', 'li', function() {
+		$(this).addClass("layui-this").siblings().removeClass('layui-this');
+	})
 	layui.use('element', function() {
 
 		var element = layui.element;
@@ -21,22 +21,22 @@ function myClick(a, b, c, d,e) {
 		industryLabel : industryLabel,
 		time : time,
 		dimension : dimension,
-		pageNum : e==null?0:e,
+		pageNum : e == null ? 0 : e,
 		pageSize : 10
 	};
 	myRequest(req, '/head/getExpertOpinion.json');
 };
 
 function showTable(data, elem, dimension) {
-	layui.use(['table','element'], function() {
+	layui.use([ 'table', 'element' ], function() {
 		var table = layui.table;
 		var laypage = layui.laypage;
-	
+
 		// 调用分页
 		laypage.render({
 			elem : elem,
 			count : data.totalElements,
-			curr:current+1,
+			curr : current + 1,
 			jump : function(obj, first) {
 				if (first) {
 					show(data.content, dimension);
@@ -82,4 +82,25 @@ function getDetail(id) {
 
 function back() {
 	window.history.back();
+}
+
+function checkall(e) {
+
+	if ($('#allcheck').prop('checked')) {
+		$("input[name='checkname']").prop('checked', true);
+
+	} else {
+		$("input[name='checkname']").prop('checked', false)
+	}
+}
+function deleteCheck() {
+	var check = $("[name='checkname']");
+	var arr = [];
+	check.each(function() {
+		if ($(this).prop('checked')) {
+			arr.push($(this).prop('value'));
+		}
+	});
+	onDel(arr);
+
 }

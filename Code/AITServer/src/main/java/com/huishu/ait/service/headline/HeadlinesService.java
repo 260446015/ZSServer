@@ -9,6 +9,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.echart.Option;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.HeadlinesDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesKeyWordDTO;
+import com.huishu.ait.es.entity.dto.HeadlinesVectorDTO;
 import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 
 /**
@@ -31,7 +33,7 @@ public interface HeadlinesService {
 	 * @param id
 	 * @return
 	 */
-	Page<HeadlinesArticleListDTO> findArticleByVector(HeadlinesDTO headlinesDTO);
+	Page<HeadlinesArticleListDTO> findArticleByVector(HeadlinesVectorDTO headlinesDTO);
 
 	/**
 	 * 根据关键词来查询文章列表
@@ -39,5 +41,5 @@ public interface HeadlinesService {
 	 * @param headlinesDTO
 	 * @return
 	 */
-	Page<HeadlinesArticleListDTO> findArticleByKeyWord(HeadlinesDTO headlinesDTO);
+	Page<HeadlinesArticleListDTO> findArticleByKeyWord(HeadlinesKeyWordDTO headlinesDTO);
 }
