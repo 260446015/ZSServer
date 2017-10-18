@@ -58,6 +58,11 @@ public class CompanySearchDTO extends SearchModel {
 	}
 
 	public String getLabel() {
+		if ("全部".equals(label)) {
+			status = "%%";
+		} else if ("不限".equals(label)) {
+			status = "%%";
+		}
 		return label;
 	}
 
