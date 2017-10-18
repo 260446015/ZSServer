@@ -3,18 +3,25 @@ package com.huishu.ait.controller;
 import static com.huishu.ait.common.util.UtilsHelper.getValueByFieldName;
 
 import java.security.interfaces.RSAPrivateKey;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.poi.poifs.property.Child;
 import org.apache.shiro.SecurityUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.CheckUtils;
+import com.huishu.ait.common.util.StringUtil;
+import com.huishu.ait.entity.PoolCompany;
 
 /*import org.apache.shiro.SecurityUtils;*/
 //import org.springframework.beans.factory.annotation.Autowired;
 
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.common.SearchModel;
+import com.huishu.ait.entity.dto.PoolCompanyDTO;
 import com.huishu.ait.es.entity.dto.AbstractDTO;
 import com.huishu.ait.security.Digests;
 import com.huishu.ait.security.Encodes;
@@ -153,6 +160,43 @@ public abstract class BaseController {
 		object.put("totalPage", searchModel.getTotalPage());
 		object.put("pageNumber", searchModel.getPageNumber());
 		return object;
+	}
+	
+	/**
+	 * 对企业列表进行加工，返回特定格式的数据
+	 * @param list
+	 * @return
+	 */
+	protected List<PoolCompanyDTO> changeObject(List<PoolCompany> list) {
+		List<PoolCompanyDTO> data = new ArrayList<PoolCompanyDTO>();
+		Set<String> set = new HashSet<String>(); 
+		for (PoolCompany poolCompany : list) {
+			PoolCompanyDTO dto = new PoolCompanyDTO();
+			if(StringUtil.isEmpty(poolCompany.getFatherName())){
+				//没有父企业
+            	dto.setName("无");
+            	List<PoolCompany> children= new ArrayList<PoolCompany>();
+            	children.add(poolCompany);
+            	dto.setChildren(children);
+            	data.add(dto);
+			}else if(set.add(poolCompany.getFatherName())){
+				//第一次
+            	dto.setName(poolCompany.getFatherName());
+            	List<PoolCompany> children= new ArrayList<PoolCompany>();
+            	children.add(poolCompany);
+            	dto.setChildren(children);
+            	data.add(dto);
+            }else{
+            	//已经存在
+            	for (PoolCompanyDTO pool : data) {
+					if(pool.getName().equals(poolCompany.getFatherName())){
+						List<PoolCompany> children = pool.getChildren();
+						children.add(poolCompany);
+					}
+				}
+            }
+		}
+		return data;
 	}
 
 	/**

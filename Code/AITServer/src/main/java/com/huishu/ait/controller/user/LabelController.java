@@ -3,6 +3,7 @@ package com.huishu.ait.controller.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +14,7 @@ import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.Label;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.dto.CompanySearchDTO;
 import com.huishu.ait.service.user.LabelService;
 
 /**
@@ -89,7 +91,8 @@ public class LabelController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "dropMyLabel.json", method = RequestMethod.POST)
-	public AjaxResult dropMyLabel(String msg[]) {
+	public AjaxResult dropMyLabel(@RequestBody CompanySearchDTO dto) {
+		String[] msg = dto.getMsg();
 		if(msg==null||msg.length==0){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}

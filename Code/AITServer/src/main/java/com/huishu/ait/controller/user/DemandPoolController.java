@@ -16,6 +16,7 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.PoolCompany;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CompanySearchDTO;
+import com.huishu.ait.entity.dto.PoolCompanyDTO;
 import com.huishu.ait.service.user.DemandPoolService;
 
 /**
@@ -45,7 +46,8 @@ public class DemandPoolController extends BaseController{
         try {
             searchModel.setPark(getUserPark());
             List<PoolCompany> list = demandPoolService.getCompanyList(searchModel);
-            return success(changeObject(searchModel, list));
+            List<PoolCompanyDTO> data = changeObject(list);
+            return success(changeObject(searchModel, data));
         } catch (Exception e) {
             LOGGER.error("getMyCompanyList查询失败！",e);
             return error(MsgConstant.SYSTEM_ERROR);
@@ -65,7 +67,8 @@ public class DemandPoolController extends BaseController{
         try {
             searchModel.setUserId(getUserId());
             List<PoolCompany> list = demandPoolService.getMyCompanyList(searchModel);
-            return success(changeObject(searchModel, list));
+            List<PoolCompanyDTO> data = changeObject(list);
+            return success(changeObject(searchModel, data));
         } catch (Exception e) {
             LOGGER.error("getMyCompanyList查询失败！",e);
             return error(MsgConstant.SYSTEM_ERROR);
