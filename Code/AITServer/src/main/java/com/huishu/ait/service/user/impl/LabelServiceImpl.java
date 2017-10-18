@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.huishu.ait.entity.Label;
 import com.huishu.ait.entity.common.AjaxResult;
@@ -11,6 +12,7 @@ import com.huishu.ait.repository.user.LabelRepository;
 import com.huishu.ait.service.user.LabelService;
 
 @Service
+@Transactional
 public class LabelServiceImpl implements LabelService {
 
 	@Autowired
