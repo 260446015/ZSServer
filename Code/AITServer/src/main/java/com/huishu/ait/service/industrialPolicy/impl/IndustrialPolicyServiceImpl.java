@@ -118,6 +118,8 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
 		JSONObject obj = new JSONObject();
 
 		AITInfo info = elasticsearch.findOne(id);
+		String content = info.getContent().replaceAll("\\n", "<br/>");
+		info.setContent(content);
 		List<String> business = getBusiness(info.getTitle(), info.getContent());
 		info.setBus(business);
 		obj = (JSONObject) JSONObject.toJSON(info);
