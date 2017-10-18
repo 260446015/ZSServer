@@ -29,6 +29,10 @@ public class LabelServiceImpl implements LabelService {
 	@Override
 	public AjaxResult addLabel(Label label) {
 		AjaxResult result = new AjaxResult();
+		List<Label> list = labelRepository.findByLabel(label.getLabel());
+		if(list.size()==0){
+			result.setSuccess(false).setMessage("添加失败，请勿重复添加该标签");
+		}
 		Label save = labelRepository.save(label);
 		if (save == null) {
 			result.setSuccess(false).setMessage("添加失败，请稍后再试");
@@ -37,9 +41,11 @@ public class LabelServiceImpl implements LabelService {
 	}
 
 	@Override
-	public AjaxResult dropLabel(Long id) {
+	public AjaxResult dropLabel(String msg[]) {
 		AjaxResult result = new AjaxResult();
-		labelRepository.delete(id);
+		for (String label : msg) {
+			labelRepository.deleteByLabel(label);
+		}
 		return result.setSuccess(true).setMessage("删除成功");
 	}
 

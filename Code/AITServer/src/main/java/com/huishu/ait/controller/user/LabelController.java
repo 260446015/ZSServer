@@ -84,17 +84,17 @@ public class LabelController extends BaseController{
 	
 	/**
 	 * 删除我的需求池中企业标签
-	 * @Label id
+	 * @param msg
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "dropMyLabel.json", method = RequestMethod.GET)
-	public AjaxResult dropMyLabel(Long id) {
-		if(null==id){
+	@RequestMapping(value = "dropMyLabel.json", method = RequestMethod.POST)
+	public AjaxResult dropMyLabel(String msg[]) {
+		if(msg==null||msg.length==0){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			return labelService.dropLabel(id);
+			return labelService.dropLabel(msg);
 		} catch (Exception e) {
 			LOGGER.error("getMyLabel失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);

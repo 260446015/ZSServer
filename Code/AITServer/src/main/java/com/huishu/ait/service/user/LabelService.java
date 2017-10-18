@@ -35,8 +35,8 @@ public interface LabelService {
 	
 	/**
 	 * 删除标签
-	 * @Label id
+	 * @Label msg
 	 * @return
 	 */
-	AjaxResult dropLabel(Long id);
+	AjaxResult dropLabel(String msg[]);
 }
