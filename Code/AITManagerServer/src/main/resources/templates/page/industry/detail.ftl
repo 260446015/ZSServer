@@ -24,7 +24,7 @@
 				<h4 class="text-center">
 					标题 :${detail.title}
 					<div class="pull-right btns" >
-						<button class="layui-btn " onclick="onDel('${detail.id}');">删除</button>
+						<button class="layui-btn " onclick="onDel(['${detail.id}']);">删除</button>
 						<button class="layui-btn " onclick="collectArt('${detail.id}');" id="col">${detail.isCollect}</button>
 					</div>
 				</h4>
@@ -47,13 +47,13 @@
             $.ajax({
                 url: "/art/delete",
                 contentType: 'application/json',
-                data: {id: id},
+                data: {ids: id},
                 success: function (response) {
                     layer.alert(response.data);
+            		window.history.go(-1);
                 }
             });
             layer.close(index);
-            window.history.back();
         });
 	}
 	function collectArt(id){
