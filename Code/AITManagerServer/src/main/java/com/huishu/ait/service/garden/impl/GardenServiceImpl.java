@@ -212,6 +212,7 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		GardenData data = gardenRepository.findByGardenName(company.getPark());
 		String enterCompany = data.getEnterCompany();
 		data.setEnterCompany(enterCompany+"、"+company.getCompanyName());
+		inputBusiness(company.getCompanyName());
 		gardenRepository.save(data);
 		companyRepository.save(company);
 	}
