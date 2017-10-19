@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.huishu.ait.entity.Label;
 import com.huishu.ait.entity.PoolCompany;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.entity.dto.CompanySearchDTO;
@@ -67,6 +68,10 @@ public class DemandPoolServiceImpl extends AbstractService implements DemandPool
     @Override
     public AjaxResult addPoolCompany(PoolCompany company) {
     	AjaxResult result = new AjaxResult();
+    	List<PoolCompany> list = poolCompanyRepository.findByName(company.getName());
+		if(list.size()==0){
+			result.setSuccess(false).setMessage("添加失败，请勿重复添加该企业");
+		}
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         company.setCreateTime(sdf.format(new Date()));
         PoolCompany save = poolCompanyRepository.save(company);
@@ -82,7 +87,7 @@ public class DemandPoolServiceImpl extends AbstractService implements DemandPool
 		PoolCompany one = poolCompanyRepository.findOne(company.getId());
 		one.setInvestmentRemark(company.getInvestmentRemark());
 		one.setInvestmentStatus(company.getInvestmentStatus());
-		PoolCompany save = poolCompanyRepository.save(company);
+		PoolCompany save = poolCompanyRepository.save(one);
         if (save == null) {
             result.setSuccess(false).setMessage("修改失败，请稍后再试");
         }

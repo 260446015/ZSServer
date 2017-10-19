@@ -82,7 +82,8 @@ public class DemandPoolController extends BaseController{
      */
     @RequestMapping(value = "addPoolCompany.json", method = RequestMethod.POST)
     public AjaxResult addPoolCompany(@RequestBody PoolCompany poolCompany) {
-        if (null==poolCompany || StringUtil.isEmpty(poolCompany.getName())) {
+        if (null==poolCompany || StringUtil.isEmpty(poolCompany.getName())|| StringUtil.isEmpty(poolCompany.getLabel())
+        		|| StringUtil.isEmpty(poolCompany.getInvestmentStatus())) {
             return error(MsgConstant.ILLEGAL_PARAM);
         }
         try {
