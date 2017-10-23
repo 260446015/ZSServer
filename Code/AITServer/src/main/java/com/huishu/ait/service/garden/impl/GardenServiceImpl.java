@@ -3,9 +3,11 @@ package com.huishu.ait.service.garden.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -36,6 +39,7 @@ import com.huishu.ait.entity.IndustryClass;
 import com.huishu.ait.entity.dto.AreaSearchDTO;
 import com.huishu.ait.entity.dto.GardenDTO;
 import com.huishu.ait.es.entity.AITInfo;
+import com.huishu.ait.es.entity.dto.HeadlinesArticleListDTO;
 import com.huishu.ait.es.repository.GardenEsRepository;
 import com.huishu.ait.repository.company.CompanyRepository;
 import com.huishu.ait.repository.garden.GardenRepository;
@@ -118,7 +122,6 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		int pageNum = dto.getPageNumber();
 		int pageSize = dto.getPageSize();
 		JSONArray data = new JSONArray();
-		Page<GardenData> findGardensPage = null;
 		try {
 			if ("不限".equals(area)) {
 				area = "%%";
@@ -131,9 +134,8 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 				industryType = "%" + industryType + "%";
 			}
 			PageRequest pageRequest = new PageRequest(pageNum - 1, pageSize);
-			findGardensPage = gardenRepository.findByAreaLikeAndIndustryLikeOrderByIdDesc(area, industryType,
-					pageRequest);
-			findGardensPage.forEach(GardenData -> {
+			List<GardenData> list = gardenRepository.findByAreaLikeAndIndustryLike(area, industryType);
+			list.forEach(GardenData ->{
 				String gardenIntroduce = GardenData.getGardenIntroduce();
 				String gardenSuperiority = GardenData.getGardenSuperiority();
 				String address = GardenData.getAddress();
@@ -153,8 +155,17 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					GardenData.setGardenPicture(ImgConstant.IP_PORT + "park_img/default.jpg");
 				}
 			});
-			// }
-			data.add(findGardensPage);
+			list.stream().sorted((a,b) ->b.getEnterCount()-a.getEnterCount());
+			
+			// 第二步：对结果进行排序，按照热度排序，分页取十条数据
+
+			int total = list.size();
+			pageNum = pageNum - 1;
+			pageSize = pageRequest.getPageSize();
+			List<GardenData> newList = new ArrayList<>();
+			list.stream().skip(pageNum * pageSize).limit(pageSize).forEach(newList :: add); 
+			Page<GardenData> page = new PageImpl<>(newList, pageRequest, total);
+			data.add(page);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}
