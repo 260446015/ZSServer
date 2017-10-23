@@ -131,7 +131,7 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			Sort sort = new Sort(Direction.DESC, "publishTime");
 			PageRequest pageRequest = new PageRequest(pageNumber - 1, pageSize, sort);
 			BoolQueryBuilder bq = new BoolQueryBuilder();
-			bq.must(QueryBuilders.termQuery("dimension", Constans.ZHUANJIALUN));
+			bq.must(QueryBuilders.termQuery("dimension", Constans.BAIJIALUN));
 			if (StringUtils.isNotBlank(author)) {
 				bq.must(QueryBuilders.termQuery("author", author));
 			}
