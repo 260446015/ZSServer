@@ -306,6 +306,42 @@ public class ResourceController extends BaseController {
 		JSONObject returnData = skyeyeService.findSearchTrack(getCurrentShiroUser().getLoginName());
 		return success(returnData);
 	}
+	
+	/**
+	 * 获取列表信息
+	 */
+	@RequestMapping(value = "/getSearchList.json", method = RequestMethod.GET)
+	public void getSearchList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String name = request.getParameter(ConstantKey.DEFAULT_NAME_PARAM);
+		if (StringUtil.isEmpty(name)) {
+			throw new Exception("name can not be null");
+		}
+		String accessToken = getToken();
+		Map<String, String> params = new LinkedHashMap<>();
+		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
+		params.put("key", name);
+		String sign = getSign(params, accessToken);
+		Map<String, String> uriParams = new LinkedHashMap<>();
+		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
+		uriParams.put("key", URLEncoder.encode(name, ENCODE));
+		uriParams.put("sign", URLEncoder.encode(sign, ENCODE));
+		String responseBody = HttpUtils.sendGet(ConstantKey.SEARCH_LIST, uriParams);
+		JSONObject obj = new JSONObject();
+		try{
+			obj = JSONObject.parseObject(responseBody);
+		}catch(JSONException e) {
+			obj.put(ConstantKey.INVALID_SPECIAL, ConstantKey.OPENEYE_WARN_TOKEN_461);
+		}
+		if (ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL))
+				|| ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))) {
+			cache.remove("accessToken");
+			accessToken = getToken();
+			sign = getSign(params, accessToken);
+			uriParams.put("sign", URLEncoder.encode(sign, ENCODE));
+		}
+		String redirectUri = HttpUtils.getParamConcat(ConstantKey.SEARCH_LIST, uriParams);
+		response.sendRedirect(redirectUri);
+	}
 
 	/**
 	 * 签名程序
@@ -331,5 +367,6 @@ public class ResourceController extends BaseController {
 	private String getSign(Map<String, String> params, String accessToken) throws Exception {
 		return SignatureUtils.generate("POST", params, accessToken);
 	}
+
 
 }
