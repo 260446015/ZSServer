@@ -115,11 +115,13 @@
 		function show(d){
 			document.getElementById('biuuu_city_list').innerHTML = function(){
 				var before='<table class="layui-table" lay-even="" lay-skin="nob">'+
-					 	'<colgroup><col width="90"><col width="200"><col width="450"><col width="200"><col width="220"><col></colgroup>'+
-					 	'<thead><tr><th>作者</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
+					 	'<colgroup><col width="80"><col width="90"><col width="200"><col width="450"><col width="160"><col width="200"><col></colgroup>'+
+					 	'<thead><tr><th><input type="checkbox" name="" style="vertical-align:top;" id="allcheck" onclick="checkall();">'+
+					 	'<a class="layui-btn layui-btn-danger layui-btn-mini" href="javascript:void(0);" onclick="deleteCheck();">删除</a>'+
+					 	'</th><th>作者</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
 		        var arr = []
 		        layui.each(d, function(index, item){
-		          arr.push('<tr><td>'+item.author+'</td><td><a href="/art/findInfo?id='+item.id+'">'+
+		          arr.push('<tr><td><input type="checkbox" value="'+item.id+'" name="checkname"/></td><td>'+item.author+'</td><td><a href="/art/findInfo?id='+item.id+'">'+
 		          			item.title+'</a></td><td>'+item.summary+
 		          			'</td><td>'+item.publishTime+'</td><td>'+item.source+
 		          			'</td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="myDrop(\''+item.id+'\')">删除</a>'+
@@ -178,5 +180,21 @@
             }
         });
   	}
+  	function onDel(id) {
+		layer.confirm('确定删除该文章？', function(index) {
+			$.ajax({
+				url : "/art/delete",
+				contentType : 'application/json',
+				data : {
+					ids : id
+				},
+				success : function(response) {
+					layer.alert(response.data);
+					myClick(industry, industryLabel, time, dimension,current);
+				}
+			});
+			layer.close(index);
+		});
+	}
 </script>
 </html>
