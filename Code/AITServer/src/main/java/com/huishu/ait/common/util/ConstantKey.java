@@ -74,5 +74,8 @@ public class ConstantKey {
 	 * 获取用户查询记录
 	 */
 	public static final String SEARCH_TRACK = "https://std.tianyancha.com/auth/user/record/search.json";
-
+	/**
+	 * 获取查询列表
+	 */
+	public static final String SEARCH_LIST = "https://std.tianyancha.com/#/search";
 }
