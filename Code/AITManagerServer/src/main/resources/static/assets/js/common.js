@@ -101,6 +101,10 @@ function deleteCheck() {
 			arr.push($(this).prop('value'));
 		}
 	});
-	onDel(arr);
+	if(arr.length==0){
+		layer.alert("您没有选择任何文章进行删除！");
+	}else{
+		onDel(arr);
+	}
 
 }
