@@ -100,6 +100,16 @@ public class AITInfo {
 
 	/** 公司名录集合 */
 	private List<String> bus;
+	/** 置顶 */
+	private boolean istop;
+	
+	public boolean isIstop() {
+		return istop;
+	}
+
+	public void setIstop(boolean istop) {
+		this.istop = istop;
+	}
 
 	public List<String> getBus() {
 		return bus;
