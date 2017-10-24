@@ -119,7 +119,8 @@
 					 	'<thead><tr><th>作者</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
 		        var arr = []
 		        layui.each(d, function(index, item){
-		          arr.push('<tr><td>'+item.author+'</td><td>'+item.title+'</td><td>'+item.summary+
+		          arr.push('<tr><td>'+item.author+'</td><td><a href="/art/findInfo?id='+item.id+'">'+
+		          			item.title+'</a></td><td>'+item.summary+
 		          			'</td><td>'+item.publishTime+'</td><td>'+item.source+
 		          			'</td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="myDrop(\''+item.id+'\')">删除</a>'+
 		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" onclick="myTop(\''+item.id+'\')">置顶</a></td></tr>');
