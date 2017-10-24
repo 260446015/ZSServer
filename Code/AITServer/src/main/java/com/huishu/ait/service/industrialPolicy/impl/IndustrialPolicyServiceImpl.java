@@ -1,5 +1,6 @@
 package com.huishu.ait.service.industrialPolicy.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,6 +122,28 @@ public class IndustrialPolicyServiceImpl extends AbstractService implements Indu
 		String content = info.getContent().replaceAll("\\n", "<br/>");
 		info.setContent(content);
 		List<String> business = getBusiness(info.getTitle(), info.getContent());
+		String company = info.getBusiness();
+		if(!StringUtil.isEmpty(company)){
+			if(business.size()==1&&business.get(0).equals("暂无")){
+				String[] split = company.split("、");
+				for (String string : split) {
+					if(!StringUtil.isEmpty(string)){
+						if(business.get(0).equals("暂无")){
+							business.set(0, string);
+						}else{
+							business.add(string);
+						}
+					}
+				}
+			}else{
+				String[] split = company.split("、");
+				for (String string : split) {
+					if(!StringUtil.isEmpty(string)){
+						business.add(string);
+					}
+				}
+			}
+		}
 		info.setBus(business);
 		obj = (JSONObject) JSONObject.toJSON(info);
 		if (null == userCollectionRepository.findByArticleIdAndUserId(id, userId)) {
