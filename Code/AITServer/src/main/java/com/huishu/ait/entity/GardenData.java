@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.common.util.StringUtil;
 
 /**
  * 园区数据实体类
@@ -86,6 +88,7 @@ public class GardenData implements Serializable {
 	/** 园区动态 */
 	/** 主导产业一级目录 */
 	private String industry;
+	/** 返回入驻企业的数量 */
 
 	public GardenData() {
 		super();
@@ -355,6 +358,16 @@ public class GardenData implements Serializable {
 
 	public void setGardenCondition(String gardenCondition) {
 		this.gardenCondition = gardenCondition;
+	}
+	
+
+	@Transient
+	public Integer getEnterCount() {
+		String[] str = (StringUtil.isEmpty(this.getEnterCompany())?"":this.getEnterCompany()).split("、");
+		if(str[0].equals("")){
+			return 0;
+		}
+		return str.length;
 	}
 
 	@Override
