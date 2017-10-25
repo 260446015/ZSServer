@@ -38,7 +38,7 @@ public interface BusinessRepository extends ElasticsearchRepository<AITInfo, Str
 	public Page<AITInfo> findByParkAndDimensionOrderByPublishDateDescHitCountDesc(String park, String dimension, Pageable pageable);
 
 	public Page<AITInfo> findByBusinessAndDimension(String business, String dimension, Pageable pageable);
-
+ 
 	/**
 	 * 获取某企业的动态列表
 	 * 
