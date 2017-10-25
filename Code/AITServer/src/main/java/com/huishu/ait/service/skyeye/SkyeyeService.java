@@ -1,6 +1,7 @@
 package com.huishu.ait.service.skyeye;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.entity.ChangeInfo;
@@ -20,4 +21,6 @@ public interface SkyeyeService {
 	JSONObject findSearchTrack(String username);
 
 	boolean saveChangeInfo(Collection<ChangeInfo> s);
+	
+	List<Integer> findChangeId(String companyName);
 }

@@ -1,9 +1,9 @@
-package com.huishu.ait.controller.authz;
+package com.huishu.ait.controller.authz.resource;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -33,7 +33,10 @@ import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.ChangeInfo;
 import com.huishu.ait.entity.SearchTrack;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.security.Digests;
+import com.huishu.ait.security.Encodes;
 import com.huishu.ait.service.company.CompanyService;
+import com.huishu.ait.service.garden.GardenService;
 import com.huishu.ait.service.skyeye.SkyeyeService;
 
 /**
@@ -52,6 +55,8 @@ public class ResourceController extends BaseController {
 	private SkyeyeService skyeyeService;
 	@Autowired
 	private CompanyService companyService;
+	@Autowired
+	private GardenService gardenService;
 
 	private Cache cache;
 
@@ -97,63 +102,67 @@ public class ResourceController extends BaseController {
 
 	@RequestMapping(value = "/getChangeInfo.json", method = RequestMethod.GET)
 	public AjaxResult getChangeInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String userpark = getUserPark();
-		List<String> cnames = companyService.findCname(userpark);
-		String accessToken = getToken();
-		Map<String, String> params = new LinkedHashMap<>();
-		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
-		params.put("pn", "1");
-		params.put("ps", "10");
-		JSONArray arr = new JSONArray();
-		try {
-			for (String name : cnames) {
-				params.put("name", name);
-				String sign = getSign(params, accessToken);
-				Map<String, String> uriParams = new LinkedHashMap<>();
-				uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
-				uriParams.put("name", URLEncoder.encode(name, ENCODE));
-				uriParams.put("pn", "1");
-				uriParams.put("ps", "10");
-				uriParams.put("sign", URLEncoder.encode(sign, ENCODE));
-				String responseBody = HttpUtils.sendGet(ConstantKey.CHANGE_INFO, uriParams);
-				JSONObject obj = JSONObject.parseObject(responseBody);
-				JSONObject data = new JSONObject();
-				JSONArray save = new JSONArray();
-				if (ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL))
-						|| ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))) {
-					cache.remove("accessToken");
-					accessToken = getToken();
-					sign = getSign(params, accessToken);
+		List<String> names = gardenService.findAll();
+		for (String userpark : names) {
+			List<String> cnames = companyService.findCname(userpark);
+			String accessToken = getToken();
+			Map<String, String> params = new LinkedHashMap<>();
+			params.put("authId", ConstantKey.OAUTH_AUTH_ID);
+			params.put("pn", "1");
+			params.put("ps", "10");
+			try {
+				for (String name : cnames) {
+					params.put("name", name);
+					String sign = getSign(params, accessToken);
+					Map<String, String> uriParams = new LinkedHashMap<>();
+					uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
+					uriParams.put("name", URLEncoder.encode(name, ENCODE));
+					uriParams.put("pn", "1");
+					uriParams.put("ps", "10");
 					uriParams.put("sign", URLEncoder.encode(sign, ENCODE));
-					responseBody = HttpUtils.sendGet(ConstantKey.CHANGE_INFO, uriParams);
-					logger.info("responseBody:" + responseBody);
-					obj = JSONObject.parseObject(responseBody);
+					String responseBody = HttpUtils.sendGet(ConstantKey.CHANGE_INFO, uriParams);
+					JSONObject obj = JSONObject.parseObject(responseBody);
+					JSONObject data = new JSONObject();
+					JSONArray save = new JSONArray();
+					if (ConstantKey.OPENEYE_WARN_TOKEN_461.equals(obj.getString(ConstantKey.INVALID_SPECIAL))
+							|| ConstantKey.OPENEYE_WARN_TOKEN_460.equals(obj.getString(ConstantKey.INVALID_SPECIAL))) {
+						cache.remove("accessToken");
+						accessToken = getToken();
+						sign = getSign(params, accessToken);
+						uriParams.put("sign", URLEncoder.encode(sign, ENCODE));
+						responseBody = HttpUtils.sendGet(ConstantKey.CHANGE_INFO, uriParams);
+						logger.info("responseBody:" + responseBody);
+						obj = JSONObject.parseObject(responseBody);
+						data = obj.getJSONObject("data");
+						save = data.getJSONArray("result");
+					}
 					data = obj.getJSONObject("data");
+					if (data == null) {
+						continue;
+					}
 					save = data.getJSONArray("result");
-					arr.add(save);
+					List<ChangeInfo> list = new ArrayList<ChangeInfo>();
+					save.forEach((change) -> {
+						ChangeInfo info = JSON.parseObject(change.toString(), ChangeInfo.class);
+						List<Integer> findChangeId = skyeyeService.findChangeId(name);
+						String id = getGeneratedId(info);
+						if(!findChangeId.contains(id)){
+							info.setCompany(name);
+							info.setId(id);
+							info.setDr(0);
+							info.setPark(userpark);
+							info.setTag("企业");
+							list.add(info);
+						}
+					});
+					skyeyeService.saveChangeInfo(list);
 				}
-				data = obj.getJSONObject("data");
-				if (data == null) {
-					continue;
-				}
-				save = data.getJSONArray("result");
-				List<ChangeInfo> list = new ArrayList<ChangeInfo>();
-				save.forEach((change) -> {
-					ChangeInfo info = JSON.parseObject(change.toString(), ChangeInfo.class);
-					info.setCompany(name);
-					info.setId(info.toString().hashCode());
-					info.setDr(0);
-					info.setPark(userpark);
-					info.setTag("企业");
-					list.add(info);
-				});
-				skyeyeService.saveChangeInfo(list);
-				arr.add(save);
+			} catch (Exception e) {
+				logger.error("获取信息变更预警失败!", e.getMessage());
 			}
-		} catch (Exception e) {
-			logger.error("获取信息变更预警失败!", e.getMessage());
 		}
-		return success(arr);
+		
+		return success("");
 	}
 
 	@RequestMapping(value = "/getCompanyDetail.json", method = RequestMethod.GET)
@@ -366,6 +375,11 @@ public class ResourceController extends BaseController {
 
 	private String getSign(Map<String, String> params, String accessToken) throws Exception {
 		return SignatureUtils.generate("POST", params, accessToken);
+	}
+	
+	private String getGeneratedId(ChangeInfo info){
+		byte[] hashPassword = Digests.sha1(info.toString().getBytes(), null, Encodes.HASH_INTERATIONS);
+		return Encodes.encodeHex(hashPassword);
 	}
 
 

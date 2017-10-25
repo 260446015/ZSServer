@@ -28,14 +28,14 @@ public class ChangeInfo implements Serializable {
 	 */
 	private static final long serialVersionUID = 7026144386657590459L;
 	@Id
-	private Integer id;
+	private String id;
 	@Column(name = "change_time")
 	private String changeTime;
-	@Column(name = "content_after", length = 500)
+	@Column(name = "content_after", length = 5000)
 	private String contentAfter;
 	@Column(name = "create_time")
 	private String createTime;
-	@Column(name = "content_before", length = 500)
+	@Column(name = "content_before", length = 5000)
 	private String contentBefore;
 	/**
 	 * 更新属性
@@ -56,11 +56,11 @@ public class ChangeInfo implements Serializable {
 	 */
 	private String tag;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

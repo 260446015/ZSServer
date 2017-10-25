@@ -89,6 +89,21 @@ public class HttpUtils {
 		}
 		return null;
 	}
+	
+	public static void sendGet(String spec) throws IOException {
+		HttpClient client = HttpClients.createDefault();
+		HttpGet get = new HttpGet(spec);
+		InputStream in = null;
+		try {
+			client.execute(get);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		} finally {
+			if (in != null) {
+				in.close();
+			}
+		}
+	}
 
 	public static String assembling(Map<String, String> params) {
 		StringBuilder sb = new StringBuilder();

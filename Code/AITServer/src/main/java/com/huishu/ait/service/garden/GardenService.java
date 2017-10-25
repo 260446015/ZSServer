@@ -1,5 +1,7 @@
 package com.huishu.ait.service.garden;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
@@ -105,4 +107,9 @@ public interface GardenService {
 	 * 园区情报中获取所有园区内容
 	 */
 	JSONArray findGardensAll();
+
+	/**
+	 * 全查园区
+	 */
+	List<String> findAll();
 }

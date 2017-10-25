@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.GardenData;
@@ -17,7 +18,6 @@ import com.huishu.ait.entity.GardenData;
  */
 public interface GardenRepository extends CrudRepository<GardenData, Integer> {
 
-	Page<GardenData> findByAreaLikeAndIndustryLikeOrderByIdDesc(String area, String industry, Pageable pageable);
 	List<GardenData> findByAreaLikeAndIndustryLike(String area, String industry);
 
 	/**
@@ -29,5 +29,8 @@ public interface GardenRepository extends CrudRepository<GardenData, Integer> {
 	List<GardenData> findByAddressLikeAndIndustryLike(String area, String industry);
 
 	GardenData findByGardenName(String gardenName);
+	
+	@Query(value="select gardenName from GardenData")
+	List<String> findNames();
 
 }

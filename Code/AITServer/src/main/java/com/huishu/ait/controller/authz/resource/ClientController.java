@@ -1,4 +1,4 @@
-package com.huishu.ait.controller.authz;
+package com.huishu.ait.controller.authz.resource;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.shiro.cache.Cache;

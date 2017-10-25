@@ -91,7 +91,7 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 
 	@Override
 	public ChangeInfo getInformationChangeById(String id) {
-		return changeRepository.findOne(Integer.valueOf(id));
+		return changeRepository.findOne(id);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 		try {
 			AITInfo ex = externalFlowRepository.findOne(id);
 			if (null == ex) {
-				ChangeInfo change = changeRepository.findOne(Integer.valueOf(id));
+				ChangeInfo change = changeRepository.findOne(id);
 				change.setDr(1);
 				changeRepository.save(change);
 			} else {

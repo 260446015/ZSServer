@@ -1,6 +1,7 @@
 package com.huishu.ait.service.skyeye.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -62,6 +63,12 @@ public class SkyeyeServiceImpl implements SkyeyeService {
 		}
 		return false;
 
+	}
+
+	@Override
+	public List<Integer> findChangeId(String companyName) {
+		return changeRepository.findChangeId(companyName);
+		
 	}
 
 }
