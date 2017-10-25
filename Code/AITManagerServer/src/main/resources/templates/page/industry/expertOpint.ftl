@@ -183,7 +183,7 @@ function getLabel2(industry){
                 layui.use('layer', function(){
 								  var layer = layui.layer;
 								  if(response.success){
-								  		if('专家论' == str.dimension){
+								  		if('专家观点' == str.dimension){
 								 			showTable(response.data,'demo1',str.dimension);
 								  		}else{
 								  			showTable(response.data,'demo2',str.dimension);
@@ -201,7 +201,7 @@ function getLabel2(industry){
 	}
 	function show(d,dimension){
 			var showTab;
-			if('专家论' == dimension){
+			if('专家观点' == dimension){
 				showTab = document.getElementById('biuuu_city_list_1');
 			}else{
 				showTab = document.getElementById('biuuu_city_list_2');

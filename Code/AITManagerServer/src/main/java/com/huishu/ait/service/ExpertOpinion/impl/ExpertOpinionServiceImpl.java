@@ -214,6 +214,13 @@ public class ExpertOpinionServiceImpl extends AbstractService implements ExpertO
 	@Override
 	public Page<AITInfo> findExpertOpinionArticleList(JSONObject param) {
 		String dimension = param.getString("dimension");
+		int type = 0;
+		if(dimension.equals("专家观点")){
+			dimension = "百家论";
+			type = 1;
+		}else if(dimension.equals("百家论")){
+			type = 2;
+		}
 		String industry = param.getString("industry");
 		String industryLabel = param.getString("industryLabel");
 		String time = param.getString("time");
@@ -229,6 +236,11 @@ public class ExpertOpinionServiceImpl extends AbstractService implements ExpertO
 		PageRequest pageRequest = new PageRequest(pageNum, pageSize, sort);
 		bq.must(QueryBuilders.termQuery("dimension", dimension));
 		bq.must(QueryBuilders.termQuery("industry", industry));
+		if(type == 1){
+			bq.mustNot(QueryBuilders.termQuery("author", ""));
+		}else if(type == 2){
+			bq.must(QueryBuilders.termQuery("author", ""));
+		}
 		if(!"不限".equals(industryLabel))
 			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 		bq.must(QueryBuilders.rangeQuery("publishTime").from(startDate).to(endDate));
