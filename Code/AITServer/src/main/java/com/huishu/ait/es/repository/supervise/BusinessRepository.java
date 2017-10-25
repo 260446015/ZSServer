@@ -35,7 +35,7 @@ public interface BusinessRepository extends ElasticsearchRepository<AITInfo, Str
 	 * @param pageable
 	 * @return
 	 */
-	public Page<AITInfo> findByParkAndDimensionOrderByPublishDateDescAndHitCountDesc(String park, String dimension, Pageable pageable);
+	public Page<AITInfo> findByParkAndDimensionOrderByPublishDateDescHitCountDesc(String park, String dimension, Pageable pageable);
 
 	public Page<AITInfo> findByBusinessAndDimension(String business, String dimension, Pageable pageable);
 
@@ -52,7 +52,7 @@ public interface BusinessRepository extends ElasticsearchRepository<AITInfo, Str
 	 *            分页对象
 	 * @return
 	 */
-	public Page<AITInfo> findByParkAndEmotionAndDimensionOrderByPublishDateDescAndHitCountDesc(String park, String emotion, String dimension,
+	public Page<AITInfo> findByParkAndEmotionAndDimensionOrderByPublishDateDescHitCountDesc(String park, String emotion, String dimension,
 			Pageable pageable);
 
 }

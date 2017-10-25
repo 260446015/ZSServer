@@ -55,9 +55,9 @@ public class BusinessServiceImpl extends AbstractService implements BusinessServ
 		try {
 			Page<AITInfo> page = null;
 			if (EMOTIONS.contains(emotion)) {
-				page = businessRepository.findByParkAndEmotionAndDimensionOrderByPublishDateDescAndHitCountDesc(park, emotion, dimension, pageable);
+				page = businessRepository.findByParkAndEmotionAndDimensionOrderByPublishDateDescHitCountDesc(park, emotion, dimension, pageable);
 			} else {
-				page = businessRepository.findByParkAndDimensionOrderByPublishDateDescAndHitCountDesc(park, dimension, pageable);}
+				page = businessRepository.findByParkAndDimensionOrderByPublishDateDescHitCountDesc(park, dimension, pageable);}
 			Page<AITInfo> pageBusiness = setPageBusiness(page);
 			return pageBusiness;
 		} catch (Exception e) {
