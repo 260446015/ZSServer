@@ -75,7 +75,7 @@ function getDetail(id) {
 		type : 'get',
 		url : '/head/getDetail.json?id=' + id,
 		success : function() {
-
+			
 		}
 	});
 }
@@ -107,4 +107,21 @@ function deleteCheck() {
 		onDel(arr);
 	}
 
+}
+function myTop(id) {
+	layer.confirm('确定置顶该文章？', function(index) {
+		$.ajax({
+			url : "/art/totop",
+			contentType : 'application/json',
+			data : {
+				id : id
+			},
+			success : function(response) {
+				layer.alert(response.data);
+				myClick(industry, industryLabel, time, dimension,current);
+			}
+		});
+		layer.close(index);
+	});
+	
 }

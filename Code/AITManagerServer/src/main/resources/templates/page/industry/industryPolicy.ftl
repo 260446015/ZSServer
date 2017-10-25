@@ -154,25 +154,23 @@
 			layer.close(index);
 		});
 	}
-	function toTop() {
-		layer.open({
-			content : '确认置顶该片数据',
-			btn : [ '确认', '取消' ],
-			yes : function(index, layero) {
-				//按钮【按钮一】的回调
-			},
-			btn2 : function(index, layero) {
-				//按钮【按钮二】的回调
-
-				//return false 开启该代码可禁止点击该按钮关闭
-			},
-			cancel : function() {
-				//右上角关闭回调
-
-				//return false 开启该代码可禁止点击该按钮关闭
-			}
+	/**function myTop(id) {
+		layer.confirm('确定置顶该文章？', function(index) {
+			$.ajax({
+				url : "/art/totop",
+				contentType : 'application/json',
+				data : {
+					id : id
+				},
+				success : function(response) {
+					layer.alert(response.data);
+					myClick(industry, industryLabel, time, dimension,current);
+				}
+			});
+			layer.close(index);
 		});
-	}
+		
+	}**/
 	$(function() {
 		getLabel(industry);
 		getLabel2(industry);
