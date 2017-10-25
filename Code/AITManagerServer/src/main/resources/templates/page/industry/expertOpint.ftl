@@ -105,38 +105,6 @@
 	
 </body>
 <script>
-		function onDel(id){
-		layer.confirm('确定删除该文章？', function(index){
-            $.ajax({
-                url: "/art/delete",
-                contentType: 'application/json',
-                data: {ids: id},
-                success: function (response) {
-                    layer.alert(response.data);
-            		myClick(industry, industryLabel, time, dimension,current);
-                }
-            });
-            layer.close(index);
-        });
-	}
-
-	/**function myTop(id) {
-		layer.confirm('确定置顶该文章？', function(index) {
-			$.ajax({
-				url : "/art/totop",
-				contentType : 'application/json',
-				data : {
-					id : id
-				},
-				success : function(response) {
-					layer.alert(response.data);
-					myClick(industry, industryLabel, time, dimension,current);
-				}
-			});
-			layer.close(index);
-		});
-		
-	}**/
   $(function(){
   		getLabel(industry,'专家观点');
   		getLabel2(industry,'百家论');
@@ -214,7 +182,7 @@ function getLabel2(industry){
 		          arr.push('<tr><td><input type="checkbox" value="'+item.id+'" name="checkname"/></td><td>'+item.author+'</td><td>'+item.title+'</td><td>'+item.summary+
 		          			'</td><td>'+item.publishTime+'</td><td>'+item.source+
 		          			'</td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="onDel([\''+item.id+'\'])">删除</a>'+
-		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" onclick="myTop(\''+item.id+'\')">置顶</a>'+
+		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" onclick="myTop(\''+item.id+'\')">'+(item.istop==true?'已置顶':'置顶')+'</a>'+
 		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" href="/art/findInfo?id='+item.id+'">查看详情</a></td></tr>');
 		        });
 		        var inner=arr.join('');
