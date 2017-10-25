@@ -287,10 +287,15 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 			}else{
 				enterCompany = cs.split(",");
 			}
-			for (int i = 0; i < (enterCompany.length < 6 ? enterCompany.length : 5); i++) {
-				JSONObject obj = new JSONObject();
-				obj.put("business", enterCompany[i]);
-				array3.add(obj);
+			int i=0;
+			for (String string : enterCompany) {
+				if(!StringUtil.isEmpty(string)){
+					JSONObject obj = new JSONObject();
+					obj.put("business",string);
+					array3.add(obj);
+					i++;
+				}
+				if(i==10) break;
 			}
 		}
 		GardenUser gu = gardenUserRepository.findByGardenNameAndUserId(gardenName, userId.intValue());
@@ -410,5 +415,10 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 
 			}
 		};
+	}
+
+	@Override
+	public List<String> findAll() {
+		return gardenRepository.findNames();
 	}
 }
