@@ -125,3 +125,20 @@ function myTop(id) {
 	});
 	
 }
+
+function onDel(id) {
+	layer.confirm('确定删除该文章？', function(index) {
+		$.ajax({
+			url : "/art/delete",
+			contentType : 'application/json',
+			data : {
+				ids : id
+			},
+			success : function(response) {
+				layer.alert(response.data);
+				myClick(industry, industryLabel, time, dimension,current);
+			}
+		});
+		layer.close(index);
+	});
+}

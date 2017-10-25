@@ -155,10 +155,9 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 					GardenData.setGardenPicture(ImgConstant.IP_PORT + "park_img/default.jpg");
 				}
 			});
-			list.stream().sorted((a,b) ->b.getEnterCount()-a.getEnterCount());
+			list.sort((a,b) ->b.getEnterCount()-a.getEnterCount());
 			
 			// 第二步：对结果进行排序，按照热度排序，分页取十条数据
-
 			int total = list.size();
 			pageNum = pageNum - 1;
 			pageSize = pageRequest.getPageSize();
