@@ -962,4 +962,13 @@ public abstract class AbstractService {
 			return false ; 
 		}
 	}
+	
+	/**
+	 * 获取1~999某数字
+	 * @return
+	 */
+	protected Long getRandomNumber() {
+		int x=(int)(Math.random()*100);
+		return Long.valueOf(x);
+	}
 }

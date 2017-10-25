@@ -39,13 +39,13 @@
 			    <div class="layui-inline">
 			      <label class="layui-form-label">文章来源</label>
 			      <div class="layui-input-inline">
-			        <input name="source" lay-verify="title" autocomplete="off" placeholder="请输入来源" class="layui-input" type="tel">
+			        <input name="source"  autocomplete="off" placeholder="请输入来源" class="layui-input" type="tel">
 			      </div>
 			    </div>
 			    <div class="layui-inline">
 			      <label class="layui-form-label">来源url</label>
 			      <div class="layui-input-inline">
-			        <input name="sourceLink" lay-verify="url" autocomplete="off" placeholder="https://www.baidu.com/" class="layui-input" type="tel">
+			        <input name="sourceLink"  autocomplete="off" placeholder="https://www.baidu.com/" class="layui-input" type="tel">
 			      </div>
 			    </div>
 			  </div>
@@ -69,12 +69,17 @@
 			      <div class="layui-input-inline">
 				      <select name="industry" lay-filter="province">
 				        <option value="">请选择产业</option>
-				        <option value="">请产业</option>
+				        <option value="互联网+">互联网+</option>
+				        <option value="高科技">高科技</option>
+				        <option value="文化创意">文化创意</option>
+				        <option value="精英配套">精英配套</option>
+				        <option value="其他">其他</option>
+				        <option value="港口物流">港口物流</option>
 				      </select>
 				    </div>
 				    <div class="layui-input-inline">
-				      <select name="industryLabel">
-				        <option value="">请选择产业标签</option>
+				      <select name="industryLabel" id="industryLabel">
+				        <option value=""></option>
 				      </select>
 				    </div>
 			    </div>
@@ -95,6 +100,31 @@
 			          <option value="企业动态">企业动态</option>
 			          <option value="疑似外流">疑似外流</option>
 			        </select>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">相关园区</label>
+			    <div class="layui-input-block">
+			      <input name="park" autocomplete="off" placeholder="请输入园区" class="layui-input" type="text">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <div class="layui-inline">
+			      <label class="layui-form-label">文章情感</label>
+			      <div class="layui-input-inline">
+			        <select name="emotion" lay-verify="required" lay-search="">
+			          <option value="">直接选择或搜索选择</option>
+			          <option value="positive">正面</option>
+			          <option value="negative">负面</option>
+			          <option value="neutral">中性</option>
+			        </select>
+			      </div>
+			    </div>
+			    <div class="layui-inline">
+			      <label class="layui-form-label">园区地域</label>
+			      <div class="layui-input-inline">
+			        <input name="area" autocomplete="off" placeholder="请输入地域" class="layui-input" type="text">
 			      </div>
 			    </div>
 			  </div>
@@ -151,21 +181,65 @@
 	  });
 	  //监听提交
 	  form.on('submit(demo1)', function(data){
-	    layer.alert(JSON.stringify(data.field), {
-	      title: '最终的提交信息'
-	    })
-	    return false;
+	      var result;
+          $.ajax({
+              type: 'post',
+              url: "/apis/data/addData.json",
+              async: false,
+              contentType: 'application/json',
+              data: JSON.stringify(data.field),
+              success: function (response) {
+                  result=response.success;
+              }
+          });
+           return result;
 	  });
 	  
 	  form.on('select(province)', function(data){
-        $.getJSON("/api/getCity?pid="+data.value, function(data){
-            var optionstring = "";
-            $.each(data.data, function(i,item){
-                optionstring += "<option value=\"" + item.code + "\" >" + item.name + "</option>";
-            });
-            $("#city").html('<option value=""></option>' + optionstring);
-            form.render('select'); //这个很重要
-        });
+	  	var optionstring = "";
+	  	if(data.value=='互联网+'){
+	  		optionstring += "<option value='网络游戏' >网络游戏</option>";
+	  		optionstring += "<option value='大数据' >大数据</option>";
+	  		optionstring += "<option value='电子商务' >电子商务</option>";
+	  		optionstring += "<option value='电子商务' >电子商务</option>";
+	  		optionstring += "<option value='移动阅读' >移动阅读</option>";
+	  		optionstring += "<option value='智能硬件' >智能硬件</option>";
+	  	}
+	  	if(data.value=='高科技'){
+	  		optionstring += "<option value='新一代信息技术' >新一代信息技术</option>";
+	  		optionstring += "<option value='智能机器人' >智能机器人</option>";
+	  		optionstring += "<option value='生物医药' >生物医药</option>";
+	  		optionstring += "<option value='节能环保技术装备' >节能环保技术装备</option>";
+	  		optionstring += "<option value='新能源' >新能源</option>";
+	  		optionstring += "<option value='新材料' >新材料</option>";
+	  		optionstring += "<option value='航空装备' >航空装备</option>";
+	  	}
+	  	if(data.value=='文化创意'){
+	  		optionstring += "<option value='动漫制作' >动漫制作</option>";
+	  		optionstring += "<option value='影视传媒' >影视传媒</option>";
+	  		optionstring += "<option value='图书出版' >图书出版</option>";
+	  		optionstring += "<option value='广告营销' >广告营销</option>";
+	  	}
+	  	if(data.value=='精英配套'){
+	  		optionstring += "<option value='金融服务' >金融服务</option>";
+	  		optionstring += "<option value='住宅地产' >住宅地产</option>";
+	  		optionstring += "<option value='商业综合体' >商业综合体</option>";
+	  		optionstring += "<option value='康体美容' >康体美容</option>";
+	  		optionstring += "<option value='母婴产业' >母婴产业</option>";
+	  		optionstring += "<option value='健康产业' >健康产业</option>";
+	  		optionstring += "<option value='教育培训' >教育培训</option>";
+	  	}
+	  	if(data.value=='其他'){
+	  		optionstring += "<option value='特色旅游综合体' >特色旅游综合体</option>";
+	  		optionstring += "<option value='体育产业' >体育产业</option>";
+	  	}
+	  	if(data.value=='港口物流'){
+	  		optionstring += "<option value='生鲜贸易' >生鲜贸易</option>";
+	  		optionstring += "<option value='食品加工' >食品加工</option>";
+	  		optionstring += "<option value='冷链物流' >冷链物流</option>";
+	  	}
+        $("#industryLabel").html('<option value=""></option>' + optionstring);
+        form.render('select'); //这个很重要
 	});
 	});
     </script>
