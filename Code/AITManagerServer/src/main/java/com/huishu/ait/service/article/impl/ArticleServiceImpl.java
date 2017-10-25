@@ -31,6 +31,8 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 	
 	@Autowired
 	private UserCollectionRepository userCollectionRepository;
+	
+	
 	/**
 	 * 删除文章通过id
 	 */
@@ -150,6 +152,24 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 			return json;
 		}
 		
+	}
+	/**
+	 * 置顶文章
+	 */
+	@Override
+	public boolean toTop(String id) {
+		AITInfo info = search.findOne(id);
+		if(info.isIstop()){
+			return false;
+		}else{
+			info.setIstop(true);
+			AITInfo save = search.save(info);
+			if(save.isIstop()){
+				return true;
+			}else{				
+				return true;
+			}
+		}
 	}
 
 }

@@ -18,6 +18,7 @@
 								</dl>
 					</li>
 					<li class="layui-nav-item "><a href="/apis/area/parkSupervision">园区监管</a></li>
+					<li class="layui-nav-item "><a href="/apis/data/addData">数据管理</a></li>
 					<!--<li class="layui-nav-item "><a href="javascript:;">精准招商</a></li>-->
 					<!--<li class="layui-nav-item"><a href="javascript:">订单管理</a></li>-->
 				</ul>

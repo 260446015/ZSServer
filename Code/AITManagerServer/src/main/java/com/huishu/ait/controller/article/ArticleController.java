@@ -54,7 +54,27 @@ public class ArticleController extends BaseController {
 			return success("删除失败！");
 		}
 	}
-
+	/**
+	 * 根据文章id置顶文章
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/totop",method=RequestMethod.GET)
+	public AjaxResult toTop(String id){
+		if (StringUtil.isEmpty(id)) {
+			logger.debug(MsgConstant.ILLEGAL_PARAM);
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		boolean info = service.toTop(id);
+		logger.info("根据文章id置顶文章的结果是："+info);
+		if(info){
+			return success("置顶成功！");
+		}else{			
+			return success("已置顶,无需重复操作！");
+		}
+	}
+	
 	/**
 	 * 根据文章id更新情感
 	 * 

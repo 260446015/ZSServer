@@ -55,6 +55,11 @@ public interface ArticleService {
 	 * @return
 	 */
 	JSONObject cancelExpertOpinionCollect(String id, Long userId);
-
-
+	
+	/**
+	 * 置顶文章
+	 * @param id
+	 * @return
+	 */
+	boolean toTop(String id);
 }
