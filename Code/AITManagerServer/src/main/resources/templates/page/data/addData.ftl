@@ -33,6 +33,7 @@
                 <div class="layui-col-md6 ">
                     <div id="chart2" style="width: 500px;height: 220px; border: 1px solid #e6e6e6 ;">
                     	<button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
+                    	温馨提示
                     </div>
                 </div>
             </div>
