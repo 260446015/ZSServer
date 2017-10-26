@@ -63,6 +63,10 @@ public class ConstantKey {
 	 */
 	public static final String CHANGE_INFO = "https://std.tianyancha.com/auth/company/change.json";
 	/**
+	 * 内部跳转查询园区内所有企业变更信息
+	 */
+	public static final String GET_CHANGEINFO = "http://58.16.181.24:9208/apis/oauth/getChangeInfo.json";
+	/**
 	 * 获取企业gid
 	 */
 	public static final String GID = "https://std.tianyancha.com/auth/company/gid.json";
