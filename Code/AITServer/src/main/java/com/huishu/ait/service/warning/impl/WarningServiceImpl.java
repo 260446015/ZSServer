@@ -78,7 +78,7 @@ public class WarningServiceImpl extends AbstractService implements WarningServic
 		if (list == null || list.size() == 0) {
 			return null;
 		}
-		Sort sort = new Sort(Direction.DESC, "createTime");
+		Sort sort = new Sort(Direction.DESC, "changeTime");
 		PageRequest pageRequest = new PageRequest(searchModel.getPageNumber() - 1, searchModel.getPageSize(), sort);
 		Page<ChangeInfo> findAll = null;
 		try {
