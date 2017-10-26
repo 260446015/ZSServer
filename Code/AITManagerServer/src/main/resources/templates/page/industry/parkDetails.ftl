@@ -376,7 +376,7 @@
 		          			item.title+'</a></td><td>'+item.summary+
 		          			'</td><td>'+item.publishTime+'</td><td>'+item.source+
 		          			'</td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="myDrop(\''+item.id+'\')">删除</a>'+
-		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" onclick="myTop(\''+item.id+'\')">置顶</a></td></tr>');
+		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" onclick="myTop(\''+item.id+'\')">'+(item.istop==true?'已置顶':'置顶')+'</a></td></tr>');
 		        });
 		        var inner=arr.join('');
 		        var after='</tbody></table> ';
