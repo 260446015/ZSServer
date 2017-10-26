@@ -329,6 +329,7 @@ public class ResourceController extends BaseController {
 		Map<String, String> params = new LinkedHashMap<>();
 		params.put("authId", ConstantKey.OAUTH_AUTH_ID);
 		params.put("key", name);
+		params.put("rememberMe", "true");
 		String sign = getSign(params, accessToken);
 		Map<String, String> uriParams = new LinkedHashMap<>();
 		uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
