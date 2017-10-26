@@ -3,7 +3,6 @@ package com.huishu.ait.service.data.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import com.huishu.ait.es.repository.ExternalFlowRepository;
 import com.huishu.ait.repository.dataLog.LogRepository;
 import com.huishu.ait.service.AbstractService;
 import com.huishu.ait.service.data.DataService;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 /**
  *  管理文章数据相关实现类

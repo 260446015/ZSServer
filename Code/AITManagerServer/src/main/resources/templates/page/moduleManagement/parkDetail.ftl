@@ -133,25 +133,6 @@
 			}();
 		}
   	}
-  	function myTop(id){
-  		layer.open({
-            type: 1,
-            offset: 'auto',
-            title:false,
-            id: 'layerDemo' , //防止重复弹出
-            content: '<div style="padding: 20px 100px;">确认置顶该数据？</div>',
-            btn: ["确定","取消"],
-            btnAlign: 'c', //按钮居中
-            shade: 0.8, //不显示遮罩
-            yes: function() {
-            	layer.closeAll();
-                layer.msg("置顶还没写");
-            },
-            btn2: function(){
-                layer.closeAll();
-            }
-        });
-  	}
   	function myDrop(id){
   	layer.open({
             type: 1,
