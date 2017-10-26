@@ -40,7 +40,7 @@ public class RunnerTask {
 				HttpUtils.sendGet(ConstantKey.OAUTH_CLIENT_ACCESS_CODE, params);
 				accessToken = (String) cache.get("accessToken");
 			}
-			HttpUtils.sendGet("http://localhost:8092/apis/oauth/getChangeInfo.json");
+			HttpUtils.sendGet(ConstantKey.GET_CHANGEINFO);
 		} catch (CacheException e) {
 			logger.error("定时器调度缓存出现异常:", e.getMessage());
 		} catch (IOException e) {
