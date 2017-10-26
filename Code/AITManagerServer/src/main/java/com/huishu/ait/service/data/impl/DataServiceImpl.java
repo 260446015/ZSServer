@@ -45,6 +45,7 @@ public class DataServiceImpl extends AbstractService implements DataService {
 			info.setReplyCount(getRandomNumber());
 			info.setSupportCount(getRandomNumber());
 			info.setHasWarn(false);
+			info.setIstop(false);
 			info.setArticleLink(info.getSourceLink());
 			AITInfo save = repository.save(info);
 			if (save == null) {
@@ -62,32 +63,17 @@ public class DataServiceImpl extends AbstractService implements DataService {
 		String[] split = value.split("---");
 		AITInfo info = new AITInfo();
 		info.setArea(split[13]);
-		info.setArticleLink(split[7]);
 		info.setAuthor(split[4]);
 		info.setBusiness(split[11]);
 		info.setContent(split[8]);
 		info.setDimension(split[0]);
 		info.setEmotion(split[2]);
-		info.setHasWarn(false);
-		info.setHitCount(getRandomLong());
 		info.setIndustry(split[9]);
 		info.setIndustryLabel(split[10]);
-		info.setIstop(false);
 		info.setPark(split[11]);
 		info.setPublishDate(split[5]);
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-		Date date;
-		try {
-			date = sdf1.parse(split[5]);
-		} catch (ParseException e) {
-			return null;
-		}
-		info.setPublishTime(sdf2.format(date));
-		info.setReplyCount(getRandomLong());
 		info.setSource(split[6]);
 		info.setSourceLink(split[7]);
-		info.setSupportCount(getRandomLong());
 		info.setTitle(split[1]);
 		info.setVector(split[3]);
 		return info;
@@ -109,15 +95,6 @@ public class DataServiceImpl extends AbstractService implements DataService {
 		return false;
 	}
 	
-	/**
-	 * 获取一个随机数
-	 * @return
-	 */
-	private Long getRandomLong(){
-		int i = new Random().nextInt(999);
-		return Long.valueOf((long)i);
-	}
-
 	@Override
 	public Boolean printLog(String name, String message) {
 		Log log = new Log();

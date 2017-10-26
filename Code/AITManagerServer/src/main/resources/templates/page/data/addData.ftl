@@ -34,7 +34,7 @@
 					  <button type="button" class="layui-btn layui-btn-normal" id="test8">选择文件</button>
 					  <button type="button" class="layui-btn" id="test9"><i class="layui-icon"></i>读取数据上传</button>
 					</div>
-					<div class="layui-form-mid layui-word-aux">温馨提示：文件仅支持xlsx格式，表格格式请严格按照范例</div>
+					<div class="layui-form-mid layui-word-aux">温馨提示：文件仅支持xlsx格式，表格格式请严格按照范例，无值置空，勿删表头</div>
                 </div>
             </div>
         </div>
