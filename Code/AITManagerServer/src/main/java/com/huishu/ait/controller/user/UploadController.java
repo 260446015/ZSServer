@@ -5,6 +5,7 @@ package com.huishu.ait.controller.user;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.huishu.ait.common.conf.ConfConstant;
 import com.huishu.ait.common.conf.ImgConstant;
+import com.huishu.ait.common.util.ReadExcelUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.es.entity.AITInfo;
+import com.huishu.ait.service.data.DataService;
 import com.huishu.ait.service.garden.GardenService;
 
 /**
@@ -38,6 +42,8 @@ public class UploadController extends BaseController {
 	
 	@Autowired
 	private GardenService gardenService;
+	@Autowired
+    private DataService dataService;
 
 	private static final Logger LOGGER = Logger.getLogger(UploadController.class);
 
@@ -147,6 +153,74 @@ public class UploadController extends BaseController {
 				return success(ImgConstant.IP_PORT+ConfConstant.DEFAULT_LOGOURL + "/" + newname).setMessage("上传成功");
 			} catch (Exception e) {
 				LOGGER.error("imageUpload失败！", e);
+				return error("上传失败");
+			}
+		} else {
+			return error("没有文件上传");
+		}
+	}
+	
+	/**
+	 * 文件上传
+	 * 
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/dataUpload.do", method = RequestMethod.POST)
+	public AjaxResult dataUpload(@RequestParam("file") MultipartFile file,HttpServletRequest request, HttpServletResponse response) {
+		LOGGER.info("file name is :" + file.getOriginalFilename());
+		if (!file.isEmpty()) {
+			if (file.getSize() > fileSize) {
+				return error("文件超过上传大小");
+			}
+			String OriginalFilename = file.getOriginalFilename();
+			String fileSuffix = OriginalFilename.substring(OriginalFilename.lastIndexOf(".") + 1).toLowerCase();
+			if (!ServletFileUpload.isMultipartContent(request)) {
+				return error("没有文件上传");
+			}
+			File uploadDir = new File("images");
+			if (!uploadDir.isDirectory()) {
+				if (!uploadDir.mkdir()) {
+					return error("上传文件路径非法");
+				}
+			}
+			if (!uploadDir.canWrite()) {
+				return error("上传目录没有写权限");
+			}
+			String newname = UUID.randomUUID() + "." + fileSuffix;
+			try {
+				String url = "d:/excel";
+				File saveFile = new File(url, newname);
+				file.transferTo(saveFile);
+				new Thread(new Runnable(){
+					@Override
+					public void run() {
+						try {
+							ReadExcelUtil util = new ReadExcelUtil();
+							List<String> map = util.readExcel("d:/excel/" + newname, newname);
+							List<String> listPage = map.subList(0, 1);
+							if(dataService.checkString(listPage.get(0))){
+								map.subList(0, 1).clear();
+								for (String value : map) {
+									AITInfo info = dataService.transformData(value);
+									dataService.addData(info);
+								}
+								dataService.printLog(OriginalFilename, "数据存库完成");
+							}else{
+								LOGGER.error(OriginalFilename+"表格格式错误！");
+								dataService.printLog(OriginalFilename, "表格格式错误！");
+							}
+						} catch (Exception e) {
+							LOGGER.error("存储数据失败！", e);
+							dataService.printLog(OriginalFilename, e.toString());
+						}
+					}
+				}).start();  
+				return success(null).setMessage("上传成功");
+			} catch (Exception e) {
+				LOGGER.error("dataUpload失败！", e);
 				return error("上传失败");
 			}
 		} else {

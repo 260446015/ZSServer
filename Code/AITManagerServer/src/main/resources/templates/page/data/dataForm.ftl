@@ -8,6 +8,18 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <#include "/common/link.ftl">
+<style>
+	.layui-form-label{
+		width : 200px;
+	}
+	.layui-input-block {
+	  margin-left:200px;
+	}
+	form{   
+	 width: 900px;
+    margin: 0 auto;
+    }
+</style>
 </head>
 <body class="">
 <div class="layui-layout layui-layout-admin">
