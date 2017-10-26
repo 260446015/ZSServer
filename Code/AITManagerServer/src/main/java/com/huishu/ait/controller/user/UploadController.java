@@ -24,6 +24,8 @@ import com.huishu.ait.common.util.ReadExcelUtil;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.GardenData;
 import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.entity.common.EditResult;
+import com.huishu.ait.entity.common.ImageSrc;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.service.data.DataService;
 import com.huishu.ait.service.garden.GardenService;
@@ -61,6 +63,74 @@ public class UploadController extends BaseController {
 	 * 文件上传
 	 * 
 	 * @param file
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/editUpload.do", method = RequestMethod.POST)
+	public EditResult editUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
+		LOGGER.info("file name is :" + file.getOriginalFilename());
+		EditResult result = new EditResult();
+		if (!file.isEmpty()) {
+			if (file.getSize() > fileSize) {
+				 result.setCode(1);
+				 result.setMessage("文件超过上传大小");
+				 return result;
+			}
+			String OriginalFilename = file.getOriginalFilename();
+			String fileSuffix = OriginalFilename.substring(OriginalFilename.lastIndexOf(".") + 1).toLowerCase();
+			if (!Arrays.asList(TypeMap.get("image").split(",")).contains(fileSuffix)) {
+				result.setCode(1);
+				 result.setMessage("文件格式错误");
+				 return result;
+			}
+			if (!ServletFileUpload.isMultipartContent(request)) {
+				result.setCode(1);
+				 result.setMessage("没有文件上传");
+				 return result;
+			}
+			File uploadDir = new File("images");
+			if (!uploadDir.isDirectory()) {
+				if (!uploadDir.mkdir()) {
+					result.setCode(1);
+					 result.setMessage("上传文件路径非法");
+					 return result;
+				}
+			}
+			if (!uploadDir.canWrite()) {
+				result.setCode(1);
+				 result.setMessage("上传目录没有写权限");
+				 return result;
+			}
+			String newname = "";
+			newname += UUID.randomUUID() + "." + fileSuffix;
+			try {
+				String url = request.getSession().getServletContext().getRealPath("/") + ConfConstant.DEFAULT_URL;
+				File saveFile = new File(url, newname);
+				file.transferTo(saveFile);
+				result.setCode(0);
+				ImageSrc object = new ImageSrc();
+				object.setSrc(ImgConstant.IP_PORT+ConfConstant.DEFAULT_URL + "/" + newname);
+				object.setTitle(newname);
+				result.setData(object);
+				return result;
+			} catch (Exception e) {
+				LOGGER.error("imageUpload失败！", e);
+				result.setCode(1);
+				 result.setMessage("上传失败");
+				 return result;
+			}
+		} else {
+			result.setCode(1);
+			 result.setMessage("没有文件上传");
+			 return result;
+		}
+	}
+	
+	/**
+	 * 文件上传
+	 * 
+	 * @param file
 	 * @param id
 	 * @param request
 	 * @param response
@@ -94,13 +164,13 @@ public class UploadController extends BaseController {
 			String newname = "";
 			newname += UUID.randomUUID() + "." + fileSuffix;
 			try {
-				String url = request.getSession().getServletContext().getRealPath("/") + ConfConstant.DEFAULT_LOGOURL;
+				String url = request.getSession().getServletContext().getRealPath("/") + ConfConstant.DEFAULT_URL;
 				File saveFile = new File(url, newname);
 				file.transferTo(saveFile);
 				GardenData garden = gardenService.findGarden(Integer.valueOf(id));
-				garden.setGardenPicture(ImgConstant.IP_PORT+ConfConstant.DEFAULT_LOGOURL + "/" + newname);
+				garden.setGardenPicture(ImgConstant.IP_PORT+ConfConstant.DEFAULT_URL + "/" + newname);
 				gardenService.changeGarden(garden);
-				return success(ImgConstant.IP_PORT+ConfConstant.DEFAULT_LOGOURL + "/" + newname).setMessage("上传成功");
+				return success(ImgConstant.IP_PORT+ConfConstant.DEFAULT_URL + "/" + newname).setMessage("上传成功");
 			} catch (Exception e) {
 				LOGGER.error("imageUpload失败！", e);
 				return error("上传失败");

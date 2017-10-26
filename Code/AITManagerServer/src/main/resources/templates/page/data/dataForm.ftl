@@ -178,6 +178,12 @@
 	  });
 	  
 	  //创建一个编辑器
+	  layedit.set({
+		  uploadImage: {
+		    url: '/apis/editUpload.do' //接口url
+		    ,type: 'post' 
+		  }
+		});
 	  var editIndex = layedit.build('LAY_demo_editor');
 	 
 	  //自定义验证规则
@@ -196,7 +202,6 @@
 	  });
 	  //监听提交
 	  form.on('submit(demo1)', function(data){
-	  alert(JSON.stringify(data.field))
 	      var result;
           $.ajax({
               type: 'post',

@@ -28,6 +28,7 @@ public class ConfConstant {
 
 	/** 园区默认存放地址 */
 	public final static String DEFAULT_LOGOURL = "logo";
+	public final static String DEFAULT_URL = "img";
 
 	/** 产业 */
 	public static class INDUSTRY {

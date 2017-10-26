@@ -39,6 +39,8 @@ public class DataServiceImpl extends AbstractService implements DataService {
 				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = sdf1.parse(info.getPublishDate());
 				info.setPublishTime(sdf2.format(date));
+			}else{
+				info.setPublishDate(null);
 			}
 			info.setHitCount(getRandomNumber());
 			info.setReplyCount(getRandomNumber());
