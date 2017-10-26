@@ -188,11 +188,15 @@
 	      }
 	    }
 	    ,content: function(value){
+	    	if(value.length > 32766){
+	        return '您输入了'+value.length+'字符，文本不得多于32766个字符！';
+	      }
 	      layedit.sync(editIndex);
 	    }
 	  });
 	  //监听提交
 	  form.on('submit(demo1)', function(data){
+	  alert(JSON.stringify(data.field))
 	      var result;
           $.ajax({
               type: 'post',
@@ -213,7 +217,7 @@
 	  		optionstring += "<option value='网络游戏' >网络游戏</option>";
 	  		optionstring += "<option value='大数据' >大数据</option>";
 	  		optionstring += "<option value='电子商务' >电子商务</option>";
-	  		optionstring += "<option value='电子商务' >电子商务</option>";
+	  		optionstring += "<option value='网络视听' >网络视听</option>";
 	  		optionstring += "<option value='移动阅读' >移动阅读</option>";
 	  		optionstring += "<option value='智能硬件' >智能硬件</option>";
 	  	}

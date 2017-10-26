@@ -7,6 +7,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.util.StringUtil;
 import com.huishu.ait.entity.Log;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.es.entity.AITInfo;
@@ -33,7 +34,7 @@ public class DataServiceImpl extends AbstractService implements DataService {
 	public AjaxResult addData(AITInfo info) {
 		AjaxResult result = new AjaxResult();
 		try {
-			if(info.getPublishDate()!=null){
+			if(!StringUtil.isEmpty(info.getPublishDate())){
 				SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = sdf1.parse(info.getPublishDate());
