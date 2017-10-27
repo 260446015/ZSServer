@@ -52,6 +52,11 @@ public class DataServiceImpl extends AbstractService implements DataService {
 			info.setHasWarn(false);
 			info.setIstop(false);
 			info.setArticleLink(info.getSourceLink());
+			if(info.getContent().length()>300){
+				info.setSummary(info.getContent().substring(0, 300));
+			 }else{
+				 info.setSummary(info.getContent().substring(0, info.getContent().length()));
+			}
 			AITInfo save = repository.save(info);
 			if (save == null) {
 				return result.setSuccess(false).setMessage("添加失败，请稍后再试");
