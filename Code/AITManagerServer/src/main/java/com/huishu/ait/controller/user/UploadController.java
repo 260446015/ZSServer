@@ -267,7 +267,7 @@ public class UploadController extends BaseController {
 					public void run() {
 						try {
 							ReadExcelUtil util = new ReadExcelUtil();
-							List<String> map = util.readExcel("d:/excel/" + newname, newname);
+							List<String> map = util.readExcel("e:/excel/" + newname, newname);
 							List<String> listPage = map.subList(0, 1);
 							if(dataService.checkString(listPage.get(0))){
 								map.subList(0, 1).clear();

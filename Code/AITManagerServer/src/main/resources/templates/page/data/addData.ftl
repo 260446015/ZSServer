@@ -55,7 +55,11 @@
 	    //,multiple: true
 	    ,bindAction: '#test9'
 	    ,done: function(res){
-	    	layer.alert('上传成功，请等待后台校验格式存储数据');
+		    if(res.success){
+		    	layer.alert('上传成功，请等待后台校验格式存储数据');
+	    	}else{
+	    		layer.alert(res.message);
+	    	}
 	    }
 	  });
 	  
