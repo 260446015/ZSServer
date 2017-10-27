@@ -37,6 +37,9 @@
 					<div class="layui-form-mid layui-word-aux">温馨提示：文件仅支持xlsx格式，表格格式请严格按照范例，无值置空，勿删表头</div>
                 </div>
             </div>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+			</fieldset>
+            <div class="layui-form-mid layui-word-aux">数据操作日志</div>
             <table id="demo" lay-filter="filter"></table>
         </div>
     </div>
@@ -57,8 +60,7 @@
 	    ,bindAction: '#test9'
 	    ,done: function(res){
 		    if(res.success){
-		    	window.location.reload();
-		    	layer.msg('上传成功，请等待后台校验格式存储数据');
+		    	layer.alert('上传成功，请等待后台校验格式存储数据');
 	    	}else{
 	    		layer.alert(res.message);
 	    	}
@@ -74,7 +76,7 @@
                         var layer = layui.layer;
                         if(response.success){
                             var colList=[ 
-                                {field: 'createTime', title: '时间', width: 170}
+                                {field: 'createTime', title: '时间', width: 170, sort: true}
                                 ,{field: 'name', title: '文件', width: 250}
                                 ,{field: 'message', title: '操作信息', width: 420}
                             ]
