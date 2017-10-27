@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class DataServiceImpl extends AbstractService implements DataService {
 	public AjaxResult addData(AITInfo info) {
 		AjaxResult result = new AjaxResult();
 		try {
-			if(!StringUtil.isEmpty(info.getPublishDate())){
+			if(!(StringUtil.isEmpty(info.getPublishDate())||info.getPublishDate().equals("暂无"))){
 				SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = sdf1.parse(info.getPublishDate());
@@ -44,6 +45,7 @@ public class DataServiceImpl extends AbstractService implements DataService {
 			}else{
 				info.setPublishDate(null);
 			}
+			info.setId(UUID.randomUUID().toString());
 			info.setHitCount(getRandomNumber());
 			info.setReplyCount(getRandomNumber());
 			info.setSupportCount(getRandomNumber());
@@ -56,7 +58,7 @@ public class DataServiceImpl extends AbstractService implements DataService {
 			}
 			return result.setSuccess(true).setMessage("添加成功");
 		} catch (ParseException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("存储对象解析异常"+e);
 		}
 		
 	}
