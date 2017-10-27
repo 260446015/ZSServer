@@ -241,8 +241,9 @@ public class ExpertOpinionServiceImpl extends AbstractService implements ExpertO
 		}else if(type == 2){
 			bq.must(QueryBuilders.termQuery("author", ""));
 		}
-		if(!"不限".equals(industryLabel))
-			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
+		if(!"不限".equals(industryLabel)){
+			bq.must(QueryBuilders.termsQuery("industryLabel", industryLabel,"智能机器人"));
+		}
 		bq.must(QueryBuilders.rangeQuery("publishTime").from(startDate).to(endDate));
 		
 		Page<AITInfo> pageList = baseElasticsearch.search(bq,pageRequest);
