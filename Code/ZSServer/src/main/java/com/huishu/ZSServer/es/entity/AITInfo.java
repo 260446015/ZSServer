@@ -1,18 +1,14 @@
-package com.huishu.ait.es.entity;
+package com.huishu.ZSServer.es.entity;
 
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.INDEX;
-import static com.huishu.ait.common.conf.DBConstant.EsConfig.TYPE;
+import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.INDEX;
+import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.TYPE;
 
 import java.util.List;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
-import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.common.util.StringUtil;
+import com.huishu.ZSServer.common.util.StringUtil;
 
 /**
  * @author hhy

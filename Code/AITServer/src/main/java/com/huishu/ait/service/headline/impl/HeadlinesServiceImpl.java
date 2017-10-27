@@ -81,7 +81,8 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 			dto.setVector(headlinesDTO.getVector());
 			
 			BoolQueryBuilder bq = getIndustryContentBuilder(dto);
-			Pageable pageable = new PageRequest(0, 8, new Sort(Direction.DESC, "hot"));
+//			Pageable pageable = new PageRequest(0, 8, new Sort(Direction.DESC, "hot"));
+			Pageable pageable = new PageRequest(0, 8, new Sort(Direction.DESC, "publishTime"));
 			Page<HeadlinesArticleListDTO> page = getArticleRank(bq, null, pageable);
 			return page;
 		} catch (Exception e) {
@@ -105,7 +106,8 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 			dto.setKeyWord(headlinesDTO.getKeyWord());
 			
 			BoolQueryBuilder bq = getIndustryContentBuilder(dto);
-			Pageable pageable = new PageRequest(0, 8, new Sort(Direction.DESC, "hot"));
+//			Pageable pageable = new PageRequest(0, 8, new Sort(Direction.DESC, "hot"));
+			Pageable pageable = new PageRequest(0, 8, new Sort(Direction.DESC, "publishTime"));
 			Page<HeadlinesArticleListDTO> page = getArticleRank(bq, null, pageable);
 			return page;
 		} catch (Exception e) {

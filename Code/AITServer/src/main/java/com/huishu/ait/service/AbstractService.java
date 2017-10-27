@@ -260,8 +260,9 @@ public abstract class AbstractService {
 				.order(Order.count(false)).size(500);
 
 		SearchQuery authorQuery = getSearchQueryBuilder().withQuery(bq).addAggregation(articleLinkBuilder).build();
-		
+
 		List<HeadlinesArticleListDTO> jsonArray = template.query(authorQuery, res -> {
+			
 			List<HeadlinesArticleListDTO> list = new ArrayList<HeadlinesArticleListDTO>();
 
 			Map<String, Object> Source = null;
@@ -281,29 +282,25 @@ public abstract class AbstractService {
 		int pageNumber = pageable.getPageNumber();
 		int pageSize = pageable.getPageSize();
 
-		pageable.getSort().forEach(order -> {
-			String property = order.getProperty();
-			Direction direction = order.getDirection();
+		/*
+		 * pageable.getSort().forEach(order -> { 
+		 * String property =order.getProperty(); 
+		 * Direction direction = order.getDirection(); 
+		 * jsonArray.sort((o1, o2) -> { Double v1 = (Double)
+		 * UtilsHelper.getValueByFieldName(o1, property); Double v2 = (Double)
+		 * UtilsHelper.getValueByFieldName(o2, property);
+		 * 
+		 * if (Direction.ASC.equals(direction)) { return v1.compareTo(v2); }
+		 * return v2.compareTo(v1); });
+		 * 
+		 * 
+		 * });
+		 */
 
-			jsonArray.sort((o1, o2) -> {
-				Double v1 = (Double) UtilsHelper.getValueByFieldName(o1, property);
-				Double v2 = (Double) UtilsHelper.getValueByFieldName(o2, property);
-
-				if (Direction.ASC.equals(direction)) {
-					return v1.compareTo(v2);
-				}
-				return v2.compareTo(v1);
-			});
-			
-		});
-		
-		
-		for (int i = 0; i < jsonArray.size(); i++) {
-			jsonArray.get(i).setRank(i + 1);
-		}
-		//排名后对时间进行排序
+		// 排名后对时间进行排序
 		pageable.getSort().forEach(order -> {
-			String property = "publishTime";
+//			String property = "publishTime";
+			String property = order.getProperty(); ;
 			Direction direction = order.getDirection();
 			jsonArray.sort((o1, o2) -> {
 				String v1 = (String) UtilsHelper.getValueByFieldName(o1, property);
@@ -315,11 +312,15 @@ public abstract class AbstractService {
 				return v2.compareTo(v1);
 			});
 		});
+		for (int i = 0; i < jsonArray.size(); i++) {
+			jsonArray.get(i).setRank(i + 1);
+		}
+
 		List<HeadlinesArticleListDTO> newList = new ArrayList<>();
 		jsonArray.stream().skip(pageNumber * pageSize).limit(pageSize).forEach(newList::add);
 
 		Page<HeadlinesArticleListDTO> results = new PageImpl<>(newList, pageable, total);
-		
+
 		return results;
 	}
 
@@ -339,9 +340,10 @@ public abstract class AbstractService {
 		dto.setSource(source.get("source").toString());
 		dto.setSourceLink(source.get("sourceLink").toString());
 		dto.setTitle(source.get("title").toString());
+		dto.setIstop((boolean) source.get("istop"));
 		Integer hitCount = (Integer) source.get("hitCount");
 		Integer supportCount = (Integer) source.get("supportCount");
-
+		
 		dto.setHitCount((int) source.get("hitCount"));
 		dto.setReplyCount((int) source.get("replyCount"));
 		dto.setSupportCount((int) source.get("supportCount"));
@@ -353,7 +355,11 @@ public abstract class AbstractService {
 		String summary = (String) source.get("summary");
 		if (StringUtils.isEmpty(summary)) {
 			/** 如果文章摘要不存在，则将内容的前一百数据取出作为摘要 */
-			summary = dto.getContent().substring(0, 300);
+			if(dto.getContent().length()>300){
+				summary = dto.getContent().substring(0, 300);
+			}else{
+				summary = dto.getContent().substring(0, 100);
+			}
 			summary = StringUtil.replaceHtml(summary);
 			dto.setSummary(summary);
 		} else {
@@ -397,14 +403,14 @@ public abstract class AbstractService {
 			e.printStackTrace();
 		}
 		List<String> set = new ArrayList<String>();
-		if(findCompany.getBoolean("status")){
-			Map<String,CategoryModel> finder = (Map<String, CategoryModel>) findCompany.get("result");
-			
-			for(Map.Entry<String, CategoryModel>  entry: finder.entrySet()){
+		if (findCompany.getBoolean("status")) {
+			Map<String, CategoryModel> finder = (Map<String, CategoryModel>) findCompany.get("result");
+
+			for (Map.Entry<String, CategoryModel> entry : finder.entrySet()) {
 				LOGGER.info("获取的公司名称为：" + entry.getKey());
 				set.add(entry.getKey());
 				LOGGER.info("对应情感为 ：" + entry.getValue().getCategory());
-				
+
 			}
 			return set;
 		}
@@ -925,10 +931,11 @@ public abstract class AbstractService {
 		if (StringUtils.isNotEmpty(fourIndicator)) {
 			bq.must(QueryBuilders.termQuery("industryFour", fourIndicator));
 		}
-		/*String dimension = dto.getDimension();
-		if (StringUtils.isNotEmpty(dimension)) {
-			bq.must(QueryBuilders.termQuery("dimension", dimension));
-		}*/
+		/*
+		 * String dimension = dto.getDimension(); if
+		 * (StringUtils.isNotEmpty(dimension)) {
+		 * bq.must(QueryBuilders.termQuery("dimension", dimension)); }
+		 */
 		return bq;
 	}
 
@@ -963,26 +970,29 @@ public abstract class AbstractService {
 		String[] times = { time1, time2 };
 		return times;
 	}
+
 	protected List<String> findArea(String title, String content) {
-		try{
+		try {
 			// 分析方法
 			JSONObject json = Analysis.getCompany(title, content);
 			System.out.println(json);
 			if (json.getBoolean("status")) {
-//				@SuppressWarnings("unchecked")
-//				Map<String, CategoryModel> finder = (Map<String, CategoryModel>) json.get("result");
-//				for (Map.Entry<String, CategoryModel> entry : finder.entrySet()) {
-//					System.out.println("企业名称:" + entry.getKey());
-//					System.out.println("对应情感：" + entry.getValue().getCategory());
-//					System.out.println("============");
-//				}
-	
+				// @SuppressWarnings("unchecked")
+				// Map<String, CategoryModel> finder = (Map<String,
+				// CategoryModel>) json.get("result");
+				// for (Map.Entry<String, CategoryModel> entry :
+				// finder.entrySet()) {
+				// System.out.println("企业名称:" + entry.getKey());
+				// System.out.println("对应情感：" + entry.getValue().getCategory());
+				// System.out.println("============");
+				// }
+
 				@SuppressWarnings("unchecked")
 				HashSet<String> address = (HashSet<String>) json.get("address");
 				System.out.println("省市名称:" + address);
 				return new ArrayList<>(address);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

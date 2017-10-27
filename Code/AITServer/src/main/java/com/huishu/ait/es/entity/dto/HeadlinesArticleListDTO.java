@@ -29,6 +29,8 @@ public class HeadlinesArticleListDTO {
 	private String publishTime;
 	private String articleLink;
 	private String sourceLink;
+	private boolean istop;
+	
 	/**
 	 * 排名
 	 */
@@ -60,6 +62,14 @@ public class HeadlinesArticleListDTO {
 
 	public List<String> getBus() {
 		return bus;
+	}
+
+	public boolean getIstop() {
+		return istop;
+	}
+
+	public void setIstop(boolean istop) {
+		this.istop = istop;
 	}
 
 	public void setBus(List<String> bus) {
