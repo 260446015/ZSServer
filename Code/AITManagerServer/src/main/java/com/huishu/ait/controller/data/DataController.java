@@ -62,7 +62,7 @@ public class DataController extends BaseController{
 	 * 数据操作日志
 	 * @return
 	 */
-	@RequestMapping(value = "getOperationLogList.json", method = RequestMethod.POST)
+	@RequestMapping(value = "getOperationLogList.json", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getOperationLogList() {
 		try {

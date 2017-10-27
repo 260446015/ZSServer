@@ -259,7 +259,7 @@ public class UploadController extends BaseController {
 			}
 			String newname = UUID.randomUUID() + "." + fileSuffix;
 			try {
-				String url = "d:/excel";
+				String url = "e:/excel";
 				File saveFile = new File(url, newname);
 				file.transferTo(saveFile);
 				new Thread(new Runnable(){

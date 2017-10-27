@@ -37,6 +37,7 @@
 					<div class="layui-form-mid layui-word-aux">温馨提示：文件仅支持xlsx格式，表格格式请严格按照范例，无值置空，勿删表头</div>
                 </div>
             </div>
+            <table id="demo" lay-filter="filter"></table>
         </div>
     </div>
 	<#include "/common/script.ftl">
@@ -64,5 +65,38 @@
 	  });
 	  
 	});
+	$(function(){
+        $.ajax({
+                url: "/apis/data/getOperationLogList.json",
+                success: function (response) {
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        if(response.success){
+                            var colList=[ 
+                                {field: 'createTime', title: '时间', width: 170}
+                                ,{field: 'name', title: '文件', width: 250}
+                                ,{field: 'message', title: '操作信息', width: 420}
+                            ]
+                            layui.use('table', function(){
+				                var table = layui.table;
+				                table.render({
+				                    elem: '#demo'
+				                    ,data:response.data
+				                    ,height: 272
+				                    ,cols: [colList]
+				                    ,skin: 'row' //表格风格
+				                    ,even: true
+				                    ,page: true //是否显示分页
+				                    ,limits: [5, 7, 10]
+				                    ,limit: 5 //每页默认显示的数量
+				                });
+				            });
+                        }else{
+                            layer.alert(response.message);
+                        }
+                    });
+                }
+            });
+    })
     </script>
 </body>
