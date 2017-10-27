@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.StringUtil;
 
 /**
@@ -104,6 +105,16 @@ public class AITInfo {
 
 	/** 公司名录集合 */
 	private List<String> bus;
+	private boolean istop;
+	
+
+	public boolean isIstop() {
+		return istop;
+	}
+
+	public void setIstop(boolean istop) {
+		this.istop = istop;
+	}
 
 	public List<String> getBus() {
 		return bus;
@@ -341,14 +352,7 @@ public class AITInfo {
 
 	@Override
 	public String toString() {
-		return "AITInfo [publishDateTime=" + publishDateTime + ", publishTime=" + publishTime + ", publishDate="
-				+ publishDate + ", ossLink=" + ossLink + ", articleLink=" + articleLink + ", title=" + title
-				+ ", content=" + content + ", author=" + author + ", sourceLink=" + sourceLink + ", source=" + source
-				+ ", articleType=" + articleType + ", area=" + area + ", industry=" + industry + ", industryLabel="
-				+ industryLabel + ", vector=" + vector + ", industryType=" + industryType + ", park=" + park
-				+ ", business=" + business + ", businessLegal=" + businessLegal + ", businessType=" + businessType
-				+ ", emotion=" + emotion + ", hitCount=" + hitCount + ", supportCount=" + supportCount + ", replyCount="
-				+ replyCount + ", hasWarn=" + hasWarn + ", dimension=" + dimension + "]";
+		return JSONObject.toJSONString(this);
 	}
 
 }
