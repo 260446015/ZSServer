@@ -131,7 +131,7 @@ public class HeadlinesController extends BaseController {
 			label = new String[] { "网络游戏", "大数据", "电子商务", "网络视听", "移动阅读", "智能硬件" };
 			industry = "互联网+";
 		} else if ("高科技".equals(industry)) {
-			label = new String[] { "新一代信息技术", "智能机器人", "生物医药", "节能环保技术装备", "新能源", "新材料", "航空装备" };
+			label = new String[] { "新一代信息技术", "生物医药", "节能环保技术装备", "新能源", "新材料", "航空装备", "人工智能" };
 		} else if ("文化创意".equals(industry)) {
 			label = new String[] { "动漫制作", "影视传媒", "图书出版", "广告营销" };
 		} else if ("精英配套".equals(industry)) {
