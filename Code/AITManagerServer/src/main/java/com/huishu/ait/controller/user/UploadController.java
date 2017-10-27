@@ -107,6 +107,9 @@ public class UploadController extends BaseController {
 			try {
 				String url = request.getSession().getServletContext().getRealPath("/") + ConfConstant.DEFAULT_URL;
 				File saveFile = new File(url, newname);
+				if(!saveFile.exists()){
+					saveFile.createNewFile();
+				}
 				file.transferTo(saveFile);
 				result.setCode(0);
 				ImageSrc object = new ImageSrc();
@@ -166,6 +169,9 @@ public class UploadController extends BaseController {
 			try {
 				String url = request.getSession().getServletContext().getRealPath("/") + ConfConstant.DEFAULT_URL;
 				File saveFile = new File(url, newname);
+				if(!saveFile.exists()){
+					saveFile.createNewFile();
+				}
 				file.transferTo(saveFile);
 				GardenData garden = gardenService.findGarden(Integer.valueOf(id));
 				garden.setGardenPicture(ImgConstant.IP_PORT+ConfConstant.DEFAULT_URL + "/" + newname);
@@ -217,6 +223,9 @@ public class UploadController extends BaseController {
 			try {
 				String url = request.getSession().getServletContext().getRealPath("/") + ConfConstant.DEFAULT_LOGOURL;
 				File saveFile = new File(url, newname);
+				if(!saveFile.exists()){
+					saveFile.createNewFile();
+				}
 				file.transferTo(saveFile);
 				return success(ImgConstant.IP_PORT+ConfConstant.DEFAULT_LOGOURL + "/" + newname).setMessage("上传成功");
 			} catch (Exception e) {
@@ -261,6 +270,9 @@ public class UploadController extends BaseController {
 			try {
 				String url = "e:/excel";
 				File saveFile = new File(url, newname);
+				if(!saveFile.exists()){
+					saveFile.createNewFile();
+				}
 				file.transferTo(saveFile);
 				new Thread(new Runnable(){
 					@Override
