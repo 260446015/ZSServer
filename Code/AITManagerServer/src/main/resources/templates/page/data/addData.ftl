@@ -57,7 +57,8 @@
 	    ,bindAction: '#test9'
 	    ,done: function(res){
 		    if(res.success){
-		    	layer.alert('上传成功，请等待后台校验格式存储数据');
+		    	window.location.reload();
+		    	layer.msg('上传成功，请等待后台校验格式存储数据');
 	    	}else{
 	    		layer.alert(res.message);
 	    	}
