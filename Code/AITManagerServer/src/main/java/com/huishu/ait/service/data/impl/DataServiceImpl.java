@@ -2,7 +2,9 @@ package com.huishu.ait.service.data.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -110,5 +112,13 @@ public class DataServiceImpl extends AbstractService implements DataService {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public List<Log> getOperationLogList() {
+		Iterable<Log> all = logRepository.findAll();
+		List<Log> list = new ArrayList<Log>();
+		all.forEach(single ->{list.add(single);});  
+		return list;
 	}
 }

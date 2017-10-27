@@ -1,5 +1,8 @@
 package com.huishu.ait.service.data;
 
+import java.util.List;
+
+import com.huishu.ait.entity.Log;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.es.entity.AITInfo;
 
@@ -34,4 +37,9 @@ public interface DataService {
      * @return
      */
     Boolean printLog(String name,String message);
+    /**
+     * 查询日志列表
+     * @return
+     */
+    List<Log> getOperationLogList();
 }

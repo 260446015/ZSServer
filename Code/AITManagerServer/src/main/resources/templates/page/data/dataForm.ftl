@@ -230,6 +230,7 @@
 	  		optionstring += "<option value='新一代信息技术' >新一代信息技术</option>";
 	  		optionstring += "<option value='智能机器人' >智能机器人</option>";
 	  		optionstring += "<option value='生物医药' >生物医药</option>";
+	  		optionstring += "<option value='人工智能' >人工智能</option>";
 	  		optionstring += "<option value='节能环保技术装备' >节能环保技术装备</option>";
 	  		optionstring += "<option value='新能源' >新能源</option>";
 	  		optionstring += "<option value='新材料' >新材料</option>";
