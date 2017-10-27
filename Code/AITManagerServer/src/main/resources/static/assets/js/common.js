@@ -4,6 +4,7 @@ var time = '一年';
 var current = 0;
 var dimension = '专家论';
 function myClick(a, b, c, d, e) {
+	$('#allcheck').remove();
 	$('#label-list>ul').on('click', 'li', function() {
 		$(this).addClass("layui-this").siblings().removeClass('layui-this');
 	})
@@ -21,7 +22,7 @@ function myClick(a, b, c, d, e) {
 		industryLabel : industryLabel,
 		time : time,
 		dimension : dimension,
-		pageNum : e == null ? 0 : e,
+		pageNum : e == null ? 1 : e,
 		pageSize : 10
 	};
 	myRequest(req, '/head/getExpertOpinion.json');
@@ -85,7 +86,6 @@ function back() {
 }
 
 function checkall(e) {
-
 	if ($('#allcheck').prop('checked')) {
 		$("input[name='checkname']").prop('checked', true);
 

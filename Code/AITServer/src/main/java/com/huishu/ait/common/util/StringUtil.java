@@ -226,6 +226,8 @@ public class StringUtil {
 	 * 字符串去掉html标签
 	 */
 	public static String replaceHtml(String htmlStr) {
+		if(StringUtil.isEmpty(htmlStr))
+			return "";
 		Pattern p_script = Pattern.compile(regEx_script, Pattern.CASE_INSENSITIVE);
 		Matcher m_script = p_script.matcher(htmlStr);
 		htmlStr = m_script.replaceAll(""); // 过滤script标签

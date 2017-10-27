@@ -73,8 +73,11 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			BoolQueryBuilder bq = QueryBuilders.boolQuery();
 			bq.must(QueryBuilders.termQuery("dimension", Constans.BAIJIALUN));
 			bq.must(QueryBuilders.termQuery("industry", industry));
-			if (!industryLabel.equals("不限")) {
-				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
+			if(!"不限".equals(industryLabel)){
+				if("人工智能".equals(industryLabel))
+					bq.must(QueryBuilders.termsQuery("industryLabel", industryLabel,"智能机器人"));
+				else
+					bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 			}
 			// 根据条件查询
 			SearchRequestBuilder requestBuilder = searchBuilder.setQuery(bq).setSize(requestParam.getPageSize())

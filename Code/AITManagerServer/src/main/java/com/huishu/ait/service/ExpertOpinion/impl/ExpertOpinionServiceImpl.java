@@ -233,7 +233,7 @@ public class ExpertOpinionServiceImpl extends AbstractService implements ExpertO
 		String endDate = param.getString("endDate");
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		Sort sort = new Sort(Direction.DESC, "publishTime");
-		PageRequest pageRequest = new PageRequest(pageNum, pageSize, sort);
+		PageRequest pageRequest = new PageRequest(pageNum - 1, pageSize, sort);
 		bq.must(QueryBuilders.termQuery("dimension", dimension));
 		bq.must(QueryBuilders.termQuery("industry", industry));
 		if(type == 1){
@@ -242,7 +242,10 @@ public class ExpertOpinionServiceImpl extends AbstractService implements ExpertO
 			bq.must(QueryBuilders.termQuery("author", ""));
 		}
 		if(!"不限".equals(industryLabel)){
-			bq.must(QueryBuilders.termsQuery("industryLabel", industryLabel,"智能机器人"));
+			if("人工智能".equals(industryLabel))
+				bq.must(QueryBuilders.termsQuery("industryLabel", industryLabel,"智能机器人"));
+			else
+				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 		}
 		bq.must(QueryBuilders.rangeQuery("publishTime").from(startDate).to(endDate));
 		
