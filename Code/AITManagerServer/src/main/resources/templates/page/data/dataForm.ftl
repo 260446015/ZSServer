@@ -202,7 +202,6 @@
 	  });
 	  //监听提交
 	  form.on('submit(demo1)', function(data){
-	      var result;
           $.ajax({
               type: 'post',
               url: "/apis/data/addData.json",
@@ -210,10 +209,17 @@
               contentType: 'application/json',
               data: JSON.stringify(data.field),
               success: function (response) {
-                  result=response.success;
+                  if(response.success){
+                  layer.msg(response.message,{icon:0},function(){
+	                location.reload(); // 页面刷新
+	                     return false
+	                })
+                  }else{
+                  layer.alert(response.message);
+                  }
               }
           });
-           return result;
+           return false;
 	  });
 	  
 	  form.on('select(province)', function(data){
