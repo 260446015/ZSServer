@@ -2,10 +2,6 @@ package com.huishu.ZSServer.service.user;
 
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.entity.UserBase;
-import com.huishu.ZSServer.entity.dto.AddAccountDTO;
-import com.huishu.ZSServer.entity.dto.FindPasswordDTO;
-import com.huishu.ZSServer.entity.dto.RegisterDTO;
-import com.huishu.ZSServer.entity.dto.UserPasswordDTO;
 
 /**
  * 用户service
@@ -39,44 +35,12 @@ public interface UserBaseService {
 	UserBase findUserByUserId(long id);
 
 	/**
-	 * 添加注册用户
-	 * 
-	 * @param dto
-	 * @return
-	 */
-	AjaxResult addRegisterUser(RegisterDTO dto);
-
-	/**
-	 * 修改用户密码
-	 * 
-	 * @param param
-	 * @return
-	 */
-	AjaxResult modifyPassword(UserPasswordDTO param);
-
-	/**
 	 * 修改用户邮箱
 	 * @param userId
 	 * @param email
 	 * @return
 	 */
 	AjaxResult modifyEmail(Long userId, String email);
-
-	/**
-	 * 重置用户密码
-	 * 
-	 * @param param
-	 * @return
-	 */
-	AjaxResult findPassword(FindPasswordDTO param);
-
-	/**
-	 * 添加园区正式用户
-	 * 
-	 * @param param
-	 * @return
-	 */
-	AjaxResult addParkAccount(AddAccountDTO param);
 
 	/**
 	 * 删除园区用户
