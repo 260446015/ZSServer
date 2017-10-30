@@ -42,10 +42,10 @@
 							<div class="layui-nav layui-bg-cyan">
 				            <ul class="" lay-filter="">
 								<li class="nav-label-title">时排序间：</li>
-								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '企业排行');">全部</a></li>
-								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '企业排行');">今日</a></li>
+								<li class="layui-nav-item layui-this" id="dateList"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '企业排行');">全部</a></li>
+								<!--<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '企业排行');">今日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '企业排行');">昨日</a></li>
-								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '企业排行');">近3天</a></li>
+								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '企业排行');">近3天</a></li>-->
 							</ul>
 							</div>
 			            </div>
@@ -65,6 +65,10 @@
 </body>
 <script>
   $(function(){
+  		$("#dateList").after("<li class=\"layui-nav-item\"><a href=\"javascript:void(0)\" onclick=\"myClick(industry, industryLabel, "+(new Date().getFullYear() - 3)+", '企业排行');\">"+(new Date().getFullYear() - 3)+"</a></li>").
+  		after("<li class=\"layui-nav-item\"><a href=\"javascript:void(0)\" onclick=\"myClick(industry, industryLabel, "+(new Date().getFullYear() - 2)+", '企业排行');\">"+(new Date().getFullYear() - 2)+"</a></li>").
+  		after("<li class=\"layui-nav-item\"><a href=\"javascript:void(0)\" onclick=\"myClick(industry, industryLabel, "+(new Date().getFullYear() - 1)+", '企业排行');\">"+(new Date().getFullYear() - 1)+"</a></li>").
+  		after("<li class=\"layui-nav-item\"><a href=\"javascript:void(0)\" onclick=\"myClick(industry, industryLabel, "+new Date().getFullYear()+", '企业排行');\">"+new Date().getFullYear()+"</a></li>");
   		getLabel(industry);
 		myClick(industry,industryLabel,time,'企业排行');
 	});

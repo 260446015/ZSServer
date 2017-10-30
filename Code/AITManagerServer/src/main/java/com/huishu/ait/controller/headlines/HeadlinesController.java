@@ -176,6 +176,8 @@ public class HeadlinesController extends BaseController {
 			}
 			dto.setPeriodDate(msg[2]);
 			dto.setKeyWord(msg[3]);
+			dto.setPageNumber(headlinesDTO.getPageNumber());
+			dto.setPageSize(headlinesDTO.getPageSize());
 
 			if (dto.getPeriodDate() != null) {
 				dto = dateInit(dto);

@@ -61,7 +61,7 @@ public class HeadlinesServiceImpl extends AbstractService implements HeadlinesSe
 	public Page<HeadlinesArticleListDTO> findArticleByKeyWord(HeadlinesDTO headlinesDTO) {
 		try {
 			BoolQueryBuilder bq = getIndustryContentBuilder(headlinesDTO);
-			Pageable pageable = new PageRequest(0, 10, new Sort(Direction.DESC, "hot"));
+			Pageable pageable = new PageRequest(headlinesDTO.getPageNumber() -1, headlinesDTO.getPageSize(), new Sort(Direction.DESC, "hot"));
 			Page<HeadlinesArticleListDTO> page = getArticleRank(bq, null, pageable);
 			return page;
 		} catch (Exception e) {
