@@ -33,13 +33,17 @@ public class IndusCompanyInfoController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getCompanyInfoByIndustry.json", method = RequestMethod.POST)
-	public AjaxResult getCompanyInfoByIndustry(@RequestBody String industry) {
+	public AjaxResult getCompanyInfoByIndustry() {
+		
+		return success(service.findIndusInfoByIndustry());
+	}
+	/*public AjaxResult getCompanyInfoByIndustry(@RequestBody String industry) {
 		if (industry.isEmpty()) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		JSONObject jsonobj = (JSONObject) JSONObject.parse(industry);
 		String str = (String) jsonobj.get("industry");
 		return success(service.findIndusInfoByIndustry(str));
-	}
+	}*/
 
 }
