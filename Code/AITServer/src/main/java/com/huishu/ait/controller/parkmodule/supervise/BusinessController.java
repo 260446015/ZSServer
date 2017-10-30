@@ -76,6 +76,7 @@ public class BusinessController extends BaseController {
 				map.put("publishDate", p.getPublishDate());
 				map.put("title", p.getTitle());
 				map.put("content", p.getContent());
+				map.put("sourceLink", p.getSourceLink());
 				map.put("summary", StringUtil.replaceHtml(p.getSummary()));
 				array.add(map);
 			}
