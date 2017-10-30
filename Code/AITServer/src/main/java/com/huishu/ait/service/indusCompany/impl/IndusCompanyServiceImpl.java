@@ -36,20 +36,12 @@ public class IndusCompanyServiceImpl implements IndusCompanyService {
 	@Override
 	public JSONArray findIndusInfoByIndustry() {
 		JSONArray json = new JSONArray();
-//		List<IndusCompany> list = repository.findByIndustry(industry);
 		
 		Iterable<IndusCompany> findAll = repository.findAll();
 		
 		while(json.size()<10){
-			int a  = (int) (Math.random()+69);
-		
-//			for(int i = 0;i <json.size();i++){
-//				JSONObject obj = json.getJSONObject(i);
-//				if(obj.getLong("id")!= a){
-//					
-//				}
-//			}
-			
+			int a  = (int) (Math.random()*69+1);
+	
 			findAll.forEach( action->{
 				if(a == action.getId()){
 					json.add(action);							
@@ -59,11 +51,6 @@ public class IndusCompanyServiceImpl implements IndusCompanyService {
 			
 		}
 		
-		
-		
-//		for (IndusCompany indus : list) {
-//			json.add(indus);
-//		}
 		return json;
 	}
 
