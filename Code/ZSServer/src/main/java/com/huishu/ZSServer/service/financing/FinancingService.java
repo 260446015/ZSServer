@@ -1,0 +1,36 @@
+package com.huishu.ZSServer.service.financing;
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+
+import com.alibaba.fastjson.JSONObject;
+import com.huishu.ZSServer.entity.Company;
+import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
+import com.huishu.ZSServer.es.entity.AITInfo;
+
+public interface FinancingService {
+	/**
+	 * 获取融资企业列表
+	 * @param dto
+	 * @return
+	 */
+	Page<Company> getCompanyList(CompanySearchDTO dto);
+	/**
+	 * 获取融资动态数据
+	 * @return
+	 */
+	Page<AITInfo> getFinancingDynamic();
+	/**
+	 * 获取某产业融资企业推荐列表
+	 * @param industry
+	 * @return
+	 */
+	List<Company> getFinancingCompany(List<String> industry);
+	/**
+	 * 获取融资柱状图   (周，月，季，年)
+	 * @param type（week, month, season, year）
+	 * @return
+	 */
+	List<JSONObject> getHistogram(String type);
+}
