@@ -47,8 +47,7 @@ public abstract class DateCheck {
 				startDate = DateUtils.getLast365Date();
 			}
 			if("全部".equals(str)){
-				startDate = "";
-				endDate="";
+				startDate = "2000-01-01";
 			}
 			param.put("startDate",startDate );
 			param.put("endDate", endDate);

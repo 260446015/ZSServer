@@ -46,7 +46,7 @@
 							<div class="layui-nav layui-bg-cyan">
 							<ul class="" lay-filter="">
 								<li class="nav-label-title">时排序间：</li>
-								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '专家观点');">全部</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '全部', '专家观点');">全部</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '专家观点');">今日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '专家观点');">昨日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '专家观点');">近3天</a></li>
@@ -84,7 +84,7 @@
 							<div class="layui-nav layui-bg-cyan">
 				           <ul class="" lay-filter="">
 								<li class="nav-label-title">时排序间：</li>
-								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '百家论');">全部</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '全部', '百家论');">全部</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '百家论');">今日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '百家论');">昨日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '百家论');">近3天</a></li>

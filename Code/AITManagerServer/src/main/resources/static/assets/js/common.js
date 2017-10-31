@@ -1,6 +1,6 @@
 var industry = '互联网+';
 var industryLabel = '不限';
-var time = '一年';
+var time = '全部';
 var current = 0;
 var dimension = '专家论';
 function myClick(a, b, c, d, e) {

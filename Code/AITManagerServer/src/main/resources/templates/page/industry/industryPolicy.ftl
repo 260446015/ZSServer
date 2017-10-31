@@ -48,7 +48,7 @@
 							<div class="layui-nav layui-bg-cyan">
 							<ul class="" lay-filter="">
 								<li class="nav-label-title">时排序间：</li>
-								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '政策解读');">全部</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '全部', '政策解读');">全部</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '政策解读');">今日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '政策解读');">昨日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '政策解读');">近3天</a></li>
@@ -84,7 +84,7 @@
 							<div class="layui-nav layui-bg-cyan">
 							<ul class="" lay-filter="">
 								<li class="nav-label-title">时排序间：</li>
-								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '高峰论坛');">全部</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '全部', '高峰论坛');">全部</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '高峰论坛');">今日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '高峰论坛');">昨日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '高峰论坛');">近3天</a></li>
@@ -118,7 +118,7 @@
 							<div class="layui-nav layui-bg-cyan">
 							<ul class="" lay-filter="">
 								<li class="nav-label-title">时排序间：</li>
-								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '科学研究');">全部</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '全部', '科学研究');">全部</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '科学研究');">今日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '科学研究');">昨日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '科学研究');">近3天</a></li>
