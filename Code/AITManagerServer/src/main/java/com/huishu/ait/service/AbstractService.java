@@ -251,14 +251,17 @@ public abstract class AbstractService {
 				.order(Order.count(false)).size(500);
 
 		SearchQuery authorQuery = getSearchQueryBuilder().withQuery(bq).addAggregation(articleLinkBuilder).build();
-
+		Map<String,Long>  map = new HashMap<>();
 		List<HeadlinesArticleListDTO> jsonArray = template.query(authorQuery, res -> {
 			List<HeadlinesArticleListDTO> list = new ArrayList<HeadlinesArticleListDTO>();
-
 			Map<String, Object> Source = null;
+
 			SearchHits hits = res.getHits();
+			Long total = hits.getTotalHits();
+			map.put("totalHit", total);
 			for (SearchHit hit : hits) {
 				Source = hit.getSource();
+			
 				Source.put("_id", hit.getId());
 				getDtoInfo(list, Source);
 			}
@@ -294,7 +297,7 @@ public abstract class AbstractService {
 		List<HeadlinesArticleListDTO> newList = new ArrayList<>();
 		jsonArray.stream().skip(pageNumber * pageSize).limit(pageSize).forEach(newList::add);
 
-		Page<HeadlinesArticleListDTO> results = new PageImpl<>(newList, pageable, total);
+		Page<HeadlinesArticleListDTO> results = new PageImpl<>(newList, pageable, map.get("totalHit"));
 		return results;
 	}
 

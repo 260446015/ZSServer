@@ -19,5 +19,6 @@ public interface IndustryCompanyRepository extends CrudRepository<IndusCompany, 
 	 * @param industry
 	 */
 	List<IndusCompany> findByIndustry(String industry);
+	
 
 }

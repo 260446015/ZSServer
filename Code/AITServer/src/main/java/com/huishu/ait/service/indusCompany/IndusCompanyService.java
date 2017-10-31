@@ -17,7 +17,7 @@ public interface IndusCompanyService {
 	 * @param industry
 	 * @return
 	 */
-	JSONArray findIndusInfoByIndustry(String industry);
+	JSONArray findIndusInfoByIndustry();
 
 	/**
 	 * 根据公司全名查看公司信息

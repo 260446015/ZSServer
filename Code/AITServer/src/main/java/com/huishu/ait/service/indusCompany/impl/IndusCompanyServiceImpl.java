@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.util.StringUtil;
 import com.huishu.ait.entity.Enterprise;
 import com.huishu.ait.entity.IndusCompany;
 import com.huishu.ait.entity.dto.EnterpriseDTO;
@@ -33,12 +34,23 @@ public class IndusCompanyServiceImpl implements IndusCompanyService {
 	 * 根据产业名查询公司信息
 	 */
 	@Override
-	public JSONArray findIndusInfoByIndustry(String industry) {
+	public JSONArray findIndusInfoByIndustry() {
 		JSONArray json = new JSONArray();
-		List<IndusCompany> list = repository.findByIndustry(industry);
-		for (IndusCompany indus : list) {
-			json.add(indus);
+		
+		Iterable<IndusCompany> findAll = repository.findAll();
+		
+		while(json.size()<10){
+			int a  = (int) (Math.random()*69+1);
+	
+			findAll.forEach( action->{
+				if(a == action.getId()){
+					json.add(action);							
+				}
+				
+			});
+			
 		}
+		
 		return json;
 	}
 

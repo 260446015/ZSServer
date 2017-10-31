@@ -187,7 +187,9 @@ function getLabel2(industry){
 		//type : '产业云图',
 		//"msg" : ["互联网","不限","今日"],
 		//time : '一年'
-		"msg" : [industry,industryLabel,time,e]
+		"msg" : [industry,industryLabel,time,e],
+		pageNumber : 1,
+		pageSize : 10
 		/*industry : a,
 		industryLabel : b,
 		time : c,

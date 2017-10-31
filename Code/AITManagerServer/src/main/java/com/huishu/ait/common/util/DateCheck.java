@@ -13,6 +13,13 @@ public abstract class DateCheck {
 
 	public static JSONObject dateCheck(String str,JSONObject param) {
 		if (StringUtils.isNotBlank(str)) {
+			try{
+				Integer.parseInt(str);
+				param.put("publishYear", str);
+				return param;
+			}catch(Exception e){
+				
+			}
 			String endDate = DateUtils.getTodayDate1();
 			String startDate = null;
 			if ("今日".equals(str)) {
