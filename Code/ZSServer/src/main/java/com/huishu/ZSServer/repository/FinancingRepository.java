@@ -2,6 +2,8 @@ package com.huishu.ZSServer.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -11,7 +13,9 @@ import com.huishu.ZSServer.entity.Company;
 
 @Repository
 public interface FinancingRepository extends CrudRepository<Company, Long>, JpaSpecificationExecutor<Company>{
-	@Query(value = "select * from t_company_data where industry in ?1 limit 1,10", nativeQuery = true) 
+	Page<Company> findByInvest(String invest,Pageable request);
+	
+	@Query(value = "select * from t_company_data where industry in ?1 order by financing_amount desc limit 1,10", nativeQuery = true) 
 	List<Company> findFinancingCompany(List<String> industry);
 	
 	/**
@@ -49,4 +53,11 @@ public interface FinancingRepository extends CrudRepository<Company, Long>, JpaS
 	@Query(value = "select sum(financing_amount),YEAR(financing_date) from t_company_data "
 			+ "where industry=? GROUP BY YEAR(financing_date);", nativeQuery = true)
 	List<Object[]> countByYear(String industry);
+	/**
+	 * 园区企业融资分布
+	 * @param park
+	 * @return
+	 */
+	@Query(value = "select count(1),invest from t_company_data where park=? and invest is not null GROUP BY invest;", nativeQuery = true)
+	List<Object[]> countAboutfinancingRepository(String park);
 }
