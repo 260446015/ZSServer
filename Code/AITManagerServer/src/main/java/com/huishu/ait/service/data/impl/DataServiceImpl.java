@@ -77,7 +77,13 @@ public class DataServiceImpl extends AbstractService implements DataService {
 		info.setBusiness(split[11]);
 		info.setContent(split[8]);
 		info.setDimension(split[0]);
-		info.setEmotion(split[2]);
+        if(split[2].equals("正面")){
+        	info.setEmotion("positive");
+        }else if (split[2].equals("负面")){
+        	info.setEmotion("negative");
+        }else{
+        	info.setEmotion("neutral");
+        }
 		info.setIndustry(split[9]);
 		info.setIndustryLabel(split[10]);
 		info.setPark(split[11]);
