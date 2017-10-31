@@ -42,10 +42,7 @@
 							<div class="layui-nav layui-bg-cyan">
 				            <ul class="" lay-filter="">
 								<li class="nav-label-title">时排序间：</li>
-								<li class="layui-nav-item layui-this" id="dateList"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '企业排行');">全部</a></li>
-								<!--<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '企业排行');">今日</a></li>
-								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '企业排行');">昨日</a></li>
-								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '企业排行');">近3天</a></li>-->
+								<li class="layui-nav-item layui-this" id="dateList"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '全部', '企业排行');">全部</a></li>
 							</ul>
 							</div>
 			            </div>
@@ -77,7 +74,7 @@
 		type : 'get',
 		url : '/head/getLabel.json?industry='+industry,
 		success : function(response){
-			var before = '<li class="nav-label-title">产业子类：</li><li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(\''+response.industry+'\',\'不限\',\''+time+'\',\'企业排行\');">不限</a></li>';
+			var before = "<li class=\"nav-label-title\">产业子类：</li><li class=\"layui-nav-item layui-this\"><a href=\"javascript:void(0)\" onclick=\"myClick(\'"+response.industry+"\',\'不限\',"+time+",\'企业排行\');\">不限</a></li>";
 			var arr = [];
 			for(var i=0;i<response.label.length;i++){
 				arr.push('<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(\''+response.industry+'\',\''+response.label[i]+'\',\''+time+'\',\'企业排行\')" >'+response.label[i]+'</a></li>');

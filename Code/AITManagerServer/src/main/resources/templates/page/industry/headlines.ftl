@@ -48,7 +48,7 @@
 							<div class="layui-nav layui-bg-cyan">
 							<ul class="" lay-filter="">
 								<li class="nav-label-title">时排序间：</li>
-								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '一年', '产业头条');">全部</a></li>
+								<li class="layui-nav-item layui-this"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '全部', '产业头条');">全部</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '今日', '产业头条');">今日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '昨日', '产业头条');">昨日</a></li>
 								<li class="layui-nav-item"><a href="javascript:void(0)" onclick="myClick(industry, industryLabel, '近3天', '产业头条');">近3天</a></li>
@@ -167,7 +167,7 @@ function getLabel2(industry){
 	var req = {
 		type : '产业云图',
 		"msg" : ["互联网","不限","今日"],
-		time : '一年'
+		time : '全部'
 		//industry : industry,
 		//industryLabel : industryLabel,
 		//time : time,
@@ -186,7 +186,7 @@ function getLabel2(industry){
 	var req = {
 		//type : '产业云图',
 		//"msg" : ["互联网","不限","今日"],
-		//time : '一年'
+		//time : '全部'
 		"msg" : [industry,industryLabel,time,e],
 		pageNumber : 1,
 		pageSize : 10
