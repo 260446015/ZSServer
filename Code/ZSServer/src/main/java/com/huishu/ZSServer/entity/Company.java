@@ -61,6 +61,10 @@ public class Company implements Serializable {
 	private String financingDate;
 	/** 投资方 */
 	private String investor;
+	/** 公司规模 */
+	private Integer scale;
+	/** 二级产业 */
+	private String industryLabel;
 
 	public String getFinancingDate() {
 		return financingDate;
@@ -180,6 +184,22 @@ public class Company implements Serializable {
 
 	public void setInvestor(String investor) {
 		this.investor = investor;
+	}
+
+	public Integer getScale() {
+		return scale;
+	}
+
+	public void setScale(Integer scale) {
+		this.scale = scale;
+	}
+
+	public String getIndustryLabel() {
+		return industryLabel;
+	}
+
+	public void setIndustryLabel(String industryLabel) {
+		this.industryLabel = industryLabel;
 	}
 
 	@Override

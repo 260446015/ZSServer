@@ -18,13 +18,13 @@ public class GardenDTO extends AbstractDTO {
 	/**
 	 * 
 	 */
-	private Integer id;
+	private Long id;
 	private String name;
 	private String description;
 	private String address;
-	private String area;
+	private String province;
 	private String industryType;
-	private Integer userId;
+	private Long userId;
 	private String serarchName;
 	private String[] msg;
 
@@ -32,11 +32,11 @@ public class GardenDTO extends AbstractDTO {
 	 * 
 	 * @return 园区id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -78,14 +78,14 @@ public class GardenDTO extends AbstractDTO {
 
 	/**
 	 * 
-	 * @return 园区地理位置
+	 * @return 园区省份
 	 */
-	public String getArea() {
-		return area;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setArea(String area) {
-		this.area = area;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
 	/**
@@ -104,11 +104,11 @@ public class GardenDTO extends AbstractDTO {
 	 * 
 	 * @return 获取关注的用户id
 	 */
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

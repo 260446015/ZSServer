@@ -6,62 +6,32 @@ import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ZSServer.entity.GardenData;
 import com.huishu.ZSServer.entity.GardenUser;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
-
+import com.huishu.ZSServer.es.entity.AITInfo;
 
 /**
- * 全景辖区概览service
  * 
- * @author yindq
- * @date 2017-7-28
+ * @author yindawei
+ * @date 2017年10月30日上午10:45:48
+ * @description
+ * @version
  */
 public interface GardenService {
 	/**
-	 * 获取园区的政策列表
+	 * 获取园区动态
 	 * 
-	 * @param searchModel
-	 *            查询条件
+	 * @param dto
 	 * @return
 	 */
-	JSONArray getGardenPolicyList(AreaSearchDTO searchModel);
+	Page<AITInfo> findGardensCondition(GardenDTO dto);
 
 	/**
-	 * 获取园区的动态列表
-	 * 
-	 * @param searchModel
-	 *            查询条件
-	 * @return
+	 * 获取园区产值
 	 */
-	JSONArray getGardenInformationList(AreaSearchDTO searchModel);
-
-	/**
-	 * 获取园区的龙头企业列表
-	 * 
-	 * @param searchModel
-	 *            查询条件
-	 * @return
-	 */
-	JSONArray getGardenBusinessList(AreaSearchDTO searchModel);
-
-	/**
-	 * 获取园区的龙头企业，园区政策和园区情报信息
-	 * 
-	 * @param gardenName
-	 *            园区名字
-	 * @return
-	 */
-	JSONObject getGardenTableData(String gardenName, Long userId);
-
-	/**
-	 * 根据园区名字获取园区信息
-	 * 
-	 * @param id
-	 *            动态ID
-	 * @return
-	 */
-	GardenUser getGardenByName(String gardenName);
+	List<GardenData> findGardenGdp();
 
 	/**
 	 * 获取园区列表
@@ -69,46 +39,12 @@ public interface GardenService {
 	 * @param dto
 	 * @return
 	 */
-	JSONArray findGardensList(GardenDTO dto);
+	Page<GardenData> findGardensList(GardenDTO dto);
 
 	/**
-	 * 获取园区动态
-	 * 
-	 * @param dto
+	 * 获取园区基本信息
 	 * @return
 	 */
-	JSONArray findGardensCondition(GardenDTO dto);
+	GardenData findGarden(Long gardenId);
 
-	/**
-	 * 获取关注园区列表
-	 * 
-	 * @param dto
-	 * @return
-	 */
-	Page<GardenUser> getAttentionGardenList(GardenDTO dto);
-
-	/**
-	 * @param gardenId
-	 *            传入想要关注的园区id,传入用户id,传入关注/取消操作,true是关注,false是取消
-	 */
-	GardenUser attentionGarden(String gardenId, String userId, boolean flag);
-
-	/**
-	 * 根据地区查询到园区列表
-	 * 
-	 * @param area
-	 *            地区
-	 * @return
-	 */
-	JSONArray findGardensByAreaAndIndustry(String area, String leadIndustry);
-
-	/**
-	 * 园区情报中获取所有园区内容
-	 */
-	JSONArray findGardensAll();
-
-	/**
-	 * 全查园区
-	 */
-	List<String> findAll();
 }

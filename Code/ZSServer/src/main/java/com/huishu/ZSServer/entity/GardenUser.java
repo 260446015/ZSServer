@@ -1,13 +1,18 @@
 package com.huishu.ZSServer.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
@@ -26,30 +31,25 @@ public class GardenUser implements Serializable {
 	private static final long serialVersionUID = 205427153812219075L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	@Column(name = "gardenname")
+	private Long id;
 	private String gardenName;
-	@Column(name = "userid")
-	private int userId;
-
-	private String area;
-	@Column(name = "industrytype")
+	private Long userId;
+	private String province;
 	private String industryType;
 	private String address;
 	private String description;
-
-	@Column(name = "attentiondate")
 	private String attentionDate;
-
-	@Column(name = "garden_picture")
 	private String gardenPicture;
-	@Column(name = "garden_id")
-	private String gardenId;
+	private Long gardenId;
 
-	/**
-	 * 
-	 * @return 关联园区名称
-	 */
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getGardenName() {
 		return gardenName;
 	}
@@ -58,36 +58,20 @@ public class GardenUser implements Serializable {
 		this.gardenName = gardenName;
 	}
 
-	/**
-	 * 
-	 * @return 关联用户id
-	 */
-	public int getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
-	/**
-	 * 
-	 * @return 中间表主键
-	 */
-	public int getId() {
-		return id;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getArea() {
-		return area;
-	}
-
-	public void setArea(String area) {
-		this.area = area;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
 	public String getIndustryType() {
@@ -130,12 +114,17 @@ public class GardenUser implements Serializable {
 		this.gardenPicture = gardenPicture;
 	}
 
-	public String getGardenId() {
+	public Long getGardenId() {
 		return gardenId;
 	}
 
-	public void setGardenId(String gardenId) {
+	public void setGardenId(Long gardenId) {
 		this.gardenId = gardenId;
+	}
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
 	}
 
 }
