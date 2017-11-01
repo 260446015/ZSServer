@@ -60,6 +60,10 @@ public abstract class AbstractDTO {
 
 			if (value != null) {
 				if (value instanceof String) {
+					if("人工智能".equals(value))
+						queryBuilder.must(QueryBuilders.termsQuery(name, value,"智能机器人"));
+					else
+						queryBuilder.must(QueryBuilders.termQuery(name, value));	
 					queryBuilder.must(QueryBuilders.termQuery(name, (String) value));
 				} else if (value instanceof Boolean) {
 					queryBuilder.must(QueryBuilders.termQuery(name, (Boolean) value));

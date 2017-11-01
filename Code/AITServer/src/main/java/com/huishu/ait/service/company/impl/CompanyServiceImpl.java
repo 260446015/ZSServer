@@ -62,7 +62,10 @@ public class CompanyServiceImpl implements CompanyService {
 				bq.must(QueryBuilders.termQuery("industry", industry));
 			}
 			if (!"不限".equals(industryLabel)) {
-				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
+				if ("人工智能".equals(industryLabel))
+					bq.must(QueryBuilders.termsQuery("industryLabel", industryLabel, "智能机器人"));
+				else
+					bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 			}
 			if (null != publishTime) {
 				bq.must(QueryBuilders.termQuery("publishYear", publishTime));

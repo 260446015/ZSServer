@@ -86,7 +86,7 @@ public class DataServiceImpl extends AbstractService implements DataService {
         }
 		info.setIndustry(split[9]);
 		info.setIndustryLabel(split[10]);
-		info.setPark(split[11]);
+		info.setPark(split[12]);
 		info.setPublishDate(split[5]);
 		info.setSource(split[6]);
 		info.setSourceLink(split[7]);

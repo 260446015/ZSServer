@@ -219,7 +219,10 @@ public abstract class AbstractService {
 		/** 产业标签 */
 		String industryLabel = headlinesDTO.getIndustryLabel();
 		if (StringUtils.isNotEmpty(industryLabel)) {
-			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
+			if ("人工智能".equals(industryLabel))
+				bq.must(QueryBuilders.termsQuery("industryLabel", industryLabel, "智能机器人"));
+			else
+				bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
 		}
 
 		/** 载体 */
@@ -262,7 +265,7 @@ public abstract class AbstractService {
 		SearchQuery authorQuery = getSearchQueryBuilder().withQuery(bq).addAggregation(articleLinkBuilder).build();
 
 		List<HeadlinesArticleListDTO> jsonArray = template.query(authorQuery, res -> {
-			
+
 			List<HeadlinesArticleListDTO> list = new ArrayList<HeadlinesArticleListDTO>();
 
 			Map<String, Object> Source = null;
@@ -283,9 +286,8 @@ public abstract class AbstractService {
 		int pageSize = pageable.getPageSize();
 
 		/*
-		 * pageable.getSort().forEach(order -> { 
-		 * String property =order.getProperty(); 
-		 * Direction direction = order.getDirection(); 
+		 * pageable.getSort().forEach(order -> { String property
+		 * =order.getProperty(); Direction direction = order.getDirection();
 		 * jsonArray.sort((o1, o2) -> { Double v1 = (Double)
 		 * UtilsHelper.getValueByFieldName(o1, property); Double v2 = (Double)
 		 * UtilsHelper.getValueByFieldName(o2, property);
@@ -299,8 +301,9 @@ public abstract class AbstractService {
 
 		// 排名后对时间进行排序
 		pageable.getSort().forEach(order -> {
-//			String property = "publishTime";
-			String property = order.getProperty(); ;
+			// String property = "publishTime";
+			String property = order.getProperty();
+			;
 			Direction direction = order.getDirection();
 			jsonArray.sort((o1, o2) -> {
 				String v1 = (String) UtilsHelper.getValueByFieldName(o1, property);
@@ -343,7 +346,7 @@ public abstract class AbstractService {
 		dto.setIstop((boolean) source.get("istop"));
 		Integer hitCount = (Integer) source.get("hitCount");
 		Integer supportCount = (Integer) source.get("supportCount");
-		
+
 		dto.setHitCount((int) source.get("hitCount"));
 		dto.setReplyCount((int) source.get("replyCount"));
 		dto.setSupportCount((int) source.get("supportCount"));
@@ -355,9 +358,9 @@ public abstract class AbstractService {
 		String summary = (String) source.get("summary");
 		if (StringUtils.isEmpty(summary)) {
 			/** 如果文章摘要不存在，则将内容的前一百数据取出作为摘要 */
-			if(dto.getContent().length()>300){
+			if (dto.getContent().length() > 300) {
 				summary = dto.getContent().substring(0, 300);
-			}else{
+			} else {
 				summary = dto.getContent().substring(0, 100);
 			}
 			summary = StringUtil.replaceHtml(summary);
