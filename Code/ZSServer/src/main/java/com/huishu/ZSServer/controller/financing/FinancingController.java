@@ -85,7 +85,6 @@ public class FinancingController extends BaseController {
 	 * 
 	 * @return
 	 */
-	//这个方法有BUG
 	@RequestMapping(value = "/getFinancingDynamic.json", method = RequestMethod.GET)
 	public AjaxResult getFinancingDynamic() {
 		try {

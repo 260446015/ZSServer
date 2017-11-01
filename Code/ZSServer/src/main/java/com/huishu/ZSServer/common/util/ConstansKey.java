@@ -12,6 +12,7 @@ public class ConstansKey {
 	/** 天眼查token */
 	public static final String OPENEYES_TOKEN = "jeNB8qBn5Cw5";
 	public static final String YUANQUDONGTAI = "园区动态";
+	public static final String RONGZIDONGTAI = "融资动态";
 	/**
 	 * local
 	 */

@@ -2,10 +2,10 @@ package com.huishu.ZSServer.service.financing.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,20 +14,18 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ZSServer.common.util.TaskSpec;
+import com.huishu.ZSServer.common.util.ConstansKey;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.es.entity.AITInfo;
-import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.repository.FinancingRepository;
+import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.financing.FinancingService;
 
 @Service
-public class FinancingServiceImpl implements FinancingService {
+public class FinancingServiceImpl extends AbstractService<Company> implements FinancingService {
 	@Autowired
 	private FinancingRepository financingRepository;
-	@Autowired
-	private BaseElasticsearch baseElasticsearch;
 
 	@Override
 	public Page<Company> getCompanyList(CompanySearchDTO dto) {
@@ -38,16 +36,20 @@ public class FinancingServiceImpl implements FinancingService {
 			sort = new Sort(Direction.DESC, "financingAmount");
 		}
 		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(),sort);
-		return financingRepository.findAll(TaskSpec.getCompanySpec(dto.getArea(),dto.getIndustry(),dto.getInvest()), pageRequest);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("area", dto.getArea());
+		params.put("industry", dto.getIndustry());
+		params.put("invest", dto.getInvest());
+		return financingRepository.findAll(getSpec(params), pageRequest);
 	}
 
 	@Override
 	public Page<AITInfo> getFinancingDynamic() {
 		Sort sort = new Sort(Direction.DESC, "publishDate");
 		PageRequest pageRequest = new PageRequest(0,10,sort);
-		BoolQueryBuilder bq = QueryBuilders.boolQuery();
-		bq.must(QueryBuilders.termQuery("dimension","融资动态"));
-		return baseElasticsearch.search(bq, pageRequest);
+		Map<String, Object> params = new HashMap<>();
+		params.put("dimension", ConstansKey.RONGZIDONGTAI);
+		return getAitinfo(params, pageRequest);
 	}
 
 	@Override

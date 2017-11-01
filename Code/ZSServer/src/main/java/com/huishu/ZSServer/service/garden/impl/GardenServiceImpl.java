@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +23,14 @@ import com.huishu.ZSServer.entity.GardenData;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.es.entity.AITInfo;
-import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.garden.GardenService;
 
 @Service
-public class GardenServiceImpl extends AbstractService implements GardenService {
+public class GardenServiceImpl extends AbstractService<GardenData> implements GardenService {
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
-	@Autowired
-	private BaseElasticsearch baseElasticsearch;
 	@Autowired
 	private GardenRepository gardenRepository;
 	
@@ -45,10 +40,10 @@ public class GardenServiceImpl extends AbstractService implements GardenService 
 		orders.add(new Order(Direction. DESC, "publishTime"));
 		orders.add(new Order(Direction. DESC, "hitCount"));
 		PageRequest pageRequest = new PageRequest(0,10,new Sort(orders));
-		BoolQueryBuilder bq = QueryBuilders.boolQuery();
-		bq.must(QueryBuilders.termQuery("dimension",dto.getDimension()));
-		bq.must(QueryBuilders.termQuery("dimension",dto.getPark()));
-		return baseElasticsearch.search(bq, pageRequest);
+		Map<String, Object> params = new HashMap<>();
+		params.put("park",dto.getPark());
+		params.put("dimension",dto.getDimension());
+		return getAitinfo(params, pageRequest);
 	}
 
 	@Override

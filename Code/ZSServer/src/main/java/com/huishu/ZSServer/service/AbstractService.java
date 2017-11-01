@@ -9,7 +9,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.elasticsearch.index.analysis.Analysis;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
@@ -20,6 +19,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.alibaba.fastjson.JSONObject;
+import com.forget.analysis.Analysis;
+import com.forget.category.CategoryModel;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;

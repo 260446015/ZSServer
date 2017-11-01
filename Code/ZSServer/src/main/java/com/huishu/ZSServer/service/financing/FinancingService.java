@@ -9,6 +9,12 @@ import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.es.entity.AITInfo;
 
+/**
+ * 融资快报
+ * 
+ * @author yindq
+ * @date 2017年11月1日
+ */
 public interface FinancingService {
 	/**
 	 * 获取融资企业列表
