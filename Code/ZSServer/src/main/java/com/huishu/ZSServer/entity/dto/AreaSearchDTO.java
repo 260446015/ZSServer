@@ -3,10 +3,10 @@ package com.huishu.ZSServer.entity.dto;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 辖区情报和政策的DTO
+ * 园区动态和政策的DTO
  * 
  * @author yindq
- * @date 2017年8月3日
+ * @date 2017年11月1日
  */
 public class AreaSearchDTO extends AbstractDTO {
 	/**
@@ -15,6 +15,16 @@ public class AreaSearchDTO extends AbstractDTO {
 	private static final long serialVersionUID = 1L;
 	/** 园区 */
 	private String park;
+	/** 维度 */
+	private String dimension;
+
+	public String getDimension() {
+		return dimension;
+	}
+
+	public void setDimension(String dimension) {
+		this.dimension = dimension;
+	}
 
 	public String getPark() {
 		return park;

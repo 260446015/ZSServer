@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ZSServer.common.AjaxResult;
+import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
+import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.service.garden.GardenService;
 
@@ -50,5 +53,25 @@ public class GardenController extends BaseController{
 			return error(e.getMessage());
 		}
 		return success(aITInfos);
+	}
+	
+	/**
+	 * 关注园区-情报推送
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "getInformationPush.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult getInformationPush(@RequestBody AreaSearchDTO dto) {
+		if (null == dto || StringUtil.isEmpty(dto.getPark()) || StringUtil.isEmpty(dto.getDimension())) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(gardenService.getInformationPush(dto));
+		} catch (Exception e) {
+			LOGGER.error("获取关注园区-情报推送失败！", e);
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
 	}
 }

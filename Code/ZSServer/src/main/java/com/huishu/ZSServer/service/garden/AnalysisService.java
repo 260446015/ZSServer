@@ -8,6 +8,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 
+/**
+ * 融资快报
+ * 
+ * @author yindq
+ * @date 2017年10月30日
+ */
 public interface AnalysisService {
 	/**
 	 * 企业融资分布

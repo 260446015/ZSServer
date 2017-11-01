@@ -13,7 +13,7 @@ import com.huishu.ZSServer.entity.Company;
 
 @Repository
 public interface FinancingRepository extends CrudRepository<Company, Long>, JpaSpecificationExecutor<Company>{
-	Page<Company> findByInvest(String invest,Pageable request);
+	Page<Company> findByInvestAndPark(String invest,String park,Pageable request);
 	
 	@Query(value = "select * from t_company_data where industry in ?1 order by financing_amount desc limit 1,10", nativeQuery = true) 
 	List<Company> findFinancingCompany(List<String> industry);

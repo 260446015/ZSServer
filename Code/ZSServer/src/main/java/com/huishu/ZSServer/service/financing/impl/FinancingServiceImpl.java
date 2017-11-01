@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +18,7 @@ import com.huishu.ZSServer.common.util.TaskSpec;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.es.entity.AITInfo;
+import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.repository.FinancingRepository;
 import com.huishu.ZSServer.service.financing.FinancingService;
 
@@ -23,6 +26,8 @@ import com.huishu.ZSServer.service.financing.FinancingService;
 public class FinancingServiceImpl implements FinancingService {
 	@Autowired
 	private FinancingRepository financingRepository;
+	@Autowired
+	private BaseElasticsearch baseElasticsearch;
 
 	@Override
 	public Page<Company> getCompanyList(CompanySearchDTO dto) {
@@ -40,7 +45,9 @@ public class FinancingServiceImpl implements FinancingService {
 	public Page<AITInfo> getFinancingDynamic() {
 		Sort sort = new Sort(Direction.DESC, "publishDate");
 		PageRequest pageRequest = new PageRequest(0,10,sort);
-		return null;
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		bq.must(QueryBuilders.termQuery("dimension","融资动态"));
+		return baseElasticsearch.search(bq, pageRequest);
 	}
 
 	@Override

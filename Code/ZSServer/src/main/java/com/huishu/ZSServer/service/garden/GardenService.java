@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.GardenUser;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
+import com.huishu.ZSServer.es.entity.AITInfo;
 
 
 /**
@@ -19,40 +19,12 @@ import com.huishu.ZSServer.entity.dto.GardenDTO;
  */
 public interface GardenService {
 	/**
-	 * 获取园区的政策列表
+	 * 获取园区的情报推送
 	 * 
-	 * @param searchModel
-	 *            查询条件
+	 * @param dto
 	 * @return
 	 */
-	JSONArray getGardenPolicyList(AreaSearchDTO searchModel);
-
-	/**
-	 * 获取园区的动态列表
-	 * 
-	 * @param searchModel
-	 *            查询条件
-	 * @return
-	 */
-	JSONArray getGardenInformationList(AreaSearchDTO searchModel);
-
-	/**
-	 * 获取园区的龙头企业列表
-	 * 
-	 * @param searchModel
-	 *            查询条件
-	 * @return
-	 */
-	JSONArray getGardenBusinessList(AreaSearchDTO searchModel);
-
-	/**
-	 * 获取园区的龙头企业，园区政策和园区情报信息
-	 * 
-	 * @param gardenName
-	 *            园区名字
-	 * @return
-	 */
-	JSONObject getGardenTableData(String gardenName, Long userId);
+	Page<AITInfo> getInformationPush(AreaSearchDTO dto);
 
 	/**
 	 * 根据园区名字获取园区信息
