@@ -1,22 +1,13 @@
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ait.app.Application;
-import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.dto.ArticleListDTO;
-import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
-import com.huishu.ait.service.article.ArticleService;
-import com.huishu.ait.service.company.CompanyService;
 import com.huishu.ait.service.headline.HeadlinesService;
-import com.huishu.ait.service.industrialPolicy.IndustrialPolicyService;
-import com.merchantKey.itemModel.KeywordModel;
 
 /**
  * @author hhy
@@ -26,10 +17,10 @@ import com.merchantKey.itemModel.KeywordModel;
  * 
  */
 // 这是JUnit的注解，通过这个注解让SpringJUnit4ClassRunner这个类提供Spring测试上下文。
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 // 这是Spring Boot注解，为了进行集成测试，需要通过这个注解加载和配置Spring应用上下
-@SpringBootTest(classes = Application.class)
-@WebAppConfiguration
+//@SpringBootTest(classes = Application.class)
+//@WebAppConfiguration
 public class Test {
 	@Autowired
 //	private ArticleService service;
@@ -100,4 +91,5 @@ public class Test {
 		});
 		System.out.println(list.getSize());
 	}
+	
 }

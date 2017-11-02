@@ -55,7 +55,7 @@ public class Company implements Serializable {
 	private String invest;
 	/** 融资金额 */
 	@Column(name = "financing_amount")
-	private Double financingAmount;
+	private String financingAmount;
 	/** 融资时间 */
 	@Column(name = "financing_date")
 	private String financingDate;
@@ -170,11 +170,11 @@ public class Company implements Serializable {
 		this.invest = invest;
 	}
 
-	public Double getFinancingAmount() {
+	public String getFinancingAmount() {
 		return financingAmount;
 	}
 
-	public void setFinancingAmount(Double financingAmount) {
+	public void setFinancingAmount(String financingAmount) {
 		this.financingAmount = financingAmount;
 	}
 

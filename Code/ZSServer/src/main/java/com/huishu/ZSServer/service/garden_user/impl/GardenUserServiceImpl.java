@@ -14,7 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.huishu.ZSServer.common.util.ConstansKey;
+import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
@@ -97,7 +97,7 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 					GardenUser.setDescription("暂无");
 				}
 				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
-					GardenUser.setGardenPicture(ConstansKey.IP_PORT + "park_img/default.jpg");
+					GardenUser.setGardenPicture(KeyConstan.IP_PORT + "park_img/default.jpg");
 				}
 			});
 			return findAll;

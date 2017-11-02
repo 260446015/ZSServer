@@ -17,6 +17,7 @@ import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.Company;
+import com.huishu.ZSServer.entity.CompanyAnnals;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.service.garden.AnalysisService;
 
@@ -108,7 +109,7 @@ public class AnalysisController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			Page<Company> page = analysisService.getTopCompany(park,industry);
+			Page<CompanyAnnals> page = analysisService.getTopCompany(park,industry);
 			return success(page);
 		} catch (Exception e) {
 			LOGGER.error("获取TOP企业失败!", e);

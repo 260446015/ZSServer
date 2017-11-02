@@ -1,4 +1,4 @@
-package com.huishu.ZSServer.repository;
+package com.huishu.ZSServer.repository.company;
 
 import java.util.List;
 
@@ -11,6 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import com.huishu.ZSServer.entity.Company;
 
+/**
+ * 融资企业
+ * 
+ * @author yindq
+ * @date 2017年11月2日
+ */
 @Repository
 public interface FinancingRepository extends CrudRepository<Company, Long>, JpaSpecificationExecutor<Company>{
 	Page<Company> findByInvestAndPark(String invest,String park,Pageable request);
