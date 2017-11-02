@@ -4,22 +4,27 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.GardenData;
-import com.huishu.ZSServer.entity.GardenUser;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.es.entity.AITInfo;
 
+
 /**
+ * 全景辖区概览service
  * 
- * @author yindawei
- * @date 2017年10月30日上午10:45:48
- * @description
- * @version
+ * @author yindq
+ * @date 2017-7-28
  */
 public interface GardenService {
+	/**
+	 * 获取园区的情报推送
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	Page<AITInfo> getInformationPush(AreaSearchDTO dto);
+
 	/**
 	 * 获取园区动态
 	 * 
@@ -46,5 +51,4 @@ public interface GardenService {
 	 * @return
 	 */
 	GardenData findGarden(Long gardenId);
-
 }

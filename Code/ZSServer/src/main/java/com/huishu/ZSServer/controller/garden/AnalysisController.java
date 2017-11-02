@@ -1,6 +1,5 @@
 package com.huishu.ZSServer.controller.garden;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -31,9 +30,10 @@ import com.huishu.ZSServer.service.garden.AnalysisService;
 @RequestMapping("/apis/analysis")
 public class AnalysisController extends BaseController{
 	private Logger LOGGER = LoggerFactory.getLogger(AnalysisController.class);
-
+	
 	@Autowired
 	private AnalysisService analysisService;	
+	
 	/**
 	 * 企业融资分布
 	 * 
@@ -95,8 +95,6 @@ public class AnalysisController extends BaseController{
 		}
 	}
 	
-	
-	
 	/**
 	 * 获取TOP企业
 	 * 
@@ -104,7 +102,7 @@ public class AnalysisController extends BaseController{
 	 * @param industry
 	 * @return
 	 */
-	@RequestMapping(value = "/getTopCompany.json", method = RequestMethod.POST)
+	@RequestMapping(value = "/getTopCompany.json", method = RequestMethod.GET)
 	public AjaxResult getTopCompany(String park,String industry) {
 		if (StringUtil.isEmpty(park)||StringUtil.isEmpty(industry)) {
 			return error(MsgConstant.ILLEGAL_PARAM);

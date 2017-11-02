@@ -24,6 +24,7 @@ public class AITInfo {
 
 	/** 发布时间 10 */
 	private String publishTime;
+	private String publishYear;
 
 	/** 发布时间 yyyy-MM-dd */
 	private String publishDate;
@@ -103,6 +104,14 @@ public class AITInfo {
 	/** 置顶 */
 	private boolean istop;
 	
+	public String getPublishYear() {
+		return publishYear;
+	}
+
+	public void setPublishYear(String publishYear) {
+		this.publishYear = publishYear;
+	}
+
 	public boolean isIstop() {
 		return istop;
 	}

@@ -10,6 +10,12 @@
                 <input type="button" value="获取某产业融资企业推荐列表" onclick="bb()"/>
             </fieldset>
         </form>
+        <form>
+            <fieldset>
+                <legend>园区分析</legend>
+                <input type="button" value="获取某轮次融资企业列表" onclick="cc()"/>
+            </fieldset>
+        </form>
 	</body>
 </html>
 <script type="text/javascript">
@@ -44,6 +50,22 @@
             async: false,
             contentType: 'application/json',
             data: JSON.stringify(datalist),
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
+            }
+        });
+	}
+	function cc(){
+	    $.ajax({
+	    	type: 'post',
+            url: "/apis/analysis/getCompanyList.json",
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify({park:'天津中新生态城',invest:'种子轮'}),
             success: function (response) {
                 if(response.message!=null){
                 	alert(response.message);

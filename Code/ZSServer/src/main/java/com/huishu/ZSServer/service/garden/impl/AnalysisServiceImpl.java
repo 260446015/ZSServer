@@ -38,7 +38,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 	public Page<Company> getCompanyList(CompanySearchDTO dto) {
 		Sort sort = new Sort(Direction.DESC, "financingDate");
 		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(),sort);
-		return financingRepository.findByInvest(dto.getInvest(), pageRequest);
+		return financingRepository.findByInvestAndPark(dto.getInvest(),dto.getPark(), pageRequest);
 	}
 
 	@Override

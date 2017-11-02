@@ -14,25 +14,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.GardenData;
 import com.huishu.ZSServer.entity.GardenUser;
+import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.service.garden.GardenService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
 
+
 /**
  * 处理园区的controller
- * 
- * @author yindawei
+ * @author yindawei 
  * @date 2017年10月27日上午11:39:44
- * @description
+ * @description 
  * @version
  */
 @RestController
 @RequestMapping("/apis/area")
-public class GardenController extends BaseController {
+public class GardenController extends BaseController{
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenController.class);
 	@Autowired
 	private GardenService gardenService;
@@ -168,4 +170,23 @@ public class GardenController extends BaseController {
 		return success(gardenService.findGarden(gardenId));
 	}
 
+	/**
+	 * 关注园区-情报推送
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "getInformationPush.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult getInformationPush(@RequestBody AreaSearchDTO dto) {
+		if (null == dto || StringUtil.isEmpty(dto.getPark()) || StringUtil.isEmpty(dto.getDimension())) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(gardenService.getInformationPush(dto));
+		} catch (Exception e) {
+			LOGGER.error("获取关注园区-情报推送失败！", e);
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+	}
 }

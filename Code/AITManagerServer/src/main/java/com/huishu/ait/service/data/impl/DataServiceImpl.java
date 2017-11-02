@@ -40,8 +40,10 @@ public class DataServiceImpl extends AbstractService implements DataService {
 			if(!(StringUtil.isEmpty(info.getPublishDate())||info.getPublishDate().equals("暂无"))){
 				SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy");
 				Date date = sdf1.parse(info.getPublishDate());
 				info.setPublishTime(sdf2.format(date));
+				info.setPublishYear(sdf3.format(date));
 			}else{
 				info.setPublishDate(null);
 			}
@@ -86,7 +88,7 @@ public class DataServiceImpl extends AbstractService implements DataService {
         }
 		info.setIndustry(split[9]);
 		info.setIndustryLabel(split[10]);
-		info.setPark(split[11]);
+		info.setPark(split[12]);
 		info.setPublishDate(split[5]);
 		info.setSource(split[6]);
 		info.setSourceLink(split[7]);

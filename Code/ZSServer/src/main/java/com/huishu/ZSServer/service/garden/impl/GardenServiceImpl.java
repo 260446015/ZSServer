@@ -1,11 +1,9 @@
 package com.huishu.ZSServer.service.garden.impl;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.ToDoubleFunction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,29 +12,39 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONArray;
 import com.huishu.ZSServer.common.util.ConstansKey;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.GardenData;
-import com.huishu.ZSServer.entity.GardenUser;
+import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.es.entity.AITInfo;
-import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.garden.GardenService;
 
 @Service
-public class GardenServiceImpl extends AbstractService implements GardenService {
-
+public class GardenServiceImpl extends AbstractService<GardenData> implements GardenService {
+	
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
 	@Autowired
-	private BaseElasticsearch baseElasticsearch;
-	@Autowired
 	private GardenRepository gardenRepository;
+	
+	@Override
+	public Page<AITInfo> getInformationPush(AreaSearchDTO dto) {
+		List<Order> orders=new ArrayList<Order>();
+		orders.add(new Order(Direction. DESC, "publishTime"));
+		orders.add(new Order(Direction. DESC, "hitCount"));
+		PageRequest pageRequest = new PageRequest(0,10,new Sort(orders));
+		Map<String, Object> params = new HashMap<>();
+		params.put("park",dto.getPark());
+		params.put("dimension",dto.getDimension());
+		return getAitinfo(params, pageRequest);
+	}
 
 	@Override
 	public Page<AITInfo> findGardensCondition(GardenDTO dto) {
