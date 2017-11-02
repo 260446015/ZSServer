@@ -23,60 +23,60 @@
 				</h4>
 			</div>
 			<div class="modal-body">
-				<form class="layui-form"  id="accountForm">
+				<form class="layui-form"  id="accountForm" onsubmit="return false;">
 					<input type="hidden" name="userType" value="user"/>
  	 				<div class="layui-form-item">
     						<label class="layui-form-label">手机</label>
     					<div class="layui-input-block">
-      						<input type="text" name="telphone" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
+      						<input type="text" id="tel" name="telphone" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
     					</div>
   					</div>
   					<div class="layui-form-item">
     						<label class="layui-form-label">姓名</label>
     					<div class="layui-input-inline">
-      						<input type="text" name="name" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+      						<input type="text" name="name" id="name" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
     					</div>
   					</div>
    <div class="layui-form-item">
     <label class="layui-form-label">邮箱</label>
     <div class="layui-input-inline">
-      <input type="email" name="userEmail" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+      <input type="email" name="userEmail" id="userEmail" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label">园区</label>
     <div class="layui-input-inline">
-      <input type="text" name="park" required lay-verify="required" placeholder="请输入园区" autocomplete="off" class="layui-input">
+      <input type="text" name="park" id="park" required lay-verify="required" placeholder="请输入园区" autocomplete="off" class="layui-input">
     </div>
 	</div>
     <div class="layui-form-item">
     <label class="layui-form-label">地域</label>
     <div class="layui-input-inline">
-      <input type="text" name="area" required lay-verify="required" placeholder="请输入地域" autocomplete="off" class="layui-input">
+      <input type="text" name="area" id="area" required lay-verify="required" placeholder="请输入地域" autocomplete="off" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label">公司名称</label>
     <div class="layui-input-inline">
-      <input type="text" name="company" required lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
+      <input type="text" name="company" id="company" required lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label">部门</label>
     <div class="layui-input-inline">
-      <input type="text" name="department" required lay-verify="required" placeholder="请输入您所在的部门" autocomplete="off" class="layui-input">
+      <input type="text" name="department" id="department" required lay-verify="required" placeholder="请输入您所在的部门" autocomplete="off" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label">职务</label>
     <div class="layui-input-inline">
-      <input type="text" name="job" required lay-verify="required" placeholder="请输入您的职务" autocomplete="off" class="layui-input">
+      <input type="text" name="job" id="job" required lay-verify="required" placeholder="请输入您的职务" autocomplete="off" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label">试用期限</label>
     <div class="layui-input-inline">
-      <select name="time" lay-verify="">
+      <select name="time" lay-verify="" id="time">
   		<option value="">请选择试用期</option>
   		<option value="一年">一年</option>
   		<option value="两年">两年</option>
@@ -86,7 +86,7 @@
   </div>
   <div class="layui-form-item">
     <div class="layui-input-block">
-      <button class="layui-btn" lay-filter="formDemo" onclick="submit();">立即提交</button>
+      <button class="layui-btn" lay-filter="formDemo" onclick="submitForm();">立即提交</button>
       <button type="reset" class="layui-btn layui-btn-primary">重置</button>
     </div>
   </div>
@@ -401,8 +401,32 @@
 			keyboard: true
 		});
 	};
-	function submit(){
-		 $("#accountForm").ajaxSubmit();
+	function submitForm(){
+	var tel = $("#tel").val();
+	var name = $("#name").val();
+	var userEmail = $("#userEmail").val();
+	var park = $("#park").val();
+	var area = $("#area").val();
+	var company = $("#company").val();
+	var department = $("#department").val();
+	var job = $("#job").val();
+	var time = $("#time").val();
+	var obj = {'telphone':tel,'name':name,'userEmail':userEmail,'park':park,'area':area,'company':company,'department':department,'job':job,'time':time,'userType':'user'};
+	$.ajax({
+		url : '/apis/back/garden/addParkAccount.json',
+	 	type : 'post',
+	 	data : JSON.stringify(obj),
+	 	async: false,
+	 	contentType: 'application/json',
+	 	success : function(data){
+	 		if(data.success){
+		 		layui.layer.alert(data.message);
+		 		$("#myModal").modal('hide');
+	 		}else{
+	 			layui.layer.alert(data.message);
+	 		}
+	 	}
+	});
 	};
 </script>
 <script  type="text/html" id="operation">
