@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,30 +21,38 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
-import com.huishu.ZSServer.entity.GardenData;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
-import com.huishu.ZSServer.entity.dto.GardenDTO;
+import com.huishu.ZSServer.entity.dto.GardenMapDTO;
+import com.huishu.ZSServer.entity.garden.GardenDTO;
+import com.huishu.ZSServer.entity.garden.GardenData;
+import com.huishu.ZSServer.entity.garden.GardenMap;
 import com.huishu.ZSServer.es.entity.AITInfo;
+import com.huishu.ZSServer.es.repository.BaseElasticsearch;
+import com.huishu.ZSServer.repository.garden.GardenMapRepositroy;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.garden.GardenService;
 
 @Service
 public class GardenServiceImpl extends AbstractService<GardenData> implements GardenService {
-	
+
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenServiceImpl.class);
 	@Autowired
 	private GardenRepository gardenRepository;
-	
+	@Autowired
+	private GardenMapRepositroy gardenMapRepositroy;
+	@Autowired
+	private BaseElasticsearch baseElasticsearch;
+
 	@Override
 	public Page<AITInfo> getInformationPush(AreaSearchDTO dto) {
-		List<Order> orders=new ArrayList<Order>();
-		orders.add(new Order(Direction. DESC, "publishTime"));
-		orders.add(new Order(Direction. DESC, "hitCount"));
-		PageRequest pageRequest = new PageRequest(0,10,new Sort(orders));
+		List<Order> orders = new ArrayList<Order>();
+		orders.add(new Order(Direction.DESC, "publishTime"));
+		orders.add(new Order(Direction.DESC, "hitCount"));
+		PageRequest pageRequest = new PageRequest(0, 10, new Sort(orders));
 		Map<String, Object> params = new HashMap<>();
-		params.put("park",dto.getPark());
-		params.put("dimension",dto.getDimension());
+		params.put("park", dto.getPark());
+		params.put("dimension", dto.getDimension());
 		return getAitinfo(params, pageRequest);
 	}
 
@@ -64,8 +74,13 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	}
 
 	@Override
-	public List<GardenData> findGardenGdp() {
-		return gardenRepository.findGardenGdp();
+	public List<GardenMap> findGardenGdp(String industry, Integer[] years, String province) {
+		List<GardenMap> list = null;
+		if (province == null)
+			list = gardenMapRepositroy.findGdp(industry, years);
+		else
+			list = gardenMapRepositroy.findGdp(industry, province, years);
+		return list;
 	}
 
 	@Override
@@ -107,12 +122,12 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 					return direct.equalsIgnoreCase("DESC") ? b.getGardenSquare().compareTo(a.getGardenSquare())
 							: a.getGardenSquare().compareTo(b.getGardenSquare());
 				});
-			} else if(sort.equals("企业数量")){
+			} else if (sort.equals("企业数量")) {
 				list.sort((a, b) -> {
 					return direct.equalsIgnoreCase("DESC") ? b.getEnterCount().compareTo(a.getEnterCount())
 							: a.getEnterCount().compareTo(b.getEnterCount());
 				});
-			} else if(sort.equals("产值")){
+			} else if (sort.equals("产值")) {
 				list.sort((a, b) -> {
 					return direct.equalsIgnoreCase("DESC") ? b.getGdp().compareTo(a.getGdp())
 							: a.getGdp().compareTo(b.getGdp());
@@ -134,6 +149,16 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	@Override
 	public GardenData findGarden(Long gardenId) {
 		return gardenRepository.findOne(gardenId);
+	}
+
+	@Override
+	public Page<AITInfo> findGardenPolicy(GardenDTO dto) {
+		BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+		boolQuery.must(QueryBuilders.termQuery("dimension", "政策动向"));
+		PageRequest pageable = new PageRequest(dto.getPageNumber(), dto.getPageSize(), new Sort(Direction.DESC, "publishTime"));
+		Page<AITInfo> page = baseElasticsearch.search(boolQuery, pageable);
+		return page;
+		
 	}
 
 }

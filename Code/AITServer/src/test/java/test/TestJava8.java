@@ -1,5 +1,6 @@
 package test;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -118,5 +119,18 @@ public class TestJava8 {
 		}
 		return map;
 	}
-	
+	@Test
+	public void testss(){
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy");
+		Date date=null;
+		try {
+			date = sdf1.parse("2017");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		System.out.println(sdf2.format(date));
+		System.out.println(sdf3.format(date));
+	}
 }

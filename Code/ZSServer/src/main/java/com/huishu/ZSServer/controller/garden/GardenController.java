@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.common.util.DateUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
-import com.huishu.ZSServer.entity.GardenData;
-import com.huishu.ZSServer.entity.GardenUser;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
-import com.huishu.ZSServer.entity.dto.GardenDTO;
+import com.huishu.ZSServer.entity.dto.GardenMapDTO;
+import com.huishu.ZSServer.entity.garden.GardenDTO;
+import com.huishu.ZSServer.entity.garden.GardenData;
+import com.huishu.ZSServer.entity.garden.GardenMap;
+import com.huishu.ZSServer.entity.garden.GardenUser;
 import com.huishu.ZSServer.es.entity.AITInfo;
+import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.service.garden.GardenService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
 
@@ -71,8 +75,12 @@ public class GardenController extends BaseController{
 	 */
 	@RequestMapping(value = "/findGardenGdp.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult findGardenGdp() {
-		List<GardenData> list = gardenService.findGardenGdp();
+	public AjaxResult findGardenGdp(String industry,Integer[] year,String province) {
+		if(StringUtil.isEmpty(industry))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		if(year.length == 0)
+			year = new Integer[]{DateUtils.getNowYear()};
+		List<GardenMap> list = gardenService.findGardenGdp(industry,year,province);
 		return success(list);
 	}
 
@@ -189,4 +197,10 @@ public class GardenController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 	}
+	@RequestMapping(value = "getGardenPolicy.json", method = RequestMethod.GET)
+	public AjaxResult getGardenPolicy(@RequestBody GardenDTO dto){
+		Page<AITInfo> page = gardenService.findGardenPolicy(dto);
+		return success(page);
+	}
+	 
 }

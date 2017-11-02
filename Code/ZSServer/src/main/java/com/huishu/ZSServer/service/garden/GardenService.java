@@ -4,11 +4,12 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.huishu.ZSServer.entity.GardenData;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
-import com.huishu.ZSServer.entity.dto.GardenDTO;
+import com.huishu.ZSServer.entity.dto.GardenMapDTO;
+import com.huishu.ZSServer.entity.garden.GardenDTO;
+import com.huishu.ZSServer.entity.garden.GardenData;
+import com.huishu.ZSServer.entity.garden.GardenMap;
 import com.huishu.ZSServer.es.entity.AITInfo;
-
 
 /**
  * 全景辖区概览service
@@ -36,7 +37,7 @@ public interface GardenService {
 	/**
 	 * 获取园区产值
 	 */
-	List<GardenData> findGardenGdp();
+	List<GardenMap> findGardenGdp(String industry, Integer[] years, String province);
 
 	/**
 	 * 获取园区列表
@@ -48,7 +49,14 @@ public interface GardenService {
 
 	/**
 	 * 获取园区基本信息
+	 * 
 	 * @return
 	 */
 	GardenData findGarden(Long gardenId);
+
+	/**
+	 * 获取政策动向
+	 * @return
+	 */
+	Page<AITInfo> findGardenPolicy(GardenDTO dto);
 }

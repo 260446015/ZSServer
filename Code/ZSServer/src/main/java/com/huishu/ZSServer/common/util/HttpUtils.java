@@ -9,7 +9,11 @@ import java.net.HttpURLConnection;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -169,6 +173,45 @@ public class HttpUtils {
 		} catch (KeyManagementException e) {
 			logger.error(e.getMessage());
 		}
+	}
+
+	public static String sendHttpGet(String spec, Map<String, String> params) throws IOException {
+		spec = spec + "?" + assembling(params);
+		HttpClient client = HttpClients.createDefault();
+		HttpGet get = new HttpGet(spec);
+		get.setHeader("Authorization", KeyConstan.OPENEYES_TOKEN);
+		InputStream in = null;
+		try {
+			HttpResponse response = client.execute(get);
+			in = response.getEntity().getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+			String str = "";
+			StringBuffer sb = new StringBuffer();
+			while ((str = reader.readLine()) != null) {
+				sb.append(str);
+			}
+			return sb.toString();
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		} finally {
+			if (in != null) {
+				in.close();
+			}
+		}
+		return null;
+	}
+
+	public static String assembling(Map<String, String> params) {
+		StringBuilder sb = new StringBuilder();
+		Set<Entry<String, String>> entrySet = params.entrySet();
+		for (Iterator<Entry<String, String>> iterator = entrySet.iterator(); iterator.hasNext();) {
+			Entry<String, String> entry = iterator.next();
+			String name = entry.getKey();
+			String value = entry.getValue();
+			sb.append(name).append("=").append(value).append("&");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
 	}
 
 }

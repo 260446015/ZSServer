@@ -438,5 +438,9 @@ public abstract class DateUtils {
 		String year = format.format(y);
 		return year;
 	}
+	
+	public static Integer getNowYear(){
+		return Calendar.getInstance().get(Calendar.YEAR);
+	}
 
 }
