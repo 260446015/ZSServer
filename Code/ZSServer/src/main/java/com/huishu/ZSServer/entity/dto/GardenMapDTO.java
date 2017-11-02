@@ -1,22 +1,25 @@
 package com.huishu.ZSServer.entity.dto;
 
+import com.huishu.ZSServer.entity.garden.GardenMap;
 
-public class GardenMapDTO{
+public class GardenMapDTO extends GardenMap{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3008676197909687580L;
 	
-	private Double gdp;
+	/**返回echarts产业数量*/
+	private Integer industryCount;
 
-	public Double getGdp() {
-		return gdp;
+	public Integer getIndustryCount() {
+		return industryCount;
 	}
 
-	public void setGdp(Double gdp) {
-		this.gdp = gdp;
+	public void setIndustryCount(Integer industryCount) {
+		this.industryCount = industryCount;
 	}
+	
 	
 
 }

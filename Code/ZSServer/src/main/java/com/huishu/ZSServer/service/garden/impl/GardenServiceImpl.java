@@ -161,4 +161,9 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		
 	}
 
+	@Override
+	public List<GardenMap> getGardenIndustryEcharts(String province) {
+		return gardenMapRepositroy.getGardenIndustryEcharts(province);
+	}
+
 }

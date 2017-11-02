@@ -59,4 +59,11 @@ public interface GardenService {
 	 * @return
 	 */
 	Page<AITInfo> findGardenPolicy(GardenDTO dto);
+
+	/**
+	 * 获取echarts数据
+	 * @param province
+	 * @return
+	 */
+	List<GardenMap> getGardenIndustryEcharts(String province);
 }

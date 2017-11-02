@@ -202,5 +202,12 @@ public class GardenController extends BaseController{
 		Page<AITInfo> page = gardenService.findGardenPolicy(dto);
 		return success(page);
 	}
+	
+	public AjaxResult getGardenIndustryEcharts(String province){
+		if(StringUtil.isEmpty(province))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		return success(gardenService.getGardenIndustryEcharts(province));
+	}
+	
 	 
 }

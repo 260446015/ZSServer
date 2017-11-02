@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -37,6 +38,17 @@ public class GardenMap implements Serializable {
 	private Double gdp;
 	/** 哪一年 */
 	private Integer year;
+	/**返回echarts产业数量*/
+	@Transient
+	private Integer count;
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
 
 	public Long getId() {
 		return id;
