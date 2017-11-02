@@ -1,12 +1,9 @@
 package com.huishu.ZSServer.repository.garden;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.huishu.ZSServer.entity.GardenData;
+import com.huishu.ZSServer.entity.garden.GardenData;
 
 /**
  * @author ydw
@@ -16,8 +13,5 @@ import com.huishu.ZSServer.entity.GardenData;
  * 
  */
 public interface GardenRepository extends CrudRepository<GardenData, Long>, JpaSpecificationExecutor<GardenData> {
-
-	@Query(nativeQuery = true, value = "select area,sum(gdp) as gdp from t_garden_data group by area")
-	List<GardenData> findGardenGdp();
 
 }

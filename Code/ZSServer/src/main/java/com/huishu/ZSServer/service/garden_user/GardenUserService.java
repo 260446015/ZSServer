@@ -2,8 +2,8 @@ package com.huishu.ZSServer.service.garden_user;
 
 import org.springframework.data.domain.Page;
 
-import com.huishu.ZSServer.entity.GardenUser;
-import com.huishu.ZSServer.entity.dto.GardenDTO;
+import com.huishu.ZSServer.entity.garden.GardenDTO;
+import com.huishu.ZSServer.entity.garden.GardenUser;
 
 public interface GardenUserService {
 

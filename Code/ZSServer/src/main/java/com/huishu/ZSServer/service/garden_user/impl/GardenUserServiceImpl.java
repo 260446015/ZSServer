@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ZSServer.common.util.ConstansKey;
 import com.huishu.ZSServer.common.util.StringUtil;
-import com.huishu.ZSServer.entity.GardenData;
-import com.huishu.ZSServer.entity.GardenUser;
-import com.huishu.ZSServer.entity.dto.GardenDTO;
+import com.huishu.ZSServer.entity.garden.GardenDTO;
+import com.huishu.ZSServer.entity.garden.GardenData;
+import com.huishu.ZSServer.entity.garden.GardenUser;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.repository.garden_user.GardenUserRepository;
 import com.huishu.ZSServer.service.AbstractService;

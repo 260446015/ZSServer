@@ -1,6 +1,8 @@
-package com.huishu.ZSServer.entity.dto;
+package com.huishu.ZSServer.entity.garden;
 
 import java.io.Serializable;
+
+import com.huishu.ZSServer.entity.dto.AbstractDTO;
 
 /**
  * 查询园区的DTO
@@ -24,6 +26,7 @@ public class GardenDTO extends AbstractDTO {
 	private String address;
 	private String province;
 	private String industryType;
+	private String industry;
 	private Long userId;
 	private String serarchName;
 	private String[] msg;
@@ -131,5 +134,14 @@ public class GardenDTO extends AbstractDTO {
 	public void setMsg(String[] msg) {
 		this.msg = msg;
 	}
+
+	public String getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+	
 
 }

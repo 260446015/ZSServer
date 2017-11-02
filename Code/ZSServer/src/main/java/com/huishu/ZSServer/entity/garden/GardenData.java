@@ -1,4 +1,4 @@
-package com.huishu.ZSServer.entity;
+package com.huishu.ZSServer.entity.garden;
 
 import java.io.Serializable;
 
