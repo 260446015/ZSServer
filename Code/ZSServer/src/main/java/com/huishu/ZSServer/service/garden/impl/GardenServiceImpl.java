@@ -17,7 +17,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.huishu.ZSServer.common.util.ConstansKey;
+import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.GardenData;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
@@ -54,7 +54,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 			PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(), sort);
 			Map<String, Object> params = new HashMap<>();
 			params.put("park", dto.getName());
-			params.put("dimension", ConstansKey.YUANQUDONGTAI);
+			params.put("dimension", KeyConstan.YUANQUDONGTAI);
 			aitInfos = getAitinfo(params, pageRequest);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
@@ -99,7 +99,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 					GardenData.setAddress("暂无");
 				}
 				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
-					GardenData.setGardenPicture(ConstansKey.IP_PORT + "park_img/default.jpg");
+					GardenData.setGardenPicture(KeyConstan.IP_PORT + "park_img/default.jpg");
 				}
 			});
 			if (sort.equals("园区占地")) {

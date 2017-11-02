@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.Company;
+import com.huishu.ZSServer.entity.CompanyAnnals;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 
 /**
@@ -40,5 +41,5 @@ public interface AnalysisService {
 	 * @param industry
 	 * @return
 	 */
-	Page<Company> getTopCompany(String park,String industry);
+	Page<CompanyAnnals> getTopCompany(String park,String industry);
 }

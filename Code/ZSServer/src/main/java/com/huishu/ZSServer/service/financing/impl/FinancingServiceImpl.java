@@ -14,11 +14,11 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ZSServer.common.util.ConstansKey;
+import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.es.entity.AITInfo;
-import com.huishu.ZSServer.repository.FinancingRepository;
+import com.huishu.ZSServer.repository.company.FinancingRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.financing.FinancingService;
 
@@ -48,7 +48,7 @@ public class FinancingServiceImpl extends AbstractService<Company> implements Fi
 		Sort sort = new Sort(Direction.DESC, "publishDate");
 		PageRequest pageRequest = new PageRequest(0,10,sort);
 		Map<String, Object> params = new HashMap<>();
-		params.put("dimension", ConstansKey.RONGZIDONGTAI);
+		params.put("dimension", KeyConstan.RONGZIDONGTAI);
 		return getAitinfo(params, pageRequest);
 	}
 

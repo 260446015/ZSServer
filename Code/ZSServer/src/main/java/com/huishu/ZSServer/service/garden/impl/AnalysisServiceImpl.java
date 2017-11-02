@@ -1,7 +1,9 @@
 package com.huishu.ZSServer.service.garden.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,14 +14,19 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.Company;
+import com.huishu.ZSServer.entity.CompanyAnnals;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
-import com.huishu.ZSServer.repository.FinancingRepository;
+import com.huishu.ZSServer.repository.company.FinancingRepository;
+import com.huishu.ZSServer.repository.garden.CompanyAnnalsRepository;
+import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.garden.AnalysisService;
 
 @Service
-public class AnalysisServiceImpl implements AnalysisService {
+public class AnalysisServiceImpl extends AbstractService<CompanyAnnals> implements AnalysisService {
 	@Autowired
 	private FinancingRepository financingRepository;
+	@Autowired
+	private CompanyAnnalsRepository annalsRepository;
 
 	@Override
 	public List<JSONObject> getFinancingDistribution(String park) {
@@ -43,13 +50,28 @@ public class AnalysisServiceImpl implements AnalysisService {
 
 	@Override
 	public List<JSONObject> getValueDistribution(String park, String type) {
-		// TODO Auto-generated method stub
-		return null;
+		List<JSONObject> list = new ArrayList<JSONObject>();
+		if(type.equals("年税收")){
+			type="taxRevenue";
+		}else{
+			type="outputValue";
+		}
+		List<Object[]> year = annalsRepository.countByYear(park, type);
+		for (Object[] objects : year) {
+			JSONObject object = new JSONObject();
+			object.put("count", objects[0]);
+			object.put("year", objects[1]);
+			list.add(object);
+		}
+		return list;
 	}
 
 	@Override
-	public Page<Company> getTopCompany(String park, String industry) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<CompanyAnnals> getTopCompany(String park, String industry) {
+		PageRequest pageRequest = new PageRequest(0, 5,new Sort(Direction.DESC, "outputValue"));
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("park", park);
+		params.put("industry", industry);
+		return annalsRepository.findAll(getSpec(params), pageRequest);
 	}
 }
