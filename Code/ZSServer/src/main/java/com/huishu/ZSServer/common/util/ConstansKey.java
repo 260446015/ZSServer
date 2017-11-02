@@ -4,7 +4,7 @@ package com.huishu.ZSServer.common.util;
  * 
  * @author yindawei
  * @date 2017年10月30日下午4:02:50
- * @description 存储一些常量的类
+ * @description 存储一些常量的类  修改
  * @version
  */
 public class ConstansKey {
