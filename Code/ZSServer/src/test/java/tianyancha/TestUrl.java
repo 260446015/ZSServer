@@ -3,6 +3,8 @@ package tianyancha;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -14,7 +16,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.HttpUtils;
@@ -44,11 +45,22 @@ public class TestUrl {
 	}
 	
 	@Test
+	public void test3(){
+		String s="17亿美元19亿融资";
+		Pattern p=Pattern.compile("[\\u4e00-\\u9fa5]+|\\d+");
+		Matcher m=p.matcher(s);
+		while(m.find()){
+		    System.out.println(m.group());
+		  }
+	}
+	@Test
 	public void test2(){
 		List<NameValuePair> params=new ArrayList<NameValuePair>();
-		NameValuePair pair = new BasicNameValuePair("name", "中科点击(北京)科技有限公司 ");
+		NameValuePair pair = new BasicNameValuePair("name", "北京百度网讯科技有限公司 ");
 		params.add(pair);
-		JSONObject parse = HttpUtils.sendGet(KeyConstan.URL.NIANBAO, params);
+		String url="https://open.api.tianyancha.com/services/v3/newopen/getProductInfo.json";
+//		JSONObject parse = HttpUtils.sendGet(KeyConstan.URL.NIANBAO, params);
+		JSONObject parse = HttpUtils.sendGet(url, params);
 		System.out.println(parse);
 	}
 }

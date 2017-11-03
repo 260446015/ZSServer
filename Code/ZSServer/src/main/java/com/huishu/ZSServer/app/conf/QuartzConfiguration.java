@@ -1,11 +1,14 @@
 package com.huishu.ZSServer.app.conf;
 
 import org.quartz.CronTrigger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+
+import com.huishu.ZSServer.controller.TaskController;
 
 /**
  * 对接与天眼查同步数据
@@ -15,7 +18,10 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
  */
 @Configuration
 public class QuartzConfiguration {
-
+	
+	@Autowired
+	private TaskController taskConfiguration;
+	
 	/**
 	 * 配置融资定时任务   
 	 * @return
@@ -27,7 +33,7 @@ public class QuartzConfiguration {
         jobDetail.setConcurrent(false);  
         jobDetail.setName("getCompanyFinancing");
         jobDetail.setGroup("group1");
-        jobDetail.setTargetObject(new TaskConfiguration());  
+        jobDetail.setTargetObject(taskConfiguration);  
         //类中方法名 
         jobDetail.setTargetMethod("getCompanyFinancing");  
         return jobDetail;  
@@ -44,7 +50,7 @@ public class QuartzConfiguration {
         jobDetail.setConcurrent(false);  
         jobDetail.setName("getCompanyAnnals");
         jobDetail.setGroup("group2");
-        jobDetail.setTargetObject(new TaskConfiguration());  
+        jobDetail.setTargetObject(taskConfiguration);  
         //类中方法名 
         jobDetail.setTargetMethod("getCompanyAnnals");  
         return jobDetail;  
@@ -77,7 +83,6 @@ public class QuartzConfiguration {
         tigger.setCronExpression("0 0 0 1 1 ? ");
         tigger.setName("trigger2");
         return tigger;  
-  
     } 
   
     /**
@@ -90,7 +95,7 @@ public class QuartzConfiguration {
     	CronTrigger[] job=new CronTrigger[]{jobTrigger,jobTrigger2};
         SchedulerFactoryBean bean = new SchedulerFactoryBean();  
         bean.setOverwriteExistingJobs(true);  
-        bean.setStartupDelay(1);  
+        bean.setStartupDelay(1); 
         bean.setTriggers(job);
         return bean;  
     }  
