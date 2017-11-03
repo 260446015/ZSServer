@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.huishu.ZSServer.entity.dto.GardenMapDTO;
 import com.huishu.ZSServer.entity.garden.GardenMap;
 
 public interface GardenMapRepositroy extends CrudRepository<GardenMap, Long> {
@@ -24,6 +23,6 @@ public interface GardenMapRepositroy extends CrudRepository<GardenMap, Long> {
 	 * @return
 	 */
 	@Query(value="select id,gdp,industry,province,year,count(industry) as count from t_garden_map where province = ?1 GROUP BY industry",nativeQuery=true)
-	List<GardenMap> getGardenIndustryEcharts(String province);
+	List<Object[]> getGardenIndustryEcharts(String province);
 
 }

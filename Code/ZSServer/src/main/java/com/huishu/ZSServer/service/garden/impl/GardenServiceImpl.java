@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
-import com.huishu.ZSServer.entity.dto.GardenMapDTO;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenMap;
@@ -162,7 +161,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	}
 
 	@Override
-	public List<GardenMap> getGardenIndustryEcharts(String province) {
+	public List<Object[]> getGardenIndustryEcharts(String province) {
 		return gardenMapRepositroy.getGardenIndustryEcharts(province);
 	}
 

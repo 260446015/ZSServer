@@ -1,6 +1,5 @@
 package com.huishu.ZSServer.service.garden_user.impl;
 
-
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -14,11 +13,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
+import com.huishu.ZSServer.entity.GardenCompare;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenUser;
+import com.huishu.ZSServer.repository.garden.GardenCompareRepositoy;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.repository.garden_user.GardenUserRepository;
 import com.huishu.ZSServer.service.AbstractService;
@@ -26,12 +30,15 @@ import com.huishu.ZSServer.service.garden_user.GardenUserService;
 
 @Service
 public class GardenUserServiceImpl extends AbstractService<GardenUser> implements GardenUserService {
-	
+
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenUserServiceImpl.class);
 	@Autowired
 	private GardenUserRepository gardenUserRepository;
 	@Autowired
 	private GardenRepository gardenRepository;
+	@Autowired
+	private GardenCompareRepositoy compareRepository;
+
 	@Override
 	public GardenUser attentionGarden(Long gardenId, Long userId, boolean flag) {
 		try {
@@ -62,7 +69,7 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 					gu.setUserId(userId);
 					gu.setGardenPicture(garden.getGardenPicture());
 					gu.setGardenId(gardenId);
-//					gu.setIndustryType(garden.getIndustry());
+					// gu.setIndustryType(garden.getIndustry());
 					gardenUserRepository.save(gu);
 					return gu;
 				}
@@ -77,7 +84,7 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Page<GardenUser> getAttentionGardenList(GardenDTO dto) {
 		Long userId = dto.getUserId();
@@ -105,6 +112,63 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 			LOGGER.error(e.getMessage());
 			return null;
 		}
+	}
+
+	@Override
+	public List<GardenCompare> getGardenCompare(Long userId, Long gardenId) {
+		List<GardenCompare> list = null;
+		if (null == gardenId) {
+			list = compareRepository.findByUserId(userId);
+			list.forEach(gc -> {
+				List<Object[]> listEcharts = compareRepository.getCompareEcharts(gc.getGardenName());
+				Map<Object, Object> industryCount = new HashMap<>();
+				listEcharts.forEach(arr -> {
+					industryCount.put(arr[1], arr[0]);
+				});
+				gc.setIndustryCount(industryCount);
+			});
+		} else {
+			list = compareRepository.findByUserIdAndGardenId(userId, gardenId);
+		}
+		return list;
+	}
+
+	@Override
+	public JSONObject addGardenCompare(Long gardenId, Long userId) {
+		JSONObject obj = new JSONObject();
+		try {
+			GardenUser gu = gardenUserRepository.findOne(gardenId);
+			if (gu == null)
+				return null;
+			List<GardenCompare> list = compareRepository.findByUserIdAndGardenId(userId, gardenId);
+			if (list.size() > 0)
+				return null;
+			GardenCompare gc = new GardenCompare();
+			gc.setEnterCompany(gu.getEnterCompany());
+			gc.setLogo(gu.getGardenPicture());
+			gc.setGdp(gu.getGdp());
+			gc.setGardenSquare(gu.getGardenSquare());
+			gc.setGardenName(gu.getGardenName());
+			gc.setUserId(gu.getUserId());
+			obj.put("success", true);
+		} catch (Exception e) {
+			LOGGER.error("存储对比园区失败", e.getMessage());
+			obj.put("success", false);
+		}
+		return obj;
+
+	}
+
+	@Override
+	public boolean deleteCompare(List<GardenCompare> list) {
+		boolean flag = false;
+		try {
+			compareRepository.delete(list);
+			flag = true;
+		} catch (Exception e) {
+			LOGGER.error("删除园区对比失败", e.getMessage());
+		}
+		return flag;
 	}
 
 }

@@ -39,8 +39,35 @@ public class GardenUser implements Serializable {
 	private String address;
 	private String description;
 	private String attentionDate;
+	private Double gdp;
+	private Double gardenSquare;
+	public Double getGardenSquare() {
+		return gardenSquare;
+	}
+
+	public void setGardenSquare(Double gardenSquare) {
+		this.gardenSquare = gardenSquare;
+	}
+
+	public Double getGdp() {
+		return gdp;
+	}
+
+	public void setGdp(Double gdp) {
+		this.gdp = gdp;
+	}
+
+	public String getEnterCompany() {
+		return enterCompany;
+	}
+
+	public void setEnterCompany(String enterCompany) {
+		this.enterCompany = enterCompany;
+	}
+
 	private String gardenPicture;
 	private Long gardenId;
+	private String enterCompany;
 
 	public Long getId() {
 		return id;
