@@ -21,15 +21,15 @@ import com.huishu.ZSServer.common.util.StringUtil;
 public class AITInfo {
 	private String id;
 	/** 发布时间 yyyy-MM-dd HH:mm:ss */
-	private String publishDateTime;
-
-	/** 发布时间 10 */
-	private String publishTime;
+	private String publishYear;
 
 	/** 发布时间 yyyy-MM-dd */
+	private String publishTime;
+
+	/** 发布时间 yyyy-MM-dd HH:mm:ss  */
 	private String publishDate;
 
-	private String ossLink;
+//	private String ossLink;
 
 	/** 文章地址 */
 	private String articleLink;
@@ -98,7 +98,9 @@ public class AITInfo {
 
 	/** 摘要 */
 	private String summary;
-
+	
+	private Long hot;
+	
 	/** 公司名录集合 */
 	private List<String> bus;
 	private boolean istop;
@@ -296,12 +298,12 @@ public class AITInfo {
 		this.hasWarn = hasWarn;
 	}
 
-	public String getPublishDateTime() {
-		return publishDateTime;
+	public String getPublishYear() {
+		return publishYear;
 	}
 
-	public void setPublishDateTime(String publishDateTime) {
-		this.publishDateTime = publishDateTime;
+	public void setPublishYear(String publishYear) {
+		this.publishYear = publishYear;
 	}
 
 	public String getPublishTime() {
@@ -312,13 +314,7 @@ public class AITInfo {
 		this.publishTime = publishTime;
 	}
 
-	public String getOssLink() {
-		return ossLink;
-	}
-
-	public void setOssLink(String ossLink) {
-		this.ossLink = ossLink;
-	}
+	
 
 	public String getArticleLink() {
 		return articleLink;
