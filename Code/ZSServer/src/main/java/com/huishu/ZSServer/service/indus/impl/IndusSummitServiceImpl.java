@@ -3,15 +3,23 @@ package com.huishu.ZSServer.service.indus.impl;
 import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.INDEX2;
 import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.TYPE2;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -133,6 +141,32 @@ public class IndusSummitServiceImpl implements IndusSummitService {
 			bq.must(QueryBuilders.wildcardQuery("content", "*" + keyWord + "*"));
 		}
 		return bq;
+	}
+
+	
+	@Override
+	public List<SummitInfo> findIndustrySummitList(JSONObject obj) {
+		BoolQueryBuilder bq = getQueryBoolBuilder(obj);
+		SearchQuery searchQuery = getSearchQueryBuilder().withQuery(bq).build();
+		List<SummitInfo> info = template.query(searchQuery, res->{
+			List<SummitInfo> list= new ArrayList<SummitInfo>();
+			SearchHits hits = res.getHits();
+			for (SearchHit hit : hits) {
+				Map<String, Object> map = hit.getSource();
+				SummitInfo suinfo = new SummitInfo();
+				suinfo.setAddress((String) map.get("address"));
+				suinfo.setArea(map.get("area").toString());
+				suinfo.setArticleLink(map.get("articleLink").toString());
+				suinfo.setId(hit.getId());
+				suinfo.setExhibitiontime(map.get("exhibitiontime").toString());
+				suinfo.setPublishTime(map.get("publishTime").toString());
+				suinfo.setIdustryZero(map.get("idustryZero").toString());
+				suinfo.setIdustryTwice(map.get("idustryTwice").toString());
+				list.add(suinfo);
+			}
+			return list;
+		});
+		return info;
 	}
 
 }

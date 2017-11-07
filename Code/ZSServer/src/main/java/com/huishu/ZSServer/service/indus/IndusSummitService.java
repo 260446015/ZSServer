@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.service.indus;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONObject;
@@ -42,5 +44,12 @@ public interface IndusSummitService {
 	 * @return
 	 */
 	boolean deleteSummitInfoById(Long id);
+
+	/**
+	 * @param obj
+	 * @return
+	 * 推送峰会
+	 */
+	List<SummitInfo> findIndustrySummitList(JSONObject obj);
 
 }

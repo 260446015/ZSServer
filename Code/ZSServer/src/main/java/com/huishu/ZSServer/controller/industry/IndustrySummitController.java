@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.controller.industry;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +32,19 @@ import com.huishu.ZSServer.service.indus.IndusSummitService;
 @RequestMapping("/apis/summit")
 public class IndustrySummitController extends BaseController{
 	private Logger LOGGER = LoggerFactory.getLogger(IndustrySummitController.class);
+	
 	@Autowired
 	private IndusSummitService service ;
 	
+	@ResponseBody
+	@RequestMapping(value="",method = RequestMethod.GET)
+	public AjaxResult getIndustrySummit(@RequestBody String industryLabel){
+		JSONObject obj = new JSONObject();
+		obj.put("dimension", "高峰论坛");
+		obj.put("industryLabel", industryLabel);
+		List<SummitInfo> list = service.findIndustrySummitList(obj);
+		return success(list);
+	}
 	/**
 	 * 查看峰会列表
 	 * @param msg
