@@ -35,10 +35,11 @@ public class PdfController extends BaseController {
 	// 设置文件上传大小
 	public static long fileSize = 1 * 1024 * 1024;
 	
-	public static String filePath = "";
+	//文件局部变量，高并发会有BUG需要优化（存本地磁盘的BUG，后期需要一个文件服务器）
+	public String filePath = "";
 	
 	/**
-	 * 在线预览PDF文件
+	 * 在线预览PDF文件-获取文件路径
 	 * @param path
 	 */
 	@RequestMapping(value = "/changePDFUrl.do", method = RequestMethod.GET)
@@ -59,7 +60,7 @@ public class PdfController extends BaseController {
             response.setContentType("multipart/form-data");
             OutputStream outputStream = response.getOutputStream();
             IOUtils.write(IOUtils.toByteArray(fileInputStream), outputStream);
-        } catch(Exception e) {
+        } catch(Exception e) { 
         	LOGGER.error("在线预览PDF失败！", e);
         }
     }
