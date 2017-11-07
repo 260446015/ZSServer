@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.controller.industry;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.es.entity.AITInfo;
+import com.huishu.ZSServer.service.company.CompanyService;
 import com.huishu.ZSServer.service.indus.IndustryInfoService;
 
 /**
@@ -33,7 +36,8 @@ public class IndustryInfoController extends BaseController{
 	
 	@Autowired
 	private IndustryInfoService service;
-	
+	@Autowired
+	private CompanyService  cservice;
 	/**
 	 *产业资讯，关键词云
 	 * @param msg
@@ -114,4 +118,17 @@ public class IndustryInfoController extends BaseController{
 		Page<AITInfo> array =  service.findResearchResultList(json);
 		return success(array);
 	}
+	
+	/**
+	 * 根据地区显示公司名称 
+	 */
+	@RequestMapping(value="/getBusinessListByArea.json",method=RequestMethod.GET)
+	public AjaxResult getBusinessListByArea(JSONArray json ){
+		JSONObject obj = json.getJSONObject(0);
+		String area = obj.getString("area");
+		String industry = obj.getString("industry");
+		List<String> list = cservice.findCompanyName(area ,industry);
+		return success(list);
+	}
+	
 }

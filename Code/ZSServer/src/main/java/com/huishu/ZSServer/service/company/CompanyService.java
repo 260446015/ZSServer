@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.service.company;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.huishu.ZSServer.entity.Company;
@@ -15,5 +17,13 @@ import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 public interface CompanyService {
 
 	Page<Company> findCompanyList(CompanySearchDTO dto);
+
+	/**
+	 * @param area
+	 * @param industry
+	 * @return
+	 * 查找公司名称
+	 */
+	List<String> findCompanyName(String area, String industry);
 	
 }

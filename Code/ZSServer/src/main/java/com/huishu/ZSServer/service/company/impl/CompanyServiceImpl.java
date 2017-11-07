@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.service.company.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +94,16 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 			LOGGER.error("查询企业列表失败", e.getMessage());
 		}
 		return page;
+	}
+
+	/**
+	 * 查找公司名称
+	 */
+	@Override
+	public List<String> findCompanyName(String area, String industry) {
+		List<String> list = companyRepository.findByAreaAndIndustry(area,industry);
+//		int i = (int)(Math.random()*(list.size())+1);
+		return list;
 	}
 
 }
