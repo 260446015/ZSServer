@@ -194,8 +194,8 @@
 	      }
 	    }
 	    ,content: function(value){
-	    	if(value.length > 32766){
-	        return '您输入了'+value.length+'字符，文本不得多于32766个字符！';
+	    	if(value.length > 10000){
+	        return '您输入了'+value.length+'字符，文本不得多于10000个字符！';
 	      }
 	      layedit.sync(editIndex);
 	    }
