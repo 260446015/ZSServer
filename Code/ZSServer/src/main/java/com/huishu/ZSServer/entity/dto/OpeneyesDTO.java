@@ -12,9 +12,11 @@ public class OpeneyesDTO extends AbstractDTO {
 	/** 访问的网址 */
 	private String spec;
 	/** 访问请求的参数 */
-	private Map<String, String> params;
+	private Map<String, Object> params;
 	/** 访问的公司名称 */
 	private String cname;
+	/** 查询人名 */
+	private String humanName;
 
 	public String getSpec() {
 		return spec;
@@ -24,11 +26,11 @@ public class OpeneyesDTO extends AbstractDTO {
 		this.spec = spec;
 	}
 
-	public Map<String, String> getParams() {
+	public Map<String, Object> getParams() {
 		return params;
 	}
 
-	public void setParams(Map<String, String> params) {
+	public void setParams(Map<String, Object> params) {
 		this.params = params;
 	}
 
@@ -38,6 +40,14 @@ public class OpeneyesDTO extends AbstractDTO {
 
 	public void setCname(String cname) {
 		this.cname = cname;
+	}
+
+	public String getHumanName() {
+		return humanName;
+	}
+
+	public void setHumanName(String humanName) {
+		this.humanName = humanName;
 	}
 
 }
