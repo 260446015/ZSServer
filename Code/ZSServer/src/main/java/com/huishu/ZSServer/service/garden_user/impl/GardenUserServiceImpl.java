@@ -68,8 +68,8 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 					}
 					gu.setUserId(userId);
 					gu.setGardenPicture(garden.getGardenPicture());
+					gu.setEnterCompany(garden.getEnterCompany());
 					gu.setGardenId(gardenId);
-					// gu.setIndustryType(garden.getIndustry());
 					gardenUserRepository.save(gu);
 					return gu;
 				}
@@ -137,9 +137,13 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 	public JSONObject addGardenCompare(Long gardenId, Long userId) {
 		JSONObject obj = new JSONObject();
 		try {
-			GardenUser gu = gardenUserRepository.findOne(gardenId);
-			if (gu == null)
+			Map<String, Object> params = new HashMap<>();
+			params.put("gardenId", gardenId);
+			params.put("userId", userId);
+			List<GardenUser> gus = gardenUserRepository.findAll(getSpec(params));
+			if (gus.size() == 0)
 				return null;
+			GardenUser gu = gus.get(0);
 			List<GardenCompare> list = compareRepository.findByUserIdAndGardenId(userId, gardenId);
 			if (list.size() > 0)
 				return null;
@@ -147,9 +151,11 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 			gc.setEnterCompany(gu.getEnterCompany());
 			gc.setLogo(gu.getGardenPicture());
 			gc.setGdp(gu.getGdp());
+			gc.setGardenId(gu.getGardenId());
 			gc.setGardenSquare(gu.getGardenSquare());
 			gc.setGardenName(gu.getGardenName());
 			gc.setUserId(gu.getUserId());
+			compareRepository.save(gc);
 			obj.put("success", true);
 		} catch (Exception e) {
 			LOGGER.error("存储对比园区失败", e.getMessage());

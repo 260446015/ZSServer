@@ -26,6 +26,8 @@ import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
+import com.huishu.ZSServer.security.Digests;
+import com.huishu.ZSServer.security.Encodes;
 
 public class AbstractService<T> {
 
@@ -117,10 +119,15 @@ public class AbstractService<T> {
 		JSONObject parseObj = null;
 		try {
 			response = HttpUtils.sendHttpGet(spec, params);
-			parseObj = JSONObject.parseObject(response).getJSONObject("data");;
+			parseObj = JSONObject.parseObject(response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		LOGGER.info("查询到的天眼查接口信息:"+parseObj);
 		return parseObj;
+	}
+	protected String getGeneratedId(Object info){
+		byte[] hashPassword = Digests.sha1(info.toString().getBytes(), null, Encodes.HASH_INTERATIONS);
+		return Encodes.encodeHex(hashPassword);
 	}
 }

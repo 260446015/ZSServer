@@ -37,5 +37,85 @@ public class KeyConstan{
 		 * 企业年报url-年产值、年税收
 		 */
 		public static final String NIANBAO = "https://open.api.tianyancha.com/services/v3/newopen/annualreport.json";
+		/**
+		 * 基本信息
+		 */
+		public static final String BASEINFO = "https://open.api.tianyancha.com/services/v3/newopen/baseinfo.json";
+		/**
+		 * 分支机构
+		 */
+		public static final String BRANCH = "https://open.api.tianyancha.com/services/v3/newopen/branch.json";
+		/**
+		 * 融资历史
+		 */
+		public static final String HISTORYRONGZI = "https://open.api.tianyancha.com/services/v3/newopen/findHistoryRongzi.json";
+		/**
+		 * 核心团队
+		 */
+		public static final String TEAMMEMBER = "https://open.api.tianyancha.com/services/v3/newopen/findTeamMember.json";
+		/**
+		 * 企业业务
+		 */
+		public static final String PRODUCTINFO = "https://open.api.tianyancha.com/services/v3/newopen/getProductInfo.json";
+		/**
+		 * 投资案例
+		 */
+		public static final String TZANLI = "https://open.api.tianyancha.com/services/v3/newopen/findTzanli.json";
+		/**
+		 * 竞品信息
+		 */
+		public static final String JINGPIN = "https://open.api.tianyancha.com/services/v3/newopen/findJingpin.json";
+		/**
+		 * 商标信息
+		 */
+		public static final String SHANGBIAO = "https://open.api.tianyancha.com/services/v3/newopen/tm.json";
+		/**
+		 * 专利
+		 */
+		public static final String PATENTS = "https://open.api.tianyancha.com/services/v3/newopen/patents.json";
+		/**
+		 * 著作权
+		 */
+		public static final String COPYREG = "https://open.api.tianyancha.com/services/v3/newopen/copyReg.json";
+		/**
+		 * 网站备案
+		 */
+		public static final String ICP = "https://open.api.tianyancha.com/services/v3/newopen/icp.json";
+		/**
+		 * 经营异常
+		 */
+		public static final String ABNORMAL = "https://open.api.tianyancha.com/services/v4/open/abnormal.json";
+		/**
+		 * 行政处罚
+		 */
+		public static final String XINGZHENGCHUFA = "https://open.api.tianyancha.com/services/v4/open/punishmentInfo.json";
+		/**
+		 * 严重违法
+		 */
+		public static final String YANZHONGWEIFA = "https://open.api.tianyancha.com/services/v4/open/illegalinfo.json";
+		/**
+		 * 欠税公告
+		 */
+		public static final String QIANSHUIGONGGAO = "https://open.api.tianyancha.com/services/v4/open/ownTax.json";
+		/**
+		 * 新闻
+		 */
+		public static final String NEWS = "https://open.api.tianyancha.com/services/v3/open/news.json";
+		/**
+		 * 失信人
+		 */
+		public static final String SHIXINREN = "https://open.api.tianyancha.com/services/v4/open/dishonest.json";
+		/**
+		 * 企业风险
+		 */
+		public static final String QIYEFENGXIAN = "https://open.api.tianyancha.com/services/v4/open/riskInfo.json";
+		/**
+		 * 人风险
+		 */
+		public static final String RENFENGXIAN = "https://open.api.tianyancha.com/services/v4/open/humanRiskInfo.json";
+		/**
+		 * 风险信息
+		 */
+		public static final String FENGXIANXINXI = "https://open.api.tianyancha.com/services/v4/open/riskDetail.json";
 	}
 }
