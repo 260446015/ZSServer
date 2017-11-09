@@ -1,0 +1,21 @@
+package com.huishu.ZSServer.service.company;
+
+import com.huishu.ZSServer.entity.openeyes.BaseInfo;
+
+/**
+ * @author hhy
+ * @date 2017年11月9日
+ * @Parem
+ * @return 
+ * 
+ */
+public interface IndusCompanyService {
+
+	/**
+	 * 根据别名查找公司信息
+	 * @param companyName
+	 * @return
+	 */
+	BaseInfo getCompanyInfo(String companyName);
+
+}

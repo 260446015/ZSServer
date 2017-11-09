@@ -187,18 +187,11 @@ public class IndustryInfoServiceImpl implements IndustryInfoService {
 		if(type=="1"){
 			//按时间排序
 			pageable = new PageRequest(0, 10, new Sort(Direction.DESC, "publishTime"));
-			
-//			 page = template.queryForPage(getSearchQueryBuilder().withQuery(bq).build(), AITInfo.class);
 			page = rep.search(bq, pageable);
-			
 		}else{
-//			pageable = new PageRequest(0, 10,new Sort(Direction.DESC, "hitCount"));
 			pageable = new PageRequest(0, 10,new Sort(Direction.ASC, "hitCount"));
-			
 			 page = rep.search(bq, pageable);
-			
 		}
-		
 		return page;
 	}
 

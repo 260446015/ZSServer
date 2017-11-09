@@ -1,0 +1,53 @@
+package com.huishu.ZSServer.controller.company;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.huishu.ZSServer.common.AjaxResult;
+import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.common.util.StringUtil;
+import com.huishu.ZSServer.controller.BaseController;
+import com.huishu.ZSServer.entity.openeyes.BaseInfo;
+import com.huishu.ZSServer.service.company.IndusCompanyService;
+
+/**
+ * @author hhy
+ * @date 2017年11月8日
+ * @Parem
+ * @return 
+ * 精准招商模块--智能招商
+ */
+@RestController
+@RequestMapping(value = "/getcompany")
+public class AccurateController extends BaseController{
+	
+	private static final Logger LOGGER = Logger.getLogger(AccurateController.class);
+	
+	@Autowired
+	private IndusCompanyService service;
+	/**
+	 * 根据公司名称查询公司信息
+	 * @param companyName
+	 * @return
+	 */
+	@RequestMapping(value="/findCompanyInfoByName.json")
+	public AjaxResult findCompanyInfoByName(String companyName){
+		if(StringUtil.isEmpty(companyName)){
+			LOGGER.debug(MsgConstant.ILLEGAL_PARAM);
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		BaseInfo info = service.getCompanyInfo(companyName);
+		return success(info);
+	}
+	
+	/**
+	 * 图片的上传与识别
+	 * @return
+	 */
+	@RequestMapping(value = "")
+	public AjaxResult uploadImage(){
+		return success(null);
+	}
+}

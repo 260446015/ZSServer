@@ -25,5 +25,7 @@ public interface CompanyService {
 	 * 查找公司名称
 	 */
 	List<String> findCompanyName(String area, String industry);
+
+	
 	
 }

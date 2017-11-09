@@ -37,7 +37,7 @@ public class IndustrySummitController extends BaseController{
 	private IndusSummitService service ;
 	
 	@ResponseBody
-	@RequestMapping(value="",method = RequestMethod.GET)
+	@RequestMapping(value="/getIndustrySummit.json",method = RequestMethod.GET)
 	public AjaxResult getIndustrySummit(@RequestBody String industryLabel){
 		JSONObject obj = new JSONObject();
 		obj.put("dimension", "高峰论坛");
@@ -91,7 +91,7 @@ public class IndustrySummitController extends BaseController{
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public AjaxResult insertSummitInfoById(UserSummitInfo info){
 		if(info == null){
-			LOGGER.debug("关注 峰会 详情 异常:"+info.getAid());
+			LOGGER.debug("关注 峰会 详情 异常:"+info);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		
