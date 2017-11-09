@@ -54,6 +54,9 @@ public class DataServiceImpl extends AbstractService implements DataService {
 			info.setHasWarn(false);
 			info.setIstop(false);
 			info.setArticleLink(info.getSourceLink());
+			if(info.getContent().length()>10000){
+				info.setContent(info.getContent().substring(0, 10000));
+			 }
 			if(info.getContent().length()>300){
 				info.setSummary(info.getContent().substring(0, 300));
 			 }else{
