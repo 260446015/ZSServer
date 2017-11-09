@@ -16,4 +16,12 @@ import com.huishu.ZSServer.entity.UserSummitInfo;
 @Repository
 public interface SummitRepository extends CrudRepository<UserSummitInfo, Long>{
 
+	/**
+	 * 验证该信息是否已入库
+	 * @param aid
+	 * @param uid
+	 * @return
+	 */
+	UserSummitInfo findByAidAndUid(String aid, Long uid);
+
 }

@@ -84,8 +84,14 @@ public class IndusSummitServiceImpl implements IndusSummitService {
 	 */
 	@Override
 	public boolean insertSummitInfoById(UserSummitInfo info) {
-		
-		UserSummitInfo save = rep.save(info);
+		UserSummitInfo usi = rep.findByAidAndUid(info.getAid(),info.getUid());
+		UserSummitInfo save = null;
+		if( usi == null ){
+			save = rep.save(info);
+		}else if( usi.getUid()==info.getUid() && usi.getAid().equals(info.getAid())){
+			System.out.println("该用户信息已存在>>>>>>"+usi.getAid());
+			return false;
+		}
 		if(save!= null){
 			return true;
 		}else{

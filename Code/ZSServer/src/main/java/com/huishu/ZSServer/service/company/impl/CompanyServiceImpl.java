@@ -102,8 +102,10 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 	@Override
 	public List<String> findCompanyName(String area, String industry) {
 		List<String> list = companyRepository.findByAreaAndIndustry(area,industry);
-//		int i = (int)(Math.random()*(list.size())+1);
 		return list;
 	}
+
+	
+	
 
 }
