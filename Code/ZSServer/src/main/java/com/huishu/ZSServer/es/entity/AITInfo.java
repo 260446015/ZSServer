@@ -106,6 +106,14 @@ public class AITInfo {
 	private boolean istop;
 	
 
+	public Long getHot() {
+		return hot;
+	}
+
+	public void setHot(Long hot) {
+		this.hot = hot;
+	}
+
 	public boolean isIstop() {
 		return istop;
 	}

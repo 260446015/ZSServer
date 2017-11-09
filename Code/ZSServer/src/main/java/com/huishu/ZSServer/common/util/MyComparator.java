@@ -11,7 +11,7 @@ import com.huishu.ZSServer.es.entity.AITInfo;
  * @return 
  * 
  */
-public class MyComparator implements Comparator {
+public class MyComparator implements Comparator<Object> {
 
 	/** 
      * 实现compare 

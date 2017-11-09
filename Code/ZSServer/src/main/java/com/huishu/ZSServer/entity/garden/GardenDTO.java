@@ -1,7 +1,5 @@
 package com.huishu.ZSServer.entity.garden;
 
-import java.io.Serializable;
-
 import com.huishu.ZSServer.entity.dto.AbstractDTO;
 
 /**

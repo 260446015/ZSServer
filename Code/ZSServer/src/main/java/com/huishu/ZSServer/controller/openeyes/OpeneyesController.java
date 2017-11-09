@@ -1,7 +1,6 @@
 package com.huishu.ZSServer.controller.openeyes;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,7 +11,6 @@ import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
-import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
 /**

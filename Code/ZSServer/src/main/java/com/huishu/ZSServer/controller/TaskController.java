@@ -57,11 +57,9 @@ public class TaskController {
 				List<NameValuePair> params=new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("name",company.getCompanyName()));
 				JSONObject jsonObject = HttpUtils.sendGet(KeyConstan.URL.RONGZI, params);
-				JSONObject result = (JSONObject)jsonObject.get("result");
+				JSONObject result = jsonObject.getJSONObject("result");
 				if(result==null) continue;
-				JSONObject page = result.getJSONObject("page");
-				JSONArray rows = page.getJSONArray("rows");
-				JSONObject row = rows.getJSONObject(0);
+				JSONObject row = result.getJSONObject("page").getJSONArray("rows").getJSONObject(0);
 				company.setInvest(row.getString("round"));
 				company.setFinancingAmount(row.getString("money"));
 				company.setInvestor(row.getString("organizationName"));
