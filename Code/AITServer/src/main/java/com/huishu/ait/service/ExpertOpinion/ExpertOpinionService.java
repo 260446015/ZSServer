@@ -1,9 +1,10 @@
 package com.huishu.ait.service.ExpertOpinion;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ait.entity.FilePdf;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
 
 /**
@@ -22,4 +23,10 @@ public interface ExpertOpinionService {
 
 	// 取消收藏专家观点文章
 	public JSONObject cancelExpertOpinionCollect(String id, Long userId);
+	
+	/**
+	 * 查询专家观点PDF列表最近十条
+	 * @return
+	 */
+	Page<FilePdf> getExpertReport();
 }

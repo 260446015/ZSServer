@@ -1,7 +1,5 @@
 package com.huishu.ait.controller.Industrymodule.expert;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.common.util.ConcersUtils;
 import com.huishu.ait.common.util.StringUtil;
 import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.FilePdf;
 import com.huishu.ait.entity.Specialist;
 import com.huishu.ait.entity.common.AjaxResult;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
@@ -37,6 +36,21 @@ public class ExpertOpinionController extends BaseController {
 	@Autowired
 	private SpecialistService specialistService;
 
+	/**
+	 * 获取专家观点PDF列表
+	 * @return
+	 */
+	@RequestMapping(value = "getExpertReport.json", method = RequestMethod.GET)
+	public AjaxResult getExpertReport() {
+		try {
+			Page<FilePdf> page = expertOpinionService.getExpertReport();
+			return this.success(page);
+		} catch (Exception e) {
+			log.error("查询失败：", e.getMessage());
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
 	/**
 	 * @param dto
 	 *            初始化分页的方法

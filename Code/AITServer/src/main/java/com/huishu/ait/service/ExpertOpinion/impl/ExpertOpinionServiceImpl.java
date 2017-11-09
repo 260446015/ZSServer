@@ -30,10 +30,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.util.Constans;
 import com.huishu.ait.common.util.ESUtils;
 import com.huishu.ait.common.util.StringUtil;
+import com.huishu.ait.entity.FilePdf;
 import com.huishu.ait.entity.UserCollection;
 import com.huishu.ait.es.entity.AITInfo;
 import com.huishu.ait.es.entity.ExpertOpinionDTO;
 import com.huishu.ait.es.repository.ExpertOpinion.BaseElasticsearch;
+import com.huishu.ait.repository.expertOpinionDetail.FilePdfRepository;
 import com.huishu.ait.repository.expertOpinionDetail.UserCollectionRepository;
 import com.huishu.ait.service.ExpertOpinion.ExpertOpinionService;
 
@@ -52,6 +54,8 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 	private BaseElasticsearch baseElasticsearch;
 	@Resource
 	private UserCollectionRepository userCollectionRepository;
+	@Autowired
+	private FilePdfRepository filePdfRepository;
 
 	/*
 	 * 方法名：getExertOpinionList 描述：根据条件获取百家论观点信息
@@ -200,5 +204,11 @@ public class ExpertOpinionServiceImpl implements ExpertOpinionService {
 			log.error("取消收藏失败：", e.getMessage());
 			return json;
 		}
+	}
+
+	@Override
+	public Page<FilePdf> getExpertReport() {
+		PageRequest pageRequest = new PageRequest(0, 10,new Sort(Direction.DESC, "createTime"));
+		return filePdfRepository.findByDimension("专家观点",pageRequest);
 	}
 }
