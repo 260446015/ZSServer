@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.controller.company;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
+import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.service.company.IndusCompanyService;
 
@@ -27,6 +30,7 @@ public class AccurateController extends BaseController{
 	
 	@Autowired
 	private IndusCompanyService service;
+	
 	/**
 	 * 根据公司名称查询公司信息
 	 * @param companyName
@@ -40,6 +44,16 @@ public class AccurateController extends BaseController{
 		}
 		BaseInfo info = service.getCompanyInfo(companyName);
 		return success(info);
+	}
+	
+	/**
+	 * 智能推送公司列表
+	 * @return
+	 */
+	@RequestMapping(value="/listCompanyInfo.json")
+	public AjaxResult listCompanyInfo(){
+		List<Company> list = service.listCompany();
+		return success(list);
 	}
 	
 	/**

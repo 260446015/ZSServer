@@ -1,5 +1,8 @@
 package com.huishu.ZSServer.service.company;
 
+import java.util.List;
+
+import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 
 /**
@@ -17,5 +20,11 @@ public interface IndusCompanyService {
 	 * @return
 	 */
 	BaseInfo getCompanyInfo(String companyName);
+
+	/**
+	 * 智能推荐优质企业
+	 * @return
+	 */
+	List<Company> listCompany();
 
 }

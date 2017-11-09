@@ -1,8 +1,11 @@
 package com.huishu.ZSServer.service.company.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
@@ -65,6 +69,30 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 			repository.save(com);
 			return save;
 		}
+	}
+
+	
+	@Override
+	public List<Company> listCompany() {
+		List<Company> list = new ArrayList<Company>();
+		//获取总数
+		int count = repository.getCount();
+		
+		//id最小值
+		int min = repository.getMINId();
+		
+		//id最大值
+		int max = repository.getMAXId();
+		List<Long> li = new ArrayList<Long>();
+		while(list.size()<=9){
+			int id = (int)(Math.random()*count+1);
+			if(min<= id&& id  <= max){
+				li.add((long) id);
+			}
+		}
+		Iterable<IndusCompany> findAll = repository.findAll((Iterable<Long>) li.iterator());
+		list.add((Company) findAll.iterator());
+		return list;
 	}
 	
 	
