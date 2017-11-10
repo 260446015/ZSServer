@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
@@ -91,87 +94,6 @@ public class HttpUtils {
 			if (in != null) {
 				in.close();
 			}
-		}
-	}
-
-	/**
-	 * 当 http状态码
-	 * <ol>
-	 * <li>等于200：返回接受的到的数据</li>
-	 * <li>不等于200：返回当前http状态码</li>
-	 * <li>其它情形：返回 null</li>
-	 * </ol>
-	 * 
-	 * @param conn
-	 *            HttpURLConnection 对象
-	 * @return 调用结果
-	 */
-	public static String result(HttpURLConnection conn) {
-		StringBuilder sb = null;
-		InputStream is = null;
-		BufferedReader br = null;
-		try {
-			if (200 == conn.getResponseCode()) {
-				is = conn.getInputStream();
-				br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-				sb = new StringBuilder();
-				String line = br.readLine();
-				while (line != null) {
-					sb.append(line);
-					line = br.readLine();
-				}
-				return sb.toString();
-			} else {
-				return conn.getResponseCode() + "";
-			}
-		} catch (UnsupportedEncodingException e) {
-			logger.error(e.getMessage());
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		} finally {
-			if (is != null) {
-				try {
-					is.close();
-				} catch (IOException e) {
-				}
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * 
-	 * 禁止 SSL校验
-	 */
-	public static void disableSslVerification() {
-		try {
-			TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-				public X509Certificate[] getAcceptedIssuers() {
-					return null;
-				}
-
-				public void checkClientTrusted(X509Certificate[] certs, String authType) {
-				}
-
-				public void checkServerTrusted(X509Certificate[] certs, String authType) {
-				}
-			} };
-
-			SSLContext sc = SSLContext.getInstance("SSL");
-			sc.init(null, trustAllCerts, new java.security.SecureRandom());
-			HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-			HostnameVerifier allHostsValid = new HostnameVerifier() {
-				public boolean verify(String hostname, SSLSession session) {
-					return true;
-				}
-			};
-			HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-		} catch (NoSuchAlgorithmException e) {
-			logger.error(e.getMessage());
-		} catch (KeyManagementException e) {
-			logger.error(e.getMessage());
 		}
 	}
 

@@ -1,10 +1,19 @@
 package com.huishu.ZSServer.controller.company;
 
+import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.huishu.ZSServer.common.AjaxResult;
@@ -23,7 +32,7 @@ import com.huishu.ZSServer.service.company.IndusCompanyService;
  * 精准招商模块--智能招商
  */
 @RestController
-@RequestMapping(value = "/getcompany")
+@RequestMapping(value = "/apis/getcompany")
 public class AccurateController extends BaseController{
 	
 	private static final Logger LOGGER = Logger.getLogger(AccurateController.class);
@@ -60,7 +69,7 @@ public class AccurateController extends BaseController{
 	 * 图片的上传与识别
 	 * @return
 	 */
-	@RequestMapping(value = "")
+	@RequestMapping(value = "uploadImage.json", method = RequestMethod.POST)
 	public AjaxResult uploadImage(){
 		return success(null);
 	}

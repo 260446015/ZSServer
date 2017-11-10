@@ -22,6 +22,9 @@ public class KeyConstan{
 	 */
 	public static final String IP_PORT = "http://58.16.181.24:9209/";
 	
+	/** 图片文本提取URL */
+	public static final String DISTINGUISH = "http://114.55.4.218:6001/Api/OCRServices";
+	
 	/**
 	 * 天眼查url
 	 * 
