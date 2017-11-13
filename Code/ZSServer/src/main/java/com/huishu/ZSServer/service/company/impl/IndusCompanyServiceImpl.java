@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
@@ -93,6 +96,18 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 		Iterable<IndusCompany> findAll = repository.findAll((Iterable<Long>) li.iterator());
 		list.add((Company) findAll.iterator());
 		return list;
+	}
+
+
+	@Override
+	public List<Company> uploadImage(String imageBase64) {
+		String url="http://114.55.4.218:6001/Api/OCRServices";
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("src_img ", imageBase64));
+		JSONObject object = HttpUtils.sendPost(url, params);
+		String imgMsg = object.getString("data");
+		System.out.println(imgMsg);
+		return null;
 	}
 	
 	

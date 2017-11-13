@@ -2,6 +2,8 @@ package com.huishu.ZSServer.service.company;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 
@@ -26,5 +28,11 @@ public interface IndusCompanyService {
 	 * @return
 	 */
 	List<Company> listCompany();
-
+	
+	/**
+	 * 根据上传名片获取相关公司列表
+	 * @param imageBase64
+	 * @return
+	 */
+	List<Company> uploadImage(String imageBase64);
 }
