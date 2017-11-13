@@ -24,7 +24,7 @@ public class JingPin implements Serializable {
 	 */
 	private static final long serialVersionUID = -5456550794818867291L;
 	@Id
-	private Long id;
+	private String id;
 	/** 公司名 */
 	private String companyName;
 	/** 时间 */
@@ -51,12 +51,22 @@ public class JingPin implements Serializable {
 	private String value;
 	/** 业务范围 */
 	private String yewu;
+	/**所属公司*/
+	private String cname;
 
-	public Long getId() {
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

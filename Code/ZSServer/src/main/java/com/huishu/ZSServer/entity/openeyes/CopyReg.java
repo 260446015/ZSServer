@@ -40,6 +40,16 @@ public class CopyReg implements Serializable {
 	private Long publishtime;
 	/** 登记日期 */
 	private Long regtime;
+	/**所属公司*/
+	private String companyName;
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 
 	public String getRegnum() {
 		return regnum;

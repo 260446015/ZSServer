@@ -8,6 +8,6 @@ import com.huishu.ZSServer.entity.openeyes.JingPin;
 
 public interface JingPinRepository extends CrudRepository<JingPin, Long> {
 
-	List<JingPin> findByCompanyName(String cname);
+	List<JingPin> findByCname(String cname);
 
 }

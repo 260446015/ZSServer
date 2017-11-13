@@ -17,6 +17,8 @@ public class OpeneyesDTO extends AbstractDTO {
 	private String cname;
 	/** 查询人名 */
 	private String humanName;
+	/** 查询关键字 */
+	private String word;
 
 	public String getSpec() {
 		return spec;
@@ -48,6 +50,14 @@ public class OpeneyesDTO extends AbstractDTO {
 
 	public void setHumanName(String humanName) {
 		this.humanName = humanName;
+	}
+
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
 	}
 
 }

@@ -5,35 +5,61 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
+import com.huishu.ZSServer.common.util.StringUtil;
+import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
+import com.huishu.ZSServer.entity.openeyes.Abnormal;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.entity.openeyes.Branch;
 import com.huishu.ZSServer.entity.openeyes.CopyReg;
+import com.huishu.ZSServer.entity.openeyes.Dishonest;
 import com.huishu.ZSServer.entity.openeyes.HistoryRongZi;
+import com.huishu.ZSServer.entity.openeyes.HumanRiskInfo;
 import com.huishu.ZSServer.entity.openeyes.Icp;
+import com.huishu.ZSServer.entity.openeyes.Illegalinfo;
 import com.huishu.ZSServer.entity.openeyes.JingPin;
+import com.huishu.ZSServer.entity.openeyes.News;
+import com.huishu.ZSServer.entity.openeyes.OwnTax;
 import com.huishu.ZSServer.entity.openeyes.Patents;
 import com.huishu.ZSServer.entity.openeyes.ProductInfo;
+import com.huishu.ZSServer.entity.openeyes.PunishmentInfo;
+import com.huishu.ZSServer.entity.openeyes.RiskDetail;
+import com.huishu.ZSServer.entity.openeyes.RiskInfo;
 import com.huishu.ZSServer.entity.openeyes.ShangBiao;
 import com.huishu.ZSServer.entity.openeyes.Staff;
+import com.huishu.ZSServer.entity.openeyes.TaxCredit;
 import com.huishu.ZSServer.entity.openeyes.TeamMember;
 import com.huishu.ZSServer.entity.openeyes.TouZi;
+import com.huishu.ZSServer.repository.company.CompanyRepository;
+import com.huishu.ZSServer.repository.openeyes.AbnormalRepository;
 import com.huishu.ZSServer.repository.openeyes.BaseInfoRepository;
 import com.huishu.ZSServer.repository.openeyes.BranchRepository;
 import com.huishu.ZSServer.repository.openeyes.CopyRegRepository;
+import com.huishu.ZSServer.repository.openeyes.DishonestRepository;
 import com.huishu.ZSServer.repository.openeyes.HistoryRongZiRepository;
+import com.huishu.ZSServer.repository.openeyes.HumanRiskInfoRepository;
 import com.huishu.ZSServer.repository.openeyes.IcpRepository;
+import com.huishu.ZSServer.repository.openeyes.IllegalinfoRepository;
 import com.huishu.ZSServer.repository.openeyes.JingPinRepository;
+import com.huishu.ZSServer.repository.openeyes.NewsRepository;
+import com.huishu.ZSServer.repository.openeyes.OwnTaxRepository;
 import com.huishu.ZSServer.repository.openeyes.PatentsRepository;
 import com.huishu.ZSServer.repository.openeyes.ProductInfoRepository;
+import com.huishu.ZSServer.repository.openeyes.PunishmentInfoRepository;
+import com.huishu.ZSServer.repository.openeyes.RiskDetailRepository;
+import com.huishu.ZSServer.repository.openeyes.RiskInfoRepository;
 import com.huishu.ZSServer.repository.openeyes.ShangBiaoRepository;
 import com.huishu.ZSServer.repository.openeyes.StaffRepository;
+import com.huishu.ZSServer.repository.openeyes.TaxCreditRepository;
 import com.huishu.ZSServer.repository.openeyes.TeamMemberRepository;
 import com.huishu.ZSServer.repository.openeyes.TouZiRepository;
 import com.huishu.ZSServer.service.AbstractService;
@@ -42,6 +68,7 @@ import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 @Service
 public class OpeneyesServiceImpl extends AbstractService implements OpeneyesService {
 
+	private static Logger log = LoggerFactory.getLogger(OpeneyesServiceImpl.class);
 	@Autowired
 	private BaseInfoRepository baseInfoRepository;
 	@Autowired
@@ -66,6 +93,28 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 	private CopyRegRepository copyRegRepository;
 	@Autowired 
 	private IcpRepository icpRepository;
+	@Autowired
+	private CompanyRepository companyRepository;
+	@Autowired
+	private AbnormalRepository abnormalRepository;
+	@Autowired
+	private PunishmentInfoRepository punishmentInfoRepository;
+	@Autowired
+	private IllegalinfoRepository illegalinfoRepository;
+	@Autowired
+	private OwnTaxRepository ownTaxRepository;
+	@Autowired
+	private NewsRepository newsRepository;
+	@Autowired
+	private DishonestRepository dishonestRepository;
+	@Autowired
+	private RiskInfoRepository riskInfoRepository;
+	@Autowired
+	private HumanRiskInfoRepository humanRiskInfoRepository;
+	@Autowired
+	private RiskDetailRepository riskDetailRepository;
+	@Autowired
+	private TaxCreditRepository taxCreditRepository;
 
 	@Override
 	public JSONObject getStaffInfo(OpeneyesDTO dto) {
@@ -91,84 +140,138 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 
 	@Override
 	public JSONObject getBaseInfo(OpeneyesDTO dto) {
-		JSONObject result = new JSONObject();
+		JSONObject openEyesTarget = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
+		dto.setParams(params);
+		dto.setSpec(KeyConstan.URL.BASEINFO);
 		List<BaseInfo> list = baseInfoRepository.findByName(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
-			return result;
+			openEyesTarget.put("result", list);
+			return openEyesTarget;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
-		JSONArray jsonArray = openEyesTarget.getJSONArray("result");
-		jsonArray.forEach(obj -> {
-			BaseInfo parseObject = JSONObject.parseObject(obj.toString(), BaseInfo.class);
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		BaseInfo parseObject = null;
+		if(null != openEyesTarget){
+			JSONObject jsonObj = openEyesTarget.getJSONObject("result");
+			parseObject = JSONObject.parseObject(jsonObj.toString(), BaseInfo.class);
 			list.add(parseObject);
-		});
-		baseInfoRepository.save(list);
+			getJingPin(dto);//此处调用获取竞品信息的功能，存入数据库
+			Company company = companyRepository.findByCompanyName(dto.getCname());
+			if(null != company){
+				company.setAddress(parseObject.getRegLocation());
+				company.setBoss(parseObject.getLegalPersonName());
+				company.setEngageState(parseObject.getRegStatus());
+//			company.setFinancingAmount(parseObject.get);
+//			company.setFinancingDate(financingDate);
+				company.setOpenIndustry(parseObject.getIndustry());
+//			company.setInvest(parseObject.get);
+//			company.setInvestor(parseObject.get);
+				company.setLogo(parseObject.getWebsiteList());
+				company.setRegisterCapital(Double.valueOf(parseObject.getRegCapital().substring(0, parseObject.getRegCapital().indexOf("万"))));
+//			company.setRegisterDate(parseObject.get);
+//			company.setScale(scale);
+				company.setOpenActualCapital(parseObject.getActualCapital());
+				company.setOpenBase(parseObject.getBase());
+				company.setOpenBusinessScope(parseObject.getBusinessScope());
+				company.setOpenCategoryScore(parseObject.getCategoryScore());
+				company.setOpenCompanyOrgType(parseObject.getCompanyOrgType());
+				company.setOpenCorrectCompanyId(parseObject.getCorrectCompanyId());
+				company.setOpenCreditCode(parseObject.getCreditCode());
+				company.setOpenEstiblishTime(parseObject.getEstiblishTime());
+				company.setOpenFromTime(parseObject.getFromTime());
+				company.setOpenLegalPersonId(parseObject.getLegalPersonId());
+				company.setOpenLegalPersonName(parseObject.getLegalPersonName());;
+				company.setOpenOrgApprovedInstitute(parseObject.getOrgApprovedInstitute());
+				company.setOpenOrgNumber(parseObject.getOrgNumber());
+				company.setOpenPercentileScore(parseObject.getPercentileScore());
+				company.setOpenPhoneNumber(parseObject.getPhoneNumber());
+				company.setOpenRegInstitute(parseObject.getRegInstitute());
+				company.setOpenRegNumber(parseObject.getRegNumber());
+				company.setOpenToTime(parseObject.getToTime());
+				company.setOpenType(parseObject.getType());
+			}
+			baseInfoRepository.save(list);
+		}
 		return openEyesTarget;
 	}
 
 	@Override
 	public JSONObject getBranch(OpeneyesDTO dto) {
-		JSONObject result = new JSONObject();
+		JSONObject openEyesTarget = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
-		List<Branch> list = branchRepository.findByName(dto.getCname());
+		dto.setParams(params);
+		dto.setSpec(KeyConstan.URL.BRANCH);
+		List<Branch> list = branchRepository.findByCompanyName(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
-			return result;
+			JSONObject inList = new JSONObject();
+			inList.put("result", list);
+			openEyesTarget.put("data", inList);
+			return openEyesTarget;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
-		JSONArray jsonArray = openEyesTarget.getJSONArray("result");
-		if(jsonArray != null){
-			jsonArray.forEach(obj -> {
-				Branch parseObject = JSONObject.parseObject(obj.toString(), BaseInfo.class);
-				parseObject.setCname(dto.getCname());
-				list.add(parseObject);
-			});
-			branchRepository.save(list);
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		if(null != openEyesTarget){
+			JSONArray jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("result");
+			if(jsonArray != null){
+				jsonArray.forEach(obj -> {
+					Branch parseObject = JSONObject.parseObject(obj.toString(), Branch.class);
+					parseObject.setCompanyName(dto.getCname());
+					list.add(parseObject);
+				});
+				branchRepository.save(list);
+			}
 		}
 		return openEyesTarget;
 	}
 
 	@Override
 	public JSONObject getHistoryRongZi(OpeneyesDTO dto) {
-		JSONObject result = new JSONObject();
+		JSONObject openEyesTarget = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		dto.setParams(params);
+		dto.setSpec(KeyConstan.URL.HISTORYRONGZI);
 		List<HistoryRongZi> list = historyRongZiRepository.findByCompanyName(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
-			return result;
+			JSONObject inList = new JSONObject();
+			inList.put("items", list);
+			openEyesTarget.put("result", inList);
+			return openEyesTarget;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
-		JSONArray jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
-		if(jsonArray != null){
-			jsonArray.forEach(obj -> {
-				HistoryRongZi parseObject = JSONObject.parseObject(obj.toString(), HistoryRongZi.class);
-				list.add(parseObject);
-			});
-			historyRongZiRepository.save(list);
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		if(null != openEyesTarget){
+			JSONArray jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
+			if(jsonArray != null){
+				jsonArray.forEach(obj -> {
+					HistoryRongZi parseObject = JSONObject.parseObject(obj.toString(), HistoryRongZi.class);
+					list.add(parseObject);
+				});
+				historyRongZiRepository.save(list);
+			}
 		}
 		return openEyesTarget;
 	}
 
 	@Override
 	public JSONObject getTeamMember(OpeneyesDTO dto) {
-		JSONObject result = new JSONObject();
+		JSONObject openEyesTarget = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		dto.setParams(params);
+		dto.setSpec(KeyConstan.URL.TEAMMEMBER);
 		List<TeamMember> list = teamMemberRepository.findByCompanyName(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
-			return result;
+			JSONObject inList = new JSONObject();
+			inList.put("items", list);
+			openEyesTarget.put("result", inList);
+			return openEyesTarget;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
-		JSONArray jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				TeamMember parseObject = JSONObject.parseObject(obj.toString(), TeamMember.class);
@@ -185,13 +288,17 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		dto.setParams(params);
+		dto.setSpec(KeyConstan.URL.PRODUCTINFO);
 		List<ProductInfo> list = productInfoRepository.findByCompanyName(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
+			JSONObject inList = new JSONObject();
+			inList.put("items", list);
+			result.put("result", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
-		JSONArray jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
+		JSONArray jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				ProductInfo parseObject = JSONObject.parseObject(obj.toString(), ProductInfo.class);
@@ -208,9 +315,13 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		dto.setParams(params);
+		dto.setSpec(KeyConstan.URL.TZANLI);
 		List<TouZi> list = touZiRepository.findByCompany(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
+			JSONObject inList = new JSONObject();
+			inList.put("items", list);
+			result.put("result", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
@@ -218,6 +329,7 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				TouZi parseObject = JSONObject.parseObject(obj.toString(), TouZi.class);
+				parseObject.setCompanyName(dto.getCname());
 				list.add(parseObject);
 			});
 			touZiRepository.save(list);
@@ -227,20 +339,29 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 
 	@Override
 	public JSONObject getJingPin(OpeneyesDTO dto) {
-		JSONObject result = new JSONObject();
+		JSONObject openEyesTarget = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
-		List<JingPin> list = jingPinRepository.findByCompanyName(dto.getCname());
+		dto.setParams(params);
+		dto.setSpec(KeyConstan.URL.JINGPIN);
+		List<JingPin> list = jingPinRepository.findByCname(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
-			return result;
+			JSONObject inList = new JSONObject();
+			inList.put("rows", list);
+			JSONObject outList = new JSONObject();
+			outList.put("page", inList);
+			openEyesTarget.put("result", outList);
+			return openEyesTarget;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
 		JSONArray jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				JingPin parseObject = JSONObject.parseObject(obj.toString(), JingPin.class);
+				String id = getGeneratedId(parseObject);
+				parseObject.setId(id);
+				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
 			});
 			jingPinRepository.save(list);
@@ -254,9 +375,13 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		dto.setParams(params);
+		dto.setSpec(KeyConstan.URL.SHANGBIAO);
 		List<ShangBiao> list = shangBiaoRepository.findByApplicantCn(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
+			JSONObject inList = new JSONObject();
+			inList.put("items", list);
+			result.put("result", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
@@ -277,9 +402,13 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		dto.setParams(params);
+		dto.setSpec(KeyConstan.URL.PATENTS);
 		List<Patents> list = patentsRepository.findByApplicantName(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
+			JSONObject inList = new JSONObject();
+			inList.put("items", list);
+			result.put("result", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
@@ -300,9 +429,13 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		dto.setParams(params);
+		dto.setSpec(KeyConstan.URL.COPYREG);
 		List<CopyReg> list = copyRegRepository.findByAuthorNationality(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
+			JSONObject inList = new JSONObject();
+			inList.put("items", list);
+			result.put("data", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
@@ -310,6 +443,7 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				CopyReg parseObject = JSONObject.parseObject(obj.toString(), CopyReg.class);
+				parseObject.setCompanyName(dto.getCname());
 				list.add(parseObject);
 			});
 			copyRegRepository.save(list);
@@ -325,9 +459,12 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		params.put("pageNum", dto.getPageNumber());
 		dto.setSpec(KeyConstan.URL.ICP);
 		dto.setParams(params);
+		PageRequest page = new PageRequest(0, 10);
 		List<Icp> list = icpRepository.findByCompanyName(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
+			JSONObject inList = new JSONObject();
+			inList.put("items", list);
+			result.put("data", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
@@ -377,11 +514,6 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		params.put("pageNum", dto.getPageNumber());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.ABNORMAL);
-//		List<Icp> list = icpRepository.findByCompanyName(dto.getCname());
-//		if (list.size() > 0) {
-//			result.put("result", list);
-//			return result;
-//		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
 		JSONArray abnormal = openEyesTarget.getJSONObject("result").getJSONArray("items");
 		dto.setSpec(KeyConstan.URL.XINGZHENGCHUFA);
@@ -419,6 +551,289 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		result.put("riskInfo", riskInfo);
 		result.put("humanRiskInfo", humanRiskInfo);
 		result.put("riskDetail", riskDetail);
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getKeyWords(OpeneyesDTO dto) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("word", dto.getWord());
+		dto.setParams(params);
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
+		log.info("查询到关键词的信息:"+jsonArray.toJSONString());
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getAbnormal(OpeneyesDTO dto) {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		params.put("pageNum", dto.getPageNumber());
+		dto.setSpec(KeyConstan.URL.ABNORMAL);
+		dto.setParams(params);
+		List<Abnormal> list = abnormalRepository.findByCompanyName(dto.getCname());
+		if (list.size() > 0) {
+			result.put("result", list);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray abnormal = openEyesTarget.getJSONObject("result").getJSONArray("items");
+		if(abnormal != null){
+			abnormal.forEach(obj -> {
+				Abnormal parseObject = JSONObject.parseObject(obj.toString(), Abnormal.class);
+				String id = getGeneratedId(parseObject);
+				parseObject.setId(id);
+				parseObject.setCompanyName(dto.getCname());
+				list.add(parseObject);
+			});
+			abnormalRepository.save(list);
+		}
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getPunishmentInfo(OpeneyesDTO dto) {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		params.put("pageNum", dto.getPageNumber());
+		dto.setSpec(KeyConstan.URL.XINGZHENGCHUFA);
+		dto.setParams(params);
+		List<PunishmentInfo> list = punishmentInfoRepository.findByName(dto.getCname());
+		if (list.size() > 0) {
+			result.put("result", list);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
+		if(jsonArr != null){
+			jsonArr.forEach(obj -> {
+				PunishmentInfo parseObject = JSONObject.parseObject(obj.toString(), PunishmentInfo.class);
+				String id = getGeneratedId(parseObject);
+				parseObject.setId(id);
+				list.add(parseObject);
+			});
+			punishmentInfoRepository.save(list);
+		}
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getIllegalinfo(OpeneyesDTO dto) {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		params.put("pageNum", dto.getPageNumber());
+		dto.setSpec(KeyConstan.URL.YANZHONGWEIFA);
+		dto.setParams(params);
+		List<Illegalinfo> list = illegalinfoRepository.findByCompanyName(dto.getCname());
+		if (list.size() > 0) {
+			result.put("result", list);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
+		if(jsonArr != null){
+			jsonArr.forEach(obj -> {
+				Illegalinfo parseObject = JSONObject.parseObject(obj.toString(), Illegalinfo.class);
+				String id = getGeneratedId(parseObject);
+				parseObject.setId(id);
+				parseObject.setCompanyName(dto.getCname());
+				list.add(parseObject);
+			});
+			illegalinfoRepository.save(list);
+		}
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getOwnTax(OpeneyesDTO dto) {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		params.put("pageNum", dto.getPageNumber());
+		dto.setSpec(KeyConstan.URL.QIANSHUIGONGGAO);
+		dto.setParams(params);
+		List<OwnTax> list = ownTaxRepository.findByName(dto.getCname());
+		if (list.size() > 0) {
+			result.put("result", list);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
+		if(jsonArr != null){
+			jsonArr.forEach(obj -> {
+				OwnTax parseObject = JSONObject.parseObject(obj.toString(), OwnTax.class);
+				String id = getGeneratedId(parseObject);
+				parseObject.setId(id);
+				list.add(parseObject);
+			});
+			ownTaxRepository.save(list);
+		}
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getNews(OpeneyesDTO dto) {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		dto.setSpec(KeyConstan.URL.QIANSHUIGONGGAO);
+		dto.setParams(params);
+		List<News> list = newsRepository.findByCompanyName(dto.getCname());
+		if (list.size() > 0) {
+			result.put("result", list);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray jsonArr = openEyesTarget.getJSONArray("result");
+		if(jsonArr != null){
+			jsonArr.forEach(obj -> {
+				News parseObject = JSONObject.parseObject(obj.toString(), News.class);
+				String id = getGeneratedId(parseObject);
+				parseObject.setId(id);
+				list.add(parseObject);
+			});
+			newsRepository.save(list);
+		}
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getDishonest(OpeneyesDTO dto) {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		dto.setSpec(KeyConstan.URL.SHIXINREN);
+		dto.setParams(params);
+		List<Dishonest> list = dishonestRepository.findByIname(dto.getCname());
+		if (list.size() > 0) {
+			result.put("result", list);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
+		if(jsonArr != null){
+			jsonArr.forEach(obj -> {
+				Dishonest parseObject = JSONObject.parseObject(obj.toString(), Dishonest.class);
+				list.add(parseObject);
+			});
+			dishonestRepository.save(list);
+		}
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getRiskInfo(OpeneyesDTO dto) {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		dto.setSpec(KeyConstan.URL.QIYEFENGXIAN);
+		dto.setParams(params);
+		List<RiskInfo> list = riskInfoRepository.findByCompanyName(dto.getCname());
+		if (list.size() > 0) {
+			result.put("result", list);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray internalList = openEyesTarget.getJSONObject("result").getJSONArray("internalList");
+		if(internalList != null){
+			internalList.forEach(obj -> {
+				RiskInfo parseObject = JSONObject.parseObject(obj.toString(), RiskInfo.class);
+				parseObject.setRiskType("internalList");
+				list.add(parseObject);
+			});
+		}
+		JSONArray externalList = openEyesTarget.getJSONObject("result").getJSONArray("externalList");
+		if(externalList != null){
+			externalList.forEach(obj -> {
+				RiskInfo parseObject = JSONObject.parseObject(obj.toString(), RiskInfo.class);
+				parseObject.setRiskType("externalList");
+				list.add(parseObject);
+			});
+		}
+		riskInfoRepository.save(list);
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getHumanRiskInfo(OpeneyesDTO dto) {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		dto.setSpec(KeyConstan.URL.RENFENGXIAN);
+		dto.setParams(params);
+		List<HumanRiskInfo> list = humanRiskInfoRepository.findByCompanyName(dto.getCname());
+		if (list.size() > 0) {
+			result.put("result", list);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("externalList");
+		if(jsonArr != null){
+			jsonArr.forEach(obj -> {
+				HumanRiskInfo parseObject = JSONObject.parseObject(obj.toString(), HumanRiskInfo.class);
+				list.add(parseObject);
+			});
+			humanRiskInfoRepository.save(list);
+		}
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getRiskDetail(OpeneyesDTO dto) {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		params.put("pageNum", dto.getPageNumber());
+		dto.setSpec(KeyConstan.URL.FENGXIANXINXI);
+		dto.setParams(params);
+		List<RiskDetail> list = riskDetailRepository.findByCompanyName(dto.getCname());
+		if (list.size() > 0) {
+			result.put("result", list);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("dataList");
+		if(jsonArr != null){
+			jsonArr.forEach(obj -> {
+				RiskDetail parseObject = JSONObject.parseObject(obj.toString(), RiskDetail.class);
+				parseObject.setCompanyName(dto.getCname());
+				list.add(parseObject);
+			});
+			riskDetailRepository.save(list);
+		}
+		return openEyesTarget;
+	}
+
+	@Override
+	public JSONObject getTaxCredit(OpeneyesDTO dto) {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		params.put("pageNum", dto.getPageNumber());
+		dto.setSpec(KeyConstan.URL.SHUIWU);
+		dto.setParams(params);
+		List<TaxCredit> list = taxCreditRepository.findByName(dto.getCname());
+		if (list.size() > 0) {
+			JSONObject inList = new JSONObject();
+			inList.put("items", list);
+			result.put("result", inList);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONArray jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
+		if(jsonArr != null){
+			jsonArr.forEach(obj -> {
+				TaxCredit parseObject = JSONObject.parseObject(obj.toString(), TaxCredit.class);
+				String id = getGeneratedId(obj);
+				parseObject.setId(id);
+				list.add(parseObject);
+			});
+			taxCreditRepository.save(list);
+		}
 		return openEyesTarget;
 	}
 	

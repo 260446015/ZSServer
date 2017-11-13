@@ -65,6 +65,209 @@ public class Company implements Serializable {
 	private Integer scale;
 	/** 二级产业 */
 	private String industryLabel;
+	/**天眼查产业标签*/
+	private String openIndustry;
+	/**天眼查实收注册资金*/
+	private String openActualCapital;
+	/**天眼查省份简称*/
+	private String openBase;
+	/**天眼查经营范围*/
+	@Column(length=1000)
+	private String openBusinessScope;
+	/**天眼查行业评分（万分制）*/
+	private Integer openCategoryScore;
+	/**天眼查公司类型*/
+	private String openCompanyOrgType;
+	/**天眼查曾用名id*/
+	private String openCorrectCompanyId;
+	/**统一社会信用代码*/
+	private String openCreditCode;
+	/**天眼查企业成立时间*/
+	private Long openEstiblishTime; 
+	/**天眼查营业期限开始时间*/
+	private Long openFromTime;
+	/**天眼查法人id*/
+	private Long openLegalPersonId;
+	/**天眼查法人名称*/
+	private String openLegalPersonName;
+	/**天眼查核准机构*/
+	private String openOrgApprovedInstitute;
+	/**天眼查组织机构代码*/
+	private String openOrgNumber;
+	/**天眼查公司评分*/
+	private Integer openPercentileScore;
+	/**天眼查联系方式*/
+	private String openPhoneNumber;
+	/**天眼查登记机关*/
+	private String openRegInstitute;
+	/**天眼查注册号*/
+	private String openRegNumber;
+	/**天眼查营业期限结束时间*/
+	private Long openToTime;
+	/**天眼查法人类型，1 人 2 公司*/
+	private Integer openType;
+	 
+	
+
+	public Integer getOpenType() {
+		return openType;
+	}
+
+	public void setOpenType(Integer openType) {
+		this.openType = openType;
+	}
+
+	public Long getOpenToTime() {
+		return openToTime;
+	}
+
+	public void setOpenToTime(Long openToTime) {
+		this.openToTime = openToTime;
+	}
+
+	public String getOpenRegNumber() {
+		return openRegNumber;
+	}
+
+	public void setOpenRegNumber(String openRegNumber) {
+		this.openRegNumber = openRegNumber;
+	}
+
+	public String getOpenRegInstitute() {
+		return openRegInstitute;
+	}
+
+	public void setOpenRegInstitute(String openRegInstitute) {
+		this.openRegInstitute = openRegInstitute;
+	}
+
+	public String getOpenPhoneNumber() {
+		return openPhoneNumber;
+	}
+
+	public void setOpenPhoneNumber(String openPhoneNumber) {
+		this.openPhoneNumber = openPhoneNumber;
+	}
+
+	public Integer getOpenPercentileScore() {
+		return openPercentileScore;
+	}
+
+	public void setOpenPercentileScore(Integer openPercentileScore) {
+		this.openPercentileScore = openPercentileScore;
+	}
+
+	public String getOpenOrgNumber() {
+		return openOrgNumber;
+	}
+
+	public void setOpenOrgNumber(String openOrgNumber) {
+		this.openOrgNumber = openOrgNumber;
+	}
+
+	public String getOpenOrgApprovedInstitute() {
+		return openOrgApprovedInstitute;
+	}
+
+	public void setOpenOrgApprovedInstitute(String openOrgApprovedInstitute) {
+		this.openOrgApprovedInstitute = openOrgApprovedInstitute;
+	}
+
+	public String getOpenLegalPersonName() {
+		return openLegalPersonName;
+	}
+
+	public void setOpenLegalPersonName(String openLegalPersonName) {
+		this.openLegalPersonName = openLegalPersonName;
+	}
+
+	public Long getOpenLegalPersonId() {
+		return openLegalPersonId;
+	}
+
+	public void setOpenLegalPersonId(Long openLegalPersonId) {
+		this.openLegalPersonId = openLegalPersonId;
+	}
+
+	public Long getOpenFromTime() {
+		return openFromTime;
+	}
+
+	public void setOpenFromTime(Long openFromTime) {
+		this.openFromTime = openFromTime;
+	}
+
+	public Long getOpenEstiblishTime() {
+		return openEstiblishTime;
+	}
+
+	public void setOpenEstiblishTime(Long openEstiblishTime) {
+		this.openEstiblishTime = openEstiblishTime;
+	}
+
+	public String getOpenCreditCode() {
+		return openCreditCode;
+	}
+
+	public void setOpenCreditCode(String openCreditCode) {
+		this.openCreditCode = openCreditCode;
+	}
+
+	public String getOpenCorrectCompanyId() {
+		return openCorrectCompanyId;
+	}
+
+	public void setOpenCorrectCompanyId(String openCorrectCompanyId) {
+		this.openCorrectCompanyId = openCorrectCompanyId;
+	}
+
+	public String getOpenCompanyOrgType() {
+		return openCompanyOrgType;
+	}
+
+	public void setOpenCompanyOrgType(String openCompanyOrgType) {
+		this.openCompanyOrgType = openCompanyOrgType;
+	}
+
+	public Integer getOpenCategoryScore() {
+		return openCategoryScore;
+	}
+
+	public void setOpenCategoryScore(Integer openCategoryScore) {
+		this.openCategoryScore = openCategoryScore;
+	}
+
+	public String getOpenBusinessScope() {
+		return openBusinessScope;
+	}
+
+	public void setOpenBusinessScope(String openBusinessScope) {
+		this.openBusinessScope = openBusinessScope;
+	}
+
+	public String getOpenBase() {
+		return openBase;
+	}
+
+	public void setOpenBase(String openBase) {
+		this.openBase = openBase;
+	}
+
+	public String getOpenActualCapital() {
+		return openActualCapital;
+	}
+
+	public void setOpenActualCapital(String openActualCapital) {
+		this.openActualCapital = openActualCapital;
+	}
+
+	public String getOpenIndustry() {
+		return openIndustry;
+	}
+
+	public void setOpenIndustry(String openIndustry) {
+		this.openIndustry = openIndustry;
+	}
 
 	public String getFinancingDate() {
 		return financingDate;

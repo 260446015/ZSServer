@@ -44,7 +44,7 @@ public class Branch implements Serializable {
 	/** 评分 */
 	private Integer pencertileScore;
 	/** 所属公司 */
-	private String cname;
+	private String companyName;
 
 	@Override
 	public String toString() {
@@ -131,12 +131,12 @@ public class Branch implements Serializable {
 		this.pencertileScore = pencertileScore;
 	}
 
-	public String getCname() {
-		return cname;
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setCname(String cname) {
-		this.cname = cname;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 }
