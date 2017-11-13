@@ -24,6 +24,8 @@ public interface CompanyRepository extends CrudRepository<Company, Long>, JpaSpe
 	
 	@Query(value ="SELECT company_name FROM t_company_data t WHERE t.area like ?1 and t.industry = ?2 ", nativeQuery = true)
 	List<String> findByAreaAndIndustry(String area, String industry);
+	
+	Company findByCompanyName(String cname);
 
 	
 }

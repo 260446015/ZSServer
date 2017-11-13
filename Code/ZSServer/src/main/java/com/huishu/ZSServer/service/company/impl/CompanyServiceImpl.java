@@ -1,14 +1,15 @@
 package com.huishu.ZSServer.service.company.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import com.huishu.ZSServer.common.util.DateUtils;
@@ -34,62 +35,65 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 
 	@Override
 	public Page<Company> findCompanyList(CompanySearchDTO dto) {
-		Page<Company> page = null;
+		PageImpl<Company> page = null;
 		try {
 			String[] msg = dto.getMsg();
-			String industry = msg[0];
-			if(industry.equals("全部"))
-				industry = "%%";
-			String industryLable = msg[1];
-			if(industryLable.equals("全部"))
-				industryLable = "%%";
-			String scale = msg[2];
-			if(scale.equals("全部"))
-				scale = "0-100000";
-			String time = msg[3];
-			String regist = msg[4];
-			if(regist.equals("全部"))
-				regist = "0-999999";
-			String invest = msg[5];
-			if(invest.equals("全部"))
-				invest = "%%";
-			String sscale = scale.substring(0, scale.indexOf("-"));
-			String escale = scale.substring(scale.indexOf("-") + 1);
-			String startTime = "";
-			String endTime = "";
-			switch (time) {
-			case "1":
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("industry", msg[0]);
+			params.put("industryLabel", msg[1]);
+			params.put("invest", msg[4]);
+			Integer pageNum = dto.getPageNumber();
+			Integer pageSize = dto.getPageSize();
+			List<Company> findAll = companyRepository.findAll(getSpec(params));
+			// String scale = msg[2];
+			// if (scale.equals("全部"))
+			// scale = "0-100000";
+			// String sscale = scale.substring(0, scale.indexOf("-"));
+			// String escale = scale.substring(scale.indexOf("-") + 1);
+			String time = msg[2];
+			String startTime = null;
+			String endTime = null;
+			if ("1".equals(time)) {
 				startTime = DateUtils.getMonthDate(-12);
 				endTime = DateUtils.getTodayDate1();
-				break;
-			case "1-5":
+			} else if ("1-5".equals(time)) {
 				startTime = DateUtils.getMonthDate(-60);
 				endTime = DateUtils.getMonthDate(-12);
-				break;
-			case "5-10":
+			} else if ("5-10".equals(time)) {
 				startTime = DateUtils.getMonthDate(-120);
 				endTime = DateUtils.getMonthDate(-60);
-				break;
-			case "10-15":
+			} else if ("10-15".equals(time)) {
 				startTime = DateUtils.getMonthDate(-180);
 				endTime = DateUtils.getMonthDate(-120);
-				break;
-			case "more":
+			} else if ("more".equals(time)) {
 				startTime = DateUtils.getMonthDate(-1800);
 				endTime = DateUtils.getMonthDate(-180);
-				break;
-			case "全部":
+			} else if ("全部".equals(time)) {
 				startTime = DateUtils.getMonthDate(-1800);
 				endTime = DateUtils.getTodayDate1();
-				break;
-			default:
-				break;
 			}
+			String stime = startTime;
+			String etime = endTime;
+			String regist = msg[3];
+			if (regist.equals("全部"))
+				regist = "0-999999";
 			String sregist = regist.substring(0, regist.indexOf("-"));
 			String eregist = regist.substring(regist.indexOf("-") + 1);
-			PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(), new Sort(Direction.DESC, "registerCapital"));
-			page = companyRepository.findCompanyList(industry, industryLable, Integer.valueOf(sscale), Integer.valueOf(escale), startTime, endTime,
-					Double.valueOf(sregist), Double.valueOf(eregist), invest, pageRequest);
+			List<Company> list2 = findAll.stream()
+					// .filter(obj -> {
+					// return obj.getScale() >= Integer.parseInt(sscale) &&
+					// obj.getScale() < Integer.parseInt(escale);
+					// })
+					.filter(obj -> {
+						return obj.getRegisterDate().compareTo(stime) >= 0
+								&& obj.getRegisterDate().compareTo(etime) < 0;
+					}).filter(obj -> {
+						return obj.getRegisterCapital() >= Double.parseDouble(sregist)
+								&& obj.getRegisterCapital() < Double.parseDouble(eregist);
+					}).skip(pageNum * pageSize).limit(pageSize)
+					.sorted((a, b) -> b.getRegisterCapital().compareTo(a.getRegisterCapital()))
+					.collect(Collectors.toList());
+			page = new PageImpl<>(list2);
 		} catch (Exception e) {
 			LOGGER.error("查询企业列表失败", e.getMessage());
 		}
@@ -101,11 +105,8 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 	 */
 	@Override
 	public List<String> findCompanyName(String area, String industry) {
-		List<String> list = companyRepository.findByAreaAndIndustry(area,industry);
+		List<String> list = companyRepository.findByAreaAndIndustry(area, industry);
 		return list;
 	}
-
-	
-	
 
 }

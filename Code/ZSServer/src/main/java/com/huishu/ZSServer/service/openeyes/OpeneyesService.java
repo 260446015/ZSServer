@@ -27,7 +27,7 @@ public interface OpeneyesService {
 	JSONObject getBaseInfo(OpeneyesDTO dto);
 
 	/**
-	 * 获取天眼查分之几股
+	 * 获取天眼查分支机构
 	 * @param dto
 	 * @return
 	 */
@@ -109,5 +109,82 @@ public interface OpeneyesService {
 	 * @return
 	 */
 	JSONObject getCompanyInfo(OpeneyesDTO dto);
+
+	/**
+	 * 查询关键字
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getKeyWords(OpeneyesDTO dto);
+	
+	/**
+	 * 查询经营异常
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getAbnormal(OpeneyesDTO dto);
+	
+	/**
+	 * 查询行政处罚
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getPunishmentInfo(OpeneyesDTO dto);
+	
+	/**
+	 * 查询严重违法
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getIllegalinfo(OpeneyesDTO dto);
+
+	/**
+	 * 查询欠税公告
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getOwnTax(OpeneyesDTO dto);
+	
+	/**
+	 * 查询新闻
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getNews(OpeneyesDTO dto);
+	
+	/**
+	 * 查询失信人
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getDishonest(OpeneyesDTO dto);
+	
+	/**
+	 * 查询企业风险
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getRiskInfo(OpeneyesDTO dto);
+	
+	/**
+	 * 查询人风险
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getHumanRiskInfo(OpeneyesDTO dto);
+	
+	/**
+	 * 查询风险信息
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getRiskDetail(OpeneyesDTO dto);
+
+	/**
+	 * 税务评级
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getTaxCredit(OpeneyesDTO dto);
 
 }

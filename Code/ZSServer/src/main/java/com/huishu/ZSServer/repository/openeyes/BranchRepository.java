@@ -8,6 +8,6 @@ import com.huishu.ZSServer.entity.openeyes.Branch;
 
 public interface BranchRepository extends CrudRepository<Branch, Long>{
 
-	List<Branch> findByName(String cname);
+	List<Branch> findByCompanyName(String cname);
 
 }

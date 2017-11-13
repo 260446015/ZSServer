@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+//gitlab.junquan.com.cn/hskj/pd_210_merchantssys.git
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +12,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.http.HttpEntity;
+//gitlab.junquan.com.cn/hskj/pd_210_merchantssys.git
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -106,7 +105,7 @@ public class HttpUtils {
 		}
 	}
 	
-	public static String sendHttpGet(String spec, Map<String, String> params) throws IOException {
+	public static String sendHttpGet(String spec, Map<String, Object> params) throws IOException {
 		spec = spec + "?" + assembling(params);
 		HttpClient client = HttpClients.createDefault();
 		HttpGet get = new HttpGet(spec);
@@ -132,14 +131,14 @@ public class HttpUtils {
 		return null;
 	}
 
-	public static String assembling(Map<String, String> params) {
+	public static String assembling(Map<String, Object> params) {
 		StringBuilder sb = new StringBuilder();
-		Set<Entry<String, String>> entrySet = params.entrySet();
-		for (Iterator<Entry<String, String>> iterator = entrySet.iterator(); iterator.hasNext();) {
-			Entry<String, String> entry = iterator.next();
+		Set<Entry<String, Object>> entrySet = params.entrySet();
+		for (Iterator<Entry<String, Object>> iterator = entrySet.iterator(); iterator.hasNext();) {
+			Entry<String, Object> entry = iterator.next();
 			String name = entry.getKey();
-			String value = entry.getValue();
-			sb.append(name).append("=").append(value).append("&");
+			Object value = entry.getValue();
+			sb.append(name).append("=").append(value.toString()).append("&");
 		}
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();

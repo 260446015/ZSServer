@@ -43,7 +43,7 @@ public class KeyConstan{
 		/**
 		 * 基本信息
 		 */
-		public static final String BASEINFO = "https://open.api.tianyancha.com/services/v3/newopen/baseinfo.json";
+		public static final String BASEINFO = "https://open.api.tianyancha.com/services/v4/open/baseinfoV2.json";
 		/**
 		 * 分支机构
 		 */
@@ -124,5 +124,13 @@ public class KeyConstan{
 		 * 搜索企业列表
 		 */
 		public static final String SOUSUO = "https://open.api.tianyancha.com/services/v3/newopen/searchV2.json";
+		/**
+		 * 关键字查询
+		 */
+		public static final String GUANJIANZI = "https://open.api.tianyancha.com/services/v4/open/searchV2.json";
+		/**
+		 * 税务评级查询
+		 */
+		public static final String SHUIWU = "https://open.api.tianyancha.com/services/v4/open/taxCredit.json";
 	}
 }

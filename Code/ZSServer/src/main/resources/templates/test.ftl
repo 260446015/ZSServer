@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="/js/ajaxfileupload.js"></script>
 	</head>
 	<body>
         <form>
@@ -14,6 +15,20 @@
             <fieldset>
                 <legend>园区分析</legend>
                 <input type="button" value="获取某轮次融资企业列表" onclick="cc()"/>
+            </fieldset>
+        </form>
+        e:/file/pdf/c6090b50-0344-407d-8d0a-db063ecec69a.pdf
+        <form>
+            <fieldset>
+                <legend>上传PDF</legend>
+                 <lable>名片:</lable>
+                <input type="file" id="file" name="file" onchange="pushImg();"/> 
+                <input type="hidden" id="pic" name="pic" /></div>
+                <div>
+		            <lable>在线预览:</lable>
+		            <input type="text" name="but"/></div>
+		            <input type="button" value="发送" onclick="yulan()"/>
+		            <input type="button" value="发送2" onclick="yulan2()"/>
             </fieldset>
         </form>
 	</body>
@@ -74,5 +89,29 @@
                 }
             }
         });
+	}
+	function yulan() {
+		$.ajax({
+            url: "/pdf/changePDFUrl.do?path=e:/file/pdf/c6090b50-0344-407d-8d0a-db063ecec69a.pdf",
+            success: function (response) {
+            	window.location.href="/pdf/web/viewer.html?file="+"/pdf/previewPDF.do";
+            }
+        });
+    }
+	function pushImg(){
+	    var picpath="";
+	    $.ajaxFileUpload({
+	    　　　　url : "/pdf/uploadPDF.do",
+           fileElementId:'file',
+           dataType : "json",
+           success: function(response){
+          	 alert(response.message);
+           },
+           error: function(response)
+           {
+              alert(response.message);
+            }
+           }
+		);
 	}
 </script> 

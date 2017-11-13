@@ -50,7 +50,6 @@ public class AbstractService<T> {
 		try {
 			findCompany = Analysis.getCompany(title, content);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		List<String> set = new ArrayList<String>();
@@ -114,7 +113,7 @@ public class AbstractService<T> {
 		};
 	}
 
-	protected JSONObject getOpenEyesTarget(String spec, Map<String, String> params) {
+	protected JSONObject getOpenEyesTarget(String spec, Map<String, Object> params) {
 		String response = "";
 		JSONObject parseObj = null;
 		try {
