@@ -8,13 +8,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
-import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.entity.openeyes.Abnormal;
@@ -66,7 +64,7 @@ import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
 @Service
-public class OpeneyesServiceImpl extends AbstractService implements OpeneyesService {
+public class OpeneyesServiceImpl<T> extends AbstractService<T> implements OpeneyesService {
 
 	private static Logger log = LoggerFactory.getLogger(OpeneyesServiceImpl.class);
 	@Autowired
@@ -459,7 +457,6 @@ public class OpeneyesServiceImpl extends AbstractService implements OpeneyesServ
 		params.put("pageNum", dto.getPageNumber());
 		dto.setSpec(KeyConstan.URL.ICP);
 		dto.setParams(params);
-		PageRequest page = new PageRequest(0, 10);
 		List<Icp> list = icpRepository.findByCompanyName(dto.getCname());
 		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();

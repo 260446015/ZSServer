@@ -4,26 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -97,7 +82,7 @@ public class HttpUtils {
 		}
 	}
 
-	public static String sendHttpGet(String spec, Map<String, String> params) throws IOException {
+	public static String sendHttpGet(String spec, Map<String, Object> params) throws IOException {
 		spec = spec + "?" + assembling(params);
 		HttpClient client = HttpClients.createDefault();
 		HttpGet get = new HttpGet(spec);
@@ -123,14 +108,14 @@ public class HttpUtils {
 		return null;
 	}
 
-	public static String assembling(Map<String, String> params) {
+	public static String assembling(Map<String, Object> params) {
 		StringBuilder sb = new StringBuilder();
-		Set<Entry<String, String>> entrySet = params.entrySet();
-		for (Iterator<Entry<String, String>> iterator = entrySet.iterator(); iterator.hasNext();) {
-			Entry<String, String> entry = iterator.next();
+		Set<Entry<String, Object>> entrySet = params.entrySet();
+		for (Iterator<Entry<String, Object>> iterator = entrySet.iterator(); iterator.hasNext();) {
+			Entry<String, Object> entry = iterator.next();
 			String name = entry.getKey();
-			String value = entry.getValue();
-			sb.append(name).append("=").append(value).append("&");
+			Object value = entry.getValue();
+			sb.append(name).append("=").append(value.toString()).append("&");
 		}
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
