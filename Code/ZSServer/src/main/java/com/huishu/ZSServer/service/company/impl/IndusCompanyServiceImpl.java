@@ -2,10 +2,8 @@ package com.huishu.ZSServer.service.company.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -13,10 +11,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.HttpUtils;
+import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
@@ -100,14 +100,43 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 
 
 	@Override
-	public List<Company> uploadImage(String imageBase64) {
-		String url="http://114.55.4.218:6001/Api/OCRServices";
+	public JSONArray uploadImage(String imageBase64) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("src_img ", imageBase64));
-		JSONObject object = HttpUtils.sendPost(url, params);
+		JSONObject object = HttpUtils.sendPost(KeyConstan.DISTINGUISH, params);
 		String imgMsg = object.getString("data");
-		System.out.println(imgMsg);
-		return null;
+		String[] split = imgMsg.split("\r\n");
+		String company="";
+		for (String string : split) {
+			if(string.indexOf("公司")!=-1||string.indexOf("办司")!=-1||string.indexOf("集团")!=-1){
+				if(string.indexOf(" ")!=-1){
+					String[] split2 = string.split(" ");
+					for (String str : split2) {
+						if(str.indexOf("公司")!=-1||str.indexOf("办司")!=-1||str.indexOf("集团")!=-1){
+							company=str;
+							break;
+						}
+					}
+					break;
+				}else{
+					company=string;
+					break;
+				}
+			}
+		}
+		if(StringUtil.isEmpty(company)) return null;
+		if(company.indexOf("办司")!=-1){
+			company.replace("办司", "");
+		}
+		List<NameValuePair> list = new ArrayList<NameValuePair>();
+		NameValuePair pair = new BasicNameValuePair("word", company);
+		params.add(pair);
+		JSONObject parse = HttpUtils.sendGet(KeyConstan.URL.SOUSUO,list);
+		if(parse.getInteger("companyCount")==0){
+			return null;
+		}else{
+			return parse.getJSONArray("data");
+		}
 	}
 	
 	

@@ -2,8 +2,7 @@ package com.huishu.ZSServer.service.company;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
+import com.alibaba.fastjson.JSONArray;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 
@@ -34,5 +33,5 @@ public interface IndusCompanyService {
 	 * @param imageBase64
 	 * @return
 	 */
-	List<Company> uploadImage(String imageBase64);
+	JSONArray uploadImage(String imageBase64);
 }

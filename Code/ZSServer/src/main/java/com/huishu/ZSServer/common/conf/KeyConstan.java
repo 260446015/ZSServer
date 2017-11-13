@@ -120,5 +120,9 @@ public class KeyConstan{
 		 * 风险信息
 		 */
 		public static final String FENGXIANXINXI = "https://open.api.tianyancha.com/services/v4/open/riskDetail.json";
+		/**
+		 * 搜索企业列表
+		 */
+		public static final String SOUSUO = "https://open.api.tianyancha.com/services/v3/newopen/searchV2.json";
 	}
 }
