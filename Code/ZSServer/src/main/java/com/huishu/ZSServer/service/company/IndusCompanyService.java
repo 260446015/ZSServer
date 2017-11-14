@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ZSServer.entity.Company;
+import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 
 /**
@@ -26,7 +27,7 @@ public interface IndusCompanyService {
 	 * 智能推荐优质企业
 	 * @return
 	 */
-	List<Company> listCompany();
+	Iterable<IndusCompany> listCompany();
 	
 	/**
 	 * 根据上传名片获取相关公司列表
