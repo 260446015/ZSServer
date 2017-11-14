@@ -76,8 +76,7 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 
 	
 	@Override
-	public List<Company> listCompany() {
-		List<Company> list = new ArrayList<Company>();
+	public Iterable<IndusCompany> listCompany() {
 		//获取总数
 		int count = repository.getCount();
 		
@@ -87,15 +86,14 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 		//id最大值
 		int max = repository.getMAXId();
 		List<Long> li = new ArrayList<Long>();
-		while(list.size()<=9){
+		while(li.size()<=10){
 			int id = (int)(Math.random()*count+1);
 			if(min<= id&& id  <= max){
 				li.add((long) id);
 			}
 		}
-		Iterable<IndusCompany> findAll = repository.findAll((Iterable<Long>) li.iterator());
-		list.add((Company) findAll.iterator());
-		return list;
+		Iterable<IndusCompany> findAll = repository.findAll(li);
+		return findAll;
 	}
 
 
