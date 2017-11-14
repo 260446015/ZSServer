@@ -19,6 +19,7 @@ import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.Company;
+import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.service.company.IndusCompanyService;
 
@@ -59,7 +60,7 @@ public class AccurateController extends BaseController{
 	 */
 	@RequestMapping(value="/listCompanyInfo.json")
 	public AjaxResult listCompanyInfo(){
-		List<Company> list = service.listCompany();
+		Iterable<IndusCompany> list = service.listCompany();
 		return success(list);
 	}
 	
