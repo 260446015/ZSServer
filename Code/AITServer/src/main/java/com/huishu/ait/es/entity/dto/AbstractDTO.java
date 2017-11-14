@@ -60,11 +60,13 @@ public abstract class AbstractDTO {
 
 			if (value != null) {
 				if (value instanceof String) {
-					if("人工智能".equals(value))
-						queryBuilder.must(QueryBuilders.termsQuery(name, value,"智能机器人"));
-					else
-						queryBuilder.must(QueryBuilders.termQuery(name, value));	
-					queryBuilder.must(QueryBuilders.termQuery(name, (String) value));
+					if ("人工智能".equals(value))
+						queryBuilder.must(QueryBuilders.termsQuery(name, value, "智能机器人"));
+					else {
+						if ("全国".equals(value))
+							continue;
+						queryBuilder.must(QueryBuilders.termQuery(name, value));
+					}
 				} else if (value instanceof Boolean) {
 					queryBuilder.must(QueryBuilders.termQuery(name, (Boolean) value));
 				} else if (value instanceof List) {
@@ -89,7 +91,7 @@ public abstract class AbstractDTO {
 			if (!isEmpty(startDate) && !isEmpty(endDate)) {
 				if (startDate.length() > 10) {
 					QueryBuilder range = QueryBuilders.rangeQuery("publishDate") // yyyy-MM-dd
-																						// HH:mm:ss
+																					// HH:mm:ss
 							.gte(startDate).lte(endDate);
 					queryBuilder.must(range);
 				} else {
