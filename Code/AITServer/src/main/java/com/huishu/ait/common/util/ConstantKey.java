@@ -31,11 +31,11 @@ public class ConstantKey {
 
 	// OAUTH2_URL
 	public static final String OAUTH_CLIENT_TIANYANCHA = "https://std.tianyancha.com";
-	public static final String OAUTH_CLIENT_CALLBACK = "http://58.16.181.24:8092/apis/oauth/oauth_callback";
+	public static final String OAUTH_CLIENT_CALLBACK = "http://58.16.181.24:9208/apis/oauth/oauth_callback";
 //	public static final String OAUTH_CLIENT_CALLBACK = "http://localhost:8092/apis/oauth/oauth_callback";
 	public static final String OAUTH_CLIENT_ACCESS_CODE = "https://std.tianyancha.com/auth/code.json";
 	public static final String OAUTH_CLIENT_ACCESS_TOKEN = "https://std.tianyancha.com/auth/token.json";
-	public static final String OAUTH_CLIENT_GET_RESOURCE = "http://58.16.181.24:8092/apis/oauth/get_resource";
+	public static final String OAUTH_CLIENT_GET_RESOURCE = "http://58.16.181.24:9208/apis/oauth/get_resource";
 //	public static final String OAUTH_CLIENT_GET_RESOURCE = "http://localhost:8092/apis/oauth/get_resource";
 
 	// 存储常量
