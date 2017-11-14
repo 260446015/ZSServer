@@ -65,7 +65,7 @@
 			    <div class="layui-inline">
 			      <label class="layui-form-label">原文载体</label>
 			      <div class="layui-input-inline">
-			        <input name="phone" lay-verify="title" autocomplete="off" placeholder="请输入载体" class="layui-input" type="tel">
+			        <input name="vector" lay-verify="title" autocomplete="off" placeholder="请输入载体" class="layui-input" type="tel">
 			      </div>
 			    </div>
 			    <div class="layui-inline">
