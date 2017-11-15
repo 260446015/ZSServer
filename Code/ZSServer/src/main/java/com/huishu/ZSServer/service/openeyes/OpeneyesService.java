@@ -187,4 +187,11 @@ public interface OpeneyesService {
 	 */
 	JSONObject getTaxCredit(OpeneyesDTO dto);
 
+	/**
+	 * 搜索企业列表
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getSousuoCompanyList(OpeneyesDTO dto);
+
 }

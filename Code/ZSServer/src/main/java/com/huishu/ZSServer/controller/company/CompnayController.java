@@ -19,11 +19,16 @@ import com.huishu.ZSServer.service.company.CompanyService;
  * @version
  */
 @RestController
-@RequestMapping(value="/xxx/xxx")
+@RequestMapping(value="/apis/company")
 public class CompnayController extends BaseController{
 	@Autowired
 	private CompanyService companyService;
 
+	/**
+	 * 查询企业列表（模板导入）
+	 * @param dto
+	 * @return
+	 */
 	@RequestMapping(value="findCompanyList.json")
 	public AjaxResult findCompanyList(@RequestBody CompanySearchDTO dto){
 		if(dto.getMsg().length == 0){

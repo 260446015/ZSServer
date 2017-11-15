@@ -2,6 +2,7 @@ package com.huishu.ZSServer.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +71,10 @@ public class AbstractService<T> {
 	public Page<AITInfo> getAitinfo(Map<String, Object> params, PageRequest pageRequest) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		params.forEach((k, v) -> {
-			bq.must(QueryBuilders.termQuery(k, v));
+			if (v instanceof Collection)
+				bq.must(QueryBuilders.termsQuery(k, v));
+			else
+				bq.must(QueryBuilders.termQuery(k, v));
 		});
 		Page<AITInfo> search = null;
 		try {
@@ -122,10 +126,11 @@ public class AbstractService<T> {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		LOGGER.info("查询到的天眼查接口信息:"+parseObj);
+		LOGGER.info("查询到的天眼查接口信息:" + parseObj);
 		return parseObj;
 	}
-	protected String getGeneratedId(Object info){
+
+	protected String getGeneratedId(Object info) {
 		byte[] hashPassword = Digests.sha1(info.toString().getBytes(), null, Encodes.HASH_INTERATIONS);
 		return Encodes.encodeHex(hashPassword);
 	}

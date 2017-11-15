@@ -254,10 +254,10 @@ function getLabel2(industry){
 			showTab = document.getElementById('biuuu_city_list_1');
 			showTab.innerHTML = function() {
 			var before = '<table class="layui-table" lay-even="" lay-skin="nob">' + '<colgroup><col width="7%"><col width="7%"><col width="15%"><col width="30%"><col width="10%"><col width="15%"></colgroup>'
-					+ '<thead><tr><th><input type="checkbox" name="" style="vertical-align:top;" id="allcheck" onclick="checkall();"><a class="layui-btn layui-btn-danger layui-btn-mini" href="javascript:void(0);" onclick="deleteCheck();">删除</a></th><th>作者</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
+					+ '<thead><tr><th><input type="checkbox" name="" style="vertical-align:top;" id="allcheck" onclick="checkall();"><a class="layui-btn layui-btn-danger layui-btn-mini" href="javascript:void(0);" onclick="deleteCheck();">删除</a></th><th>载体</th><th>标题</th><th>详情</th><th>时间</th><th>来源</th><th>操作</th></tr></thead><tbody>';
 			var arr = []
 			layui.each(d, function(index, item){
-		          arr.push('<tr><td><input type="checkbox" value="'+item.id+'" name="checkname"/></td><td>'+item.author+'</td><td>'+item.title+'</td><td>'+item.summary+
+		          arr.push('<tr><td><input type="checkbox" value="'+item.id+'" name="checkname"/></td><td>'+item.vector+'</td><td>'+item.title+'</td><td>'+item.summary+
 		          			'</td><td>'+item.publishTime+'</td><td>'+item.source+
 		          			'</td><td id="appendix"><a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="detail" onclick="onDel([\''+item.id+'\'])">删除</a>'+
 		          			'<a class="layui-btn layui-btn-mini" lay-event="detail" onclick="myTop(\''+item.id+'\')">'+(item.istop==true?'已置顶':'置顶')+'</a>'+

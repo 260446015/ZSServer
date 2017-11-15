@@ -170,6 +170,18 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getTaxCredit(dto));
 	}
+	/**
+	 * 搜索企业列表
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value="/getSousuoCompanyList.json",method=RequestMethod.GET)
+	public AjaxResult getSousuoCompanyList(@RequestBody OpeneyesDTO dto){
+		if(dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		return success(openeyesService.getSousuoCompanyList(dto));
+	}
+	
 	@RequestMapping(value="/getCompanyInfo.json",method=RequestMethod.GET)
 	public AjaxResult getCompanyInfo(@RequestBody OpeneyesDTO dto){
 		if(dto.getCname() == null || StringUtil.isEmpty(dto.getHumanName()))
@@ -182,6 +194,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getKeyWords(dto));
 	}
+	
 	/*@RequestMapping(value="getTargetInfo.json",method=RequestMethod.GET)
 	public AjaxResult getTargetInfo(@RequestBody OpeneyesDTO dto,@PathVariable String page){
 		if(StringUtil.isEmpty(dto.getCname()))

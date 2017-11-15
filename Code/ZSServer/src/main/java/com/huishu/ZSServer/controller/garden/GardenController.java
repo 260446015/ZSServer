@@ -197,8 +197,15 @@ public class GardenController extends BaseController {
 		}
 	}
 
+	/**
+	 * 政策动向
+	 * @param dto
+	 * @return
+	 */
 	@RequestMapping(value = "getGardenPolicy.json", method = RequestMethod.GET)
 	public AjaxResult getGardenPolicy(@RequestBody GardenDTO dto) {
+		if(StringUtil.isEmpty(dto.getProvince()))
+			return error(MsgConstant.ILLEGAL_PARAM);	
 		Page<AITInfo> page = gardenService.findGardenPolicy(dto);
 		return success(page);
 	}
