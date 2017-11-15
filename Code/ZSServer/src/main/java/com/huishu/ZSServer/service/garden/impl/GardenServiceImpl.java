@@ -25,10 +25,12 @@ import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenMap;
+import com.huishu.ZSServer.entity.garden.GardenUser;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.repository.garden.GardenMapRepositroy;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
+import com.huishu.ZSServer.repository.garden_user.GardenUserRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.garden.GardenService;
 
@@ -42,6 +44,8 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	private GardenMapRepositroy gardenMapRepositroy;
 	@Autowired
 	private BaseElasticsearch baseElasticsearch;
+	@Autowired
+	private GardenUserRepository gardenUserRepository;
 
 	@Override
 	public Page<AITInfo> getInformationPush(AreaSearchDTO dto) {
@@ -59,10 +63,14 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	public Page<AITInfo> findGardensCondition(GardenDTO dto) {
 		Page<AITInfo> aitInfos = null;
 		try {
+			List<String> names = gardenUserRepository.findGardenNames(dto.getUserId());
+			if(names.size() == 0){
+				return aitInfos;
+			}
 			Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "publishDate"));
 			PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(), sort);
 			Map<String, Object> params = new HashMap<>();
-			params.put("park", dto.getName());
+			params.put("park", names);
 			params.put("dimension", KeyConstan.YUANQUDONGTAI);
 			aitInfos = getAitinfo(params, pageRequest);
 		} catch (Exception e) {
@@ -152,12 +160,14 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 
 	@Override
 	public Page<AITInfo> findGardenPolicy(GardenDTO dto) {
-		BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-		boolQuery.must(QueryBuilders.termQuery("dimension", "政策动向"));
-		PageRequest pageable = new PageRequest(dto.getPageNumber(), dto.getPageSize(), new Sort(Direction.DESC, "publishTime"));
-		Page<AITInfo> page = baseElasticsearch.search(boolQuery, pageable);
+		String province = dto.getProvince();
+		String dimension = "政策动向";
+		Map<String, Object> params = new HashMap<>();
+		params.put("area", province);
+		params.put("dimension", dimension);
+		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(), new Sort(Direction.DESC, "publishTime"));
+		Page<AITInfo> page = getAitinfo(params, pageRequest);
 		return page;
-		
 	}
 
 	@Override

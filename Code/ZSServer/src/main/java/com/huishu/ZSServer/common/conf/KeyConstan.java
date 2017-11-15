@@ -43,7 +43,7 @@ public class KeyConstan{
 		/**
 		 * 基本信息
 		 */
-		public static final String BASEINFO = "https://open.api.tianyancha.com/services/v4/open/baseinfoV2.json";
+		public static final String BASEINFO = "https://open.api.tianyancha.com/services/v3/newopen/baseinfoV2.json";
 		/**
 		 * 分支机构
 		 */
@@ -87,19 +87,19 @@ public class KeyConstan{
 		/**
 		 * 经营异常
 		 */
-		public static final String ABNORMAL = "https://open.api.tianyancha.com/services/v4/open/abnormal.json";
+		public static final String ABNORMAL = "https://open.api.tianyancha.com/services/v3/newopen/abnormal.json";
 		/**
 		 * 行政处罚
 		 */
-		public static final String XINGZHENGCHUFA = "https://open.api.tianyancha.com/services/v4/open/punishmentInfo.json";
+		public static final String XINGZHENGCHUFA = "https://open.api.tianyancha.com/services/v3/newopen/punishmentInfo.json";
 		/**
 		 * 严重违法
 		 */
-		public static final String YANZHONGWEIFA = "https://open.api.tianyancha.com/services/v4/open/illegalinfo.json";
+		public static final String YANZHONGWEIFA = "https://open.api.tianyancha.com/services/v3/newopen/illegalinfo.json";
 		/**
 		 * 欠税公告
 		 */
-		public static final String QIANSHUIGONGGAO = "https://open.api.tianyancha.com/services/v4/open/ownTax.json";
+		public static final String QIANSHUIGONGGAO = "https://open.api.tianyancha.com/services/v3/newopen/ownTax.json";
 		/**
 		 * 新闻
 		 */
@@ -107,19 +107,19 @@ public class KeyConstan{
 		/**
 		 * 失信人
 		 */
-		public static final String SHIXINREN = "https://open.api.tianyancha.com/services/v4/open/dishonest.json";
+		public static final String SHIXINREN = "https://open.api.tianyancha.com/services/v3/newopen/dishonest.json";
 		/**
 		 * 企业风险
 		 */
-		public static final String QIYEFENGXIAN = "https://open.api.tianyancha.com/services/v4/open/riskInfo.json";
+		public static final String QIYEFENGXIAN = "https://open.api.tianyancha.com/services/v3/newopen/riskInfo.json";
 		/**
 		 * 人风险
 		 */
-		public static final String RENFENGXIAN = "https://open.api.tianyancha.com/services/v4/open/humanRiskInfo.json";
+		public static final String RENFENGXIAN = "https://open.api.tianyancha.com/services/v3/newopen/humanRiskInfo.json";
 		/**
 		 * 风险信息
 		 */
-		public static final String FENGXIANXINXI = "https://open.api.tianyancha.com/services/v4/open/riskDetail.json";
+		public static final String FENGXIANXINXI = "https://open.api.tianyancha.com/services/v3/newopen/riskDetail.json";
 		/**
 		 * 搜索企业列表
 		 */
@@ -131,6 +131,10 @@ public class KeyConstan{
 		/**
 		 * 税务评级查询
 		 */
-		public static final String SHUIWU = "https://open.api.tianyancha.com/services/v4/open/taxCredit.json";
+		public static final String SHUIWU = "https://open.api.tianyancha.com/services/v3/newopen/taxCredit.json";
+		/**
+		 * 主要人员
+		 */
+		public static final String STAFF = "https://open.api.tianyancha.com/services/v3/newopen/staff.json";
 	}
 }
