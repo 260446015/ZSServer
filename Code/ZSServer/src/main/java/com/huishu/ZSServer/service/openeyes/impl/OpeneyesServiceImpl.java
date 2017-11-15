@@ -55,7 +55,6 @@ import com.huishu.ZSServer.repository.openeyes.ProductInfoRepository;
 import com.huishu.ZSServer.repository.openeyes.PunishmentInfoRepository;
 import com.huishu.ZSServer.repository.openeyes.RiskDetailRepository;
 import com.huishu.ZSServer.repository.openeyes.RiskInfoRepository;
-import com.huishu.ZSServer.repository.openeyes.SearchRepository;
 import com.huishu.ZSServer.repository.openeyes.ShangBiaoRepository;
 import com.huishu.ZSServer.repository.openeyes.StaffRepository;
 import com.huishu.ZSServer.repository.openeyes.TaxCreditRepository;
