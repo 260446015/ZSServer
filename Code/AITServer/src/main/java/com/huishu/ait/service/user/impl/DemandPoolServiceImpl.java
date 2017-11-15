@@ -74,6 +74,7 @@ public class DemandPoolServiceImpl extends AbstractService implements DemandPool
 		}
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         company.setCreateTime(sdf.format(new Date()));
+        if(company.getFatherName()==null) company.setFatherName("");
         PoolCompany save = poolCompanyRepository.save(company);
         if (save == null) {
             result.setSuccess(false).setMessage("添加失败，请稍后再试");
