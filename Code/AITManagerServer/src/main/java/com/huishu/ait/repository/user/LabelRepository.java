@@ -2,7 +2,6 @@ package com.huishu.ait.repository.user;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.Label;
@@ -15,12 +14,12 @@ import com.huishu.ait.entity.Label;
  */
 public interface LabelRepository extends CrudRepository<Label, Long> {
 	
-	@Query(value = "from Label where park=?")
 	List<Label> findByPark(String park);
+	
+	List<Label> findByLabel(String label);
 
-	@Query(value = "from Label where userId=?")
 	List<Label> findByUserId(Long userId);
+	
+	void deleteByLabel(String label);
 
-	@Query(value = "delete from Label where id=?")
-	boolean removeByUid(Long id);
 }

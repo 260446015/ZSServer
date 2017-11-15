@@ -1,5 +1,6 @@
 package com.huishu.ait.controller.park;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ait.common.conf.MsgConstant;
 import com.huishu.ait.controller.BaseController;
 import com.huishu.ait.entity.PoolCompany;
@@ -43,10 +45,23 @@ public class BackPoolController extends BaseController{
         }
         try {
         	List<PoolCompany> list = demandPoolService.getCompanyList(searchModel);
-            return success(changeObject(searchModel, list));
+            return success(list);
         } catch (Exception e) {
             LOGGER.error("getCompanyList查询失败！",e);
             return error(MsgConstant.SYSTEM_ERROR);
         }
+    }
+    @RequestMapping(value="getKindCount.json")
+    public AjaxResult getKindCount(String park){
+    	JSONObject obj = new JSONObject();
+    	List<Object[]> kindCount = demandPoolService.findKindCount(park);
+    	Integer totalCount = 0;
+    	for (Object[] arr : kindCount) {
+    		BigInteger v = (BigInteger) arr[1];
+    		totalCount += v.intValue();
+		}
+    	obj.put("kindCount", kindCount);
+    	obj.put("totalCount", totalCount);
+    	return success(obj);
     }
 }

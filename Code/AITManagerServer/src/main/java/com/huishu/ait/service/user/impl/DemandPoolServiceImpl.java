@@ -48,18 +48,20 @@ public class DemandPoolServiceImpl extends AbstractService implements DemandPool
     @Override
     public List<PoolCompany> getCompanyList(CompanySearchDTO searchModel) {
     	String[] msg = searchModel.getMsg();
-        searchModel.setLabel(msg[0]);
-        searchModel.setStatus(msg[1]);
-        String[] times = analysisDate(msg[2]);
+    	searchModel.setPark(msg[0]);
+        searchModel.setLabel(msg[1]);
+        searchModel.setStatus(msg[2]);
+        String[] times = analysisDate(msg[3]);
+        
         List<PoolCompany> list;
         if(searchModel.getStatus().equals("未入住")){
             Integer count = poolCompanyRepository.findNotCompanyCount(searchModel.getPark(), searchModel.getLabel(), "已入住", times[0], times[1],searchModel.getSearch());
             searchModel.setTotalSize(count);
             list = poolCompanyRepository.findNotCompanyList(searchModel.getPark(), searchModel.getLabel(), "已入住", times[0], times[1], searchModel.getPageFrom(), searchModel.getPageSize(),searchModel.getSearch());
         }else{
-            Integer count = poolCompanyRepository.findCompanyCount(searchModel.getPark(), searchModel.getLabel(), searchModel.getStatus(),times[0], times[1],searchModel.getSearch());
-            searchModel.setTotalSize(count);
-            list = poolCompanyRepository.findCompanyList(searchModel.getPark(), searchModel.getLabel(), searchModel.getStatus(),times[0], times[1], searchModel.getPageFrom(), searchModel.getPageSize(),searchModel.getSearch());
+//            Integer count = poolCompanyRepository.findCompanyCount(searchModel.getPark(), searchModel.getLabel(), searchModel.getStatus(),times[0], times[1],searchModel.getSearch());
+            list = poolCompanyRepository.findCompanyList(searchModel.getPark(), searchModel.getLabel(), searchModel.getStatus(),times[0], times[1],searchModel.getSearch());
+            searchModel.setTotalSize(list.size());
         }
         return list;
     }
@@ -93,4 +95,10 @@ public class DemandPoolServiceImpl extends AbstractService implements DemandPool
 	public PoolCompany findPoolCompanyById(Long id) {
 		return poolCompanyRepository.findOne(id);
 	}
+
+	@Override
+	public List<Object[]> findKindCount(String park) {
+		return poolCompanyRepository.findKindCount(park);
+	}
+	
 }

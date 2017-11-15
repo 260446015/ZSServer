@@ -26,7 +26,7 @@ public interface PoolCompanyRepository extends CrudRepository<PoolCompany, Long>
 	 * @param pageSize
 	 * @return
 	 */
-	@Query(value = "select * from t_pool_company where user_id=?1 and label=?2 and investment_status like ?3 and create_time between ?4 and ?5 limit ?6,?7", nativeQuery = true)
+	@Query(value = "select * from t_pool_company where user_id=?1 and label like ?2 and investment_status like ?3 and create_time between ?4 and ?5 limit ?6,?7", nativeQuery = true)
 	List<PoolCompany> findMyCompanyList(Long userId, String label, String investmentStatus, String time1, String time2,
 			Integer pageFrom, Integer pageSize);
 
@@ -40,7 +40,7 @@ public interface PoolCompanyRepository extends CrudRepository<PoolCompany, Long>
 	 * @param time2
 	 * @return
 	 */
-	@Query(value = "select count(1) from t_pool_company where user_id=?1 and label=?2 and investment_status like ?3 and create_time between ?4 and ?5", nativeQuery = true)
+	@Query(value = "select count(1) from t_pool_company where user_id=?1 and label like ?2 and investment_status like ?3 and create_time between ?4 and ?5", nativeQuery = true)
 	Integer findMyCompanyCount(Long userId, String label, String investmentStatus, String time1, String time2);
 
 	/**
@@ -55,7 +55,7 @@ public interface PoolCompanyRepository extends CrudRepository<PoolCompany, Long>
 	 * @param pageSize
 	 * @return
 	 */
-	@Query(value = "select * from t_pool_company where user_id=?1 and label=?2 and investment_status not like ?3 and create_time between ?4 and ?5 limit ?6,?7", nativeQuery = true)
+	@Query(value = "select * from t_pool_company where user_id=?1 and label like ?2 and investment_status not like ?3 and create_time between ?4 and ?5 limit ?6,?7", nativeQuery = true)
 	List<PoolCompany> findMyNotCompanyList(Long userId, String label, String notStatus, String time1, String time2,
 			Integer pageFrom, Integer pageSize);
 
@@ -69,7 +69,7 @@ public interface PoolCompanyRepository extends CrudRepository<PoolCompany, Long>
 	 * @param time2
 	 * @return
 	 */
-	@Query(value = "select count(1) from t_pool_company where user_id=?1 and label=?2 and investment_status not like ?3 and create_time between ?4 and ?5", nativeQuery = true)
+	@Query(value = "select count(1) from t_pool_company where user_id=?1 and label like ?2 and investment_status not like ?3 and create_time between ?4 and ?5", nativeQuery = true)
 	Integer findMyNotCompanyCount(Long userId, String label, String notStatus, String time1, String time2);
 
 	/**
@@ -85,9 +85,9 @@ public interface PoolCompanyRepository extends CrudRepository<PoolCompany, Long>
 	 * @param search
 	 * @return
 	 */
-	@Query(value = "select * from t_pool_company where user_park=?1 and label=?2 and investment_status like ?3 and concat(name, father_name) like ?8 and create_time between ?4 and ?5 limit ?6,?7", nativeQuery = true)
+	@Query(value = "select * from t_pool_company where user_park=?1 and label like ?2 and investment_status like ?3 and concat(name, father_name) like ?6 and create_time between ?4 and ?5", nativeQuery = true)
 	List<PoolCompany> findCompanyList(String userPark, String label, String investmentStatus, String time1,
-			String time2, Integer pageFrom, Integer pageSize, String search);
+			String time2, String search);
 
 	/**
 	 * 查看需求池数量
@@ -100,7 +100,7 @@ public interface PoolCompanyRepository extends CrudRepository<PoolCompany, Long>
 	 * @param search
 	 * @return
 	 */
-	@Query(value = "select count(1) from t_pool_company where user_park=?1 and label=?2 and investment_status like ?3 and concat(name, father_name) like ?6 and create_time between ?4 and ?5", nativeQuery = true)
+	@Query(value = "select count(1) from t_pool_company where user_park=?1 and label like ?2 and investment_status like ?3 and concat(name, father_name) like ?6 and create_time between ?4 and ?5", nativeQuery = true)
 	Integer findCompanyCount(String userPark, String label, String investmentStatus, String time1, String time2,
 			String search);
 
@@ -117,7 +117,7 @@ public interface PoolCompanyRepository extends CrudRepository<PoolCompany, Long>
 	 * @param search
 	 * @return
 	 */
-	@Query(value = "select * from t_pool_company where user_park=?1 and label=?2 and investment_status not like ?3 and concat(name, father_name) like ?8 and create_time between ?4 and ?5 limit ?6,?7", nativeQuery = true)
+	@Query(value = "select * from t_pool_company where user_park=?1 and label like ?2 and investment_status not like ?3 and concat(name, father_name) like ?8 and create_time between ?4 and ?5 limit ?6,?7", nativeQuery = true)
 	List<PoolCompany> findNotCompanyList(String userPark, String label, String notStatus, String time1, String time2,
 			Integer pageFrom, Integer pageSize, String search);
 
@@ -132,7 +132,10 @@ public interface PoolCompanyRepository extends CrudRepository<PoolCompany, Long>
 	 * @param search
 	 * @return
 	 */
-	@Query(value = "select count(1) from t_pool_company where user_park=?1 and label=?2 and investment_status not like ?3 and concat(name, father_name) like ?6 and create_time between ?4 and ?5", nativeQuery = true)
+	@Query(value = "select count(1) from t_pool_company where user_park=?1 and label like ?2 and investment_status not like ?3 and concat(name, father_name) like ?6 and create_time between ?4 and ?5", nativeQuery = true)
 	Integer findNotCompanyCount(String userPark, String label, String notStatus, String time1, String time2,
 			String search);
+
+	@Query(value="select investment_status,count(1) count from t_pool_company where user_park = ? GROUP BY investment_status",nativeQuery=true)
+	List<Object[]> findKindCount(String userPark);
 }

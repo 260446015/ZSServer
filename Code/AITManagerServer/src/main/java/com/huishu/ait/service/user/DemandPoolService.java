@@ -48,4 +48,10 @@ public interface DemandPoolService {
      * @return
      */
     PoolCompany findPoolCompanyById(Long id);
+
+    /**
+     * 
+     * @return
+     */
+	List<Object[]> findKindCount(String park);
 }
