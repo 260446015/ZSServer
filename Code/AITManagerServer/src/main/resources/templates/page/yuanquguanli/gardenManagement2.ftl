@@ -198,18 +198,32 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<td><i class="layui-icon">&#xe64c;</i>模块来源</td>
-									<td><a style="cursor: pointer;">招商情报(12)</a></td>
-									<td><a style="cursor: pointer;">园区监管(24)</a></td>
-									<td><a style="cursor: pointer;">精准招商(33)</a></td>
-									<td><a style="cursor: pointer;">企业搜索(25)</a></td>
+									<td><i class="layui-icon">&#xe64c;</i>模块来源:</td>
+									<td><a style="cursor: pointer;">招商情报</a></td>
+									<td><a style="cursor: pointer;">园区监管</a></td>
+									<td><a style="cursor: pointer;">精准招商</a></td>
+									<td><a style="cursor: pointer;">企业搜索</a></td>
 								</tr>
 								<tr>
-									<td><i class="layui-icon">&#xe857;</i>状态</td>
-									<td><a style="cursor: pointer;" href="#" onclick="myClick('不限')">不限</a></td>
-									<td><a style="cursor: pointer;" href="#" onclick="myClick('目标企业')">目标企业</a></td>
-									<td><a style="cursor: pointer;" href="#" onclick="myClick('洽谈中月')">洽谈中月</a></td>
-									<td><a style="cursor: pointer;" href="#" onclick="myClick('合同部署')">合同部署</a></td>
+									<td><i class="layui-icon">&#xe857;</i>状态:</td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick('不限',label,time)" id="bx">不限</a></td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick('目标企业',label,time)" id="mb">目标企业</a></td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick('正在沟通',label,time)" id="qt">洽谈中月</a></td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick('部署中',label,time)" id="bs">合同部署</a></td>
+								</tr>
+								<tr>
+									<td><i class="layui-icon">&#xe857;</i>标签:</td>
+									<td id="label"><a style="cursor: pointer;" href="#" onclick="myClick(status,'不限',time)">不限</a></td>
+								</tr>
+								<tr>
+									<td id="label"><i class="layui-icon">&#xe857;</i>时间:</td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick(status,label,'不限')">不限</a></td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick(status,label,'今日')">今日</a></td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick(status,label,'昨日')">昨日</a></td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick(status,label,'近一周')">近一周</a></td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick(status,label,'近三个月')">近三个月</a></td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick(status,label,'近六个月')">近六个月</a></td>
+									<td><a style="cursor: pointer;" href="#" onclick="myClick(status,label,'近一年')">近一年</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -227,6 +241,9 @@
 			<#include "/common/script.ftl">
 </body>
 <script>
+	var status = "不限";
+	var label = "不限";
+	var time = "不限";
 	//分页
 	layui.use('laypage', function() {
 		var laypage = layui.laypage;
@@ -309,16 +326,21 @@
 	ksyje.setOption(option2);
 	xfje.setOption(option3);
 	syje.setOption(option4);
-	var status = '不限';
 	$(function(){
 		showParkAccount();
-		myClick(status);
+		myClick(status,label,time);
+		showLabel();
+		showKindCount();
 	});
-	function myClick(status){
+	function myClick(a,b,c){
+		status = a;
+		label = b;
+		time = c;
 		var arr = new Array();
-		arr.push(status);
 		arr.push('${park.name}');
-		arr.push('全部');
+		arr.push(label);
+		arr.push(status);
+		arr.push(time);
 		var obj = {msg:arr,status:status};
 		showCompanyList(obj);
 	};
@@ -428,6 +450,44 @@
 	 	}
 	});
 	};
+	function showLabel(){
+		$.ajax({
+			type:'get',
+			url:'/apis/label/getLabel.json?park=${park.name}',
+			success:function(res){
+				var html = "";
+				if(res.success){
+					var arr = res.data
+					for(var i=0;i<arr.length;i++){
+						html = html + "<td><a style=\"cursor: pointer;\" href=\"#\" onclick=\"myClick(status,'"+arr[i].label+"',time)\">"+arr[i].label+"</a></td>"
+					}
+				}
+				$("#label").after(html);
+			}
+		});
+	}
+	function showKindCount(){
+		$.ajax({
+			type:"get",
+			url:"/apis/back/pool/getKindCount.json?park=${park.name}",
+			success:function(res){
+				var arr = res.data.kindCount;
+				var totalCount = res.data.totalCount;
+				$("#bx").after("("+totalCount+")");
+				for(var i=0;i<arr.length;i++){
+					var k = arr[i][0];
+					var v = arr[i][1];
+					if(k == "目标企业"){
+						$("#mb").after("("+v+")");
+					}else if(k == "正在沟通"){
+						$("#qt").after("("+v+")");
+					}else if(k == "部署中"){
+						$("#bs").after("("+v+")");
+					}
+				}
+			}
+		});
+	}
 </script>
 <script  type="text/html" id="operation">
  <a class="layui-btn layui-btn-mini" lay-event="edit" href="/apis/back/garden/dropParkAccount.json?id={{d.id}}">删除</a>

@@ -42,12 +42,7 @@ public class ReadExcelUtil {
 			// 遍历行
 			System.out.println(rows);
 			for (int i = 0; i < rows; i++) {
-				/*// 读取左上端单元格
-				XSSFRow row = sheet.getRow(i);
-				// 行不为空
-				if (row != 暂无) {*/
 					String value = "";
-					// 遍历列
 					String b_id = null;
 					for (int j = 0; j < max_cells; j++) {
 						// 获取到列的值
@@ -70,19 +65,18 @@ public class ReadExcelUtil {
 							case XSSFCell.CELL_TYPE_NUMERIC:
 								// 如果有日期的话，那么就读出日期格式
 								// 如果是数字的话，就写出数字格式
-								/*if (HSSFDateUtil.isCellDateFormatted(cell)) {*/
+								if (HSSFDateUtil.isCellDateFormatted(cell)) {
 									SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 									Date date2 = HSSFDateUtil.getJavaDate(cell.getNumericCellValue());
 									String date1 = dff.format(date2);
 									value += date1.replaceAll("'", "") + "---";
 
-									/*} else {
-									value += "'" + (int) cell.getNumericCellValue() + "'---";
-								}*/
+									} else {
+									value += (int) cell.getNumericCellValue() + "---";
+								}
 								break;
 							case XSSFCell.CELL_TYPE_STRING:
 								String ss = cell.getStringCellValue().replaceAll("'", "");
-								// 如果文本有空值的话，就把它写成暂无
 								if (ss == null || "".equals(ss)) {
 									value += "暂无---";
 								} else {

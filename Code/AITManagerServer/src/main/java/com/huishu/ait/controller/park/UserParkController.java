@@ -93,6 +93,7 @@ public class UserParkController extends BaseController {
 		try {
 			UserPark park = userParkService.findParkInformation(id);
 			model.addObject("park", park);
+//			model.addObject("userId", getUserId());
 			model.setViewName("yuanquguanli/gardenManagement2");
 		} catch (Exception e) {
 			LOGGER.error("findParkInformation失败！", e);

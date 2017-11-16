@@ -962,10 +962,10 @@ public abstract class AbstractService {
 			nextDate.add(Calendar.MONTH, -3);
 			time1 = sdf.format(nextDate.getTime());
 		} else if (day.equals("近六个月")) {
-			nextDate.add(Calendar.DATE, -6);
+			nextDate.add(Calendar.MONTH, -6);
 			time1 = sdf.format(nextDate.getTime());
 		} else if (day.equals("近一年")) {
-			nextDate.add(Calendar.DATE, -6);
+			nextDate.add(Calendar.MONTH, -12);
 			time1 = sdf.format(nextDate.getTime());
 		} else {
 			time1 = "2010-01-01";

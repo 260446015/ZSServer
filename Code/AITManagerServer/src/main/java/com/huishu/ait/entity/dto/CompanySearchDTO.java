@@ -31,7 +31,7 @@ public class CompanySearchDTO extends SearchModel {
 	public String getSearch() {
 		if (StringUtil.isEmpty(search)) {
 			search = "%%";
-		} else {
+		} else if(!search.equals("%%")){
 			search = "%" + search + "%";
 		}
 		return search;
@@ -58,6 +58,11 @@ public class CompanySearchDTO extends SearchModel {
 	}
 
 	public String getLabel() {
+		if ("全部".equals(label)) {
+			label = "%%";
+		} else if ("不限".equals(label)) {
+			label = "%%";
+		}
 		return label;
 	}
 
