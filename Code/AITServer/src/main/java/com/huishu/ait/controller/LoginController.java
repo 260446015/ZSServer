@@ -278,8 +278,14 @@ public class LoginController extends BaseController {
 		}
 	}
 
+	/**
+	 * 免登陆接口
+	 * @param user    账号
+	 * @param request
+	 * @param response
+	 */
 	@RequestMapping(value = "apis/temporaryDemo.do", method = RequestMethod.GET)
-	public void temporaryDemo(HttpServletRequest request, HttpServletResponse response) {
+	public void temporaryDemo(String user,HttpServletRequest request, HttpServletResponse response) {
 		try {
 			KeyPair keyPair = RSAUtils.getKeys();
 			RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
@@ -292,9 +298,9 @@ public class LoginController extends BaseController {
 			RSAPrivateKey priKey = RSAUtils.getPrivateKey(modulus, private_exponent);
 			request.getSession().setAttribute("privateKey", priKey);
 			// 加密后的密文
-			String mi = RSAUtils.encryptByPublicKey("nagnoix", pubKey);
+			String mi = RSAUtils.encryptByPublicKey(new StringBuffer(user).reverse().toString(), pubKey);
 
-			UsernamePasswordToken token = new CaptchaUsernamePasswordToken("xiongan", mi.toCharArray(), false, "", "",
+			UsernamePasswordToken token = new CaptchaUsernamePasswordToken(user, mi.toCharArray(), false, "", "",
 					"user");
 			Subject currentUser = SecurityUtils.getSubject();
 			currentUser.login(token);
@@ -316,7 +322,6 @@ public class LoginController extends BaseController {
 				outputStream.close();
 			}
 			 response.sendRedirect("http://58.16.181.24:9208/intelligence/headlines");
-			 //response.sendRedirect("http://127.0.0.1:8000/intelligence/headlines");
 		} catch (Exception e) {
 			LOGGER.error("免登陆失败！", e);
 		}
