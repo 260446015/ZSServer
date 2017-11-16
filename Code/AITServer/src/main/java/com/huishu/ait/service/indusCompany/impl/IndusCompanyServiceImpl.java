@@ -38,9 +38,9 @@ public class IndusCompanyServiceImpl implements IndusCompanyService {
 		JSONArray json = new JSONArray();
 		
 		Iterable<IndusCompany> findAll = repository.findAll();
-		
+		int maxId = repository.getMAXId();
 		while(json.size()<10){
-			int a  = (int) (Math.random()*69+1);
+			int a  = (int) (Math.random()*maxId+1);
 	
 			findAll.forEach( action->{
 				if(a == action.getId()){
@@ -64,7 +64,6 @@ public class IndusCompanyServiceImpl implements IndusCompanyService {
 		for (EnterpriseDTO enterpriseDTO : dto) {
 			json.put("data", enterpriseDTO);
 		}
-		// boolean add = json.add(dto);
 
 		return json;
 	}

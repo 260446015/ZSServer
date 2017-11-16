@@ -2,6 +2,7 @@ package com.huishu.ait.repository.companyInfo;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ait.entity.IndusCompany;
@@ -20,5 +21,8 @@ public interface IndustryCompanyRepository extends CrudRepository<IndusCompany, 
 	 */
 	List<IndusCompany> findByIndustry(String industry);
 	
+	@Query(value = "SELECT MAX(id) FROM t_indus_company ", nativeQuery = true)
+	int getMAXId();
 
+	
 }
