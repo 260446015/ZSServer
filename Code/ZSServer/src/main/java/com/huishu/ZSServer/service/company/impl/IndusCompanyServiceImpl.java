@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.forget.analysis.Analysis;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
-import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
@@ -103,32 +103,11 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 		params.add(new BasicNameValuePair("src_img ", imageBase64));
 		JSONObject object = HttpUtils.sendPost(KeyConstan.DISTINGUISH, params);
 		String imgMsg = object.getString("data");
-		String[] split = imgMsg.split("\r\n");
-		String company="";
-		for (String string : split) {
-			if(string.indexOf("公司")!=-1||string.indexOf("办司")!=-1||string.indexOf("集团")!=-1){
-				if(string.indexOf(" ")!=-1){
-					String[] split2 = string.split(" ");
-					for (String str : split2) {
-						if(str.indexOf("公司")!=-1||str.indexOf("办司")!=-1||str.indexOf("集团")!=-1){
-							company=str;
-							break;
-						}
-					}
-					break;
-				}else{
-					company=string;
-					break;
-				}
-			}
-		}
+		String company = Analysis.getCompanyName(imgMsg);
 		if(StringUtil.isEmpty(company)) return null;
-		if(company.indexOf("办司")!=-1){
-			company.replace("办司", "");
-		}
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
 		NameValuePair pair = new BasicNameValuePair("word", company);
-		params.add(pair);
+		list.add(pair);
 		JSONObject parse = HttpUtils.sendGet(KeyConstan.URL.SOUSUO,list);
 		if(parse.getInteger("companyCount")==0){
 			return null;

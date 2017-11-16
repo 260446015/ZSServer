@@ -70,7 +70,7 @@ public class AccurateController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "uploadImage.json", method = RequestMethod.POST)
-	public AjaxResult uploadImage(@RequestParam String imageBase64){
+	public AjaxResult uploadImage(String imageBase64){
 		LOGGER.debug("上传图片的数据："+imageBase64);
 		if(StringUtil.isEmpty(imageBase64)){
 			return error(MsgConstant.ILLEGAL_PARAM);
