@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,18 +125,18 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.STAFF);
 		dto.setParams(params);
 		List<Staff> list = staffRepository.findByCname(dto.getCname());
-		if (list.size() > 0) {
-			result.put("result", list);
+		List<Staff> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
+			result.put("result", newList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArray = null;
 		try {
-			jsonArray = openEyesTarget.getJSONArray("result");
+			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("result");
 		} catch (Exception e) {
 			log.debug("天眼查主要人员查询出现问题",e.getMessage());
 		}
-		List<Staff> newList = new ArrayList<>();
 		jsonArray.forEach((obj) -> {
 			Staff parseObject = JSONObject.parseObject(obj.toString(), Staff.class);
 			parseObject.setCname(dto.getCname());
@@ -157,7 +158,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			openEyesTarget.put("result", list);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		BaseInfo parseObject = null;
 		if(null != openEyesTarget){
 			JSONObject jsonObj = openEyesTarget.getJSONObject("result");
@@ -212,13 +213,14 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.BRANCH);
 		List<Branch> list = branchRepository.findByCompanyName(dto.getCname());
-		if (list.size() > 0) {
+		List<Branch> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("result", list);
+			inList.put("result", newList);
 			openEyesTarget.put("data", inList);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		if(null != openEyesTarget){
 			JSONArray jsonArray = null;
 			try {
@@ -230,9 +232,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				jsonArray.forEach(obj -> {
 					Branch parseObject = JSONObject.parseObject(obj.toString(), Branch.class);
 					parseObject.setCompanyName(dto.getCname());
-					list.add(parseObject);
+					newList.add(parseObject);
 				});
-				branchRepository.save(list);
+				branchRepository.save(newList);
 			}
 		}
 		return openEyesTarget;
@@ -247,13 +249,14 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.HISTORYRONGZI);
 		List<HistoryRongZi> list = historyRongZiRepository.findByCompanyName(dto.getCname());
-		if (list.size() > 0) {
+		List<HistoryRongZi> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", list);
+			inList.put("items", newList);
 			openEyesTarget.put("result", inList);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		if(null != openEyesTarget){
 			JSONArray jsonArray = null;
 			try {
@@ -264,9 +267,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			if(jsonArray != null){
 				jsonArray.forEach(obj -> {
 					HistoryRongZi parseObject = JSONObject.parseObject(obj.toString(), HistoryRongZi.class);
-					list.add(parseObject);
+					newList.add(parseObject);
 				});
-				historyRongZiRepository.save(list);
+				historyRongZiRepository.save(newList);
 			}
 		}
 		return openEyesTarget;
@@ -281,13 +284,14 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.TEAMMEMBER);
 		List<TeamMember> list = teamMemberRepository.findByCompanyName(dto.getCname());
-		if (list.size() > 0) {
+		List<TeamMember> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", list);
+			inList.put("items", newList);
 			openEyesTarget.put("result", inList);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
@@ -297,9 +301,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				TeamMember parseObject = JSONObject.parseObject(obj.toString(), TeamMember.class);
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			teamMemberRepository.save(list);
+			teamMemberRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -313,13 +317,14 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.PRODUCTINFO);
 		List<ProductInfo> list = productInfoRepository.findByCompanyName(dto.getCname());
-		if (list.size() > 0) {
+		List<ProductInfo> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", list);
+			inList.put("items", newList);
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
@@ -329,9 +334,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				ProductInfo parseObject = JSONObject.parseObject(obj.toString(), ProductInfo.class);
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			productInfoRepository.save(list);
+			productInfoRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -345,13 +350,14 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.TZANLI);
 		List<TouZi> list = touZiRepository.findByCompany(dto.getCname());
-		if (list.size() > 0) {
+		List<TouZi> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", list);
+			inList.put("items", newList);
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
@@ -362,9 +368,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			jsonArray.forEach(obj -> {
 				TouZi parseObject = JSONObject.parseObject(obj.toString(), TouZi.class);
 				parseObject.setCompanyName(dto.getCname());
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			touZiRepository.save(list);
+			touZiRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -378,15 +384,16 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.JINGPIN);
 		List<JingPin> list = jingPinRepository.findByCname(dto.getCname());
-		if (list.size() > 0) {
+		List<JingPin> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("rows", list);
+			inList.put("rows", newList);
 			JSONObject outList = new JSONObject();
 			outList.put("page", inList);
 			openEyesTarget.put("result", outList);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
@@ -399,9 +406,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
 				parseObject.setCname(dto.getCname());
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			jingPinRepository.save(list);
+			jingPinRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -415,13 +422,14 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.SHANGBIAO);
 		List<ShangBiao> list = shangBiaoRepository.findByApplicantCn(dto.getCname());
-		if (list.size() > 0) {
+		List<ShangBiao> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", list);
+			inList.put("items", newList);
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -431,9 +439,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				ShangBiao parseObject = JSONObject.parseObject(obj.toString(), ShangBiao.class);
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			shangBiaoRepository.save(list);
+			shangBiaoRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -447,13 +455,14 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.PATENTS);
 		List<Patents> list = patentsRepository.findByApplicantName(dto.getCname());
-		if (list.size() > 0) {
+		List<Patents> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", list);
+			inList.put("items", newList);
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -463,9 +472,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				Patents parseObject = JSONObject.parseObject(obj.toString(), Patents.class);
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			patentsRepository.save(list);
+			patentsRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -479,13 +488,14 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.COPYREG);
 		List<CopyReg> list = copyRegRepository.findByAuthorNationality(dto.getCname());
-		if (list.size() > 0) {
+		List<CopyReg> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", list);
+			inList.put("items", newList);
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -496,9 +506,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			jsonArray.forEach(obj -> {
 				CopyReg parseObject = JSONObject.parseObject(obj.toString(), CopyReg.class);
 				parseObject.setCompanyName(dto.getCname());
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			copyRegRepository.save(list);
+			copyRegRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -512,52 +522,28 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.ICP);
 		dto.setParams(params);
 		List<Icp> list = icpRepository.findByCompanyName(dto.getCname());
-		if (list.size() > 0) {
+		List<Icp> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", list);
+			inList.put("items", newList);
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArray = openEyesTarget.getJSONArray("data");
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				Icp parseObject = JSONObject.parseObject(obj.toString(), Icp.class);
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			icpRepository.save(list);
+			icpRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
 
-	@Override
-	public JSONObject getTargetInfo(OpeneyesDTO dto) {
-		JSONObject result = new JSONObject();
-		Map<String, Object> params = new HashMap<>();
-		params.put("name", dto.getCname());
-		params.put("pageNum", dto.getPageNumber());
-		List<Icp> list = icpRepository.findByCompanyName(dto.getCname());
-		if (list.size() > 0) {
-			result.put("result", list);
-			return result;
-		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
-		JSONArray jsonArray = openEyesTarget.getJSONArray("data");
-		if(jsonArray != null){
-			jsonArray.forEach(obj -> {
-				Icp parseObject = JSONObject.parseObject(obj.toString(), Icp.class);
-				String id = getGeneratedId(parseObject);
-				parseObject.setId(id);
-				list.add(parseObject);
-			});
-			icpRepository.save(list);
-		}
-		return openEyesTarget;
-	}
-
-	@Override
+	/*@Override
 	public JSONObject getCompanyInfo(OpeneyesDTO dto) {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
@@ -565,33 +551,33 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		params.put("pageNum", dto.getPageNumber());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.ABNORMAL);
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray abnormal = openEyesTarget.getJSONObject("result").getJSONArray("items");
 		dto.setSpec(KeyConstan.URL.XINGZHENGCHUFA);
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray punishmentInfo = openEyesTarget.getJSONObject("result").getJSONArray("items");
 		dto.setSpec(KeyConstan.URL.YANZHONGWEIFA);
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray illegalinfo = openEyesTarget.getJSONObject("result").getJSONArray("items");
 		dto.setSpec(KeyConstan.URL.QIANSHUIGONGGAO);
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray ownTax = openEyesTarget.getJSONObject("result").getJSONArray("items");
 		dto.setSpec(KeyConstan.URL.NEWS);
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray news = openEyesTarget.getJSONArray("result");
 		dto.setSpec(KeyConstan.URL.SHIXINREN);
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray dishonest = openEyesTarget.getJSONObject("result").getJSONArray("items");
 		dto.setSpec(KeyConstan.URL.QIYEFENGXIAN);
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONObject riskInfo = openEyesTarget.getJSONObject("result");
 		dto.setSpec(KeyConstan.URL.RENFENGXIAN);
 		params.put("humanName", dto.getHumanName());
 		dto.setParams(params);
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONObject humanRiskInfo = openEyesTarget.getJSONObject("result");
 		dto.setSpec(KeyConstan.URL.FENGXIANXINXI);
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray riskDetail = openEyesTarget.getJSONObject("result").getJSONArray("dataList");
 		result.put("abnormal", abnormal);
 		result.put("punishmentInfo", punishmentInfo);
@@ -603,23 +589,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		result.put("humanRiskInfo", humanRiskInfo);
 		result.put("riskDetail", riskDetail);
 		return openEyesTarget;
-	}
-
-	@Override
-	public JSONObject getKeyWords(OpeneyesDTO dto) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("word", dto.getWord());
-		dto.setParams(params);
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
-		JSONArray jsonArray = new JSONArray();
-		try {
-			jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
-		} catch (Exception e) {
-			log.debug("天眼查关键字查询出现问题",e.getMessage());
-		}
-		log.info("查询到关键词的信息:"+jsonArray.toJSONString());
-		return openEyesTarget;
-	}
+	}*/
 
 	@Override
 	public JSONObject getAbnormal(OpeneyesDTO dto) {
@@ -630,14 +600,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.ABNORMAL);
 		dto.setParams(params);
 		List<Abnormal> list = abnormalRepository.findByCompanyName(dto.getCname());
-		if (list.size() > 0) {
-			result.put("result", list);
+		List<Abnormal> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
+			result.put("result", newList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray abnormal = null;
 		try {
-			abnormal = openEyesTarget.getJSONObject("result").getJSONArray("items");
+			abnormal = openEyesTarget.getJSONObject("data").getJSONArray("result");
 		} catch (Exception e) {
 			log.debug("天眼查经营异常查询出现问题",e.getMessage());
 		}
@@ -647,9 +618,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
 				parseObject.setCompanyName(dto.getCname());
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			abnormalRepository.save(list);
+			abnormalRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -663,14 +634,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.XINGZHENGCHUFA);
 		dto.setParams(params);
 		List<PunishmentInfo> list = punishmentInfoRepository.findByName(dto.getCname());
-		if (list.size() > 0) {
-			result.put("result", list);
+		List<PunishmentInfo> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
+			result.put("result", newList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArr = null;
 		try {
-			jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
+			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
 		} catch (Exception e) {
 			log.debug("天眼查行政处罚查询出现问题",e.getMessage());
 		}
@@ -679,9 +651,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				PunishmentInfo parseObject = JSONObject.parseObject(obj.toString(), PunishmentInfo.class);
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			punishmentInfoRepository.save(list);
+			punishmentInfoRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -695,14 +667,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.YANZHONGWEIFA);
 		dto.setParams(params);
 		List<Illegalinfo> list = illegalinfoRepository.findByCompanyName(dto.getCname());
-		if (list.size() > 0) {
-			result.put("result", list);
+		List<Illegalinfo> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
+			result.put("result", newList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArr = null;
 		try {
-			jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
+			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
 		} catch (Exception e) {
 			log.debug("天眼查严重违法查询出现问题",e.getMessage());
 		}
@@ -712,9 +685,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
 				parseObject.setCompanyName(dto.getCname());
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			illegalinfoRepository.save(list);
+			illegalinfoRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -728,14 +701,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.QIANSHUIGONGGAO);
 		dto.setParams(params);
 		List<OwnTax> list = ownTaxRepository.findByName(dto.getCname());
-		if (list.size() > 0) {
-			result.put("result", list);
+		List<OwnTax> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
+			result.put("result", newList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArr = null;
 		try {
-			jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
+			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
 		} catch (Exception e) {
 			log.debug("天眼查欠税公告查询出现问题",e.getMessage());
 		}
@@ -744,9 +718,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				OwnTax parseObject = JSONObject.parseObject(obj.toString(), OwnTax.class);
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
-				list.add(parseObject);
+				newList.add(parseObject);
 			});
-			ownTaxRepository.save(list);
+			ownTaxRepository.save(newList);
 		}
 		return openEyesTarget;
 	}
@@ -763,7 +737,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", list);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONArray("result");
@@ -794,10 +768,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", list);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArr = null;
 		try {
-			jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
+			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
 		} catch (Exception e) {
 			log.debug("天眼查失信人查询出现问题",e.getMessage());
 		}
@@ -823,10 +797,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", list);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray internalList = null;
 		try {
-			internalList = openEyesTarget.getJSONObject("result").getJSONArray("internalList");
+			internalList = openEyesTarget.getJSONObject("data").getJSONArray("internalList");
 		} catch (Exception e) {
 			log.debug("天眼查企业风险查询出现问题",e.getMessage());
 		}
@@ -839,7 +813,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		}
 		JSONArray externalList = null;
 		try {
-			externalList = openEyesTarget.getJSONObject("result").getJSONArray("externalList");
+			externalList = openEyesTarget.getJSONObject("data").getJSONArray("externalList");
 		} catch (Exception e) {
 			log.debug("天眼查企业风险查询出现问题",e.getMessage());
 		}
@@ -866,10 +840,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", list);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArr = null;
 		try {
-			jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("externalList");
+			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("externalList");
 		} catch (Exception e) {
 			log.debug("天眼查人风险查询出现问题",e.getMessage());
 		}
@@ -887,8 +861,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	public JSONObject getRiskDetail(OpeneyesDTO dto) {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
-		params.put("name", dto.getCname());
+		params.put("id", dto.getId());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.FENGXIANXINXI);
 		dto.setParams(params);
 		List<RiskDetail> list = riskDetailRepository.findByCompanyName(dto.getCname());
@@ -896,10 +871,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", list);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArr = null;
 		try {
-			jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("dataList");
+			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");
 		} catch (Exception e) {
 			log.debug("天眼查风险信息查询出现问题",e.getMessage());
 		}
@@ -929,10 +904,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		JSONArray jsonArr = null;
 		try {
-			jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
+			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
 		} catch (Exception e) {
 			log.debug("天眼查税务评级查询出现问题",e.getMessage());
 		}
@@ -962,7 +937,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 //			result.put("result", inList);
 //			return result;
 //		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 //		JSONArray jsonArr = openEyesTarget.getJSONArray("data");
 //		if(jsonArr != null){
 //			jsonArr.forEach(obj -> {

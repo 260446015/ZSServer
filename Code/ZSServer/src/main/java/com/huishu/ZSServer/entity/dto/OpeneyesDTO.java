@@ -2,6 +2,9 @@ package com.huishu.ZSServer.entity.dto;
 
 import java.util.Map;
 
+import com.huishu.ZSServer.common.conf.KeyConstan;
+import com.huishu.ZSServer.common.util.StringUtil;
+
 public class OpeneyesDTO extends AbstractDTO {
 
 	/**
@@ -19,6 +22,10 @@ public class OpeneyesDTO extends AbstractDTO {
 	private String humanName;
 	/** 查询关键字 */
 	private String word;
+	/** 来源 */
+	private String from;
+	/** 公司id */
+	private Long id;
 
 	public String getSpec() {
 		return spec;
@@ -58,6 +65,26 @@ public class OpeneyesDTO extends AbstractDTO {
 
 	public void setWord(String word) {
 		this.word = word;
+	}
+
+	public String getFrom() {
+		if (StringUtil.isEmpty(from))
+			from = KeyConstan.From.CUSTOM;
+		return from;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setFrom(String from) {
+		if (StringUtil.isEmpty(from))
+			from = KeyConstan.From.CUSTOM;
+		this.from = from;
 	}
 
 }

@@ -36,6 +36,8 @@ public class AbstractDTO implements Serializable {
 	}
 
 	public void setPageSize(Integer pageSize) {
+		if (null == pageSize)
+			pageSize = ConcersUtils.PAGE_SIZE;
 		this.pageSize = pageSize;
 	}
 
@@ -48,6 +50,10 @@ public class AbstractDTO implements Serializable {
 	}
 
 	public void setPageNumber(Integer pageNumber) {
+		if (null == pageNumber)
+			pageNumber = ConcersUtils.ES_MIN_PAGENUMBER;
+		if (pageNumber > ConcersUtils.ES_MAX_PAGENUMBER)
+			setPageNumber(ConcersUtils.ES_MAX_PAGENUMBER);
 		this.pageNumber = pageNumber;
 	}
 

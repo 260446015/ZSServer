@@ -137,4 +137,15 @@ public class KeyConstan{
 		 */
 		public static final String STAFF = "https://open.api.tianyancha.com/services/v3/newopen/staff.json";
 	}
+	/**
+	 * 区分接口访问来源
+	 * @author yindawei 
+	 * @date 2017年11月16日下午4:41:06
+	 * @description 
+	 * @version
+	 */
+	public static class From{
+		public static final String CUSTOM = "1";
+		public static final String GUANGXI = "2";
+	}
 }

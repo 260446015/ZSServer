@@ -1,8 +1,10 @@
 package com.huishu.ZSServer.service;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +27,10 @@ import com.forget.analysis.Analysis;
 import com.forget.category.CategoryModel;
 import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
+import com.huishu.ZSServer.entity.openeyes.SearchCount;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
+import com.huishu.ZSServer.repository.openeyes.SearchCountRepository;
 import com.huishu.ZSServer.security.Digests;
 import com.huishu.ZSServer.security.Encodes;
 
@@ -36,6 +40,8 @@ public class AbstractService<T> {
 
 	@Autowired
 	private BaseElasticsearch baseElasticsearch;
+	@Autowired
+	private SearchCountRepository searchCountRepository;
 
 	/**
 	 * @param title
@@ -117,17 +123,38 @@ public class AbstractService<T> {
 		};
 	}
 
-	protected JSONObject getOpenEyesTarget(String spec, Map<String, Object> params) {
-		String response = "";
+	protected JSONObject getOpenEyesTarget(String spec, Map<String, Object> params,String from) {
 		JSONObject parseObj = null;
 		try {
-			response = HttpUtils.sendHttpGet(spec, params);
-			parseObj = JSONObject.parseObject(response);
+			parseObj = JSONObject.parseObject(HttpUtils.sendHttpGet(spec, params));
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = new Date();
+			String today = format.format(date);
+			String id = getGeneratedId(from+today);
+			SearchCount search = searchCountRepository.findOne(id);
+			search = assemblySearchCount(date, today, id, from, search);
+			searchCountRepository.save(search);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		LOGGER.info("查询到的天眼查接口信息:" + parseObj);
 		return parseObj;
+	}
+
+	private SearchCount assemblySearchCount(Date date, String today, String id, String from, SearchCount search) {
+		if(null == search){
+			search = new SearchCount();
+			search.setId(id);
+			search.setToday(today);
+			search.setStartTime(date.getTime());
+			search.setLastTime(date.getTime());
+			search.setTotal(1);
+			search.setFromType(from);
+		}else{
+			search.setLastTime(date.getTime());
+			search.setTotal(search.getTotal() + 1);
+		}
+		return search;
 	}
 
 	protected String getGeneratedId(Object info) {
