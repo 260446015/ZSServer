@@ -784,7 +784,7 @@ body{
     font-size: 16px;
 }
 
-.scatter-blocks .icon-block {
+.icon-block {
     display: inline-block;
     margin-left: 5px;
     margin-right: 5px;
@@ -862,7 +862,7 @@ body{
 }
 
 .search-item-title {
-    width: 100px;
+    width: 120px;
     padding-left: 20px;
     padding-right: 20px;
     color: #0084b6;
@@ -876,11 +876,11 @@ body{
     color:#fff;
 }
 
-.search-item:hover,
-.search-item:active,
-.search-item:focus,
-.search-item:visited,
-.search-item.active{
+a.search-item:hover,
+a.search-item:active,
+a.search-item:focus,
+a.search-item:visited,
+a.search-item.active{
     color: #20c2fe;
 }
 .search-item-content{
@@ -973,4 +973,47 @@ body{
 .btn-blue:hover,
 .btn-blue:focus{
     color:#00ffe4;
+}
+/**report start*/
+.report-list{
+    margin-bottom: 30px;
+}
+.report-list .border-box {
+    display: block;
+    height: 320px;
+    border: 1px solid #2562bf;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #2562bf;
+    margin-bottom: 25px;
+}
+.report-list .border-box .circle-img {
+    width: 80%;
+    margin: 45px auto;
+    display: block;
+}
+.report-list .report-title{
+    display: block;
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+}
+.report-list .report-title:hover{
+    color:#00ffc4;
+}
+.report-list .report-date{
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.report-list .report-tags{
+    text-align: center;
+    color:#20c2fe;
+}
+.report-list .report-tags .glyphicon-tag{
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
