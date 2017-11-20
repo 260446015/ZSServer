@@ -520,7 +520,7 @@ body{
 }
 /*timeline end*/
 
-.box.box1 {
+.box {
     position: relative;
     height: 341px;
     border: 1px solid #2562bf;
@@ -540,6 +540,18 @@ body{
 .lay-bottom {
     bottom: -12px;
     right: 40px;
+}
+.lay-left-bottom{
+    width: 65px;
+    height:101px;
+    bottom: -30px;
+    left: -30px;
+}
+.lay-right-top{
+    width: 65px;
+    height:99px;
+    right: -30px;
+    top: -30px;
 }
 .box .box-title{
     position: relative;
@@ -607,6 +619,29 @@ body{
 }
 .box-list>li>a:hover{
     color: #2562bf;
+}
+.box1 {
+    margin-top: 45px;
+    box-shadow: inset 0 0 10px #2562bf;
+}
+.box1 .box-title{
+    border:none;
+}
+.box1 .box-title:after {
+    background-color: #010306;
+}
+.box1 .box-body {
+    padding: 0;
+}
+.box1 .box-body:before {
+    background-color: #0f1822;
+}
+.box1 .box-body .search-box {
+    border: none;
+}
+.search-group>div.col-title,.search-group>div.col-title>a {
+    text-align: center;
+    color: #20c2fe;
 }
 /*layer-person start*/
 .layer-person{
@@ -796,6 +831,9 @@ body{
     -ms-transform: rotate(45deg);
     -o-transform: rotate(45deg);
     transform: rotate(45deg);
+    -webkit-box-shadow:  0 0 10px #00bfff;
+    -moz-box-shadow:  0 0 10px #00bfff;
+    box-shadow:  0 0 10px #00bfff;
 }
 
 .scatter-blocks .scatter-type {
@@ -885,6 +923,15 @@ a.search-item.active{
 }
 .search-item-content{
     padding-right: 20px;
+}
+.model-body.border-no-shadow {
+    padding: 0 15px;
+    border: 1px solid #123051;
+}
+.border-no-shadow .scatter-blocks {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 44px;
 }
 /*model-box end*/
 /**img-list start*/
@@ -1016,4 +1063,45 @@ a.search-item.active{
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     transform: rotate(90deg);
+}
+
+/*table start*/
+.table {
+    margin-bottom: 0;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: transparent;
+}
+
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: rgba(4,22,40,.3);
+}
+
+.table>thead>tr>th {
+    border-bottom: none;
+    text-align: center;
+}
+.table>tbody>tr>td{
+    text-align: center;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    border-top: 1px solid #09244d;
+    vertical-align: middle;
+}
+.c-logo{
+    float: left;
+    width: 60px;
+    height: 56px;
+    border-radius: 4px;
+}
+.c-logo+p{
+    margin-bottom: 15px;
+}
+.c-logo+p,
+.c-logo+p+p{
+    margin-left: 65px;
+}
+.text-left{
+    text-align: left !important;
 }
