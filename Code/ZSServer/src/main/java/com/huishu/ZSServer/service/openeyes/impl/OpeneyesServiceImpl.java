@@ -155,7 +155,8 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.BASEINFO);
 		List<BaseInfo> list = baseInfoRepository.findByName(dto.getCname());
 		if (list.size() > 0) {
-			openEyesTarget.put("result", list);
+			BaseInfo info = list.get(0);
+			openEyesTarget.put("result", info);
 			return openEyesTarget;
 		}
 		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
@@ -164,7 +165,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			JSONObject jsonObj = openEyesTarget.getJSONObject("result");
 			parseObject = JSONObject.parseObject(jsonObj.toString(), BaseInfo.class);
 			list.add(parseObject);
-			getJingPin(dto);//此处调用获取竞品信息的功能，存入数据库
+			if(dto.getFlag() != null){
+				if(dto.getFlag())
+					getJingPin(dto);//此处调用获取竞品信息的功能，存入数据库
+			}
 			Company company = companyRepository.findByCompanyName(dto.getCname());
 			if(null != company){
 				company.setAddress(parseObject.getRegLocation());
@@ -602,7 +606,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		List<Abnormal> list = abnormalRepository.findByCompanyName(dto.getCname());
 		List<Abnormal> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
 		if (newList.size() > 0) {
-			result.put("result", newList);
+			JSONObject inList = new JSONObject();
+			inList.put("data", newList);
+			result.put("result", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
@@ -636,7 +642,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		List<PunishmentInfo> list = punishmentInfoRepository.findByName(dto.getCname());
 		List<PunishmentInfo> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
 		if (newList.size() > 0) {
-			result.put("result", newList);
+			JSONObject inList = new JSONObject();
+			inList.put("items", newList);
+			result.put("data", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
@@ -669,7 +677,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		List<Illegalinfo> list = illegalinfoRepository.findByCompanyName(dto.getCname());
 		List<Illegalinfo> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
 		if (newList.size() > 0) {
-			result.put("result", newList);
+			JSONObject inList = new JSONObject();
+			inList.put("items", newList);
+			result.put("result", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
@@ -703,7 +713,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		List<OwnTax> list = ownTaxRepository.findByName(dto.getCname());
 		List<OwnTax> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
 		if (newList.size() > 0) {
-			result.put("result", newList);
+			JSONObject inList = new JSONObject();
+			inList.put("items", newList);
+			result.put("result", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
@@ -764,8 +776,11 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.SHIXINREN);
 		dto.setParams(params);
 		List<Dishonest> list = dishonestRepository.findByIname(dto.getCname());
-		if (list.size() > 0) {
-			result.put("result", list);
+		List<Dishonest> newList = list.stream().skip((dto.getPageNumber()-1) * 20).limit(20).collect(Collectors.toList());
+		if (newList.size() > 0) {
+			JSONObject inList = new JSONObject();
+			inList.put("items", newList);
+			result.put("result", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
@@ -793,8 +808,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.QIYEFENGXIAN);
 		dto.setParams(params);
 		List<RiskInfo> list = riskInfoRepository.findByCompanyName(dto.getCname());
+		List<RiskInfo> internal = null;
+		List<RiskInfo> external = null;
 		if (list.size() > 0) {
-			result.put("result", list);
+			internal = list.stream().filter((riskInfo ->riskInfo.getRiskType().equals("internalList"))).collect(Collectors.toList());
+			external = list.stream().filter((riskInfo ->riskInfo.getRiskType().equals("externalList"))).collect(Collectors.toList());
+			JSONObject inList = new JSONObject();
+			inList.put("internalList", internal);
+			inList.put("externalList", external);
+			result.put("data", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
@@ -837,7 +859,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		List<HumanRiskInfo> list = humanRiskInfoRepository.findByCompanyName(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
+			JSONObject inList = new JSONObject();
+			inList.put("externalList", list);
+			result.put("data", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
@@ -868,7 +892,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		List<RiskDetail> list = riskDetailRepository.findByCompanyName(dto.getCname());
 		if (list.size() > 0) {
-			result.put("result", list);
+			JSONObject inList = new JSONObject();
+			inList.put("dataList", list);
+			result.put("result", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());

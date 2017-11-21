@@ -26,6 +26,8 @@ public class OpeneyesDTO extends AbstractDTO {
 	private String from;
 	/** 公司id */
 	private Long id;
+	/** 区别是否要调用查询竞品信息 */
+	private Boolean flag;
 
 	public String getSpec() {
 		return spec;
@@ -79,6 +81,14 @@ public class OpeneyesDTO extends AbstractDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Boolean getFlag() {
+		return flag;
+	}
+
+	public void setFlag(Boolean flag) {
+		this.flag = flag;
 	}
 
 	public void setFrom(String from) {
