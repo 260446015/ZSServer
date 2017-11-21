@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -22,10 +25,13 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.HttpUtils;
+import com.huishu.ZSServer.service.AbstractService;
 
 public class TestUrl {
 	private final String url = "https://open.api.tianyancha.com/services/v3/newopen/findHistoryRongzi.json?name=北京百度网讯科技有限公司";
@@ -105,5 +111,12 @@ public class TestUrl {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	@Test
+	public void testList(){
+		List list = new ArrayList<>();
+		list.add("a");
+		list = (List) list.stream().skip(20).limit(20).collect(Collectors.toList());
+		System.out.println(list.size());
 	}
 }
