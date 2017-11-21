@@ -1,95 +1,6 @@
 /**
- * Created by zhangxin on 2017/11/15.
+ * Created by zhangxin on 2017/11/21.
  */
-var industryHotCity = {
-    title: {
-        text: '产业热度城市排行',
-        textStyle:{
-            fontWeight: 400,
-            fontSize: 26
-        }
-    },
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'shadow'
-        }
-    },
-    grid: {
-        show:false,
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel:true,
-    },
-    xAxis: {
-        axisLine:{
-            show:false
-        },
-        axisTick:{
-            show:false
-        },
-        axisLabel:{
-            show:false
-        },
-        splitLine:{
-            show:false
-        },
-        type: 'value',
-        boundaryGap: [0, 0.01]
-    },
-    yAxis: {
-        axisLine:{
-            show:false
-        },
-        axisTick:{
-            show:false
-        },
-        splitLine:{
-            show:false
-        },
-        type: 'category',
-        data: ["苏州","青岛","南京",'天津','广州','杭州','深圳','上海','北京']
-    },
-    series: [
-        {
-            type: 'bar',
-            barWidth:14,
-            itemStyle: {
-                normal: {
-                    borderColor: "#2768ca",
-                    borderWidth: 1,
-                    barBorderRadius: 7,
-                    color: new echarts.graphic.LinearGradient(
-                        0, 0, 1, 0,
-                        [
-                            {offset: 0, color: '#0096ff'},
-                            {offset: 0.5, color: '#53c9f0'},
-                            {offset: 1, color: '#00ffe4'}
-                        ]
-                    )
-                },
-                emphasis: {
-                    borderColor: "#2768ca",
-                    borderWidth: 1,
-                    barBorderRadius: 7,
-                    color: new echarts.graphic.LinearGradient(
-                        0, 0, 1, 0,
-                        [
-                            {offset: 0, color: '#00ffe4'},
-                            {offset: 0.7, color: '#53c9f0'},
-                            {offset: 1, color: '#0096ff'}
-                        ]
-                    )
-                }
-            },
-            data: [16352, 17325, 18325, 19325, 23438, 31000, 121594, 134141, 141807]
-        }
-    ]
-};
-var industryHotCityCharts = echarts.init(document.getElementById("industryHotCity"), 'customed');
-industryHotCityCharts.setOption(industryHotCity)
-
 var data = [
     {name: '延安', value: 38},
     {name: '太原', value: 39},
@@ -315,24 +226,116 @@ var chinaOption = {
     ]
 };
 
-var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
-industryMap.setOption(chinaOption);
-/**
- * 地图点击事件
- */
-industryMap.on("click",function (e) {
-    /*这里需要判断一下 点击哪一个类型的点，才显示简介*/
-    $(".layer-person").css({
-        display: "block",
-        top: e.event.offsetY-212,
-        left: e.event.offsetX+30
-    });
-});
-/**
- * 点击关注
- */
-$(".like").on("click",function () {
-    var _this = $(this);
-    _this.parents(".layer-person").hide();
-    new Alert({flag:true,text:"关注成功",timer:2000}).show();
-});
+var parkMap = echarts.init(document.getElementById('parkMap'),"customed");
+parkMap.setOption(chinaOption);
+
+var barOption = {
+    color: ['#3398DB'],
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            data : ['北京', '上海', '深圳', '广州', '天津', '重庆', '山东'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'直接访问',
+            type:'bar',
+            barWidth: '20%',
+            data:[10, 52, 200, 334, 390, 330, 220]
+        }
+    ]
+};
+var barCharts = echarts.init(document.getElementById('barCharts'),"customed");
+barCharts.setOption(barOption);
+
+var  label = {
+    normal: {
+        show: true,
+        textStyle: {
+            fontSize: '16',
+            color: '#ffffff'
+        },
+        formatter: function(param) {
+            return param.data.name;
+        }
+    }
+};
+var data1 = [
+    {
+        value: [18,90], symbolSize: 79, name: '新一代信息技术', itemStyle: {normal: {color: '#5D9CEC'}},label:label
+    },
+    {
+        value: [10,20], symbolSize: 76, name: '新能源', itemStyle: {normal: {color: '#62C87F'}},label:label
+    },
+    {
+        value: [57,11], symbolSize: 69, name: '生物产业', itemStyle: {normal: {color: '#F57BC1'}},label:label
+    },
+    {
+        value: [90,30], symbolSize: 140, name: '环保产业', itemStyle: {normal: {color: '#6ED5E6'}},label:label
+    },
+    {
+        value: [85,82], symbolSize: 79, name: '新材料', itemStyle: {normal: {color: '#DCB186'}},label:label
+    },
+    {
+        value: [65,90], symbolSize: 63, name: '科技园', itemStyle: {normal: {color: '#7053B6'}},label: label
+    },
+    {
+        value: [42,100], symbolSize: 74, name: '行业', itemStyle: {normal: {color: '#647C9D'}},label: label
+    },
+    {
+        value: [18,55], symbolSize: 74, name: '创新', itemStyle: {normal: {color: '#F15755'}},label:label
+    },
+    {
+        value:  [50, 50], symbolSize:90, name: '融合', itemStyle: {normal: {color: '#FC863F'}},label:label
+    }
+];
+
+var option = {
+    xAxis: {
+        show: false,
+        type: 'value',
+        splitLine: {
+            lineStyle: {
+                type: 'dashed'
+            }
+        }
+    },
+    yAxis: {
+        show: false,
+        type: 'value',
+        splitLine: {
+            lineStyle: {
+                type: 'dashed'
+            }
+        },
+    },
+
+    series: [{
+        name: '热词',
+        type: 'scatter',
+        data: data1
+    }]
+};
+var scatter = echarts.init(document.getElementById("scatter"));
+scatter.setOption(option)
