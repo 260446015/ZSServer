@@ -229,6 +229,12 @@ var chinaOption = {
 var parkMap = echarts.init(document.getElementById('parkMap'),"customed");
 parkMap.setOption(chinaOption);
 
+parkMap.on("click",function (e) {
+    if(e.componentType=="series"){
+        $("#myModal").modal("show");
+    }
+});
+
 var barOption = {
     color: ['#3398DB'],
     tooltip : {
@@ -249,6 +255,9 @@ var barOption = {
             data : ['北京', '上海', '深圳', '广州', '天津', '重庆', '山东'],
             axisTick: {
                 alignWithLabel: true
+            },
+            splitLine:{
+                show:false
             }
         }
     ],
@@ -337,5 +346,108 @@ var option = {
         data: data1
     }]
 };
-var scatter = echarts.init(document.getElementById("scatter"));
-scatter.setOption(option)
+var scatter = echarts.init(document.getElementById("scatter"),"customed");
+scatter.setOption(option);
+
+/*modal窗口里的图表*/
+var modalOption1 = {
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            label: {
+                backgroundColor: '#6a7985'
+            }
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['2011','2012','2013','2014','2015','2016','2017'],
+            splitLine:{
+                show:false
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'',
+            type:'line',
+            stack: '总量',
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#018dde'
+                    }, {
+                        offset: 1,
+                        color: '#07263b'
+                    }])
+                }
+            },
+            data:[120, 132, 101, 134, 90, 230, 210]
+        }
+    ]
+};
+
+var modalOption2 = {
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+    },
+    series: [
+        {
+            name:'产业',
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: true
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '16',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: true
+                }
+            },
+            data:[
+                {value:335, name:'生物技术'},
+                {value:310, name:'大数据'},
+                {value:234, name:'新一代信息技术'},
+                {value:135, name:'AI'},
+                {value:1548, name:'VR'}
+            ]
+        }
+    ]
+};
+
+
+$("#myModal").on("shown.bs.modal",function () {
+    var modalCharts1 = echarts.init(document.getElementById("charts_1"),"customed");
+    modalCharts1.setOption(modalOption1);
+
+    var modalCharts2 = echarts.init(document.getElementById("charts_2"),"customed");
+    modalCharts2.setOption(modalOption2);
+});
+
+
