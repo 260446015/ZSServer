@@ -1,132 +1,94 @@
 /**
  * Created by zhangxin on 2017/11/15.
  */
-$(function (){
-	var industry = "人工智能";
-	/*获取企业排行的数据*/
-	industryHotRank(industry);
-});
-function industryHotRank(industry){
-	var a=[],b=[];
-	var industryHotCity = {
-		    title: {
-		        text: '产业热度城市排行',
-		        textStyle:{
-		            fontWeight: 400,
-		            fontSize: 26
-		        }
-		    },
-		    tooltip: {
-		        trigger: 'axis',
-		        axisPointer: {
-		            type: 'shadow'
-		        }
-		    },
-		    grid: {
-		        show:false,
-		        left: '3%',
-		        right: '4%',
-		        bottom: '3%',
-		        containLabel:true,
-		    },
-		    xAxis: {
-		        axisLine:{
-		            show:false
-		        },
-		        axisTick:{
-		            show:false
-		        },
-		        axisLabel:{
-		            show:false
-		        },
-		        splitLine:{
-		            show:false
-		        },
-		        type: 'value',
-		        boundaryGap: [0, 0.01]
-		    },
-		    yAxis: {
-		        axisLine:{
-		            show:false
-		        },
-		        axisTick:{
-		            show:false
-		        },
-		        splitLine:{
-		            show:false
-		        },
-		        type: 'category',
-
-		        data: ["苏州","青岛","南京",'天津','广州','杭州','深圳','上海','北京']
-		    },
-		    series: [
-		        {
-		            type: 'bar',
-		            barWidth:14,
-		            itemStyle: {
-		                normal: {
-		                    borderColor: "#2768ca",
-		                    borderWidth: 1,
-		                    barBorderRadius: 7,
-		                    color: new echarts.graphic.LinearGradient(
-		                        0, 0, 1, 0,
-		                        [
-		                            {offset: 0, color: '#0096ff'},
-		                            {offset: 0.5, color: '#53c9f0'},
-		                            {offset: 1, color: '#00ffe4'}
-		                        ]
-		                    )
-		                },
-		                emphasis: {
-		                    borderColor: "#2768ca",
-		                    borderWidth: 1,
-		                    barBorderRadius: 7,
-		                    color: new echarts.graphic.LinearGradient(
-		                        0, 0, 1, 0,
-		                        [
-		                            {offset: 0, color: '#00ffe4'},
-		                            {offset: 0.7, color: '#53c9f0'},
-		                            {offset: 1, color: '#0096ff'}
-		                        ]
-		                    )
-		                }
-		            },
-		            
-		            data: [16352, 17325, 18325, 19325, 23438, 31000, 121594, 134141, 141807]
-		        }
-		    ]
-		};
-		var industryHotCityCharts = echarts.init(document.getElementById("industryHotCity"), 'customed');
-	 $.ajax({
-		 url:'/indusMap/getRankInfoByIndustry.json?industry='+industry,
-		 type: 'GET',
-		 success:function(result){
-			var data = result.data;
-			for( i = 0;i<data.length;i++){
-				a[i]= data[i].area;
-				b[i]= data[i].count;	
-			}
-			industryHotCity.yAxis.data = a.reverse();
-			industryHotCity.series[0].data = b.reverse();
-			industryHotCityCharts.setOption(industryHotCity);
-			findCompany(data[0].area,industry);
-		 }
-	 });
- };
-function findCompany(a,b){
-	
-	$.ajax({
-		url :'/indusMap/getBusinessListByArea.json',
-		type : 'POST',
-		data :{ "area":a,"industry":b},
-		success :function(result){
-			console.log(result.data);
-		}
-	});
-}
-
-
-//industryHotCityCharts.setOption(industryHotCity);
+var industryHotCity = {
+    title: {
+        text: '产业热度城市排行',
+        textStyle:{
+            fontWeight: 400,
+            fontSize: 26
+        }
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    grid: {
+        show:false,
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel:true,
+    },
+    xAxis: {
+        axisLine:{
+            show:false
+        },
+        axisTick:{
+            show:false
+        },
+        axisLabel:{
+            show:false
+        },
+        splitLine:{
+            show:false
+        },
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        axisLine:{
+            show:false
+        },
+        axisTick:{
+            show:false
+        },
+        splitLine:{
+            show:false
+        },
+        type: 'category',
+        data: ["苏州","青岛","南京",'天津','广州','杭州','深圳','上海','北京']
+    },
+    series: [
+        {
+            type: 'bar',
+            barWidth:14,
+            itemStyle: {
+                normal: {
+                    borderColor: "#2768ca",
+                    borderWidth: 1,
+                    barBorderRadius: 7,
+                    color: new echarts.graphic.LinearGradient(
+                        0, 0, 1, 0,
+                        [
+                            {offset: 0, color: '#0096ff'},
+                            {offset: 0.5, color: '#53c9f0'},
+                            {offset: 1, color: '#00ffe4'}
+                        ]
+                    )
+                },
+                emphasis: {
+                    borderColor: "#2768ca",
+                    borderWidth: 1,
+                    barBorderRadius: 7,
+                    color: new echarts.graphic.LinearGradient(
+                        0, 0, 1, 0,
+                        [
+                            {offset: 0, color: '#00ffe4'},
+                            {offset: 0.7, color: '#53c9f0'},
+                            {offset: 1, color: '#0096ff'}
+                        ]
+                    )
+                }
+            },
+            data: [16352, 17325, 18325, 19325, 23438, 31000, 121594, 134141, 141807]
+        }
+    ]
+};
+var industryHotCityCharts = echarts.init(document.getElementById("industryHotCity"), 'customed');
+industryHotCityCharts.setOption(industryHotCity)
 
 var data = [
     {name: '延安', value: 38},
@@ -353,7 +315,7 @@ var chinaOption = {
     ]
 };
 
-var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
+var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
 industryMap.setOption(chinaOption);
 /**
  * 地图点击事件
@@ -374,4 +336,3 @@ $(".like").on("click",function () {
     _this.parents(".layer-person").hide();
     new Alert({flag:true,text:"关注成功",timer:2000}).show();
 });
-
