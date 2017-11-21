@@ -1,5 +1,8 @@
 package com.huishu.ZSServer.service;
 
+import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.INDEX;
+import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.TYPE;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,11 +18,16 @@ import javax.persistence.criteria.Root;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
+import org.elasticsearch.search.aggregations.metrics.tophits.TopHitsBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.alibaba.fastjson.JSONObject;
@@ -42,7 +50,10 @@ public class AbstractService<T> {
 	private BaseElasticsearch baseElasticsearch;
 	@Autowired
 	private SearchCountRepository searchCountRepository;
-
+	
+	@Autowired
+	protected ElasticsearchTemplate template;
+	
 	/**
 	 * @param title
 	 * @param content
@@ -70,8 +81,10 @@ public class AbstractService<T> {
 
 			}
 			return set;
+		}else{
+			
+			return null;
 		}
-		return null;
 	}
 
 	public Page<AITInfo> getAitinfo(Map<String, Object> params, PageRequest pageRequest) {
@@ -160,5 +173,91 @@ public class AbstractService<T> {
 	protected String getGeneratedId(Object info) {
 		byte[] hashPassword = Digests.sha1(info.toString().getBytes(), null, Encodes.HASH_INTERATIONS);
 		return Encodes.encodeHex(hashPassword);
+	}
+	
+	/**
+	 * @param json
+	 * @return
+	 */
+	protected BoolQueryBuilder getQueryBoolBuilder(JSONObject json) {
+		BoolQueryBuilder bq = new BoolQueryBuilder();
+		if (StringUtil.isNotEmpty(json.getString("industry"))) {
+			String industry = json.getString("industry");
+			bq.must(QueryBuilders.termQuery("industry", industry));
+		}
+		if (StringUtil.isNotEmpty(json.getString("industryLabel"))) {
+			String industryLabel = json.getString("industryLabel");
+			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
+		}
+		if (StringUtil.isNotEmpty(json.getString("area"))) {
+			String area = json.getString("area");
+			bq.must(QueryBuilders.wildcardQuery("area", "*" + area + "*"));
+		}
+		if (StringUtil.isNotEmpty(json.getString("startTime")) && StringUtil.isNotEmpty(json.getString("endTime"))) {
+			String startTime = json.getString("startTime");
+			String endTime = json.getString("endTime");
+			bq.must(QueryBuilders.rangeQuery("publishTime").from(startTime).to(endTime));
+		}
+		if (StringUtil.isNotEmpty(json.getString("dimension"))) {
+			String dimension = json.getString("dimension");
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
+		}
+		if (StringUtil.isNotEmpty(json.getString("keyWord"))) {
+			String keyWord = json.getString("keyWord");
+			bq.must(QueryBuilders.wildcardQuery("content", "*" + keyWord + "*"));
+		}
+		return bq;
+	}
+	/**
+	 * @param json
+	 * @return
+	 */
+	protected BoolQueryBuilder getBoolBuilder(JSONObject json) {
+		BoolQueryBuilder bq = new BoolQueryBuilder();
+		if (StringUtil.isNotEmpty(json.getString("industry"))) {
+			String industry = json.getString("industry");
+			bq.must(QueryBuilders.termQuery("idustryZero", industry));
+		}
+		if (StringUtil.isNotEmpty(json.getString("industryLabel"))) {
+			String industryLabel = json.getString("industryLabel");
+			bq.must(QueryBuilders.termQuery("idustryTwice", industryLabel));
+		}
+		if (StringUtil.isNotEmpty(json.getString("area"))) {
+			String area = json.getString("area");
+			bq.must(QueryBuilders.wildcardQuery("area", "*" + area + "*"));
+		}
+		if (StringUtil.isNotEmpty(json.getString("startTime")) && StringUtil.isNotEmpty(json.getString("endTime"))) {
+			String startTime = json.getString("startTime");
+			String endTime = json.getString("endTime");
+			bq.must(QueryBuilders.rangeQuery("publishTime").from(startTime).to(endTime));
+		}
+		if (StringUtil.isNotEmpty(json.getString("dimension"))) {
+			String dimension = json.getString("dimension");
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
+		}
+		if (StringUtil.isNotEmpty(json.getString("keyWord"))) {
+			String keyWord = json.getString("keyWord");
+			bq.must(QueryBuilders.wildcardQuery("content", "*" + keyWord + "*"));
+		}
+		return bq;
+	}
+	/**
+	 * 得到点击数最多的文章id
+	 * @return
+	 */
+	public List<String> getMaxHitCountArticle(BoolQueryBuilder bq){
+		TopHitsBuilder hitCount = AggregationBuilders.topHits("hitCount").addField("hitCount");
+		AggregationBuilders.terms("").field("");
+		
+		return null;
+	}
+
+	/**
+	 * 查询es库，获取更多条件查询
+	 * 
+	 * @return
+	 */
+	protected NativeSearchQueryBuilder getSearchQueryBuilder() {
+		return new NativeSearchQueryBuilder().withIndices(INDEX).withTypes(TYPE);
 	}
 }

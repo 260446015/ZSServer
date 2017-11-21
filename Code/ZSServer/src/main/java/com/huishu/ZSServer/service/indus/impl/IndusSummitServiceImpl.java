@@ -12,10 +12,15 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -27,6 +32,7 @@ import com.huishu.ZSServer.entity.UserSummitInfo;
 import com.huishu.ZSServer.es.entity.SummitInfo;
 import com.huishu.ZSServer.es.repository.SummitElasticsearch;
 import com.huishu.ZSServer.repository.summit.SummitRepository;
+import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.indus.IndusSummitService;
 
 /**
@@ -37,7 +43,7 @@ import com.huishu.ZSServer.service.indus.IndusSummitService;
  * 产业峰会service实现层
  */
 @Service
-public class IndusSummitServiceImpl implements IndusSummitService {
+public class IndusSummitServiceImpl extends AbstractService implements IndusSummitService {
 	private Logger LOGGER = LoggerFactory.getLogger(IndusSummitServiceImpl.class);
 	
 	@Autowired
@@ -56,7 +62,7 @@ public class IndusSummitServiceImpl implements IndusSummitService {
 	 */
 	@Override
 	public Page<SummitInfo> getIndustryForPage(JSONObject obj){
-		BoolQueryBuilder bq = getQueryBoolBuilder(obj);
+		BoolQueryBuilder bq = getBoolBuilder(obj);
 		Page<SummitInfo> page = template.queryForPage(getSearchQueryBuilder().withQuery(bq).build(), SummitInfo.class);
 		return page;
 	}
@@ -114,45 +120,14 @@ public class IndusSummitServiceImpl implements IndusSummitService {
 			return true;
 		}
 	}
-	/**
-	 * @param json
-	 * @return
-	 */
-	private BoolQueryBuilder getQueryBoolBuilder(JSONObject json) {
-		BoolQueryBuilder bq = new BoolQueryBuilder();
-		if (StringUtil.isNotEmpty(json.getString("industry"))) {
-			String industry = json.getString("industry");
-			bq.must(QueryBuilders.termQuery("idustryZero", industry));
-		}
-		if (StringUtil.isNotEmpty(json.getString("industryLabel"))) {
-			String industryLabel = json.getString("industryLabel");
-			bq.must(QueryBuilders.termQuery("idustryTwice", industryLabel));
-		}
-		if (StringUtil.isNotEmpty(json.getString("area"))) {
-			String area = json.getString("area");
-			bq.must(QueryBuilders.wildcardQuery("area", "*" + area + "*"));
-		}
-		if (StringUtil.isNotEmpty(json.getString("startTime")) && StringUtil.isNotEmpty(json.getString("endTime"))) {
-			String startTime = json.getString("startTime");
-			String endTime = json.getString("endTime");
-			bq.must(QueryBuilders.rangeQuery("publishTime").from(startTime).to(endTime));
-		}
-		if (StringUtil.isNotEmpty(json.getString("dimension"))) {
-			String dimension = json.getString("dimension");
-			bq.must(QueryBuilders.termQuery("dimension", dimension));
-		}
-		if (StringUtil.isNotEmpty(json.getString("keyWord"))) {
-			String keyWord = json.getString("keyWord");
-			bq.must(QueryBuilders.wildcardQuery("content", "*" + keyWord + "*"));
-		}
-		return bq;
-	}
+	
 
 	
 	@Override
 	public List<SummitInfo> findIndustrySummitList(JSONObject obj) {
-		BoolQueryBuilder bq = getQueryBoolBuilder(obj);
-		SearchQuery searchQuery = getSearchQueryBuilder().withQuery(bq).build();
+		BoolQueryBuilder bq = getBoolBuilder(obj);
+		SearchQuery searchQuery = getSearchQueryBuilder().withQuery(bq)
+				.withSort(SortBuilders.fieldSort("publishTime").order(SortOrder.DESC)).build();
 		List<SummitInfo> info = template.query(searchQuery, res->{
 			List<SummitInfo> list= new ArrayList<SummitInfo>();
 			SearchHits hits = res.getHits();
@@ -163,10 +138,33 @@ public class IndusSummitServiceImpl implements IndusSummitService {
 				suinfo.setArea(map.get("area").toString());
 				suinfo.setArticleLink(map.get("articleLink").toString());
 				suinfo.setId(hit.getId());
-				suinfo.setExhibitiontime(map.get("exhibitiontime").toString());
+				if(StringUtil.isEmpty(map.get("bus").toString())){
+					suinfo.setBus("");
+				}else{
+					suinfo.setBus(map.get("bus").toString());
+				}
+				if(StringUtil.isEmpty(map.get("business").toString())){
+					suinfo.setBusiness("");
+				}else{
+					suinfo.setBusiness(map.get("business").toString());
+				}		
+				suinfo.setContent(map.get("content").toString());
+				suinfo.setTitle(map.get("title").toString());
+				suinfo.setDimension(map.get("dimension").toString());
+				suinfo.setEmotion(map.get("emotion").toString());
+				suinfo.setHasWarn((Boolean) map.get("hasWarn"));
+				if(StringUtil.isEmpty(map.get("exhibitiontime").toString())){
+					suinfo.setExhibitiontime("");
+				}else{
+					suinfo.setExhibitiontime(map.get("exhibitiontime").toString());
+				}			
+				suinfo.setIstop((Boolean) map.get("istop"));
+				suinfo.setIdustryThree(map.get("idustryThree").toString());
 				suinfo.setPublishTime(map.get("publishTime").toString());
 				suinfo.setIdustryZero(map.get("idustryZero").toString());
 				suinfo.setIdustryTwice(map.get("idustryTwice").toString());
+				suinfo.setLogo(map.get("logo").toString());
+				suinfo.setSource(map.get("source").toString());
 				list.add(suinfo);
 			}
 			return list;

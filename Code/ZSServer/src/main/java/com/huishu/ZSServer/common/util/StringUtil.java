@@ -105,7 +105,10 @@ public class StringUtil {
 	public static boolean isEmpty(String str) {
 		return str == null || "".equals(str.trim());
 	}
-
+	
+	public static boolean isNotEmpty(String str) {
+        return !isEmpty(str);
+    }
 	/**
 	 * 校验字符串是否为电话格式
 	 * 
