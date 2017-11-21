@@ -1,6 +1,7 @@
 package com.huishu.ZSServer.controller.industry;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,8 @@ import com.huishu.ZSServer.entity.UserSummitInfo;
 import com.huishu.ZSServer.es.entity.SummitInfo;
 import com.huishu.ZSServer.service.indus.IndusSummitService;
 
+import net.minidev.json.JSONArray;
+
 /**
  * @author hhy
  * @date 2017年10月27日
@@ -29,22 +32,24 @@ import com.huishu.ZSServer.service.indus.IndusSummitService;
  * 产业峰会接口文档
  */
 @Controller
-@RequestMapping("/apis/summit")
+@RequestMapping("/summit")
 public class IndustrySummitController extends BaseController{
 	private Logger LOGGER = LoggerFactory.getLogger(IndustrySummitController.class);
 	
 	@Autowired
 	private IndusSummitService service ;
-	
-	@ResponseBody
-	@RequestMapping(value="/getIndustrySummit.json",method = RequestMethod.GET)
-	public AjaxResult getIndustrySummit(@RequestBody String industryLabel){
-		JSONObject obj = new JSONObject();
-		obj.put("dimension", "高峰论坛");
-		obj.put("industryLabel", industryLabel);
-		List<SummitInfo> list = service.findIndustrySummitList(obj);
-		return success(list);
+	/**
+	 * 产业峰会页面跳转
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/getInfo",method=RequestMethod.GET)
+	public String getIndustrySummitInfo(Map<String,Object> map){
+		
+		return "/industry/industrySummitMeeting";
 	}
+	
+	
 	/**
 	 * 查看峰会列表
 	 * @param msg

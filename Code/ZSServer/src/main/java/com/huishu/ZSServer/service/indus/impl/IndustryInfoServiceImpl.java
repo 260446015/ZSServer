@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.formula.functions.T;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -32,6 +33,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
+import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.indus.IndustryInfoService;
 import com.merchantKey.articleToKeywordCloud.ArticleConToKeywordCloud;
 import com.merchantKey.itemModel.KeywordModel;
@@ -42,8 +44,9 @@ import com.merchantKey.itemModel.KeywordModel;
  * @Parem
  * @return 产业动态的实现方法
  */
+@SuppressWarnings("rawtypes")
 @Service
-public class IndustryInfoServiceImpl implements IndustryInfoService {
+public class IndustryInfoServiceImpl extends AbstractService implements IndustryInfoService {
 
 	private static Logger LOGGER = Logger.getLogger(IndustryInfoServiceImpl.class);
 
@@ -63,7 +66,6 @@ public class IndustryInfoServiceImpl implements IndustryInfoService {
 		BoolQueryBuilder bq = getQueryBoolBuilder(json);
 		TermsBuilder articleBuilder = AggregationBuilders.terms("articleLink").field("articleLink").size(1000);
 		SearchQuery query = getSearchQueryBuilder().addAggregation(articleBuilder).withQuery(bq).build();
-		LOGGER.info("");
 		List<String> contentList = new ArrayList<String>();
 		JSONArray data = template.query(query, res -> {
 			JSONArray jsonArray = new JSONArray();
@@ -96,48 +98,8 @@ public class IndustryInfoServiceImpl implements IndustryInfoService {
 		return data;
 	}
 
-	/**
-	 * @param json
-	 * @return
-	 */
-	private BoolQueryBuilder getQueryBoolBuilder(JSONObject json) {
-		BoolQueryBuilder bq = new BoolQueryBuilder();
-		if (StringUtil.isNotEmpty(json.getString("industry"))) {
-			String industry = json.getString("industry");
-			bq.must(QueryBuilders.termQuery("industry", industry));
-		}
-		if (StringUtil.isNotEmpty(json.getString("industryLabel"))) {
-			String industryLabel = json.getString("industryLabel");
-			bq.must(QueryBuilders.termQuery("industryLabel", industryLabel));
-		}
-		if (StringUtil.isNotEmpty(json.getString("area"))) {
-			String area = json.getString("area");
-			bq.must(QueryBuilders.wildcardQuery("area", "*" + area + "*"));
-		}
-		if (StringUtil.isNotEmpty(json.getString("startTime")) && StringUtil.isNotEmpty(json.getString("endTime"))) {
-			String startTime = json.getString("startTime");
-			String endTime = json.getString("endTime");
-			bq.must(QueryBuilders.rangeQuery("publishTime").from(startTime).to(endTime));
-		}
-		if (StringUtil.isNotEmpty(json.getString("dimension"))) {
-			String dimension = json.getString("dimension");
-			bq.must(QueryBuilders.termQuery("dimension", dimension));
-		}
-		if (StringUtil.isNotEmpty(json.getString("keyWord"))) {
-			String keyWord = json.getString("keyWord");
-			bq.must(QueryBuilders.wildcardQuery("content", "*" + keyWord + "*"));
-		}
-		return bq;
-	}
+	
 
-	/**
-	 * 查询es库，获取更多条件查询
-	 * 
-	 * @return
-	 */
-	protected NativeSearchQueryBuilder getSearchQueryBuilder() {
-		return new NativeSearchQueryBuilder().withIndices(INDEX).withTypes(TYPE);
-	}
 
 	/**
 	 * 根据关键词查询文章列表
