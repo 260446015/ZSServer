@@ -61,104 +61,7 @@
                 </div>
                 <div class="model-body">
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="report-list">
-                                <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="/images/report.png" />
-                                </a>
-                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
-                                <p class="report-date">2017-10-31</p>
-                                <p class="report-tags">
-                                    <i class="glyphicon glyphicon-tag"></i>
-                                    <span class="tag">生物技术</span>
-                                    <span class="tag">新一代信息技术</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="report-list">
-                                <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="/images/report.png" />
-                                </a>
-                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
-                                <p class="report-date">2017-10-31</p>
-                                <p class="report-tags">
-                                    <i class="glyphicon glyphicon-tag"></i>
-                                    <span class="tag">生物技术</span>
-                                    <span class="tag">新一代信息技术</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="report-list">
-                                <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="/images/report.png" />
-                                </a>
-                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
-                                <p class="report-date">2017-10-31</p>
-                                <p class="report-tags">
-                                    <i class="glyphicon glyphicon-tag"></i>
-                                    <span class="tag">生物技术</span>
-                                    <span class="tag">新一代信息技术</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="report-list">
-                                <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="/images/report.png" />
-                                </a>
-                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
-                                <p class="report-date">2017-10-31</p>
-                                <p class="report-tags">
-                                    <i class="glyphicon glyphicon-tag"></i>
-                                    <span class="tag">生物技术</span>
-                                    <span class="tag">新一代信息技术</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="report-list">
-                                <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="/images/report.png" />
-                                </a>
-                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
-                                <p class="report-date">2017-10-31</p>
-                                <p class="report-tags">
-                                    <i class="glyphicon glyphicon-tag"></i>
-                                    <span class="tag">生物技术</span>
-                                    <span class="tag">新一代信息技术</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="report-list">
-                                <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="/images/report.png" />
-                                </a>
-                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
-                                <p class="report-date">2017-10-31</p>
-                                <p class="report-tags">
-                                    <i class="glyphicon glyphicon-tag"></i>
-                                    <span class="tag">生物技术</span>
-                                    <span class="tag">新一代信息技术</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="report-list">
-                                <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="/images/report.png" />
-                                </a>
-                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
-                                <p class="report-date">2017-10-31</p>
-                                <p class="report-tags">
-                                    <i class="glyphicon glyphicon-tag"></i>
-                                    <span class="tag">生物技术</span>
-                                    <span class="tag">新一代信息技术</span>
-                                </p>
-                            </div>
-                        </div>
+                    	<ul id="biuuu_city_list"></ul>
                     </div>
                 </div>
             </div>
@@ -170,4 +73,31 @@
 <#include  "/common/script.ftl"/>
 <!-- js 共用部分 end -->
 </body>
+<script type="text/javascript">
+	$(function(){
+        $.ajax({
+            url: "/apis/report/getExpertReport.json",
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		$('#biuuu_city_list').html(show(response.data.dataList));
+                }
+            }
+        });
+    })
+	function show(d){
+        var arr = []
+        $.each(d, function(index, item){
+          arr.push('<div class="col-md-3"><div class="report-list"><a href="'+item.url+'" target="_blank" class="border-box"><img class="circle-img" src="/images/report.png" /></a>'+
+          			'<a href="'+item.url+'" class="report-title" target="_blank">'+item.name+'</a>'+
+          			'<p class="report-date">'+item.data+'</p>'+
+          			'<p class="report-tags"><i class="glyphicon glyphicon-tag"></i>'+
+          			'<span class="tag">'+item.label+'</span></p></p></div></div>'
+          		);
+        });
+        var inner=arr.join('');
+        return inner;
+  	}
+</script> 
 </html>

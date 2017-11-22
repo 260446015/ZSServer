@@ -20,6 +20,7 @@ import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
+import com.huishu.ZSServer.entity.dto.FinancingSearchDTO;
 import com.huishu.ZSServer.es.entity.FinancingInfo;
 import com.huishu.ZSServer.service.financing.FinancingService;
 
@@ -72,18 +73,21 @@ public class FinancingController extends BaseController {
 	/**
 	 * 获取融资柱状图    
 	 * 
-	 * @param type（week, month, season, year）
+	 * @param dto
+	 * 		type（week, month, season, year）
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getHistogram.json", method = RequestMethod.GET)
-	public AjaxResult getHistogram(String type) {
-		if (StringUtil.isEmpty(type)) {
+	@RequestMapping(value = "/getHistogram.json", method = RequestMethod.POST)
+	public AjaxResult getHistogram(@RequestBody FinancingSearchDTO dto) {
+		if (null == dto||StringUtil.isEmpty(dto.getType())||dto.getIndustry()==null) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		if(dto.getIndustry().length==0){
+			return success(null);
+		}
 		try {
-			List<JSONObject> list = financingService.getHistogram(type);
-			return success(list);
+			return success(financingService.getHistogram(dto));
 		} catch (Exception e) {
 			LOGGER.error("获取融资柱状图失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -110,20 +114,21 @@ public class FinancingController extends BaseController {
 	/**
 	 * 获取某产业融资企业推荐列表
 	 * 
-	 * @param industry
+	 * @param dto
+	 * 			industry[]
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getFinancingCompany.json", method = RequestMethod.POST)
-	public AjaxResult getFinancingCompany(@RequestBody String[] industry) {
-		if (null == industry) {
+	public AjaxResult getFinancingCompany(@RequestBody FinancingSearchDTO dto) {
+		if (null == dto||dto.getIndustry()==null) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		if(industry.length==0){
+		if(dto.getIndustry().length==0){
 			return success(null);
 		}
 		try {
-			List<JSONObject> list = financingService.getFinancingCompany(Arrays.asList(industry));
+			List<JSONObject> list = financingService.getFinancingCompany(Arrays.asList(dto.getIndustry()));
 			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("获取某产业融资企业推荐列表失败!", e);
