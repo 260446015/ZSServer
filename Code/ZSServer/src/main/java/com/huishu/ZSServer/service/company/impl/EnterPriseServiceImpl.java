@@ -1,5 +1,6 @@
 package com.huishu.ZSServer.service.company.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,12 @@ public class EnterPriseServiceImpl implements EnterPriseService {
 	
 	@Override
 	public List<String> findCompanyName(String area, String industry) {
-		
-		return rep.getCompanyNameByIndustryAndArea(area, industry);
+		List<String> li = new ArrayList<String>();
+		List<String> list = rep.getCompanyNameByIndustryAndArea(area, industry);
+		for (int i = 0; i < 8; i++) {
+			li.add(list.get(i));
+		}
+		return li;
 	}
 
 }
