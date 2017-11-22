@@ -70,72 +70,6 @@
                                                 <a href="javascript:void(0);" class="search-item">人工智能</a>
                                             </div>
                                         </div>
-                                        <div class="search-group">
-                                            <div class="col-title">
-                                                1500亿人民币
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">紫光集团</a>
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                            </div>
-                                        </div>
-                                        <div class="search-group">
-                                            <div class="col-title">
-                                                1500亿人民币
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">紫光集团</a>
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                            </div>
-                                        </div>
-                                        <div class="search-group">
-                                            <div class="col-title">
-                                                1500亿人民币
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">紫光集团</a>
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                            </div>
-                                        </div>
-                                        <div class="search-group">
-                                            <div class="col-title">
-                                                1500亿人民币
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">紫光集团</a>
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                            </div>
-                                        </div>
-                                        <div class="search-group">
-                                            <div class="col-title">
-                                                1500亿人民币
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">紫光集团</a>
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                            </div>
-                                        </div>
-                                        <div class="search-group">
-                                            <div class="col-title">
-                                                1500亿人民币
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">紫光集团</a>
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -155,138 +89,12 @@
                                         <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
                                     </a>
                                 </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="model-body border-no-shadow">
                             <div class="row">
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
                                 <div class="col-md-12 border-bottom">
                                     <a class="scatter-blocks no-border" href="javascript:void(0);">
                                         <span class="icon-block"></span>
@@ -310,11 +118,11 @@
                             产业
                         </div>
                         <div class="search-item-content">
-                            <a href="javascript:void(0);" class="search-item active">全部</a>
-                            <a href="javascript:void(0);" class="search-item">人工智能</a>
-                            <a href="javascript:void(0);" class="search-item">大数据</a>
-                            <a href="javascript:void(0);" class="search-item">互联网</a>
-                            <a href="javascript:void(0);" class="search-item">生物技术</a>
+                            <a href="javascript:void(0);" onclick="myClick(1,'全部')" class="search-item active">全部</a>
+                            <a href="javascript:void(0);" onclick="myClick(1,'人工智能')" class="search-item">人工智能</a>
+                            <a href="javascript:void(0);" onclick="myClick(1,'大数据')" class="search-item">大数据</a>
+                            <a href="javascript:void(0);" onclick="myClick(1,'互联网')" class="search-item">互联网</a>
+                            <a href="javascript:void(0);" onclick="myClick(1,'生物技术')" class="search-item">生物技术</a>
                         </div>
                     </div>
                     <div class="search-group">
@@ -368,175 +176,7 @@
                                     <th>详情</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">2017-09-09</td>
-                                    <td class="text-left">
-                                        <img src="/images/c_logo.png" class="c-logo"/>
-                                        <p>天猫国际</p>
-                                        <p>
-                                            <span class="c-tag">电子商务</span>
-                                            <span class="c-tag">杭州</span>
-                                        </p>
-                                    </td>
-                                    <td class="text-center">
-                                        IPO上市
-                                    </td>
-                                    <td class="text-center">
-                                        16.6亿人民币
-                                    </td>
-                                    <td class="text-center">
-                                        <p>阿里巴巴</p>
-                                        <p>愉悦资本</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" class="btn btn-fill btn-blue">详情</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">2017-09-09</td>
-                                    <td class="text-left">
-                                        <img src="/images/c_logo.png" class="c-logo"/>
-                                        <p>天猫国际</p>
-                                        <p>
-                                            <span class="c-tag">电子商务</span>
-                                            <span class="c-tag">杭州</span>
-                                        </p>
-                                    </td>
-                                    <td class="text-center">
-                                        IPO上市
-                                    </td>
-                                    <td class="text-center">
-                                        16.6亿人民币
-                                    </td>
-                                    <td class="text-center">
-                                        <p>阿里巴巴</p>
-                                        <p>愉悦资本</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" class="btn btn-fill btn-blue">详情</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">2017-09-09</td>
-                                    <td class="text-left">
-                                        <img src="/images/c_logo.png" class="c-logo"/>
-                                        <p>天猫国际</p>
-                                        <p>
-                                            <span class="c-tag">电子商务</span>
-                                            <span class="c-tag">杭州</span>
-                                        </p>
-                                    </td>
-                                    <td class="text-center">
-                                        IPO上市
-                                    </td>
-                                    <td class="text-center">
-                                        16.6亿人民币
-                                    </td>
-                                    <td class="text-center">
-                                        <p>阿里巴巴</p>
-                                        <p>愉悦资本</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" class="btn btn-fill btn-blue">详情</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">2017-09-09</td>
-                                    <td class="text-left">
-                                        <img src="/images/c_logo.png" class="c-logo"/>
-                                        <p>天猫国际</p>
-                                        <p>
-                                            <span class="c-tag">电子商务</span>
-                                            <span class="c-tag">杭州</span>
-                                        </p>
-                                    </td>
-                                    <td class="text-center">
-                                        IPO上市
-                                    </td>
-                                    <td class="text-center">
-                                        16.6亿人民币
-                                    </td>
-                                    <td class="text-center">
-                                        <p>阿里巴巴</p>
-                                        <p>愉悦资本</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" class="btn btn-fill btn-blue">详情</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">2017-09-09</td>
-                                    <td class="text-left">
-                                        <img src="/images/c_logo.png" class="c-logo"/>
-                                        <p>天猫国际</p>
-                                        <p>
-                                            <span class="c-tag">电子商务</span>
-                                            <span class="c-tag">杭州</span>
-                                        </p>
-                                    </td>
-                                    <td class="text-center">
-                                        IPO上市
-                                    </td>
-                                    <td class="text-center">
-                                        16.6亿人民币
-                                    </td>
-                                    <td class="text-center">
-                                        <p>阿里巴巴</p>
-                                        <p>愉悦资本</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" class="btn btn-fill btn-blue">详情</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">2017-09-09</td>
-                                    <td class="text-left">
-                                        <img src="/images/c_logo.png" class="c-logo"/>
-                                        <p>天猫国际</p>
-                                        <p>
-                                            <span class="c-tag">电子商务</span>
-                                            <span class="c-tag">杭州</span>
-                                        </p>
-                                    </td>
-                                    <td class="text-center">
-                                        IPO上市
-                                    </td>
-                                    <td class="text-center">
-                                        16.6亿人民币
-                                    </td>
-                                    <td class="text-center">
-                                        <p>阿里巴巴</p>
-                                        <p>愉悦资本</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" class="btn btn-fill btn-blue">详情</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">2017-09-09</td>
-                                    <td class="text-left">
-                                        <img src="/images/c_logo.png" class="c-logo"/>
-                                        <p>天猫国际</p>
-                                        <p>
-                                            <span class="c-tag">电子商务</span>
-                                            <span class="c-tag">杭州</span>
-                                        </p>
-                                    </td>
-                                    <td class="text-center">
-                                        IPO上市
-                                    </td>
-                                    <td class="text-center">
-                                        16.6亿人民币
-                                    </td>
-                                    <td class="text-center">
-                                        <p>阿里巴巴</p>
-                                        <p>愉悦资本</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" class="btn btn-fill btn-blue">详情</a>
-                                    </td>
-                                </tr>
+                            <tbody id="biuuu_city_list">
                             </tbody>
                         </table>
                     </div>
@@ -551,4 +191,61 @@
 <!-- js 共用部分 end -->
 <script src="/js/financingExpress/financingExpress.js"></script>
 </body>
+<script type="text/javascript">
+	var invest="全部";
+	var area="全部";
+	var industry="全部";
+	var sort="按时间";
+	$(function(){
+		myClick(0,0)
+    })
+    function myClick(a,b){
+	    if(a==1){
+	    	industry=b;
+	    }else if(a==2){
+	    	area=b;
+	    }else if(a==3){
+	    	invest=b;
+	    }else if(a==4){
+	    	sort=b;
+	    }
+	    var param={invest:invest,sort:sort,area:area,industry:industry};
+		ajaxPost(param);
+	}
+    function ajaxPost(param){
+    	$.ajax({
+            type: 'post',
+            url: "/apis/financing/getCompanyList.json",
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(param),
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		$('#biuuu_city_list').html(show(response.data.dataList));
+                }
+            }
+        });
+    }
+	function show(d){
+        var arr = []
+        $.each(d, function(index, item){
+          var imageSrc='/images/c_logo.png';
+          if(item.logo.length!=0){
+          	imageSrc=item.logo;
+          }
+          arr.push('<tr><td class="text-center">'+item.financingDate+'</td>'+
+				    '<td class="text-left"><img src="'+imageSrc+'" class="c-logo"/>'+
+				    '<p>'+item.financingCompany+'</p><p><span class="c-tag">电子商务</span><span class="c-tag">杭州</span></p></td>'+
+				    '<td class="text-center">'+item.invest+'</td>'+
+				    '<td class="text-center">'+item.financingAmount+'</td>'+
+				    '<td class="text-center"><p>'+item.investor+'</p></td>'+
+				    '<td class="text-center"><a href="'+item.articleLink+'" target="_blank" class="btn btn-fill btn-blue">详情</a></td></tr>'
+          		);
+        });
+        var inner=arr.join('');
+        return inner;
+  	}
+</script> 
 </html>
