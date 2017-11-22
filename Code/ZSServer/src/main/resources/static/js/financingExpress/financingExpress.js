@@ -55,6 +55,6 @@ var option = {
 var barCharts = echarts.init(document.getElementById("barCharts"),"customed");
 barCharts.setOption(option);
 
-$("input[type=radio]").iCheck({
-    radioClass: 'iradio_square-blue'
+$("input[type=checkbox]").iCheck({
+    checkboxClass: 'icheckbox_square-blue'
 });
