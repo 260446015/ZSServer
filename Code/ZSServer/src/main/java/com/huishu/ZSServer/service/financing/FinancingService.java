@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
+import com.huishu.ZSServer.entity.dto.FinancingSearchDTO;
 import com.huishu.ZSServer.es.entity.FinancingInfo;
 
 /**
@@ -34,8 +35,9 @@ public interface FinancingService {
 	List<JSONObject> getFinancingCompany(List<String> industry);
 	/**
 	 * 获取融资柱状图   (周，月，季，年)
-	 * @param type（week, month, season, year）
+	 * @param dto
+	 * 				type（week, month, season, year）
 	 * @return
 	 */
-	List<JSONObject> getHistogram(String type);
+	JSONObject getHistogram(FinancingSearchDTO dto);
 }

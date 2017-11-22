@@ -265,7 +265,7 @@ public class AbstractService<T> {
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countByWeek(String industry){
+	protected JSONObject countByWeek(String[] industry){
 		return null;
 	}
 	/**
@@ -273,7 +273,7 @@ public class AbstractService<T> {
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countByMonth(String industry){
+	protected JSONObject countByMonth(String[] industry){
 		return null;
 	}
 	/**
@@ -281,7 +281,7 @@ public class AbstractService<T> {
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countBySeason(String industry){
+	protected JSONObject countBySeason(String[] industry){
 		return null;
 	}
 	/**
@@ -289,7 +289,7 @@ public class AbstractService<T> {
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countByYear(String industry){
+	protected JSONObject countByYear(String[] industry){
 		return null;
 	}
 }

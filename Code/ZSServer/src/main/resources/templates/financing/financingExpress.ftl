@@ -32,19 +32,19 @@
                 <div class="model-body">
                     <div class="radio-box">
                         <label class="radio-inline">
-                            <input class="radio-item" name="timer" checked type="radio" />
+                            <input class="radio-item" name="timer" value="人工智能" checked type="checkbox" />
                             人工智能
                         </label>
                         <label class="radio-inline">
-                            <input class="radio-item" name="timer" type="radio" />
+                            <input class="radio-item" name="timer" value="大数据" type="checkbox" />
                             大数据
                         </label>
                         <label class="radio-inline">
-                            <input class="radio-item" name="timer" type="radio" />
+                            <input class="radio-item" name="timer" value="物联网" type="checkbox" />
                             物联网
                         </label>
                         <label class="radio-inline">
-                            <input class="radio-item" name="timer" type="radio" />
+                            <input class="radio-item" name="timer" value="生物技术" type="checkbox" />
                             生物技术
                         </label>
                     </div>
@@ -58,18 +58,7 @@
                                 <img class="lay lay-right-top" src="/images/right_top.png" alt="">
                                 <h3 class="box-title"></h3>
                                 <div class="box-body">
-                                    <div class="search-box">
-                                        <div class="search-group">
-                                            <div class="col-title">
-                                                1500亿人民币
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">紫光集团</a>
-                                            </div>
-                                            <div class="col-title">
-                                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                            </div>
-                                        </div>
+                                    <div class="search-box" id="company">
                                     </div>
                                 </div>
                             </div>
@@ -169,84 +158,4 @@
 <!-- js 共用部分 end -->
 <script src="/js/financingExpress/financingExpress.js"></script>
 </body>
-<script type="text/javascript">
-	var invest="全部";
-	var area="全部";
-	var industry="全部";
-	var sort="按时间";
-	$(function(){
-		$.ajax({
-            url: "/apis/financing/getFinancingDynamic.json",
-            success: function (response) {
-                if(response.message!=null){
-                	alert(response.message);
-                }else{
-               		showDynamic(response.data.dataList);
-                }
-            }
-        });
-		myClick(0,0);
-    })
-    function myClick(a,b){
-	    if(a==1){
-	    	industry=b;
-	    }else if(a==2){
-	    	area=b;
-	    }else if(a==3){
-	    	invest=b;
-	    }else if(a==4){
-	    	sort=b;
-	    }
-	    var param={invest:invest,sort:sort,area:area,industry:industry};
-		ajaxPost(param);
-	}
-    function ajaxPost(param){
-    	$.ajax({
-            type: 'post',
-            url: "/apis/financing/getCompanyList.json",
-            async: false,
-            contentType: 'application/json',
-            data: JSON.stringify(param),
-            success: function (response) {
-                if(response.message!=null){
-                	alert(response.message);
-                }else{
-               		$('#city_list').html(show(response.data.dataList));
-                }
-            }
-        });
-    }
-	function showDynamic(d){
-		var arr = [];
-		var arr2 = [];
-		$.each(d, function(index, item){
-			var inner='<div class="model-body border-no-shadow"><div class="row"><div class="col-md-12 border-bottom">'+
-            '<a class="scatter-blocks no-border" href="javascript:void(0);">'+
-            '<span class="icon-block"></span><span class="scatter-type">'+item.industry+'</span>'+
-            '  <span class="scatter-title">'+item.title+'</span></a></div></div></div>';
-			(index%2 ==0) ?arr.push(inner):arr2.push(inner); 
-		});
-		$('#city_dynamic').html(arr.join(''));
-		$('#city_dynamic2').html(arr2.join(''));
-	}
-	function show(d){
-        var arr = []
-        $.each(d, function(index, item){
-          var imageSrc='/images/c_logo.png';
-          if(item.logo.length!=0){
-          	imageSrc=item.logo;
-          }
-          arr.push('<tr><td class="text-center">'+item.financingDate+'</td>'+
-				    '<td class="text-left"><img src="'+imageSrc+'" class="c-logo"/>'+
-				    '<p>'+item.financingCompany+'</p><p><span class="c-tag">'+item.industry+'</span>  <span class="c-tag">'+item.area+'</span></p></td>'+
-				    '<td class="text-center">'+item.invest+'</td>'+
-				    '<td class="text-center">'+item.financingAmount+'</td>'+
-				    '<td class="text-center"><p>'+item.investor+'</p></td>'+
-				    '<td class="text-center"><a href="'+item.articleLink+'" target="_blank" class="btn btn-fill btn-blue">详情</a></td></tr>'
-          		);
-        });
-        var inner=arr.join('');
-        return inner;
-  	}
-</script> 
 </html>
