@@ -13,6 +13,7 @@ public class DBConstant {
 		public static final String INDEX = "aitserver_2017-08-15";
 		public static final String INDEX1 = "busserver_alias";
 		public static final String INDEX2 = "aitserver_2017-10-27";
+		public static final String INDEX3 = "financing_alias";
 		public static final String TYPE = "aitinfo";
 		public static final String TYPE1 = "aitinfo";
 		public static final String TYPE2 = "zsinfo";

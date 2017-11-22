@@ -2,6 +2,8 @@ package com.huishu.ZSServer.controller;
 
 import java.util.Date;
 
+import org.springframework.data.domain.Page;
+
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.util.ConcersUtils.DateUtil;
@@ -20,6 +22,14 @@ public abstract class BaseController {
 
 	public AjaxResult error(String message) {
 		return new AjaxResult().setMessage(message).setSuccess(false).setStatus(1);
+	}
+	
+	public AjaxResult successPage(Page<?> data) {
+		JSONObject result = new JSONObject();
+		result.put("dataList", data.getContent());
+		result.put("totalNumber",data.getTotalElements());
+		result.put("totalPage",data.getTotalPages());
+		return new AjaxResult().setData(result).setSuccess(true).setStatus(0);
 	}
 	
 	public JSONObject initTime(JSONObject obj,String time){

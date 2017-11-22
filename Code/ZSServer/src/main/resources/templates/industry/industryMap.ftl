@@ -86,10 +86,10 @@
                             <img class="lay lay-top" src="/images/lay_top.png" alt="">
                             <img class="lay lay-right" src="/images/lay_right.png" alt="">
                             <img class="lay lay-bottom" src="/images/lay_bottom.png" alt="">
-                            <h3 class="box-title">北京</h3>
+                           <h3 class="box-title" id="">北京</h3>
                             <div class="box-body">
-                                <ul class="box-list">
-                                    <li>
+                                <ul class="box-list" id="box-list">
+                                  <!--<li>
                                         <a href="javascript:void(0);">北京百分点信息科技有限公司</a>
                                     </li>
                                     <li>
@@ -103,7 +103,7 @@
                                     </li>
                                     <li>
                                         <a href="javascript:void(0);">北京百分点信息科技有限公司</a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </div>
                         </div>

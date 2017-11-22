@@ -68,7 +68,7 @@ public class AnalysisController extends BaseController{
 		}
 		try {
 			Page<Company> page = analysisService.getCompanyList(dto);
-			return success(page);
+			return successPage(page);
 		} catch (Exception e) {
 			LOGGER.error("获取某轮次融资企业列表失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -110,7 +110,7 @@ public class AnalysisController extends BaseController{
 		}
 		try {
 			Page<CompanyAnnals> page = analysisService.getTopCompany(park,industry);
-			return success(page);
+			return successPage(page);
 		} catch (Exception e) {
 			LOGGER.error("获取TOP企业失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);

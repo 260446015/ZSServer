@@ -19,7 +19,6 @@ import javax.persistence.criteria.Root;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.aggregations.metrics.tophits.TopHitsBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -259,5 +258,38 @@ public class AbstractService<T> {
 	 */
 	protected NativeSearchQueryBuilder getSearchQueryBuilder() {
 		return new NativeSearchQueryBuilder().withIndices(INDEX).withTypes(TYPE);
+	}
+	
+	/**
+	 * 产业融资柱状分布图——按周
+	 * @param industry
+	 * @return
+	 */
+	protected JSONObject countByWeek(String industry){
+		return null;
+	}
+	/**
+	 * 产业融资柱状分布图——按月
+	 * @param industry
+	 * @return
+	 */
+	protected JSONObject countByMonth(String industry){
+		return null;
+	}
+	/**
+	 * 产业融资柱状分布图——按季度
+	 * @param industry
+	 * @return
+	 */
+	protected JSONObject countBySeason(String industry){
+		return null;
+	}
+	/**
+	 * 产业融资柱状分布图——按年
+	 * @param industry
+	 * @return
+	 */
+	protected JSONObject countByYear(String industry){
+		return null;
 	}
 }

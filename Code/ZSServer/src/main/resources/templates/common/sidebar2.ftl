@@ -1,8 +1,7 @@
- <!-- header部分  start -->
- <div class="left-nav posa">
+ <div class="left-nav">
             <ul>
-                <li class="active">
-                    <a href="/indusMap/map">
+                <li>
+                    <a href="industryMap.html">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">
 
@@ -11,11 +10,11 @@
                         产业地图
                     </a>
                     <ul class="left-nav-menu">
-                        <li class="active">
-                            <a href="/indus/get">产业动态</a>
+                        <li>
+                            <a href="./industryDynamics.html">产业动态</a>
                         </li>
                         <li>
-                            <a href="/summit/getInfo">产业峰会</a>
+                            <a href="./industrySummitMeeting.html">产业峰会</a>
                         </li>
                     </ul>
                 </li>
@@ -39,7 +38,7 @@
                         融资速递
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/apis/report/industryReport.html">
                         <div class="circle-out merchantsIcon">
                             <div class="circle-in">
@@ -51,4 +50,3 @@
                 </li>
             </ul>
         </div>
-<!-- header部分  end -->
