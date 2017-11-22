@@ -1,51 +1,51 @@
 <html>
 	<head>
-		<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
-		<script type="text/javascript" src="/js/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="/vendor/jquery.min.js"></script>
 	</head>
 	<body>
         <form>
             <fieldset>
                 <legend>融资快报</legend>
                 <input type="button" value="获取融资企业列表" onclick="aa()"/>
+                <input type="button" value="获取融资柱状图" onclick="dd()"/>
+                <input type="button" value="获取融资动态数据" onclick="ee()"/>
                 <input type="button" value="获取某产业融资企业推荐列表" onclick="bb()"/>
             </fieldset>
         </form>
         <form>
             <fieldset>
                 <legend>园区分析</legend>
+                <input type="button" value="企业融资分布" onclick="fenbu()"/>
                 <input type="button" value="获取某轮次融资企业列表" onclick="cc()"/>
-            </fieldset>
-        </form>
-        e:/file/pdf/c6090b50-0344-407d-8d0a-db063ecec69a.pdf
-        <form>
-            <fieldset>
-                <legend>上传PDF</legend>
-                 <lable>名片:</lable>
-                <input type="file" id="file" name="file" onchange="pushImg();"/> 
-                <input type="hidden" id="pic" name="pic" /></div>
-                <div>
-		            <lable>在线预览:</lable>
-		            <input type="text" name="but"/></div>
-		            <input type="button" value="发送" onclick="yulan()"/>
-		            <input type="button" value="发送2" onclick="yulan2()"/>
+                <input type="button" value="获取价值榜分布图" onclick="jiazhi()"/>
+                <input type="button" value="获取TOP企业列表" onclick="myTop()"/>
+                <input type="button" value="关注园区-情报推送" onclick="push()"/>
             </fieldset>
         </form>
 	</body>
-</html>
-<script type="text/javascript">
+	<script type="text/javascript">
 	function aa(){
-		var datalist= new Array();
-		datalist.push("人工智能");         
-		datalist.push("天津");         
-		datalist.push("种子轮");         
-		datalist.push("按时间");         
 	    $.ajax({
             type: 'post',
             url: "/apis/financing/getCompanyList.json",
             async: false,
             contentType: 'application/json',
-            data: JSON.stringify({park:'天津中新生态城',msg: datalist}),
+            data: JSON.stringify({invest:"全部",sort:"按时间",area:"全部",industry:"全部"}),
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
+            }
+        });
+	}
+	function dd(){
+         alert("没写");
+	}
+	function ee(){
+         $.ajax({
+            url: "/apis/financing/getFinancingDynamic.json",
             success: function (response) {
                 if(response.message!=null){
                 	alert(response.message);
@@ -57,14 +57,26 @@
 	}
 	function bb(){
 		var datalist= new Array();
-		datalist.push("人工智能");         
-		datalist.push("物联网");         
+		datalist.push("文化娱乐");         
+		datalist.push("信息技术");         
 	    $.ajax({
             type: 'post',
             url: "/apis/financing/getFinancingCompany.json",
             async: false,
             contentType: 'application/json',
             data: JSON.stringify(datalist),
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
+            }
+        });
+	}
+	function fenbu(){
+         $.ajax({
+            url: "/apis/analysis/getFinancingDistribution.json?park=天津中新生态城",
             success: function (response) {
                 if(response.message!=null){
                 	alert(response.message);
@@ -90,28 +102,45 @@
             }
         });
 	}
-	function yulan() {
-		$.ajax({
-            url: "/pdf/changePDFUrl.do?path=e:/file/pdf/c6090b50-0344-407d-8d0a-db063ecec69a.pdf",
+	function jiazhi(){
+          $.ajax({
+            url: "/apis/analysis/getValueDistribution.json?park=天津中新生态城&type=年税收",
             success: function (response) {
-            	window.location.href="/pdf/web/viewer.html?file="+"/pdf/previewPDF.do";
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
             }
         });
-    }
-	function pushImg(){
-	    var picpath="";
-	    $.ajaxFileUpload({
-	    　　　　url : "/pdf/uploadPDF.do",
-           fileElementId:'file',
-           dataType : "json",
-           success: function(response){
-          	 alert(response.message);
-           },
-           error: function(response)
-           {
-              alert(response.message);
+	}
+	function myTop(){
+         $.ajax({
+            url: "/apis/analysis/getTopCompany.json?park=天津中新生态城&industry=人工智能",
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
             }
-           }
-		);
+        });
+	}
+	function push(){
+	    $.ajax({
+	    	type: 'post',
+            url: "/apis/area/getInformationPush.json",
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify({park:'天津中新生态城',dimension:'园区动态'}),
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
+                }
+            }
+        });
 	}
 </script> 
+</html>

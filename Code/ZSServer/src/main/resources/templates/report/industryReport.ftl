@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>慧数招商-招商报告</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="慧数招商平台，是一个关于园区产业招商的大数据管理平台">
+    <meta name="keywords" content="慧数，招商，慧数招商，招商平台，园区，园区招商，园区招商平台，科技园，产业园，大数据，产业">
+    <meta name="author" content="张鑫，慧数科技，中科点击">
+    <meta name="application-name" content="慧数招商">
+    <!-- css共用部分 start -->
+    <#include "/common/link.ftl"/>
+    <!-- css 共用部分 end -->
+    <!-- js 兼容低版本IE start -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- js 兼容低版本IE end -->
+</head>
+<body class="bg2">
+<#include "/common/header.ftl"/>
+<div class="wrapper">
+    <div class="page-content">
+		<#include "/common/sidebar.ftl"/>
+        <div class="right-content">
+            <div class="model-box">
+                <div class="model-header">
+                </div>
+                <div class="search-box">
+                    <div class="search-group">
+                        <div class="search-item-title">
+                            <span class="icon-block"></span>
+                            年份
+                        </div>
+                        <div class="search-item-content">
+                            <span class="search-item">2017</span>
+                        </div>
+                    </div>
+                    <div class="search-group">
+                        <div class="search-item-title">
+                            <span class="icon-block"></span>
+                            季度
+                        </div>
+                        <div class="search-item-content">
+                            <span class="search-item">第四季度</span>
+                        </div>
+                    </div>
+                    <div class="search-group">
+                        <div class="search-item-title">
+                            <span class="icon-block"></span>
+                            月份
+                        </div>
+                        <div class="search-item-content">
+                            <span class="search-item">10月</span>
+                            <span class="search-item">11月</span>
+                            <span class="search-item">12月</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="model-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="report-list">
+                                <a href="javascript:void(0);" class="border-box">
+                                    <img class="circle-img" src="../images/report.png" />
+                                </a>
+                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
+                                <p class="report-date">2017-10-31</p>
+                                <p class="report-tags">
+                                    <i class="glyphicon glyphicon-tag"></i>
+                                    <span class="tag">生物技术</span>
+                                    <span class="tag">新一代信息技术</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="report-list">
+                                <a href="javascript:void(0);" class="border-box">
+                                    <img class="circle-img" src="../images/report.png" />
+                                </a>
+                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
+                                <p class="report-date">2017-10-31</p>
+                                <p class="report-tags">
+                                    <i class="glyphicon glyphicon-tag"></i>
+                                    <span class="tag">生物技术</span>
+                                    <span class="tag">新一代信息技术</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="report-list">
+                                <a href="javascript:void(0);" class="border-box">
+                                    <img class="circle-img" src="../images/report.png" />
+                                </a>
+                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
+                                <p class="report-date">2017-10-31</p>
+                                <p class="report-tags">
+                                    <i class="glyphicon glyphicon-tag"></i>
+                                    <span class="tag">生物技术</span>
+                                    <span class="tag">新一代信息技术</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="report-list">
+                                <a href="javascript:void(0);" class="border-box">
+                                    <img class="circle-img" src="../images/report.png" />
+                                </a>
+                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
+                                <p class="report-date">2017-10-31</p>
+                                <p class="report-tags">
+                                    <i class="glyphicon glyphicon-tag"></i>
+                                    <span class="tag">生物技术</span>
+                                    <span class="tag">新一代信息技术</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="report-list">
+                                <a href="javascript:void(0);" class="border-box">
+                                    <img class="circle-img" src="../images/report.png" />
+                                </a>
+                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
+                                <p class="report-date">2017-10-31</p>
+                                <p class="report-tags">
+                                    <i class="glyphicon glyphicon-tag"></i>
+                                    <span class="tag">生物技术</span>
+                                    <span class="tag">新一代信息技术</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="report-list">
+                                <a href="javascript:void(0);" class="border-box">
+                                    <img class="circle-img" src="../images/report.png" />
+                                </a>
+                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
+                                <p class="report-date">2017-10-31</p>
+                                <p class="report-tags">
+                                    <i class="glyphicon glyphicon-tag"></i>
+                                    <span class="tag">生物技术</span>
+                                    <span class="tag">新一代信息技术</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="report-list">
+                                <a href="javascript:void(0);" class="border-box">
+                                    <img class="circle-img" src="../images/report.png" />
+                                </a>
+                                <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
+                                <p class="report-date">2017-10-31</p>
+                                <p class="report-tags">
+                                    <i class="glyphicon glyphicon-tag"></i>
+                                    <span class="tag">生物技术</span>
+                                    <span class="tag">新一代信息技术</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <p class="text-center">Copyright©2008-2016 中科点击（北京）科技有限公司-版权所有  京ICP备11012241-3号</p>
+</div>
+<!-- js 共用部分 start -->
+<script src="../vendor/jquery.min.js"></script>
+<script src="../vendor/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="../vendor/iCkeck-v1.0.2/js/icheck.min.js"></script>
+<script src="../vendor/echarts/echarts.min.js"></script>
+<script src="../vendor/echarts/china.js"></script>
+<script src="../vendor/echarts/customed.js"></script>
+<script src="../vendor/alert/alert.js"></script>
+<script src="../js/common.js"></script>
+<!-- js 共用部分 end -->
+</body>
+</html>

@@ -190,7 +190,8 @@ public class GardenController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			return success(gardenService.getInformationPush(dto));
+			Page<AITInfo> page = gardenService.getInformationPush(dto);
+			return successPage(page);
 		} catch (Exception e) {
 			LOGGER.error("获取关注园区-情报推送失败！", e);
 			return error(MsgConstant.ILLEGAL_PARAM);

@@ -17,9 +17,8 @@ import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
-import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
-import com.huishu.ZSServer.es.entity.AITInfo;
+import com.huishu.ZSServer.es.entity.FinancingInfo;
 import com.huishu.ZSServer.service.financing.FinancingService;
 
 /**
@@ -44,16 +43,13 @@ public class FinancingController extends BaseController {
 	 */
 	@RequestMapping(value = "/getCompanyList.json", method = RequestMethod.POST)
 	public AjaxResult getCompanyList(@RequestBody CompanySearchDTO dto) {
-		if (null == dto || StringUtil.isEmpty(dto.getPark()) || dto.getMsg().length != 4) {
+		if (null == dto || null==dto.getIndustry() || null==dto.getArea()
+				|| null==dto.getInvest() || StringUtil.isEmpty(dto.getSort())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			dto.setArea(dto.getMsg()[1]);
-			dto.setIndustry(dto.getMsg()[0]);
-			dto.setInvest(dto.getMsg()[2]);
-			dto.setSort(dto.getMsg()[3]);
-			Page<Company> page = financingService.getCompanyList(dto);
-			return success(page);
+			Page<FinancingInfo> page = financingService.getCompanyList(dto);
+			return successPage(page);
 		} catch (Exception e) {
 			LOGGER.error("获取融资企业列表失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -88,8 +84,8 @@ public class FinancingController extends BaseController {
 	@RequestMapping(value = "/getFinancingDynamic.json", method = RequestMethod.GET)
 	public AjaxResult getFinancingDynamic() {
 		try {
-			Page<AITInfo> page =financingService.getFinancingDynamic();
-			return success(page);
+			Page<FinancingInfo> page = financingService.getFinancingDynamic();
+			return successPage(page);
 		} catch (Exception e) {
 			LOGGER.error("获取融资动态数据失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -111,8 +107,8 @@ public class FinancingController extends BaseController {
 			return success(null);
 		}
 		try {
-			List<Company> page = financingService.getFinancingCompany(Arrays.asList(industry));
-			return success(page);
+			List<JSONObject> list = financingService.getFinancingCompany(Arrays.asList(industry));
+			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("获取某产业融资企业推荐列表失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);

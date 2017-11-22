@@ -44,19 +44,31 @@ public class CompanySearchDTO extends AbstractDTO{
 		return invest;
 	}
 	public void setInvest(String invest) {
-		this.invest = invest;
+		if("全部".equals(invest)||"不限".equals(invest)){
+			this.invest = "";
+		}else{
+			this.invest = invest;
+		}
 	}
 	public String getArea() {
 		return area;
 	}
 	public void setArea(String area) {
-		this.area = area;
+		if("全部".equals(area)||"不限".equals(area)){
+			this.area = "";
+		}else{
+			this.area = area;
+		}
 	}
 	public String getIndustry() {
 		return industry;
 	}
 	public void setIndustry(String industry) {
-		this.industry = industry;
+		if("全部".equals(industry)||"不限".equals(industry)){
+			this.industry = "";
+		}else{
+			this.industry = industry;
+		}
 	}
 	@Override
 	public String toString() {
