@@ -37,6 +37,9 @@ body{
     background-size: contain;
     background-repeat: repeat-y;
 }
+.ml10{
+    margin-left: 10px;
+}
 /**
  *header start
  */
@@ -858,8 +861,17 @@ body{
     box-shadow:  0 0 10px #00bfff;
 }
 
-.scatter-blocks .scatter-type {
+.scatter-blocks .pull-right{
+    color:#fff;
+}
+
+.scatter-blocks .scatter-type,
+.scatter-blocks .numbers {
     color: #20c2fe;
+}
+
+.scatter-blocks .scatter-type.ml10 {
+    font-size: 14px;
 }
 
 .scatter-blocks:hover {
@@ -1037,7 +1049,7 @@ a.search-item.active{
     color: #0084b6;
 }
 
-.details .follow {
+.follow {
     display: inline-block;
     padding-left: 30px;
     padding-top:10px;
@@ -1060,6 +1072,16 @@ a.search-item.active{
 .follow:visited {
     color: #00ffe4;
     background-image: url("../images/follow_hover.png");
+}
+.follow.pull-right{
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: inherit;
+}
+.park-address,
+.net-address{
+    color:#006a92;
+    line-height: 30px;
 }
 /**img-list end*/
 .btn-box-center{
@@ -1090,13 +1112,39 @@ a.search-item.active{
     color:#00ffe4;
     text-decoration: none;
 }
+
+.layout-box {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow: hidden;
+}
+
+.left-img {
+    float: left;
+
+}
+
+.left-img {
+    width: 162px;
+    height:120px;
+}
+
+.right-list {
+    margin-left: 170px;
+}
+
+.right-list .scatter-blocks {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
 /**report start*/
 .report-list{
     margin-bottom: 30px;
 }
 .report-list .border-box {
     display: block;
-    height: 320px;
+    padding-bottom: 25px;
+    padding-top: 25px;
     border: 1px solid #2562bf;
     border-radius: 10px;
     box-shadow: 0 0 10px #2562bf;
@@ -1104,7 +1152,7 @@ a.search-item.active{
 }
 .report-list .border-box .circle-img {
     width: 80%;
-    margin: 45px auto;
+    margin: 0 auto;
     display: block;
 }
 .report-list .report-title{
@@ -1196,10 +1244,10 @@ a.search-item.active{
 }
 
 .customed-modal .modal-content {
-     background-color: rgba(9,14,21,.9);
-     border-radius: 10px;
-     box-shadow: inset 0 0 35px #0e2f61;
- }
+    background-color: rgba(9,14,21,.9);
+    border-radius: 10px;
+    box-shadow: inset 0 0 35px #0e2f61;
+}
 
 .customed-modal .modal-header .modal-title {
     text-align: center;
@@ -1279,4 +1327,11 @@ a.search-item.active{
     -ms-transform: scale(1.1);
     -o-transform: scale(1.1);
     transform: scale(1.1);
+}
+.gaodeMap{
+    height:793px;
+    margin-bottom: -60px;
+}
+.gaodeMap .amap-logo,.amap-copyright {
+    z-index: 0;
 }
