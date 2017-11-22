@@ -6,11 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
@@ -35,7 +36,7 @@ import com.huishu.ZSServer.service.garden_user.GardenUserService;
  * @description
  * @version
  */
-@RestController
+@Controller
 @RequestMapping("/apis/area")
 public class GardenController extends BaseController {
 	private static Logger LOGGER = LoggerFactory.getLogger(GardenController.class);
@@ -50,12 +51,15 @@ public class GardenController extends BaseController {
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping(value = "/findGardensCondition.json", method = RequestMethod.POST)
+	@RequestMapping(value = "/findGardensCondition.json", method = RequestMethod.GET,params={"pageNumber","pageSize"})
 	@ResponseBody
-	public AjaxResult findGardensCondition(@RequestBody GardenDTO dto) {
+	public AjaxResult findGardensCondition(Integer pageNumber,Integer pageSize) {
+		GardenDTO dto = new GardenDTO();
 		// Long userId = getUserId();
 		Long userId = 1L;
 		dto.setUserId(userId);
+		dto.setPageNumber(pageNumber);
+		dto.setPageSize(pageSize);
 		Page<AITInfo> page = null;
 		try {
 			page = gardenService.findGardensCondition(dto);
@@ -63,7 +67,7 @@ public class GardenController extends BaseController {
 			LOGGER.error("查询园区动态失败!", e);
 			return error(e.getMessage());
 		}
-		return success(page);
+		return success(page.getContent());
 	}
 
 	/**
@@ -77,7 +81,7 @@ public class GardenController extends BaseController {
 	public AjaxResult findGardenGdp(String industry, Integer[] year, String province) {
 		if (StringUtil.isEmpty(industry))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		if (year.length == 0)
+		if (year == null)
 			year = new Integer[] { DateUtils.getNowYear() };
 		List<GardenMap> list = gardenService.findGardenGdp(industry, year, province);
 		return success(list);
@@ -143,7 +147,7 @@ public class GardenController extends BaseController {
 	 *            [id,area,industryType]
 	 * @return
 	 */
-	@RequestMapping(value = "/getAttentionGardenList.json", method = RequestMethod.POST)
+	@RequestMapping(value = "/getAttentionGardenList.json", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getAttentionGardenList(@RequestBody GardenDTO dto) {
 		String msg[] = dto.getMsg();
@@ -190,7 +194,8 @@ public class GardenController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			return success(gardenService.getInformationPush(dto));
+			Page<AITInfo> page = gardenService.getInformationPush(dto);
+			return successPage(page);
 		} catch (Exception e) {
 			LOGGER.error("获取关注园区-情报推送失败！", e);
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -203,6 +208,7 @@ public class GardenController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getGardenPolicy.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult getGardenPolicy(@RequestBody GardenDTO dto) {
 		if(StringUtil.isEmpty(dto.getProvince()))
 			return error(MsgConstant.ILLEGAL_PARAM);	
@@ -218,6 +224,7 @@ public class GardenController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getGardenIndustryEcharts.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult getGardenIndustryEcharts(String province) {
 		if (StringUtil.isEmpty(province))
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -230,6 +237,7 @@ public class GardenController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "addGardenCompare.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult addGardenCompare(Long gardenId) {
 		if (null == gardenId)
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -243,6 +251,7 @@ public class GardenController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "getGardenCompare.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult getGardenCompare() {
 		Long userId = 1L;
 		return success(gardenUserService.getGardenCompare(userId, null));
@@ -252,10 +261,19 @@ public class GardenController extends BaseController {
 	 * 删除园区对比数据的功能
 	 */
 	@RequestMapping(value = "deleteGardenCompare.json", method = RequestMethod.GET)
+	@ResponseBody
 	public AjaxResult deleteGardenCompare(Long gardenId) {
 		Long userId = 1L;
 		List<GardenCompare> list = gardenUserService.getGardenCompare(userId, gardenId);
 		boolean flag = gardenUserService.deleteCompare(list);
 		return success(flag);
+	}
+	
+	/**
+	 * 访问链接
+	 */
+	@RequestMapping(value={"{page}"})
+	public String gardenMap(@PathVariable String page){
+		return "gardenMap/" + page;
 	}
 }
