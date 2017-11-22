@@ -79,31 +79,9 @@
             </div>
             <div class="model-box">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="model-body border-no-shadow">
-                            <div class="row">
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-6" id="city_dynamic">
                     </div>
-                    <div class="col-md-6">
-                        <div class="model-body border-no-shadow">
-                            <div class="row">
-                                <div class="col-md-12 border-bottom">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="icon-block"></span>
-                                        <span class="scatter-type">【新能源】</span>
-                                        <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-6" id="city_dynamic2">
                     </div>
                 </div>
 
@@ -130,11 +108,11 @@
                             区域
                         </div>
                         <div class="search-item-content">
-                            <a href="javascript:void(0);" class="search-item active">全部</a>
-                            <a href="javascript:void(0);" class="search-item">北京</a>
-                            <a href="javascript:void(0);" class="search-item">上海</a>
-                            <a href="javascript:void(0);" class="search-item">广州</a>
-                            <a href="javascript:void(0);" class="search-item">深圳</a>
+                            <a href="javascript:void(0);" onclick="myClick(2,'全部')" class="search-item active">全部</a>
+                            <a href="javascript:void(0);" onclick="myClick(2,'北京')" class="search-item">北京</a>
+                            <a href="javascript:void(0);" onclick="myClick(2,'上海')" class="search-item">上海</a>
+                            <a href="javascript:void(0);" onclick="myClick(2,'广州')" class="search-item">广州</a>
+                            <a href="javascript:void(0);" onclick="myClick(2,'深圳')" class="search-item">深圳</a>
                         </div>
                     </div>
                     <div class="search-group">
@@ -142,15 +120,15 @@
                             融资轮次
                         </div>
                         <div class="search-item-content">
-                            <a href="javascript:void(0);" class="search-item active">全部</a>
-                            <a href="javascript:void(0);" class="search-item">种子轮</a>
-                            <a href="javascript:void(0);" class="search-item">天使轮</a>
-                            <a href="javascript:void(0);" class="search-item">A轮</a>
-                            <a href="javascript:void(0);" class="search-item">B轮</a>
-                            <a href="javascript:void(0);" class="search-item">C轮</a>
-                            <a href="javascript:void(0);" class="search-item">D轮</a>
-                            <a href="javascript:void(0);" class="search-item">IPO上市</a>
-                            <a href="javascript:void(0);" class="search-item">新三板</a>
+                            <a href="javascript:void(0);" onclick="myClick(3,'全部')" class="search-item active">全部</a>
+                            <a href="javascript:void(0);" onclick="myClick(3,'种子轮')" class="search-item">种子轮</a>
+                            <a href="javascript:void(0);" onclick="myClick(3,'天使轮')" class="search-item">天使轮</a>
+                            <a href="javascript:void(0);" onclick="myClick(3,'A轮')" class="search-item">A轮</a>
+                            <a href="javascript:void(0);" onclick="myClick(3,'B轮')" class="search-item">B轮</a>
+                            <a href="javascript:void(0);" onclick="myClick(3,'C轮')" class="search-item">C轮</a>
+                            <a href="javascript:void(0);" onclick="myClick(3,'D轮')" class="search-item">D轮</a>
+                            <a href="javascript:void(0);" onclick="myClick(3,'IPO上市')" class="search-item">IPO上市</a>
+                            <a href="javascript:void(0);" onclick="myClick(3,'新三板')" class="search-item">新三板</a>
                         </div>
                     </div>
                     <div class="search-group">
@@ -158,8 +136,8 @@
                             排序
                         </div>
                         <div class="search-item-content">
-                            <a href="javascript:void(0);" class="search-item active">按时间</a>
-                            <a href="javascript:void(0);" class="search-item">按金额</a>
+                            <a href="javascript:void(0);" onclick="myClick(4,'按时间')" class="search-item active">按时间</a>
+                            <a href="javascript:void(0);" onclick="myClick(4,'按金额')" class="search-item">按金额</a>
                         </div>
                     </div>
                 </div>
@@ -176,7 +154,7 @@
                                     <th>详情</th>
                                 </tr>
                             </thead>
-                            <tbody id="biuuu_city_list">
+                            <tbody id="city_list">
                             </tbody>
                         </table>
                     </div>
@@ -197,7 +175,17 @@
 	var industry="全部";
 	var sort="按时间";
 	$(function(){
-		myClick(0,0)
+		$.ajax({
+            url: "/apis/financing/getFinancingDynamic.json",
+            success: function (response) {
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		showDynamic(response.data.dataList);
+                }
+            }
+        });
+		myClick(0,0);
     })
     function myClick(a,b){
 	    if(a==1){
@@ -223,11 +211,24 @@
                 if(response.message!=null){
                 	alert(response.message);
                 }else{
-               		$('#biuuu_city_list').html(show(response.data.dataList));
+               		$('#city_list').html(show(response.data.dataList));
                 }
             }
         });
     }
+	function showDynamic(d){
+		var arr = [];
+		var arr2 = [];
+		$.each(d, function(index, item){
+			var inner='<div class="model-body border-no-shadow"><div class="row"><div class="col-md-12 border-bottom">'+
+            '<a class="scatter-blocks no-border" href="javascript:void(0);">'+
+            '<span class="icon-block"></span><span class="scatter-type">'+item.industry+'</span>'+
+            '  <span class="scatter-title">'+item.title+'</span></a></div></div></div>';
+			(index%2 ==0) ?arr.push(inner):arr2.push(inner); 
+		});
+		$('#city_dynamic').html(arr.join(''));
+		$('#city_dynamic2').html(arr2.join(''));
+	}
 	function show(d){
         var arr = []
         $.each(d, function(index, item){
@@ -237,7 +238,7 @@
           }
           arr.push('<tr><td class="text-center">'+item.financingDate+'</td>'+
 				    '<td class="text-left"><img src="'+imageSrc+'" class="c-logo"/>'+
-				    '<p>'+item.financingCompany+'</p><p><span class="c-tag">电子商务</span><span class="c-tag">杭州</span></p></td>'+
+				    '<p>'+item.financingCompany+'</p><p><span class="c-tag">'+item.industry+'</span>  <span class="c-tag">'+item.area+'</span></p></td>'+
 				    '<td class="text-center">'+item.invest+'</td>'+
 				    '<td class="text-center">'+item.financingAmount+'</td>'+
 				    '<td class="text-center"><p>'+item.investor+'</p></td>'+
