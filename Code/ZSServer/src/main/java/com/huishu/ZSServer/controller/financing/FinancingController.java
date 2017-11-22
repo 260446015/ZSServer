@@ -7,10 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.AjaxResult;
@@ -27,7 +29,7 @@ import com.huishu.ZSServer.service.financing.FinancingService;
  * @author yindq
  * @date 2017年10月30日
  */
-@RestController
+@Controller
 @RequestMapping("/apis/financing")
 public class FinancingController extends BaseController {
 	private Logger LOGGER = LoggerFactory.getLogger(FinancingController.class);
@@ -36,11 +38,22 @@ public class FinancingController extends BaseController {
 	private FinancingService financingService;
 
 	/**
+	 * 直接跳转页面
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
+	public String show(@PathVariable String page) {
+		return "/financing/"+page;
+	}
+	
+	/**
 	 * 获取融资企业列表
 	 * 
 	 * @param dto
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getCompanyList.json", method = RequestMethod.POST)
 	public AjaxResult getCompanyList(@RequestBody CompanySearchDTO dto) {
 		if (null == dto || null==dto.getIndustry() || null==dto.getArea()
@@ -62,6 +75,7 @@ public class FinancingController extends BaseController {
 	 * @param type（week, month, season, year）
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getHistogram.json", method = RequestMethod.GET)
 	public AjaxResult getHistogram(String type) {
 		if (StringUtil.isEmpty(type)) {
@@ -81,6 +95,7 @@ public class FinancingController extends BaseController {
 	 * 
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getFinancingDynamic.json", method = RequestMethod.GET)
 	public AjaxResult getFinancingDynamic() {
 		try {
@@ -98,6 +113,7 @@ public class FinancingController extends BaseController {
 	 * @param industry
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getFinancingCompany.json", method = RequestMethod.POST)
 	public AjaxResult getFinancingCompany(@RequestBody String[] industry) {
 		if (null == industry) {

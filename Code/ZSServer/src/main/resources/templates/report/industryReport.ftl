@@ -23,7 +23,7 @@
 <#include "/common/header.ftl"/>
 <div class="wrapper">
     <div class="page-content">
-		<#include "/common/sidebar.ftl"/>
+		<#include "/common/sidebar2.ftl"/>
         <div class="right-content">
             <div class="model-box">
                 <div class="model-header">
@@ -64,7 +64,7 @@
                         <div class="col-md-3">
                             <div class="report-list">
                                 <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="../images/report.png" />
+                                    <img class="circle-img" src="/images/report.png" />
                                 </a>
                                 <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
                                 <p class="report-date">2017-10-31</p>
@@ -78,7 +78,7 @@
                         <div class="col-md-3">
                             <div class="report-list">
                                 <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="../images/report.png" />
+                                    <img class="circle-img" src="/images/report.png" />
                                 </a>
                                 <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
                                 <p class="report-date">2017-10-31</p>
@@ -92,7 +92,7 @@
                         <div class="col-md-3">
                             <div class="report-list">
                                 <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="../images/report.png" />
+                                    <img class="circle-img" src="/images/report.png" />
                                 </a>
                                 <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
                                 <p class="report-date">2017-10-31</p>
@@ -106,7 +106,7 @@
                         <div class="col-md-3">
                             <div class="report-list">
                                 <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="../images/report.png" />
+                                    <img class="circle-img" src="/images/report.png" />
                                 </a>
                                 <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
                                 <p class="report-date">2017-10-31</p>
@@ -120,7 +120,7 @@
                         <div class="col-md-3">
                             <div class="report-list">
                                 <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="../images/report.png" />
+                                    <img class="circle-img" src="/images/report.png" />
                                 </a>
                                 <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
                                 <p class="report-date">2017-10-31</p>
@@ -134,7 +134,7 @@
                         <div class="col-md-3">
                             <div class="report-list">
                                 <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="../images/report.png" />
+                                    <img class="circle-img" src="/images/report.png" />
                                 </a>
                                 <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
                                 <p class="report-date">2017-10-31</p>
@@ -148,7 +148,7 @@
                         <div class="col-md-3">
                             <div class="report-list">
                                 <a href="javascript:void(0);" class="border-box">
-                                    <img class="circle-img" src="../images/report.png" />
+                                    <img class="circle-img" src="/images/report.png" />
                                 </a>
                                 <a href="javascript:void(0);" class="report-title">人工智能第一期</a>
                                 <p class="report-date">2017-10-31</p>
@@ -165,18 +165,9 @@
         </div>
     </div>
 </div>
-<div class="footer">
-    <p class="text-center">Copyright©2008-2016 中科点击（北京）科技有限公司-版权所有  京ICP备11012241-3号</p>
-</div>
+<#include  "/common/footer.ftl"/>
 <!-- js 共用部分 start -->
-<script src="../vendor/jquery.min.js"></script>
-<script src="../vendor/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<script src="../vendor/iCkeck-v1.0.2/js/icheck.min.js"></script>
-<script src="../vendor/echarts/echarts.min.js"></script>
-<script src="../vendor/echarts/china.js"></script>
-<script src="../vendor/echarts/customed.js"></script>
-<script src="../vendor/alert/alert.js"></script>
-<script src="../js/common.js"></script>
+<#include  "/common/script.ftl"/>
 <!-- js 共用部分 end -->
 </body>
 </html>
