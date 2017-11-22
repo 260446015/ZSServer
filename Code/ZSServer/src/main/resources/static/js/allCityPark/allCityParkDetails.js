@@ -9,32 +9,38 @@ $(function () {
 
         var map = new AMap.Map('map', {
             // mapStyle: 'amap://styles/f369a26753f3255e722f040f6bb304df'
-            resizeEnable: true,
+            resizeEnable: false,
             zoom:13,
-            // center: [116.397428, 39.90923]
         });
-        //根据 IP 定位到当前城市
-        setTimeout(function () {
-            var citysearch = new AMap.CitySearch();
-            //自动获取用户IP，返回当前城市
-            citysearch.getLocalCity(function(status, result) {
-                if (status === 'complete' && result.info === 'OK') {
-                    if (result && result.city && result.bounds) {
-                        var cityinfo = result.city;
-                        var citybounds = result.bounds;
-                        document.getElementById('tip').innerHTML = '您当前所在城市：'+cityinfo;
-                        //地图显示当前城市
-                        map.setBounds(citybounds);
-                    }
-                } else {
-                    document.getElementById('tip').innerHTML = result.info;
-                }
-            });
-        },2000);
         //缩放控件
         map.addControl(new BasicControl.Zoom({
             position: 'rb', //left top，左上角
             showZoomNum: false //显示zoom值
         }));
+        /*雷达转动*/
+        if($(window).scrollTop()>0){
+            $(window).scrollTop(0);
+        }
+        rotates();
+        setTimeout(function () {
+            unrotates();
+        },2000);
     });
+    function rotates() {
+        $("body,.page-content").addClass("modal-open");
+        $(".search-circle-box").addClass("open").children(".search-circle-img").addClass("rotates").css({"margin-left":function(){
+            return -$(this).width()/2
+        },"margin-top":function () {
+            return -$(this).height()/2
+        }});
+    }
+    function unrotates() {
+        $("body,.page-content").removeClass("modal-open");
+        $(".search-circle-box").removeClass("open").children(".search-circle-img").removeClass("rotates").css({"margin-left":function(){
+            return -$(this).width()/2
+        },"margin-top":function () {
+            return -$(this).height()/2
+        }});
+        $('html,body').animate({scrollTop:$(".right-content .container").offset().top-50},300);
+    }
 });
