@@ -119,4 +119,10 @@ public class TestUrl {
 		list = (List) list.stream().skip(20).limit(20).collect(Collectors.toList());
 		System.out.println(list.size());
 	}
+	@Test
+	public void testFo(){
+		for (int i = 0; i < 4; i++) {
+			System.out.println(i);
+		}
+	}
 }
