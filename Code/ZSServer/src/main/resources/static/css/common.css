@@ -40,6 +40,12 @@ body{
 .ml10{
     margin-left: 10px;
 }
+.mr15{
+    margin-right: 15px;
+}
+.mb20{
+    margin-bottom: 20px;
+}
 /**
  *header start
  */
@@ -1328,10 +1334,88 @@ a.search-item.active{
     -o-transform: scale(1.1);
     transform: scale(1.1);
 }
+.map-box{
+    position: relative;
+    margin-bottom: 50px;
+}
+.follow-black{
+    position: absolute;
+    right: 50px;
+    top: 30px;
+    background-color: #fff;
+    padding: 2px 20px 2px 40px;
+    box-shadow: 1px 0 4px #c1c1c1;
+    border-radius: 2px;
+    color: #333333;
+    background-position-x: 17px;
+    background-image: url("../images/follow_black.png");
+}
 .gaodeMap{
     height:793px;
-    margin-bottom: -60px;
 }
 .gaodeMap .amap-logo,.amap-copyright {
     z-index: 0;
+}
+.search-circle-box {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: rgba(0,0,0,.6);
+}
+.search-circle-img {
+    position: absolute;
+    left:50%;
+    top:50%;
+    width: 250px;
+    display: block;
+    margin: 0 auto;
+    z-index: 1;
+}
+.search-circle-box.open{
+    display: block;
+}
+.rotates{
+    -webkit-animation: rotates 1s linear infinite;
+    -moz-animation: rotates 1s linear infinite;
+    -ms-animation: rotates 1s linear infinite;
+    -o-animation: rotates 1s linear infinite;
+    animation: rotates 1s linear infinite;
+}
+@keyframes rotates {
+    0% {
+        transform-origin: center;
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform-origin: center;
+        transform: rotate(360deg);
+    }
+}
+.panel-opacity{
+    position: absolute;
+    right:50px;
+    top:200px;
+    width: 461px;
+    font-size: 16px;
+    font-weight: 400;
+    color:#333;
+    background-color: rgba(255,255,255,.9);
+}
+.panel-opacity .panel-heading{
+    background-color: rgba(32,136,254,.9);
+}
+.panel-opacity .panel-heading .panel-title{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    font-weight: 400;
+}
+.panel-opacity .control-label{
+    font-weight: 400;
+    color: #808080;
 }
