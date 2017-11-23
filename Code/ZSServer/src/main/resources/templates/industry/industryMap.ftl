@@ -89,21 +89,6 @@
                            <h3 class="box-title" id="">北京</h3>
                             <div class="box-body">
                                 <ul class="box-list" id="box-list">
-                                  <!--<li>
-                                        <a href="javascript:void(0);">北京百分点信息科技有限公司</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">北京拓尔思信息技术股份有限公司</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">北京智慧星光信息技术有限公司</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">北京百度网讯科技有限公司</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">北京百分点信息科技有限公司</a>
-                                    </li>-->
                                 </ul>
                             </div>
                         </div>
@@ -114,37 +99,38 @@
 
                             </div>
                             <div class="layer-person">
-                                <h3 class="layer-person-title text-center">无线移动通信国家重点实验室</h3>
+                                <h3 class="layer-person-title text-center" id="form-control-static6">无线移动通信国家重点实验室</h3>
                                 <div class="layer-body">
                                     <div class="form-horizontal">
+                                    	<input type="hidden" id ="textName" value=""/>
                                         <div class="form-group text-center">
                                             <img src="/images/user_head.png" alt="" />
                                         </div>
                                         <div class="form-group">
-                                            <p class="text-center">邬贺铨</p>
+                                            <p class="text-center" id="form-control-static5">邬贺铨</p>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-4 text-right control-label">机构性质</label>
                                             <div class="col-md-7">
-                                                <p class="form-control-static">国家重点实验室</p>
+                                                <p class="form-control-static" id="form-control-static1">国家重点实验室</p>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-4 text-right control-label">机构产业</label>
                                             <div class="col-md-7">
-                                                <p class="form-control-static">新型信息产业</p>
+                                                <p class="form-control-static" id="form-control-static2">新型信息产业</p>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-4 text-right control-label">委托单位</label>
                                             <div class="col-md-7">
-                                                <p class="form-control-static">电信科学技术研究所</p>
+                                                <p class="form-control-static" id="form-control-static3">电信科学技术研究所</p>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-4 text-right control-label">机构网址</label>
                                             <div class="col-md-7">
-                                                <p class="form-control-static">https://baike.baidu.com/item/</p>
+                                                <p class="form-control-static" id="form-control-static4">https://baike.baidu.com/item/</p>
                                             </div>
                                         </div>
                                     </div>
@@ -164,81 +150,12 @@
                             <ul class="timeline">
                             	<#list summit as info>
                             	<li>
-                                    <a href="javascript:void(0);">
+                                    <a href="javascript:void(0);" onclick=window.open("${info.articleLink}")>
                                         <i class="timeline-circle"></i>
                                         <span class="time">${info.publishTime}</span>
                                         <span class="line-title">${info.title}</span>
                                     </a>
-                                <!--<li>
-                                    <a href="javascript:void(0);">
-                                        <i class="timeline-circle"></i>
-                                        <span class="time">11月28日</span>
-                                        <span class="line-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="timeline-circle"></i>
-                                        <span class="time">11月29日</span>
-                                        <span class="line-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="timeline-circle"></i>
-                                        <span class="time">11月30日</span>
-                                        <span class="line-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="timeline-circle"></i>
-                                        <span class="time">11月28日</span>
-                                        <span class="line-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="timeline-circle"></i>
-                                        <span class="time">11月29日</span>
-                                        <span class="line-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="timeline-circle"></i>
-                                        <span class="time">11月30日</span>
-                                        <span class="line-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="timeline-circle"></i>
-                                        <span class="time">11月28日</span>
-                                        <span class="line-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="timeline-circle"></i>
-                                        <span class="time">11月29日</span>
-                                        <span class="line-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="timeline-circle"></i>
-                                        <span class="time">11月30日</span>
-                                        <span class="line-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="timeline-circle"></i>
-                                        <span class="time">11月28日</span>
-                                        <span class="line-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                    </a>
-                                </li>-->
+                                    </li>
                                 </#list>
                             </ul>
                         </div>

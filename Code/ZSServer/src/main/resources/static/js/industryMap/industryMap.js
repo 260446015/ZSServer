@@ -2,10 +2,52 @@
  * Created by zhangxin on 2017/11/15.
  */
 $(function (){
-	var industry = "人工智能";
+	var industry = $("#mark-item1").val();
 	/*获取企业排行的数据*/
 	industryHotRank(industry);
+	industryMapData(industry);
+	
 });
+
+function getIndustry(industry){
+	console.log(industry);
+	
+	$(".mark-box").on("click","li>a.mark-item",function () {
+        var _this = $(this);
+        _this.parent().addClass("active").siblings().removeClass("active");
+    });
+	
+	/*获取企业排行的数据*/
+	industryHotRank(industry);
+	/*获取地图的数据*/
+	industryMapData(industry);
+	
+	/*获取峰会数据*/
+	industrySummitInfo(industry);
+	
+};
+
+function industrySummitInfo(industry){
+	$.ajax({
+		url:'/indusMap/getIndustrySummit.json',
+		type:'POST',
+		data:{"industry":industry},
+		success:function(res){
+			console.log(res.data);
+			if(res.data != null){
+				$(".timeline li").remove();
+				var aa = res.data;
+				for(var i=0;i<aa.length;i++){
+					$(".timeline li").append("<li>"+"<a href='javascript:void(0); onclick=window.open("+aa[i].articleLink+")>"+"<i class='timeline-circle'></i>");
+                    $(".timeline li").append("<span class='time>"+aa[i].publishTime+"</span>"+"<span class='line-title'>"+aa[i].title+"</span>"+"</a></li>");	
+				}
+				
+			}
+			
+		}
+	});
+};
+
 function industryHotRank(industry){
 	var a=[],b=[];
 	var industryHotCity = {
@@ -127,13 +169,32 @@ function findCompany(a,b){
 			}
 		}
 	});
-}
+};
 
 
 
+function industryMapData(a){
+	console.log(a);
+	$.ajax({
+		url:'/indusMap/getMapInfoByIndustry.json',
+		type:'GET',
+		data:{"industry":a},
+		success:function(res){
+			var  dd =  res.data;
+			var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
+			
+//			chinaOption.series[0].data = convertData(dd);
+			chinaOption.series[0].data = convertData(dd.sort(function (a, b) {
+                return b.value - a.value;
+            }).slice(0, 6));
+			industryMap.setOption(chinaOption);
+		}
+		
+	});
+};
 var data = [
     {name: '延安', value: 38},
-    {name: '太原', value: 39},
+    {name: '山西', value: 39},
     {name: '清远', value: 39},
     {name: '中山', value: 39},
     {name: '昆明', value: 39},
@@ -141,7 +202,7 @@ var data = [
     {name: '盘锦', value: 40},
     {name: '长治', value: 41},
     {name: '深圳', value: 41},
-    {name: '珠海', value: 42},
+    {name: '广东', value: 42},
     {name: '大连', value: 47},
     {name: '临汾', value: 47},
     {name: '吴江', value: 47},
@@ -155,7 +216,7 @@ var data = [
     {name: '银川', value: 52},
     {name: '张家港', value: 52},
     {name: '三门峡', value: 53},
-    {name: '西安', value: 61},
+    {name: '陕西', value: 61},
     {name: '金坛', value: 62},
     {name: '东营', value: 62},
     {name: '牡丹江', value: 63},
@@ -182,7 +243,7 @@ var data = [
     {name: '宜昌', value: 130},
     {name: '义乌', value: 132},
     {name: '丽水', value: 133},
-    {name: '洛阳', value: 134},
+    {name: '河南', value: 134},
     {name: '秦皇岛', value: 136},
     {name: '株洲', value: 143},
     {name: '石家庄', value: 147},
@@ -192,89 +253,138 @@ var data = [
     {name: '湘潭', value: 154},
     {name: '金华', value: 157},
     {name: '岳阳', value: 169},
-    {name: '长沙', value: 175},
+    {name: '湖南', value: 175},
     {name: '衢州', value: 177},
     {name: '廊坊', value: 193},
     {name: '菏泽', value: 194},
-    {name: '合肥', value: 229},
-    {name: '武汉', value: 273},
+    {name: '安徽', value: 229},
+    {name: '湖北', value: 273},
     {name: '北京', value: 279}
 ];
 
 var geoCoordMap = {
-    '延安':[109.47,36.6],
-    '太原':[112.53,37.87],
-    '清远':[113.01,23.7],
-    '中山':[113.38,22.52],
-    '昆明':[102.73,25.04],
-    '寿光':[118.73,36.86],
-    '盘锦':[122.070714,41.119997],
-    '长治':[113.08,36.18],
-    '深圳':[114.07,22.62],
-    '珠海':[113.52,22.3],
-    '大连':[121.62,38.92],
-    '临汾':[111.5,36.08],
-    '吴江':[120.63,31.16],
-    '石嘴山':[106.39,39.04],
-    '沈阳':[123.38,41.8],
-    '苏州':[120.62,31.32],
-    '茂名':[110.88,21.68],
-    '嘉兴':[120.76,30.77],
-    '长春':[125.35,43.88],
-    '胶州':[120.03336,36.264622],
-    '银川':[106.27,38.47],
-    '张家港':[120.555821,31.875428],
-    '三门峡':[111.19,34.76],
-    '西安':[108.95,34.27],
-    '金坛':[119.56,31.74],
-    '东营':[118.49,37.46],
-    '牡丹江':[129.58,44.6],
-    '遵义':[106.9,27.7],
-    '绍兴':[120.58,30.01],
-    '扬州':[119.42,32.39],
-    '常州':[119.95,31.79],
-    '潍坊':[119.1,36.62],
-    '重庆':[106.54,29.59],
-    '台州':[121.420757,28.656386],
-    '渭南':[109.5,34.52],
-    '马鞍山':[118.48,31.56],
-    '宝鸡':[107.15,34.38],
-    '焦作':[113.21,35.24],
-    '句容':[119.16,31.95],
-    '北京':[116.46,39.92],
-    '徐州':[117.2,34.26],
-    '衡水':[115.72,37.72],
-    '包头':[110,40.58],
-    '绵阳':[104.73,31.48],
-    '乌鲁木齐':[87.68,43.77],
-    '兰州':[103.73,36.03],
-    '沧州':[116.83,38.33],
-    '临沂':[118.35,35.05],
-    '宜昌':[111.3,30.7],
-    '义乌':[120.06,29.32],
-    '丽水':[119.92,28.45],
-    '洛阳':[112.44,34.7],
-    '秦皇岛':[119.57,39.95],
-    '株洲':[113.16,27.83],
-    '石家庄':[114.48,38.03],
-    '莱芜':[117.67,36.19],
-    '常德':[111.69,29.05],
-    '保定':[115.48,38.85],
-    '湘潭':[112.91,27.87],
-    '金华':[119.64,29.12],
-    '岳阳':[113.09,29.37],
-    '长沙':[113,28.21],
-    '衢州':[118.88,28.97],
-    '廊坊':[116.7,39.53],
-    '菏泽':[115.480656,35.23375],
-    '合肥':[117.27,31.86],
-    '武汉':[114.31,30.52]
+		'北京' :[116.28, 39.54] , 
+		'青岛' :[120.19, 36.04] , 
+		'天津' :[117.10, 39.10] , 
+		'河南' :[113.42, 34.44] , 
+		'郑州' :[113.42, 34.44] ,
+		'石家庄': [114.26, 38.03] , 
+		'河北': [114.26, 38.03] ,
+		'开封' :[114.23, 34.52] , 
+		'保定': [115.28, 38.53] ,
+		'洛阳' :[112.26, 34.43] , 
+		'唐山' :[118.09, 39.37] , 
+		'许昌': [113.48, 34.00] , 
+		'秦皇岛' :[119.37, 39.54] , 
+		'新乡' :[113.54, 35.18] , 
+		'张家口': [114.55, 40.51] ,  
+		'湖北' :[114.20, 30.37] ,  
+		'武汉' :[114.20, 30.37] ,
+		'承德' : [117.52, 40.59] , 
+		'宜昌' : [111.15, 30.42] , 
+		'山西' : [112.33, 37.51] , 
+		'太原' : [112.33, 37.51] , 
+		'沙市' : [112.17, 30.16] , 
+		'大同' : [113.13, 40.07] , 
+		'湖南' : [112.55, 28.12] ,
+		'长沙' : [112.55, 28.12] , 
+		'临汾' : [111.31, 36.05] , 
+		'衡阳' : [112.34, 26.55] , 
+		'长治' : [113.13, 36.05] , 
+		'湘潭' : [112.51, 27.54] , 
+		'内蒙古' : [111.38, 40.48] , 
+		'呼和浩特' : [111.38, 40.48] , 
+		'常德' : [111.39, 29.00] , 
+		'包头' : [110.00, 40.35] , 
+		'广东' : [113.18, 23.10] , 
+		'广州' : [113.18, 23.10] , 
+		'海拉尔' : [119.43, 49.14] , 
+		'汕头' : [116.40, 23.21] , 
+		'辽宁' : [123.23, 41.48] , 
+		'沈阳' : [123.23, 41.48] , 
+		'韶关' : [113.33, 24.48] , 
+		'大连' : [121.38, 38.54] , 
+		'海口' : [110.10, 20.03] ,
+		'海南' : [110.10, 20.03] , 
+		'鞍山' : [123.00, 41.04] , 
+		'南宁' : [108.21, 22.47] , 
+		'锦州' : [121.09, 41.09] , 
+		'桂林' : [110.10, 25.18] , 
+		'吉林' : [125.18, 43.55] , 
+		'长春' : [125.18, 43.55] , 
+		'柳州' : [109.19, 24.20] , 
+		'吉林' : [126.36, 43.48] , 
+		'悟州' : [111.18, 23.28] , 
+		'黑龙江' : [126.38, 45.45] ,
+		'哈尔滨' : [126.38, 45.45] , 
+		'四川' : [104.04, 30.39] , 
+		'成都' : [104.04, 30.39] , 
+		'齐齐哈尔' : [123.55, 47.22] , 
+		'重庆' : [106.33, 29.33] , 
+		'牡丹江' : [129.36, 44.35] , 
+		'内江' : [105.03, 29.35] , 
+		'上海' : [121.26, 31.12] , 
+		'泸州' : [105.27, 28.54] , 
+		'江苏' : [118.46, 32.03] , 
+		'南京' : [118.46, 32.03] , 
+		'万县' : [108.22, 30.48] , 
+		'无锡' : [120.18, 31.35] , 
+		'贵州' : [106.43, 26.34] , 
+		'贵阳' : [106.43, 26.34] ,
+		'苏州' : [120.39, 31.20] , 
+		'遵义' : [106.53, 27.45] , 
+		'徐州' : [117.12, 34.16] , 
+		'云南' : [102.42, 25.03] ,
+		'昆明' : [102.42, 25.03] ,
+		'杭州' : [ 120.10, 30.15] ,  
+		'浙江' : [ 120.10, 30.15] , 
+		'拉萨' : [91.02, 29.39] , 
+		'宁波' : [121.34, 29.53] , 
+		'日喀则' : [88.49, 29.16] , 
+		'温州' : [120.38, 28.00] , 
+		'陕西' : [108.55, 34.15] ,
+		'西安' : [108.55, 34.15] , 
+		'金华' : [119.49, 29.10] , 
+		'宝鸡' : [107.09, 34.21] , 
+		'安徽' : [117.16, 31.51] , 
+		'合肥' : [117.16, 31.51] , 
+		'延安' : [109.26, 36.35] , 
+		'芜湖' : [118.20, 31.21] , 
+		'甘肃' : [103.50, 36.03] , 
+		'兰州' : [103.50, 36.03] , 
+		'安庆' : [117.02, 30.32] , 
+		'天水' : [105.33, 34.35] , 
+		'福州' : [119.19, 26.02] , 
+		'福建' : [119.19, 26.02] , 
+		'酒泉' : [98.30, 39.44] , 
+		'厦门' : [118.04, 24.26] , 
+		'青海' : [101.49, 36.37] , 
+		'西宁' : [101.49, 36.37] , 
+		'泉州' : [118.37, 24.54] , 
+		'宁夏' : [106.13, 38.28] , 
+		'银川' : [106.13, 38.28] ,
+		'江西' : [115.53, 28.41] , 
+		'南昌' : [115.53, 28.41] , 
+		'新疆' : [87.36, 43.46] ,
+		'乌鲁木齐' : [87.36, 43.46] , 
+		'九江' : [115.59, 29.43] , 
+		'哈密' : [93.27, 42.50] , 
+		'赣州' : [114.56, 25.51] , 
+		'喀什' : [75.59, 39.27] , 
+		'山东' : [117.02, 36.40] ,
+		'济南' : [117.02, 36.40] , 
+		'和田' : [79.55, 37.07] , 
+		'烟台' : [121.20, 37.33] , 
+		'台湾' : [121.31, 25.02], 
+		'台北' : [121.31, 25.02]
 };
-
 var convertData = function (data) {
     var res = [];
     for (var i = 0; i < data.length; i++) {
         var geoCoord = geoCoordMap[data[i].name];
+        if(data[i].value>500){
+        	data[i].value = 500;
+        }
         if (geoCoord) {
             res.push({
                 name: data[i].name,
@@ -304,7 +414,7 @@ var chinaOption = {
         }
     },
     series : [
-        {
+        /*{
             type: 'scatter',
             coordinateSystem: 'geo',
             data: convertData(data),
@@ -321,7 +431,7 @@ var chinaOption = {
                     color: '#c5a425'
                 }
             }
-        },
+        },*/
         {
             name: 'Top 5',
             type: 'effectScatter',
@@ -363,18 +473,55 @@ industryMap.setOption(chinaOption);
  */
 industryMap.on("click",function (e) {
     /*这里需要判断一下 点击哪一个类型的点，才显示简介*/
-    $(".layer-person").css({
-        display: "block",
-        top: e.event.offsetY-212,
-        left: e.event.offsetX+30
-    });
+	console.log(e);
+	var industry = $("#mark-item1").val();
+	/*由于数据测试,暂时写死地域*/
+	var area = e.name;
+	
+	$.ajax({
+		url:'/indusMap/getLaboratoryInfo.json',
+		type:'POST',
+		data:{"industry":industry,"area":area},
+		success:function(res){
+		 
+			if(res.data==null){
+				new Alert({flag:false,text:"暂无数据",timer:2000}).show();
+			}else{
+				$("#form-control-static6").html(res.data.laboratoryName);
+				$("#form-control-static5").html(res.data.academicLeader);
+				$("#form-control-static1").html(res.data.institutionalCategory);
+				$("#form-control-static2").html(res.data.industry);
+				$("#form-control-static3").html(res.data.supportUnit);
+				$("#form-control-static4").html(res.data.url);
+				$("#textName").val(res.data.id);
+				$(".layer-person").css({
+			        display: "block",
+			        top: e.event.offsetY-212,
+			        left: e.event.offsetX+30
+			    });
+			}
+		}
+	});
+   
 });
 /**
  * 点击关注
  */
 $(".like").on("click",function () {
     var _this = $(this);
+    var _id = $("#textName").val();
     _this.parents(".layer-person").hide();
-    new Alert({flag:true,text:"关注成功",timer:2000}).show();
+    $.ajax({
+    	url:'/indusMap/insertLaboratoryInfo.json',
+    	type:'GET',
+    	data:{"id":_id},
+    	success:function(res){
+    		if(res.data==null){
+    			new Alert({flag:false,text:res.data,timer:2000}).show();
+    		}else{
+    			new Alert({flag:true,text:res.data,timer:2000}).show();
+    		}
+    	}
+    });
 });
 
