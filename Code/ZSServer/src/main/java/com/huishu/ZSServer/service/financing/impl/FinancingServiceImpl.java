@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.DBConstant;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
+import com.huishu.ZSServer.entity.dto.FinancingSearchDTO;
 import com.huishu.ZSServer.es.entity.FinancingInfo;
 import com.huishu.ZSServer.es.repository.FinancingElasticsearch;
 import com.huishu.ZSServer.service.AbstractService;
@@ -57,9 +58,11 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 	public List<JSONObject> getFinancingCompany(List<String> industry) {
 		List<JSONObject> list=new ArrayList<JSONObject>();
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
-		bq.must(QueryBuilders.termsQuery("industry", industry));
+		for (String in : industry) {
+			bq.should(QueryBuilders.wildcardQuery("industry","*"+in+"*"));
+		}
 		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3).setTypes(DBConstant.EsConfig.TYPE2);
-		SearchResponse searchResponse = srb.setQuery(bq).setSize(10).execute().actionGet();
+		SearchResponse searchResponse = srb.setQuery(bq).setSize(7).execute().actionGet();
 		if (null != searchResponse && null != searchResponse.getHits()) {
 			SearchHits hits = searchResponse.getHits();
 			hits.forEach((searchHit) -> {
@@ -76,23 +79,18 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 	}
 
 	@Override
-	public List<JSONObject> getHistogram(String type) {
-		List<JSONObject> list = new ArrayList<JSONObject>();
-		List<String> industries = Arrays.asList("人工智能","大数据","物联网","生物技术");
-		for (String industry : industries) {
-			JSONObject counts = null;
-			if(type.equals("week")){
-				counts = countByWeek(industry);
-			}else if(type.equals("month")){
-				counts = countByMonth(industry);
-			}else if(type.equals("season")){
-				counts = countBySeason(industry);
-			}else if(type.equals("year")){
-				counts = countByYear(industry);
-			}
-			list.add(counts);
+	public JSONObject getHistogram(FinancingSearchDTO dto) {
+		JSONObject counts = null;
+		if(dto.getType().equals("week")){
+			counts = countByWeek(dto.getIndustry());
+		}else if(dto.getType().equals("month")){
+			counts = countByMonth(dto.getIndustry());
+		}else if(dto.getType().equals("season")){
+			counts = countBySeason(dto.getIndustry());
+		}else if(dto.getType().equals("year")){
+			counts = countByYear(dto.getIndustry());
 		}
-		return list;
+		return counts;
 	}
 
 }
