@@ -19,14 +19,17 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.ZSServer.common.AjaxResult;
+import com.huishu.ZSServer.common.Data;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.IndustryRank;
+import com.huishu.ZSServer.entity.Institutional;
 import com.huishu.ZSServer.es.entity.SummitInfo;
 import com.huishu.ZSServer.service.company.CompanyService;
 import com.huishu.ZSServer.service.company.EnterPriseService;
 import com.huishu.ZSServer.service.indus.IndusSummitService;
 import com.huishu.ZSServer.service.indus.IndustryRankService;
+import com.huishu.ZSServer.service.indus.InstitutionalService;
 
 /**
  * @author hhy
@@ -46,6 +49,8 @@ public class IndustryMapController extends BaseController{
 	private IndustryRankService rservice;
 	@Autowired
 	private EnterPriseService cservice;
+	@Autowired
+	private InstitutionalService iservice;
 	/**
 	 * 产业地图页面跳转
 	 * @param map
@@ -62,20 +67,23 @@ public class IndustryMapController extends BaseController{
 		return "/industry/industryMap";
 	}
 	
+	
+	
 	/**
-	 * 根据产业信息获取所有的内容
+	 * 获取地图map数据
 	 * @param industry
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getInfoByIndustry.json",method = RequestMethod.GET)
-	public AjaxResult getInfoByIndustry(String industry){
+	@RequestMapping(value="/getMapInfoByIndustry.json",method = RequestMethod.GET)
+	public AjaxResult getMapInfoByIndustry(@Param("industry") String industry){
 		if(StringUtil.isEmpty(industry)){
-			LOGGER.debug("根据产业查询所有信息失败："+industry);
+			LOGGER.debug("根据产业查询城市地图数据失败："+industry);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		List<Data> list = rservice.findMapInfo(industry);
 		
-		return null;
+		return success(list);
 	}
 	/**
 	 * 获取企业热度城市排行
@@ -99,14 +107,14 @@ public class IndustryMapController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getIndustrySummit.json",method = RequestMethod.POST)
-	public AjaxResult getIndustrySummit( String industryLabel){
-		if(StringUtil.isEmpty(industryLabel)){
-			LOGGER.debug("根据产业查询峰会详情失败："+industryLabel);
+	public AjaxResult getIndustrySummit(@Param("industry") String industry){
+		if(StringUtil.isEmpty(industry)){
+			LOGGER.debug("根据产业查询峰会列表失败："+industry);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		JSONObject obj = new JSONObject();
 		obj.put("dimension", "高峰论坛");
-		obj.put("industryLabel", industryLabel);
+		obj.put("industryLabel", industry);
 		List<SummitInfo> list = service.findIndustrySummitList(obj);
 		return success(list);
 	}
@@ -123,5 +131,43 @@ public class IndustryMapController extends BaseController{
 		}
 		List<String> list = cservice.findCompanyName(area ,industry);
 		return success(list);
+	}
+	
+	/**
+	 * 获取国家重点实验室
+	 * @param industry
+	 * @param area
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getLaboratoryInfo.json",method=RequestMethod.POST)
+	public AjaxResult getLaboratoryInfo(@Param("industry") String industry,@Param("area") String area){
+		if(StringUtil.isEmpty(industry)||StringUtil.isEmpty(area)){
+			LOGGER.debug("获取国家重点实验室详情失败，参数异常");
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		Institutional info = iservice.getInstutionalInfo(area,industry);
+		if(info==null){
+			return error("暂无数据");
+		}else{
+			return success(info);
+		}
+	}
+	/**
+	 * 根据国家实验室的id 关注 
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/insertLaboratoryInfo.json",method=RequestMethod.GET)
+	public AjaxResult  insertLaboratoryInfo(@Param("id") Long id){
+		if(id==null){
+			LOGGER.debug("关注实验室参数异常"+id);
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		//当前用户的用户名，测试专用
+		String name = "张三";
+		String info = iservice.saveLaboratoryInfoById(id,name);
+		return success(info);
 	}
 }

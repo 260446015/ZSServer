@@ -1,7 +1,6 @@
 package com.huishu.ZSServer.service.financing.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +11,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -48,10 +48,28 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 	}
 
 	@Override
-	public Page<FinancingInfo> getFinancingDynamic() {
-		Sort sort = new Sort(Direction.DESC, "publishDate");
-		PageRequest pageRequest = new PageRequest(0,10,sort);
-		return financingElasticsearch.findAll(pageRequest);
+	public List<JSONObject> getFinancingDynamic() {
+		List<JSONObject> list=new ArrayList<JSONObject>();
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		bq.should(QueryBuilders.wildcardQuery("industry","*人工智能*"));
+		bq.should(QueryBuilders.wildcardQuery("industry","*大数据*"));
+		bq.should(QueryBuilders.wildcardQuery("industry","*物联网*"));
+		bq.should(QueryBuilders.wildcardQuery("industry","*生物技术*"));
+		bq.minimumNumberShouldMatch(1);
+		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3).setTypes(DBConstant.EsConfig.TYPE2).addSort("publishDate", SortOrder.DESC);
+		SearchResponse searchResponse = srb.setQuery(bq).setSize(10).execute().actionGet();
+		if (null != searchResponse && null != searchResponse.getHits()) {
+			SearchHits hits = searchResponse.getHits();
+			hits.forEach((searchHit) -> {
+				Map<String, Object> map = searchHit.getSource();
+				JSONObject obj = new JSONObject();
+				obj.put("id", searchHit.getId());
+				obj.put("title", map.get("title"));
+				obj.put("industry", map.get("industry"));
+				list.add(obj);
+			});
+		}
+		return list;
 	}
 
 	@Override
@@ -61,6 +79,7 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 		for (String in : industry) {
 			bq.should(QueryBuilders.wildcardQuery("industry","*"+in+"*"));
 		}
+		bq.minimumNumberShouldMatch(1);
 		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3).setTypes(DBConstant.EsConfig.TYPE2);
 		SearchResponse searchResponse = srb.setQuery(bq).setSize(7).execute().actionGet();
 		if (null != searchResponse && null != searchResponse.getHits()) {

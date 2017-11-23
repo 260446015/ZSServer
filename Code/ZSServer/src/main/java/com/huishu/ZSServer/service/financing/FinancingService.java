@@ -26,7 +26,7 @@ public interface FinancingService {
 	 * 获取融资动态数据
 	 * @return
 	 */
-	Page<FinancingInfo> getFinancingDynamic();
+	List<JSONObject> getFinancingDynamic();
 	/**
 	 * 获取某产业融资企业推荐列表
 	 * @param industry
