@@ -51,15 +51,15 @@ public class GardenController extends BaseController {
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping(value = "/findGardensCondition.json", method = RequestMethod.GET,params={"pageNumber","pageSize"})
+	@RequestMapping(value = "/findGardensCondition.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult findGardensCondition(Integer pageNumber,Integer pageSize) {
-		GardenDTO dto = new GardenDTO();
+	public AjaxResult findGardensCondition(@RequestBody GardenDTO dto) {
 		// Long userId = getUserId();
 		Long userId = 1L;
 		dto.setUserId(userId);
-		dto.setPageNumber(pageNumber);
-		dto.setPageSize(pageSize);
+//		dto.setPageNumber(pageNumber);
+//		dto.setPageSize(pageSize);
+//		dto.setProvince(area);
 		Page<AITInfo> page = null;
 		try {
 			page = gardenService.findGardensCondition(dto);
@@ -76,14 +76,14 @@ public class GardenController extends BaseController {
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping(value = "/findGardenGdp.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/findGardenGdp.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult findGardenGdp(String industry, Integer[] year, String province) {
-		if (StringUtil.isEmpty(industry))
+	public AjaxResult findGardenGdp(@RequestBody GardenDTO dto) {
+		if (StringUtil.isEmpty(dto.getIndustry()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		if (year == null)
-			year = new Integer[] { DateUtils.getNowYear() };
-		List<GardenMap> list = gardenService.findGardenGdp(industry, year, province);
+		if (dto.getYear() == null)
+			dto.setYear(new Integer[] { DateUtils.getNowYear() });
+		List<GardenMap> list = gardenService.findGardenGdp(dto);
 		return success(list);
 	}
 
@@ -207,13 +207,13 @@ public class GardenController extends BaseController {
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping(value = "getGardenPolicy.json", method = RequestMethod.GET)
+	@RequestMapping(value = "getGardenPolicy.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenPolicy(@RequestBody GardenDTO dto) {
 		if(StringUtil.isEmpty(dto.getProvince()))
 			return error(MsgConstant.ILLEGAL_PARAM);	
 		Page<AITInfo> page = gardenService.findGardenPolicy(dto);
-		return success(page);
+		return success(page.getContent());
 	}
 
 	/**
@@ -225,10 +225,18 @@ public class GardenController extends BaseController {
 	 */
 	@RequestMapping(value = "getGardenIndustryEcharts.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult getGardenIndustryEcharts(String province) {
+	public AjaxResult getGardenIndustryEcharts(String province,Integer year) {
 		if (StringUtil.isEmpty(province))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(gardenService.getGardenIndustryEcharts(province));
+		List<Object[]> list = gardenService.getGardenIndustryEcharts(province,year);
+		list.sort((a,b) -> {
+			System.out.println(b[1]);
+			System.out.println(a[1]);
+			Double a1 = Double.parseDouble(b[1].toString());
+			Double a2 = Double.parseDouble(a[1].toString());
+			return a2.compareTo(a1);
+			});
+		return success(list);
 	}
 
 	/**
