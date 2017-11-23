@@ -229,8 +229,16 @@ var chinaOption = {
 var parkMap = echarts.init(document.getElementById('parkMap'),"customed");
 parkMap.setOption(chinaOption);
 
+var area = "北京";
+var year = 2017;
 parkMap.on("click",function (e) {
     if(e.componentType=="series"){
+    	area = e.data.name;
+    	$("#myModalLabel").html(area);
+    	showGardenPolicy(area);
+//    	showGardenModelIndustry(area,year);
+//    	showGardenGdpHistogram();
+    	showGardenList(area);
         $("#myModal").modal("show");
     }
 });
@@ -290,6 +298,29 @@ var  label = {
         }
     }
 };
+function initEcharts(pieChartName,pieChartValue){
+	data1 = [
+	         {
+	             value: [18,90], symbolSize: 50, name: pieChartName[0], itemStyle: {normal: {color: '#5D9CEC'}},label:label
+	         },
+	         {
+	             value: [10,20], symbolSize: 60, name: pieChartName[1], itemStyle: {normal: {color: '#62C87F'}},label:label
+	         },
+	         {
+	             value: [57,11], symbolSize: 70, name: pieChartName[2], itemStyle: {normal: {color: '#F57BC1'}},label:label
+	         },
+	         {
+	             value: [90,30], symbolSize: 80, name: pieChartName[3], itemStyle: {normal: {color: '#6ED5E6'}},label:label
+	         },
+	         {
+	             value: [85,82], symbolSize: 90, name: pieChartName[4], itemStyle: {normal: {color: '#DCB186'}},label:label
+	         },
+	         {
+	             value: [65,90], symbolSize: 100, name: pieChartName[5], itemStyle: {normal: {color: '#7053B6'}},label: label
+	         }
+	     ];
+	return data1;
+}
 var data1 = [
     {
         value: [18,90], symbolSize: 79, name: '新一代信息技术', itemStyle: {normal: {color: '#5D9CEC'}},label:label
@@ -441,13 +472,186 @@ var modalOption2 = {
     ]
 };
 
-
+var date = new Date().getFullYear(); 
+var dates = [date-6,date-5,date-4,date-3,date-2,date-1,date];
 $("#myModal").on("shown.bs.modal",function () {
-    var modalCharts1 = echarts.init(document.getElementById("charts_1"),"customed");
-    modalCharts1.setOption(modalOption1);
+	
+	showGardenModelIndustry(area,year);
+	showDifYearGdp(industry,dates,area);
+	
 
-    var modalCharts2 = echarts.init(document.getElementById("charts_2"),"customed");
-    modalCharts2.setOption(modalOption2);
 });
+
+function showGardenCondition(area,target){
+	var url = "";
+	var req = {"pageNumber":0,"pageSize":4,"province":area};
+	$.ajax({
+		type:"post",
+		url:"/apis/area/findGardensCondition.json",
+		data:JSON.stringify(req),
+		contentType:"application/json",
+		success:function(res){
+			if(res.success){
+				var html = "";
+				var arr = res.data;
+				for(var i=0;i<arr.length;i++){
+					html += "<div class=\"col-md-12 border-bottom\">" +
+								"<a class=\"scatter-blocks no-border\" href=\"javascript:void(0);\">" +
+									"<span class=\"scatter-title\">"+arr[i].title+"</span></a>" +
+									"<p class=\"scatter-content\">"+arr[i].summary +"</p>" + 
+									"<p class=\"scatter-lib\">" +
+										"<span>"+arr[i].park+"</span>" +
+                                		"<span>"+arr[i].publishTime+"</span></p></div>";
+				}
+				$("#"+target).html(html);
+			
+			}
+		}
+	});
+}
+
+function showGardenGdpPiechart(){
+	$.ajax({
+		
+	});
+}
+var histogramName = new Array();
+var histogramValue = new Array();
+function showGardenGdpHistogram(industry,year){
+	if(year == ''){
+		year = [new Date().getFullYear() - 1];
+	}
+	var req = {"industry":industry,"year":year};
+	$.ajax({
+		type:'post',
+		data:JSON.stringify(req),
+		contentType:'application/json',
+		url:'/apis/area/findGardenGdp.json',
+		success:function(res){
+			if(res.success){
+				var arr = res.data;
+				for(var i=0;i<arr.length;i++){
+					histogramName.push(arr[i].province);
+					histogramValue.push(arr[i].gdp)
+				}
+				barOption.xAxis[0].data = histogramName;
+				barOption.series[0].data = histogramValue;
+				var barCharts = echarts.init(document.getElementById('barCharts'),"customed");
+				barCharts.setOption(barOption);
+			}
+		}
+	});
+}
+var pieChartName = new Array();
+var pieChartValue = new Array();
+
+function showGardenPolicy(area){
+	var req = {"pageNumber":0,"pageSize":4,"province":area};
+	$.ajax({
+		type:'post',
+		url:'/apis/area/getGardenPolicy.json',
+		data:JSON.stringify(req),
+		contentType:'application/json',
+		success:function(res){
+			if(res.success){
+				var html = "";
+				var arr = res.data;
+				for(var i=0;i<arr.length;i++){
+					html += "<div class=\"col-md-12 border-bottom\">" +
+								"<a class=\"scatter-blocks no-border\" href=\"javascript:void(0);\">" +
+									"<span class=\"scatter-title\">"+arr[i].title+"</span></a>" +
+									"<p class=\"scatter-content\">"+arr[i].summary +"</p>" + 
+									"<p class=\"scatter-lib\">" +
+										"<span>"+arr[i].area+"</span>" +
+                                		"<span>"+arr[i].publishTime+"</span></p></div>";
+				}
+				$("#condition2").html(html);
+			}
+		}
+	});
+}
+function showGardenList(area){
+	var req = {"pageNumber":0,"pageSize":10,msg:['不限',area,'园区占地','desc']};
+	$.ajax({
+		type:'post',
+		url:'/apis/area/findGardensList.json',
+		data:JSON.stringify(req),
+		contentType:'application/json',
+		success:function(res){
+			if(res.success){
+				var arr = res.data.content;
+				var html = "";
+				console.log(res);
+				
+				for (var i = 0; i < arr.length; i++) {
+					html += '<li><a href="javascript:void(0);" class="circle-img-box">' +
+									'<img src="'+arr[i].gardenPicture+'" alt="" /><p class="park-name">'+arr[i].gardenName+'</p>'+
+							'</a></li>';
+					console.log(arr[i].gardenPicture);
+				}
+				$("#gardenList").html(html);
+			}
+		}
+	});
+}
+var dateValue = new Array();//创建一个全局变量用来接收返回的gdp值
+var dateName = new Array();//创建一个全局变量用来接收返回的年份
+function showDifYearGdp(a,b,c){//model中展示不同年份某一产业的gdp  //model中展示折线图
+	var req = {"industry":a,"year":b,"province":area};
+	
+	$.ajax({
+		type:'post',
+		url:'/apis/area/findGardenGdp.json',
+		contentType:'application/json',
+		data:JSON.stringify(req),
+		async:false,
+		success:function(res){
+			if(res.success){
+				var arr = res.data;
+				dateValue = [];
+				dateName = [];
+				for(var i=0;i<arr.length;i++){
+					dateValue.push(arr[i].gdp);
+					dateName.push(arr[i].year);
+				}
+			}
+		}
+	});
+	modalOption1.xAxis[0].data = dateName;
+	modalOption1.series[0].data = dateValue;
+    var modalCharts1 = echarts.init(document.getElementById("charts_1"),"customed");
+    modalCharts1.on('click',function(param){
+    	showGardenModelIndustry(area,param.name);
+    });
+    modalCharts1.setOption(modalOption1);
+}
+var industry = '不限';//定义一个全局变量用来接收返回回来产值较多的产业
+function showGardenModelIndustry(area,year){
+	var seriesData = new Array();
+	$.ajax({
+		type:'get',
+		url:'/apis/area/getGardenIndustryEcharts.json?province='+area+'&year='+year,
+		async:false,
+		success:function(res){
+			if(res.success){
+				var arr1 = res.data;
+				for(var i=0;i<arr1.length;i++){
+					var arr2 = arr1[i];
+					var data = {value:arr2[1], name:arr2[2]};
+					seriesData.push(data);
+					if(i == arr1.length - 1){
+						industry = arr2[2];
+					}
+				}
+			}
+		}
+	});
+	modalOption2.series[0].data = seriesData;
+	var modalCharts2 = echarts.init(document.getElementById("charts_2"),"customed");
+    modalCharts2.on('click',function(param){
+    	showDifYearGdp(param.name,dates,area);
+    });
+    modalCharts2.setOption(modalOption2);
+}
 
 

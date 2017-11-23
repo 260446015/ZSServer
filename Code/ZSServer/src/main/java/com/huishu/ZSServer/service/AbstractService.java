@@ -6,7 +6,9 @@ import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.TYPE;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +18,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.metrics.tophits.TopHitsBuilder;
 import org.slf4j.Logger;
@@ -29,9 +36,11 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.jpa.domain.Specification;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
 import com.forget.category.CategoryModel;
+import com.huishu.ZSServer.common.conf.DBConstant;
 import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.openeyes.SearchCount;
@@ -49,7 +58,8 @@ public class AbstractService<T> {
 	private BaseElasticsearch baseElasticsearch;
 	@Autowired
 	private SearchCountRepository searchCountRepository;
-	
+	@Autowired
+	private Client client;
 	@Autowired
 	protected ElasticsearchTemplate template;
 	
@@ -91,8 +101,12 @@ public class AbstractService<T> {
 		params.forEach((k, v) -> {
 			if (v instanceof Collection)
 				bq.must(QueryBuilders.termsQuery(k, v));
-			else
-				bq.must(QueryBuilders.termQuery(k, v));
+			else{
+				if(k.equals("area")){
+					bq.must(QueryBuilders.wildcardQuery("area", "*" + v + "*"));
+				}else
+					bq.must(QueryBuilders.termQuery(k, v));
+			}
 		});
 		Page<AITInfo> search = null;
 		try {
@@ -268,6 +282,7 @@ public class AbstractService<T> {
 	protected JSONObject countByWeek(String[] industry){
 		return null;
 	}
+	
 	/**
 	 * 产业融资柱状分布图——按月
 	 * @param industry
@@ -276,14 +291,91 @@ public class AbstractService<T> {
 	protected JSONObject countByMonth(String[] industry){
 		return null;
 	}
+	
 	/**
 	 * 产业融资柱状分布图——按季度
 	 * @param industry
 	 * @return
 	 */
 	protected JSONObject countBySeason(String[] industry){
-		return null;
+		JSONObject result = new JSONObject();
+		Calendar c = Calendar.getInstance();  
+        int currentMonth = c.get(Calendar.MONTH) + 1;
+        String todayFour=c.get(Calendar.YEAR)+"第四季";
+        String todayThree=c.get(Calendar.YEAR)+"第三季";
+        String todayTwo=c.get(Calendar.YEAR)+"第二季";
+        String todayOne=c.get(Calendar.YEAR)+"第一季";
+        String beforeFour=(c.get(Calendar.YEAR)-1)+"第四季";
+        String beforeThree=(c.get(Calendar.YEAR)-1)+"第三季";
+        String beforeTwo=(c.get(Calendar.YEAR)-1)+"第二季";
+        if (currentMonth >= 1 && currentMonth <= 3){
+        	c.set(Calendar.MONTH, 0);
+        	String[] charts= {beforeTwo,beforeThree,beforeFour,todayOne};
+        	result.put("charts", charts);
+        }
+        else if (currentMonth >= 4 && currentMonth <= 6){
+        	c.set(Calendar.MONTH, 3);
+        	String[] charts= {beforeThree,beforeFour,todayOne,todayTwo};
+        	result.put("charts", charts);
+        }
+        else if (currentMonth >= 7 && currentMonth <= 9){
+        	c.set(Calendar.MONTH, 6);
+        	String[] charts= {beforeFour,todayOne,todayTwo,todayThree};
+        	result.put("charts", charts);
+        }
+        else if (currentMonth >= 10 && currentMonth <= 12){
+        	c.set(Calendar.MONTH, 9);
+        	String[] charts= {todayOne,todayTwo,todayThree,todayFour};
+        	result.put("charts", charts);
+        }
+        JSONArray array = new JSONArray();
+        for (String in : industry) {
+        	List<Double> list = new ArrayList<Double>();
+        	for (int i = 0; i < 4; i++) {
+	        	BoolQueryBuilder bq = QueryBuilders.boolQuery();
+	    		bq.must(QueryBuilders.wildcardQuery("industry","*"+in+"*"));
+	    		for (int j = c.get(Calendar.MONTH) + 1; j < c.get(Calendar.MONTH) + 4; j++) {
+	    			String month=""+j;
+	    			if(j<10) month= "0"+j;
+	    			bq.should(QueryBuilders.wildcardQuery("financingDate","*"+c.get(Calendar.YEAR)+"?"+month+"*"));
+				}
+	    		bq.minimumNumberShouldMatch(1);
+	    		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3).setTypes(DBConstant.EsConfig.TYPE2);
+	    		SearchResponse searchResponse = srb.setQuery(bq).execute().actionGet();
+	    		Double esdata=0.00;
+	    		if (null != searchResponse && null != searchResponse.getHits()) {
+	    			Long totalHits = searchResponse.getHits().getTotalHits();
+	    			SearchResponse searchResponse2 = srb.setQuery(bq).setSize(totalHits.intValue()).execute().actionGet();
+	    			SearchHits hits = searchResponse2.getHits();
+	    			for (SearchHit searchHit : hits) {
+	    				Map<String, Object> map = searchHit.getSource();
+	    				String value = map.get("financingAmount").toString();
+	    				 if(value.indexOf("未透露")==-1&&value.indexOf("数")==-1){  
+	    					 String dataString = map.get("financingAmount").toString();
+	    					 if(dataString.indexOf("亿")==-1){
+	    						 esdata += Double.valueOf(dataString.replace("RMB", "").replace("万", ""))*0.001;
+	    					 }else{
+	    						 esdata += Double.valueOf(dataString.replace("RMB", "").replace("亿", ""));
+	    					 }
+						 }
+					}
+	    		}
+	    		//RMB某亿
+	    		list.add(esdata);
+	    		c.add(Calendar.MONTH, -3);
+			}
+        	c.add(Calendar.MONTH, +12);
+	        Collections.reverse(list);
+	        JSONObject object = new JSONObject();
+	        object.put("data", list);
+	        object.put("type", "bar");
+	        object.put("name", in);
+	        array.add(object);
+        }
+		result.put("series",array);
+		return result;
 	}
+	
 	/**
 	 * 产业融资柱状分布图——按年
 	 * @param industry

@@ -2,6 +2,7 @@ package com.huishu.ZSServer.service.indus;
 
 import java.util.List;
 
+import com.huishu.ZSServer.common.Data;
 import com.huishu.ZSServer.entity.IndustryRank;
 
 /**
@@ -12,5 +13,17 @@ import com.huishu.ZSServer.entity.IndustryRank;
  * 
  */
 public interface IndustryRankService {
+	/**
+	 * 获取排行前十的产业数据
+	 * @param industry
+	 * @return
+	 */
 	List<IndustryRank> findIndustryRank(String industry);
+
+	/**
+	 * 获取地域所有数据
+	 * @param industry
+	 * @return
+	 */
+	List<Data> findMapInfo(String industry);
 }

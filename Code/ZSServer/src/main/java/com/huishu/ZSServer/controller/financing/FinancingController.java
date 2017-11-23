@@ -103,8 +103,8 @@ public class FinancingController extends BaseController {
 	@RequestMapping(value = "/getFinancingDynamic.json", method = RequestMethod.GET)
 	public AjaxResult getFinancingDynamic() {
 		try {
-			Page<FinancingInfo> page = financingService.getFinancingDynamic();
-			return successPage(page);
+			List<JSONObject> page = financingService.getFinancingDynamic();
+			return success(page);
 		} catch (Exception e) {
 			LOGGER.error("获取融资动态数据失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
