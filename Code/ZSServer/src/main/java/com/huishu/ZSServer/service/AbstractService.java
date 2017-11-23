@@ -91,8 +91,12 @@ public class AbstractService<T> {
 		params.forEach((k, v) -> {
 			if (v instanceof Collection)
 				bq.must(QueryBuilders.termsQuery(k, v));
-			else
-				bq.must(QueryBuilders.termQuery(k, v));
+			else{
+				if(k.equals("area")){
+					bq.must(QueryBuilders.wildcardQuery("area", "*" + v + "*"));
+				}else
+					bq.must(QueryBuilders.termQuery(k, v));
+			}
 		});
 		Page<AITInfo> search = null;
 		try {
@@ -265,7 +269,7 @@ public class AbstractService<T> {
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countByWeek(String industry){
+	protected JSONObject countByWeek(String[] industry){
 		return null;
 	}
 	/**
@@ -273,7 +277,7 @@ public class AbstractService<T> {
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countByMonth(String industry){
+	protected JSONObject countByMonth(String[] industry){
 		return null;
 	}
 	/**
@@ -281,7 +285,7 @@ public class AbstractService<T> {
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countBySeason(String industry){
+	protected JSONObject countBySeason(String[] industry){
 		return null;
 	}
 	/**
@@ -289,7 +293,7 @@ public class AbstractService<T> {
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countByYear(String industry){
+	protected JSONObject countByYear(String[] industry){
 		return null;
 	}
 }
