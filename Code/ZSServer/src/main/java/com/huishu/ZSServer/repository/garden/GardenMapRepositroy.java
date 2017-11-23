@@ -22,7 +22,7 @@ public interface GardenMapRepositroy extends CrudRepository<GardenMap, Long> {
 	 * @param province 省份
 	 * @return
 	 */
-	@Query(value="select id,gdp,industry,province,year,count(industry) as count from t_garden_map where province = ?1 GROUP BY industry",nativeQuery=true)
-	List<Object[]> getGardenIndustryEcharts(String province);
+	@Query(value="select id,gdp,industry,province,year,count(industry) as count from t_garden_map where province = ?1 and year = ?2 GROUP BY industry",nativeQuery=true)
+	List<Object[]> getGardenIndustryEcharts(String province,Integer year);
 
 }
