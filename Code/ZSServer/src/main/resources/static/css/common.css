@@ -13,7 +13,7 @@ ul,li{
     list-style: none;
 }
 body{
-    font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,微软雅黑,STHeitiSC-Light,simsun,宋体,WenQuanYi Zen Hei,WenQuanYi Micro Hei,'sans-serif';
+    font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,STHeitiSC-Light,simsun,Ã¥Â®â€¹Ã¤Â½â€œ,WenQuanYi Zen Hei,WenQuanYi Micro Hei,'sans-serif';
     font-size: 14px;
     color: #fff;
 }
@@ -21,7 +21,7 @@ a,a:hover,a:active,a:focus,a:visited{
     text-decoration: none;
 }
 /*
-* 星空背景
+* 初始化页面开始
 */
 html,body{
     min-height: 100%;
@@ -125,7 +125,7 @@ body{
         background: linear-gradient(to bottom, rgba(0,44,39,0) 0%,rgba(0,44,39,1) 100%);
     }
 }
-/*内容部分布局 start*/
+/*页面主题部分 start*/
 .wrapper{
     padding-top: 2px;
     padding-bottom: 60px;
@@ -137,8 +137,8 @@ body{
 .page-content{
     position: relative;
 }
-/*内容部分布局  end*/
-/*首页的icon图标 start*/
+/*页面主体部分  end*/
+/*产业地图 start*/
 .icon-group-map,
 .icon-group-map-left{
     background-image: url("../images/icon_group_map.png");
@@ -174,7 +174,7 @@ body{
 .header .nav-menu>li>a:active>.icon-map-2{
     background-position: -73px -254px;
 }
-/*首页的icon图标 end*/
+/*产业地图部分 end*/
 /*mark start*/
 .mark-box{
     padding-top: 45px;
@@ -1419,3 +1419,119 @@ a.search-item.active{
     font-weight: 400;
     color: #808080;
 }
+/*园区对比 start*/
+.park-contrast-box {
+    position: fixed;
+    right: 0;
+    z-index: 0;
+    top: 50%;
+    margin-top:-57px;
+}
+.contrast-content {
+    display: none;
+    border: 1px solid #00ffc4;
+    z-index: 2;
+    background-color:#03070c;
+    box-shadow: inset 0 0 15px #00bba7;
+    border-radius: 10px;
+    -webkit-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+.park-btn {
+    height: 114px;
+    width: 40px;
+    padding: 0 10px;
+    font-size: 12px;
+    color: #00ffc4;
+    border: 1px solid #00ffc4;
+    box-shadow: 0 0 10px #00bba7;
+    border-radius:4px;
+    outline: none;
+    vertical-align: middle;
+    -webkit-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+.img-box-list,
+.charts-box-list{
+    display: none;
+}
+.park-contrast-box.open-img{
+    margin-top: -200px;
+}
+.park-contrast-box.open-charts .contrast-content,
+.park-contrast-box.open-img .contrast-content {
+    display: inline-block;
+    padding: 20px 30px;
+}
+.park-contrast-box.open-charts .park-btn,
+.park-contrast-box.open-img .park-btn{
+    position: absolute;
+    left: -39px;
+    top: 50%;
+    margin-top: -54px;
+    border-right-color: #03070c;
+    box-shadow: inset 0 0 10px #00bba7;
+    border-radius:4px 0 0 4px;
+    background-color: #03070c;
+}
+.park-contrast-box.open-img .park-btn:after,
+.park-contrast-box.open-charts .park-btn:after {
+    position: absolute;
+    right: -10px;
+    top: 0;
+    width: 17px;
+    height: 100%;
+    display: block;
+    content: " ";
+    background-color: #03070c;
+    z-index: 1;
+}
+.park-contrast-box.open-img .img-box-list,
+.park-contrast-box.open-charts .charts-box-list{
+    display: block;
+}
+.contrast-content .img-box img {
+    width: 100px;
+    height: 80px;
+}
+.contrast-content .img-box {
+    margin-bottom: 20px;
+}
+.contrast-content .img-box:last-child {
+    margin-bottom: 0;
+}
+.park-contrast-box.open-charts .contrast-content .img-box {
+    height: 200px;
+}
+.charts-title {display: list-item;text-align: -webkit-match-parent;list-style-type: disc;color: #00ffc4;font-size: 12px;}
+
+.small-charts {
+    height: 200px;
+}
+
+.charts-box {
+    width: 260px;
+    float: left;
+    margin-right: 15px;
+}
+
+.charts-box .row>div {
+    padding: 2px 5px;
+    color: #00baff;
+    font-size: 12px;
+}
+
+.charts-box .row>div:last-child {
+    margin-bottom: 15px;
+}
+
+.charts-box .row>div:nth-of-type(odd) {
+    text-align: right;
+}
+/*园区对比 end*/
