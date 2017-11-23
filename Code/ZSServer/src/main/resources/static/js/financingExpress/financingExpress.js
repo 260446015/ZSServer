@@ -13,6 +13,7 @@ $("input[type=checkbox]").on('ifChanged', function(event){
         }
     });
     myCheck(datalist);
+    myCharts(datalist,"season");
 });
 $("input[type=checkbox]").iCheck({
 	checkboxClass: 'icheckbox_square-blue'
@@ -28,14 +29,14 @@ $(function(){
             if(response.message!=null){
             	alert(response.message);
             }else{
-           		showDynamic(response.data.dataList);
+           		showDynamic(response.data);
             }
         }
     });
 	var datalist= new Array();
     datalist.push("人工智能");
 	myCheck(datalist);
-	myCharts(datalist,'month');
+	myCharts(datalist,'season');
 	myClick(0,0);
 })
 function myCharts(d,type){
@@ -50,12 +51,14 @@ function myCharts(d,type){
             	alert(response.message);
             }else{
             	changeOption(response.data);
-            	barCharts.setOption(option);
+            	console.log(option)
+            	barCharts.setOption(option,true);
             }
         }
     });
 }
 function changeOption(d){
+	console.log(d.series);
 	option = {
 	    tooltip : {
 	        trigger: 'axis'
@@ -64,7 +67,7 @@ function changeOption(d){
 	    xAxis : [
 	        {
 	            type : 'category',
-	            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+	            data : d.charts
 	        }
 	    ],
 	    yAxis : [
@@ -72,40 +75,7 @@ function changeOption(d){
 	            type : 'value'
 	        }
 	    ],
-	    series : [
-	        {
-	            name:'蒸发量',
-	            type:'bar',
-	            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-	            markPoint : {
-	                data : [
-	                    {type : 'max', name: '最大值'},
-	                    {type : 'min', name: '最小值'}
-	                ]
-	            },
-	            markLine : {
-	                data : [
-	                    {type : 'average', name: '平均值'}
-	                ]
-	            }
-	        },
-	        {
-	            name:'降水量',
-	            type:'bar',
-	            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-	            markPoint : {
-	                data : [
-	                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183},
-	                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
-	                ]
-	            },
-	            markLine : {
-	                data : [
-	                    {type : 'average', name : '平均值'}
-	                ]
-	            }
-	        }
-	    ]
+	    series : d.series
 	};
 }
 function myCheck(d){
@@ -156,9 +126,9 @@ function ajaxPost(param){
 function showCheck(d){
 	var arr = [];
 	$.each(d, function(index, item){
-		arr.push('<div class="search-group"><div class="col-title">1500亿人民币</div>'+
-				  '<div class="col-title"><a href="javascript:void(0);" class="search-item">紫光集团</a></div>'+
-				  '<div class="col-title"><a href="javascript:void(0);" class="search-item">人工智能</a></div></div>');
+		arr.push('<div class="search-group"><div class="col-title">'+item.financingAmount+'</div>'+
+				  '<div class="col-title"><a href="javascript:void(0);" class="search-item">'+item.financingCompany+'</a></div>'+
+				  '<div class="col-title"><a href="javascript:void(0);" class="search-item">'+item.industry+'</a></div></div>');
 	});
 	$('#company').html(arr.join(''));
 }

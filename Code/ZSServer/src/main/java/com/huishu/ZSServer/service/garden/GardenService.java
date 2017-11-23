@@ -36,7 +36,7 @@ public interface GardenService {
 	/**
 	 * 获取园区产值
 	 */
-	List<GardenMap> findGardenGdp(String industry, Integer[] years, String province);
+	List<GardenMap> findGardenGdp(GardenDTO dto);
 
 	/**
 	 * 获取园区列表
@@ -55,14 +55,16 @@ public interface GardenService {
 
 	/**
 	 * 获取政策动向
+	 * 
 	 * @return
 	 */
 	Page<AITInfo> findGardenPolicy(GardenDTO dto);
 
 	/**
 	 * 获取echarts数据
+	 * 
 	 * @param province
 	 * @return
 	 */
-	List<Object[]> getGardenIndustryEcharts(String province);
+	List<Object[]> getGardenIndustryEcharts(String province, Integer year);
 }

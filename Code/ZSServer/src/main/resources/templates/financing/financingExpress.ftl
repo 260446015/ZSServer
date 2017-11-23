@@ -88,7 +88,7 @@
                             <a href="javascript:void(0);" onclick="myClick(1,'全部')" class="search-item active">全部</a>
                             <a href="javascript:void(0);" onclick="myClick(1,'人工智能')" class="search-item">人工智能</a>
                             <a href="javascript:void(0);" onclick="myClick(1,'大数据')" class="search-item">大数据</a>
-                            <a href="javascript:void(0);" onclick="myClick(1,'互联网')" class="search-item">互联网</a>
+                            <a href="javascript:void(0);" onclick="myClick(1,'物联网')" class="search-item">物联网</a>
                             <a href="javascript:void(0);" onclick="myClick(1,'生物技术')" class="search-item">生物技术</a>
                         </div>
                     </div>

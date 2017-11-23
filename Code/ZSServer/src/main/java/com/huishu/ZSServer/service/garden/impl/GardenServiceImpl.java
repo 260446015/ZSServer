@@ -64,7 +64,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		Page<AITInfo> aitInfos = null;
 		try {
 			List<String> names = gardenUserRepository.findGardenNames(dto.getUserId());
-			if(names.size() == 0){
+			if (names.size() == 0) {
 				return aitInfos;
 			}
 			Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "publishDate"));
@@ -72,6 +72,8 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 			Map<String, Object> params = new HashMap<>();
 			params.put("park", names);
 			params.put("dimension", KeyConstan.YUANQUDONGTAI);
+			if (!StringUtil.isEmpty(dto.getProvince()))
+				params.put("area", dto.getProvince());
 			aitInfos = getAitinfo(params, pageRequest);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
@@ -81,12 +83,16 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	}
 
 	@Override
-	public List<GardenMap> findGardenGdp(String industry, Integer[] years, String province) {
+	public List<GardenMap> findGardenGdp(GardenDTO dto) {
 		List<GardenMap> list = null;
-		if (province == null)
-			list = gardenMapRepositroy.findGdp(industry, years);
-		else
-			list = gardenMapRepositroy.findGdp(industry, province, years);
+		if (StringUtil.isEmpty(dto.getProvince()))
+			list = gardenMapRepositroy.findGdp(dto.getIndustry(), dto.getYear());
+		else{
+			list = gardenMapRepositroy.findGdp(dto.getIndustry(), dto.getProvince(), dto.getYear());
+			list.sort((a,b) ->{
+				return a.getYear() - b.getYear();
+			});
+		}
 		return list;
 	}
 
@@ -161,18 +167,18 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	@Override
 	public Page<AITInfo> findGardenPolicy(GardenDTO dto) {
 		String province = dto.getProvince();
-		String dimension = "政策动向";
 		Map<String, Object> params = new HashMap<>();
 		params.put("area", province);
-		params.put("dimension", dimension);
-		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(), new Sort(Direction.DESC, "publishTime"));
+		params.put("dimension", KeyConstan.ZHENGCEJIDU);
+		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(),
+				new Sort(Direction.DESC, "publishTime"));
 		Page<AITInfo> page = getAitinfo(params, pageRequest);
 		return page;
 	}
 
 	@Override
-	public List<Object[]> getGardenIndustryEcharts(String province) {
-		return gardenMapRepositroy.getGardenIndustryEcharts(province);
+	public List<Object[]> getGardenIndustryEcharts(String province, Integer year) {
+		return gardenMapRepositroy.getGardenIndustryEcharts(province, year);
 	}
 
 }
