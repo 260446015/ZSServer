@@ -68,37 +68,23 @@
                                 产业
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">全部</a>
-                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                <a href="javascript:void(0);" class="search-item">大数据</a>
-                                <a href="javascript:void(0);" class="search-item">互联网</a>
-                                <a href="javascript:void(0);" class="search-item">生物技术</a>
+                                <a href="javascript:void(0);" onclick="Click(1,'全部')" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" onclick="Click(1,'人工智能')"  class="search-item">人工智能</a>
+                                <a href="javascript:void(0);" onclick="Click(1,'大数据')" class="search-item">大数据</a>
+                                <a href="javascript:void(0);" onclick="Click(1,'物联网')" class="search-item">物联网</a>
+                                <a href="javascript:void(0);" onclick="Click(1,'生物技术')" class="search-item">生物技术</a>
                             </div>
-                        </div>
-                        <div class="search-group">
-                            <div class="search-item-title">
-                                二级产业
-                            </div>
-                            <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">全部</a>
-                                <a href="javascript:void(0);" class="search-item">电子核心基础产业</a>
-                                <a href="javascript:void(0);" class="search-item">高端软件和新型信息技术服务</a>
-                                <a href="javascript:void(0);" class="search-item">物联网</a>
-                                <a href="javascript:void(0);" class="search-item">大数据</a>
-                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                <a href="javascript:void(0);" class="search-item">下一代信息网络产业</a>
-                            </div>
-                        </div>
+                        </div>      
                         <div class="search-group">
                             <div class="search-item-title">
                                 区域
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">全部</a>
-                                <a href="javascript:void(0);" class="search-item">北京</a>
-                                <a href="javascript:void(0);" class="search-item">上海</a>
-                                <a href="javascript:void(0);" class="search-item">广州</a>
-                                <a href="javascript:void(0);" class="search-item">深圳</a>
+                                <a href="javascript:void(0);" onclick="Click(2,'全部')" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" onclick="Click(2,'北京')" class="search-item">北京</a>
+                                <a href="javascript:void(0);" onclick="Click(2,'上海')" class="search-item">上海</a>
+                                <a href="javascript:void(0);" onclick="Click(2,'广州')" class="search-item">广州</a>
+                                <a href="javascript:void(0);" onclick="Click(2,'深圳')"  class="search-item">深圳</a>
                             </div>
                         </div>
                         <div class="search-group">
@@ -106,117 +92,13 @@
                                 排序
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">按热度</a>
-                                <a href="javascript:void(0);" class="search-item">按时间</a>
+                                <a href="javascript:void(0);" onclick="Click(3,'按热度')" class="search-item active">按热度</a>
+                                <a href="javascript:void(0);" onclick="Click(3,'按时间')" class="search-item">按时间</a>
                             </div>
                         </div>
                     </div>
                     <div class="model-body">
-                        <div class="row img-list-box">
-                            <div class="col-md-3">
-                                <div class="img-list">
-                                    <a href="javascript:void(0);">
-                                        <img src="/images/list_img.jpg" />
-                                        <p class="title">第九届中国国际高新技术交易会</p>
-                                    </a>
-                                    <div class="details">
-                                        <p class="address">深圳会展中心</p>
-                                        <p class="date-time">2017-11-16~2017-11-21</p>
-                                        <a href="javascript:void(0);" class="follow">添加关注</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list">
-                                    <a href="javascript:void(0);">
-                                        <img src="/images/list_img.jpg" />
-                                        <p class="title">2017年第十九届中国国际高新技术成果交易会</p>
-                                    </a>
-                                    <div class="details">
-                                        <p class="address">深圳会展中心</p>
-                                        <p class="date-time">2017-11-16~2017-11-21</p>
-                                        <a href="javascript:void(0);" class="follow">添加关注</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list">
-                                    <a href="javascript:void(0);">
-                                        <img src="/images/list_img.jpg" />
-                                        <p class="title">第九届中国国际高新技术交易会</p>
-                                    </a>
-                                    <div class="details">
-                                        <p class="address">深圳会展中心</p>
-                                        <p class="date-time">2017-11-16~2017-11-21</p>
-                                        <a href="javascript:void(0);" class="follow">添加关注</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list">
-                                    <a href="javascript:void(0);">
-                                        <img src="/images/list_img.jpg" />
-                                        <p class="title">2017年第十九届中国国际高新技术成果交易会</p>
-                                    </a>
-                                    <div class="details">
-                                        <p class="address">深圳会展中心</p>
-                                        <p class="date-time">2017-11-16~2017-11-21</p>
-                                        <a href="javascript:void(0);" class="follow">添加关注</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list">
-                                    <a href="javascript:void(0);">
-                                        <img src="/images/list_img.jpg" />
-                                        <p class="title">第九届中国国际高新技术交易会</p>
-                                    </a>
-                                    <div class="details">
-                                        <p class="address">深圳会展中心</p>
-                                        <p class="date-time">2017-11-16~2017-11-21</p>
-                                        <a href="javascript:void(0);" class="follow">添加关注</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list">
-                                    <a href="javascript:void(0);">
-                                        <img src="/images/list_img.jpg" />
-                                        <p class="title">2017年第十九届中国国际高新技术成果交易会</p>
-                                    </a>
-                                    <div class="details">
-                                        <p class="address">深圳会展中心</p>
-                                        <p class="date-time">2017-11-16~2017-11-21</p>
-                                        <a href="javascript:void(0);" class="follow">添加关注</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list">
-                                    <a href="javascript:void(0);">
-                                        <img src="/images/list_img.jpg" />
-                                        <p class="title">第九届中国国际高新技术交易会</p>
-                                    </a>
-                                    <div class="details">
-                                        <p class="address">深圳会展中心</p>
-                                        <p class="date-time">2017-11-16~2017-11-21</p>
-                                        <a href="javascript:void(0);" class="follow">添加关注</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list">
-                                    <a href="javascript:void(0);">
-                                        <img src="/images/list_img.jpg" />
-                                        <p class="title">2017年第十九届中国国际高新技术成果交易会</p>
-                                    </a>
-                                    <div class="details">
-                                        <p class="address">深圳会展中心</p>
-                                        <p class="date-time">2017-11-16~2017-11-21</p>
-                                        <a href="javascript:void(0);" class="follow">添加关注</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row img-list-box" id="summit-list">
                         </div>
                         <div class="btn-box-center">
                             <button type="button" class="btn btn-fill btn-blue">上一页</button>

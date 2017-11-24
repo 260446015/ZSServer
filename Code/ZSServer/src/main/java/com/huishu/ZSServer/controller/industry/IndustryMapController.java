@@ -81,6 +81,9 @@ public class IndustryMapController extends BaseController{
 			LOGGER.debug("根据产业查询城市地图数据失败："+industry);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		if(industry.equals("生物技术")){
+			industry = "生物产业";
+		}
 		List<Data> list = rservice.findMapInfo(industry);
 		
 		return success(list);
@@ -96,6 +99,9 @@ public class IndustryMapController extends BaseController{
 		if(StringUtil.isEmpty(industry)){
 			LOGGER.debug("根据产业查询产业热度排行数据失败："+industry);
 			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		if(industry.equals("生物技术")){
+			industry="生物科技";
 		}
 		List<IndustryRank> list = rservice.findIndustryRank(industry);
 		return success(list);
@@ -128,6 +134,9 @@ public class IndustryMapController extends BaseController{
 		if(StringUtil.isEmpty(industry)||StringUtil.isEmpty(area)){
 			LOGGER.debug("根据地区排行地区显示公司名称失败，参数异常");
 			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		if(industry.equals("生物技术")){
+			industry="生物科技";
 		}
 		List<String> list = cservice.findCompanyName(area ,industry);
 		return success(list);
