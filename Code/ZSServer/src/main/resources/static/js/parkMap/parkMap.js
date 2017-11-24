@@ -298,30 +298,36 @@ var  label = {
         }
     }
 };
-function initEcharts(pieChartName,pieChartValue){
+function initEcharts(pieChartName){
 	data1 = [
 	         {
-	             value: [18,90], symbolSize: 50, name: pieChartName[0], itemStyle: {normal: {color: '#5D9CEC'}},label:label
+	             value: [18,90], symbolSize: 140, name: pieChartName[0], itemStyle: {normal: {color: '#5D9CEC'}},label:label
 	         },
 	         {
-	             value: [10,20], symbolSize: 60, name: pieChartName[1], itemStyle: {normal: {color: '#62C87F'}},label:label
+	             value: [10,20], symbolSize: 120, name: pieChartName[1], itemStyle: {normal: {color: '#62C87F'}},label:label
 	         },
 	         {
-	             value: [57,11], symbolSize: 70, name: pieChartName[2], itemStyle: {normal: {color: '#F57BC1'}},label:label
+	             value: [57,11], symbolSize: 105, name: pieChartName[2], itemStyle: {normal: {color: '#F57BC1'}},label:label
 	         },
 	         {
-	             value: [90,30], symbolSize: 80, name: pieChartName[3], itemStyle: {normal: {color: '#6ED5E6'}},label:label
+	             value: [90,30], symbolSize: 93, name: pieChartName[3], itemStyle: {normal: {color: '#6ED5E6'}},label:label
 	         },
 	         {
-	             value: [85,82], symbolSize: 90, name: pieChartName[4], itemStyle: {normal: {color: '#DCB186'}},label:label
+	             value: [85,82], symbolSize: 86, name: pieChartName[4], itemStyle: {normal: {color: '#DCB186'}},label:label
 	         },
 	         {
-	             value: [65,90], symbolSize: 100, name: pieChartName[5], itemStyle: {normal: {color: '#7053B6'}},label: label
+	             value: [65,90], symbolSize: 70, name: pieChartName[5], itemStyle: {normal: {color: '#7053B6'}},label: label
 	         }
 	     ];
 	return data1;
 }
 var data1 = [
+	 {
+		 value: [90,30], symbolSize: 140, name: '环保产业', itemStyle: {normal: {color: '#6ED5E6'}},label:label
+	 },
+	 {
+		 value:  [50, 50], symbolSize:90, name: '融合', itemStyle: {normal: {color: '#FC863F'}},label:label
+	 },
     {
         value: [18,90], symbolSize: 79, name: '新一代信息技术', itemStyle: {normal: {color: '#5D9CEC'}},label:label
     },
@@ -330,9 +336,6 @@ var data1 = [
     },
     {
         value: [57,11], symbolSize: 69, name: '生物产业', itemStyle: {normal: {color: '#F57BC1'}},label:label
-    },
-    {
-        value: [90,30], symbolSize: 140, name: '环保产业', itemStyle: {normal: {color: '#6ED5E6'}},label:label
     },
     {
         value: [85,82], symbolSize: 79, name: '新材料', itemStyle: {normal: {color: '#DCB186'}},label:label
@@ -345,9 +348,6 @@ var data1 = [
     },
     {
         value: [18,55], symbolSize: 74, name: '创新', itemStyle: {normal: {color: '#F15755'}},label:label
-    },
-    {
-        value:  [50, 50], symbolSize:90, name: '融合', itemStyle: {normal: {color: '#FC863F'}},label:label
     }
 ];
 
@@ -377,8 +377,6 @@ var option = {
         data: data1
     }]
 };
-var scatter = echarts.init(document.getElementById("scatter"),"customed");
-scatter.setOption(option);
 
 /*modal窗口里的图表*/
 var modalOption1 = {
@@ -510,14 +508,7 @@ function showGardenCondition(area,target){
 	});
 }
 
-function showGardenGdpPiechart(){
-	$.ajax({
-		
-	});
-}
-var histogramName = new Array();
-var histogramValue = new Array();
-function showGardenGdpHistogram(industry,year){
+/*function showGardenGdpHistogram(industry,year){
 	if(year == ''){
 		year = [new Date().getFullYear() - 1];
 	}
@@ -529,22 +520,11 @@ function showGardenGdpHistogram(industry,year){
 		url:'/apis/area/findGardenGdp.json',
 		success:function(res){
 			if(res.success){
-				var arr = res.data;
-				for(var i=0;i<arr.length;i++){
-					histogramName.push(arr[i].province);
-					histogramValue.push(arr[i].gdp)
-				}
-				barOption.xAxis[0].data = histogramName;
-				barOption.series[0].data = histogramValue;
-				var barCharts = echarts.init(document.getElementById('barCharts'),"customed");
-				barCharts.setOption(barOption);
+				
 			}
 		}
 	});
-}
-var pieChartName = new Array();
-var pieChartValue = new Array();
-
+}*/
 function showGardenPolicy(area){
 	var req = {"pageNumber":0,"pageSize":4,"province":area};
 	$.ajax({
@@ -652,6 +632,56 @@ function showGardenModelIndustry(area,year){
     	showDifYearGdp(param.name,dates,area);
     });
     modalCharts2.setOption(modalOption2);
+}
+var industryType='新兴信息产业';
+var histogramName = new Array();
+var histogramValue = new Array();
+function showGardenIndustryCount(industryType){//查询不同省份某种产业数量的接口
+	var req = {"industryType":industryType};
+	$.ajax({
+		type:'post',
+		url:'/apis/area/getGardenIndustryCount.json',
+		data:JSON.stringify(req),
+		contentType:'application/json',
+		async:false,
+		success:function(res){
+			if(res.success){
+				var arr = res.data;
+				for(var i=0;i<arr.length;i++){
+					histogramName.push(arr[i][0]);
+					histogramValue.push(arr[i][1])
+				}
+				barOption.xAxis[0].data = histogramName;
+				barOption.series[0].data = histogramValue;
+				var barCharts = echarts.init(document.getElementById('barCharts'),"customed");
+				barCharts.setOption(barOption);
+			}
+		}
+	});
+}
+var province = '山东省';
+var pieChartName = new Array();
+function showGardenGdpPiechart(province){//获取某个省份哪种产业最多的接口
+	var req = {"province":province};
+	$.ajax({
+		type:'post',
+		url:'/apis/area/getIndustryByProvince.json',
+		data:JSON.stringify(req),
+		contentType:'application/json',
+		async:false,
+		success:function(res){
+			if(res.success){
+				console.log(res.data);
+				var arr = res.data;
+				for(var i=0;i<arr.length;i++){
+					pieChartName.push(arr[i].industryType);
+				}
+				option.series[0].data = initEcharts(pieChartName);
+				var scatter = echarts.init(document.getElementById("scatter"),"customed");
+				scatter.setOption(option);
+			}
+		}
+	});
 }
 
 

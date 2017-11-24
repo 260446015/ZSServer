@@ -104,7 +104,8 @@
 	$(function(){
 		showGardenCondition("","condition");
 		showGardenGdpPiechart();
-		showGardenGdpHistogram('新能源');
+		showGardenIndustryCount(industryType);
+		showGardenGdpPiechart(province);
 	});
 	
 </script>

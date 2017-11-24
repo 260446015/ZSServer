@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
+import com.huishu.ZSServer.entity.dto.IndustryCount;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenMap;
@@ -87,9 +88,9 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		List<GardenMap> list = null;
 		if (StringUtil.isEmpty(dto.getProvince()))
 			list = gardenMapRepositroy.findGdp(dto.getIndustry(), dto.getYear());
-		else{
+		else {
 			list = gardenMapRepositroy.findGdp(dto.getIndustry(), dto.getProvince(), dto.getYear());
-			list.sort((a,b) ->{
+			list.sort((a, b) -> {
 				return a.getYear() - b.getYear();
 			});
 		}
@@ -180,5 +181,66 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	public List<Object[]> getGardenIndustryEcharts(String province, Integer year) {
 		return gardenMapRepositroy.getGardenIndustryEcharts(province, year);
 	}
+
+	@Override
+	public List<Object[]> getGardenIndustryCount(GardenDTO dto) {
+		String industry = "%" + dto.getIndustryType() + "%";
+		List<Object[]> list = gardenRepository.getGardenIndustryCount(industry);
+		list.sort((a,b) ->{
+			return Integer.parseInt(b[1].toString()) - Integer.parseInt(a[1].toString());
+		});
+		return list;
+	}
+
+	@Override
+	public List<IndustryCount> getIndustryByProvince(GardenDTO dto) {
+		String province = "%" + dto.getProvince() + "%";
+		List<GardenData> list = gardenRepository.findByProvinceLike(province);
+		List<IndustryCount> countList = new ArrayList<>();
+		int jnhbCount = 0;//节能环保
+		int swcyCount = 0;//生物产业
+		int gdzbCount = 0;//高端装备
+		int xclCount = 0;//新材料
+		int szcyCount = 0;//数字创意
+		int xxxxCount = 0;//新兴信息
+		for (GardenData data : list) {
+			String industryType = data.getIndustryType();
+			if(industryType.contains(KeyConstan.IndustyType.GDZB)){
+				gdzbCount++;
+			}
+			if(industryType.contains(KeyConstan.IndustyType.JNHB)){
+				jnhbCount++;
+			}
+			if(industryType.contains(KeyConstan.IndustyType.SWCY)){
+				swcyCount++;
+			}
+			if(industryType.contains(KeyConstan.IndustyType.SZCY)){
+				szcyCount++;
+			}
+			if(industryType.contains(KeyConstan.IndustyType.XCL)){
+				xclCount++;
+			}
+			if(industryType.contains(KeyConstan.IndustyType.XXXX)){
+				xxxxCount++;
+			}
+		}
+		IndustryCount c1 = new IndustryCount(KeyConstan.IndustyType.GDZB,gdzbCount);
+		IndustryCount c2 = new IndustryCount(KeyConstan.IndustyType.JNHB,jnhbCount);
+		IndustryCount c3 = new IndustryCount(KeyConstan.IndustyType.SWCY,swcyCount);
+		IndustryCount c4 = new IndustryCount(KeyConstan.IndustyType.SZCY,szcyCount);
+		IndustryCount c5 = new IndustryCount(KeyConstan.IndustyType.XCL,xclCount);
+		IndustryCount c6 = new IndustryCount(KeyConstan.IndustyType.XXXX,xxxxCount);
+		countList.add(c1);
+		countList.add(c2);
+		countList.add(c3);
+		countList.add(c4);
+		countList.add(c5);
+		countList.add(c6);
+		countList.sort((a,b) -> b.getIndustryCount() - a.getIndustryCount());
+		return countList;
+		
+	}
+	
+	
 
 }
