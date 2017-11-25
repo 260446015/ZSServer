@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
+import com.huishu.ZSServer.entity.dto.IndustryCount;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenMap;
@@ -67,4 +68,18 @@ public interface GardenService {
 	 * @return
 	 */
 	List<Object[]> getGardenIndustryEcharts(String province, Integer year);
+
+	/**
+	 * 获取不同园区的产业类型
+	 * @param dto
+	 * @return
+	 */
+	List<Object[]> getGardenIndustryCount(GardenDTO dto);
+
+	/***
+	 * 获取某个省份下所有园区产业类型的分布
+	 * @param dto
+	 * @return
+	 */
+	List<IndustryCount> getIndustryByProvince(GardenDTO dto);
 }

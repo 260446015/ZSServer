@@ -7,7 +7,7 @@ package com.huishu.ZSServer.common.conf;
  * @description 存储一些常量的类
  * @version
  */
-public class KeyConstan{
+public class KeyConstan {
 
 	/** 天眼查token */
 	public static final String OPENEYES_TOKEN = "jeNB8qBn5Cw5";
@@ -17,15 +17,15 @@ public class KeyConstan{
 	/**
 	 * local
 	 */
-//	 public static final String IP_PORT = "http://localhost:8093/" ;
+	// public static final String IP_PORT = "http://localhost:8093/" ;
 	/**
 	 * On-line
 	 */
 	public static final String IP_PORT = "http://58.16.181.24:9209/";
-	
+
 	/** 图片文本提取URL */
 	public static final String DISTINGUISH = "http://114.55.4.218:6001/Api/OCRServices";
-	
+
 	/**
 	 * 天眼查url
 	 * 
@@ -138,15 +138,35 @@ public class KeyConstan{
 		 */
 		public static final String STAFF = "https://open.api.tianyancha.com/services/v3/newopen/staff.json";
 	}
+
 	/**
 	 * 区分接口访问来源
-	 * @author yindawei 
+	 * 
+	 * @author yindawei
 	 * @date 2017年11月16日下午4:41:06
-	 * @description 
+	 * @description
 	 * @version
 	 */
-	public static class From{
+	public static class From {
 		public static final String CUSTOM = "1";
 		public static final String GUANGXI = "2";
+	}
+
+	/**
+	 * 配置六大产业
+	 */
+	public static class IndustyType {
+		/** 节能环保和新能源产业 */
+		public static final String JNHB = "节能环保和新能源产业";
+		/** 生物产业 */
+		public static final String SWCY = "生物产业";
+		/** 高端装备制造产业 */
+		public static final String GDZB = "高端装备制造产业";
+		/** 新材料产业 */
+		public static final String XCL = "新材料产业";
+		/** 数字创意产业 */
+		public static final String SZCY = "数字创意产业";
+		/** 新兴信息产业 */
+		public static final String XXXX = "新兴信息产业";
 	}
 }

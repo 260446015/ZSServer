@@ -45,7 +45,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <a href="/apis/area/gardenMap">
                             <div class="circle-out parkIcon">
                                 <div class="circle-in">
 
@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <a href="/apis/financing/financingExpress.html">
                             <div class="circle-out rzIcon">
                                 <div class="circle-in">
 
@@ -65,7 +65,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <a href="/apis/report/industryReport.html">
                             <div class="circle-out merchantsIcon">
                                 <div class="circle-in">
 
@@ -82,7 +82,7 @@
                         <div class="charts" id="industryHotCity">
 
                         </div>
-                        <div class="box box1">
+                        <div class="box">
                             <img class="lay lay-top" src="/images/lay_top.png" alt="">
                             <img class="lay lay-right" src="/images/lay_right.png" alt="">
                             <img class="lay lay-bottom" src="/images/lay_bottom.png" alt="">
@@ -147,7 +147,7 @@
                                 <span class="title">产业峰会</span>
                                 <a class="more" href="/summit/getInfo">更多</a>
                             </h3>
-                            <ul class="timeline">
+                            <ul class="timeline" id="timeline">
                             	<#list summit as info>
                             	<li>
                                     <a href="javascript:void(0);" onclick=window.open("${info.articleLink}")>

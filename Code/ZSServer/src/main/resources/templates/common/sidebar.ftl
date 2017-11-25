@@ -20,7 +20,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="/apis/area/gardenMap">
                         <div class="circle-out parkIcon">
                             <div class="circle-in">
 

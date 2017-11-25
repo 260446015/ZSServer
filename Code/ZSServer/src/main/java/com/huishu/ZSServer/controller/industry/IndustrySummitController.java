@@ -3,6 +3,7 @@ package com.huishu.ZSServer.controller.industry;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.UserSummitInfo;
+import com.huishu.ZSServer.entity.dto.IndustrySummitDTO;
 import com.huishu.ZSServer.es.entity.SummitInfo;
 import com.huishu.ZSServer.service.indus.IndusSummitService;
 
@@ -45,7 +47,6 @@ public class IndustrySummitController extends BaseController{
 	 */
 	@RequestMapping(value="/getInfo",method=RequestMethod.GET)
 	public String getIndustrySummitInfo(Map<String,Object> map){
-		
 		return "/industry/industrySummitMeeting";
 	}
 	
@@ -57,20 +58,22 @@ public class IndustrySummitController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public AjaxResult ListIndustry(String[] msg) {
-		if(msg.length==0){
-			LOGGER.debug("差看峰会列表传参异常:"+msg.length);
+	public AjaxResult ListIndustry( @RequestBody IndustrySummitDTO dto) {
+		if(dto.getIndustry()== null||dto.getSort()== null||dto.getArea()== null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		String industry = 	msg[0];
-		String indutryLabel = msg[1];
-		String area = msg[2];
-		JSONObject obj = new JSONObject();
-		obj.put("industry", industry);
-		obj.put("indutryLabel", indutryLabel);
-		obj.put("area", area);
-		Page<SummitInfo> page = service.getIndustryForPage(obj);
-		return success(page);
+		try {
+			Page<SummitInfo> page = service.getIndustryList(dto);
+			JSONObject obj = new JSONObject();
+			obj.put("content", page.getContent());
+			obj.put("number", page.getNumber());
+			obj.put("size", page.getSize());
+			obj.put("totalPages", page.getTotalPages());
+			return success(obj);
+		} catch (Exception e) {
+			LOGGER.error("获取产业峰会列表失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
 	}
 	
 	/**
@@ -93,15 +96,15 @@ public class IndustrySummitController extends BaseController{
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public AjaxResult insertSummitInfoById(UserSummitInfo info){
-		if(info == null){
-			LOGGER.debug("关注 峰会 详情 异常:"+info);
+	public AjaxResult insertSummitInfoById(@Param("aid") String aid){
+		if(StringUtil.isEmpty(aid)){
+			LOGGER.debug("关注 峰会 详情 异常:"+aid);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		
-		boolean a = service.insertSummitInfoById(info);
-		
+		Long uid = (long) 1;
+		String a = service.saveSummitInfoById(aid,uid);
 		return success(a);
 	}
 	

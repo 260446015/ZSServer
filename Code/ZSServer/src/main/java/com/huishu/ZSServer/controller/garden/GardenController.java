@@ -57,9 +57,9 @@ public class GardenController extends BaseController {
 		// Long userId = getUserId();
 		Long userId = 1L;
 		dto.setUserId(userId);
-//		dto.setPageNumber(pageNumber);
-//		dto.setPageSize(pageSize);
-//		dto.setProvince(area);
+		// dto.setPageNumber(pageNumber);
+		// dto.setPageSize(pageSize);
+		// dto.setProvince(area);
 		Page<AITInfo> page = null;
 		try {
 			page = gardenService.findGardensCondition(dto);
@@ -204,14 +204,15 @@ public class GardenController extends BaseController {
 
 	/**
 	 * 政策动向
+	 * 
 	 * @param dto
 	 * @return
 	 */
 	@RequestMapping(value = "getGardenPolicy.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenPolicy(@RequestBody GardenDTO dto) {
-		if(StringUtil.isEmpty(dto.getProvince()))
-			return error(MsgConstant.ILLEGAL_PARAM);	
+		if (StringUtil.isEmpty(dto.getProvince()))
+			return error(MsgConstant.ILLEGAL_PARAM);
 		Page<AITInfo> page = gardenService.findGardenPolicy(dto);
 		return success(page.getContent());
 	}
@@ -225,17 +226,17 @@ public class GardenController extends BaseController {
 	 */
 	@RequestMapping(value = "getGardenIndustryEcharts.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult getGardenIndustryEcharts(String province,Integer year) {
+	public AjaxResult getGardenIndustryEcharts(String province, Integer year) {
 		if (StringUtil.isEmpty(province))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		List<Object[]> list = gardenService.getGardenIndustryEcharts(province,year);
-		list.sort((a,b) -> {
+		List<Object[]> list = gardenService.getGardenIndustryEcharts(province, year);
+		list.sort((a, b) -> {
 			System.out.println(b[1]);
 			System.out.println(a[1]);
 			Double a1 = Double.parseDouble(b[1].toString());
 			Double a2 = Double.parseDouble(a[1].toString());
 			return a2.compareTo(a1);
-			});
+		});
 		return success(list);
 	}
 
@@ -276,12 +277,36 @@ public class GardenController extends BaseController {
 		boolean flag = gardenUserService.deleteCompare(list);
 		return success(flag);
 	}
-	
+
 	/**
 	 * 访问链接
 	 */
-	@RequestMapping(value={"{page}"})
-	public String gardenMap(@PathVariable String page){
+	@RequestMapping(value = { "{page}" })
+	public String gardenMap(@PathVariable String page) {
 		return "gardenMap/" + page;
+	}
+
+	/**
+	 * 返回gardenMap中展示园区产业数量的controller
+	 */
+	@RequestMapping(value = "/getGardenIndustryCount.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult getGardenIndustryCount(@RequestBody GardenDTO dto) {
+		if(StringUtil.isEmpty(dto.getIndustryType())){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		return success(gardenService.getGardenIndustryCount(dto));
+	}
+	
+	/**
+	 * 返回gardenMap中展示某个城市各种产业分布的controller
+	 */
+	@RequestMapping(value = "/getIndustryByProvince.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult getIndustryByProvince(@RequestBody GardenDTO dto) {
+		if(StringUtil.isEmpty(dto.getProvince())){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		return success(gardenService.getIndustryByProvince(dto));
 	}
 }

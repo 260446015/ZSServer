@@ -24,12 +24,8 @@ public class EnterPriseServiceImpl implements EnterPriseService {
 	
 	@Override
 	public List<String> findCompanyName(String area, String industry) {
-		List<String> li = new ArrayList<String>();
 		List<String> list = rep.getCompanyNameByIndustryAndArea(area, industry);
-		for (int i = 0; i < 8; i++) {
-			li.add(list.get(i));
-		}
-		return li;
+		return list;
 	}
 
 }
