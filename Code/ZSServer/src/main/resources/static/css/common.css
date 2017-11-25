@@ -44,7 +44,7 @@ body{
     margin-right: 15px;
 }
 .mb20{
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
 }
 /**
  *header start
@@ -1535,3 +1535,85 @@ a.search-item.active{
     text-align: right;
 }
 /*园区对比 end*/
+.sub-title{
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+.tabs {
+    border: 1px solid #13437d;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+.tabs>li>a {
+    display: block;
+    padding: 4px 22px;
+}
+
+.tabs li {
+    display: inline-block;
+}
+
+.tabs>li>a {
+    color: #0087b9;
+}
+
+.tabs>li.active>a {
+    color: #fff;
+    background-color: #13437d;
+}
+.mt88{
+    margin-top: 88px;
+}
+.search-group>div.col-title.text-new{
+    width: 50px;
+    color: #00ffc4;
+}
+.rotate90{
+    margin-right: 5px;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.search-group>div.col-title.text-top{
+    color: #00ffc4;
+    width: 37%;
+    text-align: right;
+}
+.search-group>div.col-title.text-top+.col-title{
+    width:61%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+.search-group>div.col-title.text-top+.col-title>a{
+    max-width: 95%;
+    display: inline-block;
+    color: #fff;
+}
+.top .search-group>div.col-title>a{
+    margin: 0;
+    padding: 18px 15px;
+}
+.top .search-group>div{
+    border-bottom: none;
+}
+.mt50{
+    margin-top: 50px;
+}
+.small-list .scatter-blocks.no-border {
+    margin-top: 10px;
+}
+
+.border-shadow-box.small-list .scatter-lib {
+    margin-bottom: 10px;
+}
+
+.border-shadow-box.small-list .border-bottom .scatter-content {
+    line-height: 24px;
+}

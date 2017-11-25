@@ -8,7 +8,7 @@ $(function () {
     AMapUI.loadUI(['control/BasicControl'], function(BasicControl) {
 
         var map = new AMap.Map('map', {
-            // mapStyle: 'amap://styles/f369a26753f3255e722f040f6bb304df'
+            // mapStyle: 'amap://styles/e15ea366314a2314abda4c7761ee02a6',
             resizeEnable: false,
             zoom:13,
         });
