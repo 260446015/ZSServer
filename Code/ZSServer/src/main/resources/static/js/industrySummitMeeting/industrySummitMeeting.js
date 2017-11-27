@@ -56,7 +56,7 @@ function show(b){
 	});
 	var inner = arr.join('');
 	return inner;
-}
+};
 $('#summit-list').on("click",".follow",function(){
 	var aid = $(this).attr("id");
 	console.log(aid);
@@ -69,11 +69,11 @@ $('#summit-list').on("click",".follow",function(){
 		data:param,
 		success:function(res){
 			if(res.message!= null){
-				alert(res.message);
+				new Alert({flag:false,text:res.message,timer:2000}).show();
 			}else{
-				alert(res.data);
+				new Alert({flag:true,text:res.data,timer:2000}).show();
 			}
 		}
 	});
-})
+});
 

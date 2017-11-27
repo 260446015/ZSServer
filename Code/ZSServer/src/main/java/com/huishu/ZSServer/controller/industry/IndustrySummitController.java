@@ -64,6 +64,12 @@ public class IndustrySummitController extends BaseController{
 		}
 		try {
 			Page<SummitInfo> page = service.getIndustryList(dto);
+			page.getContent().forEach(action->{
+				String[] split = action.getAddress().split("\n");
+				if(split.length!=0){
+					action.setAddress(split[0]);
+				}
+			});;
 			JSONObject obj = new JSONObject();
 			obj.put("content", page.getContent());
 			obj.put("number", page.getNumber());
