@@ -1,6 +1,9 @@
 package com.huishu.ZSServer.es.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
 import com.huishu.ZSServer.es.entity.SummitInfo;
@@ -12,6 +15,14 @@ import com.huishu.ZSServer.es.entity.SummitInfo;
  * @return 
  */
 @Repository
-public interface SummitElasticsearch extends CrudRepository<SummitInfo, String>{
+public interface SummitElasticsearch extends ElasticsearchRepository<SummitInfo, String>{
+
+	/**
+	 * @param address
+	 * @param industry
+	 * @param pageRequest
+	 * @return
+	 */
+	Page<SummitInfo> findByAddressLikeAndIdustryTwiceLike(String address, String idustryTwice, Pageable page);
 
 }

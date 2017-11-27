@@ -19,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -29,6 +31,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.ZSServer.entity.UserSummitInfo;
+import com.huishu.ZSServer.entity.dto.IndustrySummitDTO;
 import com.huishu.ZSServer.es.entity.SummitInfo;
 import com.huishu.ZSServer.es.repository.SummitElasticsearch;
 import com.huishu.ZSServer.repository.summit.SummitRepository;
@@ -57,6 +60,8 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 	
 	@Autowired
 	private SummitRepository rep;
+	
+	
 	/**
 	 * 根据 条件查看 产业峰会 列表
 	 */
@@ -170,6 +175,72 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 			return list;
 		});
 		return info;
+	}
+
+	/**
+	 * 获取所有数据
+	 */
+	@Override
+	public Page<SummitInfo> findAll() {
+		Pageable pageable = new PageRequest(0, 8);
+		Page<SummitInfo> all = null;
+		try {
+			 all = search.findAll(pageable);
+			
+		} catch (Exception e) {
+
+		}
+		
+		return all;
+	}
+
+	/**
+	 * 获取峰会列表
+	 */
+	@Override
+	public Page<SummitInfo> getIndustryList(IndustrySummitDTO dto) {
+		Sort sort;
+		if(dto.getSort().equals("按热度")){
+			sort = new Sort(Direction.DESC,"hitCount");
+		}else{
+			sort = new Sort(Direction.DESC,"publishTime");
+		}
+		if(dto.getArea().equals("全部")){
+			dto.setAreas("");
+		}
+		if(dto.getIndustry().equals("全部")){
+			dto.setIndustry("");
+		}
+		PageRequest pageRequest = new PageRequest(dto.getPageNumber(),dto.getPageSize(),sort);
+		Page<SummitInfo> page = search.findByAddressLikeAndIdustryTwiceLike(dto.getArea(),dto.getIndustry(),pageRequest);
+		return page;
+	}
+
+	/**
+	 * 关注峰会详情
+	 */
+	@Override
+	public String saveSummitInfoById(String aid,Long uid) {
+		SummitInfo one = search.findOne(aid);
+		UserSummitInfo usi = rep.findByAidAndUid(aid,uid);
+		if(usi==null){
+			try {
+				UserSummitInfo entity = new UserSummitInfo();
+				entity.setAddress(one.getAddress());
+				entity.setAid(aid);
+				entity.setLogo(one.getLogo());
+				entity.setExhibitiontime(one.getExhibitiontime());
+				entity.setTitle(one.getTitle());
+				entity.setUid(uid);
+				rep.save(entity);
+			} catch (Exception e) {
+				return "关注失败！";
+			}
+			return "关注成功";
+			
+		}else{
+			return "已关注";
+		}
 	}
 
 }

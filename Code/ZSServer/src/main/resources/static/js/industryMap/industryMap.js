@@ -35,11 +35,10 @@ function industrySummitInfo(industry){
 		success:function(res){
 			console.log(res.data);
 			if(res.data != null){
-				$(".timeline li").remove();
+			$("#timeline li").remove();
 				var aa = res.data;
 				for(var i=0;i<aa.length;i++){
-					$(".timeline li").append("<li>"+"<a href='javascript:void(0); onclick=window.open("+aa[i].articleLink+")>"+"<i class='timeline-circle'></i>");
-                    $(".timeline li").append("<span class='time>"+aa[i].publishTime+"</span>"+"<span class='line-title'>"+aa[i].title+"</span>"+"</a></li>");	
+					$("#timeline").append('<li>'+'<a href="'+aa[i].articleLink+'"; target="_blank")><i class="timeline-circle"></i><span class="time">'+aa[i].publishTime+'</span><span class="line-title">'+aa[i].title+'</span></a></li>');
 				}
 				
 			}
@@ -164,6 +163,7 @@ function findCompany(a,b){
 		success :function(result){
 			var data = result.data;
 				$(".box-title").html(a);
+				$("#box-list li").remove();
 			for(var i = 0;i<data.length ; i++){
 				$("#box-list").append("<li>"+"<a href='javascript:void(0);'>"+data[i]+"</a></li>");
 			}
@@ -183,8 +183,8 @@ function industryMapData(a){
 			var  dd =  res.data;
 			var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
 			
-//			chinaOption.series[0].data = convertData(dd);
-			chinaOption.series[0].data = convertData(dd.sort(function (a, b) {
+			chinaOption.series[0].data = convertData(dd);
+			chinaOption.series[1].data = convertData(dd.sort(function (a, b) {
                 return b.value - a.value;
             }).slice(0, 6));
 			industryMap.setOption(chinaOption);
@@ -414,12 +414,16 @@ var chinaOption = {
         }
     },
     series : [
-        /*{
+        {
             type: 'scatter',
             coordinateSystem: 'geo',
             data: convertData(data),
             symbolSize: function (val) {
-                return val[2] / 10;
+            	if(val[2]<10){
+            		return val[2]*3;
+            	}else{
+            		return val[2];
+            	}
             },
             label: {
                 normal: {
@@ -431,7 +435,7 @@ var chinaOption = {
                     color: '#c5a425'
                 }
             }
-        },*/
+        },
         {
             name: 'Top 5',
             type: 'effectScatter',
@@ -440,7 +444,11 @@ var chinaOption = {
                 return b.value - a.value;
             }).slice(0, 6)),
             symbolSize: function (val) {
-                return val[2] / 10;
+            	if(val[2]<10){
+            		return val[2]*3;
+            	}else {
+            		return val[2];
+            	}
             },
             showEffectOn: 'emphasis',
             rippleEffect: {
