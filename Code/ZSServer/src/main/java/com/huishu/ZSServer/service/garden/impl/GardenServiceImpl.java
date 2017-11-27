@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +23,11 @@ import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.IndustryCount;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
+import com.huishu.ZSServer.entity.garden.GardenIndustry;
 import com.huishu.ZSServer.entity.garden.GardenMap;
 import com.huishu.ZSServer.entity.garden.GardenUser;
 import com.huishu.ZSServer.es.entity.AITInfo;
-import com.huishu.ZSServer.es.repository.BaseElasticsearch;
+import com.huishu.ZSServer.repository.garden.GardenIndustryRepository;
 import com.huishu.ZSServer.repository.garden.GardenMapRepositroy;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.repository.garden_user.GardenUserRepository;
@@ -44,16 +43,16 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	@Autowired
 	private GardenMapRepositroy gardenMapRepositroy;
 	@Autowired
-	private BaseElasticsearch baseElasticsearch;
-	@Autowired
 	private GardenUserRepository gardenUserRepository;
+	@Autowired
+	private GardenIndustryRepository gardenIndustryRepository;
 
 	@Override
 	public Page<AITInfo> getInformationPush(AreaSearchDTO dto) {
 		List<Order> orders = new ArrayList<Order>();
 		orders.add(new Order(Direction.DESC, "publishTime"));
 		orders.add(new Order(Direction.DESC, "hitCount"));
-		PageRequest pageRequest = new PageRequest(0, 10, new Sort(orders));
+		PageRequest pageRequest = new PageRequest(0, 4, new Sort(orders));
 		Map<String, Object> params = new HashMap<>();
 		params.put("park", dto.getPark());
 		params.put("dimension", dto.getDimension());
@@ -116,6 +115,11 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 				String gardenSuperiority = GardenData.getGardenSuperiority();
 				String address = GardenData.getAddress();
 				String picture = GardenData.getGardenPicture();
+				GardenUser gu = gardenUserRepository.findByGardenNameAndUserId(GardenData.getGardenName(),dto.getUserId());
+				if(gu != null)
+					GardenData.setFlag(true);
+				else
+					GardenData.setFlag(false);
 				if (gardenIntroduce == null || StringUtil.isEmpty(gardenIntroduce) || gardenIntroduce.equals("NULL")) {
 					if (gardenSuperiority == null || StringUtil.isEmpty(gardenSuperiority)
 							|| gardenSuperiority.equals("NULL")) {
@@ -161,8 +165,10 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	}
 
 	@Override
-	public GardenData findGarden(Long gardenId) {
-		return gardenRepository.findOne(gardenId);
+	public GardenData findGarden(String gardenName) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("gardenName", gardenName);
+		return gardenRepository.findOne(getSpec(params));
 	}
 
 	@Override
@@ -240,7 +246,17 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		return countList;
 		
 	}
-	
-	
 
+	@Override
+	public List<GardenIndustry> getGardenIndustry() {
+		Iterable<GardenIndustry> findAll = gardenIndustryRepository.findAll();
+		List<GardenIndustry> list = new ArrayList<>();
+		findAll.forEach(list::add);
+		return list;
+	}
+
+	@Override
+	public List<String> getGardenArea() {
+		return gardenRepository.findArea();
+	}
 }

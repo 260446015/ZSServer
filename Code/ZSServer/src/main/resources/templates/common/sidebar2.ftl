@@ -1,7 +1,7 @@
  <div class="left-nav">
             <ul>
                 <li>
-                    <a href="/indusMap/map">
+                    <a class="active" href="/indusMap/map">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">
 
@@ -18,7 +18,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/apis/area/gardenMap">
                         <div class="circle-out parkIcon">
                             <div class="circle-in">
@@ -27,6 +27,14 @@
                         </div>
                         园区地图
                     </a>
+                    <ul class="left-nav-menu">
+                        <li>
+                            <a href="/apis/area/allCityPark">全域园区</a>
+                        </li>
+                        <li>
+                            <a href="/apis/area/followPark">关注园区</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="/apis/financing/financingExpress.html">
@@ -38,7 +46,7 @@
                         融资速递
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/apis/report/industryReport.html">
                         <div class="circle-out merchantsIcon">
                             <div class="circle-in">
