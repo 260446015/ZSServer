@@ -6,10 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.AjaxResult;
@@ -27,7 +30,7 @@ import com.huishu.ZSServer.service.garden.AnalysisService;
  * @author yindq
  * @date 2017年10月31日
  */
-@RestController
+@Controller
 @RequestMapping("/apis/analysis")
 public class AnalysisController extends BaseController{
 	private Logger LOGGER = LoggerFactory.getLogger(AnalysisController.class);
@@ -36,11 +39,25 @@ public class AnalysisController extends BaseController{
 	private AnalysisService analysisService;	
 	
 	/**
+	 * 直接跳转页面
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
+	public String show(@PathVariable String page,String park,Model model) {
+		if(!StringUtil.isEmpty(park)){
+			model.addAttribute("park",park);
+		}
+		return "/analysis/"+page;
+	}
+	
+	/**
 	 * 企业融资分布
 	 * 
 	 * @param park
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getFinancingDistribution.json", method = RequestMethod.GET)
 	public AjaxResult getFinancingDistribution(String park) {
 		if (StringUtil.isEmpty(park)) {
@@ -61,6 +78,7 @@ public class AnalysisController extends BaseController{
 	 * @param dto
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getCompanyList.json", method = RequestMethod.POST)
 	public AjaxResult getCompanyList(@RequestBody CompanySearchDTO dto) {
 		if (null == dto || StringUtil.isEmpty(dto.getPark()) || StringUtil.isEmpty(dto.getInvest())) {
@@ -80,15 +98,17 @@ public class AnalysisController extends BaseController{
 	 * 
 	 * @param park
 	 * @param type（年产值，年税收）
+	 * @param industry
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getValueDistribution.json", method = RequestMethod.GET)
-	public AjaxResult getValueDistribution(String park,String type) {
-		if (StringUtil.isEmpty(park)||StringUtil.isEmpty(type)) {
+	public AjaxResult getValueDistribution(String park,String type,String industry) {
+		if (StringUtil.isEmpty(park)||StringUtil.isEmpty(type)||StringUtil.isEmpty(industry)) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			List<JSONObject> list = analysisService.getValueDistribution(park,type);
+			List<JSONObject> list = analysisService.getValueDistribution(park,type,industry);
 			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("获取价值榜分布图失败!", e);
@@ -103,6 +123,7 @@ public class AnalysisController extends BaseController{
 	 * @param industry
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getTopCompany.json", method = RequestMethod.GET)
 	public AjaxResult getTopCompany(String park,String industry) {
 		if (StringUtil.isEmpty(park)||StringUtil.isEmpty(industry)) {

@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +24,7 @@ import com.huishu.ZSServer.entity.dto.IndustryCount;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenMap;
-import com.huishu.ZSServer.entity.garden.GardenUser;
 import com.huishu.ZSServer.es.entity.AITInfo;
-import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.repository.garden.GardenMapRepositroy;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.repository.garden_user.GardenUserRepository;
@@ -44,8 +40,6 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	@Autowired
 	private GardenMapRepositroy gardenMapRepositroy;
 	@Autowired
-	private BaseElasticsearch baseElasticsearch;
-	@Autowired
 	private GardenUserRepository gardenUserRepository;
 
 	@Override
@@ -53,7 +47,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		List<Order> orders = new ArrayList<Order>();
 		orders.add(new Order(Direction.DESC, "publishTime"));
 		orders.add(new Order(Direction.DESC, "hitCount"));
-		PageRequest pageRequest = new PageRequest(0, 10, new Sort(orders));
+		PageRequest pageRequest = new PageRequest(0, 4, new Sort(orders));
 		Map<String, Object> params = new HashMap<>();
 		params.put("park", dto.getPark());
 		params.put("dimension", dto.getDimension());

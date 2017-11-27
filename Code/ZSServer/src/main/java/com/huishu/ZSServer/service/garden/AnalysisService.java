@@ -34,7 +34,7 @@ public interface AnalysisService {
 	 * @param type（年产值，年税收）
 	 * @return
 	 */
-	List<JSONObject> getValueDistribution(String park,String type);
+	List<JSONObject> getValueDistribution(String park,String type,String industry);
 	/**
 	 * 获取TOP企业
 	 * @param park
