@@ -18,6 +18,6 @@ import com.huishu.ZSServer.entity.CompanyAnnals;
 @Repository
 public interface CompanyAnnalsRepository extends CrudRepository<CompanyAnnals, Long>, JpaSpecificationExecutor<CompanyAnnals>{
 	
-	@Query(value = "select sum(?1),year from t_company_annals where park=?2 group by year", nativeQuery = true)
-	List<Object[]> countByYear(String park, String type);
+	@Query(value = "select sum(?2),year from t_company_annals where park=?1 and industry like ?3 group by year", nativeQuery = true)
+	List<Object[]> countByYear(String park, String type, String industry);
 }

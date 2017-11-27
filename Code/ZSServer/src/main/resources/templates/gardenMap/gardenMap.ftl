@@ -57,10 +57,10 @@
 <div class="modal fade customed-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <img class="lay lay-left-bottom" src="../images/left_bottom.png" alt="">
-            <img class="lay lay-right-top" src="../images/right_top.png" alt="">
-            <img class="lay lay-left-top" src="../images/left_bottom.png" alt="">
-            <img class="lay lay-right-bottom" src="../images/right_top.png" alt="">
+            <img class="lay lay-left-bottom" src="/images/left_bottom.png" alt="">
+            <img class="lay lay-right-top" src="/images/right_top.png" alt="">
+            <img class="lay lay-left-top" src="/images/left_bottom.png" alt="">
+            <img class="lay lay-right-bottom" src="/images/right_top.png" alt="">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel"></h4>

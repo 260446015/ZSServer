@@ -36,6 +36,7 @@ import com.huishu.ZSServer.app.Application;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.Enterprise;
+import com.huishu.ZSServer.entity.IndustryRank;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
@@ -48,6 +49,8 @@ import com.huishu.ZSServer.entity.openeyes.TouZi;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
+import com.huishu.ZSServer.repository.company.IndusRankRepository;
+import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.repository.openeyes.PatentsRepository;
 import com.huishu.ZSServer.repository.openeyes.ShangBiaoRepository;
 import com.huishu.ZSServer.repository.openeyes.TouZiRepository;
@@ -56,8 +59,8 @@ import com.huishu.ZSServer.service.garden.GardenService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
-@SpringBootTest(classes = Application.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringBootTest(classes = Application.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 public class GardenTest {
 
 	@Autowired
@@ -130,15 +133,15 @@ public class GardenTest {
 		System.out.println(targetInfo);
 	}
 
-	@Test
+	/*@Test
 	public void testFindGdp() {
 		// 2017,2016,2015,2014
 		Integer[] ia = new Integer[] { 2017, 2016, 2015, 2014 };
 		List<GardenMap> findGardenGdp = gardenService.findGardenGdp("新材料", ia, "江苏");
 		findGardenGdp.forEach(System.out::println);
-	}
+	}*/
 
-	@Test
+	/*@Test
 	public void testGardenEcharts() {
 		List<Object[]> results = gardenService.getGardenIndustryEcharts("江苏");
 		results.forEach(arr -> {
@@ -147,7 +150,7 @@ public class GardenTest {
 			}
 			System.out.println();
 		});
-	}
+	}*/
 
 	@Test
 	public void testAddGardenCompare() {
@@ -550,6 +553,66 @@ public class GardenTest {
 			System.out.println("发生异常:"+e.getMessage());
 		}
 		System.out.println("mission all over-------------------------");
+	}
+	@Autowired
+	private IndusRankRepository indusRankRepository;
+	@Test
+	public void testSaveIndusRank() throws FileNotFoundException{
+		WpsUtilsTest util = new WpsUtilsTest();
+		FileInputStream is = new FileInputStream("C:\\Users\\yindawei\\Documents\\Tencent Files\\260446015\\FileRecv\\四大产业全国企业数量.xlsx");
+		Map<Integer, String> content = util.readExcelContentXlsx(is, "-");
+		List<IndustryRank> list = new ArrayList<>();
+		content.forEach((k,v) ->{
+			String[] split = v.split("-");
+			IndustryRank rank = new IndustryRank();
+			rank.setArea(split[0]);
+			String count = split[1];
+			count = count.substring(0, count.indexOf("."));
+			rank.setCount(Long.parseLong(count));
+			rank.setIndustry("人工智能");
+			list.add(rank);
+		});
+		indusRankRepository.save(list);
+	}
+	@Autowired
+	private GardenRepository gardenRepository;
+	@Test
+	public void testSaveGardenList() throws FileNotFoundException{
+		WpsUtilsTest util = new WpsUtilsTest();
+		FileInputStream is = new FileInputStream("C:\\Users\\yindawei\\Desktop\\慧数招商\\园区高新区及分园区信息汇总11.1.xlsx");
+		Map<Integer, String> content = util.readExcelContentXlsx(is, "~");
+		List<GardenData> list = new ArrayList<>();
+		for (int i = 1; i <= content.size(); i++) {
+			try{
+				if(i == 157)
+					break;
+			String[] split = content.get(i).split("~");
+			GardenData data = new GardenData();
+			data.setGardenName(split[1]);
+			data.setProvince(split[2]);
+			data.setAddress(split[4]);
+			data.setGardenWebsite(split[8]);
+			data.setEnterCompany(split[9]);
+			data.setIndustryType(split[10]);
+			data.setGardenSquare(Double.parseDouble(split[11]));
+			list.add(data);
+			}catch(Exception e){
+				System.out.println(i);
+			}
+		}
+		gardenRepository.save(list);
+	}
+	@Test
+	public void testSaveCompany() throws FileNotFoundException{
+		WpsUtilsTest util = new WpsUtilsTest();
+		FileInputStream is = new FileInputStream("C:\\Users\\yindawei\\Documents\\Tencent Files\\260446015\\FileRecv\\企业采集11.27.xlsx");
+		Map<Integer, String> readExcelContentXlsx = util.readExcelContentXlsx(is, "-");
+		List<Company> list = new ArrayList<>();
+		readExcelContentXlsx.forEach((k,v) ->{
+			String[] split = v.split("-");
+			Company c = new Company();
+			c.setPark(split);
+		});
 	}
 
 }

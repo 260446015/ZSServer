@@ -23,7 +23,7 @@
 <#include "/common/header.ftl"/>
 <div class="wrapper">
     <div class="page-content">
-		<#include "/common/sidebar2.ftl"/>
+		<#include "/common/sidebar3.ftl"/>
         <div class="right-content">
             <div class="model-box">
                 <div class="model-header">

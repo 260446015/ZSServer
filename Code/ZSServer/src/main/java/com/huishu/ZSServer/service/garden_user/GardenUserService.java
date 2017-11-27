@@ -49,4 +49,10 @@ public interface GardenUserService {
 	 * @return
 	 */
 	boolean deleteCompare(List<GardenCompare> list);
+
+	/**
+	 * 获取关注园区省份名称
+	 * @return
+	 */
+	List<String> getGardenAttainArea();
 }

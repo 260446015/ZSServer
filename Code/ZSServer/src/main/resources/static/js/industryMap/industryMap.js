@@ -525,7 +525,7 @@ $(".like").on("click",function () {
     	data:{"id":_id},
     	success:function(res){
     		if(res.data==null){
-    			new Alert({flag:false,text:res.data,timer:2000}).show();
+    			new Alert({flag:false,text:res.message,timer:2000}).show();
     		}else{
     			new Alert({flag:true,text:res.data,timer:2000}).show();
     		}

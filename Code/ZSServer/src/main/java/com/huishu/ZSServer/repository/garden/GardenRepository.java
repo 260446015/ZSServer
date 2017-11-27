@@ -17,8 +17,11 @@ import com.huishu.ZSServer.entity.garden.GardenData;
  */
 public interface GardenRepository extends CrudRepository<GardenData, Long>, JpaSpecificationExecutor<GardenData> {
 
-	@Query(value="select province,count(*) from t_garden_data where industry_type like ?1 GROUP by province",nativeQuery=true)
+	@Query(value = "select province,count(*) from t_garden_data where industry_type like ?1 GROUP by province", nativeQuery = true)
 	List<Object[]> getGardenIndustryCount(String industry);
 
 	List<GardenData> findByProvinceLike(String province);
+
+	@Query(value = "select province from t_garden_data group by province", nativeQuery = true)
+	List<String> findArea();
 }

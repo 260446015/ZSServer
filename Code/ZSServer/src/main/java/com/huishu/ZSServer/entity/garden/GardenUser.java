@@ -7,8 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ZSServer.common.util.StringUtil;
 
 /**
  * 
@@ -37,6 +39,19 @@ public class GardenUser implements Serializable {
 	private String attentionDate;
 	private Double gdp;
 	private Double gardenSquare;
+	/** 园区网址 */
+	private String gardenWebsite;
+	/** 园区等级 */
+	private String gardenLevel;
+	
+	public String getGardenLevel() {
+		return gardenLevel;
+	}
+
+	public void setGardenLevel(String gardenLevel) {
+		this.gardenLevel = gardenLevel;
+	}
+
 	public Double getGardenSquare() {
 		return gardenSquare;
 	}
@@ -143,6 +158,25 @@ public class GardenUser implements Serializable {
 
 	public void setGardenId(Long gardenId) {
 		this.gardenId = gardenId;
+	}
+	
+	public String getGardenWebsite() {
+		return gardenWebsite;
+	}
+
+	public void setGardenWebsite(String gardenWebsite) {
+		this.gardenWebsite = gardenWebsite;
+	}
+
+	@Transient
+	private Integer enterCount;
+	
+	public Integer getEnterCount() {
+		String[] str = (StringUtil.isEmpty(this.getEnterCompany()) ? "" : this.getEnterCompany()).split("、");
+		if (str[0].equals("")) {
+			return 0;
+		}
+		return str.length;
 	}
 
 	@Override

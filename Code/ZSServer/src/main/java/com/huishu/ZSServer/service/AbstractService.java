@@ -136,13 +136,13 @@ public class AbstractService<T> {
 			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				for (Map.Entry<String, Object> entry : params.entrySet()) {
-					if (entry.getValue() instanceof String) {
+//					if (entry.getValue() instanceof String) {
 						String key = entry.getKey();
-						String value = (String) entry.getValue();
+						Object value = entry.getValue();
 						if (!value.equals("不限") && !value.equals("全部")) {
 							predicates.add(cb.equal(root.<String> get(key), value));
 						}
-					}
+//					}
 				}
 				return query.where(predicates.toArray(new Predicate[predicates.size()])).getGroupRestriction();
 			}
