@@ -79,4 +79,89 @@ $(function () {
             parent_wrapper.addClass("open-charts");
         }
     });
+    showGardenindustry();
+    showGardenAttainArea();
+    showGardenAttainList(industryType,area,sort,sortType);
 });
+function showGardenindustry(){//获取园区产业
+	$.ajax({
+		type:'get',
+		url:'/apis/area/getGardenIndustry.json',
+		success:function(res){
+			if(res.success){
+				var arr = res.data;
+				var html = '<a href="javascript:void(0);" class="search-item active" onclick="sendIndustry(\'全部\')">全部</a>';
+				for(var i=0;i<arr.length;i++){
+					html += '<a href="javascript:void(0);" class="search-item" onclick="sendIndustry(\''+arr[i].industryOne+'\')">'+arr[i].industryOne+'</a>';
+				}
+				$("#gardenIndustry").html(html);
+			}
+		}
+	});
+}
+function showGardenAttainArea(){
+	$.ajax({
+		type:'get',
+		url:'/apis/area/getGardenAttainArea.json',
+		success:function(res){
+			if(res.success){
+				var arr = res.data;
+				var html = ' <a href="javascript:void(0);" class="search-item active" onclick="sendArea(\'全部\')">全部</a>';
+				for(var i=0;i<arr.length;i++){
+					html += '<a href="javascript:void(0);" class="search-item" onclick="sendArea(\''+arr[i]+'\')">'+arr[i]+'</a>';
+				}
+				$("#gardenArea").html(html);
+			}
+		}
+	});
+}
+function sendIndustry(data){
+	industryType = data;
+	showGardenAttainList(industryType,area,sort,sortType);
+}
+function sendArea(data){
+	area = data;
+	showGardenAttainList(industryType,area,sort,sortType);
+}
+function sendSort(data){
+	sort = data;
+	showGardenAttainList(industryType,area,sort,sortType);
+}
+var industryType = '全部';
+var area = '全部';
+var sort = '园区占地';
+var sortType = 'desc';
+function showGardenAttainList(a,b,c,d){
+	var req = {"pageNumber":0,"pageSize":6,msg:[a,b,c,d]};
+	$.ajax({
+		type:'post',
+		url:'/apis/area/getAttentionGardenList.json',
+		data:JSON.stringify(req),
+		contentType:'application/json',
+		success:function(res){
+			if(res.success){
+				var arr = res.data.content;
+				console.log(arr);
+				var html = "";
+				for (var i = 0; i < arr.length; i++) {
+					html += '<div class="col-md-12 border-bottom"><div class="layout-box">' +
+								'<div class="left-img"><img src="../images/list_img.jpg" width="160" /></div>' +
+								'<div class="right-list"><a class="scatter-blocks no-border" href="./allCityParkDetails.html">'+
+								'<span class="scatter-title">'+arr[i].gardenName+'</span>'+
+								'<span class="scatter-type ml10">'+arr[i].gardenLevel+'</span>'+
+								'<span class="pull-right">入驻企业<span class="numbers">'+arr[i].enterCount+'</span>家</span></a>' +
+								'<p class="park-address"><span class="glyphicon glyphicon-tag"></span>';
+								var arr2 = arr[i].industryType.split('、')
+								for(var j=0;j<arr2.length;j++){
+									html += '<span class="mr15">'+arr2[j]+'</span>';
+								}
+								html += '</p><p class="net-address"><span class="mr15"><span class="glyphicon glyphicon-map-marker"></span>' +
+								arr[i].address +'</span><span class="mr15"><span class="glyphicon glyphicon-globe"></span>' +
+								arr[i].gardenWebsite + '</span><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right">园区对比</a>' +
+								'</p></div></div></div>'
+				}
+				$("#gardenList").html(html);
+			}
+		}
+	});
+}

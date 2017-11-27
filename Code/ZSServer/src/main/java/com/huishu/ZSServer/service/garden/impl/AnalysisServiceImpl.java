@@ -34,8 +34,8 @@ public class AnalysisServiceImpl extends AbstractService<CompanyAnnals> implemen
 		List<Object[]> repository = financingRepository.countAboutfinancingRepository(park);
 		for (Object[] objects : repository) {
 			JSONObject object = new JSONObject();
-			object.put("count", objects[0]);
-			object.put("invest", objects[1]);
+			object.put("value", objects[0]);
+			object.put("name", objects[1]);
 			list.add(object);
 		}
 		return list;
@@ -49,14 +49,14 @@ public class AnalysisServiceImpl extends AbstractService<CompanyAnnals> implemen
 	}
 
 	@Override
-	public List<JSONObject> getValueDistribution(String park, String type) {
+	public List<JSONObject> getValueDistribution(String park, String type,String industry) {
 		List<JSONObject> list = new ArrayList<JSONObject>();
 		if(type.equals("年税收")){
-			type="taxRevenue";
+			type="tax_revenue";
 		}else{
-			type="outputValue";
+			type="output_value";
 		}
-		List<Object[]> year = annalsRepository.countByYear(park, type);
+		List<Object[]> year = annalsRepository.countByYear(park, type,industry);
 		for (Object[] objects : year) {
 			JSONObject object = new JSONObject();
 			object.put("count", objects[0]);

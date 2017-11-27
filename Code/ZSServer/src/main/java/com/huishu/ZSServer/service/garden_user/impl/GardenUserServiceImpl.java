@@ -1,6 +1,7 @@
 package com.huishu.ZSServer.service.garden_user.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -68,6 +70,11 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 					gu.setGardenPicture(garden.getGardenPicture());
 					gu.setEnterCompany(garden.getEnterCompany());
 					gu.setGardenId(gardenId);
+					gu.setGdp(garden.getGdp());
+					gu.setGardenSquare(garden.getGardenSquare());
+					gu.setIndustryType(garden.getIndustryType());
+					gu.setGardenWebsite(garden.getGardenWebsite());
+					gu.setGardenLevel(garden.getGardenLevel());
 					gardenUserRepository.save(gu);
 					return gu;
 				}
@@ -85,31 +92,58 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 
 	@Override
 	public Page<GardenUser> getAttentionGardenList(GardenDTO dto) {
-		Long userId = dto.getUserId();
-		String province = dto.getProvince();
-		String industryType = dto.getIndustryType();
+		String[] msg = dto.getMsg();
+		int pageNum = dto.getPageNumber();
+		int pageSize = dto.getPageSize();
+		Page<GardenUser> page = null;
 		Map<String, Object> params = new HashMap<>();
-		params.put("userId", userId);
-		params.put("province", province);
-		params.put("industryType", industryType);
+		params.put("industryType", msg[0]);
+		params.put("province", msg[1]);
+		String sort = msg[2];
+		String direct = msg[3];
 		try {
-			PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize());
-			Page<GardenUser> findAll = gardenUserRepository.findAll(getSpec(params), pageRequest);
-			findAll.forEach(GardenUser -> {
+			List<GardenUser> list = gardenUserRepository.findAll(getSpec(params));
+			list.forEach(GardenUser -> {
 				String picture = GardenUser.getGardenPicture();
 				String description = GardenUser.getDescription();
+				String address = GardenUser.getAddress();
 				if (description == null || StringUtil.isEmpty(description) || description.equals("NULL")) {
 					GardenUser.setDescription("暂无");
 				}
 				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
 					GardenUser.setGardenPicture(KeyConstan.IP_PORT + "park_img/default.jpg");
 				}
+				if (address == null || StringUtil.isEmpty(address) || address.equals("NULL")) {
+					GardenUser.setAddress("暂无");
+				}
 			});
-			return findAll;
+			if (sort.equals("园区占地")) {
+				list.sort((a, b) -> {
+					return direct.equalsIgnoreCase("DESC") ? b.getGardenSquare().compareTo(a.getGardenSquare())
+							: a.getGardenSquare().compareTo(b.getGardenSquare());
+				});
+			} else if (sort.equals("企业数量")) {
+				list.sort((a, b) -> {
+					return direct.equalsIgnoreCase("DESC") ? b.getEnterCount().compareTo(a.getEnterCount())
+							: a.getEnterCount().compareTo(b.getEnterCount());
+				});
+			} else if (sort.equals("产值")) {
+				list.sort((a, b) -> {
+					return direct.equalsIgnoreCase("DESC") ? b.getGdp().compareTo(a.getGdp())
+							: a.getGdp().compareTo(b.getGdp());
+				});
+			}
+			// 第二步：对结果进行排序，按照热度排序，分页取十条数据
+			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
+			int total = list.size();
+			List<GardenUser> newList = new ArrayList<>();
+			list.stream().skip(pageNum * pageSize).limit(pageSize).forEach(newList::add);
+			page = new PageImpl<>(newList, pageRequest, total);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			return null;
 		}
+		return page;
 	}
 
 	@Override
@@ -175,4 +209,10 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 		return flag;
 	}
 
+	@Override
+	public List<String> getGardenAttainArea() {
+		return gardenUserRepository.findArea();
+	}
+
+	
 }

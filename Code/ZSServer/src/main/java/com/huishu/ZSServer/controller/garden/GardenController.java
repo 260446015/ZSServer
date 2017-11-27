@@ -22,6 +22,7 @@ import com.huishu.ZSServer.entity.GardenCompare;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
+import com.huishu.ZSServer.entity.garden.GardenIndustry;
 import com.huishu.ZSServer.entity.garden.GardenMap;
 import com.huishu.ZSServer.entity.garden.GardenUser;
 import com.huishu.ZSServer.es.entity.AITInfo;
@@ -132,6 +133,9 @@ public class GardenController extends BaseController {
 		}
 		Page<GardenData> page = null;
 		try {
+			Long userId = 1L;
+			// Long userId = getUserId();
+			dto.setUserId(userId);
 			page = gardenService.findGardensList(dto);
 		} catch (Exception e) {
 			LOGGER.error("查询园区列表失败!", e);
@@ -147,15 +151,11 @@ public class GardenController extends BaseController {
 	 *            [id,area,industryType]
 	 * @return
 	 */
-	@RequestMapping(value = "/getAttentionGardenList.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAttentionGardenList.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getAttentionGardenList(@RequestBody GardenDTO dto) {
-		String msg[] = dto.getMsg();
 		// Long userId = getUserId();
 		Long userId = 1L;
-		dto.setUserId(userId);
-		dto.setProvince(msg[0]);
-		dto.setIndustryType(msg[1]);
 		if (null == dto || userId == null) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -164,7 +164,7 @@ public class GardenController extends BaseController {
 			page = gardenUserService.getAttentionGardenList(dto);
 			return success(page);
 		} catch (Exception e) {
-			LOGGER.error("查询园区动态失败!", e);
+			LOGGER.error("查询关注园区失败!", e);
 			return error(e.getMessage());
 		}
 	}
@@ -174,11 +174,13 @@ public class GardenController extends BaseController {
 	 * 
 	 * @return
 	 */
-	public AjaxResult findGardenInfo(Long gardenId) {
-		if (null == gardenId) {
+	@RequestMapping(value = "/findGardenInfo.json", method = RequestMethod.GET,params={"gardenName"})
+	@ResponseBody
+	public AjaxResult findGardenInfo(String gardenName) {
+		if (StringUtil.isEmpty(gardenName)) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		return success(gardenService.findGarden(gardenId));
+		return success(gardenService.findGarden(gardenName));
 	}
 
 	/**
@@ -292,21 +294,50 @@ public class GardenController extends BaseController {
 	@RequestMapping(value = "/getGardenIndustryCount.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getGardenIndustryCount(@RequestBody GardenDTO dto) {
-		if(StringUtil.isEmpty(dto.getIndustryType())){
+		if (StringUtil.isEmpty(dto.getIndustryType())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		return success(gardenService.getGardenIndustryCount(dto));
 	}
-	
+
 	/**
 	 * 返回gardenMap中展示某个城市各种产业分布的controller
 	 */
 	@RequestMapping(value = "/getIndustryByProvince.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getIndustryByProvince(@RequestBody GardenDTO dto) {
-		if(StringUtil.isEmpty(dto.getProvince())){
+		if (StringUtil.isEmpty(dto.getProvince())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		return success(gardenService.getIndustryByProvince(dto));
+	}
+
+	/**
+	 * 查询园区产业分类
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/getGardenIndustry.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getGardenIndustry() {
+		List<GardenIndustry> list = gardenService.getGardenIndustry();
+		return success(list);
+	}
+
+	/**
+	 * 查询园区地域分类
+	 */
+	@RequestMapping(value = "getGardenArea.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getGardenArea() {
+		return success(gardenService.getGardenArea());
+	}
+	/**
+	 * 查询园区关注地域分类
+	 */
+	@RequestMapping(value = "getGardenAttainArea.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getGardenAttainArea() {
+		return success(gardenUserService.getGardenAttainArea());
 	}
 }

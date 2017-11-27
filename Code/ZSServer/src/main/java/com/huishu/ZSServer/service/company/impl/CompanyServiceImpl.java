@@ -40,8 +40,8 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 			String[] msg = dto.getMsg();
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("industry", msg[0]);
-			params.put("industryLabel", msg[1]);
-			params.put("invest", msg[4]);
+			params.put("invest", msg[3]);
+			params.put("park", msg[4]);
 			Integer pageNum = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
 			List<Company> findAll = companyRepository.findAll(getSpec(params));
@@ -50,7 +50,7 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 			// scale = "0-100000";
 			// String sscale = scale.substring(0, scale.indexOf("-"));
 			// String escale = scale.substring(scale.indexOf("-") + 1);
-			String time = msg[2];
+			String time = msg[1];
 			String startTime = null;
 			String endTime = null;
 			if ("1".equals(time)) {
@@ -74,7 +74,7 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 			}
 			String stime = startTime;
 			String etime = endTime;
-			String regist = msg[3];
+			String regist = msg[2];
 			if (regist.equals("全部"))
 				regist = "0-999999";
 			String sregist = regist.substring(0, regist.indexOf("-"));

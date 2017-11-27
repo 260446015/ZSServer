@@ -25,7 +25,6 @@ import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenIndustry;
 import com.huishu.ZSServer.entity.garden.GardenMap;
-import com.huishu.ZSServer.entity.garden.GardenUser;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.repository.garden.GardenIndustryRepository;
 import com.huishu.ZSServer.repository.garden.GardenMapRepositroy;

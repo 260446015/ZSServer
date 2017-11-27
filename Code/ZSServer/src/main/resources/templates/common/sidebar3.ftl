@@ -18,7 +18,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/apis/area/gardenMap">
                         <div class="circle-out parkIcon">
                             <div class="circle-in">
@@ -29,10 +29,10 @@
                     </a>
                     <ul class="left-nav-menu">
                         <li>
-                            <a href="/apis/area/allCityPark">全域园区</a>
+                            <a href="./allCityPark.html">全域园区</a>
                         </li>
                         <li>
-                            <a href="/apis/area/followPark">关注园区</a>
+                            <a href="./followPark.html">关注园区</a>
                         </li>
                     </ul>
                 </li>

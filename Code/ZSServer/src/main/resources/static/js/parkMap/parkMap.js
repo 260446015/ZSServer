@@ -647,6 +647,8 @@ function showGardenIndustryCount(industryType){//查询不同省份某种产业�
 		success:function(res){
 			if(res.success){
 				var arr = res.data;
+				histogramName = [];
+				histogramValue = [];
 				for(var i=0;i<arr.length;i++){
 					histogramName.push(arr[i][0]);
 					histogramValue.push(arr[i][1])
@@ -654,6 +656,10 @@ function showGardenIndustryCount(industryType){//查询不同省份某种产业�
 				barOption.xAxis[0].data = histogramName;
 				barOption.series[0].data = histogramValue;
 				var barCharts = echarts.init(document.getElementById('barCharts'),"customed");
+				barCharts.on('click',function(param){
+					province = param.name;
+					showGardenGdpPiechart(province);
+				});
 				barCharts.setOption(barOption);
 			}
 		}
@@ -673,11 +679,16 @@ function showGardenGdpPiechart(province){//获取某个省份哪种产业最多�
 			if(res.success){
 				console.log(res.data);
 				var arr = res.data;
+				pieChartName = [];
 				for(var i=0;i<arr.length;i++){
 					pieChartName.push(arr[i].industryType);
 				}
 				option.series[0].data = initEcharts(pieChartName);
 				var scatter = echarts.init(document.getElementById("scatter"),"customed");
+				scatter.on('click',function(param){
+					industryType = param.name;
+					showGardenIndustryCount(industryType);
+				});
 				scatter.setOption(option);
 			}
 		}
