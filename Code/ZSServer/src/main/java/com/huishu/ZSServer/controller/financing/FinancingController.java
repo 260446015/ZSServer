@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,8 +62,8 @@ public class FinancingController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			List<FinancingInfo> page = financingService.getCompanyList(dto);
-			return success(page);
+			Page<FinancingInfo> page = financingService.getCompanyList(dto);
+			return successPage(page,dto.getPageNumber()+1);
 		} catch (Exception e) {
 			LOGGER.error("获取融资企业列表失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);

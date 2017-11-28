@@ -15,6 +15,9 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -31,7 +34,7 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 	private Client client;
 	
 	@Override
-	public List<FinancingInfo> getCompanyList(CompanySearchDTO dto) {
+	public Page<FinancingInfo> getCompanyList(CompanySearchDTO dto) {
 		List<FinancingInfo> list =new ArrayList<FinancingInfo>();
 		String sort;
 		if(dto.getSort().equals("按时间")){
@@ -46,8 +49,10 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3).setTypes(DBConstant.EsConfig.TYPE2);
 		srb.addSort(SortBuilders.fieldSort(sort).order(SortOrder.DESC));
 		SearchResponse searchResponse = srb.setQuery(bq).execute().actionGet();
+		long totalHits=0;
 		if (null != searchResponse && null != searchResponse.getHits()) {
 			SearchHits hits = searchResponse.getHits();
+			totalHits = hits.getTotalHits();
 			for (SearchHit searchHit : hits) {
 				FinancingInfo info = new FinancingInfo();
 				Map<String, Object> map = searchHit.getSource();
@@ -63,7 +68,8 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 				list.add(info);
 			}
 		}
-		return list;
+		PageRequest request = new PageRequest(dto.getPageNumber(), dto.getPageSize());
+		return new PageImpl<FinancingInfo>(list,request,totalHits);
 	}
 
 	@Override

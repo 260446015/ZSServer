@@ -2,6 +2,8 @@ package com.huishu.ZSServer.service.financing;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.entity.dto.FinancingSearchDTO;
@@ -19,7 +21,7 @@ public interface FinancingService {
 	 * @param dto
 	 * @return
 	 */
-	List<FinancingInfo> getCompanyList(CompanySearchDTO dto);
+	Page<FinancingInfo> getCompanyList(CompanySearchDTO dto);
 	/**
 	 * 获取融资动态数据
 	 * @return
