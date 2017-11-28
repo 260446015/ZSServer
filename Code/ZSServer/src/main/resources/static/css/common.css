@@ -1099,22 +1099,29 @@ a.search-item.active{
 .btn-box-center .btn:last-child{
     margin-right: 0;
 }
-.btn-fill{
-    background-color: transparent;
-}
 .btn-blue{
+    background-color: #20c2fe;
     border-color:#20c2fe;
-    color:#20c2fe;
+    color:#fff;
     border-radius: 2px;
+}
+.btn-fill{
+    color:#20c2fe;
+    background-color: transparent;
 }
 .btn-link{
     text-decoration: none;
     color: #01b1f3;
 }
-.btn-link:hover,
-.btn-link:focus,
 .btn-blue:hover,
 .btn-blue:focus{
+    color: #fff;
+    text-decoration: none;
+}
+.btn-link:hover,
+.btn-link:focus,
+.btn-fill.btn-blue:hover,
+.btn-fill.btn-blue:focus{
     color:#00ffe4;
     text-decoration: none;
 }
@@ -1616,4 +1623,42 @@ a.search-item.active{
 
 .border-shadow-box.small-list .border-bottom .scatter-content {
     line-height: 24px;
+}
+.small-line-height{
+    padding-top: 10px;
+}
+.small-line-height .form-horizontal .form-group{
+    margin-bottom: 0;
+}
+.multiple{
+    font-size: 14px;
+    color:#20c2fe;
+}
+.multiple:hover{
+    color: #20c2fe;
+}
+.search-tag{
+    position:relative;
+    margin-right:15px;
+}
+.search-tag span.close {
+    display: block;
+    color: #fff;
+    opacity: 1;
+    position: absolute;
+    right: -10px;
+    top: -15px;
+    width: 20px;
+    height: 20px;
+    background: #202e3f;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.search-tag span.close:hover,
+.search-tag span.close:focus {
+    filter: alpha(opacity=100);
+    opacity: 1;
+    color: #00ff4c;
 }

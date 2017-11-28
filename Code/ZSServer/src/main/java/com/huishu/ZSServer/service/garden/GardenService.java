@@ -8,6 +8,7 @@ import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.IndustryCount;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
+import com.huishu.ZSServer.entity.garden.GardenIndustry;
 import com.huishu.ZSServer.entity.garden.GardenMap;
 import com.huishu.ZSServer.es.entity.AITInfo;
 
@@ -52,7 +53,7 @@ public interface GardenService {
 	 * 
 	 * @return
 	 */
-	GardenData findGarden(Long gardenId);
+	GardenData findGarden(String gardenId);
 
 	/**
 	 * 获取政策动向
@@ -82,4 +83,16 @@ public interface GardenService {
 	 * @return
 	 */
 	List<IndustryCount> getIndustryByProvince(GardenDTO dto);
+
+	/**
+	 * 查询园区产业标签的接口
+	 * @return
+	 */
+	List<GardenIndustry> getGardenIndustry();
+
+	/**
+	 * 查询园区地域
+	 * @return
+	 */
+	List<String> getGardenArea();
 }

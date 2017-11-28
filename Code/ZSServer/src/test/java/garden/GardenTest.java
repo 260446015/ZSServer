@@ -1,4 +1,4 @@
-package garden;
+/*package garden;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -36,6 +36,7 @@ import com.huishu.ZSServer.app.Application;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.Enterprise;
+import com.huishu.ZSServer.entity.IndustryRank;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
@@ -48,6 +49,8 @@ import com.huishu.ZSServer.entity.openeyes.TouZi;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
+import com.huishu.ZSServer.repository.company.IndusRankRepository;
+import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.repository.openeyes.PatentsRepository;
 import com.huishu.ZSServer.repository.openeyes.ShangBiaoRepository;
 import com.huishu.ZSServer.repository.openeyes.TouZiRepository;
@@ -56,8 +59,8 @@ import com.huishu.ZSServer.service.garden.GardenService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
-@SpringBootTest(classes = Application.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringBootTest(classes = Application.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 public class GardenTest {
 
 	@Autowired
@@ -134,9 +137,21 @@ public class GardenTest {
 	public void testFindGdp() {
 		// 2017,2016,2015,2014
 		Integer[] ia = new Integer[] { 2017, 2016, 2015, 2014 };
-//		List<GardenMap> findGardenGdp = gardenService.findGardenGdp("新材料", ia, "江苏");
-//		findGardenGdp.forEach(System.out::println);
+		List<GardenMap> findGardenGdp = gardenService.findGardenGdp("新材料", ia, "江苏");
+		findGardenGdp.forEach(System.out::println);
 	}
+
+	@Test
+	public void testGardenEcharts() {
+		List<Object[]> results = gardenService.getGardenIndustryEcharts("江苏");
+		results.forEach(arr -> {
+			for (Object obj : arr) {
+				System.out.print(obj);
+			}
+			System.out.println();
+		});
+	}
+>>>>>>> branch 'master' of https://gitlab.junquan.com.cn/hskj/pd_210_merchantssys.git
 
 	@Test
 	public void testAddGardenCompare() {
@@ -376,7 +391,7 @@ public class GardenTest {
 		System.out.println(targetInfo.toJSONString());
 	}
 
-	/*
+	
 	 * @Test public void testBaseInfoAndSave(){ String strs =
 	 * "南京高科股份有限公司,江苏舜天股份有限公司,苏交科集团股份有限公司,江苏保千里视像科技集团股份有限公司,江苏省农垦农业发展股份有限公司,南京云海特种金属股份有限公司,南京公用发展股份有限公司,南京熊猫电子股份有限公司,金陵药业股份有限公司,南京红太阳股份有限公司,航天晨光股份有限公司,江苏弘业股份有限公司,南京栖霞建设股份有限公司,南京康尼机电股份有限公司,中设设计集团股份有限公司,江苏金智科技股份有限公司,南京普天通信股份有限公司,红宝丽集团股份有限公司,江苏凤凰置业投资股份有限公司,南京化纤股份有限公司,莱绅通灵珠宝股份有限公司,南京华东电子信息科技股份有限公司,幸福蓝海影视文化集团股份有限公司,江苏润和软件股份有限公司,国睿科技股份有限公司,江苏龙蟠科技股份有限公司,南京华脉科技股份有限公司,江苏中旗科技股份有限公司,南京纺织品进出口股份有限公司,金陵饭店股份有限公司,多伦科技股份有限公司,光一科技股份有限公司,维格娜丝时装股份有限公司,南京寒锐钴业股份有限公司,天泽信息产业股份有限公司,焦点科技股份有限公司,南京埃斯顿自动化股份有限公司,南京我乐家居股份有限公司,中电环保股份有限公司,江苏三六五网络股份有限公司,大千生态景观股份有限公司,南京新联电子股份有限公司,南京健友生化制药股份有限公司,南京科远自动化集团股份有限公司,诚迈科技(南京)股份有限公司,南京音飞储存设备(集团)股份有限公司,南京佳力图机房环境技术股份有限公司,南京全信传输科技股份有限公司,基蛋生物科技股份有限公司,南京奥联汽车电子电器股份有限公司,江苏大烨智能电气股份有限公司,江苏美思德化学股份有限公司,南京海辰药业股份有限公司,南京宝色股份公司,江苏久吾高科技股份有限公司,南京港股份有限公司,南京三超新材料股份有限公司,国旅联合股份有限公司";
 	 * String[] arr = strs.split(","); int i = 0; for (String str : arr) {
@@ -395,7 +410,7 @@ public class GardenTest {
 	 * SimpleDateFormat("yyyy-MM-dd"); Date date = new
 	 * Date(p.getEstiblishTime()); c.setRegisterDate(format.format(date));
 	 * companyCopyRepository.save(c); i++; } System.out.println("保存成功"+i+"次"); }
-	 */
+	 
 	@Test
 	public void testExport() {
 		BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
@@ -540,5 +555,66 @@ public class GardenTest {
 		}
 		System.out.println("mission all over-------------------------");
 	}
+	@Autowired
+	private IndusRankRepository indusRankRepository;
+	@Test
+	public void testSaveIndusRank() throws FileNotFoundException{
+		WpsUtilsTest util = new WpsUtilsTest();
+		FileInputStream is = new FileInputStream("C:\\Users\\yindawei\\Documents\\Tencent Files\\260446015\\FileRecv\\四大产业全国企业数量.xlsx");
+		Map<Integer, String> content = util.readExcelContentXlsx(is, "-");
+		List<IndustryRank> list = new ArrayList<>();
+		content.forEach((k,v) ->{
+			String[] split = v.split("-");
+			IndustryRank rank = new IndustryRank();
+			rank.setArea(split[0]);
+			String count = split[1];
+			count = count.substring(0, count.indexOf("."));
+			rank.setCount(Long.parseLong(count));
+			rank.setIndustry("人工智能");
+			list.add(rank);
+		});
+		indusRankRepository.save(list);
+	}
+	@Autowired
+	private GardenRepository gardenRepository;
+	@Test
+	public void testSaveGardenList() throws FileNotFoundException{
+		WpsUtilsTest util = new WpsUtilsTest();
+		FileInputStream is = new FileInputStream("C:\\Users\\yindawei\\Desktop\\慧数招商\\园区高新区及分园区信息汇总11.1.xlsx");
+		Map<Integer, String> content = util.readExcelContentXlsx(is, "~");
+		List<GardenData> list = new ArrayList<>();
+		for (int i = 1; i <= content.size(); i++) {
+			try{
+				if(i == 157)
+					break;
+			String[] split = content.get(i).split("~");
+			GardenData data = new GardenData();
+			data.setGardenName(split[1]);
+			data.setProvince(split[2]);
+			data.setAddress(split[4]);
+			data.setGardenWebsite(split[8]);
+			data.setEnterCompany(split[9]);
+			data.setIndustryType(split[10]);
+			data.setGardenSquare(Double.parseDouble(split[11]));
+			list.add(data);
+			}catch(Exception e){
+				System.out.println(i);
+			}
+		}
+		gardenRepository.save(list);
+	}
+	@Test
+	public void testSaveCompany() throws FileNotFoundException{
+		WpsUtilsTest util = new WpsUtilsTest();
+		FileInputStream is = new FileInputStream("C:\\Users\\yindawei\\Documents\\Tencent Files\\260446015\\FileRecv\\企业采集11.27.xlsx");
+		Map<Integer, String> readExcelContentXlsx = util.readExcelContentXlsx(is, "-");
+		List<Company> list = new ArrayList<>();
+		readExcelContentXlsx.forEach((k,v) ->{
+			String[] split = v.split("-");
+			Company c = new Company();
+			c.setPark(split);
+		});
+	}
 
 }
+*/

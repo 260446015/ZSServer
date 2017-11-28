@@ -133,4 +133,23 @@ public class TestJava8 {
 		System.out.println(sdf2.format(date));
 		System.out.println(sdf3.format(date));
 	}
+	private ThreadLocal<Integer> thead = new ThreadLocal<>();
+	private int i = 0;
+	
+	public TestJava8() {
+		thead.set(i);
+	}
+	/*@Test
+	public void testBack(){
+		RunnerTask r = new RunnerTask();
+		Thread t1 = new Thread(r, "线程1");
+		Thread t2 = new Thread(r, "线程2");
+		Thread t3 = new Thread(r, "线程3");
+		Thread t4 = new Thread(r, "线程4");
+		t1.start();
+		t2.start();
+		t3.start();
+		t4.start();
+		
+	}*/
 }

@@ -13,4 +13,9 @@ public interface GardenUserRepository extends CrudRepository<GardenUser, Long>, 
 	@Query(value = "select garden_name from t_user_garden_attention where user_id = ?", nativeQuery = true)
 	List<String> findGardenNames(Long userId);
 
+	GardenUser findByGardenNameAndUserId(String gardenName, Long userId);
+
+	@Query(value = "select province from t_user_garden_attention where user_id = 1 GROUP BY province", nativeQuery = true)
+	List<String> findArea();
+
 }

@@ -56,6 +56,18 @@ public class GardenData implements Serializable {
 	private String gardenSuperiority;
 	/** 园区产业 */
 	private String industryType;
+	/** 是否被关注标识 */
+	@Transient
+	private Boolean flag;
+	
+
+	public Boolean getFlag() {
+		return flag;
+	}
+
+	public void setFlag(Boolean flag) {
+		this.flag = flag;
+	}
 
 	public Long getId() {
 		return id;
@@ -168,8 +180,9 @@ public class GardenData implements Serializable {
 	public void setIndustryType(String industryType) {
 		this.industryType = industryType;
 	}
-
 	@Transient
+	private Integer enterCount;
+	
 	public Integer getEnterCount() {
 		String[] str = (StringUtil.isEmpty(this.getEnterCompany()) ? "" : this.getEnterCompany()).split("、");
 		if (str[0].equals("")) {
