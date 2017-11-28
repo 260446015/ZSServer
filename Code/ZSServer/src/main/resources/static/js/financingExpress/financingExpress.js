@@ -118,7 +118,7 @@ function ajaxPost(param){
             if(response.message!=null){
             	alert(response.message);
             }else{
-           		$('#city_list').html(show(response.data.dataList));
+           		$('#city_list').html(show(response.data));
             }
         }
     });
@@ -146,11 +146,12 @@ function showDynamic(d){
 	$('#city_dynamic2').html(arr2.join(''));
 }
 function show(d){
+	console.log(d)
     var arr = []
     $.each(d, function(index, item){
-      var imageSrc='/images/c_logo.png';
-      if(item.logo.length!=0){
-      	imageSrc=item.logo;
+      var imageSrc=item.logo;
+      if(item.logo==null||item.logo.length==0){
+    	  imageSrc='/images/c_logo.png';
       }
       arr.push('<tr><td class="text-center">'+item.financingDate+'</td>'+
 			    '<td class="text-left"><img src="'+imageSrc+'" class="c-logo"/>'+

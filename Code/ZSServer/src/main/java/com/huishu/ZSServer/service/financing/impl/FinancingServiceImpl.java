@@ -10,13 +10,11 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -24,27 +22,48 @@ import com.huishu.ZSServer.common.conf.DBConstant;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.entity.dto.FinancingSearchDTO;
 import com.huishu.ZSServer.es.entity.FinancingInfo;
-import com.huishu.ZSServer.es.repository.FinancingElasticsearch;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.financing.FinancingService;
 
 @Service
 public class FinancingServiceImpl extends AbstractService<T> implements FinancingService {
 	@Autowired
-	private FinancingElasticsearch financingElasticsearch;
-	@Autowired
 	private Client client;
 	
 	@Override
-	public Page<FinancingInfo> getCompanyList(CompanySearchDTO dto) {
-		Sort sort;
+	public List<FinancingInfo> getCompanyList(CompanySearchDTO dto) {
+		List<FinancingInfo> list =new ArrayList<FinancingInfo>();
+		String sort;
 		if(dto.getSort().equals("按时间")){
-			sort = new Sort(Direction.DESC, "financingDate");
+			sort = "financingDate";
 		}else{
-			sort = new Sort(Direction.DESC, "financingAmount");
+			sort = "financingAmount";
 		}
-		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(),sort);
-		return financingElasticsearch.findByAreaLikeAndIndustryLikeAndInvestLike(dto.getArea(),dto.getIndustry(), dto.getInvest(), pageRequest);
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		bq.must(QueryBuilders.wildcardQuery("industry","*"+dto.getIndustry()+"*"));
+		bq.must(QueryBuilders.wildcardQuery("area","*"+dto.getArea()+"*"));
+		bq.must(QueryBuilders.wildcardQuery("invest","*"+dto.getInvest()+"*"));
+		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3).setTypes(DBConstant.EsConfig.TYPE2);
+		srb.addSort(SortBuilders.fieldSort(sort).order(SortOrder.DESC));
+		SearchResponse searchResponse = srb.setQuery(bq).execute().actionGet();
+		if (null != searchResponse && null != searchResponse.getHits()) {
+			SearchHits hits = searchResponse.getHits();
+			for (SearchHit searchHit : hits) {
+				FinancingInfo info = new FinancingInfo();
+				Map<String, Object> map = searchHit.getSource();
+				info.setId(searchHit.getId());
+				info.setFinancingDate(map.get("financingDate").toString());
+				info.setFinancingCompany(map.get("financingCompany").toString());
+				info.setIndustry(map.get("industry").toString());
+				info.setArea(map.get("area").toString());
+				info.setInvest(map.get("invest").toString());
+				info.setFinancingAmount(map.get("financingAmount").toString());
+				info.setInvestor(map.get("investor").toString());
+				info.setArticleLink(map.get("articleLink").toString());
+				list.add(info);
+			}
+		}
+		return list;
 	}
 
 	@Override

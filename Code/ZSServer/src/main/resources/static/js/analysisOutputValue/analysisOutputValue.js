@@ -86,7 +86,7 @@ function myLine1(d){
             {
                 type : 'category',
                 boundaryGap : false,
-                data : ['2017'],
+                data : d.time,
                 splitLine:{
                     show:false
                 }
@@ -99,7 +99,7 @@ function myLine1(d){
         ],
         series : [
             {
-                name:'',
+                name:'年产值',
                 type:'line',
                 stack: '总量',
                 areaStyle: {
@@ -113,7 +113,7 @@ function myLine1(d){
                         }])
                     }
                 },
-                data:d
+                data:d.count
             }
         ]
     };
@@ -138,7 +138,7 @@ function myLine2(d){
 	        xAxis : [
 	            {
 	                type : 'category',
-	                data : ['2017'],
+	                data : d.time,
 	                axisTick: {
 	                    alignWithLabel: true
 	                }
@@ -151,7 +151,7 @@ function myLine2(d){
 	        ],
 	        series : [
 	            {
-	                name:'直接访问',
+	                name:'年税收',
 	                type:'bar',
 	                barWidth: '40%',
 	                label: {
@@ -186,7 +186,7 @@ function myLine2(d){
 	                        )
 	                    }
 	                },
-	                data:d
+	                data:d.count
 	            }
 	        ]
 	    };

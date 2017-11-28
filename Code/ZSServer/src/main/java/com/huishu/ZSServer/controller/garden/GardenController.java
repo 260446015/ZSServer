@@ -195,7 +195,7 @@ public class GardenController extends BaseController {
 		}
 		try {
 			Page<AITInfo> page = gardenService.getInformationPush(dto);
-			return successPage(page);
+			return successPage(page,dto.getPageNumber()+1);
 		} catch (Exception e) {
 			LOGGER.error("获取关注园区-情报推送失败！", e);
 			return error(MsgConstant.ILLEGAL_PARAM);

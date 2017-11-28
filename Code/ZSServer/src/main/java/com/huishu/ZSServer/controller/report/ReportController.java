@@ -58,7 +58,7 @@ public class ReportController extends BaseController {
 			if(pageNum==null) pageNum=0;
 			PageRequest pageRequest = new PageRequest(pageNum, 8,new Sort(Direction.DESC, "createTime"));
 			Page<FilePdf> page = reportService.getExpertReport(pageRequest);
-			return successPage(page);
+			return successPage(page,pageNum);
 		} catch (Exception e) {
 			LOGGER.error("查询失败：", e);
 			return error(MsgConstant.SYSTEM_ERROR);
