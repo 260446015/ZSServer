@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.DBConstant;
+import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.entity.dto.FinancingSearchDTO;
 import com.huishu.ZSServer.es.entity.FinancingInfo;
@@ -43,6 +44,7 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 			sort = "financingAmount";
 		}
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		bq.must(QueryBuilders.termQuery("dimension", KeyConstan.RONGZIKUAIXUN));
 		bq.must(QueryBuilders.wildcardQuery("industry","*"+dto.getIndustry()+"*"));
 		bq.must(QueryBuilders.wildcardQuery("area","*"+dto.getArea()+"*"));
 		bq.must(QueryBuilders.wildcardQuery("invest","*"+dto.getInvest()+"*"));
@@ -76,6 +78,7 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 	public List<JSONObject> getFinancingDynamic() {
 		List<JSONObject> list=new ArrayList<JSONObject>();
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		bq.must(QueryBuilders.termQuery("dimension", KeyConstan.RONGZIDONGTAI));
 		bq.should(QueryBuilders.wildcardQuery("industry","*人工智能*"));
 		bq.should(QueryBuilders.wildcardQuery("industry","*大数据*"));
 		bq.should(QueryBuilders.wildcardQuery("industry","*物联网*"));
@@ -101,6 +104,7 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 	public List<JSONObject> getFinancingCompany(List<String> industry) {
 		List<JSONObject> list=new ArrayList<JSONObject>();
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
+		bq.must(QueryBuilders.termQuery("dimension", KeyConstan.RONGZIKUAIXUN));
 		for (String in : industry) {
 			bq.should(QueryBuilders.wildcardQuery("industry","*"+in+"*"));
 		}

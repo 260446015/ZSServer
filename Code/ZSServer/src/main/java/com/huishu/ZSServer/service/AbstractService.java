@@ -41,6 +41,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
 import com.forget.category.CategoryModel;
 import com.huishu.ZSServer.common.conf.DBConstant;
+import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.openeyes.SearchCount;
@@ -333,6 +334,7 @@ public class AbstractService<T> {
         	List<Double> list = new ArrayList<Double>();
         	for (int i = 0; i < 4; i++) {
 	        	BoolQueryBuilder bq = QueryBuilders.boolQuery();
+	        	bq.must(QueryBuilders.termQuery("dimension", KeyConstan.RONGZIKUAIXUN));
 	    		bq.must(QueryBuilders.wildcardQuery("industry","*"+in+"*"));
 	    		for (int j = c.get(Calendar.MONTH) + 1; j < c.get(Calendar.MONTH) + 4; j++) {
 	    			String month=""+j;

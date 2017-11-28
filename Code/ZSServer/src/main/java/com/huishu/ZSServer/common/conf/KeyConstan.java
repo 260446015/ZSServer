@@ -13,6 +13,7 @@ public class KeyConstan {
 	public static final String OPENEYES_TOKEN = "jeNB8qBn5Cw5";
 	public static final String YUANQUDONGTAI = "园区动态";
 	public static final String RONGZIDONGTAI = "融资动态";
+	public static final String RONGZIKUAIXUN = "融资快讯";
 	public static final String ZHENGCEJIDU = "政策解读";
 	/**
 	 * local
