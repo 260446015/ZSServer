@@ -134,19 +134,8 @@ public class GardenTest {
 	public void testFindGdp() {
 		// 2017,2016,2015,2014
 		Integer[] ia = new Integer[] { 2017, 2016, 2015, 2014 };
-		List<GardenMap> findGardenGdp = gardenService.findGardenGdp("新材料", ia, "江苏");
-		findGardenGdp.forEach(System.out::println);
-	}
-
-	@Test
-	public void testGardenEcharts() {
-		List<Object[]> results = gardenService.getGardenIndustryEcharts("江苏");
-		results.forEach(arr -> {
-			for (Object obj : arr) {
-				System.out.print(obj);
-			}
-			System.out.println();
-		});
+//		List<GardenMap> findGardenGdp = gardenService.findGardenGdp("新材料", ia, "江苏");
+//		findGardenGdp.forEach(System.out::println);
 	}
 
 	@Test
