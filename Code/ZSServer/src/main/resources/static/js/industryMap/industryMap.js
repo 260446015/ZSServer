@@ -2,11 +2,13 @@
  * Created by zhangxin on 2017/11/15.
  */
 $(function (){
+	new Loading({isfullscreen:true,text:"正在努力加载,三秒后消失"}).show();
 	var industry = $("#mark-item1").val();
+	
 	/*获取企业排行的数据*/
 	industryHotRank(industry);
 	industryMapData(industry);
-	
+	new Loading({isfullscreen:true}).hide();
 });
 
 function getIndustry(industry){
@@ -133,7 +135,7 @@ function industryHotRank(industry){
 		                }
 		            },
 		            
-		            data: [16352, 17325, 18325, 19325, 23438, 31000, 121594, 134141, 141807]
+		            data: [50, 51, 52, 53, 54, 55, 56,57, 58]
 		        }
 		    ]
 		};
@@ -151,6 +153,9 @@ function industryHotRank(industry){
 			industryHotCity.series[0].data = b.reverse();
 			industryHotCityCharts.setOption(industryHotCity);
 			findCompany(data[0].area,industry);
+			industryHotCityCharts.on('click',function(param){
+				findCompany(param.data.name,industry);
+			});
 		 }
 	 });
  };
@@ -189,7 +194,6 @@ function industryMapData(a){
             }).slice(0, 6));
 			industryMap.setOption(chinaOption);
 		}
-		
 	});
 };
 var data = [
@@ -475,6 +479,9 @@ var chinaOption = {
 };
 
 var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
+industryMap.on('click',function(param){
+	findCompany(param.data.name,industry);
+});
 industryMap.setOption(chinaOption);
 /**
  * 地图点击事件

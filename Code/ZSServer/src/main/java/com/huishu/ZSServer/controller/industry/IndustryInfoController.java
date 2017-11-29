@@ -2,6 +2,7 @@ package com.huishu.ZSServer.controller.industry;
 
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
+import com.huishu.ZSServer.entity.dto.IndustryInfoDTO;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.service.indus.IndustryInfoService;
 
@@ -43,6 +45,25 @@ public class IndustryInfoController extends BaseController{
 	 */
 	@RequestMapping(value="/get",method=RequestMethod.GET)
 	public String getIndustryInfo(Map<String,Object> map){
+		JSONObject json = new JSONObject();
+		json.put("dimension", "科学研究");
+		JSONArray arr = new JSONArray();
+		JSONObject obj = new JSONObject();
+		obj.put("industryLabel", "人工智能");
+		arr.add(obj);
+		obj = new JSONObject();
+		obj.put("industryLabel", "大数据");
+		arr.add(obj);
+		obj = new JSONObject();
+		obj.put("industryLabel", "物联网");
+		arr.add(obj);
+		obj = new JSONObject();
+		obj.put("industryLabel", "生物技术");
+		arr.add(obj);
+		json.put("industryLabel", arr);
+		Page<AITInfo> page = service.findResearchResultList(json);
+		
+		map.put("content", page.getContent());
 		return "/industry/industryDynamics";
 	}
 	
@@ -54,15 +75,29 @@ public class IndustryInfoController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findKeyWord.json",method=RequestMethod.POST)
-	public AjaxResult  findKeyWord(@RequestBody String time){
+	public AjaxResult  findKeyWord(@Param("time") String time){
 		if(StringUtil.isEmpty(time)){
 			LOGGER.debug("产业资讯查询关键词云传参异常");
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		JSONObject obj1 = new JSONObject();
+		initTime(obj1, time);
+		obj1.put("dimension","产业头条");
+		JSONArray arr = new JSONArray();
 		JSONObject obj = new JSONObject();
-		initTime(obj, time);
-		obj.put("dimension","产业头条");
-		JSONArray jsonArray = service.getKeyWordList(obj);
+		obj.put("value", "人工智能");
+		arr.add(obj);
+		obj = new JSONObject();
+		obj.put("value", "大数据");
+		arr.add(obj);
+		obj = new JSONObject();
+		obj.put("value", "物联网");
+		arr.add(obj);
+		obj = new JSONObject();
+		obj.put("value", "生物技术");
+		arr.add(obj);
+		obj1.put("industryLabel", arr);
+		JSONArray jsonArray = service.getKeyWordList(obj1);
 		return success(jsonArray);
 	}
 	
@@ -73,13 +108,12 @@ public class IndustryInfoController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findArticleListByKeyWord.json",method=RequestMethod.POST)
-	public AjaxResult findArticleListByKeyWord(@RequestBody String[] msg){
-		if(msg.length==0){
+	public AjaxResult findArticleListByKeyWord(@Param("time") String time ,@Param("keyWord") String keyWord){
+		if(StringUtil.isEmpty(keyWord)||StringUtil.isEmpty(time)){
 			LOGGER.debug("产业资讯根据关键词查询文章传参异常");
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		String time = msg[0];
-		String keyWord  = msg[1];
+		
 		JSONObject obj = new JSONObject();
 		initTime(obj, time);
 		obj.put("keyWord", keyWord);
@@ -97,28 +131,53 @@ public class IndustryInfoController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findIndustryInfoArticleList.json",method=RequestMethod.POST)
-	public AjaxResult  findIndustryInfoArticleList(@RequestBody String[] msg){
-		if(msg.length==0){
+	public AjaxResult  findIndustryInfoArticleList(@RequestBody IndustryInfoDTO dto){
+		if(dto==null){
 			LOGGER.debug("产业资讯查询关键词云传参异常");
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		String  industry = msg[0];
-		String industryLabel = msg[1];
-		String area = msg[2];
-		String type = msg[3];
+		String  industry = dto.getIndustry();
+		String area = dto.getArea();
+		String type = dto.getSort();
 		JSONObject json = new JSONObject();
-		json.put("industry", industry);
-		json.put("industryLabel", industryLabel);
+		JSONArray array = new JSONArray();
+		JSONObject obj = new JSONObject();
+		if(industry.equals("全部")){
+			obj.put("value", "人工智能");
+			array.add(obj);
+			obj =new JSONObject();
+			obj.put("value", "大数据");
+			array.add(obj);
+			obj =new JSONObject();
+			obj.put("value", "物联网");
+			array.add(obj);
+			obj =new JSONObject();
+			obj.put("value", "生物技术");
+			array.add(obj);
+		}else{
+			obj.put("value", industry);
+			array.add(obj);
+		}
+		json.put("industry", array);
+		if(area.equals("全部")){
+			area="";
+		}
 		json.put("area", area);
 		json.put("type", type);
 		Page<AITInfo> page = service.getIndustryInfoByPage(json);
-		return success(page);
+		page.getContent().forEach(action->{
+			String content = action.getContent();
+			if(content.length()>150){
+				action.setContent(content.substring(0, 150));
+			}
+		});
+		return success(page.getContent());
 	}
 	
 	/**
 	 * 获取 科研成果 的 数据
 	 * @return
-	 */
+	 *//*
 	@ResponseBody
 	@RequestMapping(value="/findResearchResultList.json",method = RequestMethod.GET)
 	public  AjaxResult findResearchResultList(){
@@ -126,7 +185,7 @@ public class IndustryInfoController extends BaseController{
 		json.put("dimension", "科学研究");
 		Page<AITInfo> array =  service.findResearchResultList(json);
 		return success(array);
-	}
+	}*/
 	
 	
 }

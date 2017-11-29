@@ -63,7 +63,7 @@ public interface IndusSummitService {
 	 * @param dto
 	 * @return
 	 */
-	Page<SummitInfo> getIndustryList(IndustrySummitDTO dto);
+	Page<SummitInfo> getIndustryList(JSONObject obj);
 
 	/**
 	 * @param aid

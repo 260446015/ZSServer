@@ -63,7 +63,27 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONArray getKeyWordList(JSONObject json) {
-		BoolQueryBuilder bq = getQueryBoolBuilder(json);
+		BoolQueryBuilder bq = new BoolQueryBuilder();
+//		BoolQueryBuilder bq = getQueryBoolBuilder(json);
+		if (StringUtil.isNotEmpty(json.getString("dimension"))) {
+			String dimension = json.getString("dimension");
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
+		}
+		if (StringUtil.isNotEmpty(json.getString("startTime")) && StringUtil.isNotEmpty(json.getString("endTime"))) {
+			String startTime = json.getString("startTime");
+			String endTime = json.getString("endTime");
+			bq.must(QueryBuilders.rangeQuery("publishTime").from(startTime).to(endTime));
+		}
+		BoolQueryBuilder or = new BoolQueryBuilder();
+		JSONArray arr = json.getJSONArray("industryLabel");
+		if(arr!= null){
+			for(int i=0;i<arr.size();i++){
+				JSONObject jso = arr.getJSONObject(i);
+				String str = jso.getString("value");
+				or.should(QueryBuilders.termQuery("industryLabel",str ));
+			}
+		}
+		bq.must(or);
 		TermsBuilder articleBuilder = AggregationBuilders.terms("articleLink").field("articleLink").size(1000);
 		SearchQuery query = getSearchQueryBuilder().addAggregation(articleBuilder).withQuery(bq).build();
 		List<String> contentList = new ArrayList<String>();
@@ -89,8 +109,9 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 					if (name.equals("/n ")) {
 						list.remove(KeywordModel);
 					}
+					jsonArray.add(KeywordModel);
 				});
-				jsonArray.add((List<KeywordModel>) keywordCloud.get("result"));
+//				jsonArray.add((List<KeywordModel>) keywordCloud.get("result"));
 			}
 
 			return jsonArray;
@@ -121,6 +142,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 				jsonObject.put("id", hit.getId());
 				jsonObject.put("industryLabel", map.get("industryLabel").toString());
 				jsonObject.put("title", map.get("title").toString());
+				jsonObject.put("articleLink", map.get("articleLink").toString());
 				jsonArray.add(jsonObject);
 			}
 			return jsonArray;
@@ -134,27 +156,69 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 	
 	@Override
 	public Page<AITInfo> getIndustryInfoByPage(JSONObject json) {
-		BoolQueryBuilder bq = getQueryBoolBuilder(json);
+		BoolQueryBuilder bq = new BoolQueryBuilder();
+		BoolQueryBuilder or = new BoolQueryBuilder();
+		JSONArray arr = json.getJSONArray("industry");
+		if(arr!= null){
+			for(int i=0;i<arr.size();i++){
+				JSONObject jso = arr.getJSONObject(i);
+				String str = jso.getString("value");
+				or.should(QueryBuilders.termQuery("industryLabel",str ));
+			}
+		}
+		bq.must(or);
+		String area = json.getString("area");
+		if(StringUtil.isNotEmpty(area)){
+			bq.must(QueryBuilders.wildcardQuery("area", "*"+area+"*"));
+		}
 		String type = json.getString("type");
 		Pageable pageable = null;
 		Page<AITInfo> page = null;
 		if(type=="1"){
 			//按时间排序
-			pageable = new PageRequest(0, 10, new Sort(Direction.DESC, "publishTime"));
+			pageable = new PageRequest(0, 6, new Sort(Direction.DESC, "publishTime"));
 			page = rep.search(bq, pageable);
 		}else{
-			pageable = new PageRequest(0, 10,new Sort(Direction.ASC, "hitCount"));
+			pageable = new PageRequest(0, 6,new Sort(Direction.ASC, "hitCount"));
 			 page = rep.search(bq, pageable);
 		}
 		return page;
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Page<AITInfo> findResearchResultList(JSONObject json) {
-		BoolQueryBuilder bq = getQueryBoolBuilder(json);
-		Pageable pageable = new PageRequest(0, 10,new Sort(Direction.ASC, "hitCount"));
+		BoolQueryBuilder bq = new BoolQueryBuilder();
+		if (StringUtil.isNotEmpty(json.getString("dimension"))) {
+			String dimension = json.getString("dimension");
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
+		}
+		BoolQueryBuilder or = new BoolQueryBuilder();
+		JSONArray arr = json.getJSONArray("industryLabel");
+		if(arr!= null){
+			for(int i=0;i<arr.size();i++){
+				JSONObject jso = arr.getJSONObject(i);
+				or.should(QueryBuilders.termQuery("industryLabel", jso.getString("industryLabel")));
+			}
+		}
+		bq.must(or);
+		Pageable pageable = new PageRequest(0, 6,new Sort(Direction.ASC, "hitCount"));
 		Page<AITInfo> search = rep.search(bq, pageable);
+		search.getContent().forEach(action->{
+			List<String> list = null;
+			try {
+				list = action.getBus();
+				if(action.getBus().size()==0){
+					List business = getBusiness(action.getTitle(),action.getContent());
+					action.setBus(business);
+				}
+			} catch (Exception e) {
+				list =  getBusiness(action.getTitle(),action.getContent());
+				action.setBus(list);
+			}
+			
+		});
 		 return search;
 	}
 

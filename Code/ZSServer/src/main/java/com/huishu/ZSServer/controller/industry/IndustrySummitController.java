@@ -62,20 +62,49 @@ public class IndustrySummitController extends BaseController{
 		if(dto.getIndustry()== null||dto.getSort()== null||dto.getArea()== null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
+		JSONObject json = new JSONObject(); 
+		JSONArray array = new JSONArray();
+		JSONObject obj = new JSONObject();
+		if(dto.getIndustry().equals("全部")){
+			obj.put("value", "人工智能");
+			array.add(obj);
+			obj = new JSONObject();
+			obj.put("value", "大数据");
+			array.add(obj);
+			obj = new JSONObject();
+			obj.put("value", "物联网");
+			array.add(obj);
+			obj = new JSONObject();
+			obj.put("value", "生物技术");
+			array.add(obj);
+		}else{
+			obj.put("value", dto.getIndustry());
+			array.add(obj);
+		}
+		json.put("industry", array);
+		if(dto.getArea().equals("全部")){
+			json.put("area", "");
+		}else{
+			json.put("area", dto.getArea());
+		}
+		json.put("type", dto.getSort());
+		json.put("size", dto.getPageSize());
+		json.put("number", dto.getPageNumber());
+		
 		try {
-			Page<SummitInfo> page = service.getIndustryList(dto);
+			Page<SummitInfo> page = service.getIndustryList(json);
 			page.getContent().forEach(action->{
 				String[] split = action.getAddress().split("\n");
 				if(split.length!=0){
 					action.setAddress(split[0]);
 				}
 			});;
-			JSONObject obj = new JSONObject();
-			obj.put("content", page.getContent());
-			obj.put("number", page.getNumber());
-			obj.put("size", page.getSize());
-			obj.put("totalPages", page.getTotalPages());
-			return success(obj);
+			JSONObject obj1 = new JSONObject();
+			obj1.put("content", page.getContent());
+			obj1.put("number", page.getNumber());
+			obj1.put("size", page.getSize());
+			obj1.put("totalPages", page.getTotalPages());
+			return success(obj1);
 		} catch (Exception e) {
 			LOGGER.error("获取产业峰会列表失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);

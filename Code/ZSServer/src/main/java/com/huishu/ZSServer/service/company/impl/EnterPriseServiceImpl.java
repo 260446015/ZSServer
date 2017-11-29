@@ -24,7 +24,12 @@ public class EnterPriseServiceImpl implements EnterPriseService {
 	
 	@Override
 	public List<String> findCompanyName(String area, String industry) {
-		List<String> list = rep.getCompanyNameByIndustryAndArea(area, industry);
+		int count = rep.getCount(area, industry);
+		int i = (int)(Math.random()*count);
+		while(i>43){
+			i = (int)(Math.random()*count+1);
+		}
+		List<String> list = rep.getCompanyNameByIndustryAndArea(area, industry,i);
 		return list;
 	}
 
