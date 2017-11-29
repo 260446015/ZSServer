@@ -49,21 +49,23 @@ public class AnalysisServiceImpl extends AbstractService<CompanyAnnals> implemen
 	}
 
 	@Override
-	public List<JSONObject> getValueDistribution(String park, String type,String industry) {
-		List<JSONObject> list = new ArrayList<JSONObject>();
+	public JSONObject getValueDistribution(String park, String type,String industry) {
+		JSONObject object = new JSONObject();
+		List<String> time = new ArrayList<String>();
+		List<Double> count = new ArrayList<Double>();
+		List<Object[]> year;
 		if(type.equals("年税收")){
-			type="tax_revenue";
+			year=annalsRepository.countByTaxRevenueYear(park, industry);
 		}else{
-			type="output_value";
+			year=annalsRepository.countByOutputValueYear(park, industry);
 		}
-		List<Object[]> year = annalsRepository.countByYear(park, type,industry);
 		for (Object[] objects : year) {
-			JSONObject object = new JSONObject();
-			object.put("count", objects[0]);
-			object.put("year", objects[1]);
-			list.add(object);
+			time.add(objects[1].toString());
+			count.add(Double.valueOf(objects[0].toString()));
 		}
-		return list;
+		object.put("time", time);
+		object.put("count", count);
+		return object;
 	}
 
 	@Override

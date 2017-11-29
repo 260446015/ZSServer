@@ -63,7 +63,7 @@ public class FinancingController extends BaseController {
 		}
 		try {
 			Page<FinancingInfo> page = financingService.getCompanyList(dto);
-			return successPage(page);
+			return successPage(page,dto.getPageNumber()+1);
 		} catch (Exception e) {
 			LOGGER.error("获取融资企业列表失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
