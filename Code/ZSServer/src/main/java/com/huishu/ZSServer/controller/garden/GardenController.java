@@ -18,7 +18,6 @@ import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.DateUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
-import com.huishu.ZSServer.entity.GardenCompare;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
@@ -240,44 +239,6 @@ public class GardenController extends BaseController {
 			return a2.compareTo(a1);
 		});
 		return success(list);
-	}
-
-	/**
-	 * 加入园区对比的功能
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "addGardenCompare.json", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult addGardenCompare(Long gardenId) {
-		if (null == gardenId)
-			return error(MsgConstant.ILLEGAL_PARAM);
-		Long userId = 1L;
-		return success(gardenUserService.addGardenCompare(gardenId, userId));
-	}
-
-	/**
-	 * 展示园区对比的功能
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "getGardenCompare.json", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult getGardenCompare() {
-		Long userId = 1L;
-		return success(gardenUserService.getGardenCompare(userId, null));
-	}
-
-	/**
-	 * 删除园区对比数据的功能
-	 */
-	@RequestMapping(value = "deleteGardenCompare.json", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult deleteGardenCompare(Long gardenId) {
-		Long userId = 1L;
-		List<GardenCompare> list = gardenUserService.getGardenCompare(userId, gardenId);
-		boolean flag = gardenUserService.deleteCompare(list);
-		return success(flag);
 	}
 
 	/**
