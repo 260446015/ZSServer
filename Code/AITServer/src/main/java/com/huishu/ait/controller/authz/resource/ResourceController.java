@@ -90,11 +90,11 @@ public class ResourceController extends BaseController {
 	 */
 	@RequestMapping(value = "/getSearchList.json", method = RequestMethod.GET)
 	public void getSearchList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String name = request.getParameter(ConstantKey.DEFAULT_NAME_PARAM);
-		if (StringUtil.isEmpty(name)) {
+		String keyword = request.getParameter(ConstantKey.DEFAULT_NAME_PARAM);
+		if (StringUtil.isEmpty(keyword)) {
 			throw new Exception("name can not be null");
 		}
-		String redirectUri = skyeyeService.getSearchList(getCurrentShiroUser().getLoginName(), name);
+		String redirectUri = skyeyeService.getSearchList(getCurrentShiroUser().getLoginName(), keyword);
 		response.sendRedirect(redirectUri);
 	}
 

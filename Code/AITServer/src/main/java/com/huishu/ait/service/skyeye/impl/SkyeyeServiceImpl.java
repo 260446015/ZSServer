@@ -373,21 +373,23 @@ public class SkyeyeServiceImpl implements SkyeyeService {
 	}
 
 	@Override
-	public String getSearchList(String userName, String name) {
+	public String getSearchList(String userName, String keyword) {
 		String redirectUri = null;
 		try {
 			String accessToken = getToken();
 			Map<String, String> params = new LinkedHashMap<>();
 			params.put("authId", ConstantKey.OAUTH_AUTH_ID);
-			params.put("key", name);
+			params.put("key", keyword);
 			params.put("username", userName);
 			params.put("rememberMe", "true");
 			String sign = getSign(params, accessToken);
 			Map<String, String> uriParams = new LinkedHashMap<>();
 			uriParams.put("authId", ConstantKey.OAUTH_AUTH_ID);
-			uriParams.put("key", URLEncoder.encode(name, ENCODE));
+			uriParams.put("key", URLEncoder.encode(keyword, ENCODE));
+			uriParams.put("username", URLEncoder.encode(userName, ENCODE));
 			uriParams.put("sign", URLEncoder.encode(sign, ENCODE));
-			String responseBody = HttpUtils.sendGet(ConstantKey.SEARCH_LIST, uriParams);
+			uriParams.put("rememberMe", "true");
+			String responseBody = HttpUtils.sendGet(ConstantKey.LOGIN_URI, uriParams);
 			JSONObject obj = new JSONObject();
 			try {
 				obj = JSONObject.parseObject(responseBody);
