@@ -91,8 +91,15 @@ function showCompanyList(a, b, c, d, e, f, g) {// a-产业,b-注册时间,c-注�
 		data : JSON.stringify(req),
 		success : function(res) {
 			if (res.success) {
-				console.log(res.data);
-				console.log(park);
+				var arr = res.data.content;
+				var html = '';
+				for(var i=0;i<arr.length;i++){
+					html += '<div class="col-md-12 border-bottom"><a class="scatter-blocks no-border" href="./allCityParkDetails.html">' +
+					        '<span class="scatter-title">'+arr[i].companyName+'</span><span class="pull-right numbers">' +
+					        '<span class="glyphicon glyphicon-map-marker"></span>'+arr[i].province+'</span></a><p class="net-address mb20">' +
+					        '<span class="mr15">法定代表人：'+arr[i].boss+'</span><span class="mr15">注册资本：'+arr[i].registerCapital+'万</span><span class="mr15">注册时间：'+arr[i].registerDate+'</span></p></div>'
+				}
+				$("#companyList").html(html);
 			}
 		}
 	});
@@ -113,6 +120,11 @@ function showGardenInfo(data){
 		url:'/apis/area/findGardenInfo.json?gardenName='+data,
 		success:function(res){
 			if(res.success){
+				console.log(res.data);
+				if(res.data.flag)
+					$("#attation").html("取消关注");
+				else
+					$("#attation").html("关注")
 				$("#gardenName").html(res.data.gardenName);
 				$("#gardenAddress").html(res.data.address);
 				$("#registTime").html(res.data.establishDate);
@@ -121,4 +133,7 @@ function showGardenInfo(data){
 			}
 		}
 	});
+}
+function attation(){
+	alert($(this).val());
 }

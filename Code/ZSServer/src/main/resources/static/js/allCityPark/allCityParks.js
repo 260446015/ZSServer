@@ -2,11 +2,24 @@
  * Created by zhangxin on 2017/11/22.
  */
 $(function(){
+	var value = GetQueryString("area");
+	if(value != null)
+		area = value;
 	showGardenindustry();
 	showGardenArea();
 	showGardenList(industryType,area,sort,sortType);
 });
 
+function GetQueryString(key) {//获取地址栏中的name
+	// 获取参数
+	var url = window.location.search;
+	// 正则筛选地址栏
+	var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+	// 匹配目标参数
+	var result = url.substr(1).match(reg);
+	// 返回参数值
+	return result ? decodeURIComponent(result[2]) : null;
+}
 function showGardenindustry(){//获取园区产业
 	$.ajax({
 		type:'get',

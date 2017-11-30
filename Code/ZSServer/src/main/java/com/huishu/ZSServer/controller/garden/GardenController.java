@@ -19,7 +19,7 @@ import com.huishu.ZSServer.common.util.DateUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
-import com.huishu.ZSServer.entity.garden.GardenDTO;
+import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenIndustry;
 import com.huishu.ZSServer.entity.garden.GardenMap;
@@ -173,13 +173,14 @@ public class GardenController extends BaseController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/findGardenInfo.json", method = RequestMethod.GET,params={"gardenName"})
+	@RequestMapping(value = "/findGardenInfo.json", method = RequestMethod.GET, params = { "gardenName" })
 	@ResponseBody
 	public AjaxResult findGardenInfo(String gardenName) {
 		if (StringUtil.isEmpty(gardenName)) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		return success(gardenService.findGarden(gardenName));
+		Long userId = 1L;
+		return success(gardenService.findGarden(gardenName,userId));
 	}
 
 	/**
@@ -196,7 +197,7 @@ public class GardenController extends BaseController {
 		}
 		try {
 			Page<AITInfo> page = gardenService.getInformationPush(dto);
-			return successPage(page,dto.getPageNumber()+1);
+			return successPage(page, dto.getPageNumber() + 1);
 		} catch (Exception e) {
 			LOGGER.error("获取关注园区-情报推送失败！", e);
 			return error(MsgConstant.ILLEGAL_PARAM);
@@ -293,6 +294,7 @@ public class GardenController extends BaseController {
 	public AjaxResult getGardenArea() {
 		return success(gardenService.getGardenArea());
 	}
+
 	/**
 	 * 查询园区关注地域分类
 	 */
@@ -300,5 +302,14 @@ public class GardenController extends BaseController {
 	@ResponseBody
 	public AjaxResult getGardenAttainArea() {
 		return success(gardenUserService.getGardenAttainArea());
+	}
+
+	/**
+	 * 园区对比
+	 */
+	@RequestMapping(value = "getGardenCompare.json", method = RequestMethod.GET, params = "arrId")
+	@ResponseBody
+	public AjaxResult getGardenCompare(Long[] arrId) {
+		return success(gardenUserService.getGardenCompare(arrId));
 	}
 }

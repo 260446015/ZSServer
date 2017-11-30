@@ -79,16 +79,35 @@ function echartDataInit(arr){
 	return data1;
 };
 var  label = {
-        normal: {
-            show: true,
-            textStyle: {
-                fontSize: '16',
-                color: '#ffffff'
-            },
-            formatter: function(param) {
-                return param.data.name;
-            }
-        }
+	    normal: {
+	         color: 'transparent',
+	         borderColor: '#093982',
+	         borderWidth: 1,
+	         shadowBlur: 29,
+	         shadowColor: "#24a7dd",
+	         shadowOffsetX:10,
+	         shadowOffsetY:-1,
+	         opacity:1
+	     },
+	     emphasis: {
+	         color: new echarts.graphic.LinearGradient(
+               0, 0, 0, 1,
+               [
+                   {offset: 0, color: '#00a5fb'},
+                   {offset: 0.5, color: '#00caf2'},
+                   {offset: 1, color: '#00f0e8'}
+               ]
+           ),
+           borderColor:new echarts.graphic.LinearGradient(
+               0, 0, 0, 1,
+               [
+                   {offset: 0, color: '#00a5fb'},
+                   {offset: 0.5, color: '#00caf2'},
+                   {offset: 1, color: '#00f0e8'}
+               ]
+           )
+	     }
+	
     };
     var data1 = [
  		        {
