@@ -994,6 +994,7 @@ a.search-item.active{
 
 .border-shadow-box a.scatter-blocks {
     color:#0091c6;
+    margin-top: 15px;
 }
 .border-shadow-box a.scatter-blocks:hover{
     color:#00ffc4;
@@ -1011,7 +1012,7 @@ a.search-item.active{
 }
 .border-shadow-box .scatter-lib{
     padding-left: 0;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 /*model-box end*/
 /**img-list start*/

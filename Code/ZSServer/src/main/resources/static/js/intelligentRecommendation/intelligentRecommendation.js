@@ -4,7 +4,8 @@
 $(function () {
     var dot = {
         name: '强相关',
-        type: 'scatter',
+        type: 'effectScatter',
+        showEffectOn: 'emphasis',
         xAxisIndex: 0,
         yAxisIndex: 0,
         symbol: 'circle',
@@ -104,7 +105,8 @@ $(function () {
             series: [
             ...dataMap, {
             name: '弱相关',
-            type: 'scatter',
+            type: 'effectScatter',
+            showEffectOn: 'emphasis',
             xAxisIndex: 0,
             yAxisIndex: 0,
             symbol: 'circle',
