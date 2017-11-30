@@ -29,7 +29,7 @@ function ajaxPost(param){
 		data:JSON.stringify(param),
 		success:function(res){
 			if( res.message != null){
-				alert(res.message);
+				new Alert({flag:false,text:res.message,timer:2000}).show();
 			}else{
 				$('#summit-list').html(show(res.data.content));
 			}

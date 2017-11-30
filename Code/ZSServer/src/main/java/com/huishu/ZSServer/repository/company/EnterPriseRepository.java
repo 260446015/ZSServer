@@ -16,6 +16,9 @@ import com.huishu.ZSServer.entity.Enterprise;
  * 
  */
 public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> , JpaSpecificationExecutor<Enterprise>{
-	@Query(value="SELECT company FROM t_enterprise t WHERE t.area = ?1 and t.industry = ?2 ORDER BY t.scoring DESC LIMIT 0,7" , nativeQuery = true)
-	List<String> getCompanyNameByIndustryAndArea(String area, String industry);
+	@Query(value="SELECT company FROM t_enterprise t WHERE t.area = ?1 and t.industry = ?2 ORDER BY t.scoring DESC LIMIT ?3,7" , nativeQuery = true)
+	List<String> getCompanyNameByIndustryAndArea(String area, String industry,int i);
+	
+	@Query(value="SELECT count(*) FROM t_enterprise t WHERE t.area = ?1 and t.industry = ?2 ORDER BY t.scoring DESC " , nativeQuery = true)
+	int  getCount(String area, String industry);
 }

@@ -10,6 +10,7 @@
     <meta name="application-name" content="慧数招商">
     <!-- css共用部分 start -->
     <#include "/common/link.ftl"/>
+    <link href="/vendor/loading/css/loading.css" rel="stylesheet" />
     <!-- css 共用部分 end -->
     <!-- js 兼容低版本IE start -->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -166,6 +167,7 @@
     </div>
     <#include "/common/footer.ftl"/>
    <#include  "/common/script.ftl"/>
+   <script src="/vendor/loading/js/loading.js"></script>
     <script src="/js/industryMap/industryMap.js"></script>
 </body>
 </html>
