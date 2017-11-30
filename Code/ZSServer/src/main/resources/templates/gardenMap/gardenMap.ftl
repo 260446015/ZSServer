@@ -25,7 +25,7 @@
 <#include "/common/header.ftl"/>
 <div class="wrapper">
     <div class="page-content">
-      <#include "/common/sidebar2.ftl"/>
+      <#include "/common/sidebar3.ftl"/>
         <div class="right-content">
             <div class="row">
                 <div class="col-md-8">
@@ -88,7 +88,7 @@
                 </ul>
             </div>
             <div class="modal-footer text-center">
-                <a href="javascript:void(0);" class="btn btn-link">查看更多</a>
+                <a href="javascript:void(0);" class="btn btn-link" id="findMore">查看更多</a>
             </div>
         </div>
     </div>
