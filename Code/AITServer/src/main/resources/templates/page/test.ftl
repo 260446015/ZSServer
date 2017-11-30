@@ -380,30 +380,15 @@
 	}
     function doLogin() {
         $.ajax({
-            url: "/apis/security/generateKey.do",
-            dataType: "json",
+            type: 'post',
+            url: "/apis/login.do",
+            async: false,
+            data: {username: $('input[name=username]').val(), password: $('input[type=password]').val(), type: 'user'},
             success: function (response) {
-                if (response.success) {
-                    console.log("获取到加密钥匙");
-                    var exponent = response.data.publicKeyExponent;
-                    var modulus = response.data.publicKeyModulus;
-                    RSAUtils.setMaxDigits(200);
-                    var key = new RSAUtils.getKeyPair(exponent, "", modulus);
-                    var password = $('input[type=password]').val();
-                    var encrypedPwd = RSAUtils.encryptedString(key, password);
-                    $.ajax({
-                        type: 'post',
-                        url: "/apis/login.do",
-                        async: false,
-                        data: {username: $('input[name=username]').val(), password: encrypedPwd, type: 'user'},
-                        success: function (response) {
-	                        if(response.message!=null){
-	                        	alert(response.message);
-	                        }else{
-	                       		alert(response.data);
-	                        }
-                        }
-                    });
+                if(response.message!=null){
+                	alert(response.message);
+                }else{
+               		alert(response.data);
                 }
             }
         });

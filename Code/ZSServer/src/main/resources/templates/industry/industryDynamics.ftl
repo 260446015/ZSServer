@@ -67,24 +67,24 @@
                     <div class="model-body">
                         <div class="radio-box">
                             <label class="radio-inline">
-                                <input class="radio-item" name="timer" checked type="radio" />
+                                <input class="radio-item" name="timer" checked  value="近1周" type="radio" />
                                 近1周
                             </label>
                             <label class="radio-inline">
-                                <input class="radio-item" name="timer" type="radio" />
+                                <input class="radio-item" name="timer" value="近1个月"  type="radio" />
                                 近1个月
                             </label>
                             <label class="radio-inline">
-                                <input class="radio-item" name="timer" type="radio" />
+                                <input class="radio-item" name="timer" value="近6个月" type="radio" />
                                 近6个月
                             </label>
                             <label class="radio-inline">
-                                <input class="radio-item" name="timer" type="radio" />
+                                <input class="radio-item" name="timer" value="近1年" type="radio" />
                                 近1年
                             </label>
                         </div>
                         <div class="charts" id="scatter"></div>
-                        <div class="row">
+                        <div class="row" id="articleList">
                             <div class="col-md-6">
                                 <a class="scatter-blocks" href="javascript:void(0);">
                                     <span class="scatter-type">【新能源】</span>
@@ -130,84 +130,23 @@
                     </div>
                     <div class="model-body border-box">
                         <div class="row">
+                        <#list content as info>
                             <div class="col-md-6">
-                                <a class="scatter-blocks no-border" href="javascript:void(0);">
+                                <a class="scatter-blocks no-border" href="${info.articleLink}" target="_blank" >
                                     <span class="icon-block"></span>
-                                    <span class="scatter-type">【新能源】</span>
-                                    <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
+                                    <span class="scatter-type">${info.industryLabel}</span>
+                                    <span class="scatter-title">${info.title}</span>
                                 </a>
                                 <p class="scatter-content">
-                                    【TechWeb报道】近日，华为云AI开发部总经理罗华霖在深圳举办的GIIS-全球产业创新
-                                    峰会做了《华为人工智能实践与创新》主题演讲，其核心观点如下：目前人们看到的都是
-                                    弱人工智能，弱人 工智能的本质
+                                    ${info.summary}
                                 </p>
-                                <p class="scatter-lib"><span>时间：</span><span>涉及公司：泰州市创新电子有限公司</span></p>
+                                <p class="scatter-lib"><span>时间：${info.publishTime}</span><span>涉及公司：
+                                   <#list info.bus as param>
+                                       ${param}
+                                   </#list>
+                                </span></p>
                             </div>
-                            <div class="col-md-6">
-                                <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                    <span class="icon-block"></span>
-                                    <span class="scatter-type">【新能源】</span>
-                                    <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                </a>
-                                <p class="scatter-content">
-                                    【新浪科技讯北京时间10月10日早间消息，Facebook&nbsp;CEO马克&middot;扎克
-                                    伯格（MarkZuckerberg）今天宣布，该公司正在与美国红十字会共同为波多黎克提供
-                                    帮助，借助该公司正在与美国红十字会共同为波多黎克提供帮助
-                                </p>
-                                <p class="scatter-lib"><span>时间：</span><span>涉及公司：泰州市创新电子有限公司</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                    <span class="icon-block"></span>
-                                    <span class="scatter-type">【新能源】</span>
-                                    <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                </a>
-                                <p class="scatter-content">
-                                    【TechWeb报道】近日，华为云AI开发部总经理罗华霖在深圳举办的GIIS-全球产业创新
-                                    峰会做了《华为人工智能实践与创新》主题演讲，其核心观点如下：目前人们看到的都是
-                                    弱人工智能，弱人 工智能的本质
-                                </p>
-                                <p class="scatter-lib"><span>时间：</span><span>涉及公司：泰州市创新电子有限公司</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                    <span class="icon-block"></span>
-                                    <span class="scatter-type">【新能源】</span>
-                                    <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                </a>
-                                <p class="scatter-content">
-                                    【新浪科技讯北京时间10月10日早间消息，Facebook&nbsp;CEO马克&middot;扎克
-                                    伯格（MarkZuckerberg）今天宣布，该公司正在与美国红十字会共同为波多黎克提供
-                                    帮助，借助该公司正在与美国红十字会共同为波多黎克提供帮助
-                                </p>
-                                <p class="scatter-lib"><span>时间：</span><span>涉及公司：泰州市创新电子有限公司</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                    <span class="icon-block"></span>
-                                    <span class="scatter-type">【新能源】</span>
-                                    <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                </a>
-                                <p class="scatter-content">
-                                    【TechWeb报道】近日，华为云AI开发部总经理罗华霖在深圳举办的GIIS-全球产业创新
-                                    峰会做了《华为人工智能实践与创新》主题演讲，其核心观点如下：目前人们看到的都是
-                                    弱人工智能，弱人 工智能的本质
-                                </p>
-                                <p class="scatter-lib"><span>时间：</span><span>涉及公司：泰州市创新电子有限公司</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                    <span class="icon-block"></span>
-                                    <span class="scatter-type">【新能源】</span>
-                                    <span class="scatter-title">2017年第十九届中国国际高新技术成果交易会</span>
-                                </a>
-                                <p class="scatter-content">
-                                    【新浪科技讯北京时间10月10日早间消息，Facebook&nbsp;CEO马克&middot;扎克
-                                    伯格（MarkZuckerberg）今天宣布，该公司正在与美国红十字会共同为波多黎克提供
-                                    帮助，借助该公司正在与美国红十字会共同为波多黎克提供帮助
-                                </p>
-                                <p class="scatter-lib"><span>时间：</span><span>涉及公司：泰州市创新电子有限公司</span></p>
-                            </div>
+                            </#list>
                         </div>
                     </div>
                 </div>
@@ -221,25 +160,11 @@
                                 产业
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">全部</a>
-                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                <a href="javascript:void(0);" class="search-item">大数据</a>
-                                <a href="javascript:void(0);" class="search-item">互联网</a>
-                                <a href="javascript:void(0);" class="search-item">生物技术</a>
-                            </div>
-                        </div>
-                        <div class="search-group">
-                            <div class="search-item-title">
-                                二级产业
-                            </div>
-                            <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">全部</a>
-                                <a href="javascript:void(0);" class="search-item">电子核心基础产业</a>
-                                <a href="javascript:void(0);" class="search-item">高端软件和新型信息技术服务</a>
-                                <a href="javascript:void(0);" class="search-item">物联网</a>
-                                <a href="javascript:void(0);" class="search-item">大数据</a>
-                                <a href="javascript:void(0);" class="search-item">人工智能</a>
-                                <a href="javascript:void(0);" class="search-item">下一代信息网络产业</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(1,'全部')" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(1,'人工智能')" class="search-item">人工智能</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(1,'大数据')" class="search-item">大数据</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(1,'物联网')" class="search-item">物联网</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(1,'生物技术')" class="search-item">生物技术</a>
                             </div>
                         </div>
                         <div class="search-group">
@@ -247,11 +172,11 @@
                                 区域
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">全部</a>
-                                <a href="javascript:void(0);" class="search-item">北京</a>
-                                <a href="javascript:void(0);" class="search-item">上海</a>
-                                <a href="javascript:void(0);" class="search-item">广州</a>
-                                <a href="javascript:void(0);" class="search-item">深圳</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(2,'全部')" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(2,'北京')" class="search-item">北京</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(2,'上海')" class="search-item">上海</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(2,'广州')" class="search-item">广州</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(2,'深圳')" class="search-item">深圳</a>
                             </div>
                         </div>
                         <div class="search-group">
@@ -259,13 +184,13 @@
                                 排序
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">按热度</a>
-                                <a href="javascript:void(0);" class="search-item">按时间</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(3,'按热度')" class="search-item active">按热度</a>
+                                <a href="javascript:void(0);" onclick="getIndustry(3,'按时间')" class="search-item">按时间</a>
                             </div>
                         </div>
                     </div>
                     <div class="model-body border-box">
-                        <div class="row">
+                        <div class="row" id="industryInfoList">
                             <div class="col-md-12 border-bottom">
                                 <a class="scatter-blocks no-border" href="javascript:void(0);">
                                     <span class="scatter-type">【新能源】</span>

@@ -117,7 +117,7 @@
                             <a href="javascript:void(0);" onclick="myClick(3,'C轮')" class="search-item">C轮</a>
                             <a href="javascript:void(0);" onclick="myClick(3,'D轮')" class="search-item">D轮</a>
                             <a href="javascript:void(0);" onclick="myClick(3,'IPO上市')" class="search-item">IPO上市</a>
-                            <a href="javascript:void(0);" onclick="myClick(3,'新三板')" class="search-item">新三板</a>
+                            <a href="javascript:void(0);" onclick="myClick(3,'新三板定增轮')" class="search-item">新三板</a>
                         </div>
                     </div>
                     <div class="search-group">

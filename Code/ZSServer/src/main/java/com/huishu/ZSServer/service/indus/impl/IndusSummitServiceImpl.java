@@ -28,6 +28,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.ZSServer.entity.UserSummitInfo;
@@ -198,21 +199,31 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 	 * 获取峰会列表
 	 */
 	@Override
-	public Page<SummitInfo> getIndustryList(IndustrySummitDTO dto) {
+	public Page<SummitInfo> getIndustryList(JSONObject obj) {
+		
 		Sort sort;
-		if(dto.getSort().equals("按热度")){
+		if(obj.getString("type").equals("按热度")){
 			sort = new Sort(Direction.DESC,"hitCount");
 		}else{
 			sort = new Sort(Direction.DESC,"publishTime");
 		}
-		if(dto.getArea().equals("全部")){
-			dto.setAreas("");
+		
+		BoolQueryBuilder bq = new BoolQueryBuilder();
+		BoolQueryBuilder or = new BoolQueryBuilder();
+		JSONArray arr = obj.getJSONArray("industry");
+		if(arr!= null){
+			for(int i=0;i<arr.size();i++){
+				JSONObject jso = arr.getJSONObject(i);
+				String str = jso.getString("value");
+				or.should(QueryBuilders.termQuery("idustryThree",str ));
+			}
 		}
-		if(dto.getIndustry().equals("全部")){
-			dto.setIndustry("");
+		String area = obj.getString("area");
+		if(StringUtil.isNotEmpty(area)){
+			bq.must(QueryBuilders.wildcardQuery("area", "*"+area+"*"));
 		}
-		PageRequest pageRequest = new PageRequest(dto.getPageNumber(),dto.getPageSize(),sort);
-		Page<SummitInfo> page = search.findByAddressLikeAndIdustryTwiceLike(dto.getArea(),dto.getIndustry(),pageRequest);
+		PageRequest pageRequest = new PageRequest(obj.getIntValue("number"),obj.getIntValue("size"),sort);
+		Page<SummitInfo> page = search.search(bq, pageRequest);
 		return page;
 	}
 

@@ -86,7 +86,7 @@ public class AnalysisController extends BaseController{
 		}
 		try {
 			Page<Company> page = analysisService.getCompanyList(dto);
-			return successPage(page);
+			return successPage(page,dto.getPageNumber()+1);
 		} catch (Exception e) {
 			LOGGER.error("获取某轮次融资企业列表失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -108,7 +108,7 @@ public class AnalysisController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			List<JSONObject> list = analysisService.getValueDistribution(park,type,industry);
+			JSONObject list = analysisService.getValueDistribution(park,type,industry);
 			return success(list);
 		} catch (Exception e) {
 			LOGGER.error("获取价值榜分布图失败!", e);
@@ -131,7 +131,7 @@ public class AnalysisController extends BaseController{
 		}
 		try {
 			Page<CompanyAnnals> page = analysisService.getTopCompany(park,industry);
-			return successPage(page);
+			return successPage(page,1);
 		} catch (Exception e) {
 			LOGGER.error("获取TOP企业失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);

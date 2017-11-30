@@ -4,6 +4,7 @@ import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.INDEX;
 import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.TYPE;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,6 +13,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -41,6 +44,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
 import com.forget.category.CategoryModel;
 import com.huishu.ZSServer.common.conf.DBConstant;
+import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.openeyes.SearchCount;
@@ -62,7 +66,7 @@ public class AbstractService<T> {
 	private Client client;
 	@Autowired
 	protected ElasticsearchTemplate template;
-	
+
 	/**
 	 * @param title
 	 * @param content
@@ -90,8 +94,8 @@ public class AbstractService<T> {
 
 			}
 			return set;
-		}else{
-			
+		} else {
+
 			return null;
 		}
 	}
@@ -101,10 +105,10 @@ public class AbstractService<T> {
 		params.forEach((k, v) -> {
 			if (v instanceof Collection)
 				bq.must(QueryBuilders.termsQuery(k, v));
-			else{
-				if(k.equals("area")){
+			else {
+				if (k.equals("area")) {
 					bq.must(QueryBuilders.wildcardQuery("area", "*" + v + "*"));
-				}else
+				} else
 					bq.must(QueryBuilders.termQuery(k, v));
 			}
 		});
@@ -136,27 +140,27 @@ public class AbstractService<T> {
 			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				for (Map.Entry<String, Object> entry : params.entrySet()) {
-//					if (entry.getValue() instanceof String) {
-						String key = entry.getKey();
-						Object value = entry.getValue();
-						if (!value.equals("不限") && !value.equals("全部")) {
-							predicates.add(cb.equal(root.<String> get(key), value));
-						}
-//					}
+					// if (entry.getValue() instanceof String) {
+					String key = entry.getKey();
+					Object value = entry.getValue();
+					if (!value.equals("不限") && !value.equals("全部")) {
+						predicates.add(cb.equal(root.<String> get(key), value));
+					}
+					// }
 				}
 				return query.where(predicates.toArray(new Predicate[predicates.size()])).getGroupRestriction();
 			}
 		};
 	}
 
-	protected JSONObject getOpenEyesTarget(String spec, Map<String, Object> params,String from) {
+	protected JSONObject getOpenEyesTarget(String spec, Map<String, Object> params, String from) {
 		JSONObject parseObj = null;
 		try {
 			parseObj = JSONObject.parseObject(HttpUtils.sendHttpGet(spec, params));
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
 			String today = format.format(date);
-			String id = getGeneratedId(from+today);
+			String id = getGeneratedId(from + today);
 			SearchCount search = searchCountRepository.findOne(id);
 			search = assemblySearchCount(date, today, id, from, search);
 			searchCountRepository.save(search);
@@ -168,7 +172,7 @@ public class AbstractService<T> {
 	}
 
 	private SearchCount assemblySearchCount(Date date, String today, String id, String from, SearchCount search) {
-		if(null == search){
+		if (null == search) {
 			search = new SearchCount();
 			search.setId(id);
 			search.setToday(today);
@@ -176,7 +180,7 @@ public class AbstractService<T> {
 			search.setLastTime(date.getTime());
 			search.setTotal(1);
 			search.setFromType(from);
-		}else{
+		} else {
 			search.setLastTime(date.getTime());
 			search.setTotal(search.getTotal() + 1);
 		}
@@ -187,7 +191,7 @@ public class AbstractService<T> {
 		byte[] hashPassword = Digests.sha1(info.toString().getBytes(), null, Encodes.HASH_INTERATIONS);
 		return Encodes.encodeHex(hashPassword);
 	}
-	
+
 	/**
 	 * @param json
 	 * @return
@@ -221,6 +225,7 @@ public class AbstractService<T> {
 		}
 		return bq;
 	}
+
 	/**
 	 * @param json
 	 * @return
@@ -254,14 +259,16 @@ public class AbstractService<T> {
 		}
 		return bq;
 	}
+
 	/**
 	 * 得到点击数最多的文章id
+	 * 
 	 * @return
 	 */
-	public List<String> getMaxHitCountArticle(BoolQueryBuilder bq){
+	public List<String> getMaxHitCountArticle(BoolQueryBuilder bq) {
 		TopHitsBuilder hitCount = AggregationBuilders.topHits("hitCount").addField("hitCount");
 		AggregationBuilders.terms("").field("");
-		
+
 		return null;
 	}
 
@@ -273,115 +280,156 @@ public class AbstractService<T> {
 	protected NativeSearchQueryBuilder getSearchQueryBuilder() {
 		return new NativeSearchQueryBuilder().withIndices(INDEX).withTypes(TYPE);
 	}
-	
+
 	/**
 	 * 产业融资柱状分布图——按周
+	 * 
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countByWeek(String[] industry){
+	protected JSONObject countByWeek(String[] industry) {
 		return null;
 	}
-	
+
 	/**
 	 * 产业融资柱状分布图——按月
+	 * 
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countByMonth(String[] industry){
+	protected JSONObject countByMonth(String[] industry) {
 		return null;
 	}
-	
+
 	/**
 	 * 产业融资柱状分布图——按季度
+	 * 
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countBySeason(String[] industry){
+	protected JSONObject countBySeason(String[] industry) {
 		JSONObject result = new JSONObject();
-		Calendar c = Calendar.getInstance();  
-        int currentMonth = c.get(Calendar.MONTH) + 1;
-        String todayFour=c.get(Calendar.YEAR)+"第四季";
-        String todayThree=c.get(Calendar.YEAR)+"第三季";
-        String todayTwo=c.get(Calendar.YEAR)+"第二季";
-        String todayOne=c.get(Calendar.YEAR)+"第一季";
-        String beforeFour=(c.get(Calendar.YEAR)-1)+"第四季";
-        String beforeThree=(c.get(Calendar.YEAR)-1)+"第三季";
-        String beforeTwo=(c.get(Calendar.YEAR)-1)+"第二季";
-        if (currentMonth >= 1 && currentMonth <= 3){
-        	c.set(Calendar.MONTH, 0);
-        	String[] charts= {beforeTwo,beforeThree,beforeFour,todayOne};
-        	result.put("charts", charts);
-        }
-        else if (currentMonth >= 4 && currentMonth <= 6){
-        	c.set(Calendar.MONTH, 3);
-        	String[] charts= {beforeThree,beforeFour,todayOne,todayTwo};
-        	result.put("charts", charts);
-        }
-        else if (currentMonth >= 7 && currentMonth <= 9){
-        	c.set(Calendar.MONTH, 6);
-        	String[] charts= {beforeFour,todayOne,todayTwo,todayThree};
-        	result.put("charts", charts);
-        }
-        else if (currentMonth >= 10 && currentMonth <= 12){
-        	c.set(Calendar.MONTH, 9);
-        	String[] charts= {todayOne,todayTwo,todayThree,todayFour};
-        	result.put("charts", charts);
-        }
-        JSONArray array = new JSONArray();
-        for (String in : industry) {
-        	List<Double> list = new ArrayList<Double>();
-        	for (int i = 0; i < 4; i++) {
-	        	BoolQueryBuilder bq = QueryBuilders.boolQuery();
-	    		bq.must(QueryBuilders.wildcardQuery("industry","*"+in+"*"));
-	    		for (int j = c.get(Calendar.MONTH) + 1; j < c.get(Calendar.MONTH) + 4; j++) {
-	    			String month=""+j;
-	    			if(j<10) month= "0"+j;
-	    			bq.should(QueryBuilders.wildcardQuery("financingDate","*"+c.get(Calendar.YEAR)+"?"+month+"*"));
+		Calendar c = Calendar.getInstance();
+		int currentMonth = c.get(Calendar.MONTH) + 1;
+		String todayFour = c.get(Calendar.YEAR) + "第四季";
+		String todayThree = c.get(Calendar.YEAR) + "第三季";
+		String todayTwo = c.get(Calendar.YEAR) + "第二季";
+		String todayOne = c.get(Calendar.YEAR) + "第一季";
+		String beforeFour = (c.get(Calendar.YEAR) - 1) + "第四季";
+		String beforeThree = (c.get(Calendar.YEAR) - 1) + "第三季";
+		String beforeTwo = (c.get(Calendar.YEAR) - 1) + "第二季";
+		if (currentMonth >= 1 && currentMonth <= 3) {
+			c.set(Calendar.MONTH, 0);
+			String[] charts = { beforeTwo, beforeThree, beforeFour, todayOne };
+			result.put("charts", charts);
+		} else if (currentMonth >= 4 && currentMonth <= 6) {
+			c.set(Calendar.MONTH, 3);
+			String[] charts = { beforeThree, beforeFour, todayOne, todayTwo };
+			result.put("charts", charts);
+		} else if (currentMonth >= 7 && currentMonth <= 9) {
+			c.set(Calendar.MONTH, 6);
+			String[] charts = { beforeFour, todayOne, todayTwo, todayThree };
+			result.put("charts", charts);
+		} else if (currentMonth >= 10 && currentMonth <= 12) {
+			c.set(Calendar.MONTH, 9);
+			String[] charts = { todayOne, todayTwo, todayThree, todayFour };
+			result.put("charts", charts);
+		}
+		JSONArray array = new JSONArray();
+		for (String in : industry) {
+			List<Double> list = new ArrayList<Double>();
+			for (int i = 0; i < 4; i++) {
+				BoolQueryBuilder bq = QueryBuilders.boolQuery();
+				bq.must(QueryBuilders.termQuery("dimension", KeyConstan.RONGZIKUAIXUN));
+				bq.must(QueryBuilders.wildcardQuery("industry", "*" + in + "*"));
+				for (int j = c.get(Calendar.MONTH) + 1; j < c.get(Calendar.MONTH) + 4; j++) {
+					String month = "" + j;
+					if (j < 10)
+						month = "0" + j;
+					bq.should(QueryBuilders.wildcardQuery("financingDate",
+							"*" + c.get(Calendar.YEAR) + "?" + month + "*"));
 				}
-	    		bq.minimumNumberShouldMatch(1);
-	    		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3).setTypes(DBConstant.EsConfig.TYPE2);
-	    		SearchResponse searchResponse = srb.setQuery(bq).execute().actionGet();
-	    		Double esdata=0.00;
-	    		if (null != searchResponse && null != searchResponse.getHits()) {
-	    			Long totalHits = searchResponse.getHits().getTotalHits();
-	    			SearchResponse searchResponse2 = srb.setQuery(bq).setSize(totalHits.intValue()).execute().actionGet();
-	    			SearchHits hits = searchResponse2.getHits();
-	    			for (SearchHit searchHit : hits) {
-	    				Map<String, Object> map = searchHit.getSource();
-	    				String value = map.get("financingAmount").toString();
-	    				 if(value.indexOf("未透露")==-1&&value.indexOf("数")==-1){  
-	    					 String dataString = map.get("financingAmount").toString();
-	    					 if(dataString.indexOf("亿")==-1){
-	    						 esdata += Double.valueOf(dataString.replace("RMB", "").replace("万", ""))*0.001;
-	    					 }else{
-	    						 esdata += Double.valueOf(dataString.replace("RMB", "").replace("亿", ""));
-	    					 }
-						 }
+				bq.minimumNumberShouldMatch(1);
+				SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3)
+						.setTypes(DBConstant.EsConfig.TYPE2);
+				SearchResponse searchResponse = srb.setQuery(bq).execute().actionGet();
+				Double esdata = 0.00;
+				if (null != searchResponse && null != searchResponse.getHits()) {
+					Long totalHits = searchResponse.getHits().getTotalHits();
+					SearchResponse searchResponse2 = srb.setQuery(bq).setSize(totalHits.intValue()).execute()
+							.actionGet();
+					SearchHits hits = searchResponse2.getHits();
+					for (SearchHit searchHit : hits) {
+						Map<String, Object> map = searchHit.getSource();
+						String value = map.get("financingAmount").toString();
+						if (value.indexOf("未透露") == -1 && value.indexOf("数") == -1 && value.indexOf("及") == -1) {
+							String dataString = map.get("financingAmount").toString();
+							if (dataString.indexOf("RMB") != -1 || dataString.indexOf("¥") != -1
+									|| dataString.indexOf("人民币") != -1) {
+								String replace = dataString.replace("RMB", "").replace("人民币", "").replace("¥", "");
+								esdata += conversionData(replace);
+							} else if (dataString.indexOf("$") != -1 || dataString.indexOf("美元") != -1) {
+								String replace = dataString.replace("美元", "").replace("$", "");
+								esdata += conversionData(replace) * 6.6;
+							} else if (dataString.indexOf("港币") != -1) {
+								String replace = dataString.replace("港币", "");
+								esdata += conversionData(replace) * 0.8455;
+							} else {
+								LOGGER.error("无法识别的融资金额币种来源：" + dataString);
+							}
+						}
 					}
-	    		}
-	    		//RMB某亿
-	    		list.add(esdata);
-	    		c.add(Calendar.MONTH, -3);
+				}
+				// RMB某亿
+				BigDecimal bd=new BigDecimal(esdata); 
+			    bd=bd.setScale(4, BigDecimal.ROUND_HALF_UP); 
+				list.add(bd.doubleValue());
+				c.add(Calendar.MONTH, -3);
 			}
-        	c.add(Calendar.MONTH, +12);
-	        Collections.reverse(list);
-	        JSONObject object = new JSONObject();
-	        object.put("data", list);
-	        object.put("type", "bar");
-	        object.put("name", in);
-	        array.add(object);
-        }
-		result.put("series",array);
+			c.add(Calendar.MONTH, +12);
+			Collections.reverse(list);
+			JSONObject object = new JSONObject();
+			object.put("data", list);
+			object.put("type", "bar");
+			object.put("name", in);
+			array.add(object);
+		}
+		result.put("series", array);
 		return result;
 	}
-	
+
 	/**
 	 * 产业融资柱状分布图——按年
+	 * 
 	 * @param industry
 	 * @return
 	 */
-	protected JSONObject countByYear(String[] industry){
+	protected JSONObject countByYear(String[] industry) {
 		return null;
+	}
+
+	/**
+	 * 将字符串转成数字（单位：亿）
+	 * 
+	 * @param money
+	 * @return
+	 */
+	protected Double conversionData(String money) {
+		Double myMoney;
+		String regEx = "[^0-9]";
+		Pattern p = Pattern.compile(regEx);
+		Matcher m = p.matcher(money);
+		String moneyNum = m.replaceAll("").trim();
+		if (money.indexOf("亿") != -1) {
+			myMoney = Double.valueOf(moneyNum);
+		} else if (money.indexOf("千万") != -1) {
+			myMoney = Double.valueOf(moneyNum) * 0.1;
+		} else if (money.indexOf("万") != -1) {
+			myMoney = Double.valueOf(moneyNum) * 0.0001;
+		} else {
+			myMoney = 0.0;
+			LOGGER.error("无法识别的融资金额计量单位：" + money);
+		}
+		return myMoney;
 	}
 }

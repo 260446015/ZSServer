@@ -1,0 +1,36 @@
+.exhibition-box{
+    position: relative;
+    padding: 0;
+}
+
+/*参展企业*/
+.exhibition-row{
+    overflow: hidden;
+}
+.exhibition-row .exhibition-item{
+    float: left;
+    padding: 20px;
+    width: 50%;
+    font-size: 14px;
+    border-bottom: 1px solid #0a2038;
+}
+.exhibition-row:before{
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    background-color: #0a2038;
+}
+.exhibition-row .exhibition-item .company-text{
+    float: left;
+}
+.exhibition-row .exhibition-item .details-text{
+    float: right;
+    color: #00a5ff;
+}
+
+
+
+

@@ -139,7 +139,7 @@ public class TestJava8 {
 	public TestJava8() {
 		thead.set(i);
 	}
-	@Test
+	/*@Test
 	public void testBack(){
 		RunnerTask r = new RunnerTask();
 		Thread t1 = new Thread(r, "线程1");
@@ -151,5 +151,5 @@ public class TestJava8 {
 		t3.start();
 		t4.start();
 		
-	}
+	}*/
 }
