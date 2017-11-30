@@ -139,7 +139,7 @@ $(function () {
         ]
     }]
 };
-    $("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-122);
+    $("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-192-$(".mt50.mb20").height());
     var charts = echarts.init(document.getElementById("charts"),"customed");
     charts.setOption(option)
     charts.on("click",function (e) {
