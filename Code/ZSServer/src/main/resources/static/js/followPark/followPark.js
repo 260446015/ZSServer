@@ -2,6 +2,9 @@
  * Created by zhangxin on 2017/11/23.
  */
 $(function () {
+	showGardenindustry();
+    showGardenAttainArea();
+    showGardenAttainList(industryType,area,sort,sortType);
     var option = {
         tooltip: {
             trigger: 'item',
@@ -31,11 +34,11 @@ $(function () {
                     }
                 },
                 data:[
-                    {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'},
-                    {value:234, name:'联盟广告'},
-                    {value:135, name:'视频广告'},
-                    {value:1548, name:'搜索引擎'}
+                    {value:12, name:'直接访问'},
+                    {value:23, name:'邮件营销'},
+                    {value:50, name:'联盟广告'},
+                    {value:41, name:'视频广告'},
+                    {value:200, name:'搜索引擎'}
                 ]
             }
         ]
@@ -44,8 +47,18 @@ $(function () {
     // var circleCharts2 = echarts.init(document.getElementById("charts2"),"customed");
     // var circleCharts3 = echarts.init(document.getElementById("charts3"),"customed");
     var clickIndex = 0,chartsIndex=0;
-    $(".follow-btn").on("click",function () {
+    $("#gardenList").on("click",".follow-btn",function () {
         var imgSrc = $(this).parents(".layout-box").find(".left-img>img").attr("src");
+        var attId = $(this).parents(".border-bottom").find("input").eq(2).val();//关注园区id
+        var imgArr = $(".img-box-list .img-box");
+        var flag = false;
+        $(".contrast-content input[type=hidden]").each(function(index,item){
+        	if(item.value == attId){
+        		flag = true;
+        	}
+        });
+        if(flag)
+        	return;
         var _right_wrapper = $(".park-contrast-box");
         if(_right_wrapper.hasClass("open-charts")){
             if(chartsIndex == 3){
@@ -59,13 +72,29 @@ $(function () {
             if(clickIndex==3){
                 clickIndex = 0;
             }
-            _right_wrapper.addClass("open-img").find(".img-box-list>.img-box>img").eq(clickIndex).attr("src",imgSrc);
+            _right_wrapper.addClass("open-img").find(".img-box-list>.img-box>img").eq(clickIndex).attr("src",imgSrc).css("display","inline");
+            _right_wrapper.addClass("open-img").find(".img-box-list>.img-box>input[type=hidden]").eq(clickIndex).attr("value",attId);;
+//            _right_wrapper.addClass("open-img").find(".img-box-list>.img-box>img").eq(clickIndex).before('<input type="hidden" value="'+attId+'"/>');
             clickIndex++;
         }
     });
     $(".park-btn").on("click",function () {
         var parent_wrapper = $(this).parent();
         if(parent_wrapper.hasClass("open-img")){
+        	var value = $(".park-contrast-box").find(".img-box-list>.img-box>input[type=hidden]");
+        	var arr = new Array();
+        	value.each(function(){
+        		var value = $(this).val();
+        		if(value != ''){
+        			arr.push(value);
+        		}
+        	});
+        	if(arr.length < 2){
+        		return;
+        	}
+        	for(var i=0;i<arr.length;i++){
+        		$(".charts-box-list").find(".charts-box").eq(i).css("display","inline");
+        	}
             parent_wrapper.removeClass("open-img").addClass("open-charts");
             var circleCharts1 = echarts.init(document.getElementById("charts1"),"customed");
             var circleCharts2 = echarts.init(document.getElementById("charts2"),"customed");
@@ -79,9 +108,6 @@ $(function () {
             parent_wrapper.addClass("open-charts");
         }
     });
-    showGardenindustry();
-    showGardenAttainArea();
-    showGardenAttainList(industryType,area,sort,sortType);
 });
 function showGardenindustry(){//获取园区产业
 	$.ajax({
@@ -141,11 +167,10 @@ function showGardenAttainList(a,b,c,d){
 		success:function(res){
 			if(res.success){
 				var arr = res.data.content;
-				console.log(arr);
 				var html = "";
 				for (var i = 0; i < arr.length; i++) {
-					html += '<div class="col-md-12 border-bottom"><div class="layout-box">' +
-								'<div class="left-img"><img src="../images/list_img.jpg" width="160" /></div>' +
+					html += '<div class="col-md-12 border-bottom"><input type="hidden" class="gdp" value="'+arr[i].gdp+'"/><input type="hidden" class="square" value="'+arr[i].gardenSquare+'"/><input type="hidden" value="'+arr[i].id+'" class="attId"/><div class="layout-box">' +
+								'<div class="left-img"><img src="'+arr[i].gardenPicture+'" width="160" /></div>' +
 								'<div class="right-list"><a class="scatter-blocks no-border" href="./allCityParkDetails.html">'+
 								'<span class="scatter-title">'+arr[i].gardenName+'</span>'+
 								'<span class="scatter-type ml10">'+arr[i].gardenLevel+'</span>'+
@@ -157,11 +182,14 @@ function showGardenAttainList(a,b,c,d){
 								}
 								html += '</p><p class="net-address"><span class="mr15"><span class="glyphicon glyphicon-map-marker"></span>' +
 								arr[i].address +'</span><span class="mr15"><span class="glyphicon glyphicon-globe"></span>' +
-								arr[i].gardenWebsite + '</span><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right">园区对比</a>' +
-								'</p></div></div></div>'
+								arr[i].gardenWebsite + '</span><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right">园区对比</a><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right  mr15">取消关注</a>' +
+								'</p></div></div></div>';
 				}
 				$("#gardenList").html(html);
 			}
 		}
 	});
+}
+function showCompare(){
+	
 }

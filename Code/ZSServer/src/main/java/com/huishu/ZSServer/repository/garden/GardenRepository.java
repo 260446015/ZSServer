@@ -2,6 +2,8 @@ package com.huishu.ZSServer.repository.garden;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -24,4 +26,8 @@ public interface GardenRepository extends CrudRepository<GardenData, Long>, JpaS
 
 	@Query(value = "select province from t_garden_data group by province", nativeQuery = true)
 	List<String> findArea();
+
+	Page<GardenData> findByProvinceLikeAndIndustryTypeLike(String province,String industry,Pageable page);
+	
+	
 }
