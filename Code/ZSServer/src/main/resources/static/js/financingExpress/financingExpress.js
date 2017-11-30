@@ -118,7 +118,7 @@ function ajaxPost(param){
             if(response.message!=null){
             	alert(response.message);
             }else{
-           		$('#city_list').html(show(response.data));
+           		$('#city_list').html(show(response.data.dataList));
             }
         }
     });
