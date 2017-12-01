@@ -10,7 +10,7 @@ $(function () {
     		$(this).parents(".col-md-4").addClass("active");
     	}else{
     		if($(".input").val()==null||$(".input").val()==""){
-    			alert("请输入公司名");
+    			new Alert({flag: "warning",text:'请输入公司名',timer:1500}).show();
     		}else{
     			window.location.href="/apis/getcompany/listCompanyByName.json?companyName="+$(".input").val() 
     		}
@@ -18,7 +18,7 @@ $(function () {
     });
     $(".search-company-two").on("click",function () {
 		if($("#mySearch").val()==null||$("#mySearch").val()==""){
-			alert("请输入公司名");
+			new Alert({flag: "warning",text:'请输入公司名',timer:1500}).show();
 		}else{
 			window.location.href="/apis/getcompany/listCompanyByName.json?companyName="+$("#mySearch").val() 
 		}
@@ -43,11 +43,11 @@ $(function () {
                 success: function (result) {  
                 	$('#myModal').modal('hide');
                 	if(result.success&&result.data==null){
-                		alert("该名片未搜索到相关公司信息");
+                		new Alert({flag: "warning",text:'该名片未搜索到相关公司信息',timer:1500}).show();
                     }else if(result.success){
                     	window.location.href="/apis/getcompany/listCompanyByName.json?companyName="+result.data;
                     }else{
-                    	alert(result.message);
+                    	new Alert({flag:false,text:result.message,timer:1500}).show();
                     } 
                 }  
             });  
@@ -58,14 +58,14 @@ function run(input_file, get_data) {
     /*input_file：文件按钮对象*/  
     /*get_data: 转换成功后执行的方法*/  
     if (typeof (FileReader) === 'undefined') {  
-        alert("抱歉，你的浏览器不支持 FileReader，不能将图片转换为Base64，请使用现代浏览器操作！");  
+    	new Alert({flag:false,text:"抱歉，你的浏览器不支持 FileReader，不能将图片转换为Base64，请使用其他浏览器操作！",timer:1500}).show();
     } else {  
         try {  
             /*图片转Base64 核心代码*/  
             var file = input_file.files[0];  
             //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件  
-            if (!/image\/\w+/.test(file.type)) {  
-                alert("请确保文件为图像类型");  
+            if (!/image\/\w+/.test(file.type)) {
+            	new Alert({flag:false,text:"请确保文件为图像类型",timer:1500}).show();
                 return false;  
             }  
             var reader = new FileReader();  
@@ -74,7 +74,7 @@ function run(input_file, get_data) {
             }  
             reader.readAsDataURL(file);  
         } catch (e) {  
-            alert('图片转Base64出错啦！' + e.toString())  
+            new Alert({flag:false,text:"图片转Base64出错啦！" + e.toString(),timer:1500}).show();
         }  
     }  
 }

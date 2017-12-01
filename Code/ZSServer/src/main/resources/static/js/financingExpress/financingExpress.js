@@ -34,7 +34,7 @@ $(function(){
         url: "/apis/financing/getFinancingDynamic.json",
         success: function (response) {
             if(response.message!=null){
-            	alert(response.message);
+            	new Alert({flag:false,text:result.message,timer:1500}).show();
             }else{
            		showDynamic(response.data);
             }
@@ -55,7 +55,7 @@ function myCharts(d,type){
         data: JSON.stringify({industry:d,type:type}),
         success: function (response) {
             if(response.message!=null){
-            	alert(response.message);
+            	new Alert({flag:false,text:result.message,timer:1500}).show();
             }else{
             	changeOption(response.data);
             	barCharts.setOption(option,true);
@@ -92,7 +92,7 @@ function myCheck(d){
         data: JSON.stringify({industry:d}),
         success: function (response) {
             if(response.message!=null){
-            	alert(response.message);
+            	new Alert({flag:false,text:result.message,timer:1500}).show();
             }else{
             	showCheck(response.data);
             }
@@ -121,14 +121,18 @@ function ajaxPost(param){
         data: JSON.stringify(param),
         success: function (response) {
             if(response.message!=null){
-            	alert(response.message);
+            	new Alert({flag:false,text:result.message,timer:1500}).show();
             }else{
-            	page.init(response.data.totalNumber,response.data.pageNumber,options);
-            	$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
-            		var param={invest:invest,sort:sort,area:area,industry:industry,pageNumber:$(this).attr("page-data")-1};
-            		ajaxPost(param)
-                });
-           		$('#city_list').html(show(response.data.dataList));
+            	 if(response.data.totalNumber>0){
+	            	page.init(response.data.totalNumber,response.data.pageNumber,options);
+	            	$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+	            		var param={invest:invest,sort:sort,area:area,industry:industry,pageNumber:$(this).attr("page-data")-1};
+	            		ajaxPost(param)
+	                });
+            	 }else{
+            		 $('#page').html("");
+            	 }
+            	 $('#city_list').html(show(response.data.dataList));
             }
         }
     });
