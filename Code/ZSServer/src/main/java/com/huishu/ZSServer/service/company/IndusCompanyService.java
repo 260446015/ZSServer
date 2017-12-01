@@ -1,9 +1,6 @@
 package com.huishu.ZSServer.service.company;
 
-import java.util.List;
-
 import com.alibaba.fastjson.JSONArray;
-import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 
@@ -28,11 +25,10 @@ public interface IndusCompanyService {
 	 * @return
 	 */
 	Iterable<IndusCompany> listCompany();
-	
 	/**
-	 * 根据上传名片获取相关公司列表
+	 * 根据上传名片获取相关公司关键字
 	 * @param imageBase64
 	 * @return
 	 */
-	JSONArray uploadImage(String imageBase64);
+	String uploadImage(String imageBase64);
 }

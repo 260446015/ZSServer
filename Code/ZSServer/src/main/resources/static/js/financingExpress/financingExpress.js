@@ -2,6 +2,13 @@
  * Created by zhangxin on 2017/11/20.
  */
 var option;
+var options={
+	"id":"page",//显示页码的元素
+	"data":null,//显示数据
+    "maxshowpageitem":5,//最多显示的页码个数
+    "pagelistcount":10,//每页显示数据个数
+    "callBack":function(){}
+};
 var barCharts = echarts.init(document.getElementById("barCharts"),"customed");
 $("input[type=checkbox]").on('ifChanged', function(event){
 	var datalist= new Array();
@@ -51,14 +58,12 @@ function myCharts(d,type){
             	alert(response.message);
             }else{
             	changeOption(response.data);
-            	console.log(option)
             	barCharts.setOption(option,true);
             }
         }
     });
 }
 function changeOption(d){
-	console.log(d.series);
 	option = {
 	    tooltip : {
 	        trigger: 'axis'
@@ -118,7 +123,12 @@ function ajaxPost(param){
             if(response.message!=null){
             	alert(response.message);
             }else{
-           		$('#city_list').html(show(response.data));
+            	page.init(response.data.totalNumber,response.data.pageNumber,options);
+            	$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+            		var param={invest:invest,sort:sort,area:area,industry:industry,pageNumber:$(this).attr("page-data")-1};
+            		ajaxPost(param)
+                });
+           		$('#city_list').html(show(response.data.dataList));
             }
         }
     });
@@ -127,7 +137,7 @@ function showCheck(d){
 	var arr = [];
 	$.each(d, function(index, item){
 		arr.push('<div class="search-group"><div class="col-title">'+item.financingAmount+'</div>'+
-				  '<div class="col-title"><a href="javascript:void(0);" class="search-item">'+item.financingCompany+'</a></div>'+
+				  '<div class="col-title"><a href="/apis/getcompany/listCompanyByName.json?companyName='+item.financingCompany+'" class="search-item">'+item.financingCompany+'</a></div>'+
 				  '<div class="col-title"><a href="javascript:void(0);" class="search-item">'+item.industry+'</a></div></div>');
 	});
 	$('#company').html(arr.join(''));
@@ -137,8 +147,8 @@ function showDynamic(d){
 	var arr2 = [];
 	$.each(d, function(index, item){
 		var inner='<div class="model-body border-no-shadow"><div class="row"><div class="col-md-12 border-bottom">'+
-        '<a class="scatter-blocks no-border" href="javascript:void(0);">'+
-        '<span class="icon-block"></span><span class="scatter-type">'+item.industry+'</span>'+
+        '<a class="scatter-blocks no-border" href="'+item.articleLink+'" target="_blank">'+
+        '<span class="icon-block"></span><span class="scatter-type">【'+item.industry+'】</span>'+
         '  <span class="scatter-title">'+item.title+'</span></a></div></div></div>';
 		(index%2 ==0) ?arr.push(inner):arr2.push(inner); 
 	});
@@ -146,7 +156,6 @@ function showDynamic(d){
 	$('#city_dynamic2').html(arr2.join(''));
 }
 function show(d){
-	console.log(d)
     var arr = []
     $.each(d, function(index, item){
       var imageSrc=item.logo;
@@ -155,7 +164,7 @@ function show(d){
       }
       arr.push('<tr><td class="text-center">'+item.financingDate+'</td>'+
 			    '<td class="text-left"><img src="'+imageSrc+'" class="c-logo"/>'+
-			    '<p>'+item.financingCompany+'</p><p><span class="c-tag">'+item.industry+'</span>  <span class="c-tag">'+item.area+'</span></p></td>'+
+			    '<p><a href="/apis/getcompany/listCompanyByName.json?companyName='+item.financingCompany+'">'+item.financingCompany+'</a></p><p><span class="c-tag">'+item.industry+'</span>  <span class="c-tag">'+item.area+'</span></p></td>'+
 			    '<td class="text-center">'+item.invest+'</td>'+
 			    '<td class="text-center">'+item.financingAmount+'</td>'+
 			    '<td class="text-center"><p>'+item.investor+'</p></td>'+

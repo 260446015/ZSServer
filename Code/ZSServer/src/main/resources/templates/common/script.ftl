@@ -9,4 +9,5 @@
 <script src="/vendor/echarts/customed.js"></script>
 <script src="/vendor/alert/alert.js"></script>
 <script src="/js/common.js"></script>
+<script type="text/javascript" src="/js/page.js"></script>
 <!-- js 共用部分 end -->

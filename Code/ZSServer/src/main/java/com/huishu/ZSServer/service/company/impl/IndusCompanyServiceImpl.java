@@ -95,7 +95,7 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 	}
 
 	@Override
-	public JSONArray uploadImage(String imageBase64) {
+	public String uploadImage(String imageBase64) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("src_img ", imageBase64));
 		JSONObject object = HttpUtils.sendPost(KeyConstan.DISTINGUISH, params);
@@ -124,15 +124,7 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 		if (company.indexOf("办司") != -1) {
 			company.replace("办司", "");
 		}
-		List<NameValuePair> list = new ArrayList<NameValuePair>();
-		NameValuePair pair = new BasicNameValuePair("word", company);
-		params.add(pair);
-		JSONObject parse = HttpUtils.sendGet(KeyConstan.URL.SOUSUO, list);
-		if (parse.getInteger("companyCount") == 0) {
-			return null;
-		} else {
-			return parse.getJSONArray("data");
-		}
+		return company;
 	}
 
 }
