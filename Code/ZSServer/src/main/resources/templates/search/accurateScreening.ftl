@@ -22,13 +22,13 @@
 <div class="wrapper">
     <div class="page-content">
     <#include "/common/searchSidebar.ftl"/>
-        <div class="right-content">
+         <div class="right-content">
             <div class="mt50 mb20">
                 <div class="col-md-1">
                     <button class="btn btn-blue" id="search_tag" type="button">筛选标签</button>
                 </div>
                 <div>
-                    <button class="btn btn-fill btn-blue search-tag">生物技术产业
+                    <button class="btn btn-fill btn-blue search-tag">生物技术
                         <span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span>
                     </button>
                     <button class="btn btn-fill btn-blue search-tag">5000人以上
@@ -48,55 +48,43 @@
                 </div>
             </div>
             <div class="layer-person">
-                <h3 class="layer-person-title text-center">深圳市腾讯计算机系统有限公司</h3>
+                <h3 class="layer-person-title text-center" id="cname">深圳市腾讯计算机系统有限公司</h3>
                 <div class="layer-body small-line-height">
                     <div class="form-horizontal">
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">法人代表</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">马化腾</p>
+                                <p class="form-control-static" id="boss1">马化腾</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">状态</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">存续</p>
+                                <p class="form-control-static" id="state1">存续</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">注册时间</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">1998-11-11</p>
+                                <p class="form-control-static" id="time1">1998-11-11</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">行业</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">软件和信息技术服务业</p>
+                                <p class="form-control-static" id="ind1">软件和信息技术服务业</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">注册资本</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">6,500.0000万元人民币</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 text-right control-label">工商注册号</label>
-                            <div class="col-md-7">
-                                <p class="form-control-static">440301103448669</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 text-right control-label">企业类型</label>
-                            <div class="col-md-7">
-                                <p class="form-control-static">有限责任公司</p>
+                                <p class="form-control-static" id="money1">6,500.0000万元人民币</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">注册地址</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">深圳市南山区高新区高新南 一路飞亚达大厦5-10楼</p>
+                                <p class="form-control-static" id="address1">深圳市南山区高新区高新南 一路飞亚达大厦5-10楼</p>
                             </div>
                         </div>
                     </div>
@@ -108,10 +96,10 @@
             <div class="modal fade in customed-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <img class="lay lay-left-bottom" src="../images/left_bottom.png" alt="">
-                        <img class="lay lay-right-top" src="../images/right_top.png" alt="">
-                        <img class="lay lay-left-top" src="../images/left_bottom.png" alt="">
-                        <img class="lay lay-right-bottom" src="../images/right_top.png" alt="">
+                        <img class="lay lay-left-bottom" src="/images/left_bottom.png" alt="">
+                        <img class="lay lay-right-top" src="/images/right_top.png" alt="">
+                        <img class="lay lay-left-top" src="/images/left_bottom.png" alt="">
+                        <img class="lay lay-right-bottom" src="/images/right_top.png" alt="">
                         <div class="modal-header">
                             <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
                             <h4 class="modal-title" id="myModalLabel">选择企业筛选标签

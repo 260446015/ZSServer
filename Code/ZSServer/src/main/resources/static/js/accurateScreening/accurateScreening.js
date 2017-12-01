@@ -145,6 +145,27 @@ $(function () {
     var charts = echarts.init(document.getElementById("charts"),"customed");
     charts.setOption(option)
     charts.on("click",function (e) {
+    	var name = e.data[2];
+    	$.ajax({
+    		url:'/intelligent/getCompanyInfoByName.json',
+        	type:'POST',
+        	async: false,
+        	data:{name:name},
+        	success:function(res){
+        		if(res.data==null){
+        			new Alert({flag:false,text:res.message,timer:2000}).show();
+        		}
+        		var a = res.data;
+        		console.log(res.data);
+        		$('#cname').html(a.name);
+        		$('#address1').html(a.address);
+        		$('#time1').html(a.time);
+        		$('#boss1').html(a.boss);
+        		$('#ind1').html(a.industry);
+        		$('#money1').html(a.money);
+        		$('#state1').html(a.state);
+        	}
+    	});
         $(".layer-person").css({
             display: "block",
             top: e.event.offsetY,
@@ -156,5 +177,6 @@ $(function () {
     });
     $(".search-tag span.close").on("click",function () {
         $(this).parent().remove();
+        console.log($(this).parent().val());
     });
 });

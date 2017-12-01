@@ -21,4 +21,11 @@ public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> ,
 	
 	@Query(value="SELECT count(*) FROM t_enterprise t WHERE t.area = ?1 and t.industry = ?2 ORDER BY t.scoring DESC " , nativeQuery = true)
 	int  getCount(String area, String industry);
+
+	/**
+	 * @param company
+	 * @return
+	 * 根据全称查看公司数据
+	 */
+	Enterprise findByCompany(String company);
 }

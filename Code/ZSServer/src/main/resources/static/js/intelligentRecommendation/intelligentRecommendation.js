@@ -2,6 +2,7 @@
  * Created by zhangxin on 2017/11/27.
  */
 $(function () {
+	
     var dot = {
         name: '强相关',
         type: 'effectScatter',
@@ -9,7 +10,7 @@ $(function () {
         xAxisIndex: 0,
         yAxisIndex: 0,
         symbol: 'circle',
-        symbolSize: 40,
+        symbolSize: 20,
         label: {
             normal: {
                 show: true,
@@ -64,7 +65,7 @@ $(function () {
             })
         });
 
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
     var option = {
         title: {
             text: '',
@@ -110,13 +111,13 @@ $(function () {
             xAxisIndex: 0,
             yAxisIndex: 0,
             symbol: 'circle',
-            symbolSize: 120,
+            symbolSize: 100,
             label: {
                 normal: {
                     show: true,
                     textStyle: {
                         color:"#fff",
-                        fontSize: '20'
+                        fontSize: '15'
                     },
                     formatter: function(param) {
                         return param.data[2];
@@ -141,14 +142,68 @@ $(function () {
             ]
         }]
     };
-    $("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-122);
-    var charts = echarts.init(document.getElementById("charts"),"customed");
-    charts.setOption(option)
-    charts.on("click",function (e) {
-        $(".layer-person").css({
-            display: "block",
-            top: e.event.offsetY,
-            left: e.event.offsetX+200
-        });
-    })
+    
+    $.ajax({
+    	url:'/intelligent/list.json',
+    	type:'GET',
+    	async: false,
+    	success:function(res){
+    		if(res.data==null){
+    			new Alert({flag:false,text:res.message,timer:2000}).show();
+    		}
+    		console.log(res.data);
+    		var arr = res.data;
+    		initDataList(option,arr);
+    	    $("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-122);
+    	    var charts = echarts.init(document.getElementById("charts"),"customed");
+    	    charts.setOption(option)
+    	    charts.on("click",function (e) {
+    	    	var name = e.data[2];
+    	    	$.ajax({
+    	    		url:'/intelligent/getCompanyInfoByName.json',
+    	        	type:'POST',
+    	        	async: false,
+    	        	data:{name:name},
+    	        	success:function(res){
+    	        		if(res.data==null){
+    	        			new Alert({flag:false,text:res.message,timer:2000}).show();
+    	        		}
+    	        		var a = res.data;
+    	        		console.log(res.data);
+    	        		$('#name').html(a.name);
+    	        		$('#address').html(a.address);
+    	        		$('#time').html(a.time);
+    	        		$('#boss').html(a.boss);
+    	        		$('#ind').html(a.industry);
+    	        		$('#money').html(a.money);
+    	        		$('#state').html(a.state);
+    	        	}
+    	    	});
+    	        $(".layer-person").css({
+    	            display: "block",
+    	            top: e.event.offsetY,
+    	            left: e.event.offsetX+200
+    	        });
+    	        
+    	    })
+    		
+    	}
+    });
+   
 });
+function initDataList(option,arr){
+	
+	for(var i = 0;i<option.series.length;i++){
+		var  dd = option.series[i].data;
+		var aa = dd[dd.length-1];
+		for(var j=0;j<aa.length-1;j++){
+			if(j==2){
+				aa[j]=arr[i].companyName;
+			}
+		}
+		option.series[i].data.push(dd.push(aa));
+	}
+	console.log(option);
+	
+	return option;
+};

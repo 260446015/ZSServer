@@ -22,43 +22,43 @@
 <div class="wrapper">
     <div class="page-content">
        <#include "/common/searchSidebar.ftl"/>
-        <div class="right-content">
+         <div class="right-content">
             <div class="charts" id="charts"></div>
-            <div class="layer-person">
-                <h3 class="layer-person-title text-center">深圳市腾讯计算机系统有限公司</h3>
+            <div class="layer-person" id="#layer-person-info">
+                <h3 class="layer-person-title text-center" id="name">深圳市腾讯计算机系统有限公司</h3>
                 <div class="layer-body small-line-height">
                     <div class="form-horizontal">
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">法人代表</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">马化腾</p>
+                                <p class="form-control-static" id="boss">马化腾</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">状态</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">存续</p>
+                                <p class="form-control-static" id="state">存续</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">注册时间</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">1998-11-11</p>
+                                <p class="form-control-static" id="time">1998-11-11</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">行业</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">软件和信息技术服务业</p>
+                                <p class="form-control-static" id="ind">软件和信息技术服务业</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">注册资本</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">6,500.0000万元人民币</p>
+                                <p class="form-control-static" id="money">6,500.0000万元人民币</p>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="col-md-4 text-right control-label">工商注册号</label>
                             <div class="col-md-7">
                                 <p class="form-control-static">440301103448669</p>
@@ -69,11 +69,11 @@
                             <div class="col-md-7">
                                 <p class="form-control-static">有限责任公司</p>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label class="col-md-4 text-right control-label">注册地址</label>
                             <div class="col-md-7">
-                                <p class="form-control-static">深圳市南山区高新区高新南 一路飞亚达大厦5-10楼</p>
+                                <p class="form-control-static" id="address">深圳市南山区高新区高新南 一路飞亚达大厦5-10楼</p>
                             </div>
                         </div>
                     </div>
