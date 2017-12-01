@@ -29,8 +29,6 @@ import com.huishu.ZSServer.es.entity.FinancingInfo;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.financing.FinancingService;
 
-import scala.annotation.meta.setter;
-
 @Service
 public class FinancingServiceImpl extends AbstractService<T> implements FinancingService {
 	@Autowired
@@ -96,6 +94,7 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 				obj.put("id", searchHit.getId());
 				obj.put("title", map.get("title"));
 				obj.put("industry", map.get("industry"));
+				obj.put("articleLink", map.get("articleLink"));
 				list.add(obj);
 			});
 		}

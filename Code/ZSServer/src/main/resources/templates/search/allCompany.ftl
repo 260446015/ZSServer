@@ -41,160 +41,12 @@
                     <div class="model-body border-box remove-padding">
                         <!--开始本页面中的内容-->
                         <div class="row img-list-box remove-padding ">
-                            <div class="col-md-3">
-                                <div class="img-list company-list">
-                                    <div class="company-img">
-                                        <img src="/images/ZClick.png"/>
-                                    </div>
-                                    <p class="title company-title">中科点击北京科技有限公司</p>
-                                    <div class="details company-details">
-                                        <p> 经营范围:<span class="company-range">互联网信息采集与数据挖掘,搜索引擎核心技术</span></p>
-                                        <p>成立时间:<span class="company-time">2017-08-24</span></p>
-                                        <p>总部地点:<span class="company-address">北京</span></p>
-                                    </div>
-                                    <div class="company-mask">
-                                        <div class="circle-empty">
-                                            <img src="/images/see_icon.png" />
-                                            <a href="javascript:void(0);" class="text-center">查看详情</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list company-list">
-                                    <div class="company-img">
-                                        <img src="/images/ZClick.png"/>
-                                    </div>
-                                    <p class="title company-title">中科点击北京科技有限公司</p>
-                                    <div class="details company-details">
-                                        <p> 经营范围:<span class="company-range">互联网信息采集与数据挖掘,搜索引擎核心技术</span></p>
-                                        <p>成立时间:<span class="company-time">2017-08-24</span></p>
-                                        <p>总部地点:<span class="company-address">北京</span></p>
-                                    </div>
-                                    <div class="company-mask">
-                                        <div class="circle-empty">
-                                            <img src="/images/see_icon.png" />
-                                            <a href="javascript:void(0);" class="text-center">查看详情</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list company-list">
-                                    <div class="company-img">
-                                        <img src="/images/ZClick.png"/>
-                                    </div>
-                                    <p class="title company-title">中科点击北京科技有限公司</p>
-                                    <div class="details company-details">
-                                        <p> 经营范围:<span class="company-range">互联网信息采集与数据挖掘,搜索引擎核心技术</span></p>
-                                        <p>成立时间:<span class="company-time">2017-08-24</span></p>
-                                        <p>总部地点:<span class="company-address">北京</span></p>
-                                    </div>
-                                    <div class="company-mask">
-                                        <div class="circle-empty">
-                                            <img src="/images/see_icon.png" />
-                                            <a href="javascript:void(0);" class="text-center">查看详情</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list company-list">
-                                    <div class="company-img">
-                                        <img src="/images/ZClick.png"/>
-                                    </div>
-                                    <p class="title company-title">中科点击北京科技有限公司</p>
-                                    <div class="details company-details">
-                                        <p> 经营范围:<span class="company-range">互联网信息采集与数据挖掘,搜索引擎核心技术</span></p>
-                                        <p>成立时间:<span class="company-time">2017-08-24</span></p>
-                                        <p>总部地点:<span class="company-address">北京</span></p>
-                                    </div>
-                                    <div class="company-mask">
-                                        <div class="circle-empty">
-                                            <img src="/images/see_icon.png" />
-                                            <a href="javascript:void(0);" class="text-center">查看详情</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list company-list">
-                                    <div class="company-img">
-                                        <img src="/images/ZClick.png"/>
-                                    </div>
-                                    <p class="title company-title">中科点击北京科技有限公司</p>
-                                    <div class="details company-details">
-                                        <p> 经营范围:<span class="company-range">互联网信息采集与数据挖掘,搜索引擎核心技术</span></p>
-                                        <p>成立时间:<span class="company-time">2017-08-24</span></p>
-                                        <p>总部地点:<span class="company-address">北京</span></p>
-                                    </div>
-                                    <div class="company-mask">
-                                        <div class="circle-empty">
-                                            <img src="/images/see_icon.png" />
-                                            <a href="javascript:void(0);" class="text-center">查看详情</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list company-list">
-                                    <div class="company-img">
-                                        <img src="/images/baidu_logo.png"/>
-                                    </div>
-                                    <p class="title company-title">中科点击北京科技有限公司</p>
-                                    <div class="details company-details">
-                                        <p> 经营范围:<span class="company-range">互联网信息采集与数据挖掘,搜索引擎核心技术</span></p>
-                                        <p>成立时间:<span class="company-time">2017-08-24</span></p>
-                                        <p>总部地点:<span class="company-address">北京</span></p>
-                                    </div>
-                                    <div class="company-mask">
-                                        <div class="circle-empty">
-                                            <img src="/images/see_icon.png" />
-                                            <a href="javascript:void(0);" class="text-center">查看详情</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list company-list">
-                                    <div class="company-img">
-                                        <img src="/images/ZClick.png"/>
-                                    </div>
-                                    <p class="title company-title">中科点击北京科技有限公司</p>
-                                    <div class="details company-details">
-                                        <p> 经营范围:<span class="company-range">互联网信息采集与数据挖掘,搜索引擎核心技术</span></p>
-                                        <p>成立时间:<span class="company-time">2017-08-24</span></p>
-                                        <p>总部地点:<span class="company-address">北京</span></p>
-                                    </div>
-                                    <div class="company-mask">
-                                        <div class="circle-empty">
-                                            <img src="/images/see_icon.png" />
-                                            <a href="javascript:void(0);" class="text-center">查看详情</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="img-list company-list">
-                                    <div class="company-img">
-                                        <img src="/images/ZClick.png"/>
-                                    </div>
-                                    <p class="title company-title">中科点击北京科技有限公司</p>
-                                    <div class="details company-details">
-                                        <p> 经营范围:<span class="company-range">互联网信息采集与数据挖掘,搜索引擎核心技术</span></p>
-                                        <p>成立时间:<span class="company-time">2017-08-24</span></p>
-                                        <p>总部地点:<span class="company-address">北京</span></p>
-                                    </div>
-                                    <div class="company-mask">
-                                        <div class="circle-empty">
-                                            <img src="/images/see_icon.png" />
-                                            <a href="javascript:void(0);" class="text-center">查看详情</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        	 <ul id="city_list"></ul>
                         </div>
                     </div>
+					<div class="page-box clearfix">
+						<ul class="page pull-right" id="page"></ul>
+					</div>
                 </div>
             </div>
         </div>
@@ -204,13 +56,16 @@
 <!-- js 共用部分 start -->
 <#include  "/common/script.ftl"/>
 <!-- js 共用部分 end -->
+<script type="text/javascript" src="/js/page2.js"></script>
 <script src="/js/beamSearch/beamSearch.js"></script>
 <script>
 	var areaRatio= new Array();
-	<#list Request.data as list>
-    	areaRatio.push('${list[0]}');
-    </#list>
-    console.log(areaRatio)
+	<#if Request.data?? && (Request.data?size > 0) >
+		<#list Request.data as list>
+	    	areaRatio.push('${list}');
+	    </#list>
+    </#if>
+    showCompany(areaRatio);
 </script>
 </body>
 </html>

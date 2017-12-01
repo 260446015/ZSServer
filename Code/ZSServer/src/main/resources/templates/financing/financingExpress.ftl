@@ -146,9 +146,11 @@
                             <tbody id="city_list">
                             </tbody>
                         </table>
-                        <div><ul class="page" id="page"></ul></div>
                     </div>
                 </div>
+                <div class="page-box clearfix">
+                	<ul class="page pull-right" id="page"></ul>
+            	</div>
             </div>
         </div>
     </div>

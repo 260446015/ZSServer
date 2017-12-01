@@ -4,7 +4,7 @@
 
 $(function () {
     //计算内容区域的高度
-    $(".right-content").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-148).css("min-height",$(".right-content .mt88").height()+88);
+    //$(".right-content").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-148).css("min-height",$(".right-content .mt88").height()+88);
     $(".search-company").on("click",function () {
     	if($(this).parents(".active").length==0){
     		$(this).parents(".col-md-4").addClass("active");
@@ -77,4 +77,29 @@ function run(input_file, get_data) {
             alert('图片转Base64出错啦！' + e.toString())  
         }  
     }  
+}
+var options;
+function showCompany(list){
+   options={
+   	"id":"page",//显示页码的元素
+   	"data":list,//显示数据
+       "maxshowpageitem":5,//最多显示的页码个数
+       "pagelistcount":8,//每页显示数据个数
+       "callBack":function(result){
+       	   var cHtml="";
+           for(var i=0;i<result.length;i++){
+        	   var obj = eval('(' + result[i] + ')');
+               cHtml+='<div class="col-md-3"><div class="img-list company-list"><div class="company-img">'+
+               '<img src="/images/ZClick.png"/></div><p class="title company-title">'+obj.name+
+               '</p><div class="details company-details"><p> 法人:<span class="company-range">'+obj.legalPersonName+'</span></p>'+
+               '<p>成立时间:<span class="company-time">'+obj.estiblishTime.substring(0,10)+'</span></p>'+
+               '<p>注册资金:<span class="company-money">'+obj.regCapital+'</span></p>'+
+               '<p>总部地点:<span class="company-address">'+obj.base+'</span></p>'+
+               '<div class="company-mask"><div class="circle-empty"><img src="/images/see_icon.png" />'+
+               '<a href="javascript:void(0);" class="text-center">查看详情</a></div></div></div></div></div>';
+           }
+           $("#city_list").html(cHtml);//将数据增加到页面中
+       }
+   };
+   page.init(list.length,1,options);
 }

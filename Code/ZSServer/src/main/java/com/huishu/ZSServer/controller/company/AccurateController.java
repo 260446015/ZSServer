@@ -95,8 +95,13 @@ public class AccurateController extends BaseController{
 			OpeneyesDTO dto = new OpeneyesDTO();
 			dto.setCname(companyName);
 			JSONObject list = openeyesServiceImpl.getSousuoCompanyList(dto);
-			List<CompanyVO> array = JSONArray.parseArray(list.getJSONArray("data").toJSONString(), CompanyVO.class);
-			model.addAttribute("data",array);
+			if(list.getJSONArray("data")==null){
+				model.addAttribute("data",null);
+			}
+			else{
+				List<CompanyVO> array = JSONArray.parseArray(list.getJSONArray("data").toJSONString(), CompanyVO.class);
+				model.addAttribute("data",array);
+			}
 			return "/search/allCompany";
 		} catch (Exception e) {
 			LOGGER.error("模糊查询企业列表失败!", e);

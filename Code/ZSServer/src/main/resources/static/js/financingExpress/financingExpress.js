@@ -137,7 +137,7 @@ function showCheck(d){
 	var arr = [];
 	$.each(d, function(index, item){
 		arr.push('<div class="search-group"><div class="col-title">'+item.financingAmount+'</div>'+
-				  '<div class="col-title"><a href="javascript:void(0);" class="search-item">'+item.financingCompany+'</a></div>'+
+				  '<div class="col-title"><a href="/apis/getcompany/listCompanyByName.json?companyName='+item.financingCompany+'" class="search-item">'+item.financingCompany+'</a></div>'+
 				  '<div class="col-title"><a href="javascript:void(0);" class="search-item">'+item.industry+'</a></div></div>');
 	});
 	$('#company').html(arr.join(''));
@@ -147,8 +147,8 @@ function showDynamic(d){
 	var arr2 = [];
 	$.each(d, function(index, item){
 		var inner='<div class="model-body border-no-shadow"><div class="row"><div class="col-md-12 border-bottom">'+
-        '<a class="scatter-blocks no-border" href="javascript:void(0);">'+
-        '<span class="icon-block"></span><span class="scatter-type">'+item.industry+'</span>'+
+        '<a class="scatter-blocks no-border" href="'+item.articleLink+'" target="_blank">'+
+        '<span class="icon-block"></span><span class="scatter-type">【'+item.industry+'】</span>'+
         '  <span class="scatter-title">'+item.title+'</span></a></div></div></div>';
 		(index%2 ==0) ?arr.push(inner):arr2.push(inner); 
 	});
@@ -164,7 +164,7 @@ function show(d){
       }
       arr.push('<tr><td class="text-center">'+item.financingDate+'</td>'+
 			    '<td class="text-left"><img src="'+imageSrc+'" class="c-logo"/>'+
-			    '<p>'+item.financingCompany+'</p><p><span class="c-tag">'+item.industry+'</span>  <span class="c-tag">'+item.area+'</span></p></td>'+
+			    '<p><a href="/apis/getcompany/listCompanyByName.json?companyName='+item.financingCompany+'">'+item.financingCompany+'</a></p><p><span class="c-tag">'+item.industry+'</span>  <span class="c-tag">'+item.area+'</span></p></td>'+
 			    '<td class="text-center">'+item.invest+'</td>'+
 			    '<td class="text-center">'+item.financingAmount+'</td>'+
 			    '<td class="text-center"><p>'+item.investor+'</p></td>'+
