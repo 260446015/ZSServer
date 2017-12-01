@@ -287,7 +287,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "apis/temporaryDemo.do", method = RequestMethod.GET)
 	public void temporaryDemo(String user,HttpServletRequest request, HttpServletResponse response) {
 		try {
-			/*KeyPair keyPair = RSAUtils.getKeys();
+			KeyPair keyPair = RSAUtils.getKeys();
 			RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
 			RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
 			String modulus = publicKey.getModulus().toString();
@@ -298,8 +298,8 @@ public class LoginController extends BaseController {
 			RSAPrivateKey priKey = RSAUtils.getPrivateKey(modulus, private_exponent);
 			request.getSession().setAttribute("privateKey", priKey);
 			// 加密后的密文
-			String mi = RSAUtils.encryptByPublicKey(new StringBuffer(user).reverse().toString(), pubKey);*/
-			UsernamePasswordToken token = new CaptchaUsernamePasswordToken(user, user.toCharArray(), false, "", "",
+			String mi = RSAUtils.encryptByPublicKey(new StringBuffer(user).reverse().toString(), pubKey);
+			UsernamePasswordToken token = new CaptchaUsernamePasswordToken(user, mi.toCharArray(), false, "", "",
 					"user");
 			Subject currentUser = SecurityUtils.getSubject();
 			currentUser.login(token);

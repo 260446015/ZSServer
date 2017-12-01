@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery1.10.2.min.js"></script>
 		<script type="text/javascript" src="/assets/js/security.js"></script>
 		<script type="text/javascript" src="/assets/js/jquery.tablesort.js"></script>
 		<script type="text/javascript" src="/assets/js/ajaxfileupload.js"></script>
@@ -49,7 +49,7 @@
 		            <div>
 		            <lable>名片:</lable>
                     <input type="file" id="file" name="file" onchange="pushImg();"/> 
-                    <img src="/images/a2e552bb-523d-44de-b57a-e6c41c693d77.jpg"  width="149" height="149"/> 
+                    <img src="/images/a2e552bb523d44deb57ae6c41c693d77.jpg"  width="149" height="149"/> 
                     <input type="hidden" id="pic" name="pic" /></div>
 		        <div>
 		            <lable>提交:</lable>
@@ -380,18 +380,33 @@
 	}
     function doLogin() {
         $.ajax({
-            type: 'post',
-            url: "/apis/login.do",
-            async: false,
-            data: {username: $('input[name=username]').val(), password: $('input[type=password]').val(), type: 'user'},
-            success: function (response) {
-                if(response.message!=null){
-                	alert(response.message);
-                }else{
-               		alert(response.data);
-                }
-            }
-        });
+            url: "/apis/security/generateKey.do",
+            dataType: "json",
+             success: function (response) {
+                if (response.success) {
+                    console.log("获取到加密钥匙");
+                    var exponent = response.data.publicKeyExponent;
+                    var modulus = response.data.publicKeyModulus;
+                    RSAUtils.setMaxDigits(200);
+                    var key = new RSAUtils.getKeyPair(exponent, "", modulus);
+                    var password = $('input[type=password]').val();
+                    var encrypedPwd = RSAUtils.encryptedString(key, password);
+                    $.ajax({
+                        type: 'post',
+                        url: "/apis/login.do",
+                        async: false,
+                        data: {username: $('input[name=username]').val(), password: encrypedPwd, type: 'user'},
+                        success: function (response) {
+	                        if(response.message!=null){
+	                        	alert(response.message);
+	                        }else{
+	                       		alert(response.data);
+	                        }
+                        }
+                    });
+                 }
+             }
+});
     }
     function my(){
 		$.ajax({
