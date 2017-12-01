@@ -21,7 +21,7 @@
 <#include "/common/header.ftl"/>
 <div class="wrapper">
     <div class="page-content">
-    <#include "/common/sidebar4.ftl"/>
+    <#include "/common/searchSidebar.ftl"/>
         <div class="right-content">
             <div class="mt50 mb20">
                 <div class="col-md-1">
