@@ -37,6 +37,7 @@ import com.huishu.ZSServer.entity.openeyes.Staff;
 import com.huishu.ZSServer.entity.openeyes.TaxCredit;
 import com.huishu.ZSServer.entity.openeyes.TeamMember;
 import com.huishu.ZSServer.entity.openeyes.TouZi;
+import com.huishu.ZSServer.exception.OpeneyesException;
 import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.openeyes.AbnormalRepository;
 import com.huishu.ZSServer.repository.openeyes.BaseInfoRepository;
@@ -135,6 +136,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("result");
 		} catch (Exception e) {
 			log.debug("天眼查主要人员查询出现问题",e.getMessage());
+			return openEyesTarget;
 		}
 		jsonArray.forEach((obj) -> {
 			Staff parseObject = JSONObject.parseObject(obj.toString(), Staff.class);
@@ -146,7 +148,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getBaseInfo(OpeneyesDTO dto) {
+	public JSONObject getBaseInfo(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject openEyesTarget = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -162,6 +164,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		BaseInfo parseObject = null;
 		if(null != openEyesTarget){
 			JSONObject jsonObj = openEyesTarget.getJSONObject("result");
+			if(jsonObj == null){
+				throw new OpeneyesException();
+			}
 			parseObject = JSONObject.parseObject(jsonObj.toString(), BaseInfo.class);
 			list.add(parseObject);
 			if(dto.getFlag() != null){
@@ -208,7 +213,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getBranch(OpeneyesDTO dto) {
+	public JSONObject getBranch(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject openEyesTarget = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -228,8 +233,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			JSONArray jsonArray = null;
 			try {
 				jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("result");
-			} catch (Exception e) {
-				log.debug("天眼查分支机构查询出现问题",e.getMessage());
+			} catch (NullPointerException e) {
+				log.debug("天眼查分支机构查询数据为空",e.getMessage());
+				throw new OpeneyesException();
 			}
 			if(jsonArray != null){
 				jsonArray.forEach(obj -> {
@@ -244,7 +250,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getHistoryRongZi(OpeneyesDTO dto) {
+	public JSONObject getHistoryRongZi(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject openEyesTarget = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -264,8 +270,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			JSONArray jsonArray = null;
 			try {
 				jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
-			} catch (Exception e) {
-				log.debug("天眼查历史融资查询出现问题",e.getMessage());
+			} catch (NullPointerException e) {
+				log.debug("天眼查历史融资查询数据为空",e.getMessage());
+				throw new OpeneyesException();
 			}
 			if(jsonArray != null){
 				jsonArray.forEach(obj -> {
@@ -279,7 +286,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getTeamMember(OpeneyesDTO dto) {
+	public JSONObject getTeamMember(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject openEyesTarget = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -298,8 +305,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
-		} catch (Exception e) {
-			log.debug("天眼查核心团队查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查核心团队查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
@@ -312,7 +320,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getProductInfo(OpeneyesDTO dto) {
+	public JSONObject getProductInfo(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -331,8 +339,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
-		} catch (Exception e) {
-			log.debug("天眼查企业业务查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查企业业务查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
@@ -345,7 +354,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getTouZi(OpeneyesDTO dto) {
+	public JSONObject getTouZi(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -364,8 +373,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
-		} catch (Exception e) {
-			log.debug("天眼查投资案例查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查投资案例查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
@@ -379,7 +389,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getJingPin(OpeneyesDTO dto) {
+	public JSONObject getJingPin(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject openEyesTarget = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -400,8 +410,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
-		} catch (Exception e) {
-			log.debug("天眼查竞品查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查竞品查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
@@ -417,7 +428,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getShangBiao(OpeneyesDTO dto) {
+	public JSONObject getShangBiao(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -436,8 +447,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("items");
-		} catch (Exception e) {
-			log.debug("天眼查商标查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查商标查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
@@ -450,7 +462,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getPatents(OpeneyesDTO dto) {
+	public JSONObject getPatents(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -469,8 +481,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("items");
-		} catch (Exception e) {
-			log.debug("天眼查专利查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查专利查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
@@ -483,7 +496,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getCopyReg(OpeneyesDTO dto) {
+	public JSONObject getCopyReg(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -502,8 +515,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("items");
-		} catch (Exception e) {
-			log.debug("天眼查著作权查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查著作权查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
@@ -517,7 +531,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getIcp(OpeneyesDTO dto) {
+	public JSONObject getIcp(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -542,7 +556,8 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				newList.add(parseObject);
 			});
 			icpRepository.save(newList);
-		}
+		}else
+			throw new OpeneyesException();
 		return openEyesTarget;
 	}
 
@@ -595,7 +610,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}*/
 
 	@Override
-	public JSONObject getAbnormal(OpeneyesDTO dto) {
+	public JSONObject getAbnormal(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -614,8 +629,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray abnormal = null;
 		try {
 			abnormal = openEyesTarget.getJSONObject("data").getJSONArray("result");
-		} catch (Exception e) {
-			log.debug("天眼查经营异常查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查经营异常查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(abnormal != null){
 			abnormal.forEach(obj -> {
@@ -631,7 +647,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getPunishmentInfo(OpeneyesDTO dto) {
+	public JSONObject getPunishmentInfo(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -650,8 +666,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
-		} catch (Exception e) {
-			log.debug("天眼查行政处罚查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查行政处罚数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
@@ -666,7 +683,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getIllegalinfo(OpeneyesDTO dto) {
+	public JSONObject getIllegalinfo(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -685,8 +702,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
-		} catch (Exception e) {
-			log.debug("天眼查严重违法查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查严重违法查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
@@ -702,7 +720,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getOwnTax(OpeneyesDTO dto) {
+	public JSONObject getOwnTax(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -721,8 +739,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
-		} catch (Exception e) {
-			log.debug("天眼查欠税公告查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查欠税公告查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
@@ -737,7 +756,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getNews(OpeneyesDTO dto) {
+	public JSONObject getNews(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -752,8 +771,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONArray("result");
-		} catch (Exception e) {
-			log.debug("天眼查新闻查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查新闻查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
@@ -768,7 +788,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getDishonest(OpeneyesDTO dto) {
+	public JSONObject getDishonest(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -786,8 +806,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
-		} catch (Exception e) {
-			log.debug("天眼查失信人查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查失信人查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
@@ -800,7 +821,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getRiskInfo(OpeneyesDTO dto) {
+	public JSONObject getRiskInfo(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -822,8 +843,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray internalList = null;
 		try {
 			internalList = openEyesTarget.getJSONObject("data").getJSONArray("internalList");
-		} catch (Exception e) {
-			log.debug("天眼查企业风险查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查企业风险查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(internalList != null){
 			internalList.forEach(obj -> {
@@ -835,8 +857,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray externalList = null;
 		try {
 			externalList = openEyesTarget.getJSONObject("data").getJSONArray("externalList");
-		} catch (Exception e) {
-			log.debug("天眼查企业风险查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查企业风险查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(externalList != null){
 			externalList.forEach(obj -> {
@@ -850,7 +873,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getHumanRiskInfo(OpeneyesDTO dto) {
+	public JSONObject getHumanRiskInfo(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -867,8 +890,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("externalList");
-		} catch (Exception e) {
-			log.debug("天眼查人风险查询出现问题",e.getMessage());
+		} catch (NullPointerException e) {
+			log.debug("天眼查人风险查询数据为空",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
@@ -902,6 +926,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");
 		} catch (Exception e) {
 			log.debug("天眼查风险信息查询出现问题",e.getMessage());
+			return openEyesTarget;
 		}
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
@@ -915,7 +940,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
-	public JSONObject getTaxCredit(OpeneyesDTO dto) {
+	public JSONObject getTaxCredit(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
@@ -933,8 +958,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
 			log.debug("天眼查税务评级查询出现问题",e.getMessage());
+			throw new OpeneyesException();
 		}
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {

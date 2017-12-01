@@ -245,9 +245,9 @@ public class GardenController extends BaseController {
 	/**
 	 * 访问链接
 	 */
-	@RequestMapping(value = { "{page}" })
-	public String gardenMap(@PathVariable String page) {
-		return "gardenMap/" + page;
+	@RequestMapping(value = { "/{path}/{page}" })
+	public String gardenMap(@PathVariable String path,@PathVariable String page) {
+		return path +"/" + page;
 	}
 
 	/**

@@ -36,6 +36,17 @@ public class SearchCount implements Serializable {
 	private Integer total;
 	/** 来源 */
 	private String fromType;
+	/** 访问接口 */
+	private String spec;
+	
+
+	public String getSpec() {
+		return spec;
+	}
+
+	public void setSpec(String spec) {
+		this.spec = spec;
+	}
 
 	public String getId() {
 		return id;
