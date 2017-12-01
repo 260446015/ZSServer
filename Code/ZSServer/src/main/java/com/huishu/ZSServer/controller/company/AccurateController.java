@@ -1,27 +1,28 @@
 package com.huishu.ZSServer.controller.company;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
-import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
-import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.IndusCompany;
+import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
+import com.huishu.ZSServer.entity.vo.CompanyVO;
 import com.huishu.ZSServer.service.company.IndusCompanyService;
+import com.huishu.ZSServer.service.openeyes.impl.OpeneyesServiceImpl;
 
 /**
  * @author hhy
@@ -30,7 +31,7 @@ import com.huishu.ZSServer.service.company.IndusCompanyService;
  * @return 
  * 精准招商模块--智能招商
  */
-@RestController
+@Controller
 @RequestMapping(value = "/apis/getcompany")
 public class AccurateController extends BaseController{
 	
@@ -38,12 +39,25 @@ public class AccurateController extends BaseController{
 	
 	@Autowired
 	private IndusCompanyService service;
+	@Autowired
+	private OpeneyesServiceImpl openeyesServiceImpl;
+	
+	/**
+	 * 直接跳转页面
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
+	public String show(@PathVariable String page) {
+		return "/search/"+page;
+	}
 	
 	/**
 	 * 根据公司名称查询公司信息
 	 * @param companyName
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value="/findCompanyInfoByName.json")
 	public AjaxResult findCompanyInfoByName(String companyName){
 		if(StringUtil.isEmpty(companyName)){
@@ -58,6 +72,7 @@ public class AccurateController extends BaseController{
 	 * 智能推送公司列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value="/listCompanyInfo.json")
 	public AjaxResult listCompanyInfo(){
 		Iterable<IndusCompany> list = service.listCompany();
@@ -65,10 +80,37 @@ public class AccurateController extends BaseController{
 	}
 	
 	/**
+	 * 模糊查询企业列表
+	 * @param companyName
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "listCompanyByName.json", method = RequestMethod.GET)
+	public String listCompanyByName(String companyName,Model model){
+		if(StringUtil.isEmpty(companyName)){
+			model.addAttribute("message",MsgConstant.ILLEGAL_PARAM);
+			return "/search/beamSearch";
+		}
+		try{
+			OpeneyesDTO dto = new OpeneyesDTO();
+			dto.setCname(companyName);
+			JSONObject list = openeyesServiceImpl.getSousuoCompanyList(dto);
+			List<CompanyVO> array = JSONArray.parseArray(list.getJSONArray("data").toJSONString(), CompanyVO.class);
+			model.addAttribute("data",array);
+			return "/search/allCompany";
+		} catch (Exception e) {
+			LOGGER.error("模糊查询企业列表失败!", e);
+			model.addAttribute("message",MsgConstant.SYSTEM_ERROR);
+ 			return "/search/beamSearch";
+		}
+	}
+	
+	/**
 	 * 图片的上传和识别
 	 * @param imageBase64   base64编码字符串
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "uploadImage.json", method = RequestMethod.POST)
 	public AjaxResult uploadImage(String imageBase64){
 		LOGGER.debug("上传图片的数据："+imageBase64);

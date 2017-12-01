@@ -29,6 +29,8 @@ import com.huishu.ZSServer.es.entity.FinancingInfo;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.financing.FinancingService;
 
+import scala.annotation.meta.setter;
+
 @Service
 public class FinancingServiceImpl extends AbstractService<T> implements FinancingService {
 	@Autowired
@@ -50,7 +52,7 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 		bq.must(QueryBuilders.wildcardQuery("invest","*"+dto.getInvest()+"*"));
 		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3).setTypes(DBConstant.EsConfig.TYPE2);
 		srb.addSort(SortBuilders.fieldSort(sort).order(SortOrder.DESC));
-		SearchResponse searchResponse = srb.setQuery(bq).execute().actionGet();
+		SearchResponse searchResponse = srb.setQuery(bq).setSize(dto.getPageSize()).setFrom(dto.getPageNumber()*dto.getPageSize()).execute().actionGet();
 		long totalHits=0;
 		if (null != searchResponse && null != searchResponse.getHits()) {
 			SearchHits hits = searchResponse.getHits();

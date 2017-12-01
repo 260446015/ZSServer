@@ -146,6 +146,7 @@
                             <tbody id="city_list">
                             </tbody>
                         </table>
+                        <div><ul class="page" id="page"></ul></div>
                     </div>
                 </div>
             </div>

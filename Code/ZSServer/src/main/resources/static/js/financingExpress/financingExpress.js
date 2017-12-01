@@ -2,6 +2,13 @@
  * Created by zhangxin on 2017/11/20.
  */
 var option;
+var options={
+	"id":"page",//显示页码的元素
+	"data":null,//显示数据
+    "maxshowpageitem":5,//最多显示的页码个数
+    "pagelistcount":10,//每页显示数据个数
+    "callBack":function(){}
+};
 var barCharts = echarts.init(document.getElementById("barCharts"),"customed");
 $("input[type=checkbox]").on('ifChanged', function(event){
 	var datalist= new Array();
@@ -51,14 +58,12 @@ function myCharts(d,type){
             	alert(response.message);
             }else{
             	changeOption(response.data);
-            	console.log(option)
             	barCharts.setOption(option,true);
             }
         }
     });
 }
 function changeOption(d){
-	console.log(d.series);
 	option = {
 	    tooltip : {
 	        trigger: 'axis'
@@ -118,6 +123,11 @@ function ajaxPost(param){
             if(response.message!=null){
             	alert(response.message);
             }else{
+            	page.init(response.data.totalNumber,response.data.pageNumber,options);
+            	$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+            		var param={invest:invest,sort:sort,area:area,industry:industry,pageNumber:$(this).attr("page-data")-1};
+            		ajaxPost(param)
+                });
            		$('#city_list').html(show(response.data.dataList));
             }
         }
@@ -146,7 +156,6 @@ function showDynamic(d){
 	$('#city_dynamic2').html(arr2.join(''));
 }
 function show(d){
-	console.log(d)
     var arr = []
     $.each(d, function(index, item){
       var imageSrc=item.logo;
