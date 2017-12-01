@@ -14,7 +14,7 @@
     <div class="navbar-collapse collapse" role="navigation">
         <ul class="nav navbar-nav nav-menu">
             <li>
-                <a href="javascript:void (0);">
+                <a href="/intelligent/intelligentRecommendation.ftl">
                     <i class="icon-group-map icon-map-1"></i>
                     <span class="nav-text">精准招商</span>
                 </a>

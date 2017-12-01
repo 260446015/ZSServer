@@ -1,0 +1,92 @@
+.institution-box{
+
+}
+.institution-box .institution-item{
+
+}
+.mb40{
+    margin-bottom: 40px;
+}
+.mr40{
+    margin-right: 40px;
+}
+.institution-box .institution-item .item-title{
+    text-align: center;
+    margin-bottom: 25px;
+}
+.institution-box .institution-item .item-title span{
+    font-size: 18px;
+    color: #00ffe4;
+}
+
+.bgc-green{
+    background-color: #00ffe4;
+    margin-right: 10px;
+}
+.institution-box .institution-item .item-body{
+    padding: 65px 110px 30px 110px;
+    border: 1px solid #0e203a;
+    box-shadow: 0 0 20px  #0e203a;
+}
+.institution-box .institution-item .item-body .top{
+    overflow: hidden;
+}
+.institution-box .institution-item .item-body .top .left{
+    float: left;
+}
+.institution-box .institution-item .item-body .top .left p{
+    line-height: 30px;
+    font-size: 14px;
+}
+.institution-box .institution-item .item-body .top .left p span:first-child{
+    color: #20c2fe;
+}
+.institution-box .institution-item .item-body .top .right{
+    float: right;
+    overflow: hidden;
+}
+.institution-box .institution-item .item-body .top .right>div{
+    float: left;
+    margin-right: 75px;
+    text-align: center;
+}
+.institution-box .institution-item .item-body .top .right>div:last-child{
+    margin-right: 0;
+}
+.institution-box .institution-item .item-body .top .right>div img{
+    width:100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+.institution-box .institution-item .item-body .top .right>div p{
+    font-size: 14px;
+}
+
+.institution-item .item-body .bottom{
+    margin-top: 50px;
+    text-align: center;
+}
+.institution-item .item-body .bottom>span{
+    padding: 10px 30px;
+    background-color: #031022;
+    border: 1px solid #1b3b61;
+    color: #1083ae;
+}
+.institution-item .item-body .bottom>span:hover{
+    border: 1px solid #20c2fe;
+    color:#20c2fe;
+    cursor: pointer;
+}
+.institution-item .item-body .bottom>span:active{
+    background-color: #20c2fe;
+    color:#ffffff;
+}
+/*.institution-item .item-body .bottom .btn-clicked{
+    background-color: #20c2fe;
+    color:#ffffff;
+}*/
+
+
+
+

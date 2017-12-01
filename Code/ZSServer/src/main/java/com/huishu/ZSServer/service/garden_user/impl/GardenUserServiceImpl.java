@@ -10,19 +10,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONArray;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
-import com.huishu.ZSServer.entity.GardenCompare;
-import com.huishu.ZSServer.entity.garden.GardenDTO;
+import com.huishu.ZSServer.entity.dto.GardenCompareDTO;
+import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenUser;
-import com.huishu.ZSServer.repository.garden.GardenCompareRepositoy;
+import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.repository.garden_user.GardenUserRepository;
 import com.huishu.ZSServer.service.AbstractService;
@@ -37,7 +38,7 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 	@Autowired
 	private GardenRepository gardenRepository;
 	@Autowired
-	private GardenCompareRepositoy compareRepository;
+	private CompanyRepository companyRepository;
 
 	@Override
 	public GardenUser attentionGarden(Long gardenId, Long userId, boolean flag) {
@@ -96,14 +97,32 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 		int pageNum = dto.getPageNumber();
 		int pageSize = dto.getPageSize();
 		Page<GardenUser> page = null;
-		Map<String, Object> params = new HashMap<>();
-		params.put("industryType", msg[0]);
-		params.put("province", msg[1]);
 		String sort = msg[2];
 		String direct = msg[3];
+		Sort sortType = null;
+		if (sort.equals("园区占地")) {
+			if (direct.equalsIgnoreCase("desc"))
+				sortType = new Sort(Direction.DESC, "gardenSquare");
+			else
+				sortType = new Sort(Direction.ASC, "gardenSquare");
+		} else {
+			if (direct.equalsIgnoreCase("desc"))
+				sortType = new Sort(Direction.DESC, "gdp");
+			else
+				sortType = new Sort(Direction.ASC, "gdp");
+		}
+		PageRequest pageRequest = new PageRequest(pageNum, pageSize, sortType);
+		if (msg[0].equals("不限") || msg[0].equals("全部")) {
+			msg[0] = "%%";
+		} else
+			msg[0] = "%" + msg[0] + "%";
+		if (msg[1].equals("不限") || msg[1].equals("全部")) {
+			msg[1] = "%%";
+		}
+
 		try {
-			List<GardenUser> list = gardenUserRepository.findAll(getSpec(params));
-			list.forEach(GardenUser -> {
+			page = gardenUserRepository.findByProvinceLikeAndIndustryTypeLike(msg[1], msg[0], pageRequest);
+			page.getContent().forEach(GardenUser -> {
 				String picture = GardenUser.getGardenPicture();
 				String description = GardenUser.getDescription();
 				String address = GardenUser.getAddress();
@@ -117,28 +136,6 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 					GardenUser.setAddress("暂无");
 				}
 			});
-			if (sort.equals("园区占地")) {
-				list.sort((a, b) -> {
-					return direct.equalsIgnoreCase("DESC") ? b.getGardenSquare().compareTo(a.getGardenSquare())
-							: a.getGardenSquare().compareTo(b.getGardenSquare());
-				});
-			} else if (sort.equals("企业数量")) {
-				list.sort((a, b) -> {
-					return direct.equalsIgnoreCase("DESC") ? b.getEnterCount().compareTo(a.getEnterCount())
-							: a.getEnterCount().compareTo(b.getEnterCount());
-				});
-			} else if (sort.equals("产值")) {
-				list.sort((a, b) -> {
-					return direct.equalsIgnoreCase("DESC") ? b.getGdp().compareTo(a.getGdp())
-							: a.getGdp().compareTo(b.getGdp());
-				});
-			}
-			// 第二步：对结果进行排序，按照热度排序，分页取十条数据
-			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
-			int total = list.size();
-			List<GardenUser> newList = new ArrayList<>();
-			list.stream().skip(pageNum * pageSize).limit(pageSize).forEach(newList::add);
-			page = new PageImpl<>(newList, pageRequest, total);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			return null;
@@ -147,72 +144,32 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 	}
 
 	@Override
-	public List<GardenCompare> getGardenCompare(Long userId, Long gardenId) {
-		List<GardenCompare> list = null;
-		if (null == gardenId) {
-			list = compareRepository.findByUserId(userId);
-			list.forEach(gc -> {
-				List<Object[]> listEcharts = compareRepository.getCompareEcharts(gc.getGardenName());
-				Map<Object, Object> industryCount = new HashMap<>();
-				listEcharts.forEach(arr -> {
-					industryCount.put(arr[1], arr[0]);
-				});
-				gc.setIndustryCount(industryCount);
-			});
-		} else {
-			list = compareRepository.findByUserIdAndGardenId(userId, gardenId);
-		}
-		return list;
-	}
-
-	@Override
-	public JSONObject addGardenCompare(Long gardenId, Long userId) {
-		JSONObject obj = new JSONObject();
-		try {
-			Map<String, Object> params = new HashMap<>();
-			params.put("gardenId", gardenId);
-			params.put("userId", userId);
-			List<GardenUser> gus = gardenUserRepository.findAll(getSpec(params));
-			if (gus.size() == 0)
-				return null;
-			GardenUser gu = gus.get(0);
-			List<GardenCompare> list = compareRepository.findByUserIdAndGardenId(userId, gardenId);
-			if (list.size() > 0)
-				return null;
-			GardenCompare gc = new GardenCompare();
-			gc.setEnterCompany(gu.getEnterCompany());
-			gc.setLogo(gu.getGardenPicture());
-			gc.setGdp(gu.getGdp());
-			gc.setGardenId(gu.getGardenId());
-			gc.setGardenSquare(gu.getGardenSquare());
-			gc.setGardenName(gu.getGardenName());
-			gc.setUserId(gu.getUserId());
-			compareRepository.save(gc);
-			obj.put("success", true);
-		} catch (Exception e) {
-			LOGGER.error("存储对比园区失败", e.getMessage());
-			obj.put("success", false);
-		}
-		return obj;
-
-	}
-
-	@Override
-	public boolean deleteCompare(List<GardenCompare> list) {
-		boolean flag = false;
-		try {
-			compareRepository.delete(list);
-			flag = true;
-		} catch (Exception e) {
-			LOGGER.error("删除园区对比失败", e.getMessage());
-		}
-		return flag;
-	}
-
-	@Override
 	public List<String> getGardenAttainArea() {
 		return gardenUserRepository.findArea();
 	}
 
-	
+	@Override
+	public List<GardenCompareDTO> getGardenCompare(Long[] arrId) {
+		List<GardenUser> list = gardenUserRepository.findByGardenIdIn(arrId);
+		List<GardenCompareDTO> gcList = new ArrayList<>();
+		list.forEach((gu) ->{
+			GardenCompareDTO dto = new GardenCompareDTO();
+			dto.setEnterCount(gu.getEnterCount());
+			dto.setGardenName(gu.getGardenName());
+			dto.setGdp(gu.getGdp());
+			dto.setSquare(gu.getGardenSquare());
+			JSONArray industryType = new JSONArray();
+			String[] enterCompany = gu.getEnterCompany().split("、");
+			for(int i=0;i<enterCompany.length;i++){
+				companyRepository.findByCompanyName(enterCompany[i]);
+			}
+			dto.setIndustryType(industryType);
+			gu.getEnterCompany();
+			
+			gcList.add(dto);
+		});
+		return gcList;
+
+	}
+
 }

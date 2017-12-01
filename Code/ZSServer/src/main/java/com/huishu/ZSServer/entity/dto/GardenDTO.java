@@ -1,6 +1,4 @@
-package com.huishu.ZSServer.entity.garden;
-
-import com.huishu.ZSServer.entity.dto.AbstractDTO;
+package com.huishu.ZSServer.entity.dto;
 
 /**
  * 查询园区的DTO

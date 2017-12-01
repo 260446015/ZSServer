@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.alibaba.fastjson.JSONObject;
-import com.huishu.ZSServer.entity.GardenCompare;
-import com.huishu.ZSServer.entity.garden.GardenDTO;
+import com.huishu.ZSServer.entity.dto.GardenCompareDTO;
+import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenUser;
 
 public interface GardenUserService {
@@ -26,33 +25,15 @@ public interface GardenUserService {
 	Page<GardenUser> getAttentionGardenList(GardenDTO dto);
 
 	/**
-	 * 加入园区对比的方法
-	 * 
-	 * @param gardenId
-	 *            园区id
-	 * @return
-	 */
-	JSONObject addGardenCompare(Long gardenId, Long userId);
-
-	/**
-	 * 查询园区对比的方法
-	 * 
-	 * @param userId
-	 *            用户id
-	 * @return
-	 */
-	List<GardenCompare> getGardenCompare(Long userId, Long gardenID);
-
-	/**
-	 * 删除园区对比的方法
-	 * @param list
-	 * @return
-	 */
-	boolean deleteCompare(List<GardenCompare> list);
-
-	/**
 	 * 获取关注园区省份名称
+	 * 
 	 * @return
 	 */
 	List<String> getGardenAttainArea();
+
+	/**
+	 * 园区对比
+	 * @return
+	 */
+	List<GardenCompareDTO> getGardenCompare(Long[] arrId);
 }

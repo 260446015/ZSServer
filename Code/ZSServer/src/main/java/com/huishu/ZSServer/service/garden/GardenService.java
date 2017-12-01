@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
+import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.entity.dto.IndustryCount;
-import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenIndustry;
 import com.huishu.ZSServer.entity.garden.GardenMap;
@@ -53,7 +53,7 @@ public interface GardenService {
 	 * 
 	 * @return
 	 */
-	GardenData findGarden(String gardenId);
+	GardenData findGarden(String gardenId,Long userId);
 
 	/**
 	 * 获取政策动向
