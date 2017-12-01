@@ -1944,3 +1944,62 @@ a.search-item.active{
     color: #fff !important;
     outline: none !important;
 }
+.left-nav-icon3 .circle-out:after{
+    background-image: url("../images/left_nav_icon3.png");
+    background-size: 87px 76px;
+}
+.left-nav-icon3>ul>li>a .industryIcon:after,
+.left-nav-icon3>ul>li:nth-of-type(1)>a .circle-out:after{
+    background-position: 23px 23px;
+}
+.left-nav-icon3>ul>li>a:hover .industryIcon:after,
+.left-nav-icon3>ul>li.active>a .industryIcon:after,
+.left-nav-icon3>ul>li:nth-of-type(1)>a:hover .circle-out:after,
+.left-nav-icon3>ul>li:nth-of-type(1).active>a .circle-out:after{
+    background-position: -39px 23px;
+}
+.left-nav-icon3>ul>li>a .parkIcon:after,
+.left-nav-icon3>ul>li:nth-of-type(2)>a .circle-out:after{
+    background-position: 23px -30px;
+}
+.left-nav-icon3>ul>li>a:hover .parkIcon:after,
+.left-nav-icon3>ul>li.active>a .parkIcon:after,
+.left-nav-icon3>ul>li:nth-of-type(2)>a:hover .circle-out:after,
+.left-nav-icon3>ul>li:nth-of-type(2).active>a .circle-out:after{
+    background-position: -38px -30px;
+}
+
+.left-nav-icon2 .circle-out:after{
+    background-image: url("../images/left_nav_icon2.png");
+    background-size: 95px 150px;
+}
+.left-nav-icon2>ul>li>a .industryIcon:after,
+.left-nav-icon2>ul>li:nth-of-type(1)>a .circle-out:after{
+    background-position: 20px 23px;
+}
+.left-nav-icon2>ul>li>a:hover .industryIcon:after,
+.left-nav-icon2>ul>li.active>a .industryIcon:after,
+.left-nav-icon2>ul>li:nth-of-type(1)>a:hover .circle-out:after,
+.left-nav-icon2>ul>li:nth-of-type(1).active>a .circle-out:after{
+    background-position: -46px 23px;
+}
+.left-nav-icon2>ul>li>a .parkIcon:after,
+.left-nav-icon2>ul>li:nth-of-type(2)>a .circle-out:after{
+    background-position: 20px -40px;
+}
+.left-nav-icon2>ul>li>a:hover .parkIcon:after,
+.left-nav-icon2>ul>li.active>a .parkIcon:after,
+.left-nav-icon2>ul>li:nth-of-type(2)>a:hover .circle-out:after,
+.left-nav-icon2>ul>li:nth-of-type(2).active>a .circle-out:after{
+    background-position: -46px -40px;
+}
+.left-nav-icon2>ul>li>a .parkIcon:after,
+.left-nav-icon2>ul>li:nth-of-type(3)>a .circle-out:after{
+    background-position: 20px -103px;
+}
+.left-nav-icon2>ul>li>a:hover .parkIcon:after,
+.left-nav-icon2>ul>li.active>a .parkIcon:after,
+.left-nav-icon2>ul>li:nth-of-type(3)>a:hover .circle-out:after,
+.left-nav-icon2>ul>li:nth-of-type(3).active>a .circle-out:after{
+    background-position: -46px -103px;
+}

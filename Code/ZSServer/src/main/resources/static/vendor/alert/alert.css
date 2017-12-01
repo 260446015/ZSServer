@@ -27,3 +27,15 @@
     color: #00ffe4;
     margin-top: 160px;
 }
+
+.alert-custom.success{
+    background-image: url(./images/circle_true.png);
+}
+
+.alert-custom.error{
+    background-image: url(./images/circle_error.png);
+}
+
+.alert-custom.warning{
+    background-image: url(./images/circle_warning.png);
+}

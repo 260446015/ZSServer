@@ -22,7 +22,11 @@
         createHtml:function () {
             var mask = doc.createElement("div"),
                 p = doc.createElement("p");
-            mask.className = this.options.flag ? "alert-custom success" : "alert-custom error";
+                if(typeof this.options.flag == "boolean"){
+                    mask.className = this.options.flag ? "alert-custom success" : "alert-custom error";
+                }else if(typeof this.options.flag == "string"){
+                    mask.className = "alert-custom "+this.options.flag;
+                }
             if(this.options.text){
                 p.innerText = this.options.text
             }
