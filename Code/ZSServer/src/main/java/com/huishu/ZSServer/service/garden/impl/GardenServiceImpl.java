@@ -50,7 +50,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		List<Order> orders = new ArrayList<Order>();
 		orders.add(new Order(Direction.DESC, "publishTime"));
 		orders.add(new Order(Direction.DESC, "hitCount"));
-		PageRequest pageRequest = new PageRequest(0, 4, new Sort(orders));
+		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), 4, new Sort(orders));
 		Map<String, Object> params = new HashMap<>();
 		params.put("park", dto.getPark());
 		params.put("dimension", dto.getDimension());

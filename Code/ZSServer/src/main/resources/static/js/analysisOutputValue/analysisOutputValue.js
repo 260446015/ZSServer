@@ -4,17 +4,24 @@
 var park;
 var industry;
 var type;
-function eConsole(param) {
+function myConsole(invest,page) {
 	$.ajax({
 		type:"post",
         url: "/apis/analysis/getCompanyList.json",
 		contentType:'application/json',
-		data:JSON.stringify({park:park,invest:param.data.name}),
+		data:JSON.stringify({park:park,invest:invest,pageNumber:page}),
         success: function (response) {
             if(response.message!=null){
             	new Alert({flag:false,text:result.message,timer:1500}).show();
             }else{
             	$('#city_list').html(show(response.data.dataList));
+        		if(response.data.pageNumber==1){
+        			$('#city_button').html('<button type="button" class="btn btn-fill btn-blue" onclick="alertMy(\'当前已是第一页\')">上一页</button><button type="button" class="btn btn-fill btn-blue" onclick="myConsole(\''+invest+'\','+(page+1)+')">下一页</button>');
+        		}else if(response.data.pageNumber==response.data.totalPage){
+        			$('#city_button').html('<button type="button" class="btn btn-fill btn-blue" onclick="myConsole(\''+invest+'\','+(page-1)+')">上一页</button><button type="button" class="btn btn-fill btn-blue" onclick="alertMy(\'当前已是最后一页\')">下一页</button>');
+        		}else{
+        			$('#city_button').html('<button type="button" class="btn btn-fill btn-blue" onclick="myConsole(\''+invest+'\','+(page-1)+')">上一页</button><button type="button" class="btn btn-fill btn-blue" onclick="myConsole(\''+invest+'\','+(page+1)+')">下一页</button>');
+        		}
             }
         }
     });
@@ -63,7 +70,32 @@ function myNum(d){
 	    };
 	    var charts1 = echarts.init(document.getElementById('charts1'),'customed');
 	    charts1.setOption(barOption);
-	    charts1.on("click", eConsole);
+	    charts1.on("click", function (param) {
+	    	$.ajax({
+	    		type:"post",
+	            url: "/apis/analysis/getCompanyList.json",
+	    		contentType:'application/json',
+	    		data:JSON.stringify({park:park,invest:param.data.name}),
+	            success: function (response) {
+	                if(response.message!=null){
+	                	new Alert({flag:false,text:result.message,timer:1500}).show();
+	                }else{
+	                	$('#city_list').html(show(response.data.dataList));
+	                	if(response.data.totalPage>1){
+	                		if(response.data.pageNumber==1){
+	                			$('#city_button').html('<button type="button" class="btn btn-fill btn-blue" onclick="alertMy(\'当前已是第一页\')">上一页</button><button type="button" class="btn btn-fill btn-blue" onclick="myConsole(\''+param.data.name+'\','+response.data.pageNumber+')">下一页</button>');
+	                		}else if(response.data.pageNumber==response.data.totalPage){
+	                			$('#city_button').html('<button type="button" class="btn btn-fill btn-blue" onclick="myConsole(\''+param.data.name+'\','+(response.data.pageNumber-2)+')">上一页</button><button type="button" class="btn btn-fill btn-blue" onclick="alertMy(\'当前已是最后一页\')">下一页</button>');
+	                		}else{
+	                			$('#city_button').html('<button type="button" class="btn btn-fill btn-blue" onclick="myConsole(\''+param.data.name+'\','+(response.data.pageNumber-2)+')">上一页</button><button type="button" class="btn btn-fill btn-blue" onclick="myConsole(\''+param.data.name+'\','+response.data.pageNumber+')">下一页</button>');
+	                		}
+	                	}else{
+	                		$('#city_button').html("");
+	                	}
+	                }
+	            }
+	        });
+	    });
 };
 function myLine1(d){
     var lineChart = {
@@ -275,4 +307,7 @@ function showTop(d){
     });
     var inner=arr.join('');
     return inner;
+}
+function alertMy(text){
+	new Alert({flag:"warning",text:text,timer:1500}).show();
 }
