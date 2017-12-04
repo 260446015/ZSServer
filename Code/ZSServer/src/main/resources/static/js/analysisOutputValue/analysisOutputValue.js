@@ -12,7 +12,7 @@ function eConsole(param) {
 		data:JSON.stringify({park:park,invest:param.data.name}),
         success: function (response) {
             if(response.message!=null){
-            	alert(response.message);
+            	new Alert({flag:false,text:result.message,timer:1500}).show();
             }else{
             	$('#city_list').html(show(response.data.dataList));
             }
@@ -199,7 +199,7 @@ function myPost(a){
         url: "/apis/analysis/getFinancingDistribution.json?park="+a,
         success: function (response) {
             if(response.message!=null){
-            	alert(response.message);
+            	new Alert({flag:false,text:result.message,timer:1500}).show();
             }else{
 				myNum(response.data);
             }
@@ -224,7 +224,7 @@ function myPost2(t,ins){
 		data:{park:park,type:t,industry:ins},
         success: function (response) {
             if(response.message!=null){
-            	alert(response.message);
+            	new Alert({flag:false,text:result.message,timer:1500}).show();
             }else{
             	if(t=='年产值'){
             		myLine1(response.data);
@@ -241,7 +241,7 @@ function myTopList(ins){
 		data:{park:park,industry:ins},
         success: function (response) {
             if(response.message!=null){
-            	alert(response.message);
+            	new Alert({flag:false,text:result.message,timer:1500}).show();
             }else{
             	$('#top_list').html(showTop(response.data.dataList));
             }

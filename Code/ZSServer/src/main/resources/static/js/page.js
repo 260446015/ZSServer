@@ -6,12 +6,12 @@ var  page = {
     "pagelistcount":10,//每一页显示的内容条数
     "alertNum":function(){return num},
     "init":function(listCount,currentPage,options){
-      	this.data=options.data,
-      	this.pageId=options.id,
-    this.maxshowpageitem=options.maxshowpageitem,//最多显示的页码个数
-    this.pagelistcount=options.pagelistcount//每一页显示的内容条数
-    page.initPage(listCount,currentPage);
-  },
+  		  this.data=options.data,
+  	      	this.pageId=options.id,
+  	    this.maxshowpageitem=options.maxshowpageitem,//最多显示的页码个数
+  	    this.pagelistcount=options.pagelistcount//每一页显示的内容条数
+  	    page.initPage(listCount,currentPage);
+},
   /**
      * 初始化数据处理
      * @param listCount 列表总量

@@ -126,5 +126,10 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 		}
 		return company;
 	}
-
+	/**根据别名查看具体的公司信息*/
+	@Override
+	public IndusCompany findCompanyInfoByCompanyName(String companyName) {
+		
+		return repository.findByCompanyName(companyName);
+	}
 }

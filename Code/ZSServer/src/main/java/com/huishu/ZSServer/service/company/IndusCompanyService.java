@@ -31,4 +31,10 @@ public interface IndusCompanyService {
 	 * @return
 	 */
 	String uploadImage(String imageBase64);
+	/**
+	 * 根据别名查看公司信息
+	 * @param companyName
+	 * @return
+	 */
+	IndusCompany findCompanyInfoByCompanyName(String companyName);
 }
