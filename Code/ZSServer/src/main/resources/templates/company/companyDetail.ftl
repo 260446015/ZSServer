@@ -27,511 +27,83 @@
     <div class="page-content">
       <#include "/common/sidebar3.ftl"/>
       <div class="right-content">
-            <div class="model-box">
-                <div class="model-header">
-                    <h3 class="model-title">基本信息</h3>
-                    <div class="modal-sub-title">企业主要人员</div>
-                </div>
-                <div class="text-center">
-                    <ul class="tabs tabs-custom">
+            <ul class="mark-box">
+                <li>
+                    <a class="mark-item" href="javascript:void(0);">基本信息</a>
+                    <ul class="mark-menu">
                         <li>
-                            <a href="javascript:void(0);">高管</a>
+                            <a href="javascript:void(0);">12222</a>
                         </li>
-                        <li class="active">
-                            <a href="javascript:void(0);">股东</a>
+                        <li>
+                            <a href="javascript:void(0);">122asdas22</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">12222</a>
                         </li>
                     </ul>
-                </div>
-                <div class="modal-body border-shadow-box pd0">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th class="text-left">股东</th>
-                            <th class="text-left">出资比例</th>
-                            <th class="text-left">认缴出资</th>
-                            <th class="text-left">时间</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    雷军
-                                    <a href="javascript:void(0)" >他有7家公司>></a>
-                                </td>
-                                <td>
-                                    77.08%
-                                </td>
-                                <td>
-                                    143，934.0478万元
-                                </td>
-                                <td>
-                                    2017-09-09
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    雷军
-                                    <a href="javascript:void(0)" >他有7家公司>></a>
-                                </td>
-                                <td>
-                                    77.08%
-                                </td>
-                                <td>
-                                    143，934.0478万元
-                                </td>
-                                <td>
-                                    2017-09-09
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    雷军
-                                    <a href="javascript:void(0)" >他有7家公司>></a>
-                                </td>
-                                <td>
-                                    77.08%
-                                </td>
-                                <td>
-                                    143，934.0478万元
-                                </td>
-                                <td>
-                                    2017-09-09
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    雷军
-                                    <a href="javascript:void(0)" >他有7家公司>></a>
-                                </td>
-                                <td>
-                                    77.08%
-                                </td>
-                                <td>
-                                    143，934.0478万元
-                                </td>
-                                <td>
-                                    2017-09-09
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    雷军
-                                    <a href="javascript:void(0)" >他有7家公司>></a>
-                                </td>
-                                <td>
-                                    77.08%
-                                </td>
-                                <td>
-                                    143，934.0478万元
-                                </td>
-                                <td>
-                                    2017-09-09
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    雷军
-                                    <a href="javascript:void(0)" >他有7家公司>></a>
-                                </td>
-                                <td>
-                                    77.08%
-                                </td>
-                                <td>
-                                    143，934.0478万元
-                                </td>
-                                <td>
-                                    2017-09-09
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                
-                <div class="model-header">
-                    <h3 class="model-title">企业发展</h3>
-                    <div class="modal-sub-title">融资历史</div>
-                </div>
-                <div class="model-body border-shadow-box pd0">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th class="text-left">时间</th>
-                                <th class="text-left">轮次</th>
-                                <th class="text-left">估值</th>
-                                <th class="text-left">金额</th>
-                                <th class="text-left">比例</th>
-                                <th class="text-left">投资方</th>
-                                <th class="text-left">新闻来源</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    2017-08-09
-                                </td>
-                                <td>
-                                    A轮
-                                </td>
-                                <td>
-                                    20亿美元
-                                </td>
-                                <td>
-                                    11亿美元
-                                </td>
-                                <td>
-                                    11%
-                                </td>
-                                <td>
-                                    <p class="text-blue">云峰基金</p>
-                                    <p>DST Global</p>
-                                    <p>GIC新加坡政府投资公司</p>
-                                </td>
-                                <td>
-                                    新浪
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2017-08-09
-                                </td>
-                                <td>
-                                    A轮
-                                </td>
-                                <td>
-                                    20亿美元
-                                </td>
-                                <td>
-                                    11亿美元
-                                </td>
-                                <td>
-                                    11%
-                                </td>
-                                <td>
-                                    <p class="text-blue">云峰基金</p>
-                                    <p>DST Global</p>
-                                    <p>GIC新加坡政府投资公司</p>
-                                </td>
-                                <td>
-                                    新浪
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2017-08-09
-                                </td>
-                                <td>
-                                    A轮
-                                </td>
-                                <td>
-                                    20亿美元
-                                </td>
-                                <td>
-                                    11亿美元
-                                </td>
-                                <td>
-                                    11%
-                                </td>
-                                <td>
-                                    <p class="text-blue">云峰基金</p>
-                                    <p>DST Global</p>
-                                    <p>GIC新加坡政府投资公司</p>
-                                </td>
-                                <td>
-                                    新浪
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2017-08-09
-                                </td>
-                                <td>
-                                    A轮
-                                </td>
-                                <td>
-                                    20亿美元
-                                </td>
-                                <td>
-                                    11亿美元
-                                </td>
-                                <td>
-                                    11%
-                                </td>
-                                <td>
-                                    <p class="text-blue">云峰基金</p>
-                                    <p>DST Global</p>
-                                    <p>GIC新加坡政府投资公司</p>
-                                </td>
-                                <td>
-                                    新浪
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2017-08-09
-                                </td>
-                                <td>
-                                    A轮
-                                </td>
-                                <td>
-                                    20亿美元
-                                </td>
-                                <td>
-                                    11亿美元
-                                </td>
-                                <td>
-                                    11%
-                                </td>
-                                <td>
-                                    <p class="text-blue">云峰基金</p>
-                                    <p>DST Global</p>
-                                    <p>GIC新加坡政府投资公司</p>
-                                </td>
-                                <td>
-                                    新浪
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="model-header">
-                    <div class="modal-sub-title">核心团队</div>
-                </div>
-                <div class="model-body border-box radius-img-box">
-                    <div class="row">
-                        <div class="col-md-12 border-bottom">
-                            <div class="layout-box">
-                                <div class="left-img">
-                                    <img src="/images/list_img.jpg" width="160">
-                                </div>
-                                <div class="right-list">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="scatter-title">联合创始人</span>
-                                        <span class="scatter-type ml10">黎万强</span>
-                                    </a>
-                                    <p class="person-introduce">黎万强，小米科技联合创始人、副总裁。曾担任金山人机界面设计部首席设计师、金山软件设计中心设计总监、金山软件互联网内容总监等职</p>
-                                </div>
-                            </div>
+                </li>
+                <li>
+                    <a class="mark-item" href="javascript:void(0);">企业背景</a>
+                </li>
+                <li>
+                    <a class="mark-item" href="javascript:void(0);">企业发展</a>
+                </li>
+                <li>
+                    <a class="mark-item" href="javascript:void(0);">经营状况</a>
+                </li>
+                <li>
+                    <a class="mark-item" href="javascript:void(0);">知识产权</a>
+                </li>
+                <li>
+                    <a class="mark-item" href="javascript:void(0);">上市信息</a>
+                </li>
+            </ul>
+            <h2 class="datails-title">
+                <img src="../images/zkdj_logo.png" />
+                	<span>中科点击科技有限公司</span>
+                <a href="javascript:void(0);" class="follow pull-right">添加关注</a>
+            </h2>
+            <div class="border-shadow-box content-padding-20">
+                <h4 class="score-title">企业匹配值：86分</h4>
+                <div class="lyt-box inline-lyt">
+                    <div class="lyt-item">
+                        <div class="lyt-lt">
+                            <span class="icon-block"></span>
+                            电话
                         </div>
-                        <div class="col-md-12 border-bottom">
-                            <div class="layout-box">
-                                <div class="left-img">
-                                    <img src="../images/list_img.jpg" width="160">
-                                </div>
-                                <div class="right-list">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="scatter-title">联合创始人</span>
-                                        <span class="scatter-type ml10">黎万强</span>
-                                    </a>
-                                    <p class="person-introduce">黎万强，小米科技联合创始人、副总裁。曾担任金山人机界面设计部首席设计师、金山软件设计中心设计总监、金山软件互联网内容总监等职</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <div class="layout-box">
-                                <div class="left-img">
-                                    <img src="../images/list_img.jpg" width="160">
-                                </div>
-                                <div class="right-list">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="scatter-title">联合创始人</span>
-                                        <span class="scatter-type ml10">黎万强</span>
-                                    </a>
-                                    <p class="person-introduce">黎万强，小米科技联合创始人、副总裁。曾担任金山人机界面设计部首席设计师、金山软件设计中心设计总监、金山软件互联网内容总监等职</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <div class="layout-box">
-                                <div class="left-img">
-                                    <img src="../images/list_img.jpg" width="160">
-                                </div>
-                                <div class="right-list">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="scatter-title">联合创始人</span>
-                                        <span class="scatter-type ml10">黎万强</span>
-                                    </a>
-                                    <p class="person-introduce">黎万强，小米科技联合创始人、副总裁。曾担任金山人机界面设计部首席设计师、金山软件设计中心设计总监、金山软件互联网内容总监等职</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <div class="layout-box">
-                                <div class="left-img">
-                                    <img src="../images/list_img.jpg" width="160">
-                                </div>
-                                <div class="right-list">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="scatter-title">联合创始人</span>
-                                        <span class="scatter-type ml10">黎万强</span>
-                                    </a>
-                                    <p class="person-introduce">黎万强，小米科技联合创始人、副总裁。曾担任金山人机界面设计部首席设计师、金山软件设计中心设计总监、金山软件互联网内容总监等职</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <div class="layout-box">
-                                <div class="left-img">
-                                    <img src="../images/list_img.jpg" width="160">
-                                </div>
-                                <div class="right-list">
-                                    <a class="scatter-blocks no-border" href="javascript:void(0);">
-                                        <span class="scatter-title">联合创始人</span>
-                                        <span class="scatter-type ml10">黎万强</span>
-                                    </a>
-                                    <p class="person-introduce">黎万强，小米科技联合创始人、副总裁。曾担任金山人机界面设计部首席设计师、金山软件设计中心设计总监、金山软件互联网内容总监等职</p>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="lyt-rt">4000617888</div>
                     </div>
-                </div>
-                <div class="model-header">
-                    <div class="modal-sub-title">企业业务</div>
-                </div>
-                <div class="model-body">
-                    <div class="row img-list-box img-wp50-radius">
-                        <div class="col-md-3">
-                            <div class="img-list">
-                                <a href="javascript:void(0);">
-                                    <img src="/images/xm.png" />
-                                </a>
-                                <div class="details">
-                                    <p class="address">小米科技</p>
-                                    <p class="type">硬件</p>
-                                    <p class="date-time">智能硬件设备研发商</p>
-                                </div>
-                            </div>
+                    <div class="lyt-item">
+                        <div class="lyt-lt">
+                            <span class="icon-block"></span>
+                            邮箱
                         </div>
-                        <div class="col-md-3">
-                            <div class="img-list">
-                                <a href="javascript:void(0);">
-                                    <img src="/images/xm.png" />
-                                </a>
-                                <div class="details">
-                                    <p class="address">小米科技</p>
-                                    <p class="type">硬件</p>
-                                    <p class="date-time">智能硬件设备研发商</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="img-list">
-                                <a href="javascript:void(0);">
-                                    <img src="/images/xm.png" />
-                                </a>
-                                <div class="details">
-                                    <p class="address">小米科技</p>
-                                    <p class="type">硬件</p>
-                                    <p class="date-time">智能硬件设备研发商</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="img-list">
-                                <a href="javascript:void(0);">
-                                    <img src="../images/xm.png" />
-                                </a>
-                                <div class="details">
-                                    <p class="address">小米科技</p>
-                                    <p class="type">硬件</p>
-                                    <p class="date-time">智能硬件设备研发商</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="img-list">
-                                <a href="javascript:void(0);">
-                                    <img src="../images/xm.png" />
-                                </a>
-                                <div class="details">
-                                    <p class="address">小米科技</p>
-                                    <p class="type">硬件</p>
-                                    <p class="date-time">智能硬件设备研发商</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="img-list">
-                                <a href="javascript:void(0);">
-                                    <img src="../images/xm.png" />
-                                </a>
-                                <div class="details">
-                                    <p class="address">小米科技</p>
-                                    <p class="type">硬件</p>
-                                    <p class="date-time">智能硬件设备研发商</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="img-list">
-                                <a href="javascript:void(0);">
-                                    <img src="../images/xm.png" />
-                                </a>
-                                <div class="details">
-                                    <p class="address">小米科技</p>
-                                    <p class="type">硬件</p>
-                                    <p class="date-time">智能硬件设备研发商</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="img-list">
-                                <a href="javascript:void(0);">
-                                    <img src="../images/xm.png" />
-                                </a>
-                                <div class="details">
-                                    <p class="address">小米科技</p>
-                                    <p class="type">硬件</p>
-                                    <p class="date-time">智能硬件设备研发商</p>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="lyt-rt">zkdj@junquan.com.cn</div>
                     </div>
-                </div>
-                <div class="model-header">
-                    <div class="modal-sub-title">
-                        投资分布
-                        <select class="selectpicker">
-                            <option>全部数据</option>
-                            <option>部分数据</option>
-                            <option>部分数据</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="model-body border-shadow-box pd0">
-                    <div class="border-bottom">
-                        <h3 class="charts-title-center">
-                            投资事件轮次分布
-                            <select class="selectpicker">
-                                <option>全部数据</option>
-                                <option>部分数据</option>
-                                <option>部分数据</option>
-                            </select>
-                        </h3>
-                        <div class="charts" id="charts1">
+                    <div class="lyt-item">
+                        <div class="lyt-lt">
+                            <span class="icon-block"></span>
+                            网址
                         </div>
+                        <div class="lyt-rt">www.zkdj.com</div>
                     </div>
-                    <div class="border-bottom">
-                        <h3 class="charts-title-center">
-                            投资公司行业分布
-                            <select class="selectpicker">
-                                <option>全部数据</option>
-                                <option>部分数据</option>
-                                <option>部分数据</option>
-                            </select>
-                        </h3>
-                        <div class="charts" id="charts2"></div>
+                    <div class="lyt-item">
+                        <div class="lyt-lt">
+                            <span class="icon-block"></span>
+                            地址
+                        </div>
+                        <div class="lyt-rt">深圳市南山区高新区高新南一路飞亚达大厦5-10楼</div>
                     </div>
-                    <div class="border-bottom">
-                        <h3 class="charts-title-center">
-                            历史投资事件数
-                            <select class="selectpicker">
-                                <option>全部数据</option>
-                                <option>部分数据</option>
-                                <option>部分数据</option>
-                            </select>
-                        </h3>
-                        <div class="charts" id="charts3"></div>
+                    <div class="lyt-item">
+                        <div class="lyt-lt">
+                            <span class="icon-block"></span> 简介
+                        </div>
+                        <div class="lyt-rt">
+                            腾讯公司成立于1998年11月，是目前中国最大的互联网综合服务提供商之一，也是中国服务用户最多的互联网企业之一。成立十多年以来，腾讯一直秉承一切以用户价值为
+                            依归的经营理念，始终处于稳健、高速发展的状态。腾讯把为用户提供“一站式在线生活服务”作为战略目标，提供互联网增值服务、移动及电信增值服务和网络广告服务。
+                            通过即时通信QQ、腾讯网（QQ.com）、腾讯游戏、QQ空间、无线门户、搜搜、拍拍、财付通等中国领先的网络平台，腾讯打造了中国最大的网络社区，满足互联网用户
+                            沟通、资讯、娱乐和电子商务等方面的需求。2016年12月5日，2016中国版权金奖在羊城颁奖，深圳市腾讯计算机系统有限公司获得推广运用奖
+                        </div>
                     </div>
                 </div>
             </div>
