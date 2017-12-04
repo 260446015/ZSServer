@@ -2033,3 +2033,12 @@ a.search-item.active{
     background-repeat: no-repeat;
     background-position: 0 center;
 }
+.layer-person .layer-body{
+    padding: 20px 15px;
+}
+.layer-person .carousel-control {
+    width: 20px;
+    line-height: 280px;
+    color:#00ffc4;
+    background-image: none !important;
+}
