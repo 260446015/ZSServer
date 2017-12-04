@@ -2003,3 +2003,33 @@ a.search-item.active{
 .left-nav-icon2>ul>li:nth-of-type(3).active>a .circle-out:after{
     background-position: -46px -103px;
 }
+
+.slider-header {
+    padding: 15px 0;
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 1px solid #123051;
+}
+
+.slider-wrapper {
+    padding: 40px 15px;
+}
+.slider-wrapper .carousel-control{
+    width: 40px;
+    color:#2356bd;
+}
+.slider-wrapper .control-label{
+    padding-top: 7px;
+    font-weight: 400;
+    text-align: right;
+}
+.slider-wrapper .phone.masks{
+    background-image: url("../images/phoneMask.png");
+    background-repeat: no-repeat;
+    background-position: 0 center;
+}
+.slider-wrapper .email.masks{
+    background-image: url("../images/emailMask.png");
+    background-repeat: no-repeat;
+    background-position: 0 center;
+}
