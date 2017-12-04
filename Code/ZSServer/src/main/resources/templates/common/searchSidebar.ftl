@@ -1,7 +1,7 @@
 <div class="left-nav">
             <ul>
                 <li>
-                    <a href="industryMap.html">
+                    <a href="/intelligent/intelligentRecommendation.ftl">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">
 
@@ -9,17 +9,9 @@
                         </div>
                         智能推荐
                     </a>
-                    <ul class="left-nav-menu">
-                        <li>
-                            <a href="./industryDynamics.html">产业动态</a>
-                        </li>
-                        <li>
-                            <a href="./industrySummitMeeting.html">产业峰会</a>
-                        </li>
-                    </ul>
                 </li>
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="/accurateScreening/accurateScreening.ftl">
                         <div class="circle-out parkIcon">
                             <div class="circle-in">
 

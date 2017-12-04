@@ -74,7 +74,6 @@ $(function () {
             }
             _right_wrapper.addClass("open-img").find(".img-box-list>.img-box>img").eq(clickIndex).attr("src",imgSrc).css("display","inline");
             _right_wrapper.addClass("open-img").find(".img-box-list>.img-box>input[type=hidden]").eq(clickIndex).attr("value",attId);;
-//            _right_wrapper.addClass("open-img").find(".img-box-list>.img-box>img").eq(clickIndex).before('<input type="hidden" value="'+attId+'"/>');
             clickIndex++;
         }
     });
@@ -182,7 +181,7 @@ function showGardenAttainList(a,b,c,d){
 								}
 								html += '</p><p class="net-address"><span class="mr15"><span class="glyphicon glyphicon-map-marker"></span>' +
 								arr[i].address +'</span><span class="mr15"><span class="glyphicon glyphicon-globe"></span>' +
-								arr[i].gardenWebsite + '</span><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right">园区对比</a><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right  mr15">取消关注</a>' +
+								arr[i].gardenWebsite + '</span><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right">园区对比</a><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right  mr15" onclick="attation('+arr[i].gardenId+');">取消关注</a>' +
 								'</p></div></div></div>';
 				}
 				$("#gardenList").html(html);
@@ -190,6 +189,6 @@ function showGardenAttainList(a,b,c,d){
 		}
 	});
 }
-function showCompare(){
-	
+function attation(gardenId){
+	console.log($(this));
 }

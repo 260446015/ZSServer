@@ -12,6 +12,7 @@ import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
+import com.huishu.ZSServer.exception.OpeneyesException;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
 /**
@@ -34,9 +35,21 @@ public class OpeneyesController extends BaseController {
 	 * @param dto
 	 * @return
 	 */
-	@RequestMapping(value = "/getStaffInfo.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getStaffInfo.json", method = RequestMethod.POST)
 	public AjaxResult getStaffInfo(@RequestBody OpeneyesDTO dto) {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		return success(openeyesService.getStaffInfo(dto));
+	}
+	/**
+	 * 查询股东信息
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "/getHolder.json", method = RequestMethod.POST)
+	public AjaxResult getHolder(@RequestBody OpeneyesDTO dto) {
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getStaffInfo(dto));
 	}
@@ -46,11 +59,14 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getBaseInfo.json", method = RequestMethod.GET)
-	public AjaxResult getBaseInfo(@RequestBody OpeneyesDTO dto) {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+	@RequestMapping(value = "/getBaseInfo.json", method = RequestMethod.GET, params = "name")
+	public AjaxResult getBaseInfo(String name) throws OpeneyesException {
+		if (StringUtil.isEmpty(name))
 			return error(MsgConstant.ILLEGAL_PARAM);
+		OpeneyesDTO dto = new OpeneyesDTO();
+		dto.setCname(name);
 		return success(openeyesService.getBaseInfo(dto));
 	}
 
@@ -59,9 +75,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getBranch.json", method = RequestMethod.GET)
-	public AjaxResult getBranch(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getBranch(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getBranch(dto));
@@ -72,9 +89,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getHistoryRongZi.json", method = RequestMethod.GET)
-	public AjaxResult getHistoryRongZi(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getHistoryRongZi(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getHistoryRongZi(dto));
@@ -85,9 +103,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getTeamMember.json", method = RequestMethod.GET)
-	public AjaxResult getTeamMember(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getTeamMember(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getTeamMember(dto));
@@ -98,9 +117,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getProductInfo.json", method = RequestMethod.GET)
-	public AjaxResult getProductInfo(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getProductInfo(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getProductInfo(dto));
@@ -111,9 +131,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getTouZi.json", method = RequestMethod.GET)
-	public AjaxResult getTouZi(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getTouZi(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getTouZi(dto));
@@ -124,9 +145,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getJingPin.json", method = RequestMethod.GET)
-	public AjaxResult getJingPin(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getJingPin(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getJingPin(dto));
@@ -137,9 +159,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getShangBiao.json", method = RequestMethod.GET)
-	public AjaxResult getShangBiao(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getShangBiao(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getShangBiao(dto));
@@ -150,9 +173,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getPatents.json", method = RequestMethod.GET)
-	public AjaxResult getPatents(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getPatents(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getPatents(dto));
@@ -163,9 +187,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getCopyReg.json", method = RequestMethod.GET)
-	public AjaxResult getCopyReg(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getCopyReg(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getCopyReg(dto));
@@ -176,9 +201,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getIcp.json", method = RequestMethod.GET)
-	public AjaxResult getIcp(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getIcp(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getIcp(dto));
@@ -189,9 +215,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getTaxCredit.json", method = RequestMethod.GET)
-	public AjaxResult getTaxCredit(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getTaxCredit(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getTaxCredit(dto));
@@ -202,9 +229,10 @@ public class OpeneyesController extends BaseController {
 	 * 
 	 * @param dto
 	 * @return
+	 * @throws OpeneyesException 
 	 */
 	@RequestMapping(value = "/getSousuoCompanyList.json", method = RequestMethod.GET)
-	public AjaxResult getSousuoCompanyList(@RequestBody OpeneyesDTO dto) {
+	public AjaxResult getSousuoCompanyList(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		return success(openeyesService.getSousuoCompanyList(dto));
@@ -238,7 +266,7 @@ public class OpeneyesController extends BaseController {
 	@RequestMapping(value = "/searchInfo.json", method = RequestMethod.GET)
 	public JSONObject getTargetInfo(String name, String target, String pageNum, String pageSize, Long id) {
 		JSONObject returnObj = new JSONObject();
-		if (StringUtil.isEmpty(name) || StringUtil.isEmpty(target)){
+		if (StringUtil.isEmpty(name) || StringUtil.isEmpty(target)) {
 			returnObj.put("message", MsgConstant.ILLEGAL_PARAM);
 			return returnObj;
 		}
@@ -262,28 +290,34 @@ public class OpeneyesController extends BaseController {
 		dto.setCname(name);
 		dto.setFrom("2");// dto中有from字段，1代表用户，2代表广西
 		dto.setId(id);
-		if (target.equalsIgnoreCase("abnormal"))
-			return openeyesService.getAbnormal(dto);
-		else if (target.equalsIgnoreCase("punishmentInfo"))
-			return openeyesService.getPunishmentInfo(dto);
-		else if (target.equalsIgnoreCase("illegalinfo"))
-			return openeyesService.getIllegalinfo(dto);
-		else if (target.equalsIgnoreCase("ownTax"))
-			return openeyesService.getOwnTax(dto);
-		else if (target.equalsIgnoreCase("news"))
-			return openeyesService.getNews(dto);
-		else if (target.equalsIgnoreCase("dishonest"))
-			return openeyesService.getDishonest(dto);
-		else if (target.equalsIgnoreCase("riskInfo"))
-			return openeyesService.getRiskInfo(dto);
-		else if (target.equalsIgnoreCase("humanRiskInfo"))
-			return openeyesService.getHumanRiskInfo(dto);
-		else if (target.equalsIgnoreCase("riskDetail"))
-			return openeyesService.getRiskDetail(dto);
-		else if (target.equalsIgnoreCase("baseInfo"))
-			return openeyesService.getBaseInfo(dto);
-		else{
-			returnObj.put("message", "输入的type值无效");
+		try {
+			if (target.equalsIgnoreCase("abnormal"))
+				return openeyesService.getAbnormal(dto);
+			else if (target.equalsIgnoreCase("punishmentInfo"))
+				return openeyesService.getPunishmentInfo(dto);
+			else if (target.equalsIgnoreCase("illegalinfo"))
+				return openeyesService.getIllegalinfo(dto);
+			else if (target.equalsIgnoreCase("ownTax"))
+				return openeyesService.getOwnTax(dto);
+			else if (target.equalsIgnoreCase("news"))
+				return openeyesService.getNews(dto);
+			else if (target.equalsIgnoreCase("dishonest"))
+				return openeyesService.getDishonest(dto);
+			else if (target.equalsIgnoreCase("riskInfo"))
+				return openeyesService.getRiskInfo(dto);
+			else if (target.equalsIgnoreCase("humanRiskInfo"))
+				return openeyesService.getHumanRiskInfo(dto);
+			else if (target.equalsIgnoreCase("riskDetail"))
+				return openeyesService.getRiskDetail(dto);
+			else if (target.equalsIgnoreCase("baseInfo"))
+				return openeyesService.getBaseInfo(dto);
+			else {
+				returnObj.put("message", "输入的type值无效");
+				return returnObj;
+			}
+		} catch (OpeneyesException e) {
+			returnObj.put("err_msg", "查询数据为空");
+			returnObj.put("err_code", "999");
 			return returnObj;
 		}
 	}

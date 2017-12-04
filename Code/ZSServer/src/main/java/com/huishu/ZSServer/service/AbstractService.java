@@ -157,13 +157,15 @@ public class AbstractService<T> {
 		JSONObject parseObj = null;
 		try {
 			parseObj = JSONObject.parseObject(HttpUtils.sendHttpGet(spec, params));
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = new Date();
-			String today = format.format(date);
-			String id = getGeneratedId(from + today);
-			SearchCount search = searchCountRepository.findOne(id);
-			search = assemblySearchCount(date, today, id, from, search);
-			searchCountRepository.save(search);
+			if(!parseObj.toJSONString().contains("无数据")){
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = new Date();
+				String today = format.format(date);
+				String id = getGeneratedId(from + today +spec);
+				SearchCount search = searchCountRepository.findOne(id);
+				search = assemblySearchCount(date, today, id, from, search, spec);
+				searchCountRepository.save(search);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -171,7 +173,7 @@ public class AbstractService<T> {
 		return parseObj;
 	}
 
-	private SearchCount assemblySearchCount(Date date, String today, String id, String from, SearchCount search) {
+	private SearchCount assemblySearchCount(Date date, String today, String id, String from, SearchCount search, String spec) {
 		if (null == search) {
 			search = new SearchCount();
 			search.setId(id);
@@ -180,6 +182,7 @@ public class AbstractService<T> {
 			search.setLastTime(date.getTime());
 			search.setTotal(1);
 			search.setFromType(from);
+			search.setSpec(spec);
 		} else {
 			search.setLastTime(date.getTime());
 			search.setTotal(search.getTotal() + 1);
