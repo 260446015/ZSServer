@@ -44,7 +44,7 @@ public class AnalysisServiceImpl extends AbstractService<CompanyAnnals> implemen
 	@Override
 	public Page<Company> getCompanyList(CompanySearchDTO dto) {
 		Sort sort = new Sort(Direction.DESC, "financingDate");
-		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(),sort);
+		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), 6,sort);
 		return financingRepository.findByInvestAndPark(dto.getInvest(),dto.getPark(), pageRequest);
 	}
 

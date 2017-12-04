@@ -123,7 +123,7 @@ function ajaxPost(param){
             if(response.message!=null){
             	new Alert({flag:false,text:result.message,timer:1500}).show();
             }else{
-            	 if(response.data.totalNumber>0){
+            	 if(response.data.totalPage>1){
 	            	page.init(response.data.totalNumber,response.data.pageNumber,options);
 	            	$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
 	            		var param={invest:invest,sort:sort,area:area,industry:industry,pageNumber:$(this).attr("page-data")-1};

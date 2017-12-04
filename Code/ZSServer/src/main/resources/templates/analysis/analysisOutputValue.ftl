@@ -53,9 +53,7 @@
                                     <div class="box-body">
                                         <div class="search-box mb20" id="city_list">
                                         </div>
-                                        <div class="btn-box-center">
-                                            <button type="button" class="btn btn-fill btn-blue">上一页</button>
-                                            <button type="button" class="btn btn-fill btn-blue">下一页</button>
+                                        <div class="btn-box-center" id="city_button">
                                         </div>
                                     </div>
                                 </div>
