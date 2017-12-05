@@ -10,7 +10,7 @@ function showRongZi(){
 		url:'/apis/openeyes/getHistoryRongZi.json',
 		success:function(res){
 			if(res.success){
-				var arr = res.data.result.items;
+				var arr = res.data.result.page.rows;
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var dateStr = getFormatDate(new Date(arr[i].date));

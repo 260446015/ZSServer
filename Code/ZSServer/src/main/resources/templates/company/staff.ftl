@@ -25,7 +25,7 @@
 <#include "/common/header.ftl"/>
 <div class="wrapper">
     <div class="page-content">
-      <#include "/common/sidebar3.ftl"/>
+      <#include "/common/sidebar2.ftl"/>
       <div class="right-content">
       	<#include "/common/companyDetail.ftl"/>
       	<div class="model-box">

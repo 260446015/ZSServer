@@ -354,15 +354,17 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		List<HistoryRongZi> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
 		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
-			openEyesTarget.put("result", inList);
+			inList.put("rows", newList);
+			JSONObject inList2 = new JSONObject();
+			inList2.put("page", inList);
+			openEyesTarget.put("result", inList2);
 			return openEyesTarget;
 		}
 		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
 		if(null != openEyesTarget){
 			JSONArray jsonArray = null;
 			try {
-				jsonArray = openEyesTarget.getJSONObject("result").getJSONArray("items");
+				jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
 			} catch (NullPointerException e) {
 				log.debug("天眼查历史融资查询数据为空",e.getMessage());
 				throw new OpeneyesException();
