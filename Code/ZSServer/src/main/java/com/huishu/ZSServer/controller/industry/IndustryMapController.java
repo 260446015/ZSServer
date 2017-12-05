@@ -155,7 +155,7 @@ public class IndustryMapController extends BaseController{
 			LOGGER.debug("获取国家重点实验室详情失败，参数异常");
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		Institutional info = iservice.getInstutionalInfo(area,industry);
+		List<Institutional> info = iservice.getInstutionalInfo(area,industry);
 		if(info==null){
 			return error("暂无数据");
 		}else{

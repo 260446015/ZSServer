@@ -159,11 +159,11 @@ $(function () {
     	    charts.setOption(option)
     	    charts.on("click",function (e) {
     	    	var name = e.data[2];
+    	    	console.log(name);
     	    	$.ajax({
-    	    		url:'/intelligent/getCompanyInfoByName.json',
-    	        	type:'POST',
+    	    		url:'/intelligent/getCompanyInfoByName.json?name='+name,
+    	        	type:'GET',
     	        	async: false,
-    	        	data:{name:name},
     	        	success:function(res){
     	        		if(res.data==null){
     	        			new Alert({flag:false,text:res.message,timer:2000}).show();

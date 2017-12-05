@@ -1,6 +1,8 @@
 package com.huishu.ZSServer.common.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -252,5 +254,26 @@ public class StringUtil {
 		htmlStr = m_space.replaceAll(""); // 过滤空格回车标签
 		return htmlStr.trim(); // 返回文本字符串
 	}
-
+	public static List<Integer> initMoney(String money){
+		List<Integer> list = new ArrayList<Integer>();
+		if(StringUtil.isEmpty(money)){
+			return null;
+		}
+		if(money.indexOf("万")>=0){
+			String[] split = money.split("万");
+			String str = split[0];
+			if(str.indexOf("-")>=0){
+				String[] ss = str.split("-");
+				int i1 = Integer.parseInt(ss[0]);
+				int i2 = Integer.parseInt(ss[1]);
+				list.add(i1);
+				list.add(i2);
+			}else{
+				int i = Integer.parseInt(str);
+				list.add(i);
+			}
+		}
+		
+		return list;
+	}
 }

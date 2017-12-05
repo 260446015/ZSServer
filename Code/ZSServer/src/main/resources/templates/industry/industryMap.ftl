@@ -95,7 +95,7 @@
                             <img class="lay lay-top" src="/images/lay_top.png" alt="">
                             <img class="lay lay-right" src="/images/lay_right.png" alt="">
                             <img class="lay lay-bottom" src="/images/lay_bottom.png" alt="">
-                           <h3 class="box-title" id="">北京</h3>
+                           <h3 class="box-title" id="box-title">北京</h3>
                             <div class="box-body">
                                 <ul class="box-list" id="box-list">
                                 </ul>
@@ -108,40 +108,17 @@
 
                             </div>
                             <div class="layer-person">
-                                <h3 class="layer-person-title text-center" id="form-control-static6">无线移动通信国家重点实验室</h3>
                                 <div class="layer-body">
-                                    <div class="form-horizontal">
-                                    	<input type="hidden" id ="textName" value=""/>
-                                        <div class="form-group text-center">
-                                            <img src="/images/user_head.png" alt="" />
+                                <div id="myCarousel" data-wrap="false" data-interval="false" class="carousel slide">
+                                        <!-- 轮播（Carousel）项目 -->
+                                  <div class="carousel-inner" id="carousel-inner">
                                         </div>
-                                        <div class="form-group">
-                                            <p class="text-center" id="form-control-static5">邬贺铨</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 text-right control-label">机构性质</label>
-                                            <div class="col-md-7">
-                                                <p class="form-control-static" id="form-control-static1">国家重点实验室</p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 text-right control-label">机构产业</label>
-                                            <div class="col-md-7">
-                                                <p class="form-control-static" id="form-control-static2">新型信息产业</p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 text-right control-label">委托单位</label>
-                                            <div class="col-md-7">
-                                                <p class="form-control-static" id="form-control-static3">电信科学技术研究所</p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 text-right control-label">机构网址</label>
-                                            <div class="col-md-7">
-                                                <p class="form-control-static" id="form-control-static4">https://baike.baidu.com/item/</p>
-                                            </div>
-                                        </div>
+                                       <a class="carousel-control left" href="#myCarousel"
+                                           data-slide="prev">&lsaquo;
+                                        </a>
+                                        <a class="carousel-control right" href="#myCarousel"
+                                           data-slide="next">&rsaquo;
+                                        </a> 
                                     </div>
                                 </div>
                                 <div class="layer-footer text-center">
@@ -159,7 +136,7 @@
                             <ul class="timeline" id="timeline">
                             	<#list summit as info>
                             	<li>
-                                    <a href="javascript:void(0);" onclick=window.open("${info.articleLink}")>
+                                    <a href="${info.articleLink} " target="_blank")>
                                         <i class="timeline-circle"></i>
                                         <span class="time">${info.publishTime}</span>
                                         <span class="line-title">${info.title}</span>

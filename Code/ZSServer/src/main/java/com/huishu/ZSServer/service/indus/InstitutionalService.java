@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.service.indus;
 
+import java.util.List;
+
 import com.huishu.ZSServer.entity.Institutional;
 
 /**
@@ -16,7 +18,7 @@ public interface InstitutionalService {
 	 * @param industry
 	 * @return
 	 */
-	Institutional getInstutionalInfo(String area, String industry);
+	List<Institutional> getInstutionalInfo(String area, String industry);
 
 	/**
 	 * @param id

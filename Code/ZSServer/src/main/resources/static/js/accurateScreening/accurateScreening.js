@@ -1,8 +1,59 @@
-/**
- * Created by zhangxin on 2017/11/27.
- */
+var industry ="全部";
+var registerTime = "1-5年";
+var area = "全部";
+var register="0-50万";
 $(function () {
-    var dot = {
+	/*var param = {industry:industry,area:area,register:register,registerTime:registerTime};
+    searchAjax(param);*/
+    $(".search-tag span.close").on("click",function () {
+        $(this).parent().remove();
+        console.log($(this).parent().val());
+    });
+});
+function searchTab(a,b){
+	if(a == 1){
+		industry = b;
+	}else if(a == 2){
+		area = b;
+	}else if(a == 3){
+		registerTime = b;
+	}else if(a==4){
+		register = b;
+	}
+};
+$("#search_tag").on("click",function () {
+    $("#myModal").modal("show");
+    
+  
+    $("#LabelBlue").click(function(){
+    	
+    	$("#myModal").modal("hide");
+    	var arr=[];
+    	if(industry=="全部"){
+    		arr = [area,registerTime,register];
+    	}else if(area=="全部"){
+    		arr=[industry,registerTime,register];
+    	}else{
+    		arr = [industry,area,registerTime,register];
+    	}
+    	$("#searchTag").html(TagList(arr));
+    	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
+    	searchAjax(param);
+    	
+    });
+});
+function TagList(arr){
+	var array=[];
+	$.each(arr,function(index,item){
+		array.push(
+				'<button class="btn btn-fill btn-blue search-tag">'+item
+                +'<span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span></button>'
+		);
+	});
+	var inner = array.join('');
+	return inner;
+};
+var dot = {
         name: '强相关',
         type: 'effectScatter',
         showEffectOn: 'emphasis',
@@ -36,7 +87,7 @@ $(function () {
         },
 
         data: [],
-    }
+    };
 
     var datalist = [
         /**
@@ -141,42 +192,71 @@ $(function () {
         ]
     }]
 };
-    $("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-192-$(".mt50.mb20").height());
-    var charts = echarts.init(document.getElementById("charts"),"customed");
-    charts.setOption(option)
-    charts.on("click",function (e) {
-    	var name = e.data[2];
-    	$.ajax({
-    		url:'/intelligent/getCompanyInfoByName.json',
-        	type:'POST',
-        	async: false,
-        	data:{name:name},
-        	success:function(res){
-        		if(res.data==null){
-        			new Alert({flag:false,text:res.message,timer:2000}).show();
-        		}
-        		var a = res.data;
-        		console.log(res.data);
-        		$('#cname').html(a.name);
-        		$('#address1').html(a.address);
-        		$('#time1').html(a.time);
-        		$('#boss1').html(a.boss);
-        		$('#ind1').html(a.industry);
-        		$('#money1').html(a.money);
-        		$('#state1').html(a.state);
-        	}
-    	});
-        $(".layer-person").css({
-            display: "block",
-            top: e.event.offsetY,
-            left: e.event.offsetX+200
-        });
-    });
-    $("#search_tag").on("click",function () {
-        $("#myModal").modal("show");
-    });
-    $(".search-tag span.close").on("click",function () {
-        $(this).parent().remove();
-        console.log($(this).parent().val());
-    });
-});
+   
+function searchAjax(param){
+	console.log(param);
+	$.ajax({
+		url:'/accurateScreening/getCompanyInfoBySearch.json',
+		type:'POST',
+		async: false,
+        contentType: 'application/json',
+		data:JSON.stringify(param),
+		success:function(res){
+			if(res.message!=null){
+            	new Alert({flag:false,text:result.message,timer:1500}).show();
+            }else{
+            	var array = res.data;
+            	var arr = initEchartData(array,datalist);
+            	/**根据返回结果构建echart图形*/
+            	 $("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-192-$(".mt50.mb20").height());
+            	    var charts = echarts.init(document.getElementById("charts"),"customed");
+            	    option.series.data=arr;
+            	    option.series[option.series.length-1].data.push(
+            	    		[50, 50, array[array.length-1].companyName, '#fff']
+            	    );
+            	    charts.setOption(option);
+            	    charts.on("click",function (e) {
+            	    	var name = e.data[2];
+            	    	$.ajax({
+            	    		url:'/intelligent/getCompanyInfoByName.json?name='+name,
+            	        	type:'GET',
+            	        	async: false,
+            	        	success:function(res){
+            	        		if(res.data==null){
+            	        			new Alert({flag:false,text:res.message,timer:2000}).show();
+            	        		}else{
+            	        			var a = res.data;
+            	        			console.log(res.data);
+            	        			$('#cname').html(a.name);
+            	        			$('#address1').html(a.address);
+            	        			$('#time1').html(a.time);
+            	        			$('#boss1').html(a.boss);
+            	        			$('#ind1').html(a.industry);
+            	        			$('#money1').html(a.money);
+            	        			$('#state1').html(a.state);
+            	        		}
+            	        	}
+            	    	});
+            	        $(".layer-person").css({
+            	            display: "block",
+            	            top: e.event.offsetY,
+            	            left: e.event.offsetX+200
+            	        });
+            	    });
+            	
+            }
+		}
+	});
+};
+function initEchartData(array,datalist){
+	var data=[];
+	var b=[];
+	$.each(array,function(index,item){
+		var a = datalist[index];
+		if(index<=6){
+			a[2]=item.companyName;
+			data.push(b.push(a));
+		}
+	});
+	return data;
+};

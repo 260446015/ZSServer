@@ -31,7 +31,7 @@ public class InstitutionalServiceImpl implements InstitutionalService {
 	private UserInstitutionalRepository uir;
 	
 	@Override
-	public Institutional getInstutionalInfo(String area, String industry) {
+	public List<Institutional> getInstutionalInfo(String area, String industry) {
 		if(StringUtil.isEmpty(industry)||StringUtil.isEmpty(area)){
 			LOGGER.debug("参数异常:area>>>>>>>>>"+area+"产业信息:>>>>>>>>>>"+industry);
 			return null;
@@ -40,7 +40,7 @@ public class InstitutionalServiceImpl implements InstitutionalService {
 		if(list.size()==0){
 			return null;
 		}else{
-			return list.get(0);
+			return list;
 		}
 	}
 

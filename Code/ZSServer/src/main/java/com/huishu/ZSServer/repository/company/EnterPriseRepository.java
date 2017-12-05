@@ -28,4 +28,14 @@ public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> ,
 	 * 根据全称查看公司数据
 	 */
 	Enterprise findByCompany(String company);
+
+	/**
+	 * @param industry
+	 * @param area
+	 * @param object
+	 * @param object2
+	 * @return
+	 */
+	List<Enterprise> findByIndustryLikeAndAreaLikeAndRegisterTimeBetween(String industry, String area, String startTime,
+			String endTime);
 }
