@@ -1,13 +1,14 @@
 /**
  * Created by zhangxin on 2017/11/15.
  */
+var industry="";
 $(function (){
 	new Loading({isfullscreen:true,text:"正在努力加载,三秒后消失"}).show();
-	var industry = $("#mark-item1").val();
+	 industry= $("#mark-item1").val();
 	
 	/*获取企业排行的数据*/
 	industryHotRank(industry);
-	industryMapData(industry);
+//	industryMapData(industry);
 	new Loading({isfullscreen:true}).hide();
 });
 
@@ -144,18 +145,25 @@ function industryHotRank(industry){
 		 url:'/indusMap/getRankInfoByIndustry.json?industry='+industry,
 		 type: 'GET',
 		 success:function(result){
-			var data = result.data;
-			for( i = 0;i<data.length;i++){
-				a[i]= data[i].area;
-				b[i]= data[i].count;	
-			}
-			industryHotCity.yAxis.data = a.reverse();
-			industryHotCity.series[0].data = b.reverse();
-			industryHotCityCharts.setOption(industryHotCity);
-			findCompany(data[0].area,industry);
-			industryHotCityCharts.on('click',function(param){
-				findCompany(param.data.name,industry);
-			});
+			 if(result.data==null){
+				 new Alert({flag:false,text:res.message,timer:2000}).show();
+			 }else{
+				 var data = result.data;
+					for( i = 0;i<data.length;i++){
+						a[i]= data[i].area;
+						b[i]= data[i].count;	
+					}
+					industryHotCity.yAxis.data = a.reverse();
+					industryHotCity.series[0].data = b.reverse();
+					industryHotCityCharts.setOption(industryHotCity);
+					findCompany(data[0].area,industry);
+					industryHotCityCharts.on('click',function(param){
+						console.log(param.name);
+						$("#box-title").html(param.name);
+						findCompany(param.name,industry);
+					});
+			 }
+			
 		 }
 	 });
  };
@@ -220,50 +228,50 @@ var data = [
     {name: '银川', value: 52},
     {name: '张家港', value: 52},
     {name: '三门峡', value: 53},
-    {name: '陕西', value: 61},
-    {name: '金坛', value: 62},
-    {name: '东营', value: 62},
-    {name: '牡丹江', value: 63},
-    {name: '遵义', value: 63},
-    {name: '绍兴', value: 63},
-    {name: '扬州', value: 64},
-    {name: '常州', value: 64},
-    {name: '潍坊', value: 65},
-    {name: '重庆', value: 66},
-    {name: '台州', value: 67},
-    {name: '渭南', value: 72},
-    {name: '马鞍山', value: 72},
-    {name: '宝鸡', value: 72},
-    {name: '焦作', value: 75},
-    {name: '句容', value: 75},
-    {name: '徐州', value: 79},
-    {name: '衡水', value: 80},
-    {name: '包头', value: 80},
-    {name: '绵阳', value: 80},
-    {name: '乌鲁木齐', value: 84},
-    {name: '兰州', value: 99},
-    {name: '沧州', value: 100},
-    {name: '临沂', value: 103},
-    {name: '宜昌', value: 130},
-    {name: '义乌', value: 132},
-    {name: '丽水', value: 133},
-    {name: '河南', value: 134},
-    {name: '秦皇岛', value: 136},
-    {name: '株洲', value: 143},
-    {name: '石家庄', value: 147},
-    {name: '莱芜', value: 148},
-    {name: '常德', value: 152},
-    {name: '保定', value: 153},
-    {name: '湘潭', value: 154},
-    {name: '金华', value: 157},
-    {name: '岳阳', value: 169},
-    {name: '湖南', value: 175},
-    {name: '衢州', value: 177},
-    {name: '廊坊', value: 193},
-    {name: '菏泽', value: 194},
-    {name: '安徽', value: 229},
-    {name: '湖北', value: 273},
-    {name: '北京', value: 279}
+    {name: '陕西', value: 55},
+    {name: '金坛', value: 56},
+    {name: '东营', value: 57},
+    {name: '牡丹江', value: 58},
+    {name: '遵义', value: 59},
+    {name: '绍兴', value: 60},
+    {name: '扬州', value: 61},
+    {name: '常州', value: 62},
+    {name: '潍坊', value: 63},
+    {name: '重庆', value: 64},
+    {name: '台州', value: 65},
+    {name: '渭南', value: 66},
+    {name: '马鞍山', value: 67},
+    {name: '宝鸡', value: 68},
+    {name: '焦作', value: 69},
+    {name: '句容', value: 71},
+    {name: '徐州', value: 72},
+    {name: '衡水', value: 73},
+    {name: '包头', value: 74},
+    {name: '绵阳', value: 75},
+    {name: '乌鲁木齐', value: 76},
+    {name: '兰州', value: 77},
+    {name: '沧州', value: 78},
+    {name: '临沂', value: 79},
+    {name: '宜昌', value: 80},
+    {name: '义乌', value: 81},
+    {name: '丽水', value: 82},
+    {name: '河南', value: 83},
+    {name: '秦皇岛', value: 85},
+    {name: '株洲', value: 86},
+    {name: '石家庄', value: 87},
+    {name: '莱芜', value: 88},
+    {name: '常德', value: 89},
+    {name: '保定', value: 90},
+    {name: '湘潭', value: 91},
+    {name: '金华', value: 92},
+    {name: '岳阳', value: 93},
+    {name: '湖南', value: 94},
+    {name: '衢州', value: 95},
+    {name: '廊坊', value: 96},
+    {name: '菏泽', value: 97},
+    {name: '安徽', value: 98},
+    {name: '湖北', value: 99},
+    {name: '北京', value: 100}
 ];
 
 var geoCoordMap = {
@@ -426,7 +434,7 @@ var chinaOption = {
             	if(val[2]<10){
             		return val[2]*3;
             	}else{
-            		return val[2];
+            		return val[2]/2;
             	}
             },
             label: {
@@ -451,7 +459,7 @@ var chinaOption = {
             	if(val[2]<10){
             		return val[2]*3;
             	}else {
-            		return val[2];
+            		return val[2]/2;
             	}
             },
             showEffectOn: 'emphasis',
@@ -479,9 +487,10 @@ var chinaOption = {
 };
 
 var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
-industryMap.on('click',function(param){
+/*industryMap.on('click',function(param,industry){
+	console.log(industry);
 	findCompany(param.data.name,industry);
-});
+});*/
 industryMap.setOption(chinaOption);
 /**
  * 地图点击事件
@@ -489,34 +498,41 @@ industryMap.setOption(chinaOption);
 industryMap.on("click",function (e) {
     /*这里需要判断一下 点击哪一个类型的点，才显示简介*/
 	console.log(e);
-	var industry = $("#mark-item1").val();
-	/*由于数据测试,暂时写死地域*/
-	var area = e.name;
-	
-	$.ajax({
-		url:'/indusMap/getLaboratoryInfo.json',
-		type:'POST',
-		data:{"industry":industry,"area":area},
-		success:function(res){
-		 
-			if(res.data==null){
-				new Alert({flag:false,text:"暂无数据",timer:2000}).show();
-			}else{
-				$("#form-control-static6").html(res.data.laboratoryName);
-				$("#form-control-static5").html(res.data.academicLeader);
-				$("#form-control-static1").html(res.data.institutionalCategory);
-				$("#form-control-static2").html(res.data.industry);
-				$("#form-control-static3").html(res.data.supportUnit);
-				$("#form-control-static4").html(res.data.url);
-				$("#textName").val(res.data.id);
-				$(".layer-person").css({
-			        display: "block",
-			        top: e.event.offsetY-212,
-			        left: e.event.offsetX+30
-			    });
+	if(e.seriesType=="effectScatter"){
+		var industry = $("#mark-item1").val();
+		/*由于数据测试,暂时写死地域*/
+		var area = e.name;
+		
+		$.ajax({
+			url:'/indusMap/getLaboratoryInfo.json',
+			type:'POST',
+			data:{"industry":industry,"area":area},
+			success:function(res){
+			 
+				if(res.data==null){
+					new Alert({flag:false,text:"暂无数据",timer:2000}).show();
+				}else{
+					/*$("#form-control-static6").html(res.data.laboratoryName);
+					$("#form-control-static5").html(res.data.academicLeader);
+					$("#form-control-static1").html(res.data.institutionalCategory);
+					$("#form-control-static2").html(res.data.industry);
+					$("#form-control-static3").html(res.data.supportUnit);
+					$("#form-control-static4").html(res.data.url);
+					$('input[name="textName"]').val(res.data.id);*/
+					var arr = res.data;
+					$("#carousel-inner").html(showInfo(arr));
+					$(".layer-person").css({
+				        display: "block",
+				        top: e.event.offsetY-212,
+				        left: e.event.offsetX+30
+				    });
+				}
 			}
-		}
-	});
+		});
+	}else{
+		
+	}
+	
    
 });
 /**
@@ -524,7 +540,7 @@ industryMap.on("click",function (e) {
  */
 $(".like").on("click",function () {
     var _this = $(this);
-    var _id = $("#textName").val();
+    var _id = $('input[name="textName"]').val();
     _this.parents(".layer-person").hide();
     $.ajax({
     	url:'/indusMap/insertLaboratoryInfo.json',
@@ -539,4 +555,37 @@ $(".like").on("click",function () {
     	}
     });
 });
-
+function showInfo(arr){
+	var array = [];
+	$.each(arr,function(index,item){
+		$('input[name="textName"]').val(item.id);
+		if(index==0){
+		array.push(
+		'<div class="item active"><h3 class="layer-person-title text-center">'+item.laboratoryName+'</h3>'
+		+'<div class="form-horizontal"><input type="hidden" name="textName" value="'+item.id+'"/><div class="form-group text-center">'
+		+'<img src="/images/user_head.png" alt="" /></div><div class="form-group">'
+        +'<p class="text-center" >'+item.academicLeader+'</p></div><div class="form-group"><label class="col-md-4 text-right control-label">机构性质</label>'
+        +'<div class="col-md-7"><p class="form-control-static">'+item.institutionalCategory+'</p></div></div>'
+        +'<div class="form-group"><label class="col-md-4 text-right control-label">机构产业</label><div class="col-md-7">'
+        +'<p class="form-control-static">'+item.industry+'</p></div></div><div class="form-group">'
+        +'<label class="col-md-4 text-right control-label">委托单位</label><div class="col-md-7">'
+        +'<p class="form-control-static">'+item.supportUnit+'</p></div></div><div class="form-group"><label class="col-md-4 text-right control-label">机构网址</label>'
+        +'<div class="col-md-7"><p class="form-control-static">'+item.url+'</p></div></div></div></div>');
+		}else{
+		array.push(
+			'<div class="item"><h3 class="layer-person-title text-center">'+item.laboratoryName+'</h3>'
+			+'<div class="form-horizontal"><input type="hidden" name="textName" value="'+item.id+'"/><div class="form-group text-center">'
+			+'<img src="/images/user_head.png" alt="" /></div><div class="form-group">'
+			+'<p class="text-center" >'+item.academicLeader+'</p></div><div class="form-group"><label class="col-md-4 text-right control-label">机构性质</label>'
+			+'<div class="col-md-7"><p class="form-control-static">'+item.institutionalCategory+'</p></div></div>'
+			+'<div class="form-group"><label class="col-md-4 text-right control-label">机构产业</label><div class="col-md-7">'
+			+'<p class="form-control-static">'+item.industry+'</p></div></div><div class="form-group">'
+			+'<label class="col-md-4 text-right control-label">委托单位</label><div class="col-md-7">'
+			+'<p class="form-control-static">'+item.supportUnit+'</p></div></div><div class="form-group"><label class="col-md-4 text-right control-label">机构网址</label>'
+			+'<div class="col-md-7"><p class="form-control-static">'+item.url+'</p></div></div></div></div>'
+			);
+		}
+	});
+	var inner = array.join('');
+	return inner;
+}

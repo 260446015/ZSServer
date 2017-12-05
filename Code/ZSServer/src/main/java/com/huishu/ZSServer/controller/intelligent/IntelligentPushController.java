@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,13 +61,13 @@ public class IntelligentPushController extends BaseController{
 	 * 根据别名查看详细信息
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getCompanyInfoByName.json",method=RequestMethod.POST)
-	public AjaxResult getCompanyInfoByName(@Param("name")String companyName){
+	@RequestMapping(value="/getCompanyInfoByName.json",method=RequestMethod.GET)
+	public AjaxResult getCompanyInfoByName( String name){
 		
-		if(StringUtil.isEmpty(companyName)){
+		if(StringUtil.isEmpty(name)){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		IndusCompany company = service.findCompanyInfoByCompanyName(companyName);
+		IndusCompany company = service.findCompanyInfoByCompanyName(name);
 		if(company==null){
 			return error(MsgConstant.SYSTEM_ERROR);
 		}

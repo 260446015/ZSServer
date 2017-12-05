@@ -3,6 +3,7 @@ package com.huishu.ZSServer.service.company;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ZSServer.entity.IndusCompany;
 
 /**
  * @author hhy
@@ -27,5 +28,14 @@ public interface EnterPriseService {
 	 * 获取公司信息
 	 */
 	JSONObject getCompanyInfoByCompany(String company);
+
+	/**
+	 * @param industry
+	 * @param money
+	 * @param time
+	 * @param area
+	 * @return
+	 */
+	List<IndusCompany> getCompanyList(String industry, String money, String time, String area);
 
 }
