@@ -40,6 +40,16 @@ public class RiskInfo implements Serializable {
 	private String companyName;
 	/** 风险数量 */
 	private Integer riskCount;
+	/** 所属公司 */
+	private String cname;
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
 
 	public Long getId() {
 		return id;
