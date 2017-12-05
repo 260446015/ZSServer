@@ -121,6 +121,8 @@
 <script src="/js/analysisOutputValue/analysisOutputValue.js"></script>
 <script type="text/javascript">
 	$(function(){
+		$("#gardenMap").addClass("active");
+		$("#all").addClass("active");
 		myPost('${Request.park}');
 		myPost2('年产值','新兴信息产业');
 		myTopList('新兴信息产业');

@@ -2,6 +2,8 @@
  * Created by zhangxin on 2017/11/22.
  */
 $(function() {
+	$("#gardenMap").addClass("active");
+	$("#all").addClass("active");
 	AMapUI.setDomLibrary($);
 
 	// 加载BasicControl，loadUI的路径参数为模块名中 'ui/' 之后的部分

@@ -23,7 +23,7 @@
 <#include "/common/header.ftl"/>
 <div class="wrapper">
     <div class="page-content">
-		<#include "/common/sidebar3.ftl"/>
+		<#include "/common/sidebar2.ftl"/>
         <div class="right-content">
             <div class="model-box">
                 <div class="model-header">
@@ -75,6 +75,7 @@
 </body>
 <script type="text/javascript">
 	$(function(){
+		$("#report").addClass("active");
         $.ajax({
             url: "/apis/report/getExpertReport.json",
             success: function (response) {

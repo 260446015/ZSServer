@@ -11,10 +11,10 @@
                         产业地图
                     </a>
                     <ul class="left-nav-menu">
-                        <li class="active">
+                        <li id="dynamic">
                             <a href="/indus/get">产业动态</a>
                         </li>
-                        <li>
+                        <li id="summit">
                             <a href="/summit/getInfo">产业峰会</a>
                         </li>
                     </ul>

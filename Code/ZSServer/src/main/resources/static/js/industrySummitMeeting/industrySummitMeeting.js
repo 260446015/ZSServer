@@ -7,6 +7,7 @@ var sort = "按热度";
 var pageSize = 8;
 var pageNumber = 0;
 $(function(){
+	$("#summit").addClass("active");
 	Click(0,0);
 });
 function Click(a,b){

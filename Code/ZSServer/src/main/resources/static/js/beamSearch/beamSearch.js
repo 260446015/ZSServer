@@ -3,6 +3,7 @@
  */
 
 $(function () {
+	$("#search").addClass("active");
     //计算内容区域的高度
     //$(".right-content").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-148).css("min-height",$(".right-content .mt88").height()+88);
     $(".search-company").on("click",function () {
@@ -89,14 +90,18 @@ function showCompany(list){
        	   var cHtml="";
            for(var i=0;i<result.length;i++){
         	   var obj = eval('(' + result[i] + ')');
+        	   var str=obj.name;
+        	   var name=str.replace('<em>','').replace('</em>','');
+        	   str=str.replace('<em>','<span style="color:#00ffe4">');
+        	   str=str.replace('</em>','</span>');
                cHtml+='<div class="col-md-3"><div class="img-list company-list"><div class="company-img">'+
-               '<img src="/images/ZClick.png"/></div><p class="title company-title">'+obj.name+
+               '<img src="/images/ZClick.png"/></div><p class="title company-title">'+str+
                '</p><div class="details company-details"><p> 法人:<span class="company-range">'+obj.legalPersonName+'</span></p>'+
                '<p>成立时间:<span class="company-time">'+obj.estiblishTime.substring(0,10)+'</span></p>'+
                '<p>注册资金:<span class="company-money">'+obj.regCapital+'</span></p>'+
                '<p>总部地点:<span class="company-address">'+obj.base+'</span></p>'+
-               '<div class="company-mask"><div class="circle-empty"><img src="/images/see_icon.png" />'+
-               '<a href="/apis/area/company/companyDetail.html?companyName='+obj.name+'" class="text-center">查看详情</a></div></div></div></div></div>';
+               '<div class="company-mask"><div class="circle-empty"><a href="/apis/area/company/companyDetail.html?companyName='+name+'" class="text-center"><img src="/images/see_icon.png" /></a>'+
+               '<a href="/apis/area/company/companyDetail.html?companyName='+name+'" class="text-center">查看详情</a></div></div></div></div></div>';
            }
            $("#city_list").html(cHtml);//将数据增加到页面中
        }

@@ -82,6 +82,8 @@
 	    "callBack":function(){}
 	};
 	$(function(){
+		$("#gardenMap").addClass("active");
+		$("#all").addClass("active");
         myPost('${Request.park}','政策解读',0);
 		myPost('${Request.park}','园区动态',0);
     })

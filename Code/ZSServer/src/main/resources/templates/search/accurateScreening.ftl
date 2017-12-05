@@ -18,7 +18,7 @@
     <!-- js 兼容低版本IE end -->
 </head>
 <body class="bg2">
-<#include "/common/header.ftl"/>
+<#include "/common/header2.ftl"/>
 <div class="wrapper">
     <div class="page-content">
     <#include "/common/searchSidebar.ftl"/>

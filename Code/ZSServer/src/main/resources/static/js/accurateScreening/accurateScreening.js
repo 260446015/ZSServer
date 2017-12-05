@@ -2,6 +2,7 @@
  * Created by zhangxin on 2017/11/27.
  */
 $(function () {
+	$("#screen").addClass("active");
     var dot = {
         name: '强相关',
         type: 'effectScatter',

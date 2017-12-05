@@ -2,6 +2,8 @@
  * Created by zhangxin on 2017/11/23.
  */
 $(function () {
+	$("#gardenMap").addClass("active");
+	$("#follow").addClass("active");
 	showGardenindustry();
     showGardenAttainArea();
     showGardenAttainList(industryType,area,sort,sortType);
