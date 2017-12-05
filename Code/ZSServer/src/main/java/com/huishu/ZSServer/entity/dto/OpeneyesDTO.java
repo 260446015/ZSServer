@@ -28,6 +28,16 @@ public class OpeneyesDTO extends AbstractDTO {
 	private Long id;
 	/** 区别是否要调用查询竞品信息 */
 	private Boolean flag;
+	/***/
+	private String type;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public String getSpec() {
 		return spec;

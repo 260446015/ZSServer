@@ -8,6 +8,6 @@ import com.huishu.ZSServer.entity.openeyes.CopyReg;
 
 public interface CopyRegRepository extends CrudRepository<CopyReg, Long>{
 
-	List<CopyReg> findByAuthorNationality(String cname);
+	List<CopyReg> findByCompanyName(String cname);
 
 }

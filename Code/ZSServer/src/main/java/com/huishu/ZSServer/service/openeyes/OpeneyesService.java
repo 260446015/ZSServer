@@ -19,7 +19,7 @@ public interface OpeneyesService {
 	 * @param dto
 	 * @return
 	 */
-	JSONObject getStaffInfo(OpeneyesDTO dto);
+	JSONObject getStaffInfo(OpeneyesDTO dto) throws OpeneyesException;
 
 	/**
 	 * 获取天眼查基本信息
@@ -196,5 +196,174 @@ public interface OpeneyesService {
 	 * @return
 	 */
 	JSONObject getSousuoCompanyList(OpeneyesDTO dto) throws OpeneyesException;
+	
+	/**
+	 * 查询股东信息
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException
+	 */
+	JSONObject getHolder(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询信息变更
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getChangeInfo(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询对外投资
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getInverst(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询招投标
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getBids(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询债券信息
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getBond(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询购地信息
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getPurchaseland(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询招聘信息
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException
+	 */
+	JSONObject getEmployment(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询抽查检查
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getCheckInfo(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询产品信息
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException
+	 */
+	JSONObject getAppbkInfo(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询法律诉讼
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException
+	 */
+	JSONObject getLawsuit(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询法院公告
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getGonggao(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询被执行人
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getZhixingInfo(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询股票行情
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException
+	 */
+	JSONObject getVolatility(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询企业简介（股票）
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getCompanyInfo(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询高管信息(股票)
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException
+	 */
+	JSONObject getSeniorExecutive(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询参股控股（股票）
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getHoldingCompany(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 查询上市公告（股票）
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getAnnouncement(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * ⼗⼤股东（⼗⼤流通股东）（股票）
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getShareholder(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 发⾏相关（股票）
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException
+	 */
+	JSONObject getIssueRelated(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 【web版】股本结构（股票）
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getShareStructure(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 【web版】股本变动（股票）
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException
+	 */
+	JSONObject getEquityChange(OpeneyesDTO dto) throws OpeneyesException;
+
+	/***
+	 * 【web版】分红情况（股票）
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getBonusInfo(OpeneyesDTO dto) throws OpeneyesException;
+
+	/**
+	 * 【web版】配股情况（股票）
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getAllotmen(OpeneyesDTO dto) throws OpeneyesException;
 
 }

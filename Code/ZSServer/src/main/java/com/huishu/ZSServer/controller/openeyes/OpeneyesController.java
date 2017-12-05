@@ -39,7 +39,14 @@ public class OpeneyesController extends BaseController {
 	public AjaxResult getStaffInfo(@RequestBody OpeneyesDTO dto) {
 		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getStaffInfo(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getStaffInfo(dto);
+		} catch (OpeneyesException e) {
+			returnObj.put("err_msg", "查询数据为空");
+			returnObj.put("err_code", "999");
+		}
+		return success(returnObj);
 	}
 	/**
 	 * 查询股东信息
@@ -51,7 +58,14 @@ public class OpeneyesController extends BaseController {
 	public AjaxResult getHolder(@RequestBody OpeneyesDTO dto) {
 		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getStaffInfo(dto));
+		JSONObject returnObj = new JSONObject();
+		try{
+			returnObj = openeyesService.getHolder(dto);
+		}catch(OpeneyesException e){
+			returnObj.put("err_msg", "查询数据为空");
+			returnObj.put("err_code", "999");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -67,7 +81,14 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		OpeneyesDTO dto = new OpeneyesDTO();
 		dto.setCname(name);
-		return success(openeyesService.getBaseInfo(dto));
+		JSONObject returnObj = new JSONObject();
+		try{
+			returnObj = openeyesService.getBaseInfo(dto);
+		}catch(OpeneyesException e){
+			returnObj.put("err_msg", "查询数据为空");
+			returnObj.put("err_code", "999");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -77,11 +98,18 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getBranch.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getBranch.json", method = RequestMethod.POST)
 	public AjaxResult getBranch(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getBranch(dto));
+		JSONObject returnObj = new JSONObject();
+		try{
+			returnObj = openeyesService.getBranch(dto);
+		}catch(OpeneyesException e){
+			returnObj.put("err_msg", "查询数据为空");
+			returnObj.put("err_code", "999");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -91,11 +119,36 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getHistoryRongZi.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getHistoryRongZi.json", method = RequestMethod.POST)
 	public AjaxResult getHistoryRongZi(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getHistoryRongZi(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getHistoryRongZi(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 对外投资
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getInverst.json", method = RequestMethod.POST)
+	public AjaxResult getInverst(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getInverst(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -105,11 +158,18 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getTeamMember.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getTeamMember.json", method = RequestMethod.POST)
 	public AjaxResult getTeamMember(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getTeamMember(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getTeamMember(dto);
+		} catch (Exception e) {
+			returnObj.put("err_msg", "查询数据为空");
+			returnObj.put("err_code", "999");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -119,11 +179,37 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getProductInfo.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getProductInfo.json", method = RequestMethod.POST)
 	public AjaxResult getProductInfo(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getProductInfo(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getProductInfo(dto);
+		} catch (Exception e) {
+			returnObj.put("err_msg", "查询数据为空");
+			returnObj.put("err_code", "999");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 信息变更
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getChangeInfo.json", method = RequestMethod.POST)
+	public AjaxResult getChangeInfo(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getChangeInfo(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -133,11 +219,17 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getTouZi.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getTouZi.json", method = RequestMethod.POST)
 	public AjaxResult getTouZi(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getTouZi(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getTouZi(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -147,11 +239,416 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getJingPin.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getJingPin.json", method = RequestMethod.POST)
 	public AjaxResult getJingPin(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getJingPin(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getJingPin(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 招投标
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getBids.json", method = RequestMethod.POST)
+	public AjaxResult getBids(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getBids(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 债券信息
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getBond.json", method = RequestMethod.POST)
+	public AjaxResult getBond(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getBond(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 购地信息
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getPurchaseland.json", method = RequestMethod.POST)
+	public AjaxResult getPurchaseland(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getPurchaseland(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 招聘信息
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getEmployment.json", method = RequestMethod.POST)
+	public AjaxResult getEmployment(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getEmployment(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 抽查检查
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getCheckInfo.json", method = RequestMethod.POST)
+	public AjaxResult getCheckInfo(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getCheckInfo(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 产品信息
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getAppbkInfo.json", method = RequestMethod.POST)
+	public AjaxResult getAppbkInfo(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getAppbkInfo(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 法律诉讼
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getLawsuit.json", method = RequestMethod.POST)
+	public AjaxResult getLawsuit(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getLawsuit(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 法院公告
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getGonggao.json", method = RequestMethod.POST)
+	public AjaxResult getGonggao(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getGonggao(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 失信人
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getDishonest.json", method = RequestMethod.POST)
+	public AjaxResult getDishonest(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getDishonest(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 被执行人
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getZhixingInfo.json", method = RequestMethod.POST)
+	public AjaxResult getZhixingInfo(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getZhixingInfo(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 股票行情
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getVolatility.json", method = RequestMethod.POST)
+	public AjaxResult getVolatility(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getVolatility(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 企业简介（股票）
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getCompanyInfo.json", method = RequestMethod.POST)
+	public AjaxResult getCompanyInfo(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getCompanyInfo(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 高管信息（股票）
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getSeniorExecutive.json", method = RequestMethod.POST)
+	public AjaxResult getSeniorExecutive(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getSeniorExecutive(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 参股控股（股票）
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getHoldingCompany.json", method = RequestMethod.POST)
+	public AjaxResult getHoldingCompany(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getHoldingCompany(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 上市公告（股票）
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getAnnouncement.json", method = RequestMethod.POST)
+	public AjaxResult getAnnouncement(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getAnnouncement(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * ⼗⼤股东（⼗⼤流通股东）（股票）
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getShareholder.json", method = RequestMethod.POST)
+	public AjaxResult getShareholder(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getShareholder(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 发⾏相关（股票）
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getiIssueRelated.json", method = RequestMethod.POST)
+	public AjaxResult getIssueRelated(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getIssueRelated(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 【web版】股本结构（股票）
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getShareStructure.json", method = RequestMethod.POST)
+	public AjaxResult getShareStructure(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getShareStructure(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 【web版】股本变动（股票）
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getEquityChange.json", method = RequestMethod.POST)
+	public AjaxResult getEquityChange(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getEquityChange(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 【web版】分红情况（股票）
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getBonusInfo.json", method = RequestMethod.POST)
+	public AjaxResult getBonusInfo(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getBonusInfo(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
+	/**
+	 * 【web版】配股情况（股票）
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getAllotmen.json", method = RequestMethod.POST)
+	public AjaxResult getAllotmen(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getAllotmen(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -161,11 +658,17 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getShangBiao.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getShangBiao.json", method = RequestMethod.POST)
 	public AjaxResult getShangBiao(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getShangBiao(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getShangBiao(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -175,11 +678,17 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getPatents.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getPatents.json", method = RequestMethod.POST)
 	public AjaxResult getPatents(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getPatents(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getPatents(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -189,11 +698,17 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getCopyReg.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getCopyReg.json", method = RequestMethod.POST)
 	public AjaxResult getCopyReg(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getCopyReg(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getCopyReg(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -203,11 +718,17 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getIcp.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getIcp.json", method = RequestMethod.POST)
 	public AjaxResult getIcp(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getIcp(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getIcp(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
 	}
 
 	/**
@@ -217,11 +738,17 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getTaxCredit.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/getTaxCredit.json", method = RequestMethod.POST)
 	public AjaxResult getTaxCredit(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
-		if (dto.getParams() == null || StringUtil.isEmpty(dto.getSpec()))
+		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
-		return success(openeyesService.getTaxCredit(dto));
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getTaxCredit(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
 	}
 
 	/**
