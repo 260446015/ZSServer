@@ -1259,7 +1259,12 @@ a.search-item.active{
     width: 1000px;
     margin-top: 100px;
 }
-
+.customed-modal.small-modal .modal-dialog {
+    width:900px;
+}
+.customed-modal.small-modal .modal-header .close{
+    margin-right: 0;
+}
 .customed-modal .modal-header,
 .modal-footer {
     border-bottom: none;
@@ -2004,18 +2009,20 @@ a.search-item.active{
     background-position: -46px -103px;
 }
 
+
+.slider-wrapper {
+    padding-bottom:40px;
+}
 .slider-header {
     padding: 15px 0;
+    margin: 0 -15px 40px -15px;
     font-size: 16px;
     text-align: center;
     border-bottom: 1px solid #123051;
 }
-
-.slider-wrapper {
-    padding: 40px 15px;
-}
 .slider-wrapper .carousel-control{
     width: 40px;
+    line-height: 220px;
     color:#2356bd;
 }
 .slider-wrapper .control-label{
@@ -2041,4 +2048,16 @@ a.search-item.active{
     line-height: 280px;
     color:#00ffc4;
     background-image: none !important;
+}
+.text-blue{
+    font-weight: 400;
+    color: #20c2fe;
+}
+.customed-modal.small-modal .col-md-6,
+.customed-modal.small-modal .col-md-4{
+    padding-left: 0;
+    padding-right: 0;
+}
+.customed-modal.small-modal .form-horizontal>div.row{
+    border-top: 1px solid #10315f;
 }
