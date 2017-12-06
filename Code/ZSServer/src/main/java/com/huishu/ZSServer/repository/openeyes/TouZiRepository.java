@@ -8,6 +8,6 @@ import com.huishu.ZSServer.entity.openeyes.TouZi;
 
 public interface TouZiRepository extends CrudRepository<TouZi, Long> {
 
-	List<TouZi> findByCompany(String cname);
+	List<TouZi> findByCompanyName(String cname);
 
 }

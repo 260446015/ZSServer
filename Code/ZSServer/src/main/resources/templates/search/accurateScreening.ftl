@@ -18,7 +18,7 @@
     <!-- js 兼容低版本IE end -->
 </head>
 <body class="bg2">
-<#include "/common/header.ftl"/>
+<#include "/common/header2.ftl"/>
 <div class="wrapper">
     <div class="page-content">
     <#include "/common/searchSidebar.ftl"/>
@@ -27,8 +27,8 @@
                 <div class="col-md-1">
                     <button class="btn btn-blue" id="search_tag" type="button">筛选标签</button>
                 </div>
-                <div>
-                    <button class="btn btn-fill btn-blue search-tag">生物技术
+                <div id="searchTag">
+                    <!--<button class="btn btn-fill btn-blue search-tag">生物技术
                         <span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span>
                     </button>
                     <button class="btn btn-fill btn-blue search-tag">5000人以上
@@ -39,7 +39,7 @@
                     </button>
                     <button class="btn btn-fill btn-blue search-tag">5000-10000万
                         <span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span>
-                    </button>
+                    </button>-->
                 </div>
             </div>
             <div class="row">
@@ -113,57 +113,46 @@
                                         产业
                                     </div>
                                     <div class="search-item-content">
-                                        <a href="javascript:void(0);" class="search-item active">全部</a>
-                                        <a href="javascript:void(0);" class="search-item">新一代信息技术</a>
-                                        <a href="javascript:void(0);" class="search-item">节能环保与新能源产业</a>
-                                        <a href="javascript:void(0);" class="search-item">物产文化</a>
-                                        <a href="javascript:void(0);" class="search-item">创意产业</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(1,'全部')"  class="search-item active">全部</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(1,'人工智能')"  class="search-item">人工智能</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(1,'大数据')"  class="search-item">大数据</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(1,'物联网')"  class="search-item">物联网</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(1,'生物科技')"  class="search-item">生物科技</a>
                                     </div>
                                 </div>
-                                <div class="search-group">
-                                    <div class="search-item-title">
-                                        二级产业
-                                    </div>
-                                    <div class="search-item-content">
-                                        <a href="javascript:void(0);" class="search-item active">全部</a>
-                                        <a href="javascript:void(0);" class="search-item">新一代信息技术</a>
-                                        <a href="javascript:void(0);" class="search-item">节能环保与新能源产业</a>
-                                        <a href="javascript:void(0);" class="search-item">物产文化</a>
-                                        <a href="javascript:void(0);" class="search-item">创意产业</a>
-                                    </div>
-                                </div>
+                               
                                 <div class="search-group">
                                     <div class="search-item-title">
                                         区域
                                     </div>
                                     <div class="search-item-content">
-                                        <a href="javascript:void(0);" class="search-item active">全部</a>
-                                        <a href="javascript:void(0);" class="search-item">北京</a>
-                                        <a href="javascript:void(0);" class="search-item">上海</a>
-                                        <a href="javascript:void(0);" class="search-item">广州</a>
-                                        <a href="javascript:void(0);" class="search-item">天津</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(2,'全部')" class="search-item active">全部</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(2,'北京')" class="search-item">北京</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(2,'上海')" class="search-item">上海</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(2,'广州')" class="search-item">广州</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(2,'天津')" class="search-item">天津</a>
                                     </div>
                                 </div>
-                                <div class="search-group">
-                                    <div class="search-item-title">
-                                        产业规模
-                                    </div>
+                                <!--	<div class="search-group">
+                                    	<div class="search-item-title">
+                                      	  产业规模
+                                   	 </div>
                                     <div class="search-item-content">
-                                        <a href="javascript:void(0);" class="search-item active">1-15人</a>
-                                        <a href="javascript:void(0);" class="search-item">51-100人</a>
-                                        <a href="javascript:void(0);" class="search-item">101-200人</a>
-                                        <a href="javascript:void(0);" class="search-item">200人以上</a>
-                                    </div>
-                                </div>
+                                         <a href="javascript:void(0);" class="search-item active">1-15人</a>
+                                         <a href="javascript:void(0);" class="search-item">51-100人</a>
+                                         <a href="javascript:void(0);" class="search-item">101-200人</a>
+                                         <a href="javascript:void(0);" class="search-item">200人以上</a>
+                                     </div>
+                                 </div>-->
                                 <div class="search-group">
                                     <div class="search-item-title">
                                         成立时间
                                     </div>
                                     <div class="search-item-content">
-                                        <a href="javascript:void(0);" class="search-item active">1-5年</a>
-                                        <a href="javascript:void(0);" class="search-item">5-10年</a>
-                                        <a href="javascript:void(0);" class="search-item">10-20年</a>
-                                        <a href="javascript:void(0);" class="search-item">20年以上</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(3,'1-5年')" class="search-item active">1-5年</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(3,'5-10年')" class="search-item">5-10年</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(3,'10-20年')" class="search-item">10-20年</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(3,'20年以上')" class="search-item">20年以上</a>
                                     </div>
                                 </div>
                                 <div class="search-group">
@@ -171,27 +160,27 @@
                                         成立资本
                                     </div>
                                     <div class="search-item-content">
-                                        <a href="javascript:void(0);" class="search-item active">1-5年</a>
-                                        <a href="javascript:void(0);" class="search-item">5-10年</a>
-                                        <a href="javascript:void(0);" class="search-item">10-20年</a>
-                                        <a href="javascript:void(0);" class="search-item">20年以上</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(4,'0-50万')" class="search-item active">0-50万</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(4,'50-100万')" class="search-item">50-100万</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(4,'100-500万')" class="search-item">100-500万</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(4,'500万以上')" class="search-item">500万以上</a>
                                     </div>
                                 </div>
-                                <div class="search-group">
-                                    <div class="search-item-title">
-                                        融资阶段
-                                    </div>
-                                    <div class="search-item-content">
-                                        <a href="javascript:void(0);" class="search-item active">1-5年</a>
-                                        <a href="javascript:void(0);" class="search-item">5-10年</a>
-                                        <a href="javascript:void(0);" class="search-item">10-20年</a>
-                                        <a href="javascript:void(0);" class="search-item">20年以上</a>
-                                    </div>
-                                </div>
+                                 <!-- <div class="search-group">
+                                     <div class="search-item-title">
+                                            融资阶段
+                                     </div>
+                                     <div class="search-item-content">
+                                         <a href="javascript:void(0);" class="search-item active">1-5年</a>
+                                         <a href="javascript:void(0);" class="search-item">5-10年</a>
+                                         <a href="javascript:void(0);" class="search-item">10-20年</a>
+                                         <a href="javascript:void(0);" class="search-item">20年以上</a>
+                                     </div>
+                                 </div>-->
                             </div>
                         </div>
                         <div class="modal-footer text-center">
-                            <button class="btn btn-blue">保存标签</button>
+                            <button class="btn btn-blue" id="LabelBlue">保存标签</button>
                             <button class="btn btn-fill btn-blue" data-dismiss="modal">取消</button>
                         </div>
                     </div>
@@ -204,4 +193,4 @@
 <#include "/common/script.ftl"/>
 <script src="/js/accurateScreening/accurateScreening.js"></script>
 </body>
-</html>
+</html>	

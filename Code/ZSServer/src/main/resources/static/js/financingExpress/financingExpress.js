@@ -30,6 +30,7 @@ var area="全部";
 var industry="全部";
 var sort="按时间";
 $(function(){
+	$("#financing").addClass("active");
 	$.ajax({
         url: "/apis/financing/getFinancingDynamic.json",
         success: function (response) {

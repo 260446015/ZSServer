@@ -138,6 +138,98 @@ public class KeyConstan {
 		 * 主要人员
 		 */
 		public static final String STAFF = "https://open.api.tianyancha.com/services/v3/newopen/staff.json";
+		/**
+		 * 股东信息
+		 */
+		public static final String HOLDER = "https://open.api.tianyancha.com/services/v3/newopen/holder.json";
+		/**
+		 * 信息变更
+		 */
+		public static final String CHANGEINFO = "https://open.api.tianyancha.com/services/v3/newopen/changeinfo.json";
+		/**
+		 * 对外投资
+		 */
+		public static final String INVERST = "https://open.api.tianyancha.com/services/v3/newopen/inverst.json";
+		/**
+		 * 招投标
+		 */
+		public static final String BIDS = "https://open.api.tianyancha.com/services/v3/newopen/bids.json";
+		/**
+		 * 债券信息
+		 */
+		public static final String BOND = "https://open.api.tianyancha.com/services/v3/newopen/bond.json";
+		/**
+		 * 购地信息
+		 */
+		public static final String PURCHASELAND = "https://open.api.tianyancha.com/services/v3/newopen/purchaseLand.json";
+		/**
+		 * 购地信息
+		 */
+		public static final String EMPLOYMENTS = "https://open.api.tianyancha.com/services/v3/newopen/employments.json";
+		/**
+		 * 抽查检查
+		 */
+		public static final String CHECKINFO = "https://open.api.tianyancha.com/services/v3/newopen/checkInfo.json";
+		/**
+		 * 产品信息
+		 */
+		public static final String APPBKINFO = "https://open.api.tianyancha.com/services/v3/newopen/appbkInfo.json";
+		/**
+		 * 法律诉讼
+		 */
+		public static final String LAWSUIT = "https://open.api.tianyancha.com/services/v3/newopen/lawSuit.json";
+		/**
+		 * 法院公告
+		 */
+		public static final String COURTANNOUNCEMENT = "https://open.api.tianyancha.com/services/v3/newopen/courtAnnouncement.json";
+		/**
+		 * 被执行人
+		 */
+		public static final String ZHIXINGINFO = "https://open.api.tianyancha.com/services/v3/newopen/zhixinginfo.json";
+		/**
+		 * 股票行情
+		 */
+		public static final String VOLATILITY = "https://open.api.tianyancha.com/services/v3/newopen/volatility.json";
+		/**
+		 * 企业简介（股票）
+		 */
+		public static final String COMPANYINFO = "https://open.api.tianyancha.com/services/v3/newopen/companyInfo.json";
+		/**
+		 * 高管信息（股票）
+		 */
+		public static final String SENIOREXECUTIVE = "https://open.api.tianyancha.com/services/v3/newopen/seniorExecutive.json";
+		/**
+		 * 参股控股（股票）
+		 */
+		public static final String HOLDINGCOMPANY = "https://open.api.tianyancha.com/services/v3/newopen/holdingCompany.json";
+		/**
+		 * 上市公告（股票）
+		 */
+		public static final String ANNOUNCEMENT = "https://open.api.tianyancha.com/services/v3/newopen/announcement.json";
+		/**
+		 * ⼗⼤股东（⼗⼤流通股东）（股票）
+		 */
+		public static final String SHAREHOLDER = "https://open.api.tianyancha.com/services/v3/newopen/shareholder.json";
+		/**
+		 * 发⾏相关（股票）
+		 */
+		public static final String ISSUERELATED = "https://open.api.tianyancha.com/services/v3/newopen/issueRelated.json";
+		/**
+		 * 股本结构（股票）
+		 */
+		public static final String SHARESTRUCTURE = "https://open.api.tianyancha.com/services/v3/newopen/shareStructure.json";
+		/**
+		 * 股本变动（股票）
+		 */
+		public static final String EQUITYCHANGE = "https://open.api.tianyancha.com/services/v3/newopen/equityChange.json";
+		/**
+		 * 【web版】分红情况（股票）
+		 */
+		public static final String BONUSINFO = "https://open.api.tianyancha.com/services/v3/newopen/bonusInfo.json";
+		/**
+		 * 【web版】分红情况（股票）
+		 */
+		public static final String ALLOTMEN = "https://open.api.tianyancha.com/services/v3/newopen/allotmen.json";
 	}
 
 	/**

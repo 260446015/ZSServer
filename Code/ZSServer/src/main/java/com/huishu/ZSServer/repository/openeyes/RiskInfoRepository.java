@@ -8,6 +8,6 @@ import com.huishu.ZSServer.entity.openeyes.RiskInfo;
 
 public interface RiskInfoRepository extends CrudRepository<RiskInfo, Long>{
 
-	List<RiskInfo> findByCompanyName(String cname);
+	List<RiskInfo> findByCname(String cname);
 
 }

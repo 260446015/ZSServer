@@ -5,6 +5,7 @@ var industry = "全部";
 var area = "全部";
 var sort = "按热度";
 $(function () {
+	$("#dynamic").addClass("active");
 	var time ="近一周";
 	getKeyWordCloud(time);
    /* var scatter = echarts.init(document.getElementById("scatter"));

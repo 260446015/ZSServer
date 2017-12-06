@@ -2,6 +2,8 @@
  * Created by zhangxin on 2017/11/22.
  */
 $(function(){
+	$("#gardenMap").addClass("active");
+	$("#all").addClass("active");
 	var value = GetQueryString("area");
 	if(value != null)
 		area = value;

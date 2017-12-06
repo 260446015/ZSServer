@@ -25,8 +25,9 @@
 <#include "/common/header.ftl"/>
 <div class="wrapper">
     <div class="page-content">
-      <#include "/common/sidebar3.ftl"/>
+      <#include "/common/sidebar2.ftl"/>
       <div class="right-content">
+      	<#include "/common/companyDetail.ftl"/>
       	<div class="model-box">
                 <div class="model-header">
                     <h3 class="model-title">基本信息</h3>
@@ -72,9 +73,9 @@
 </div>
 <!-- js 共用部分 start -->
 <#include  "/common/script.ftl"/>
+<script src="/js/companyDetails/common.js"></script>
 <!-- js 共用部分 end -->
 <script src="/js/companyDetails/staff.js"></script>
-<script src="/js/companyDetails/companyDetails.js"></script>
 
 </body>
 </html>
