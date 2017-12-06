@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.UserSummitInfo;
-import com.huishu.ZSServer.entity.dto.IndustrySummitDTO;
+import com.huishu.ZSServer.es.entity.Essay;
 import com.huishu.ZSServer.es.entity.SummitInfo;
 
 /**
@@ -30,7 +30,7 @@ public interface IndusSummitService {
 	 * @param id
 	 * @return
 	 */
-	SummitInfo getSummitInfoById(String id);
+	Essay getSummitInfoById(String id);
 
 	/**
 	 * 关注 峰会

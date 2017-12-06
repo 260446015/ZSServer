@@ -1,6 +1,5 @@
 package com.huishu.ZSServer.controller.industry;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -9,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,8 +19,8 @@ import com.github.pagehelper.util.StringUtil;
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.controller.BaseController;
-import com.huishu.ZSServer.entity.UserSummitInfo;
 import com.huishu.ZSServer.entity.dto.IndustrySummitDTO;
+import com.huishu.ZSServer.es.entity.Essay;
 import com.huishu.ZSServer.es.entity.SummitInfo;
 import com.huishu.ZSServer.service.indus.IndusSummitService;
 
@@ -48,6 +48,19 @@ public class IndustrySummitController extends BaseController{
 	@RequestMapping(value="/getInfo",method=RequestMethod.GET)
 	public String getIndustrySummitInfo(Map<String,Object> map){
 		return "/industry/industrySummitMeeting";
+	}
+	
+	/**
+	 * 文章详情页面跳转
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/getEssayDetails.json",method=RequestMethod.GET)
+	public String getEssayDetails(String essayId,Model model){
+		if(!StringUtil.isEmpty(essayId)){
+			model.addAttribute("essayId",essayId);
+		}
+		return "/essay/essayDetails";
 	}
 	
 	
@@ -112,17 +125,18 @@ public class IndustrySummitController extends BaseController{
 	}
 	
 	/**
-	 * 根据id查看峰会详情
+	 * 根据id查看文章详情
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
-	public AjaxResult getSummitInfoById(@RequestBody String  id){
+	public AjaxResult getSummitInfoById(String id){
 		if(StringUtil.isEmpty(id)){
-			LOGGER.debug("差看峰会详情异常:"+id);
+			LOGGER.debug("差看文章详情异常:"+id);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		SummitInfo info = service.getSummitInfoById(id);
+		Essay info = service.getSummitInfoById(id);
 		return success(info);
 	}
 	

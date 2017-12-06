@@ -152,7 +152,7 @@ function showDynamic(d){
 	var arr2 = [];
 	$.each(d, function(index, item){
 		var inner='<div class="model-body border-no-shadow"><div class="row"><div class="col-md-12 border-bottom">'+
-        '<a class="scatter-blocks no-border" href="'+item.articleLink+'" target="_blank">'+
+        '<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+item.id+'">'+
         '<span class="icon-block"></span><span class="scatter-type">【'+item.industry+'】</span>'+
         '  <span class="scatter-title">'+item.title+'</span></a></div></div></div>';
 		(index%2 ==0) ?arr.push(inner):arr2.push(inner); 

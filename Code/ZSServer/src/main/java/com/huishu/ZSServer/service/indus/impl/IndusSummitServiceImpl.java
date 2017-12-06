@@ -12,7 +12,6 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
@@ -32,8 +31,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.ZSServer.entity.UserSummitInfo;
-import com.huishu.ZSServer.entity.dto.IndustrySummitDTO;
+import com.huishu.ZSServer.es.entity.Essay;
 import com.huishu.ZSServer.es.entity.SummitInfo;
+import com.huishu.ZSServer.es.repository.EssayElasticsearch;
+import com.huishu.ZSServer.es.repository.EssayElasticsearch2;
+import com.huishu.ZSServer.es.repository.EssayElasticsearch3;
 import com.huishu.ZSServer.es.repository.SummitElasticsearch;
 import com.huishu.ZSServer.repository.summit.SummitRepository;
 import com.huishu.ZSServer.service.AbstractService;
@@ -60,6 +62,13 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 	private SummitElasticsearch search;
 	
 	@Autowired
+	private EssayElasticsearch essayElasticsearch;
+	@Autowired
+	private EssayElasticsearch2 essayElasticsearch2;
+	@Autowired
+	private EssayElasticsearch3 essayElasticsearch3;
+	
+	@Autowired
 	private SummitRepository rep;
 	
 	
@@ -83,12 +92,18 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 	}
 
 	/**
-	 *根据id查看峰会详情
+	 * 根据id查看文章详情
 	 */
 	@Override
-	public SummitInfo getSummitInfoById(String id) {
-		LOGGER.info("查询峰会详情的id为：>>>>>>>"+id);
-		return search.findOne(id);
+	public Essay getSummitInfoById(String id) {
+		Essay one = essayElasticsearch.findOne(id);
+		if(one==null){
+			one = essayElasticsearch2.findOne(id);
+		}
+		if(one==null){
+			one = essayElasticsearch3.findOne(id);
+		}
+		return one;
 	}
 
 	/**

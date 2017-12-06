@@ -125,7 +125,7 @@
 	function show(d){
         var arr = []
         $.each(d, function(index, item){
-          arr.push('<div class="col-md-12 border-bottom"><a class="scatter-blocks no-border" href="javascript:void(0);">'+
+          arr.push('<div class="col-md-12 border-bottom"><a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+item.id+'">'+
 					'<span class="scatter-title">'+item.title+'</span></a><p class="scatter-content">'+item.summary+'</p>'+
 					'<p class="scatter-lib"><span class="glyphicon glyphicon-globe"></span><span>'+item.vector+'</span></p></div>'
           		);
