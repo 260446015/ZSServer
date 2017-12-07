@@ -100,10 +100,9 @@
                     <div class="model-body">
                         <div class="row img-list-box" id="summit-list">
                         </div>
-                        <div class="btn-box-center">
-                            <button type="button" class="btn btn-fill btn-blue">上一页</button>
-                            <button type="button" class="btn btn-fill btn-blue">下一页</button>
-                        </div>
+                         <div class="page-box clearfix">
+                				<ul class="page pull-right" id="page"></ul>
+            				</div>
                     </div>
                 </div>
             </div>

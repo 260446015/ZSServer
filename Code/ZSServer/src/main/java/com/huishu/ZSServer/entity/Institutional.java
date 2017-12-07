@@ -16,7 +16,7 @@ import com.alibaba.fastjson.JSONObject;
  * @date 2017年11月15日
  * @Parem
  * @return 
- * 
+ * 实验室实体
  */
 @Entity
 @Table(name = "t_institutional_repository")
@@ -48,6 +48,17 @@ public class Institutional implements Serializable {
 	//网址
 	private String url;
 	
+	//关注与否
+	private boolean label;
+	
+
+	public boolean isLabel() {
+		return label;
+	}
+
+	public void setLabel(boolean label) {
+		this.label = label;
+	}
 
 	public Long getId() {
 		return id;

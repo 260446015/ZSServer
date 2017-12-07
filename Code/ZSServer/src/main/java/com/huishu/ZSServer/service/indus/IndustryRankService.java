@@ -2,6 +2,7 @@ package com.huishu.ZSServer.service.indus;
 
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.Data;
 import com.huishu.ZSServer.entity.IndustryRank;
 
@@ -25,5 +26,5 @@ public interface IndustryRankService {
 	 * @param industry
 	 * @return
 	 */
-	List<Data> findMapInfo(String industry);
+	JSONObject findMapInfo(String industry);
 }

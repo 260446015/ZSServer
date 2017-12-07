@@ -88,10 +88,14 @@ public class IndustrySummitController extends BaseController{
 			obj.put("value", "物联网");
 			array.add(obj);
 			obj = new JSONObject();
-			obj.put("value", "生物技术");
+			obj.put("indus", "生物产业");
 			array.add(obj);
 		}else{
-			obj.put("value", dto.getIndustry());
+			if(dto.getIndustry().equals("生物技术")){
+				obj.put("indus", "生物产业");
+			}else{
+				obj.put("value", dto.getIndustry());
+			}
 			array.add(obj);
 		}
 		json.put("industry", array);

@@ -6,6 +6,13 @@ var area = "全部";
 var sort = "按热度";
 var pageSize = 8;
 var pageNumber = 0;
+var options={
+		"id":"page",//显示页码的元素
+		"data":null,//显示数据
+	    "maxshowpageitem":5,//最多显示的页码个数
+	    "pagelistcount":8,//每页显示数据个数
+	    "callBack":function(){}
+	};
 $(function(){
 	$("#summit").addClass("active");
 	Click(0,0);
@@ -19,9 +26,9 @@ function Click(a,b){
 		sort = b;
 	}
 	var param={industry:industry,area:area,sort:sort,pageSize:pageSize,pageNumber:pageNumber}
-	ajaxPost(param);
+	SummitInfo(param);
 };
-function ajaxPost(param){
+function SummitInfo(param){
 	$.ajax({
 		type:'POST',
 		url:'/summit/list',
@@ -32,7 +39,17 @@ function ajaxPost(param){
 			if( res.message != null){
 				new Alert({flag:false,text:res.message,timer:2000}).show();
 			}else{
-				$('#summit-list').html(show(res.data.content));
+				
+				$('#summit-list').html(show(res.data.dataList));
+				if(res.data.totalPage>1){
+					page.init(res.data.totalNumber,res.data.pageNumber,options);
+					$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+	            		var param={industry:industry,sort:sort,area:area,pageNumber:$(this).attr("page-data")-1,pageSize:pageSize};
+	            		SummitInfo(param);
+	                });
+				}else{
+					$('#page').html("");
+				}
 			}
 		}
 	});
