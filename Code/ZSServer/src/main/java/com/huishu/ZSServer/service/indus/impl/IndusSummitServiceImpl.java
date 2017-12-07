@@ -103,6 +103,30 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 		if(one==null){
 			one = essayElasticsearch3.findOne(id);
 		}
+		List<String> business = getBusiness(one.getTitle(), one.getContent());
+		String company = one.getBusiness();
+		if(!StringUtil.isEmpty(company)){
+			if(business.size()==1&&business.get(0).equals("暂无")){
+				String[] split = company.split("、");
+				for (String string : split) {
+					if(!StringUtil.isEmpty(string)){
+						if(business.get(0).equals("暂无")){
+							business.set(0, string);
+						}else{
+							business.add(string);
+						}
+					}
+				}
+			}else{
+				String[] split = company.split("、");
+				for (String string : split) {
+					if(!StringUtil.isEmpty(string)){
+						business.add(string);
+					}
+				}
+			}
+		}
+		one.setBus(business);
 		return one;
 	}
 

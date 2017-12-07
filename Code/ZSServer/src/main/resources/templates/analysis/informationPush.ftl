@@ -84,7 +84,7 @@
 	$(function(){
 		$("#gardenMap").addClass("active");
 		$("#all").addClass("active");
-        myPost('${Request.park}','政策解读',0);
+        myPost('${Request.park}','园区政策',0);
 		myPost('${Request.park}','园区动态',0);
     })
 	function myPost(a,b,p){
@@ -97,11 +97,11 @@
                 if(response.message!=null){
                 	alert(response.message);
                 }else{
-					if(b=='政策解读'){
+					if(b=='园区政策'){
 						if(response.data.totalPage>1){
 			            	page.init(response.data.totalNumber,response.data.pageNumber,options);
 			            	$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
-			            		myPost('${Request.park}','政策解读',$(this).attr("page-data")-1);
+			            		myPost('${Request.park}','园区政策',$(this).attr("page-data")-1);
 			                });
 		            	 }else{
 		            		 $('#policy_page').html("");

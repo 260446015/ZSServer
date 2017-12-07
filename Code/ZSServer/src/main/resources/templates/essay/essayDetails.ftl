@@ -52,17 +52,25 @@
 					if(response.data==null){
             			$('#essay').html('暂无该文章详情');
             		}else{
-           				$('#essay').html('<div class="meeting-details-box-header"><h4>'+response.data.title+'</h4></div><div class="item">'+
-                        			'<div><span class="iconfont icon-company"></span>涉及公司:<span>'+response.data.bus+'</span></div>'+
-                        			'<div><span class="iconfont icon-shijian2"></span>发布时间:<span>'+response.data.publishDate+'</span></div></div>'+
-									'<pre id="kr-article-article" class="kr-article-article meeting-details-box-text" v-html="content">'+response.data.content+'</pre>'+
-                    				'<div class="item"><div><span class="iconfont icon-qianbi"></span>情报采集:<span>'+response.data.vector+'</span></div>'+
-                        			'<div>情报原址:<a href="'+response.data.articleLink+'" target="_blank">'+response.data.articleLink+'</a></div></div>');
+           				$('#essay').html(show(response.data));
 			        }
 				}
         	}
     	});
 	})
+	function show(data){
+		var before='<div class="meeting-details-box-header"><h4>'+data.title+'</h4></div><div class="item"><div><span class="iconfont icon-company"></span>涉及公司:<span>';
+		var arr = []
+        $.each(data.bus, function(index, item){
+          	arr.push('<a href="/apis/getcompany/listCompanyByName.json?companyName='+item+'">'+item+'</a>');
+        });
+        var inner=arr.join('');
+        var after='</span></div><div><span class="iconfont icon-shijian2"></span>发布时间:<span>'+data.publishDate+'</span></div></div>'+
+				  '<pre id="kr-article-article" class="kr-article-article meeting-details-box-text" v-html="content">'+data.content+'</pre>'+
+                  '<div class="item"><div><span class="iconfont icon-qianbi"></span>情报采集:<span>'+data.vector+'</span></div>'+
+                  '<div>情报原址:<a href="'+data.articleLink+'" target="_blank">'+data.articleLink+'</a></div></div>';
+       return before+inner+after;
+	}
 </script>
 </body>
 </html>

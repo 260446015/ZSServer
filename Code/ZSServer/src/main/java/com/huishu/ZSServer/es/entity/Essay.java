@@ -3,6 +3,8 @@ package com.huishu.ZSServer.es.entity;
 import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.INDEX;
 import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.TYPE2;
 
+import java.util.List;
+
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.alibaba.fastjson.JSONObject;
@@ -16,7 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 public class Essay {
 	//涉及行业
 	private String id ;
-	private String bus ;
+	private List<String> bus ;
 	private String publishDate;
 	private String vector;
 	private String title;
@@ -35,10 +37,10 @@ public class Essay {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getBus() {
+	public List<String> getBus() {
 		return bus;
 	}
-	public void setBus(String bus) {
+	public void setBus(List<String> bus) {
 		this.bus = bus;
 	}
 	public String getPublishDate() {
