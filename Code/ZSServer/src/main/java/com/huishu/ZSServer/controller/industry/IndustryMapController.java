@@ -84,7 +84,7 @@ public class IndustryMapController extends BaseController{
 		if(industry.equals("生物技术")){
 			industry = "生物产业";
 		}
-		List<Data> list = rservice.findMapInfo(industry);
+		JSONObject list = rservice.findMapInfo(industry);
 		
 		return success(list);
 	}
@@ -120,7 +120,11 @@ public class IndustryMapController extends BaseController{
 		}
 		JSONObject obj = new JSONObject();
 		obj.put("dimension", "高峰论坛");
-		obj.put("industryLabel", industry);
+		if(industry.equals("生物技术")){
+			obj.put("industry", "生物产业");
+		}else{
+			obj.put("industryLabel", industry);
+		}
 		List<SummitInfo> list = service.findIndustrySummitList(obj);
 		return success(list);
 	}

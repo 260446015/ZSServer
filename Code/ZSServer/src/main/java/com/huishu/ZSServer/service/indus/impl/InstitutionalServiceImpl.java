@@ -66,6 +66,10 @@ public class InstitutionalServiceImpl implements InstitutionalService {
 		entity.setName(name);
 		try {
 			uir.save(entity);
+			Institutional one = rep.findOne(id);
+			one.setLabel(true);
+			Institutional save = rep.save(one);
+			
 		} catch (Exception e) {
 			return "关注失败！";
 		}

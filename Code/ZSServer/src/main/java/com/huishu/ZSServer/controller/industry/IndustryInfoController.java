@@ -58,7 +58,7 @@ public class IndustryInfoController extends BaseController{
 		obj.put("industryLabel", "物联网");
 		arr.add(obj);
 		obj = new JSONObject();
-		obj.put("industryLabel", "生物技术");
+		obj.put("industryLabel", "生物医药");
 		arr.add(obj);
 		json.put("industryLabel", arr);
 		Page<AITInfo> page = service.findResearchResultList(json);

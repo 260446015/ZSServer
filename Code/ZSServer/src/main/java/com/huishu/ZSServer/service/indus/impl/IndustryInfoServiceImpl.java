@@ -217,6 +217,9 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 				list =  getBusiness(action.getTitle(),action.getContent());
 				action.setBus(list);
 			}
+			if(action.getIndustryLabel().equals("生物医药")){
+				action.setIndustryLabel("生物技术");
+			}
 			
 		});
 		 return search;

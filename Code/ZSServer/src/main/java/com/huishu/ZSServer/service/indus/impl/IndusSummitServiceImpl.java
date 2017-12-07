@@ -230,7 +230,12 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 			for(int i=0;i<arr.size();i++){
 				JSONObject jso = arr.getJSONObject(i);
 				String str = jso.getString("value");
-				or.should(QueryBuilders.termQuery("idustryThree",str ));
+				if(StringUtil.isNotEmpty(str)){
+					or.should(QueryBuilders.termQuery("idustryThree",str ));
+				}else{
+					String indus = jso.getString("indus");
+					or.should(QueryBuilders.termQuery("idustryZero",indus));
+				}
 			}
 		}
 		String area = obj.getString("area");

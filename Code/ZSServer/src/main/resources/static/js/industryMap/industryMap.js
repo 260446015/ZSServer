@@ -8,7 +8,7 @@ $(function (){
 	
 	/*获取企业排行的数据*/
 	industryHotRank(industry);
-//	industryMapData(industry);
+	industryMapData(industry);
 	new Loading({isfullscreen:true}).hide();
 });
 
@@ -193,10 +193,12 @@ function industryMapData(a){
 		type:'GET',
 		data:{"industry":a},
 		success:function(res){
-			var  dd =  res.data;
+			console.log(res.data);
+			var  dd =  res.data.map;
+			var hot = res.data.hot;
 			var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
 			
-			chinaOption.series[0].data = convertData(dd);
+			chinaOption.series[0].data = convertData(hot);
 			chinaOption.series[1].data = convertData(dd.sort(function (a, b) {
                 return b.value - a.value;
             }).slice(0, 6));
@@ -433,8 +435,8 @@ var chinaOption = {
             symbolSize: function (val) {
             	if(val[2]<10){
             		return val[2]*3;
-            	}else{
-            		return val[2]/2;
+            	}else if(val[2]>100){
+            		return 30;
             	}
             },
             label: {
@@ -458,8 +460,8 @@ var chinaOption = {
             symbolSize: function (val) {
             	if(val[2]<10){
             		return val[2]*3;
-            	}else {
-            		return val[2]/2;
+            	}else if(val[2]>100){
+            		return 60;
             	}
             },
             showEffectOn: 'emphasis',
