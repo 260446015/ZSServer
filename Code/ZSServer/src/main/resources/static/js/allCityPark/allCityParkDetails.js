@@ -12,6 +12,7 @@ $(function() {
 		var map = new AMap.Map('map', {
 			// mapStyle: 'amap://styles/e15ea366314a2314abda4c7761ee02a6',
 			resizeEnable : false,
+			center: [117.125867,36.680942],
 			zoom : 13,
 		});
 		// 缩放控件
@@ -93,15 +94,20 @@ function showCompanyList(a, b, c, d, e, f, g) {// a-产业,b-注册时间,c-注�
 		data : JSON.stringify(req),
 		success : function(res) {
 			if (res.success) {
-				var arr = res.data.content;
-				var html = '';
-				for(var i=0;i<arr.length;i++){
-					html += '<div class="col-md-12 border-bottom"><a class="scatter-blocks no-border" href="./allCityParkDetails.html">' +
-					        '<span class="scatter-title">'+arr[i].companyName+'</span><span class="pull-right numbers">' +
-					        '<span class="glyphicon glyphicon-map-marker"></span>'+arr[i].province+'</span></a><p class="net-address mb20">' +
-					        '<span class="mr15">法定代表人：'+arr[i].boss+'</span><span class="mr15">注册资本：'+arr[i].registerCapital+'万</span><span class="mr15">注册时间：'+arr[i].registerDate+'</span></p></div>'
+				if(res.data != null){
+					var arr = res.data.content;
+					var html = '';
+					console.log(arr);
+					for(var i=0;i<arr.length;i++){
+						html += '<div class="col-md-12 border-bottom"><a class="scatter-blocks no-border" href="./allCityParkDetails.html">' +
+						        '<span class="scatter-title">'+arr[i].companyName+'</span><span class="pull-right numbers">' +
+						        '<span class="glyphicon glyphicon-map-marker"></span>'+arr[i].address+'</span></a><p class="net-address mb20">' +
+						        '<span class="mr15">法定代表人：'+arr[i].boss+'</span><span class="mr15">注册资本：'+arr[i].registerCapital+'</span><span class="mr15">注册时间：'+arr[i].registerDate+'</span></p></div>'
+					}
+					$("#companyList").html(html);
+				}else{
+					new Alert({flag:true,text:'暂无数据',timer:2000}).show();
 				}
-				$("#companyList").html(html);
 			}
 		}
 	});
@@ -124,9 +130,10 @@ function showGardenInfo(data){
 			if(res.success){
 				console.log(res.data);
 				if(res.data.flag)
-					$("#attation").html("取消关注");
+					$("#attation").html('取消关注');
 				else
-					$("#attation").html("关注")
+					$("#attation").html('关注');
+				$("#attation").before('<input type="hidden" value="'+res.data.id+'"/>');
 				$("#gardenName").html(res.data.gardenName);
 				$("#gardenAddress").html(res.data.address);
 				$("#registTime").html(res.data.establishDate);
@@ -136,6 +143,22 @@ function showGardenInfo(data){
 		}
 	});
 }
-function attation(){
-	alert($(this).val());
+function attation(event){
+	var value = $(event).html();
+	var gardenId = $(event).prev().val();
+	var flag;
+	if(value == '关注'){
+		flag = true;
+	}else{
+		flag = false;
+	}
+	$.ajax({
+		url:'/apis/area/attentionGarden.json?gardenId='+gardenId+'&flag='+flag,
+		type:'get',
+		success:function(res){
+			if(res.success){
+				showGardenInfo(park);
+			}
+		}
+	});
 }

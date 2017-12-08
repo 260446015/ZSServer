@@ -149,7 +149,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 					GardenData.setAddress("暂无");
 				}
 				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
-					GardenData.setGardenPicture(KeyConstan.IP_PORT + "park_img/default.jpg");
+					GardenData.setGardenPicture(KeyConstan.IP_PORT + "fileserver/img/list_img.jpg");
 				}
 			});
 

@@ -81,8 +81,8 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 			String regist = msg[2];
 			if (regist.equals("全部"))
 				regist = "0-999999";
-			String sregist = regist.substring(0, regist.indexOf("-"));
-			String eregist = regist.substring(regist.indexOf("-") + 1);
+			Double sregist = Double.parseDouble(regist.substring(0, regist.indexOf("-")));
+			Double eregist = Double.parseDouble(regist.substring(regist.indexOf("-") + 1));
 			List<Company> list2 = findAll.stream()
 					// .filter(obj -> {
 					// return obj.getScale() >= Integer.parseInt(sscale) &&
@@ -92,8 +92,8 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 						return obj.getRegisterDate().compareTo(stime) >= 0
 								&& obj.getRegisterDate().compareTo(etime) < 0;
 					}).filter(obj -> {
-						return obj.getRegisterCapital() >= Double.parseDouble(sregist)
-								&& obj.getRegisterCapital() < Double.parseDouble(eregist);
+						return Double.parseDouble(obj.getRegisterCapital().substring(0, obj.getRegisterCapital().indexOf("万"))) - sregist >= 0
+								&& Double.parseDouble(obj.getRegisterCapital().substring(0, obj.getRegisterCapital().indexOf("万"))) - eregist < 0;
 					}).skip(pageNum * pageSize).limit(pageSize)
 					.sorted((a, b) -> b.getRegisterCapital().compareTo(a.getRegisterCapital()))
 					.collect(Collectors.toList());

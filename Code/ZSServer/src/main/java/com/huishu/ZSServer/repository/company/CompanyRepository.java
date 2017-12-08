@@ -22,5 +22,7 @@ public interface CompanyRepository extends CrudRepository<Company, Long>, JpaSpe
 	
 	Company findByCompanyName(String cname);
 
+	List<Company> findByPark(String gardenName);
+
 	
 }

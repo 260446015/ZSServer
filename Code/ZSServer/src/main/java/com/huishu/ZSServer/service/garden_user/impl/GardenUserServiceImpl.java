@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,10 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
+import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.GardenCompareDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
+import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenUser;
 import com.huishu.ZSServer.repository.company.CompanyRepository;
@@ -28,6 +31,7 @@ import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.repository.garden_user.GardenUserRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
+import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
 @Service
 public class GardenUserServiceImpl extends AbstractService<GardenUser> implements GardenUserService {
@@ -39,6 +43,8 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 	private GardenRepository gardenRepository;
 	@Autowired
 	private CompanyRepository companyRepository;
+	@Autowired
+	private OpeneyesService openeyesService;
 
 	@Override
 	public GardenUser attentionGarden(Long gardenId, Long userId, boolean flag) {
@@ -54,6 +60,23 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 				}
 				if (null != gardenUser) {
 					GardenData garden = gardenRepository.findOne(gardenId);
+					List<Company> cs = companyRepository.findByPark(garden.getGardenName());
+					List<Company> list2 = cs.stream().sorted((a,b)-> {
+						return new Double((b.getRegisterCapital().substring(0, b.getRegisterCapital().indexOf("万")))).compareTo(
+								new Double(a.getRegisterCapital().substring(0, a.getRegisterCapital().indexOf("万"))));
+					}).limit(50).collect(Collectors.toList());
+					LOGGER.info("关注园区后开始搜索园区下按注册金额排名前50企业的名称");
+					OpeneyesDTO dto = new OpeneyesDTO();
+					list2.forEach((company) ->{
+						String name = company.getCompanyName();
+						LOGGER.info("搜索接口触发，当前搜索企业名称为:"+name);
+						dto.setCname(name);
+						try {
+							openeyesService.getBaseInfo(dto);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					});
 					GardenUser gu = new GardenUser();
 					gu.setGardenName(garden.getGardenName());
 					gu.setAddress(garden.getAddress());

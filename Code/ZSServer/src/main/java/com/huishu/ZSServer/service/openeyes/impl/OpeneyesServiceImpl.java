@@ -285,7 +285,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 //			company.setInvest(parseObject.get);
 //			company.setInvestor(parseObject.get);
 				company.setLogo(parseObject.getWebsiteList());
-				company.setRegisterCapital(Double.valueOf(parseObject.getRegCapital().substring(0, parseObject.getRegCapital().indexOf("万"))));
+				company.setRegisterCapital(parseObject.getRegCapital());
 //			company.setRegisterDate(parseObject.get);
 //			company.setScale(scale);
 				company.setOpenActualCapital(parseObject.getActualCapital());

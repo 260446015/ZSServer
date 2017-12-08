@@ -1,6 +1,13 @@
 /**
  * Created by zhangxin on 2017/11/21.
  */
+$(function(){
+		$("#gardenMap").addClass("active");
+		showGardenCondition("","condition");
+		showGardenGdpPiechart();
+		showGardenIndustryCount(industryType);
+		showGardenGdpPiechart(province);
+	});
 var data = [
     {name: '上海', value: 200},
     {name: '天津', value: 200},
@@ -572,7 +579,7 @@ function showGardenList(area){
 				var arr = res.data.content;
 				var html = "";
 				for (var i = 0; i < arr.length; i++) {
-					html += '<li><a href="/apis/area/allCityParkDetails?name='+arr[i].gardenName+'" class="circle-img-box">' +
+					html += '<li><a href="/apis/area/garden/allCityParkDetails?name='+arr[i].gardenName+'" class="circle-img-box">' +
 									'<img src="'+arr[i].gardenPicture+'" alt="" /><p class="park-name">'+arr[i].gardenName+'</p>'+
 							'</a></li>';
 				}
@@ -701,7 +708,7 @@ function showGardenGdpPiechart(province){//获取某个省份哪种产业最多�
 	});
 }
 function showFindMore(area){
-	$("#findMore").attr("href","/apis/area/allCityPark?area="+area);
+	$("#findMore").attr("href","/apis/area/garden/allCityPark?area="+area);
 }
 
 

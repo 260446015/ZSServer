@@ -100,15 +100,5 @@
 <#include  "/common/script.ftl"/>
 <script src="/js/parkMap/parkMap.js"></script>
 <!-- js 共用部分 end -->
-<script>
-	$(function(){
-		$("#gardenMap").addClass("active");
-		showGardenCondition("","condition");
-		showGardenGdpPiechart();
-		showGardenIndustryCount(industryType);
-		showGardenGdpPiechart(province);
-	});
-	
-</script>
 </body>
 </html>

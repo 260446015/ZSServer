@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.util.StringUtil;
 
 /**
  * @author yxq
@@ -39,7 +40,7 @@ public class Company implements Serializable {
 	private String engageState;
 	/** 注册资金 */
 	@Column(name = "register_capital")
-	private Double registerCapital;
+	private String registerCapital;
 	/** 注册时间 */
 	@Column(name = "register_date")
 	private String registerDate;
@@ -63,51 +64,59 @@ public class Company implements Serializable {
 	private String investor;
 	/** 公司规模 */
 	private Integer scale;
+	/** 是否上市 */
+	private String listed;
 	/** 二级产业 */
 	private String industryLabel;
-	/**天眼查产业标签*/
+	/** 天眼查产业标签 */
 	private String openIndustry;
-	/**天眼查实收注册资金*/
+	/** 天眼查实收注册资金 */
 	private String openActualCapital;
-	/**天眼查省份简称*/
+	/** 天眼查省份简称 */
 	private String openBase;
-	/**天眼查经营范围*/
-	@Column(length=1000)
+	/** 天眼查经营范围 */
+	@Column(length = 1000)
 	private String openBusinessScope;
-	/**天眼查行业评分（万分制）*/
+	/** 天眼查行业评分（万分制） */
 	private Integer openCategoryScore;
-	/**天眼查公司类型*/
+	/** 天眼查公司类型 */
 	private String openCompanyOrgType;
-	/**天眼查曾用名id*/
+	/** 天眼查曾用名id */
 	private String openCorrectCompanyId;
-	/**统一社会信用代码*/
+	/** 统一社会信用代码 */
 	private String openCreditCode;
-	/**天眼查企业成立时间*/
-	private Long openEstiblishTime; 
-	/**天眼查营业期限开始时间*/
+	/** 天眼查企业成立时间 */
+	private Long openEstiblishTime;
+	/** 天眼查营业期限开始时间 */
 	private Long openFromTime;
-	/**天眼查法人id*/
+	/** 天眼查法人id */
 	private Long openLegalPersonId;
-	/**天眼查法人名称*/
+	/** 天眼查法人名称 */
 	private String openLegalPersonName;
-	/**天眼查核准机构*/
+	/** 天眼查核准机构 */
 	private String openOrgApprovedInstitute;
-	/**天眼查组织机构代码*/
+	/** 天眼查组织机构代码 */
 	private String openOrgNumber;
-	/**天眼查公司评分*/
+	/** 天眼查公司评分 */
 	private Integer openPercentileScore;
-	/**天眼查联系方式*/
+	/** 天眼查联系方式 */
 	private String openPhoneNumber;
-	/**天眼查登记机关*/
+	/** 天眼查登记机关 */
 	private String openRegInstitute;
-	/**天眼查注册号*/
+	/** 天眼查注册号 */
 	private String openRegNumber;
-	/**天眼查营业期限结束时间*/
+	/** 天眼查营业期限结束时间 */
 	private Long openToTime;
-	/**天眼查法人类型，1 人 2 公司*/
+	/** 天眼查法人类型，1 人 2 公司 */
 	private Integer openType;
-	 
-	
+
+	public String getListed() {
+		return listed;
+	}
+
+	public void setListed(String listed) {
+		this.listed = listed;
+	}
 
 	public Integer getOpenType() {
 		return openType;
@@ -317,11 +326,14 @@ public class Company implements Serializable {
 		this.engageState = engageState;
 	}
 
-	public Double getRegisterCapital() {
+	public String getRegisterCapital() {
+		if(StringUtil.isEmpty(this.registerCapital)){
+			this.registerCapital = "0万人民币";
+		}
 		return registerCapital;
 	}
 
-	public void setRegisterCapital(Double registerCapital) {
+	public void setRegisterCapital(String registerCapital) {
 		this.registerCapital = registerCapital;
 	}
 

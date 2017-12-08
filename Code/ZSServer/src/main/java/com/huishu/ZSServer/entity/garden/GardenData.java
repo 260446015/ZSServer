@@ -60,7 +60,6 @@ public class GardenData implements Serializable {
 	@Transient
 	private Boolean flag;
 	
-
 	public Boolean getFlag() {
 		return flag;
 	}

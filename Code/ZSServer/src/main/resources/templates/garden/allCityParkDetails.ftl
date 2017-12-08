@@ -33,7 +33,7 @@
                 <div class="search-circle-box">
                     <img class="search-circle-img" src="/images/search_img.png" />
                 </div>
-                <a href="javascript:void(0);" class="follow follow-black" id="attation" onclick="attation();">添加关注</a>
+                <a href="javascript:void(0);" class="follow follow-black" id="attation" onclick="attation(this);">添加关注</a>
                 <div class="panel panel-primary panel-opacity">
                     <div class="panel-heading">
                         <h3 class="panel-title text-center" id="gardenName">中关村软件园</h3>
