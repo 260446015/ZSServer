@@ -1,43 +1,36 @@
 <h2 class="datails-title">
-    	<span></span>
-    <a href="javascript:void(0);" class="follow pull-right">添加关注</a>
+    	<span id="baseName"></span>
+    <a href="javascript:void(0);" class="follow pull-right" id="attationCompany">添加关注</a>
 </h2>
 <div class="border-shadow-box content-padding-20">
-    <h4 class="score-title"></h4>
+    <h4 class="score-title" id="baseScore"></h4>
     <div class="lyt-box inline-lyt">
         <div class="lyt-item">
             <div class="lyt-lt">
                 <span class="icon-block"></span>
                 电话
             </div>
-            <div class="lyt-rt"></div>
-        </div>
-        <div class="lyt-item">
-            <div class="lyt-lt">
-                <span class="icon-block"></span>
-                邮箱
-            </div>
-            <div class="lyt-rt"></div>
+            <div class="lyt-rt" id="baseTel"></div>
         </div>
         <div class="lyt-item">
             <div class="lyt-lt">
                 <span class="icon-block"></span>
                 网址
             </div>
-            <div class="lyt-rt"></div>
+            <div class="lyt-rt" id="baseWeb"></div>
         </div>
         <div class="lyt-item">
             <div class="lyt-lt">
                 <span class="icon-block"></span>
                 地址
             </div>
-            <div class="lyt-rt"></div>
+            <div class="lyt-rt" id="baseAddr"></div>
         </div>
         <div class="lyt-item">
             <div class="lyt-lt">
                 <span class="icon-block"></span> 简介
             </div>
-            <div class="lyt-rt">
+            <div class="lyt-rt" id="baseDesc">
                
             </div>
         </div>

@@ -53,13 +53,26 @@ function showCompanyDetail(){
 		success:function(res){
 			if(res.success){
 				resData = res.data.result;
-				$(".datails-title>span").text(resData.name);
-				$(".score-title").text("企业匹配值："+resData.categoryScore+"分");
-				$(".inline-lyt").find(".lyt-rt").eq(0).text(resData.phoneNumber);
+				var value;
+				var flag;
+				if(resData.isAttation){
+					value = "取消关注";
+					flag = false;
+				}else{
+					value = "添加关注";
+					flag = true;
+				}
+				$("#attationCompany").html(value);
+				$("#attationCompany").on("click",function(){
+					attationCompany(resData.companyId,flag);
+				});
+				$("#baseName").text(resData.name);
+				$("#baseScore").text("企业匹配值："+resData.categoryScore+"分");
+				$("#baseTel").text(resData.phoneNumber);
 //				$(".inline-lyt").find(".lyt-rt").eq(2).text(resData.phoneNumber);
-				$(".inline-lyt").find(".lyt-rt").eq(2).text(resData.websiteList);
-				$(".inline-lyt").find(".lyt-rt").eq(3).text(resData.regLocation);
-				$(".inline-lyt").find(".lyt-rt").eq(4).text(resData.businessScope);
+				$("#baseWeb").text(resData.websiteList);
+				$("#baseAddr").text(resData.regLocation);
+				$("#baseDesc").text(resData.businessScope);
 			}
 		}
 	});
