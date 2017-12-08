@@ -564,7 +564,7 @@ public class OpeneyesController extends BaseController {
 	 * @return
 	 * @throws OpeneyesException 
 	 */
-	@RequestMapping(value = "/getiIssueRelated.json", method = RequestMethod.POST)
+	@RequestMapping(value = "/getIssueRelated.json", method = RequestMethod.POST)
 	public AjaxResult getIssueRelated(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);

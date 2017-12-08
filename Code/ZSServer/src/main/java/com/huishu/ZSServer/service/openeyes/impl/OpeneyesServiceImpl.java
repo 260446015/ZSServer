@@ -1788,6 +1788,8 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		}
 		if(jsonArr != null){
 			IssueRelated parseObject = JSONObject.parseObject(jsonArr.toJSONString(), IssueRelated.class);
+			String id = getGeneratedId(parseObject);
+			parseObject.setId(id);
 			issueRelatedRepository.save(parseObject);
 		}
 		return openEyesTarget;

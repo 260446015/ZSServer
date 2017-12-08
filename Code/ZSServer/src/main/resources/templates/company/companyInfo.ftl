@@ -35,23 +35,52 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">英文名称</th>
-                                <th class="text-left">曾用名</th>
-                                <th class="text-left">所属行业</th>
-                                <th class="text-left">董事长</th>
-                                <th class="text-left">法人代表</th>
-                                <th class="text-left">注册资本</th>
-                                <th class="text-left">控股股东</th>
-                                <th class="text-left">实际控制人</th>
-                                <th class="text-left">最终控制人</th>
-                                <th class="text-left">主营业务</th>
-                                <th class="text-left">董秘</th>
-                                <th class="text-left">总经理</th>
-                                <th class="text-left">员工人数</th>
-                            </tr>
                         </thead>
-                        <tbody id="companyInfo">
+                        <tbody>
+                        	<tr>
+                        		<td>英文名称:</td>
+                        		<td colspan="3" id="engName"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>曾用名:</td>
+                        		<td colspan="3" id="usedName"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>所属行业:</td>
+                        		<td id="industry"></td>
+                        		<td>主营业务:</td>
+                        		<td id="mainBusiness"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>董事长:</td>
+                        		<td id="chairman"></td>
+                        		<td>董秘:</td>
+                        		<td id="secretaries"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>法人代表:</td>
+                        		<td id="legal"></td>
+                        		<td>总经理:</td>
+                        		<td id="generalManager"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>注册资本:</td>
+                        		<td id="registeredCapital"></td>
+                        		<td>员工人数:</td>
+                        		<td id="employeesNum"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>控股股东:</td>
+                        		<td colspan="3" id="controllingShareholder"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>实际控制人:</td>
+                        		<td colspan="3" id="actualController"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>最终控制人:</td>
+                        		<td colspan="3" id="finalController"></td>
+                        	</tr>
                         </tbody>
                     </table>
                 </div>

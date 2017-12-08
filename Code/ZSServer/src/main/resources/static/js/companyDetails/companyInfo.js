@@ -12,7 +12,19 @@ function showBids(){
 			if(res.success){
 				console.log(res.data);
 				var data = res.data.data;
-				$("#companyInfo").html(html);
+				$("#engName").html(data.engName);
+				$("#usedName").html(data.usedName);
+				$("#industry").html(data.industry);
+				$("#mainBusiness").html(data.mainBusiness);
+				$("#chairman").html(data.chairman.name);
+				$("#secretaries").html(data.secretaries.name);
+				$("#legal").html(data.legal.name);
+				$("#generalManager").html(data.generalManager.name);
+				$("#registeredCapital").html(data.registeredCapital);
+				$("#employeesNum").html(data.employeesNum);
+				$("#controllingShareholder").html(data.controllingShareholder);
+				$("#actualController").html(data.actualController);
+				$("#finalController").html(data.finalController);
 			}
 		}
 	});

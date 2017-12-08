@@ -35,18 +35,46 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">时间</th>
-                                <th class="text-left">轮次</th>
-                                <th class="text-left">金额</th>
-                                <th class="text-left">投资方</th>
-                                <th class="text-left">产品</th>
-                                <th class="text-left">地区</th>
-                                <th class="text-left">行业</th>
-                                <th class="text-left">业务</th>
-                            </tr>
                         </thead>
-                        <tbody id="companyInfo">
+                        <tbody id="issueRelated">
+                        	<tr>
+                        		<td>成立日期：</td>
+                        		<td id="issueDate"></td>
+                        		<td>上市日期：</td>
+                        		<td id="listingDate"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>发行数量：</td>
+                        		<td id="issueNumber"></td>
+                        		<td>发行价格：</td>
+                        		<td id="issuePrice"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>发行市盈率：</td>
+                        		<td id="ipoRatio"></td>
+                        		<td>预计募资：</td>
+                        		<td id="expectedToRaise"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>首日开盘价：</td>
+                        		<td id="openingPrice"></td>
+                        		<td>发行中签率：</td>
+                        		<td id="rate"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>实际募资：</td>
+                        		<td id="actualRaised"></td>
+                        		<td>主承销商：</td>
+                        		<td id="mainUnderwriter"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>上市保荐人：</td>
+                        		<td colspan="3" id="listingSponsor"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>历史沿革：</td>
+                        		<td colspan="3" id="history"></td>
+                        	</tr>
                         </tbody>
                     </table>
                 </div>

@@ -242,24 +242,24 @@ public class CompanyInfo implements Serializable {
 		this.mobile = mobile;
 	}
 
-	public String getLegal() {
-		return legal;
+	public JSONObject getLegal() {
+		return JSONObject.parseObject(this.legal);
 	}
 
 	public void setLegal(String legal) {
 		this.legal = legal;
 	}
 
-	public String getChairman() {
-		return chairman;
+	public JSONObject getChairman() {
+		return JSONObject.parseObject(this.chairman);
 	}
 
 	public void setChairman(String chairman) {
 		this.chairman = chairman;
 	}
 
-	public String getGeneralManager() {
-		return generalManager;
+	public JSONObject getGeneralManager() {
+		return JSONObject.parseObject(this.generalManager);
 	}
 
 	public void setGeneralManager(String generalManager) {

@@ -142,20 +142,29 @@ public class IssueRelated implements Serializable {
 		this.cname = cname;
 	}
 
-	public String getMainUnderwriter() {
-		return mainUnderwriter;
+	public JSONObject getMainUnderwriter() {
+		return JSONObject.parseObject(this.mainUnderwriter);
 	}
 
 	public void setMainUnderwriter(String mainUnderwriter) {
 		this.mainUnderwriter = mainUnderwriter;
 	}
 
-	public String getListingSponsor() {
-		return listingSponsor;
+	public JSONObject getListingSponsor() {
+		return JSONObject.parseObject(this.listingSponsor);
 	}
 
 	public void setListingSponsor(String listingSponsor) {
 		this.listingSponsor = listingSponsor;
+	}
+	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override
