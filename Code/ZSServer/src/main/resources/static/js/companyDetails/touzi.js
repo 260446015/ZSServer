@@ -2,7 +2,7 @@ $(function(){
 	showTouzi();
 });
 function showTouzi(){
-	var req = {"cname":'北京百度网讯科技有限公司',"pageNumber":1,"pageSize":10}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":10}
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),

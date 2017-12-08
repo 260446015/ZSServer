@@ -26,6 +26,7 @@ public interface CompanyService {
 	 */
 	List<String> findCompanyName(String area, String industry);
 
-	
+	boolean attationCompany(Long companyId,boolean flag,Long userId);
+
 	
 }

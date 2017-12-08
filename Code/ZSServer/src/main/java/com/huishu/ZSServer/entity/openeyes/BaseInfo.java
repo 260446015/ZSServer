@@ -1,12 +1,18 @@
 package com.huishu.ZSServer.entity.openeyes;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ZSServer.entity.UserBase;
 
 /**
  * 
@@ -15,7 +21,7 @@ import com.alibaba.fastjson.JSONObject;
  * @description 存储天眼查企业的基本信息
  * @version
  */
-@Table(name="t_baseinfo")
+@Table(name = "t_baseinfo")
 @Entity
 public class BaseInfo implements Serializable {
 
@@ -86,6 +92,19 @@ public class BaseInfo implements Serializable {
 	private Long updateTimes;
 	/** 统一社会信用代码 */
 	private String creditCode;
+	/** 关联用户表 */
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "infos",fetch=FetchType.LAZY)
+	private List<UserBase> users;
+	@Transient
+	private boolean isAttation;
+
+	public boolean getIsAttation() {
+		return isAttation;
+	}
+
+	public void setIsAttation(boolean isAttation) {
+		this.isAttation = isAttation;
+	}
 
 	public Long getCompanyId() {
 		return companyId;
@@ -333,6 +352,14 @@ public class BaseInfo implements Serializable {
 
 	public void setCreditCode(String creditCode) {
 		this.creditCode = creditCode;
+	}
+
+	public List<UserBase> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<UserBase> users) {
+		this.users = users;
 	}
 
 	@Override

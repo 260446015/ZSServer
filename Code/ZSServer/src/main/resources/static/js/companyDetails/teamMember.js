@@ -2,7 +2,7 @@ $(function(){
 	showTeamMember();
 });
 function showTeamMember(){
-	var req = {"cname":'北京百度网讯科技有限公司',"pageNumber":1}
+	var req = {"cname":companyName,"pageNumber":1}
 	$.ajax({
 		url:'/apis/openeyes/getTeamMember.json',
 		data:JSON.stringify(req),

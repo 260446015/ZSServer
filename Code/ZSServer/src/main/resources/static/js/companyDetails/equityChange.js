@@ -1,16 +1,17 @@
 $(function(){
-	showBond();
+	showShareStructure();
 });
 var arr;
-function showBond(){
-	var req = {"cname":companyName,"pageNumber":1,"pageSize":20}
+function showShareStructure(){
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":500}
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
 		contentType:'application/json',
-		url:'/apis/openeyes/getBond.json',
+		url:'/apis/openeyes/getEquityChange.json',
 		success:function(res){
 			if(res.success){
+				console.log(res.data);
 				arr = res.data.data.bondList;
 				var html = '';
 				for(var i=0;i<arr.length;i++){
@@ -18,7 +19,7 @@ function showBond(){
 							'<td>'+arr[i].bondNum+'</td><td>'+arr[i].bondType+'</td>' +
 							'<td>'+arr[i].debtRating+'</td><td><a href="javascript:void(0)" onclick="showModel(this)">查看详情</a></td>'+'</tr>';
 				}
-				$("#bond").html(html);
+				$("#equityChange").html(html);
 			}
 		}
 	});

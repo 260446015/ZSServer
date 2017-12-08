@@ -35,6 +35,16 @@ public class Announcement implements Serializable {
 	private String companyName;
 	/** 股票名 */
 	private String name;
+	/** 所属公司 */
+	private String cname;
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
 
 	public String getId() {
 		return id;

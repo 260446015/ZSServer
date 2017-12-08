@@ -1,15 +1,14 @@
 package com.huishu.ZSServer.entity.openeyes;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.json.JSONException;
+
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -45,8 +44,18 @@ public class Holder implements Serializable {
 	 * 认缴形式
 	 * 
 	 */
-	@OneToMany(targetEntity = Capital.class, mappedBy = "holder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Capital> capitals;
+	private String capital;
+	
+	private String cname;
+	
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
 
 	public Long getId() {
 		return id;
@@ -96,12 +105,15 @@ public class Holder implements Serializable {
 		this.type = type;
 	}
 
-	public List<Capital> getCapitals() {
-		return capitals;
+	public JSONArray getCapital() throws JSONException {
+		String str = this.capital;
+		org.json.JSONArray arr = new org.json.JSONArray(str);
+		JSONArray parseArray = JSONArray.parseArray(arr.toString());
+		return parseArray;
 	}
 
-	public void setCapitals(List<Capital> capitals) {
-		this.capitals = capitals;
+	public void setCapital(String capital) {
+		this.capital = capital;
 	}
 
 	@Override

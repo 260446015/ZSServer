@@ -50,6 +50,182 @@
                 </div>
             </div>
       	</div>
+<div class="modal fade in customed-modal small-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">债券信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">债券名称</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="bondName">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">债券代码</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="bondNum">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">发行人</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="publisherName">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">债券类型</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="bondType">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">债券发行日</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="publishTime">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">债劵到期日</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">计息方式</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="calInterestType">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">上市交易日</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="bondTradeTime">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">信用评级机构</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="creditRatingGov">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">债劵摘牌日</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="bondStopTime">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">面值（元）</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="faceValue">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">参考利率（％）</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="refInterestRate">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">票面利率（％）</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="faceInterestRate">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">实际发行量（亿）</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="realIssuedQuantity">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">计划发行量（亿）</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="planIssuedQuantity">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">发行价格（元） </label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="issuedPrice">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">利差（BP）</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="interestDiff">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">付息频率</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="payInterestHZ">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">债劵起息日</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="startCalInterestTime">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">行权类型</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="exeRightType">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">行权日期</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="exeRightTime">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">托管机构</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="escrowAgent">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="col-md-4 control-label text-blue">流通范围</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="flowRange">16广州汽车CP001</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="footer">
     <p class="text-center">Copyright©2008-2016 中科点击（北京）科技有限公司-版权所有  京ICP备11012241-3号</p>
 </div>

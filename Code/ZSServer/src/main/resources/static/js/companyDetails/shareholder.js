@@ -3,22 +3,23 @@ $(function(){
 });
 var arr;
 function showBond(){
-	var req = {"cname":companyName,"pageNumber":1,"pageSize":20}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":500}
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
 		contentType:'application/json',
-		url:'/apis/openeyes/getBond.json',
+		url:'/apis/openeyes/getShareholder.json',
 		success:function(res){
 			if(res.success){
-				arr = res.data.data.bondList;
+				console.log(res.data);
+				arr = res.data.data.holderList;
 				var html = '';
 				for(var i=0;i<arr.length;i++){
-					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+arr[i].publishTime+'</td><td>'+arr[i].bondName+'</td>' +
-							'<td>'+arr[i].bondNum+'</td><td>'+arr[i].bondType+'</td>' +
-							'<td>'+arr[i].debtRating+'</td><td><a href="javascript:void(0)" onclick="showModel(this)">查看详情</a></td>'+'</tr>';
+					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+arr[i].name+'</td><td>'+arr[i].holdingNum+'</td>' +
+							'<td>'+arr[i].holdingChange+'</td><td>'+arr[i].tenPercent+'</td>' +
+							'<td>'+arr[i].actual+'</td><td>'+arr[i].shareType+'</td>'+'</tr>';
 				}
-				$("#bond").html(html);
+				$("#shareholder").html(html);
 			}
 		}
 	});
