@@ -178,7 +178,7 @@ function findCompany(a,b){
 				$(".box-title").html(a);
 				$("#box-list li").remove();
 			for(var i = 0;i<data.length ; i++){
-				$("#box-list").append("<li>"+"<a href='javascript:void(0);'>"+data[i]+"</a></li>");
+				$("#box-list").append('<li>'+'<a href="/apis/area/company/baseInfo.html?companyName='+data[i]+'" target="_blank" >'+data[i]+'</a></li>');
 			}
 		}
 	});
@@ -542,7 +542,9 @@ industryMap.on("click",function (e) {
  */
 $(".like").on("click",function () {
     var _this = $(this);
-    var _id = $('input[name="textName"]').val();
+    var _id = _this.parents(".layer-person").find($(".inner").item.active).find($('input[name="textName"]').val());
+    console.log(_id);
+//    var _id = $('input[name="textName"]').val();
     _this.parents(".layer-person").hide();
     $.ajax({
     	url:'/indusMap/insertLaboratoryInfo.json',

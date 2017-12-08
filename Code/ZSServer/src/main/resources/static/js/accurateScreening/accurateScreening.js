@@ -73,6 +73,7 @@ var dot = {
                     return param.data[2];
                 },
             },
+            
         },
         itemStyle: {
             normal: {
@@ -131,7 +132,7 @@ var dot = {
             },
             formatter: (item) => {
             if (item.data[2]) {
-        return `${item.data[2]}<br/>  坐标: x ${item.data[0]}  y ${item.data[1]}`;
+            return `${item.data[2]}<br/>  坐标: x ${item.data[0]}  y ${item.data[1]}`;
     }
 }
 },
