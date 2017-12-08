@@ -77,7 +77,6 @@ function show(b){
 };
 $('#summit-list').on("click",".follow",function(){
 	var aid = $(this).attr("id");
-	console.log(aid);
 	var param={aid:aid};
 	$.ajax({
 		type:'GET',
@@ -90,6 +89,7 @@ $('#summit-list').on("click",".follow",function(){
 				new Alert({flag:false,text:res.message,timer:2000}).show();
 			}else{
 				new Alert({flag:true,text:res.data,timer:2000}).show();
+				$(this).html("已关注");
 			}
 		}
 	});
