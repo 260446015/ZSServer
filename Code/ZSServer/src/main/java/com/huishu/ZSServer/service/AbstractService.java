@@ -365,7 +365,7 @@ public class AbstractService<T> {
 					for (SearchHit searchHit : hits) {
 						Map<String, Object> map = searchHit.getSource();
 						String value = map.get("financingAmount").toString();
-						if (value.indexOf("未透露") == -1 && value.indexOf("数") == -1 && value.indexOf("及") == -1) {
+						if (value.indexOf("未") == -1 && value.indexOf("数") == -1 && value.indexOf("及") == -1 && value.indexOf("过") == -1) {
 							String dataString = map.get("financingAmount").toString();
 							if (dataString.indexOf("RMB") != -1 || dataString.indexOf("¥") != -1
 									|| dataString.indexOf("人民币") != -1) {
@@ -423,15 +423,20 @@ public class AbstractService<T> {
 		Pattern p = Pattern.compile(regEx);
 		Matcher m = p.matcher(money);
 		String moneyNum = m.replaceAll("").trim();
-		if (money.indexOf("亿") != -1) {
-			myMoney = Double.valueOf(moneyNum);
-		} else if (money.indexOf("千万") != -1) {
-			myMoney = Double.valueOf(moneyNum) * 0.1;
-		} else if (money.indexOf("万") != -1) {
-			myMoney = Double.valueOf(moneyNum) * 0.0001;
-		} else {
-			myMoney = 0.0;
+		try {
+			if (money.indexOf("亿") != -1) {
+				myMoney = Double.valueOf(moneyNum);
+			} else if (money.indexOf("千万") != -1) {
+				myMoney = Double.valueOf(moneyNum) * 0.1;
+			} else if (money.indexOf("万") != -1) {
+				myMoney = Double.valueOf(moneyNum) * 0.0001;
+			} else {
+				myMoney = 0.0;
+				LOGGER.error("无法识别的融资金额计量单位：" + money);
+			}
+		} catch (NumberFormatException e) {
 			LOGGER.error("无法识别的融资金额计量单位：" + money);
+			return 0.0;
 		}
 		return myMoney;
 	}

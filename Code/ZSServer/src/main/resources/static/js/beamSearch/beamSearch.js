@@ -101,7 +101,7 @@ function showCompany(list){
                '<p>注册资金:<span class="company-money">'+obj.regCapital+'</span></p>'+
                '<p>总部地点:<span class="company-address">'+obj.base+'</span></p>'+
                '<div class="company-mask"><div class="circle-empty"><a href="/apis/area/company/baseInfo.html?companyName='+name+'" class="text-center"><img src="/images/see_icon.png" /></a>'+
-               '<a href="/apis/area/company/baseInfo.html?companyName='+name+'" class="text-center">查看详情</a></div></div></div></div></div>';
+               '<a href="/apis/company/baseInfo.html?companyName='+name+'" class="text-center">查看详情</a></div></div></div></div></div>';
            }
            $("#city_list").html(cHtml);//将数据增加到页面中
        }

@@ -35,7 +35,7 @@ $(function(){
         url: "/apis/financing/getFinancingDynamic.json",
         success: function (response) {
             if(response.message!=null){
-            	new Alert({flag:false,text:result.message,timer:1500}).show();
+            	new Alert({flag:false,text:response.message,timer:1500}).show();
             }else{
            		showDynamic(response.data);
             }
@@ -56,7 +56,7 @@ function myCharts(d,type){
         data: JSON.stringify({industry:d,type:type}),
         success: function (response) {
             if(response.message!=null){
-            	new Alert({flag:false,text:result.message,timer:1500}).show();
+            	new Alert({flag:false,text:response.message,timer:1500}).show();
             }else{
             	changeOption(response.data);
             	barCharts.setOption(option,true);
@@ -93,7 +93,7 @@ function myCheck(d){
         data: JSON.stringify({industry:d}),
         success: function (response) {
             if(response.message!=null){
-            	new Alert({flag:false,text:result.message,timer:1500}).show();
+            	new Alert({flag:false,text:response.message,timer:1500}).show();
             }else{
             	showCheck(response.data);
             }
@@ -122,7 +122,7 @@ function ajaxPost(param){
         data: JSON.stringify(param),
         success: function (response) {
             if(response.message!=null){
-            	new Alert({flag:false,text:result.message,timer:1500}).show();
+            	new Alert({flag:false,text:response.message,timer:1500}).show();
             }else{
             	 if(response.data.totalPage>1){
 	            	page.init(response.data.totalNumber,response.data.pageNumber,options);

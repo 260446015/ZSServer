@@ -65,7 +65,7 @@
         	if(item=='暂无'){
         		arr.push(item);
         	}else{
-        		arr.push('<a href="/apis/area/company/baseInfo.html?companyName='+item+'">'+item+'</a>  ');
+        		arr.push('<a href="/apis/company/baseInfo.html?companyName='+item+'">'+item+'</a>  ');
         	}
           	
         });
