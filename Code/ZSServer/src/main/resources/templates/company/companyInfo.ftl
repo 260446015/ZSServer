@@ -36,14 +36,19 @@
                      <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th class="text-left">时间</th>
-                                <th class="text-left">轮次</th>
-                                <th class="text-left">金额</th>
-                                <th class="text-left">投资方</th>
-                                <th class="text-left">产品</th>
-                                <th class="text-left">地区</th>
-                                <th class="text-left">行业</th>
-                                <th class="text-left">业务</th>
+                                <th class="text-left">英文名称</th>
+                                <th class="text-left">曾用名</th>
+                                <th class="text-left">所属行业</th>
+                                <th class="text-left">董事长</th>
+                                <th class="text-left">法人代表</th>
+                                <th class="text-left">注册资本</th>
+                                <th class="text-left">控股股东</th>
+                                <th class="text-left">实际控制人</th>
+                                <th class="text-left">最终控制人</th>
+                                <th class="text-left">主营业务</th>
+                                <th class="text-left">董秘</th>
+                                <th class="text-left">总经理</th>
+                                <th class="text-left">员工人数</th>
                             </tr>
                         </thead>
                         <tbody id="companyInfo">

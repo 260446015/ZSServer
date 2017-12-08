@@ -591,7 +591,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
 			inList.put("items", newList);
-			result.put("result", inList);
+			result.put("data", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
@@ -660,9 +660,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		List<Icp> list = icpRepository.findByCompanyName(dto.getCname());
 		List<Icp> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
 		if (newList.size() > 0) {
-			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
-			result.put("data", inList);
+			result.put("data", newList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());

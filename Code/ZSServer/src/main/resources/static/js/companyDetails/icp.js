@@ -11,7 +11,7 @@ function showBond(){
 		success:function(res){
 			if(res.success){
 				console.log(res.data);
-				var arr = res.data.data.items;
+				var arr = res.data.data;
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					html += '<tr><td>'+arr[i].examineDate+'</td><td>'+arr[i].webName+'</td>' +
