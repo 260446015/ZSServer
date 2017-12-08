@@ -62,7 +62,12 @@
 		var before='<div class="meeting-details-box-header"><h4>'+data.title+'</h4></div><div class="item"><div><span class="iconfont icon-company"></span>涉及公司:<span>';
 		var arr = []
         $.each(data.bus, function(index, item){
-          	arr.push('<a href="/apis/area/company/baseInfo.html?companyName='+item+'">'+item+'</a>  ');
+        	if(item=='暂无'){
+        		arr.push(item);
+        	}else{
+        		arr.push('<a href="/apis/area/company/baseInfo.html?companyName='+item+'">'+item+'</a>  ');
+        	}
+          	
         });
         var inner=arr.join('');
         var after='</span></div><div><span class="iconfont icon-shijian2"></span>发布时间:<span>'+data.publishDate+'</span></div></div>'+
