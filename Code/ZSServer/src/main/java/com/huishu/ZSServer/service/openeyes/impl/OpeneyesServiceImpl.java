@@ -24,7 +24,6 @@ import com.huishu.ZSServer.entity.openeyes.Bids;
 import com.huishu.ZSServer.entity.openeyes.Bond;
 import com.huishu.ZSServer.entity.openeyes.BonusInfo;
 import com.huishu.ZSServer.entity.openeyes.Branch;
-import com.huishu.ZSServer.entity.openeyes.Capital;
 import com.huishu.ZSServer.entity.openeyes.ChangeInfo;
 import com.huishu.ZSServer.entity.openeyes.CheckInfo;
 import com.huishu.ZSServer.entity.openeyes.CompanyInfo;
@@ -215,6 +214,8 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
+		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.STAFF);
 		dto.setParams(params);
 		List<Staff> list = staffRepository.findByCname(dto.getCname());
@@ -250,6 +251,13 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		List<BaseInfo> list = baseInfoRepository.findByName(dto.getCname());
 		if (list.size() > 0) {
 			BaseInfo info = list.get(0);
+			info.setIsAttation(false);
+			info.getUsers().forEach((obj) ->{
+				if(obj.getId() == dto.getUserId()){
+					info.setIsAttation(true);
+				}
+			});
+			info.setUsers(null);
 			openEyesTarget.put("result", info);
 			return openEyesTarget;
 		}
@@ -311,6 +319,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.BRANCH);
 		List<Branch> list = branchRepository.findByCompanyName(dto.getCname());
@@ -348,6 +357,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.HISTORYRONGZI);
 		List<HistoryRongZi> list = historyRongZiRepository.findByCompanyName(dto.getCname());
@@ -388,6 +398,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.TEAMMEMBER);
 		List<TeamMember> list = teamMemberRepository.findByCompanyName(dto.getCname());
@@ -424,6 +435,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.PRODUCTINFO);
 		List<ProductInfo> list = productInfoRepository.findByCompanyName(dto.getCname());
@@ -460,6 +472,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.TZANLI);
 		List<TouZi> list = touZiRepository.findByCompanyName(dto.getCname());
@@ -495,6 +508,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.JINGPIN);
 		List<JingPin> list = jingPinRepository.findByCname(dto.getCname());
@@ -534,6 +548,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.SHANGBIAO);
 		List<ShangBiao> list = shangBiaoRepository.findByApplicantCn(dto.getCname());
@@ -568,6 +583,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.PATENTS);
 		List<Patents> list = patentsRepository.findByApplicantName(dto.getCname());
@@ -602,6 +618,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.COPYREG);
 		List<CopyReg> list = copyRegRepository.findByCompanyName(dto.getCname());
@@ -637,6 +654,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.ICP);
 		dto.setParams(params);
 		List<Icp> list = icpRepository.findByCompanyName(dto.getCname());
@@ -669,6 +687,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.ABNORMAL);
 		dto.setParams(params);
 		List<Abnormal> list = abnormalRepository.findByCompanyName(dto.getCname());
@@ -706,6 +725,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.XINGZHENGCHUFA);
 		dto.setParams(params);
 		List<PunishmentInfo> list = punishmentInfoRepository.findByName(dto.getCname());
@@ -742,6 +762,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.YANZHONGWEIFA);
 		dto.setParams(params);
 		List<Illegalinfo> list = illegalinfoRepository.findByCompanyName(dto.getCname());
@@ -779,6 +800,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.QIANSHUIGONGGAO);
 		dto.setParams(params);
 		List<OwnTax> list = ownTaxRepository.findByName(dto.getCname());
@@ -848,6 +870,8 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
+		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.SHIXINREN);
 		dto.setParams(params);
 		List<Dishonest> list = dishonestRepository.findByIname(dto.getCname());
@@ -932,6 +956,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	}
 
 	@Override
+	//-----------------------
 	public JSONObject getHumanRiskInfo(OpeneyesDTO dto) throws OpeneyesException {
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
@@ -1006,6 +1031,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.SHUIWU);
 		dto.setParams(params);
 		List<TaxCredit> list = taxCreditRepository.findByName(dto.getCname());
@@ -1070,9 +1096,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.HOLDER);
 		dto.setParams(params);
-		List<Holder> list = holderRepository.findByName(dto.getCname());
+		List<Holder> list = holderRepository.findByCname(dto.getCname());
 		List<Holder> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
 		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
@@ -1098,7 +1125,8 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				holder.setName(target.getString("name"));
 				holder.setToco(target.getIntValue("toco"));
 				holder.setType(target.getIntValue("type"));
-				holder.setCapitals(target.getJSONArray("capital").toJavaList(Capital.class));
+				holder.setCapital(target.getString("capital"));
+				holder.setCname(dto.getCname());
 				list.add(holder);
 			});
 			holderRepository.save(list);
@@ -1112,6 +1140,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.CHANGEINFO);
 		dto.setParams(params);
 		List<ChangeInfo> list = changeInfoRepository.findByCname(dto.getCname());
@@ -1149,6 +1178,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.INVERST);
 		dto.setParams(params);
 		List<Inverst> list = inverstRepository.findByCname(dto.getCname());
@@ -1184,6 +1214,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.BIDS);
 		dto.setParams(params);
 		List<Bids> list = bidsRepository.findByCname(dto.getCname());
@@ -1229,6 +1260,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.BOND);
 		dto.setParams(params);
 		List<Bond> list = bondRepository.findByCname(dto.getCname());
@@ -1264,6 +1296,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.PURCHASELAND);
 		dto.setParams(params);
 		List<Purchaseland> list = purchaselandRepository.findByCname(dto.getCname());
@@ -1319,6 +1352,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.EMPLOYMENTS);
 		dto.setParams(params);
 		List<Employment> list = employmentRepository.findByCompanyName(dto.getCname());
@@ -1353,6 +1387,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.CHECKINFO);
 		dto.setParams(params);
 		List<CheckInfo> list = checkInfoRepository.findByCname(dto.getCname());
@@ -1390,6 +1425,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.APPBKINFO);
 		dto.setParams(params);
 		List<AppbkInfo> list = appbkInfoRepository.findByCname(dto.getCname());
@@ -1427,6 +1463,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.LAWSUIT);
 		dto.setParams(params);
 		List<LawSuit> list = lawSuitRepository.findByCname(dto.getCname());
@@ -1462,6 +1499,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.COURTANNOUNCEMENT);
 		dto.setParams(params);
 		List<CourtAnnouncement> list = courtAnnouncementRepository.findByCname(dto.getCname());
@@ -1495,6 +1533,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.ZHIXINGINFO);
 		dto.setParams(params);
 		List<ZhixingInfo> list = zhixingInfoRepository.findByCname(dto.getCname());
@@ -1668,7 +1707,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.ANNOUNCEMENT);
 		dto.setParams(params);
-		List<Announcement> list = announcementRepository.findByCompanyName(dto.getCname());
+		List<Announcement> list = announcementRepository.findByCname(dto.getCname());
 		List<Announcement> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
 		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
@@ -1687,6 +1726,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				Announcement parseObject = JSONObject.parseObject(obj.toString(), Announcement.class);
+				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
 			});
 			announcementRepository.save(list);
@@ -1720,6 +1760,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				ShareHolder parseObject = JSONObject.parseObject(obj.toString(), ShareHolder.class);
+				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
 			});
 			shareHolderRepository.save(list);
@@ -1865,6 +1906,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
 		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.ALLOTMEN);
 		dto.setParams(params);
 		List<Allotmen> list = allotmenRepository.findByCname(dto.getCname());

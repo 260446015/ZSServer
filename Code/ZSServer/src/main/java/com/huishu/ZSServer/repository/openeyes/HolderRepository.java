@@ -8,6 +8,6 @@ import com.huishu.ZSServer.entity.openeyes.Holder;
 
 public interface HolderRepository extends CrudRepository<Holder, Long>{
 
-	List<Holder> findByName(String cname);
+	List<Holder> findByCname(String cname);
 
 }

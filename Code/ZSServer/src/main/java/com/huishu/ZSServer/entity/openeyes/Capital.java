@@ -18,8 +18,6 @@ import com.alibaba.fastjson.JSONObject;
  * @description 认缴资金
  * @version
  */
-@Table(name = "t_capital")
-@Entity
 public class Capital implements Serializable {
 
 	/**
@@ -37,7 +35,6 @@ public class Capital implements Serializable {
 	private String percent;
 	/** 认缴形式 */
 	private String paymet;
-	@ManyToOne(targetEntity = Holder.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Holder holder;
 
 	public Long getId() {

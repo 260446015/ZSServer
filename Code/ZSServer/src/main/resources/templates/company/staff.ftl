@@ -35,37 +35,109 @@
                 </div>
                 <div class="text-center">
                     <ul class="tabs tabs-custom">
-                        <li>
+                        <li class="active">
                             <a href="javascript:void(0);">高管</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="javascript:void(0);">股东</a>
                         </li>
                     </ul>
                 </div>
                 <div class="modal-body border-shadow-box pd0">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr class="tabTitle" style="display:none">
-                            <th class="text-left">股东</th>
-                            <th class="text-left">出资比例</th>
-                            <th class="text-left">认缴出资</th>
-                            <th class="text-left">时间</th>
-                        </tr>
-                        <tr class="tabTitle" style="display:none">
-                            <th class="text-left">股东</th>
-                            <th class="text-left">出资比例</th>
-                            <th class="text-left">认缴出资</th>
-                            <th class="text-left">时间</th>
-                        </tr>
-
-                        </thead>
-                        <tbody>
-                            
-                            
-                        </tbody>
-                    </table>
+                	<div class="tableShow">
+						<div class="slider-header">
+							林东（董事）
+						</div>
+						<div class="slider-wrapper">
+							<div id="myCarousel" data-wrap="false" data-interval="false" class="carousel slide">
+								<!-- 轮播（Carousel）项目 -->
+								<div class="carousel-inner">
+									<div class="item active">
+										<div class="row">
+											<div class="col-md-3 col-md-offset-1">
+												<label class="control-label col-md-5">联系方式</label>
+												<div class="col-md-7">
+													<input class="input phone masks" readonly value="" />
+												</div>
+											</div>
+											<div class="col-md-3 col-md-offset-1">
+												<label class="control-label col-md-5">邮箱</label>
+												<div class="col-md-7">
+													<input class="input email masks" readonly value="" />
+												</div>
+											</div>
+											<div class="col-md-3 col-md-offset-1">
+												<button class="btn btn-blue">我要联系</button>
+											</div>
+										</div>
+									</div>
+									<div class="item">
+										<div class="row">
+											<div class="col-md-3 col-md-offset-1">
+												<label class="control-label col-md-5">联系方式</label>
+												<div class="col-md-7">
+													<input class="input phone" readonly value="" />
+												</div>
+											</div>
+											<div class="col-md-3 col-md-offset-1">
+												<label class="control-label col-md-5">邮箱</label>
+												<div class="col-md-7">
+													<input class="input email" readonly value="" />
+												</div>
+											</div>
+											<div class="col-md-3 col-md-offset-1">
+												<button class="btn btn-blue">我要联系</button>
+											</div>
+										</div>
+									</div>
+									<div class="item">
+										<div class="row">
+											<div class="col-md-3 col-md-offset-1">
+												<label class="control-label col-md-5">联系方式</label>
+												<div class="col-md-7">
+													<input class="input phone masks" readonly value="" />
+												</div>
+											</div>
+											<div class="col-md-3 col-md-offset-1">
+												<label class="control-label col-md-5">邮箱</label>
+												<div class="col-md-7">
+													<input class="input email masks" readonly value="" />
+												</div>
+											</div>
+											<div class="col-md-3 col-md-offset-1">
+												<button class="btn btn-blue">我要联系</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 轮播（Carousel）导航 -->
+								<a class="carousel-control left" href="#myCarousel"
+								   data-slide="prev">&lsaquo;
+								</a>
+								<a class="carousel-control right" href="#myCarousel"
+								   data-slide="next">&rsaquo;
+								</a>
+							</div>
+                    </div>
                 </div>
+                <div class="tableShow">
+						<table class="table table-striped">
+							<thead>
+								<tr class="tabTitle">
+									<th class="text-left">股东</th>
+									<th class="text-left">出资比例</th>
+									<th class="text-left">认缴出资</th>
+								</tr>
+							</thead>
+							<tbody id="holder">
+								
+								
+							</tbody>
+						</table>
+                 </div>
+                </div>
+                </div>
+                
       </div>
 </div>
 <div class="footer">

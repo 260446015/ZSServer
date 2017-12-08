@@ -2,7 +2,7 @@ $(function(){
 	showBond();
 });
 function showBond(){
-	var req = {"cname":'嘉兴银行股份有限公司',"pageNumber":1,"pageSize":10}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":10}
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),

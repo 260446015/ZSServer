@@ -1,22 +1,10 @@
 /**
  * Created by zhangxin on 2017/11/30.
  */
-$(function() {
-//	companyName = GetQueryString("companyName");
+/*$(function() {
+	companyName = GetQueryString("companyName");
 	showCompanyDetail();
 });
-var companyName;
-function GetQueryString(key) {// 获取地址栏中的name
-	// 获取参数
-	var url = window.location.search;
-	// 正则筛选地址栏
-	var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
-	// 匹配目标参数
-	var result = url.substr(1).match(reg);
-	// 返回参数值
-	return result ? decodeURIComponent(result[2]) : null;
-}
-var resData;
 function showCompanyDetail(){
 	$.ajax({
 		type:'get',
@@ -24,7 +12,6 @@ function showCompanyDetail(){
 		success:function(res){
 			if(res.success){
 				resData = res.data.result;
-				console.log(resData);
 				$(".datails-title>span").text(resData.name);
 				$(".score-title").text("企业匹配值："+resData.categoryScore+"分");
 				$(".inline-lyt").find(".lyt-rt").eq(0).text(resData.phoneNumber);
@@ -36,3 +23,14 @@ function showCompanyDetail(){
 		}
 	});
 }
+function attationCompany(companyId,flag){
+	$.ajax({
+		url:'/apis/company/attationCompany.json?companyId='+companyId+'&flag='+flag,
+		type:'get',
+		success:function(res){
+			if(res.success){
+				showCompanyDetail();
+			}
+		}
+	});
+}*/

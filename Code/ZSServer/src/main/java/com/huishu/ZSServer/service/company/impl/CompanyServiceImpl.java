@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ZSServer.common.util.DateUtils;
 import com.huishu.ZSServer.entity.Company;
+import com.huishu.ZSServer.entity.CompanyAttation;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
+import com.huishu.ZSServer.repository.company.CompanyAttaRepository;
 import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.company.CompanyService;
@@ -32,6 +34,8 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 	private static Logger LOGGER = LoggerFactory.getLogger(CompanyServiceImpl.class);
 	@Autowired
 	private CompanyRepository companyRepository;
+	@Autowired
+	private CompanyAttaRepository companyAttaRepository;
 
 	@Override
 	public Page<Company> findCompanyList(CompanySearchDTO dto) {
@@ -108,5 +112,29 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 		List<String> list = companyRepository.findByAreaAndIndustry(area, industry);
 		return list;
 	}
+
+	@Override
+	public boolean attationCompany(Long companyId, boolean flag, Long userId) {
+		CompanyAttation ca = companyAttaRepository.findByCompanyIdAndUserId(companyId,userId);
+		try{
+			if(flag){
+				if(ca == null){
+					ca = new CompanyAttation();
+					ca.setCompanyId(companyId);
+					ca.setUserId(userId);
+					companyAttaRepository.save(ca);
+				}
+			}else{
+				if(ca == null){
+					return true;
+				}else
+					companyAttaRepository.delete(ca);
+			}
+		}catch(Exception e){
+			return false;
+		}
+		return true;
+	}
+
 
 }

@@ -38,5 +38,16 @@ public class CompnayController extends BaseController {
 		}
 		return success(companyService.findCompanyList(dto));
 	}
+	/**
+	 * 关注/取消天眼查查到的公司
+	 */
+	@RequestMapping(value = "attationCompany.json", method = RequestMethod.GET,params={"companyId","flag"})
+	public AjaxResult attationCompany(Long companyId,Boolean flag){
+		if(companyId == null || flag == null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		Long userId = 1L;
+		return success(companyService.attationCompany(companyId,flag,userId));
+	}
 
 }

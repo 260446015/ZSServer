@@ -30,6 +30,16 @@ public class OpeneyesDTO extends AbstractDTO {
 	private Boolean flag;
 	/***/
 	private String type;
+	/** 用户id */
+	private Long userId;
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public String getType() {
 		return type;

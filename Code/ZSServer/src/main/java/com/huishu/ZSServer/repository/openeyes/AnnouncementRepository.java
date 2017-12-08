@@ -8,6 +8,6 @@ import com.huishu.ZSServer.entity.openeyes.Announcement;
 
 public interface AnnouncementRepository extends CrudRepository<Announcement, String> {
 
-	List<Announcement> findByCompanyName(String cname);
+	List<Announcement> findByCname(String cname);
 
 }

@@ -3,15 +3,21 @@ package com.huishu.ZSServer.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 
 /**
  * 用户实体类
@@ -104,6 +110,11 @@ public class UserBase implements Serializable {
 	/** 是否审核(0:待审核,1:已审核) */
 	@Column(name = "is_check")
 	private Integer isCheck;
+	
+	/** 关注企业 */
+	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@JoinTable(name="t_company_attation",joinColumns={@JoinColumn(name="userId",referencedColumnName="id")},inverseJoinColumns={@JoinColumn(name="companyId",referencedColumnName="companyId")})
+	private List<BaseInfo> infos;
 
 	/** 用户权限，不存数据库 */
 	@Transient
@@ -275,6 +286,14 @@ public class UserBase implements Serializable {
 
 	public void setUserLevel(Integer userLevel) {
 		this.userLevel = userLevel;
+	}
+	
+	public List<BaseInfo> getInfos() {
+		return infos;
+	}
+
+	public void setInfos(List<BaseInfo> infos) {
+		this.infos = infos;
 	}
 
 	@Override

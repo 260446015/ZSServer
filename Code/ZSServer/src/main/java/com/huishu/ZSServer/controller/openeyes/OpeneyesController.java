@@ -79,8 +79,10 @@ public class OpeneyesController extends BaseController {
 	public AjaxResult getBaseInfo(String name) throws OpeneyesException {
 		if (StringUtil.isEmpty(name))
 			return error(MsgConstant.ILLEGAL_PARAM);
+		Long userId = 1L;
 		OpeneyesDTO dto = new OpeneyesDTO();
 		dto.setCname(name);
+		dto.setUserId(userId);
 		JSONObject returnObj = new JSONObject();
 		try{
 			returnObj = openeyesService.getBaseInfo(dto);
