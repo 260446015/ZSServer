@@ -248,8 +248,7 @@ public class GardenController extends BaseController {
 	 * 访问链接
 	 */
 	@RequestMapping(value = { "/{path}/{page}" })
-	public String gardenMap(@PathVariable String path,@PathVariable String page,@RequestParam(name="companyName") String companyName,Model model) {
-		model.addAttribute("companyName", companyName);
+	public String gardenMap(@PathVariable String path,@PathVariable String page,Model model) {
 		return path +"/" + page;
 	}
 

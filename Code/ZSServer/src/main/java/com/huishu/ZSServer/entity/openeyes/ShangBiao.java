@@ -40,7 +40,7 @@ public class ShangBiao implements Serializable {
 	/** 商标状态 */
 	private String category;
 	/** 申请日期 */
-	private String appDate;
+	private Long appDate;
 	/** 公司id */
 	private Long companyId;
 
@@ -108,11 +108,11 @@ public class ShangBiao implements Serializable {
 		this.category = category;
 	}
 
-	public String getAppDate() {
+	public Long getAppDate() {
 		return appDate;
 	}
 
-	public void setAppDate(String appDate) {
+	public void setAppDate(Long appDate) {
 		this.appDate = appDate;
 	}
 

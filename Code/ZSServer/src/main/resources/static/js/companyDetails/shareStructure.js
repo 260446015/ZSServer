@@ -12,12 +12,14 @@ function showShareStructure(){
 		success:function(res){
 			if(res.success){
 				console.log(res.data);
-				arr = res.data.data.bondList;
+				arr = res.data.data.dataList;
 				var html = '';
 				for(var i=0;i<arr.length;i++){
-					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+arr[i].publishTime+'</td><td>'+arr[i].bondName+'</td>' +
-							'<td>'+arr[i].bondNum+'</td><td>'+arr[i].bondType+'</td>' +
-							'<td>'+arr[i].debtRating+'</td><td><a href="javascript:void(0)" onclick="showModel(this)">查看详情</a></td>'+'</tr>';
+					var pubDate = getFormatDate(new Date(arr[i].pubDate));
+					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+pubDate+'</td><td>'+arr[i].shareAll+'</td>' +
+							'<td>'+arr[i].ashareAll+'</td><td>'+arr[i].noLimitShare+'</td>' +
+							'<td>'+arr[i].limitShare+'</td><td>'+arr[i].hshareAll+'</td><td>'+arr[i].hnoLimitShare+'</td>'+
+							'<td>'+arr[i].hlimitShare+'</td><td>'+arr[i].changeReason+'</td>'+'</tr>';
 				}
 				$("#shareStructure").html(html);
 			}

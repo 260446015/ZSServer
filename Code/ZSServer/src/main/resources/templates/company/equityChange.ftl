@@ -37,13 +37,10 @@
                         <thead>
                             <tr>
                                 <th class="text-left">时间</th>
-                                <th class="text-left">轮次</th>
-                                <th class="text-left">金额</th>
-                                <th class="text-left">投资方</th>
-                                <th class="text-left">产品</th>
-                                <th class="text-left">地区</th>
-                                <th class="text-left">行业</th>
-                                <th class="text-left">业务</th>
+                                <th class="text-left">变动原因</th>
+                                <th class="text-left">变动后A股总股本</th>
+                                <th class="text-left">变动后流通A股</th>
+                                <th class="text-left">变动后限售A股</th>
                             </tr>
                         </thead>
                         <tbody id="equityChange">
