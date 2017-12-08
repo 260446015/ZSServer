@@ -12,12 +12,13 @@ function showShareStructure(){
 		success:function(res){
 			if(res.success){
 				console.log(res.data);
-				arr = res.data.data.bondList;
+				arr = res.data.data.dataList;
 				var html = '';
 				for(var i=0;i<arr.length;i++){
-					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+arr[i].publishTime+'</td><td>'+arr[i].bondName+'</td>' +
-							'<td>'+arr[i].bondNum+'</td><td>'+arr[i].bondType+'</td>' +
-							'<td>'+arr[i].debtRating+'</td><td><a href="javascript:void(0)" onclick="showModel(this)">查看详情</a></td>'+'</tr>';
+					var changeDate = getFormatDate(new Date(arr[i].changeDate));
+					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+changeDate+'</td><td>'+arr[i].changeReason+'</td>' +
+							'<td>'+arr[i].afterAll+'</td><td>'+arr[i].afterNoLimit+'</td>' +
+							'<td>'+arr[i].afterLimit+'</td>'+'</tr>';
 				}
 				$("#equityChange").html(html);
 			}

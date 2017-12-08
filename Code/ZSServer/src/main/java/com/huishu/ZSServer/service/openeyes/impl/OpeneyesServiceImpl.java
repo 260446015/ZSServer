@@ -556,7 +556,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
 			inList.put("items", newList);
-			result.put("result", inList);
+			result.put("data", inList);
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());

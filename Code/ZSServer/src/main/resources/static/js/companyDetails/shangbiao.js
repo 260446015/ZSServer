@@ -11,14 +11,13 @@ function showBond(){
 		success:function(res){
 			if(res.success){
 				console.log(res.data);
-				var arr = res.data.result.items;
+				var arr = res.data.data.items;
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var appDate = getFormatDate(new Date(arr[i].appDate));
-					var startTime = getFormatDate(new Date(arr[i].startTime));
-					html += '<tr><td>'+appDate+'</td><td><img src=""/></td>' +
+					html += '<tr><td>'+appDate+'</td><td><img src="'+arr[i].tmPic+'" width="120px" height="50px"/></td>' +
 							'<td>'+arr[i].tmName+'</td><td>'+arr[i].regNo+'</td>' +
-							'<td>'+arr[i].intCls+'</td><td>'+status+'</td>'+'</tr>'
+							'<td>'+arr[i].intCls+'</td><td>'+arr[i].status+'</td>'+'</tr>'
 				}
 				$("#shangbiao").html(html);
 			}
