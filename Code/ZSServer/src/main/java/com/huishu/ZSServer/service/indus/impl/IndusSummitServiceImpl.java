@@ -262,6 +262,7 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 				}
 			}
 		}
+		bq.must(or);
 		String area = obj.getString("area");
 		if(StringUtil.isNotEmpty(area)){
 			bq.must(QueryBuilders.wildcardQuery("area", "*"+area+"*"));

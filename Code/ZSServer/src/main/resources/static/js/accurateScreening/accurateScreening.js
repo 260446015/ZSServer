@@ -2,6 +2,7 @@ var industry ="全部";
 var registerTime = "1-5年";
 var area = "全部";
 var register="0-50万";
+var arrTab;
 $(function () {
 	$("#screen").addClass("active");
 	/*var param = {industry:industry,area:area,register:register,registerTime:registerTime};
@@ -10,6 +11,9 @@ $(function () {
         $(this).parent().remove();
         console.log($(this).parent().val());
     });
+    if(arrTab!=null){
+    	$("#searchTag").html(TagList(arrTab));
+    }
 });
 function searchTab(a,b){
 	if(a == 1){
@@ -37,6 +41,7 @@ $("#search_tag").on("click",function () {
     	}else{
     		arr = [industry,area,registerTime,register];
     	}
+    	arrTab=arr;
     	$("#searchTag").html(TagList(arr));
     	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
     	searchAjax(param);
@@ -236,6 +241,8 @@ function searchAjax(param){
             	        			$('#ind1').html(a.industry);
             	        			$('#money1').html(a.money);
             	        			$('#state1').html(a.state);
+            	        			$('.like').remove();
+                	        		$('#text-content').append('<a href="/apis/company/baseInfo.html?companyName='+a.name+'" target="_blank" class="like">查看更多</a>');
             	        		}
             	        	}
             	    	});

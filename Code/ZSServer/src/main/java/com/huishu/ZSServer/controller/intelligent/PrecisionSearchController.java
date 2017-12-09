@@ -51,7 +51,6 @@ public class PrecisionSearchController extends BaseController{
 		String money = dto.getRegister();
 		String time = dto.getRegisterTime();
 		String area = dto.getArea();
-		area="上海";
 		if(area.equals("全部")){
 			area = "%%";
 		}else{

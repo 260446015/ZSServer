@@ -78,7 +78,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="layer-footer text-center">
+                <div class="layer-footer text-center" id="footer-content">
                     <a href="javascript:void(0);" class="like">查看更多</a>
                 </div>
             </div>

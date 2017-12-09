@@ -177,6 +177,8 @@ $(function () {
     	        		$('#ind').html(a.industry);
     	        		$('#money').html(a.money);
     	        		$('#state').html(a.state);
+    	        		$('.like').remove();
+    	        		$('#footer-content').append('<a href="/apis/company/baseInfo.html?companyName='+a.name+'" target="_blank" class="like">查看更多</a>');
     	        	}
     	    	});
     	        $(".layer-person").css({

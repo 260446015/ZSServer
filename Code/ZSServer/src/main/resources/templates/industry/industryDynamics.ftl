@@ -132,7 +132,7 @@
                         <div class="row">
                         <#list content as info>
                             <div class="col-md-6">
-                                <a class="scatter-blocks no-border" href="${info.articleLink}" target="_blank" >
+                                <a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId=${info.id}" target="_blank" >
                                     <span class="icon-block"></span>
                                     <span class="scatter-type">${info.industryLabel}</span>
                                     <span class="scatter-title">${info.title}</span>

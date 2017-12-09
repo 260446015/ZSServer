@@ -136,7 +136,7 @@
                             <ul class="timeline" id="timeline">
                             	<#list summit as info>
                             	<li>
-                                    <a href="${info.articleLink} " target="_blank")>
+                                    <a href="/summit/getEssayDetails.json?essayId=${info.id}" )>
                                         <i class="timeline-circle"></i>
                                         <span class="time">${info.publishTime}</span>
                                         <span class="line-title">${info.title}</span>

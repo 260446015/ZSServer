@@ -1,5 +1,6 @@
 package com.huishu.ZSServer.service.data;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.Institutional;
 
 /**
@@ -23,5 +24,9 @@ public interface DataService {
 	 * @return
 	 */
 	boolean addData1(Institutional info);
-
+	/**
+	 * 
+	 */
+	JSONObject rederData(String value);
+	boolean  saveData(JSONObject obj);
 }

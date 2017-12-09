@@ -190,7 +190,7 @@ function showList(arr){
 	var array=[];
 	$.each(arr,function(index,item){
 		array.push(
-		'<div class="col-md-6"><a class="scatter-blocks" href="'+item.articleLink+'" target="_blank">'
+		'<div class="col-md-6"><a class="scatter-blocks" href="/summit/getEssayDetails.json?essayId='+item.id+'">'
         +'<span class="scatter-type">'+item.industryLabel+'</span><span class="scatter-title">'+
         item.title+'</span></a></div>');
 	});
@@ -230,7 +230,7 @@ function ShowArticleList(arr){
 	$.each(arr,function(index,item){
 		array.push(
 				'<div class="col-md-12 border-bottom">'+
-                '<a class="scatter-blocks no-border" href="'+item.articleLink+'" target="_blank">'+
+                '<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+item.id+'" >'+
                 '<span class="scatter-type">'+item.industryLabel+'</span><span class="scatter-title">'+
                 item.title+'</span></a><p class="scatter-content">'+item.content+'</p></div>'	
 		);

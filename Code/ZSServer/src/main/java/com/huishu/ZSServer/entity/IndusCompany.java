@@ -39,6 +39,30 @@ public class IndusCompany implements Serializable{
 	@Column(name = "t_company_name")
 	private String companyName;
 
+	//所属战略新兴产业
+	@Column(name = "t_indus_zero")
+	private String induszero;
+	
+	//行业标签
+	@Column(name = "t_industry_label")
+	private String industryLabel;
+	
+	public String getInduszero() {
+		return induszero;
+	}
+
+	public void setInduszero(String induszero) {
+		this.induszero = induszero;
+	}
+
+	public String getIndustryLabel() {
+		return industryLabel;
+	}
+
+	public void setIndustryLabel(String industryLabel) {
+		this.industryLabel = industryLabel;
+	}
+
 	public Long getId() {
 		return id;
 	}

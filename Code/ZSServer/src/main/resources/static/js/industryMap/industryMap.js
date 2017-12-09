@@ -19,7 +19,7 @@ function getIndustry(industry){
         var _this = $(this);
         _this.parent().addClass("active").siblings().removeClass("active");
     });
-	
+	$("#mark-item1").val(industry);
 	/*获取企业排行的数据*/
 	industryHotRank(industry);
 	/*获取地图的数据*/
@@ -41,7 +41,7 @@ function industrySummitInfo(industry){
 			$("#timeline li").remove();
 				var aa = res.data;
 				for(var i=0;i<aa.length;i++){
-					$("#timeline").append('<li>'+'<a href="'+aa[i].articleLink+'"; target="_blank")><i class="timeline-circle"></i><span class="time">'+aa[i].publishTime+'</span><span class="line-title">'+aa[i].title+'</span></a></li>');
+					$("#timeline").append('<li>'+'<a href="/summit/getEssayDetails.json?essayId='+aa[i].id+'"; target="_blank")><i class="timeline-circle"></i><span class="time">'+aa[i].publishTime+'</span><span class="line-title">'+aa[i].title+'</span></a></li>');
 				}
 				
 			}
@@ -178,7 +178,7 @@ function findCompany(a,b){
 				$(".box-title").html(a);
 				$("#box-list li").remove();
 			for(var i = 0;i<data.length ; i++){
-				$("#box-list").append('<li>'+'<a href="/apis/area/company/baseInfo.html?companyName='+data[i]+'" target="_blank" >'+data[i]+'</a></li>');
+				$("#box-list").append('<li>'+'<a href="/apis/company/baseInfo.html?companyName='+data[i]+'" target="_blank" >'+data[i]+'</a></li>');
 			}
 		}
 	});
@@ -187,7 +187,6 @@ function findCompany(a,b){
 
 
 function industryMapData(a){
-	console.log(a);
 	$.ajax({
 		url:'/indusMap/getMapInfoByIndustry.json',
 		type:'GET',
@@ -195,11 +194,9 @@ function industryMapData(a){
 		success:function(res){
 			console.log(res.data);
 			var  dd =  res.data.map;
-			var hot = res.data.hot;
 			var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
 			
-			chinaOption.series[0].data = convertData(hot);
-			chinaOption.series[1].data = convertData(dd.sort(function (a, b) {
+			chinaOption.series[0].data = convertData(dd.sort(function (a, b) {
                 return b.value - a.value;
             }).slice(0, 6));
 			industryMap.setOption(chinaOption);
@@ -428,7 +425,7 @@ var chinaOption = {
         }
     },
     series : [
-        {
+       /* {
             type: 'scatter',
             coordinateSystem: 'geo',
             data: convertData(data),
@@ -436,7 +433,9 @@ var chinaOption = {
             	if(val[2]<10){
             		return val[2]*3;
             	}else if(val[2]>100){
-            		return 30;
+            		return 60;
+            	}else {
+            		return val[2]/2;
             	}
             },
             label: {
@@ -449,7 +448,7 @@ var chinaOption = {
                     color: '#c5a425'
                 }
             }
-        },
+        },*/
         {
             name: 'Top 5',
             type: 'effectScatter',
@@ -462,6 +461,8 @@ var chinaOption = {
             		return val[2]*3;
             	}else if(val[2]>100){
             		return 60;
+            	}else {
+            		return val[2]/2;
             	}
             },
             showEffectOn: 'emphasis',
@@ -489,10 +490,6 @@ var chinaOption = {
 };
 
 var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
-/*industryMap.on('click',function(param,industry){
-	console.log(industry);
-	findCompany(param.data.name,industry);
-});*/
 industryMap.setOption(chinaOption);
 /**
  * 地图点击事件
@@ -502,9 +499,7 @@ industryMap.on("click",function (e) {
 	console.log(e);
 	if(e.seriesType=="effectScatter"){
 		var industry = $("#mark-item1").val();
-		/*由于数据测试,暂时写死地域*/
 		var area = e.name;
-		
 		$.ajax({
 			url:'/indusMap/getLaboratoryInfo.json',
 			type:'POST',
@@ -514,13 +509,6 @@ industryMap.on("click",function (e) {
 				if(res.data==null){
 					new Alert({flag:false,text:"暂无数据",timer:2000}).show();
 				}else{
-					/*$("#form-control-static6").html(res.data.laboratoryName);
-					$("#form-control-static5").html(res.data.academicLeader);
-					$("#form-control-static1").html(res.data.institutionalCategory);
-					$("#form-control-static2").html(res.data.industry);
-					$("#form-control-static3").html(res.data.supportUnit);
-					$("#form-control-static4").html(res.data.url);
-					$('input[name="textName"]').val(res.data.id);*/
 					var arr = res.data;
 					$("#carousel-inner").html(showInfo(arr));
 					$(".layer-person").css({
@@ -542,14 +530,14 @@ industryMap.on("click",function (e) {
  */
 $(".like").on("click",function () {
     var _this = $(this);
-    var _id = _this.parents(".layer-person").find($(".inner").item.active).find($('input[name="textName"]').val());
-    console.log(_id);
+    var _id = _this.parents(".layer-person").find('.layer-body').find('#myCarousel').find($("#carousel-inner .item-active")).find($('input[name="textName"]').val());
+    console.log(_id.selector);
 //    var _id = $('input[name="textName"]').val();
     _this.parents(".layer-person").hide();
     $.ajax({
     	url:'/indusMap/insertLaboratoryInfo.json',
     	type:'GET',
-    	data:{"id":_id},
+    	data:{"id":_id.selector},
     	success:function(res){
     		if(res.data==null){
     			new Alert({flag:false,text:res.message,timer:2000}).show();

@@ -12,5 +12,12 @@ import com.huishu.ZSServer.entity.Enterprise;
  * 
  */
 public interface EnterpriseRepository extends CrudRepository<Enterprise, Long>{
+
+	/**
+	 * @param company
+	 * @return
+	 * 根据公司名称查看公司信息
+	 */
+	Enterprise findByCompany(String company);
 	
 }

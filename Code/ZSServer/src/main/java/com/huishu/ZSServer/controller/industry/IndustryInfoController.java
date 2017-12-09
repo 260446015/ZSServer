@@ -94,7 +94,7 @@ public class IndustryInfoController extends BaseController{
 		obj.put("value", "物联网");
 		arr.add(obj);
 		obj = new JSONObject();
-		obj.put("value", "生物技术");
+		obj.put("value", "生物医药");
 		arr.add(obj);
 		obj1.put("industryLabel", arr);
 		JSONArray jsonArray = service.getKeyWordList(obj1);
