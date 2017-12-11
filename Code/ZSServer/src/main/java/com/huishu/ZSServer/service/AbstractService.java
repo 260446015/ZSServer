@@ -365,20 +365,23 @@ public class AbstractService<T> {
 					for (SearchHit searchHit : hits) {
 						Map<String, Object> map = searchHit.getSource();
 						String value = map.get("financingAmount").toString();
-						if (value.indexOf("未") == -1 && value.indexOf("数") == -1 && value.indexOf("及") == -1 && value.indexOf("过") == -1) {
-							String dataString = map.get("financingAmount").toString();
-							if (dataString.indexOf("RMB") != -1 || dataString.indexOf("¥") != -1
-									|| dataString.indexOf("人民币") != -1) {
-								String replace = dataString.replace("RMB", "").replace("人民币", "").replace("¥", "");
-								esdata += conversionData(replace);
-							} else if (dataString.indexOf("$") != -1 || dataString.indexOf("美元") != -1) {
-								String replace = dataString.replace("美元", "").replace("$", "");
-								esdata += conversionData(replace) * 6.6;
-							} else if (dataString.indexOf("港币") != -1) {
-								String replace = dataString.replace("港币", "");
-								esdata += conversionData(replace) * 0.8455;
-							} else {
-								LOGGER.error("无法识别的融资金额币种来源：" + dataString);
+						if(!StringUtil.isEmpty(value)){
+							if (value.indexOf("未") == -1 && value.indexOf("数") == -1 && value.indexOf("近") == -1 
+									&& value.indexOf("及") == -1 && value.indexOf("过") == -1) {
+								String dataString = map.get("financingAmount").toString();
+								if (dataString.indexOf("RMB") != -1 || dataString.indexOf("¥") != -1 || dataString.indexOf("￥") != -1
+										|| dataString.indexOf("人民币") != -1) {
+									String replace = dataString.replace("RMB", "").replace("人民币", "").replace("¥", "").replace("￥", "");
+									esdata += conversionData(replace);
+								} else if (dataString.indexOf("$") != -1 || dataString.indexOf("美元") != -1 || dataString.indexOf("USD") != -1) {
+									String replace = dataString.replace("美元", "").replace("$", "").replace("USD", "");
+									esdata += conversionData(replace) * 6.6;
+								} else if (dataString.indexOf("港币") != -1) {
+									String replace = dataString.replace("港币", "");
+									esdata += conversionData(replace) * 0.8455;
+								} else {
+									LOGGER.error("无法识别的融资金额币种来源：" + dataString);
+								}
 							}
 						}
 					}
