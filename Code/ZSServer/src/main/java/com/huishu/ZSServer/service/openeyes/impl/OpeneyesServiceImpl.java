@@ -307,6 +307,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				company.setOpenRegNumber(parseObject.getRegNumber());
 				company.setOpenToTime(parseObject.getToTime());
 				company.setOpenType(parseObject.getType());
+				companyRepository.save(company);
 			}
 			baseInfoRepository.save(list);
 		}

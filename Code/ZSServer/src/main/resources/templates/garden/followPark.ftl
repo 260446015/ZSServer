@@ -65,9 +65,9 @@
                     </div>
                 </div>
                 <div class="park-contrast-box">
-                    <button type="button" class="btn-fill park-btn" id="gardenCompare">园区对比<span class="collapse-left-right">></span></button>
+                    <button type="button" class="btn-fill park-btn">园区对比<span class="collapse-left-right">></span></button>
                     <div class="contrast-content">
-                        <div class="img-box-list">
+                        <div class="img-box-list" id="gardenCompare">
                             <div class="img-box">
                             	<input type="hidden" class="attId"/>
                                 <img src="" style="display:none">
@@ -90,19 +90,19 @@
                                         <span>主导产业年产值</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>53亿</span>
+                                        <span class="gdp">53亿</span>
                                     </div>
                                     <div class="col-md-6">
                                         <span>企业</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>230家</span>
+                                        <span class="enterCount">230家</span>
                                     </div>
                                     <div class="col-md-6">
                                         <span>占地</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>530公顷</span>
+                                        <span class="square">530公顷</span>
                                     </div>
                                 </div>
                             </div>
@@ -114,19 +114,19 @@
                                         <span>主导产业年产值</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>53亿</span>
+                                        <span class="gdp">53亿</span>
                                     </div>
                                     <div class="col-md-6">
                                         <span>企业</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>230家</span>
+                                        <span class="enterCount">230家</span>
                                     </div>
                                     <div class="col-md-6">
                                         <span>占地</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>530公顷</span>
+                                        <span class="square">530公顷</span>
                                     </div>
                                 </div>
                             </div>
@@ -138,19 +138,19 @@
                                         <span>主导产业年产值</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>53亿</span>
+                                        <span class="gdp">53亿</span>
                                     </div>
                                     <div class="col-md-6">
                                         <span>企业</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>230家</span>
+                                        <span class="enterCount">230家</span>
                                     </div>
                                     <div class="col-md-6">
                                         <span>占地</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span>530公顷</span>
+                                        <span class="square">530公顷</span>
                                     </div>
                                 </div>
                             </div>

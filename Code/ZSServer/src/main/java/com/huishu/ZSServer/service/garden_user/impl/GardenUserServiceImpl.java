@@ -2,9 +2,7 @@ package com.huishu.ZSServer.service.garden_user.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -14,10 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.Company;
@@ -26,9 +24,11 @@ import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenUser;
+import com.huishu.ZSServer.entity.garden.ScanGarden;
 import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.repository.garden_user.GardenUserRepository;
+import com.huishu.ZSServer.repository.garden_user.ScanGardenRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
@@ -45,73 +45,76 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 	private CompanyRepository companyRepository;
 	@Autowired
 	private OpeneyesService openeyesService;
+	@Autowired
+	private ScanGardenRepository scanGardenRepository;
 
 	@Override
 	public GardenUser attentionGarden(Long gardenId, Long userId, boolean flag) {
+		GardenUser gardenUser = gardenUserRepository.findByUserIdAndGardenIdAndDr(userId, gardenId, 0);
 		try {
-			Map<String, Object> params = new HashMap<>();
-			params.put("userId", userId);
-			params.put("gardenId", gardenId);
-			Specification<GardenUser> spec = getSpec(params);
 			if (flag) {
-				List<GardenUser> gardenUser = gardenUserRepository.findAll(spec);
-				if (gardenUser.size() > 0) {
-					return null;
-				}
-				if (null != gardenUser) {
+
+				if (gardenUser != null) {
+					return gardenUser;
+				} else {
+					List<ScanGarden> gardenIds = scanGardenRepository.findByGardenIdAndDr(gardenId, 0);
 					GardenData garden = gardenRepository.findOne(gardenId);
-					List<Company> cs = companyRepository.findByPark(garden.getGardenName());
-					List<Company> list2 = cs.stream().sorted((a,b)-> {
-						return new Double((b.getRegisterCapital().substring(0, b.getRegisterCapital().indexOf("万")))).compareTo(
-								new Double(a.getRegisterCapital().substring(0, a.getRegisterCapital().indexOf("万"))));
-					}).limit(50).collect(Collectors.toList());
-					LOGGER.info("关注园区后开始搜索园区下按注册金额排名前50企业的名称");
-					OpeneyesDTO dto = new OpeneyesDTO();
-					list2.forEach((company) ->{
-						String name = company.getCompanyName();
-						LOGGER.info("搜索接口触发，当前搜索企业名称为:"+name);
-						dto.setCname(name);
-						try {
-							openeyesService.getBaseInfo(dto);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					});
-					GardenUser gu = new GardenUser();
-					gu.setGardenName(garden.getGardenName());
-					gu.setAddress(garden.getAddress());
-					gu.setProvince(garden.getProvince());
-					gu.setAttentionDate(
+					if (gardenIds.size() == 0) {
+						List<Company> cs = companyRepository.findByPark(garden.getGardenName());
+						List<Company> list2 = cs.stream().sorted((a, b) -> {
+							return new Double(
+									(b.getRegisterCapital().substring(0, b.getRegisterCapital().indexOf("万"))))
+											.compareTo(new Double(a.getRegisterCapital().substring(0,
+													a.getRegisterCapital().indexOf("万"))));
+						}).limit(50).collect(Collectors.toList());
+						LOGGER.info("关注园区后开始搜索园区下按注册金额排名前50企业的名称");
+						OpeneyesDTO dto = new OpeneyesDTO();
+						list2.forEach((company) -> {
+							String name = company.getCompanyName();
+							LOGGER.info("搜索接口触发，当前搜索企业名称为:" + name);
+							dto.setCname(name);
+							try {
+								openeyesService.getBaseInfo(dto);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						});
+					}
+					gardenUser = new GardenUser();
+					gardenUser.setGardenName(garden.getGardenName());
+					gardenUser.setAddress(garden.getAddress());
+					gardenUser.setProvince(garden.getProvince());
+					gardenUser.setAttentionDate(
 							new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(System.currentTimeMillis()).toString());
 					String gardenIntroduce = garden.getGardenIntroduce();
 					if (gardenIntroduce == null || StringUtil.isEmpty(gardenIntroduce)
 							|| gardenIntroduce.equals("NULL")) {
-						gu.setDescription("暂无");
+						gardenUser.setDescription("暂无");
 					} else {
-						gu.setDescription(garden.getGardenIntroduce());
+						gardenUser.setDescription(garden.getGardenIntroduce());
 					}
-					gu.setUserId(userId);
-					gu.setGardenPicture(garden.getGardenPicture());
-					gu.setEnterCompany(garden.getEnterCompany());
-					gu.setGardenId(gardenId);
-					gu.setGdp(garden.getGdp());
-					gu.setGardenSquare(garden.getGardenSquare());
-					gu.setIndustryType(garden.getIndustryType());
-					gu.setGardenWebsite(garden.getGardenWebsite());
-					gu.setGardenLevel(garden.getGardenLevel());
-					gardenUserRepository.save(gu);
-					return gu;
+					gardenUser.setUserId(userId);
+					gardenUser.setGardenPicture(garden.getGardenPicture());
+					gardenUser.setEnterCompany(garden.getEnterCompany());
+					gardenUser.setGardenId(gardenId);
+					gardenUser.setGdp(garden.getGdp());
+					gardenUser.setGardenSquare(garden.getGardenSquare());
+					gardenUser.setIndustryType(garden.getIndustryType());
+					gardenUser.setGardenWebsite(garden.getGardenWebsite());
+					gardenUser.setGardenLevel(garden.getGardenLevel());
+					gardenUserRepository.save(gardenUser);
+					return gardenUser;
 				}
 			} else {
-				List<GardenUser> list = gardenUserRepository.findAll(spec);
-				if (list.size() > 0) {
-					gardenUserRepository.delete(list);
+				if (gardenUser != null) {
+					gardenUser.setDr(1);
+					gardenUserRepository.save(gardenUser);
 				}
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}
-		return null;
+		return gardenUser;
 	}
 
 	@Override
@@ -175,20 +178,25 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 	public List<GardenCompareDTO> getGardenCompare(Long[] arrId) {
 		List<GardenUser> list = gardenUserRepository.findByGardenIdIn(arrId);
 		List<GardenCompareDTO> gcList = new ArrayList<>();
-		list.forEach((gu) ->{
+		list.forEach((gu) -> {
 			GardenCompareDTO dto = new GardenCompareDTO();
-			dto.setEnterCount(gu.getEnterCount());
 			dto.setGardenName(gu.getGardenName());
-			dto.setGdp(gu.getGdp());
 			dto.setSquare(gu.getGardenSquare());
-			JSONArray industryType = new JSONArray();
-			String[] enterCompany = gu.getEnterCompany().split("、");
-			for(int i=0;i<enterCompany.length;i++){
-				companyRepository.findByCompanyName(enterCompany[i]);
-			}
-			dto.setIndustryType(industryType);
-			gu.getEnterCompany();
-			
+			dto.setGdp(gu.getGdp());
+			dto.setEnterCount(gu.getEnterCount());
+			List<Object[]> echarts = companyRepository.findEcharts(gu.getGardenName());
+			JSONArray industryList = new JSONArray();
+			echarts.forEach(obj -> {
+				String industry = (String) obj[0];
+				if (!StringUtil.isEmpty(industry)) {
+					int count = Integer.parseInt(obj[1].toString());
+					JSONObject jobj = new JSONObject();
+					jobj.put("industry", industry);
+					jobj.put("count", count);
+					industryList.add(jobj);
+				}
+			});
+			dto.setIndustryType(industryList);
 			gcList.add(dto);
 		});
 		return gcList;

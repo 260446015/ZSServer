@@ -7,49 +7,15 @@ $(function () {
 	showGardenindustry();
     showGardenAttainArea();
     showGardenAttainList(industryType,area,sort,sortType);
-    var option = {
-        tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        series: [
-            {
-                name:'访问来源',
-                type:'pie',
-                radius: ['30%', '50%'],
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: true,
-                    },
-                    emphasis: {
-                        show: true,
-                        textStyle: {
-                            fontSize: '16',
-                            fontWeight: 'bold'
-                        }
-                    }
-                },
-                labelLine: {
-                    normal: {
-                        show: true
-                    }
-                },
-                data:[
-                    {value:12, name:'直接访问'},
-                    {value:23, name:'邮件营销'},
-                    {value:50, name:'联盟广告'},
-                    {value:41, name:'视频广告'},
-                    {value:200, name:'搜索引擎'}
-                ]
-            }
-        ]
-    };
     // var circleCharts1 = echarts.init(document.getElementById("charts1"),"customed");
     // var circleCharts2 = echarts.init(document.getElementById("charts2"),"customed");
     // var circleCharts3 = echarts.init(document.getElementById("charts3"),"customed");
     var clickIndex = 0,chartsIndex=0;
     $("#gardenList").on("click",".follow-btn",function () {
+    	var value = $(this).html();
+    	if(value != '园区对比'){
+    		return;
+    	}
         var imgSrc = $(this).parents(".layout-box").find(".left-img>img").attr("src");
         var attId = $(this).parents(".border-bottom").find("input").eq(2).val();//关注园区id
         var imgArr = $(".img-box-list .img-box");
@@ -97,12 +63,14 @@ $(function () {
         		$(".charts-box-list").find(".charts-box").eq(i).css("display","inline");
         	}
             parent_wrapper.removeClass("open-img").addClass("open-charts");
-            var circleCharts1 = echarts.init(document.getElementById("charts1"),"customed");
-            var circleCharts2 = echarts.init(document.getElementById("charts2"),"customed");
-            var circleCharts3 = echarts.init(document.getElementById("charts3"),"customed");
-            circleCharts1.setOption(option,true);
-            circleCharts2.setOption(option,true);
-            circleCharts3.setOption(option,true);
+            var ids = $("#gardenCompare").find("input[type=hidden]");
+            var sendIds = new Array();
+            ids.each(function(){
+            	if($(this).val() != ''){
+            		sendIds.push($(this).val());
+            	}
+            });
+            showCompareEcharts(sendIds);
         }else if(parent_wrapper.hasClass("open-charts")){
             parent_wrapper.removeClass("open-charts");
         }else if(parent_wrapper.find(".small-charts>div").length>0){
@@ -158,6 +126,7 @@ var industryType = '全部';
 var area = '全部';
 var sort = '园区占地';
 var sortType = 'desc';
+var gardenAttList;//定义全局变量初始化关注园区数据
 function showGardenAttainList(a,b,c,d){
 	var req = {"pageNumber":0,"pageSize":6,msg:[a,b,c,d]};
 	$.ajax({
@@ -169,8 +138,9 @@ function showGardenAttainList(a,b,c,d){
 			if(res.success){
 				var arr = res.data.content;
 				var html = "";
+				gardenAttList = arr;
 				for (var i = 0; i < arr.length; i++) {
-					html += '<div class="col-md-12 border-bottom"><input type="hidden" class="gdp" value="'+arr[i].gdp+'"/><input type="hidden" class="square" value="'+arr[i].gardenSquare+'"/><input type="hidden" value="'+arr[i].id+'" class="attId"/><div class="layout-box">' +
+					html += '<div class="col-md-12 border-bottom"><input type="hidden" class="gdp" value="'+arr[i].gdp+'"/><input type="hidden" class="square" value="'+arr[i].gardenSquare+'"/><input type="hidden" value="'+arr[i].gardenId+'" class="attId"/><div class="layout-box">' +
 								'<div class="left-img"><img src="'+arr[i].gardenPicture+'" width="160" /></div>' +
 								'<div class="right-list"><a class="scatter-blocks no-border" href="./allCityParkDetails.html">'+
 								'<span class="scatter-title">'+arr[i].gardenName+'</span>'+
@@ -183,7 +153,7 @@ function showGardenAttainList(a,b,c,d){
 								}
 								html += '</p><p class="net-address"><span class="mr15"><span class="glyphicon glyphicon-map-marker"></span>' +
 								arr[i].address +'</span><span class="mr15"><span class="glyphicon glyphicon-globe"></span>' +
-								arr[i].gardenWebsite + '</span><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right">园区对比</a><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right  mr15" onclick="attation('+arr[i].gardenId+');">取消关注</a>' +
+								arr[i].gardenWebsite + '</span><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right">园区对比</a><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right  mr15" onclick="attation(this);">取消关注</a>' +
 								'</p></div></div></div>';
 				}
 				$("#gardenList").html(html);
@@ -191,6 +161,89 @@ function showGardenAttainList(a,b,c,d){
 		}
 	});
 }
-function attation(gardenId){
-	console.log($(this));
+function attation(event){
+	var value = $(event).html();
+	var gardenId = $(event).parents(".layout-box").siblings("input[class=attId]").val();
+	var flag;
+	if(value == '关注'){
+		flag = true;
+	}else{
+		flag = false;
+	}
+	$.ajax({
+		url:'/apis/area/attentionGarden.json?gardenId='+gardenId+'&flag='+flag,
+		type:'get',
+		success:function(res){
+			if(res.success){
+				showGardenAttainList(industryType,area,sort,sortType);
+			}
+		}
+	});
+}
+var option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        series: [
+            {
+                name:'访问来源',
+                type:'pie',
+                radius: ['30%', '50%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: true,
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '16',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: true
+                    }
+                },
+                data:[
+                    {value:12, name:'直接访问'},
+                    {value:23, name:'邮件营销'},
+                    {value:50, name:'联盟广告'},
+                    {value:41, name:'视频广告'},
+                    {value:200, name:'搜索引擎'}
+                ]
+            }
+        ]
+    };
+function showCompareEcharts(ids){//园区对比展示echarts的功能
+	$.ajax({
+		type:'post',
+		url:'/apis/area/getGardenCompare.json?arrId='+ids,
+		success:function(res){
+			var arr = res.data;
+			var showDatas = new Array();
+			console.log(arr);
+			for(var i=1;i<=arr.length;i++){
+				var arr2 = arr[i-1].industryType;
+				showDatas = [];
+				for(var j=0;j<arr2.length;j++){
+					var value = arr2[j].count;
+					var name = arr2[j].industry;
+					var showData = {"value":value,"name":name};
+					showDatas.push(showData);
+				}
+				option.series[0].data = showDatas;
+				var circleCharts1 = echarts.init(document.getElementById("charts"+i),"customed");
+	            circleCharts1.setOption(option,true);
+//	            $(".charts-box").find(".gdp").eq(i-1).html(arr[i-1].gdp);
+	            $(".charts-box").find(".enterCount").eq(i-1).html(arr[i-1].enterCount);
+	            $(".charts-box").find(".square").eq(i-1).html(arr[i-1].square+'平方千米');
+	            $(".charts-box").find(".charts-title").eq(i-1).html(arr[i-1].gardenName);
+			}
+			
+		}
+	});
 }

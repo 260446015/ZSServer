@@ -4,7 +4,6 @@
 $(function(){
 		$("#gardenMap").addClass("active");
 		showGardenCondition("","condition");
-		showGardenGdpPiechart();
 		showGardenIndustryCount(industryType);
 		showGardenGdpPiechart(province);
 	});

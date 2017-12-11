@@ -24,4 +24,6 @@ public interface GardenUserRepository extends CrudRepository<GardenUser, Long>, 
 
 	List<GardenUser> findByGardenIdIn(Long[] arrId);
 
+	GardenUser findByUserIdAndGardenIdAndDr(Long userId, Long gardenId, int dr);
+
 }
