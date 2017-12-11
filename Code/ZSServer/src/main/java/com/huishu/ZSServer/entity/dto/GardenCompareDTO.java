@@ -23,7 +23,7 @@ public class GardenCompareDTO implements Serializable {
 	/** 园区名称 */
 	private String gardenName;
 	/** 园区主导产业年产值 */
-	private double gdp;
+	private Double gdp;
 	/** 入驻企业数量 */
 	private int enterCount;
 	/** 占地 */
@@ -39,11 +39,11 @@ public class GardenCompareDTO implements Serializable {
 		this.gardenName = gardenName;
 	}
 
-	public double getGdp() {
+	public Double getGdp() {
 		return gdp;
 	}
 
-	public void setGdp(double gdp) {
+	public void setGdp(Double gdp) {
 		this.gdp = gdp;
 	}
 

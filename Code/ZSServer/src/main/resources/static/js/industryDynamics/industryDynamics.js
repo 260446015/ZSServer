@@ -4,13 +4,19 @@
 var industry = "全部";
 var area = "全部";
 var sort = "按热度";
+pageSize = 6;
+var pageNumber = 0;
+var options={
+		"id":"page",//显示页码的元素
+		"data":null,//显示数据
+	    "maxshowpageitem":5,//最多显示的页码个数
+	    "pagelistcount":6,//每页显示数据个数
+	    "callBack":function(){}
+	};
 $(function () {
 	$("#dynamic").addClass("active");
 	var time ="近一周";
 	getKeyWordCloud(time);
-   /* var scatter = echarts.init(document.getElementById("scatter"));
-    scatter.setOption(option);*/
-    
     getIndustry(0,0);
 });
 
@@ -34,6 +40,7 @@ function getKeyWordCloud(d){
 		    scatter.on('click',function(param){
 		    	getArticleByKeyWord(d,param.name);
 		    });
+		    console.log(option)
 			scatter.setOption(option);
 		}
 		
@@ -80,35 +87,16 @@ function echartDataInit(arr){
 	return data1;
 };
 var  label = {
-	    normal: {
-	         color: 'transparent',
-	         borderColor: '#093982',
-	         borderWidth: 1,
-	         shadowBlur: 29,
-	         shadowColor: "#24a7dd",
-	         shadowOffsetX:10,
-	         shadowOffsetY:-1,
-	         opacity:1
-	     },
-	     emphasis: {
-	         color: new echarts.graphic.LinearGradient(
-               0, 0, 0, 1,
-               [
-                   {offset: 0, color: '#00a5fb'},
-                   {offset: 0.5, color: '#00caf2'},
-                   {offset: 1, color: '#00f0e8'}
-               ]
-           ),
-           borderColor:new echarts.graphic.LinearGradient(
-               0, 0, 0, 1,
-               [
-                   {offset: 0, color: '#00a5fb'},
-                   {offset: 0.5, color: '#00caf2'},
-                   {offset: 1, color: '#00f0e8'}
-               ]
-           )
-	     }
-	
+        normal: {
+            show: true,
+            textStyle: {
+                fontSize: '16',
+                color: '#ffffff'
+            },
+            formatter: function(param) {
+                return param.data.name;
+            }
+        }
     };
     var data1 = [
  		        {
@@ -206,7 +194,7 @@ function getIndustry(a,b){
 	}else if(a==3){
 		sort = b;
 	}
-	var param ={industry:industry,area:area,sort:sort};
+	var param ={industry:industry,area:area,sort:sort,pageSize:pageSize,pageNumber:pageNumber};
 	AjaxPost(param);
 };
 function AjaxPost(param){
@@ -221,7 +209,18 @@ function AjaxPost(param){
 				new Alert({flag:false,text:res.message,timer:2000}).show();
 			}
 			var arr = res.data;
-			$('#industryInfoList').html(ShowArticleList(arr));
+			$('#industryInfoList').html(ShowArticleList(arr.dataList));
+			
+			if(res.data.totalPage>1){
+				page.init(res.data.totalNumber,res.data.pageNumber,options);
+				$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+            		var param={industry:industry,sort:sort,area:area,pageNumber:$(this).attr("page-data")-1,pageSize:pageSize};
+            		AjaxPost(param);
+                });
+			}else{
+				$('#page').html("");
+			}
+			
 		}
 	});
 };

@@ -164,6 +164,8 @@ public class IndustryInfoController extends BaseController{
 		}
 		json.put("area", area);
 		json.put("type", type);
+		json.put("pageSize", dto.getPageSize());
+		json.put("pageNumber", dto.getPageNumber());
 		Page<AITInfo> page = service.getIndustryInfoByPage(json);
 		page.getContent().forEach(action->{
 			String content = action.getContent();
@@ -171,21 +173,7 @@ public class IndustryInfoController extends BaseController{
 				action.setContent(content.substring(0, 150));
 			}
 		});
-		return success(page.getContent());
+		return successPage(page,page.getNumber()+1);
 	}
-	
-	/**
-	 * 获取 科研成果 的 数据
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping(value="/findResearchResultList.json",method = RequestMethod.GET)
-	public  AjaxResult findResearchResultList(){
-		JSONObject json = new JSONObject();
-		json.put("dimension", "科学研究");
-		Page<AITInfo> array =  service.findResearchResultList(json);
-		return success(array);
-	}*/
-	
 	
 }

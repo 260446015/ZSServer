@@ -210,7 +210,7 @@ function searchAjax(param){
 		data:JSON.stringify(param),
 		success:function(res){
 			if(res.message!=null){
-            	new Alert({flag:false,text:result.message,timer:1500}).show();
+            	new Alert({flag:false,text:res.message,timer:1500}).show();
             }else{
             	var array = res.data;
             	var arr = initEchartData(array,datalist);
@@ -242,7 +242,7 @@ function searchAjax(param){
             	        			$('#money1').html(a.money);
             	        			$('#state1').html(a.state);
             	        			$('.like').remove();
-                	        		$('#text-content').append('<a href="/apis/company/baseInfo.html?companyName='+a.name+'" target="_blank" class="like">查看更多</a>');
+                	        		$('#text-content').append('<a href="/apis/company/baseInfo.html?companyName='+a.name+'"  class="like">查看更多</a>');
             	        		}
             	        	}
             	    	});

@@ -43,7 +43,17 @@ public class GardenUser implements Serializable {
 	private String gardenWebsite;
 	/** 园区等级 */
 	private String gardenLevel;
-	
+	/** 是否被删除 */
+	private int dr;
+
+	public int getDr() {
+		return dr;
+	}
+
+	public void setDr(int dr) {
+		this.dr = dr;
+	}
+
 	public String getGardenLevel() {
 		return gardenLevel;
 	}
@@ -159,7 +169,7 @@ public class GardenUser implements Serializable {
 	public void setGardenId(Long gardenId) {
 		this.gardenId = gardenId;
 	}
-	
+
 	public String getGardenWebsite() {
 		return gardenWebsite;
 	}
@@ -170,7 +180,7 @@ public class GardenUser implements Serializable {
 
 	@Transient
 	private Integer enterCount;
-	
+
 	public Integer getEnterCount() {
 		String[] str = (StringUtil.isEmpty(this.getEnterCompany()) ? "" : this.getEnterCompany()).split("、");
 		if (str[0].equals("")) {

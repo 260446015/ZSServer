@@ -24,5 +24,8 @@ public interface CompanyRepository extends CrudRepository<Company, Long>, JpaSpe
 
 	List<Company> findByPark(String gardenName);
 
+	@Query(value="select open_industry,count(open_industry) from t_company_data where park=?1 group by open_industry", nativeQuery = true)
+	List<Object[]> findEcharts(String gardenName);
+
 	
 }
