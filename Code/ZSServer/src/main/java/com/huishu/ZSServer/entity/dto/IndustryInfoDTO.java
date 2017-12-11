@@ -16,6 +16,7 @@ public class IndustryInfoDTO extends AbstractDTO{
 	private String industry;
 	private String area;
 	private String sort;
+	
 	public String getIndustry() {
 		return industry;
 	}

@@ -176,10 +176,10 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 		Page<AITInfo> page = null;
 		if(type=="1"){
 			//按时间排序
-			pageable = new PageRequest(0, 6, new Sort(Direction.DESC, "publishTime"));
+			pageable = new PageRequest(json.getIntValue("pageNumber"), json.getIntValue("pageSize"), new Sort(Direction.DESC, "publishTime"));
 			page = rep.search(bq, pageable);
 		}else{
-			pageable = new PageRequest(0, 6,new Sort(Direction.ASC, "hitCount"));
+			pageable = new PageRequest(json.getIntValue("pageNumber"), json.getIntValue("pageSize"),new Sort(Direction.ASC, "hitCount"));
 			 page = rep.search(bq, pageable);
 		}
 		return page;

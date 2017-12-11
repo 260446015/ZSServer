@@ -282,7 +282,10 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 		if(usi==null){
 			try {
 				UserSummitInfo entity = new UserSummitInfo();
-				entity.setAddress(one.getAddress());
+				String[] split = one.getAddress().split("\n");
+				if(split.length>0){
+					entity.setAddress(split[0]);
+				}
 				entity.setAid(aid);
 				entity.setLogo(one.getLogo());
 				entity.setExhibitiontime(one.getExhibitiontime());

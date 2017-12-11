@@ -178,7 +178,7 @@ function findCompany(a,b){
 				$(".box-title").html(a);
 				$("#box-list li").remove();
 			for(var i = 0;i<data.length ; i++){
-				$("#box-list").append('<li>'+'<a href="/apis/company/baseInfo.html?companyName='+data[i]+'" target="_blank" >'+data[i]+'</a></li>');
+				$("#box-list").append('<li>'+'<a href="/apis/company/baseInfo.html?companyName='+data[i]+'">'+data[i]+'</a></li>');
 			}
 		}
 	});
