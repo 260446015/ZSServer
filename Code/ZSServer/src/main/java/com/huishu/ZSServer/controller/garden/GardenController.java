@@ -309,9 +309,13 @@ public class GardenController extends BaseController {
 	/**
 	 * 园区对比
 	 */
-	@RequestMapping(value = "getGardenCompare.json", method = RequestMethod.GET, params = "arrId")
+	@RequestMapping(value = "getGardenCompare.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult getGardenCompare(Long[] arrId) {
-		return success(gardenUserService.getGardenCompare(arrId));
+	public AjaxResult getGardenCompare(@RequestParam(value = "arrId") String[] arrId) {
+		Long[] ids = new Long[arrId.length];
+		for(int i=0;i<arrId.length;i++){
+			ids[i] = Long.parseLong(arrId[i]);
+		}
+		return success(gardenUserService.getGardenCompare(ids));
 	}
 }
