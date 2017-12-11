@@ -1,14 +1,10 @@
 package com.huishu.ZSServer.service.indus.impl;
 
-import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.INDEX;
-import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.TYPE;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.formula.functions.T;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -24,13 +20,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.util.StringUtil;
+import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.service.AbstractService;
@@ -174,7 +169,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 		String type = json.getString("type");
 		Pageable pageable = null;
 		Page<AITInfo> page = null;
-		if(type=="1"){
+		if(type.equals("按时间")){
 			//按时间排序
 			pageable = new PageRequest(json.getIntValue("pageNumber"), json.getIntValue("pageSize"), new Sort(Direction.DESC, "publishTime"));
 			page = rep.search(bq, pageable);
@@ -220,8 +215,13 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			if(action.getIndustryLabel().equals("生物医药")){
 				action.setIndustryLabel("生物技术");
 			}
-			if(StringUtil.isEmpty(action.getSummary())){
-				action.setSummary(action.getContent().substring(0, 50));
+			
+				String content = action.getContent();
+				if(content.length()>300){
+					action.setSummary(StringUtil.replaceHtml(content.substring(0, 200)));
+				}else{
+					action.setSummary(StringUtil.replaceHtml(content.substring(0, 200)));
+				
 			}
 			
 		});

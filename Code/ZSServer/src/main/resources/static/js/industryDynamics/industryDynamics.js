@@ -231,7 +231,8 @@ function ShowArticleList(arr){
 				'<div class="col-md-12 border-bottom">'+
                 '<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+item.id+'" >'+
                 '<span class="scatter-type">'+item.industryLabel+'</span><span class="scatter-title">'+
-                item.title+'</span></a><p class="scatter-content">'+item.content+'</p></div>'	
+                item.title+'</span></a><p class="scatter-content">'+item.content+'</p></div>'
+                +'<p class="scatter-lib"><span>发布时间:'+item.publishTime+'</span></p>'
 		);
 	});
 	var inner = array.join('');

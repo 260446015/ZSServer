@@ -194,6 +194,9 @@
                                     峰会做了《华为人工智能实践与创新》主题演讲，其核心观点如下：目前人们看到的都是
                                     弱人工智能，弱人 工智能的本质
                                 </p>
+                                 <p class="scatter-lib">
+                                   <span>发布时间:2017-10-02</span>
+                                </p>
                             </div>
                             <div class="col-md-12 border-bottom">
                                 <a class="scatter-blocks no-border" href="javascript:void(0);">
@@ -204,6 +207,9 @@
                                     【新浪科技讯北京时间10月10日早间消息，Facebook&nbsp;CEO马克&middot;扎克
                                     伯格（MarkZuckerberg）今天宣布，该公司正在与美国红十字会共同为波多黎克提供
                                     帮助，借助该公司正在与美国红十字会共同为波多黎克提供帮助
+                                </p>
+                                 <p class="scatter-lib">
+                                   <span>发布时间:2017-10-02</span>
                                 </p>
                             </div>
                             <div class="col-md-12 border-bottom">
@@ -216,6 +222,9 @@
                                     峰会做了《华为人工智能实践与创新》主题演讲，其核心观点如下：目前人们看到的都是
                                     弱人工智能，弱人 工智能的本质
                                 </p>
+                               <p class="scatter-lib">
+                                    <span>发布时间:2017-10-02</span>
+                                </p>
                             </div>
                             <div class="col-md-12 border-bottom">
                                 <a class="scatter-blocks no-border" href="javascript:void(0);">
@@ -226,6 +235,9 @@
                                     【新浪科技讯北京时间10月10日早间消息，Facebook&nbsp;CEO马克&middot;扎克
                                     伯格（MarkZuckerberg）今天宣布，该公司正在与美国红十字会共同为波多黎克提供
                                     帮助，借助该公司正在与美国红十字会共同为波多黎克提供帮助
+                                </p>
+                                <p class="scatter-lib">
+                                   <span>发布时间:2017-10-02</span>
                                 </p>
                             </div>
                             <div class="col-md-12 border-bottom">
@@ -238,6 +250,9 @@
                                     峰会做了《华为人工智能实践与创新》主题演讲，其核心观点如下：目前人们看到的都是
                                     弱人工智能，弱人 工智能的本质
                                 </p>
+                                 <p class="scatter-lib">
+                                    <span>发布时间:2017-10-02</span>
+                                </p>
                             </div>
                             <div class="col-md-12 border-bottom">
                                 <a class="scatter-blocks no-border" href="javascript:void(0);">
@@ -248,13 +263,16 @@
                                     【新浪科技讯北京时间10月10日早间消息，Facebook&nbsp;CEO马克&middot;扎克
                                     伯格（MarkZuckerberg）今天宣布，该公司正在与美国红十字会共同为波多黎克提供
                                     帮助，借助该公司正在与美国红十字会共同为波多黎克提供帮助
+                                </p>
+                                <p class="scatter-lib">
+                                   <span>发布时间:2017-10-02</span>
                                 </p>
                             </div>
                         </div>
+                    </div>
                         <div class="page-box clearfix">
                 				<ul class="page pull-right" id="page"></ul>
             			</div>
-                    </div>
                 </div>
             </div>
         </div>

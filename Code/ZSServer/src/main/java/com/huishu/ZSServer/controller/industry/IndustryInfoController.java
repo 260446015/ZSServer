@@ -168,9 +168,16 @@ public class IndustryInfoController extends BaseController{
 		json.put("pageNumber", dto.getPageNumber());
 		Page<AITInfo> page = service.getIndustryInfoByPage(json);
 		page.getContent().forEach(action->{
-			String content = action.getContent();
-			if(content.length()>150){
-				action.setContent(content.substring(0, 150));
+			String summary = action.getSummary();
+			if(StringUtil.isNotEmpty(summary)){
+				String replaceHtml = StringUtil.replaceHtml(summary);
+				action.setContent(replaceHtml);
+			}else{
+				String content = action.getContent();
+				if(content.length()>150){
+					String substring = content.substring(0, 50);
+					action.setContent( StringUtil.replaceHtml(substring));
+				}
 			}
 		});
 		return successPage(page,page.getNumber()+1);
