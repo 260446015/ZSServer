@@ -34,7 +34,7 @@
                     <div class="search-container">
                         <div class="search-input">
                             <span class="glyphicon icon-color glyphicon-search"></span>
-                            <input type="text" id="mySearch">
+                            <input type="text" value="${Request.companyName}" id="mySearch">
                         </div>
                         <button type="button" class="btn btn-fill btn-blue search-company-two">搜索</button>
                     </div>

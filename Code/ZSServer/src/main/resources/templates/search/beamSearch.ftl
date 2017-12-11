@@ -58,7 +58,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <img src="/images/loading_search.png" class="search-loading" alt="">
-                <p class="text-loading">正正在识别名片信息......</p>
+                <p class="text-loading">正在识别名片信息......</p>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->

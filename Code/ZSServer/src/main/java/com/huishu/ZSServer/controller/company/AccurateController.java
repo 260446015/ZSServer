@@ -102,6 +102,7 @@ public class AccurateController extends BaseController{
 				List<CompanyVO> array = JSONArray.parseArray(list.getJSONArray("data").toJSONString(), CompanyVO.class);
 				model.addAttribute("data",array);
 			}
+			model.addAttribute("companyName",companyName);
 			return "/search/allCompany";
 		} catch (Exception e) {
 			LOGGER.error("模糊查询企业列表失败!", e);

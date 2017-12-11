@@ -11,7 +11,7 @@ $(function () {
     		$(this).parents(".col-md-4").addClass("active");
     	}else{
     		if($(".input").val()==null||$(".input").val()==""){
-    			new Alert({flag: "warning",text:'请输入公司名',timer:1500}).show();
+    			new Alert({flag: "warning",text:'请输入公司名',timer:2000}).show();
     		}else{
     			window.location.href="/apis/getcompany/listCompanyByName.json?companyName="+$(".input").val() 
     		}
@@ -19,7 +19,7 @@ $(function () {
     });
     $(".search-company-two").on("click",function () {
 		if($("#mySearch").val()==null||$("#mySearch").val()==""){
-			new Alert({flag: "warning",text:'请输入公司名',timer:1500}).show();
+			new Alert({flag: "warning",text:'请输入公司名',timer:2000}).show();
 		}else{
 			window.location.href="/apis/getcompany/listCompanyByName.json?companyName="+$("#mySearch").val() 
 		}
@@ -28,11 +28,11 @@ $(function () {
         $(this).parents(".col-md-4").addClass("active");
     });
     $("input[type=file]").on("change",function () {
-        $("#myModal").modal({
-            keyboard: false,
-            backdrop: "static"
-        });
         run(this, function(data){  
+        	$("#myModal").modal({
+                keyboard: false,
+                backdrop: "static"
+            });
         	$.ajax({  
                 url: "/apis/getcompany/uploadImage.json",  
                 type: "post",  
@@ -44,11 +44,11 @@ $(function () {
                 success: function (result) {  
                 	$('#myModal').modal('hide');
                 	if(result.success&&result.data==null){
-                		new Alert({flag: "warning",text:'该名片未搜索到相关公司信息',timer:1500}).show();
+                		new Alert({flag: "warning",text:'该名片上未检索到相关公司信息',timer:3000}).show();
                     }else if(result.success){
                     	window.location.href="/apis/getcompany/listCompanyByName.json?companyName="+result.data;
                     }else{
-                    	new Alert({flag:false,text:result.message,timer:1500}).show();
+                    	new Alert({flag:false,text:result.message,timer:2000}).show();
                     } 
                 }  
             });  
@@ -59,14 +59,14 @@ function run(input_file, get_data) {
     /*input_file：文件按钮对象*/  
     /*get_data: 转换成功后执行的方法*/  
     if (typeof (FileReader) === 'undefined') {  
-    	new Alert({flag:false,text:"抱歉，你的浏览器不支持 FileReader，不能将图片转换为Base64，请使用其他浏览器操作！",timer:1500}).show();
+    	new Alert({flag:false,text:"抱歉，你的浏览器不支持 FileReader，不能将图片转换为Base64，请使用其他浏览器操作！",timer:2000}).show();
     } else {  
         try {  
             /*图片转Base64 核心代码*/  
             var file = input_file.files[0];  
             //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件  
             if (!/image\/\w+/.test(file.type)) {
-            	new Alert({flag:false,text:"请确保文件为图像类型",timer:1500}).show();
+            	new Alert({flag:false,text:"请确保文件为图像类型",timer:2000}).show();
                 return false;  
             }  
             var reader = new FileReader();  
@@ -75,7 +75,7 @@ function run(input_file, get_data) {
             }  
             reader.readAsDataURL(file);  
         } catch (e) {  
-            new Alert({flag:false,text:"图片转Base64出错啦！" + e.toString(),timer:1500}).show();
+            new Alert({flag:false,text:"图片转Base64出错啦！" + e.toString(),timer:2000}).show();
         }  
     }  
 }
@@ -91,9 +91,9 @@ function showCompany(list){
            for(var i=0;i<result.length;i++){
         	   var obj = eval('(' + result[i] + ')');
         	   var str=obj.name;
-        	   var name=str.replace('<em>','').replace('</em>','');
-        	   str=str.replace('<em>','<span style="color:#00ffe4">');
-        	   str=str.replace('</em>','</span>');
+        	   var name=str.replace(/<em>/g,'').replace(/<\/em>/g,'');
+        	   str=str.replace(/<em>/g,'<span style="color:#00ffe4">');
+        	   str=str.replace(/<\/em>/g,'</span>');
                cHtml+='<div class="col-md-3"><div class="img-list company-list"><div class="company-img">'+
                '<img src="/images/ZClick.png"/></div><p class="title company-title">'+str+
                '</p><div class="details company-details"><p> 法人:<span class="company-range">'+obj.legalPersonName+'</span></p>'+

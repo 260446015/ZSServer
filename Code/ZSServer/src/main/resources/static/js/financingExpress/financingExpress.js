@@ -48,6 +48,7 @@ $(function(){
 	myClick(0,0);
 })
 function myCharts(d,type){
+	new Loading({dom:document.getElementById("barCharts"),text:"数据统计中，请勿刷新页面！"}).show();
 	$.ajax({
         type: 'post',
         url: "/apis/financing/getHistogram.json",
@@ -61,6 +62,7 @@ function myCharts(d,type){
             	changeOption(response.data);
             	barCharts.setOption(option,true);
             }
+            new Loading({dom:document.getElementById("barCharts")}).hide();
         }
     });
 }
