@@ -10,9 +10,9 @@ function showTeamMember(){
 		type:'post',
 		success:function(res){
 			if(res.success){
+				console.log(res.data);
 				var html = '';
 				var arr = res.data.result.page.rows;
-				console.log(arr);
 				for(var i=0;i<arr.length;i++){
 					html += '<div class="col-md-12 border-bottom"><div class="layout-box"><div class="left-img">' +
 							'<img src="'+arr[i].icon+'" width="160"></div><div class="right-list">' +
@@ -21,6 +21,8 @@ function showTeamMember(){
 							'<p class="person-introduce">'+arr[i].desc+'</p></div></div></div>'
 				}
 				$("#teamMember").html(html);
+			}else{
+				new Alert({flag:false,text:res.message,timer:2000}).show();
 			}
 		}
 	});

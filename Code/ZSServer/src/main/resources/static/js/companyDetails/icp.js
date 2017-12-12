@@ -14,8 +14,12 @@ function showBond(){
 				var arr = res.data.data;
 				var html = '';
 				for(var i=0;i<arr.length;i++){
+					var web;
+					if(arr[i].webSite != null){
+						web = arr[i].webSite.replace('["','').replace('"]','').split(';')[0];
+					}
 					html += '<tr><td>'+arr[i].examineDate+'</td><td>'+arr[i].webName+'</td>' +
-							'<td>'+arr[i].webSite+'</td><td>'+arr[i].ym+'</td>' +
+							'<td>'+web+'</td><td>'+arr[i].ym+'</td>' +
 							'<td>'+arr[i].liscense+'</td><td>正常</td><td>'+arr[i].companyType+'</td>'+'</tr>'
 				}
 				$("#icp").html(html);

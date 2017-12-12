@@ -63,6 +63,9 @@
                             
                         </div>
                     </div>
+                    <div class="page-box clearfix">
+        				<ul class="page pull-right" id="page"></ul>
+            		</div>
                 </div>
                 <div class="park-contrast-box">
                     <button type="button" class="btn-fill park-btn">园区对比<span class="collapse-left-right">></span></button>

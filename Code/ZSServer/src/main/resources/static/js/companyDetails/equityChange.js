@@ -16,6 +16,15 @@ function showShareStructure(){
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var changeDate = getFormatDate(new Date(arr[i].changeDate));
+					if(arr[i].afterAll == null){
+						arr[i].afterAll = '---';
+					}
+					if(arr[i].afterNoLimit == null){
+						arr[i].afterNoLimit = '---';
+					}
+					if(arr[i].afterLimit == null){
+						arr[i].afterLimit = '---';
+					}
 					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+changeDate+'</td><td>'+arr[i].changeReason+'</td>' +
 							'<td>'+arr[i].afterAll+'</td><td>'+arr[i].afterNoLimit+'</td>' +
 							'<td>'+arr[i].afterLimit+'</td>'+'</tr>';

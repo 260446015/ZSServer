@@ -16,6 +16,15 @@ function showShareStructure(){
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var pubDate = getFormatDate(new Date(arr[i].pubDate));
+					if(arr[i].hshareAll == null){
+						arr[i].hshareAll = '---';
+					}
+					if(arr[i].hnoLimitShare == null){
+						arr[i].hnoLimitShare = '---';
+					}
+					if(arr[i].hlimitShare == null){
+						arr[i].hlimitShare = '---';
+					}
 					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+pubDate+'</td><td>'+arr[i].shareAll+'</td>' +
 							'<td>'+arr[i].ashareAll+'</td><td>'+arr[i].noLimitShare+'</td>' +
 							'<td>'+arr[i].limitShare+'</td><td>'+arr[i].hshareAll+'</td><td>'+arr[i].hnoLimitShare+'</td>'+

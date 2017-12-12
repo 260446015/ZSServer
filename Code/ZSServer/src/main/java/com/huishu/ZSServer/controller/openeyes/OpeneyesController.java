@@ -43,8 +43,7 @@ public class OpeneyesController extends BaseController {
 		try {
 			returnObj = openeyesService.getStaffInfo(dto);
 		} catch (OpeneyesException e) {
-			returnObj.put("err_msg", "查询数据为空");
-			returnObj.put("err_code", "999");
+			return error("查询数据为空");
 		}
 		return success(returnObj);
 	}
@@ -62,8 +61,7 @@ public class OpeneyesController extends BaseController {
 		try{
 			returnObj = openeyesService.getHolder(dto);
 		}catch(OpeneyesException e){
-			returnObj.put("err_msg", "查询数据为空");
-			returnObj.put("err_code", "999");
+			return error("查询数据为空");
 		}
 		return success(returnObj);
 	}
@@ -87,8 +85,7 @@ public class OpeneyesController extends BaseController {
 		try{
 			returnObj = openeyesService.getBaseInfo(dto);
 		}catch(OpeneyesException e){
-			returnObj.put("err_msg", "查询数据为空");
-			returnObj.put("err_code", "999");
+			return error("查询数据为空");
 		}
 		return success(returnObj);
 	}
@@ -108,8 +105,7 @@ public class OpeneyesController extends BaseController {
 		try{
 			returnObj = openeyesService.getBranch(dto);
 		}catch(OpeneyesException e){
-			returnObj.put("err_msg", "查询数据为空");
-			returnObj.put("err_code", "999");
+			return error("查询数据为空");
 		}
 		return success(returnObj);
 	}
@@ -168,8 +164,7 @@ public class OpeneyesController extends BaseController {
 		try {
 			returnObj = openeyesService.getTeamMember(dto);
 		} catch (Exception e) {
-			returnObj.put("err_msg", "查询数据为空");
-			returnObj.put("err_code", "999");
+			return error("查询数据为空");
 		}
 		return success(returnObj);
 	}
@@ -189,8 +184,7 @@ public class OpeneyesController extends BaseController {
 		try {
 			returnObj = openeyesService.getProductInfo(dto);
 		} catch (Exception e) {
-			returnObj.put("err_msg", "查询数据为空");
-			returnObj.put("err_code", "999");
+			return error("查询数据为空");
 		}
 		return success(returnObj);
 	}

@@ -15,7 +15,9 @@ function showBond(){
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var regtime = getFormatDate(new Date(arr[i].regtime));
-					var startTime = getFormatDate(new Date(arr[i].startTime));
+					if(arr[i].simplename == null){
+						arr[i].simplename = '---';
+					}
 					html += '<tr><td>'+regtime+'</td><td>'+arr[i].fullname+'</td>' +
 							'<td>'+arr[i].simplename+'</td><td>'+arr[i].regnum+'</td>' +
 							'<td>'+arr[i].catnum+'</td><td>'+arr[i].version+'</td>'+'</tr>'

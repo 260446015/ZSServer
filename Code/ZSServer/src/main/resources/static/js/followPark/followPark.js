@@ -78,6 +78,8 @@ $(function () {
         }
     });
 });
+var pageNumber = 0;
+var pageSize = 6;
 function showGardenindustry(){//获取园区产业
 	$.ajax({
 		type:'get',
@@ -127,8 +129,8 @@ var area = '全部';
 var sort = '园区占地';
 var sortType = 'desc';
 var gardenAttList;//定义全局变量初始化关注园区数据
-function showGardenAttainList(a,b,c,d){
-	var req = {"pageNumber":0,"pageSize":6,msg:[a,b,c,d]};
+function showGardenAttainList(a,b,c,d,e,f){
+	var req = {"pageNumber":e,"pageSize":f,msg:[a,b,c,d]};
 	$.ajax({
 		type:'post',
 		url:'/apis/area/getAttentionGardenList.json',
@@ -157,6 +159,14 @@ function showGardenAttainList(a,b,c,d){
 								'</p></div></div></div>';
 				}
 				$("#gardenList").html(html);
+				if(res.data.totalPages>1){
+					page.init(res.data.totalElements,res.data.number+1,options);
+					$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+	            		showGardenList(industryType,area,sort,sortType,$(this).attr("page-data")-1,pageSize);
+	                });
+				}else{
+					$('#page').html("");
+				}
 			}
 		}
 	});

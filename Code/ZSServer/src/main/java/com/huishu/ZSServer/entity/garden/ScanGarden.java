@@ -77,6 +77,12 @@ public class ScanGarden implements Serializable {
 		this.scanDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
 	}
 
+	
+	public ScanGarden() {
+		super();
+		setScanDate();
+	}
+
 	@Override
 	public String toString() {
 		return JSONObject.toJSONString(this);

@@ -15,6 +15,9 @@ function showBond(){
 				arr = res.data.data.dataList;
 				var html = '';
 				for(var i=0;i<arr.length;i++){
+					if(arr[i].adividendDate == null){
+						arr[i].adividendDate = '---';
+					}
 					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+arr[i].boardDate+'</td><td>'+arr[i].shareholderDate+'</td>' +
 							'<td>'+arr[i].implementationDate+'</td><td>'+arr[i].introduction+'</td>' +
 							'<td>'+arr[i].asharesDate+'</td><td>'+arr[i].acuxiDate+'</td>'+

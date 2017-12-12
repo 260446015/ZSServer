@@ -9,9 +9,17 @@ $(function(){
 		area = value;
 	showGardenindustry();
 	showGardenArea();
-	showGardenList(industryType,area,sort,sortType);
+	showGardenList(industryType,area,sort,sortType,pageNumber,pageSize);
 });
-
+var pageNumber = 0;
+var pageSize = 6;
+var options={
+		"id":"page",//显示页码的元素
+		"data":null,//显示数据
+	    "maxshowpageitem":5,//最多显示的页码个数
+	    "pagelistcount":10,//每页显示数据个数
+	    "callBack":function(){}
+	};
 function GetQueryString(key) {//获取地址栏中的name
 	// 获取参数
 	var url = window.location.search;
@@ -71,8 +79,8 @@ var industryType = '全部';
 var area = '全部';
 var sort = '园区占地';
 var sortType = 'desc';
-function showGardenList(a,b,c,d){
-	var req = {"pageNumber":0,"pageSize":6,msg:[a,b,c,d]};
+function showGardenList(a,b,c,d,e,f){
+	var req = {"pageNumber":e,"pageSize":f,msg:[a,b,c,d]};
 	$.ajax({
 		type:'post',
 		url:'/apis/area/findGardensList.json',
@@ -81,6 +89,7 @@ function showGardenList(a,b,c,d){
 		success:function(res){
 			if(res.success){
 				var arr = res.data.content;
+				console.log(res.data);
 				var html = "";
 				for (var i = 0; i < arr.length; i++) {
 					var gid = arr[i].id;
@@ -103,6 +112,14 @@ function showGardenList(a,b,c,d){
 						html += '<a href="javascript:void(0);" class="follow pull-right" onclick="attentionGarden('+arr[i].id+',true);">添加关注</a></p></div></div></div>';
 				}
 				$("#gardenList").html(html);
+				if(res.data.totalPages>1){
+					page.init(res.data.totalElements,res.data.number+1,options);
+					$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+	            		showGardenList(industryType,area,sort,sortType,$(this).attr("page-data")-1,pageSize);
+	                });
+				}else{
+					$('#page').html("");
+				}
 			}
 		}
 	});

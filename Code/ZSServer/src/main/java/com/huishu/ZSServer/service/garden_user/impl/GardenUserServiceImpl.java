@@ -75,6 +75,10 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 							dto.setCname(name);
 							try {
 								openeyesService.getBaseInfo(dto);
+								ScanGarden sg = new ScanGarden();
+								sg.setDr(0);
+								sg.setGardenId(gardenId);
+								sg.setGardenName(garden.getGardenName());
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -156,7 +160,7 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 					GardenUser.setDescription("暂无");
 				}
 				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
-					GardenUser.setGardenPicture(KeyConstan.IP_PORT + "park_img/default.jpg");
+					GardenUser.setGardenPicture(KeyConstan.IP_PORT + "fileserver/img/list_img.jpg");
 				}
 				if (address == null || StringUtil.isEmpty(address) || address.equals("NULL")) {
 					GardenUser.setAddress("暂无");

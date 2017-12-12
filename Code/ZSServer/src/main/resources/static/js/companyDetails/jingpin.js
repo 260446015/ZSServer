@@ -15,12 +15,32 @@ function showJinpin(){
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var dateStr = getFormatDate(new Date(arr[i].setupDate));
+					if(arr[i].companyName == null){
+						arr[i].companyName = '---';
+					}
+					if(arr[i].hangye == null){
+						arr[i].hangye = '---';
+					}
+					if(arr[i].location == null){
+						arr[i].location = '---';
+					}
+					if(arr[i].round == null){
+						arr[i].round = '---';
+					}
+					if(arr[i].value == null){
+						arr[i].value = '---';
+					}
+					if(arr[i].yewu == null){
+						arr[i].yewu = '---';
+					}
 					html += '<tr><td>'+arr[i].companyName+'</td><td>'+arr[i].hangye+'</td>' +
 							'<td>'+arr[i].jingpinProduct+'</td><td>'+arr[i].location+'</td>' +
 							'<td>'+arr[i].product+'</td><td>'+arr[i].round+'</td>' +
 							'<td>'+dateStr+'</td><td>'+arr[i].value+'</td><td>'+arr[i].yewu+'</td></tr>'
 				}
 				$("#jingpin").html(html);
+			}else{
+				new Alert({flag:false,text:res.message,timer:2000}).show();
 			}
 		}
 	});
