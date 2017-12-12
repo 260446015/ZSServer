@@ -85,11 +85,11 @@
                             产业
                         </div>
                         <div class="search-item-content">
-                            <a href="javascript:void(0);" onclick="myClick(1,'全部')" class="search-item active">全部</a>
-                            <a href="javascript:void(0);" onclick="myClick(1,'人工智能')" class="search-item">人工智能</a>
-                            <a href="javascript:void(0);" onclick="myClick(1,'大数据')" class="search-item">大数据</a>
-                            <a href="javascript:void(0);" onclick="myClick(1,'物联网')" class="search-item">物联网</a>
-                            <a href="javascript:void(0);" onclick="myClick(1,'生物技术')" class="search-item">生物技术</a>
+                            <a href="javascript:void(0);" id="1全部" onclick="myClick(1,'全部')" class="search-item active">全部</a>
+                            <a href="javascript:void(0);" id="1人工智能" onclick="myClick(1,'人工智能')" class="search-item">人工智能</a>
+                            <a href="javascript:void(0);" id="1大数据" onclick="myClick(1,'大数据')" class="search-item">大数据</a>
+                            <a href="javascript:void(0);" id="1物联网" onclick="myClick(1,'物联网')" class="search-item">物联网</a>
+                            <a href="javascript:void(0);" id="1生物技术" onclick="myClick(1,'生物技术')" class="search-item">生物技术</a>
                         </div>
                     </div>
                     <div class="search-group">
@@ -97,11 +97,11 @@
                             区域
                         </div>
                         <div class="search-item-content">
-                            <a href="javascript:void(0);" onclick="myClick(2,'全部')" class="search-item active">全部</a>
-                            <a href="javascript:void(0);" onclick="myClick(2,'北京')" class="search-item">北京</a>
-                            <a href="javascript:void(0);" onclick="myClick(2,'上海')" class="search-item">上海</a>
-                            <a href="javascript:void(0);" onclick="myClick(2,'广州')" class="search-item">广州</a>
-                            <a href="javascript:void(0);" onclick="myClick(2,'深圳')" class="search-item">深圳</a>
+                            <a href="javascript:void(0);" id="2全部" onclick="myClick(2,'全部')" class="search-item active">全部</a>
+                            <a href="javascript:void(0);" id="2北京" onclick="myClick(2,'北京')" class="search-item">北京</a>
+                            <a href="javascript:void(0);" id="2上海" onclick="myClick(2,'上海')" class="search-item">上海</a>
+                            <a href="javascript:void(0);" id="2广州" onclick="myClick(2,'广州')" class="search-item">广州</a>
+                            <a href="javascript:void(0);" id="2深圳" onclick="myClick(2,'深圳')" class="search-item">深圳</a>
                         </div>
                     </div>
                     <div class="search-group">
@@ -109,15 +109,15 @@
                             融资轮次
                         </div>
                         <div class="search-item-content">
-                            <a href="javascript:void(0);" onclick="myClick(3,'全部')" class="search-item active">全部</a>
-                            <a href="javascript:void(0);" onclick="myClick(3,'种子轮')" class="search-item">种子轮</a>
-                            <a href="javascript:void(0);" onclick="myClick(3,'天使轮')" class="search-item">天使轮</a>
-                            <a href="javascript:void(0);" onclick="myClick(3,'A轮')" class="search-item">A轮</a>
-                            <a href="javascript:void(0);" onclick="myClick(3,'B轮')" class="search-item">B轮</a>
-                            <a href="javascript:void(0);" onclick="myClick(3,'C轮')" class="search-item">C轮</a>
-                            <a href="javascript:void(0);" onclick="myClick(3,'D轮')" class="search-item">D轮</a>
-                            <a href="javascript:void(0);" onclick="myClick(3,'IPO上市')" class="search-item">IPO上市</a>
-                            <a href="javascript:void(0);" onclick="myClick(3,'新三板定增轮')" class="search-item">新三板</a>
+                            <a href="javascript:void(0);" id="3全部" onclick="myClick(3,'全部')" class="search-item active">全部</a>
+                            <a href="javascript:void(0);" id="3种子轮" onclick="myClick(3,'种子轮')" class="search-item">种子轮</a>
+                            <a href="javascript:void(0);" id="3天使轮" onclick="myClick(3,'天使轮')" class="search-item">天使轮</a>
+                            <a href="javascript:void(0);" id="3A轮" onclick="myClick(3,'A轮')" class="search-item">A轮</a>
+                            <a href="javascript:void(0);" id="3B轮" onclick="myClick(3,'B轮')" class="search-item">B轮</a>
+                            <a href="javascript:void(0);" id="3C轮" onclick="myClick(3,'C轮')" class="search-item">C轮</a>
+                            <a href="javascript:void(0);" id="3D轮" onclick="myClick(3,'D轮')" class="search-item">D轮</a>
+                            <a href="javascript:void(0);" id="3IPO上市" onclick="myClick(3,'IPO上市')" class="search-item">IPO上市</a>
+                            <a href="javascript:void(0);" id="3新三板定增轮" onclick="myClick(3,'新三板定增轮')" class="search-item">新三板</a>
                         </div>
                     </div>
                     <div class="search-group">
@@ -125,8 +125,8 @@
                             排序
                         </div>
                         <div class="search-item-content">
-                            <a href="javascript:void(0);" onclick="myClick(4,'按时间')" class="search-item active">按时间</a>
-                            <a href="javascript:void(0);" onclick="myClick(4,'按金额')" class="search-item">按金额</a>
+                            <a href="javascript:void(0);" id="4按时间" onclick="myClick(4,'按时间')" class="search-item active">按时间</a>
+                            <a href="javascript:void(0);" id="4按金额" onclick="myClick(4,'按金额')" class="search-item">按金额</a>
                         </div>
                     </div>
                 </div>

@@ -103,6 +103,8 @@ function myCheck(d){
     });
 }
 function myClick(a,b){
+	$('a[id^='+a+']').removeClass("active");
+	$("#"+a+b+"").addClass("active");
     if(a==1){
     	industry=b;
     }else if(a==2){
