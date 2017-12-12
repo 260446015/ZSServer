@@ -62,7 +62,7 @@ function show(b){
 			imgsrc=item.logo;
 		}
 		arr.push('<div class="col-md-3"><div class="img-list">'
-		+'<a href="/summit/getEssayDetails.json?essayId='+item.id+'")>'		
+		+'<a href="/summit/getEssayDetails.json?essayId='+item.id+'&isFollow=can")>'		
 		+'<img src="'+imgsrc+'"/>'
 		+'<p class="title">'+item.title+'</p></a>'
 		+'<div class="details">'

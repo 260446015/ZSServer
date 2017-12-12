@@ -56,9 +56,12 @@ public class IndustrySummitController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value="/getEssayDetails.json",method=RequestMethod.GET)
-	public String getEssayDetails(String essayId,Model model){
-		if(!StringUtil.isEmpty(essayId)){
-			model.addAttribute("essayId",essayId);
+	public String getEssayDetails(String essayId,String isFollow,Model model){
+		model.addAttribute("essayId",essayId);
+		if(!StringUtil.isEmpty(isFollow)){
+			model.addAttribute("isFollow",isFollow);
+		}else{
+			model.addAttribute("isFollow","not");
 		}
 		return "/essay/essayDetails";
 	}

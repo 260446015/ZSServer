@@ -70,11 +70,28 @@
           	
         });
         var inner=arr.join('');
-        var after='</span></div><div><span class="iconfont icon-shijian2"></span>发布时间:<span>'+data.publishDate+'</span></div></div>'+
-				  '<pre id="kr-article-article" class="kr-article-article meeting-details-box-text" v-html="content">'+data.content+'</pre>'+
+        var time='</span></div><div><span class="iconfont icon-shijian2"></span>发布时间:<span>'+data.publishDate+'</span></div>';
+        var follow='';
+        if('${Request.isFollow}'=='can'){
+        	follow='<div><span class="iconfont icon-follow"><a href="javascript:void(0);" onclick="addFollow(\'${Request.essayId}\')" class="follow">添加关注</a></span></div>';
+		}
+		var after='</div><pre id="kr-article-article" class="kr-article-article meeting-details-box-text" v-html="content">'+data.content+'</pre>'+
                   '<div class="item"><div><span class="iconfont icon-qianbi"></span>情报采集:<span>'+data.vector+'</span></div>'+
                   '<div>情报原址:<a href="'+data.articleLink+'" target="_blank">'+data.articleLink+'</a></div></div>';
-       return before+inner+after;
+       return before+inner+time+follow+after;
+	}
+	function addFollow(id){
+		$.ajax({
+			url:'/summit/insert?aid='+id,
+			success:function(res){
+				if(res.message!= null){
+					new Alert({flag:false,text:res.message,timer:2000}).show();
+				}else{
+					new Alert({flag:true,text:res.data,timer:2000}).show();
+					$(this).html("已关注");
+				}
+			}
+		});
 	}
 </script>
 </body>
