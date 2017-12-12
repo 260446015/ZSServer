@@ -1284,12 +1284,18 @@ a.search-item.active{
     font-weight: 400;
 }
 
-.customed-modal .modal-header .close {
+.customed-modal .modal-header .close,
+.layer-person button.close{
     margin-right: 30px;
     color: #00baff;
     filter: alpha(opacity=100);
     opacity: 1;
     text-shadow: none;
+}
+
+.layer-person button.close {
+    margin-right: 40px;
+    margin-top: -5px;
 }
 
 .customed-modal .modal-body {
