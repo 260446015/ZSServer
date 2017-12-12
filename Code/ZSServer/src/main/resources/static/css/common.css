@@ -2053,7 +2053,16 @@ a.search-item.active{
     width: 20px;
     line-height: 280px;
     color:#00ffc4;
+    font-size: 30px;
     background-image: none !important;
+}
+.layer-body .carousel-inner .item>div{
+    margin: 0 20px;
+    height: 275px;
+    overflow-y: auto;
+}
+.layer-body .carousel-inner .item>div .form-control-static{
+    word-break: break-all;
 }
 .text-blue{
     font-weight: 400;
