@@ -21,13 +21,6 @@ function showCompanyDetail(){
 				$("#attationCompany").on("click",function(){
 					attationCompany(resData.companyId,flag);
 				});
-				$(".datails-title>span").text(resData.name);
-				$(".score-title").text("企业匹配值："+resData.categoryScore+"分");
-				$(".inline-lyt").find(".lyt-rt").eq(0).text(resData.phoneNumber);
-//				$(".inline-lyt").find(".lyt-rt").eq(2).text(resData.phoneNumber);
-				$(".inline-lyt").find(".lyt-rt").eq(2).text(resData.websiteList);
-				$(".inline-lyt").find(".lyt-rt").eq(3).text(resData.regLocation);
-				$(".inline-lyt").find(".lyt-rt").eq(4).text(resData.businessScope);
 				$("#legalPerson").text(resData.legalPersonName);
 				$("#regCapital").text(resData.regCapital);
 				$("#estiblishTime").text(getFormatDate(new Date(resData.estiblishTime)));

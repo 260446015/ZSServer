@@ -289,6 +289,27 @@ var barOption = {
             type : 'value'
         }
     ],
+    dataZoom: [
+               {
+                   show: true,
+                   start: 50,
+                   end: 90
+               },
+               {
+                   type: 'inside',
+                   start: 94,
+                   end: 100
+               },
+               {
+                   show: true,
+                   yAxisIndex: 0,
+                   filterMode: 'empty',
+                   width: 30,
+                   height: '80%',
+                   showDataShadow: false,
+                   left: '93%'
+               }
+           ],
     series : [
         {
             name:'直接访问',
@@ -509,13 +530,13 @@ function showGardenCondition(area,target){
 				var html = "";
 				var arr = res.data;
 				for(var i=0;i<arr.length;i++){
-					html += "<div class=\"col-md-12 border-bottom\">" +
-								"<a class=\"scatter-blocks no-border\" href=\"javascript:void(0);\">" +
-									"<span class=\"scatter-title\">"+arr[i].title+"</span></a>" +
-									"<p class=\"scatter-content\">"+arr[i].summary +"</p>" + 
-									"<p class=\"scatter-lib\">" +
-										"<span>"+arr[i].park+"</span>" +
-                                		"<span>"+arr[i].publishTime+"</span></p></div>";
+					html += '<div class="col-md-12 border-bottom">' +
+								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
+									'<span class="scatter-title">'+arr[i].title+'</span></a>' +
+									'<p class="scatter-content">'+arr[i].summary +'</p>' + 
+									'<p class="scatter-lib">' +
+										'<span>'+arr[i].park+'</span>' +
+                                		'<span>'+arr[i].publishTime+'</span></p></div>';
 				}
 				$("#"+target).html(html);
 			
@@ -523,24 +544,6 @@ function showGardenCondition(area,target){
 		}
 	});
 }
-
-/*function showGardenGdpHistogram(industry,year){
-	if(year == ''){
-		year = [new Date().getFullYear() - 1];
-	}
-	var req = {"industry":industry,"year":year};
-	$.ajax({
-		type:'post',
-		data:JSON.stringify(req),
-		contentType:'application/json',
-		url:'/apis/area/findGardenGdp.json',
-		success:function(res){
-			if(res.success){
-				
-			}
-		}
-	});
-}*/
 function showGardenPolicy(area){
 	var req = {"pageNumber":0,"pageSize":4,"province":area};
 	$.ajax({
@@ -550,16 +553,16 @@ function showGardenPolicy(area){
 		contentType:'application/json',
 		success:function(res){
 			if(res.success){
-				var html = "";
+				var html = '';
 				var arr = res.data;
 				for(var i=0;i<arr.length;i++){
-					html += "<div class=\"col-md-12 border-bottom\">" +
-								"<a class=\"scatter-blocks no-border\" href=\"javascript:void(0);\">" +
-									"<span class=\"scatter-title\">"+arr[i].title+"</span></a>" +
-									"<p class=\"scatter-content\">"+arr[i].summary +"</p>" + 
-									"<p class=\"scatter-lib\">" +
-										"<span>"+arr[i].area+"</span>" +
-                                		"<span>"+arr[i].publishTime+"</span></p></div>";
+					html += '<div class="col-md-12 border-bottom">' +
+								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
+									'<span class="scatter-title">'+arr[i].title+'</span></a>' +
+									'<p class="scatter-content">'+arr[i].summary +'</p>' + 
+									'<p class="scatter-lib">' +
+										'<span>'+arr[i].area+'</span>' +
+                                		'<span>'+arr[i].publishTime+'</span></p></div>';
 				}
 				$("#condition2").html(html);
 			}
