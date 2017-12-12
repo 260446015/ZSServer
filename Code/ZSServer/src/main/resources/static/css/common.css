@@ -2076,3 +2076,10 @@ a.search-item.active{
 .customed-modal.small-modal .form-horizontal>div.row{
     border-top: 1px solid #10315f;
 }
+/*
+ * 产业峰会内容区域重叠的问题
+*/
+.posa-right-container {
+    padding-left: 200px;
+    padding-right: 40px;
+}
