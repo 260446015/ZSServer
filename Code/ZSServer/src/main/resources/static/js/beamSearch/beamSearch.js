@@ -81,30 +81,34 @@ function run(input_file, get_data) {
 }
 var options;
 function showCompany(list){
-   options={
-   	"id":"page",//显示页码的元素
-   	"data":list,//显示数据
-       "maxshowpageitem":5,//最多显示的页码个数
-       "pagelistcount":8,//每页显示数据个数
-       "callBack":function(result){
-       	   var cHtml="";
-           for(var i=0;i<result.length;i++){
-        	   var obj = eval('(' + result[i] + ')');
-        	   var str=obj.name;
-        	   var name=str.replace(/<em>/g,'').replace(/<\/em>/g,'');
-        	   str=str.replace(/<em>/g,'<span style="color:#00ffe4">');
-        	   str=str.replace(/<\/em>/g,'</span>');
-               cHtml+='<div class="col-md-3"><div class="img-list company-list"><div class="company-img">'+
-               '<img src="/images/ZClick.png"/></div><p class="title company-title">'+str+
-               '</p><div class="details company-details"><p> 法人:<span class="company-range">'+obj.legalPersonName+'</span></p>'+
-               '<p>成立时间:<span class="company-time">'+obj.estiblishTime.substring(0,10)+'</span></p>'+
-               '<p>注册资金:<span class="company-money">'+obj.regCapital+'</span></p>'+
-               '<p>总部地点:<span class="company-address">'+obj.base+'</span></p>'+
-               '<div class="company-mask"><div class="circle-empty"><a href="/apis/area/company/baseInfo.html?companyName='+name+'" class="text-center"><img src="/images/see_icon.png" /></a>'+
-               '<a href="/apis/company/baseInfo.html?companyName='+name+'" class="text-center">查看详情</a></div></div></div></div></div>';
-           }
-           $("#city_list").html(cHtml);//将数据增加到页面中
-       }
-   };
-   page.init(list.length,1,options);
+	if(list.length==0){
+		new Alert({flag:'warning',text:"未查询到相关讯息！",timer:2000}).show();
+	}else{
+		options={
+			"id":"page",//显示页码的元素
+			"data":list,//显示数据
+	       "maxshowpageitem":5,//最多显示的页码个数
+	       "pagelistcount":8,//每页显示数据个数
+	       "callBack":function(result){
+	       	   var cHtml="";
+	           for(var i=0;i<result.length;i++){
+	        	   var obj = eval('(' + result[i] + ')');
+	        	   var str=obj.name;
+	        	   var name=str.replace(/<em>/g,'').replace(/<\/em>/g,'');
+	        	   str=str.replace(/<em>/g,'<span style="color:#00ffe4">');
+	        	   str=str.replace(/<\/em>/g,'</span>');
+	               cHtml+='<div class="col-md-3"><div class="img-list company-list"><div class="company-img">'+
+	               '<img src="/images/ZClick.png"/></div><p class="title company-title">'+str+
+	               '</p><div class="details company-details"><p> 法人:<span class="company-range">'+obj.legalPersonName+'</span></p>'+
+	               '<p>成立时间:<span class="company-time">'+obj.estiblishTime.substring(0,10)+'</span></p>'+
+	               '<p>注册资金:<span class="company-money">'+obj.regCapital+'</span></p>'+
+	               '<p>总部地点:<span class="company-address">'+obj.base+'</span></p>'+
+	               '<div class="company-mask"><div class="circle-empty"><a href="/apis/area/company/baseInfo.html?companyName='+name+'" class="text-center"><img src="/images/see_icon.png" /></a>'+
+	               '<a href="/apis/company/baseInfo.html?companyName='+name+'" class="text-center">查看详情</a></div></div></div></div></div>';
+	           }
+	           $("#city_list").html(cHtml);//将数据增加到页面中
+	       }
+	   };
+	   page.init(list.length,1,options);
+	}
 }

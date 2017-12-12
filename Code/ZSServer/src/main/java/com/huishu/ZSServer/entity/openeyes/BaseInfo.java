@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ZSServer.entity.UserBase;
+import com.huishu.ZSServer.entity.user.UserBase;
 
 /**
  * 

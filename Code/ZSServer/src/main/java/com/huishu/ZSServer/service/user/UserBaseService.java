@@ -1,7 +1,7 @@
 package com.huishu.ZSServer.service.user;
 
 import com.huishu.ZSServer.common.AjaxResult;
-import com.huishu.ZSServer.entity.UserBase;
+import com.huishu.ZSServer.entity.user.UserBase;
 
 /**
  * 用户service

@@ -62,7 +62,7 @@
 		var before='<div class="meeting-details-box-header"><h4>'+data.title+'</h4></div><div class="item"><div><span class="iconfont icon-company"></span>涉及公司:<span>';
 		var arr = []
         $.each(data.bus, function(index, item){
-        	if(item=='暂无'){
+        	if(item.indexOf('暂无')!=-1){
         		arr.push(item);
         	}else{
         		arr.push('<a href="/apis/company/baseInfo.html?companyName='+item+'">'+item+'</a>  ');

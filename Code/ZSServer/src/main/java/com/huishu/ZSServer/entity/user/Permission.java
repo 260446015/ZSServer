@@ -1,4 +1,4 @@
-package com.huishu.ZSServer.entity;
+package com.huishu.ZSServer.entity.user;
 
 import java.io.Serializable;
 
@@ -15,7 +15,7 @@ import com.alibaba.fastjson.JSONObject;
  * 权限表
  * 
  * @author yindq
- * @date 2017年8月8日
+ * @date 2017年12月12日
  */
 @Entity
 @Table(name = "t_permission")

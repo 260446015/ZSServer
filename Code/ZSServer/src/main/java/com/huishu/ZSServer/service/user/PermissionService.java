@@ -1,6 +1,6 @@
 package com.huishu.ZSServer.service.user;
 
-import com.huishu.ZSServer.entity.Permission;
+import com.huishu.ZSServer.entity.user.Permission;
 
 /**
  * 权限service

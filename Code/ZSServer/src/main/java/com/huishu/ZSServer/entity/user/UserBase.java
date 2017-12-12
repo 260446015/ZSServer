@@ -1,4 +1,4 @@
-package com.huishu.ZSServer.entity;
+package com.huishu.ZSServer.entity.user;
 
 import java.io.Serializable;
 import java.util.List;
@@ -69,15 +69,13 @@ public class UserBase implements Serializable {
 	@Column(name = "user_department")
 	private String userDepartment;
 
-	/** 所属单位 */
-	@Column(name = "user_comp")
-	private String userComp;
-
 	/** 所属园区 */
 	@Column(name = "user_park")
 	private String userPark;
 	
-	private String area;
+	/** 名片路径 */
+	@Column(name = "image_url")
+	private String imageUrl;
 
 	/** 创建时间 */
 	@Column(name = "create_time")
@@ -95,11 +93,7 @@ public class UserBase implements Serializable {
 	@Column(name = "user_type")
 	private String userType;
 
-	/** 名片路径 */
-	@Column(name = "image_url")
-	private String imageUrl;
-
-	/** 会员等级(0:试用,1:正式，9:试用申请转正式) */
+	/** 会员等级 */
 	@Column(name = "user_level")
 	private Integer userLevel;
 
@@ -119,14 +113,6 @@ public class UserBase implements Serializable {
 	/** 用户权限，不存数据库 */
 	@Transient
 	private List<Long> permissions;
-
-	public String getArea() {
-		return area;
-	}
-
-	public void setArea(String area) {
-		this.area = area;
-	}
 
 	public String getUserJob() {
 		return userJob;
@@ -230,14 +216,6 @@ public class UserBase implements Serializable {
 
 	public void setUserDepartment(String userDepartment) {
 		this.userDepartment = userDepartment;
-	}
-
-	public String getUserComp() {
-		return userComp;
-	}
-
-	public void setUserComp(String userComp) {
-		this.userComp = userComp;
 	}
 
 	public String getUserPark() {
