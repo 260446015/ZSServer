@@ -66,6 +66,15 @@ function showCompanyDetail(){
 				$("#attationCompany").on("click",function(){
 					attationCompany(resData.companyId,flag);
 				});
+				if(resData.phoneNumber == null){
+					resData.phoneNumber = '---';
+				}
+				if(resData.websiteList == null){
+					resData.websiteList = '---';
+				}
+				if(resData.categoryScore == null){
+					resData.categoryScore = '---';
+				}
 				$("#baseName").text(resData.name);
 				$("#baseScore").text("企业匹配值："+resData.categoryScore+"分");
 				$("#baseTel").text(resData.phoneNumber);
