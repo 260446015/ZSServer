@@ -7,7 +7,7 @@ import com.huishu.ZSServer.entity.user.UserBase;
  * 用户service
  * 
  * @author yindq
- * @date 2017年8月8日
+ * @date 2017年12月13日
  */
 public interface UserBaseService {
 	/**
@@ -16,7 +16,7 @@ public interface UserBaseService {
 	 * @param userAccount
 	 * @return
 	 */
-	UserBase findUserByUserAccount(String userAccount,String type);
+	UserBase findUserByUserAccount(String userAccount);
 
 	/**
 	 * 通过电话查找用户信息

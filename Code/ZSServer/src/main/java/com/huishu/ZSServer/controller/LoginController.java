@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ZSServer.common.util.ShiroUtil;
 
 /**
  * 登录与相关模块
@@ -31,25 +32,13 @@ public class LoginController extends BaseController {
 	public String show(@PathVariable String page) {
 		return page;
 	}
-	
-	/**
-	 * 未登录
-	 */
-	@RequestMapping(value = "apis/login.do", method = RequestMethod.GET)
-	public void login(HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		JSONObject object = new JSONObject();
-		object.put("code", "1002");
-	}
 
 	/**
 	 * 没有权限
 	 */
-	@RequestMapping(value = "apis/unauthorized.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/apis/unauthorized.do", method = RequestMethod.GET)
 	public void unauthorized(HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		JSONObject object = new JSONObject();
-		object.put("code", "1004");
+		ShiroUtil.writeResponse(response, "对不起,您没有访问权限！");
 	}
 	
 }
