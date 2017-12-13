@@ -205,20 +205,23 @@ function AjaxPost(param){
 		contentType:'application/json',
 		data:JSON.stringify(param),
 		success:function(res){
-			if(res.data==null){
-				new Alert({flag:false,text:res.message,timer:2000}).show();
-			}
-			var arr = res.data;
-			$('#industryInfoList').html(ShowArticleList(arr.dataList));
-			
-			if(res.data.totalPage>1){
-				page.init(res.data.totalNumber,res.data.pageNumber,options);
-				$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
-            		var param={industry:industry,sort:sort,area:area,pageNumber:$(this).attr("page-data")-1,pageSize:pageSize};
-            		AjaxPost(param);
-                });
-			}else{
+			if(res.data.dataList.length==0){
+				new Alert({flag:false,text:"暂无数据",timer:2000}).show();
+				$('#industryInfoList').html('');
 				$('#page').html("");
+			}else{
+				var arr = res.data;
+				$('#industryInfoList').html(ShowArticleList(arr.dataList));
+				
+				if(res.data.totalPage>1){
+					page.init(res.data.totalNumber,res.data.pageNumber,options);
+					$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+						var param={industry:industry,sort:sort,area:area,pageNumber:$(this).attr("page-data")-1,pageSize:pageSize};
+						AjaxPost(param);
+					});
+				}else{
+					$('#page').html("");
+				}
 			}
 			
 		}
@@ -231,8 +234,8 @@ function ShowArticleList(arr){
 				'<div class="col-md-12 border-bottom">'+
                 '<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+item.id+'" >'+
                 '<span class="scatter-type">'+item.industryLabel+'</span><span class="scatter-title">'+
-                item.title+'</span></a><p class="scatter-content">'+item.content+'</p></div>'
-                +'<p class="scatter-lib"><span>发布时间:'+item.publishTime+'</span></p>'
+                item.title+'</span></a><p class="scatter-content">'+item.content+'</p>'
+                +'<p class="scatter-lib"><span>发布时间:'+item.publishTime+'</span></p></div>'
 		);
 	});
 	var inner = array.join('');

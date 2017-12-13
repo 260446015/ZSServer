@@ -2083,3 +2083,11 @@ a.search-item.active{
     padding-left: 200px;
     padding-right: 40px;
 }
+#industryInfoList .border-bottom .scatter-content{
+	margin-bottom:10px;
+	line-height:24px;
+}
+#industryInfoList .border-bottom .scatter-lib{
+	margin-bottom:20px;
+	padding-left:0;
+}

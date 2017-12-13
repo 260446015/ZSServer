@@ -40,6 +40,19 @@ public class InstitutionalServiceImpl implements InstitutionalService {
 		if(list.size()==0){
 			return null;
 		}else{
+			list.forEach(act ->{
+				String url = act.getUrl();
+				int i1 = url.indexOf("%");
+				int i = url.indexOf("?");
+				if(i1>0){
+					act.setUrl(url.substring(0, i1));
+					
+				}
+				if(i>0){
+					act.setUrl(url.substring(0, i));
+				 }
+			 
+			});
 			return list;
 		}
 	}

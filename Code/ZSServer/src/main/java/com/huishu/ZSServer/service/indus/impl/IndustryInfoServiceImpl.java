@@ -218,10 +218,17 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			
 				String content = action.getContent();
 				if(content.length()>300){
-					action.setSummary(StringUtil.replaceHtml(content.substring(0, 200)));
+					String replaceHtml = StringUtil.replaceHtml(content.substring(0, 300));
+					while(replaceHtml.length()<300){
+						replaceHtml = replaceHtml+"";
+					}
+					action.setSummary(replaceHtml);
 				}else{
-					action.setSummary(StringUtil.replaceHtml(content.substring(0, 200)));
-				
+					String replaceHtml = StringUtil.replaceHtml(content.substring(0, 150));
+					while(replaceHtml.length()<150){
+						replaceHtml = replaceHtml+"";
+					}
+					action.setSummary(replaceHtml);
 			}
 			
 		});
