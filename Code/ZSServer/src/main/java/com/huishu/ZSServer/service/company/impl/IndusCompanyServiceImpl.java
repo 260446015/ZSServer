@@ -103,26 +103,11 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 		String[] split = imgMsg.split("\r\n");
 		String company = "";
 		for (String string : split) {
-			if (string.indexOf("公司") != -1 || string.indexOf("办司") != -1 || string.indexOf("集团") != -1) {
-				if (string.indexOf(" ") != -1) {
-					String[] split2 = string.split(" ");
-					for (String str : split2) {
-						if (str.indexOf("公司") != -1 || str.indexOf("办司") != -1 || str.indexOf("集团") != -1) {
-							company = str;
-							break;
-						}
-					}
-					break;
-				} else {
-					company = string;
-					break;
-				}
+			if (string.indexOf("公司") != -1 || string.indexOf("办司") != -1 || string.indexOf("有限") != -1 || string.indexOf("集团") != -1) {
+				String replaceAll = string.replaceAll("[\\p{Punct}\\p{Space}A-Za-z0-9]+", "");
+				company = replaceAll.substring(0, replaceAll.length()-2);
+				break;
 			}
-		}
-		if (StringUtil.isEmpty(company))
-			return null;
-		if (company.indexOf("办司") != -1) {
-			company.replace("办司", "");
 		}
 		return company;
 	}
