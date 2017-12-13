@@ -18,6 +18,7 @@ function getIndustry(industry){
 	$(".mark-box").on("click","li>a.mark-item",function () {
         var _this = $(this);
         _this.parent().addClass("active").siblings().removeClass("active");
+        $(".layer-person").hide();
     });
 	$("#mark-item1").val(industry);
 	/*获取企业排行的数据*/
@@ -425,30 +426,7 @@ var chinaOption = {
         }
     },
     series : [
-       /* {
-            type: 'scatter',
-            coordinateSystem: 'geo',
-            data: convertData(data),
-            symbolSize: function (val) {
-            	if(val[2]<10){
-            		return val[2]*3;
-            	}else if(val[2]>100){
-            		return 60;
-            	}else {
-            		return val[2]/2;
-            	}
-            },
-            label: {
-                normal: {
-                    show: false
-                }
-            },
-            itemStyle: {
-                normal: {
-                    color: '#c5a425'
-                }
-            }
-        },*/
+       
         {
             name: 'Top 5',
             type: 'effectScatter',
@@ -508,6 +486,7 @@ industryMap.on("click",function (e) {
 			 
 				if(res.data==null){
 					new Alert({flag:false,text:"暂无数据",timer:2000}).show();
+//					$("#carousel-inner").html('');
 				}else{
 					var arr = res.data;
 					$("#carousel-inner").html(showInfo(arr));
@@ -547,16 +526,19 @@ $(".like").on("click",function () {
     	}
     });
 });
+$(".close").on("click",function () {
+	$(this).parents(".layer-person").hide();
+});
 function showInfo(arr){
 	var array = [];
 	$.each(arr,function(index,item){
 		$('input[name="textName"]').val(item.id);
 		if(index==0){
 		array.push(
-		'<div class="item active"><h3 class="layer-person-title text-center">'+item.laboratoryName+'</h3>'
+		'<div class="item active">'
 		+'<div class="form-horizontal"><input type="hidden" name="textName" value="'+item.id+'"/><div class="form-group text-center">'
-		+'<img src="/images/user_head.png" alt="" /></div><div class="form-group">'
-        +'<p class="text-center" >'+item.academicLeader+'</p></div><div class="form-group"><label class="col-md-4 text-right control-label">机构性质</label>'
+		+'</div><div class="form-group"><label class="col-md-4 text-right control-label">带头人</label><div class="col-md-7">'
+        +'<p class="form-control-static" >'+item.academicLeader+'</p></div></div><div class="form-group"><label class="col-md-4 text-right control-label">机构性质</label>'
         +'<div class="col-md-7"><p class="form-control-static">'+item.institutionalCategory+'</p></div></div>'
         +'<div class="form-group"><label class="col-md-4 text-right control-label">机构产业</label><div class="col-md-7">'
         +'<p class="form-control-static">'+item.industry+'</p></div></div><div class="form-group">'
@@ -565,10 +547,10 @@ function showInfo(arr){
         +'<div class="col-md-7"><p class="form-control-static">'+item.url+'</p></div></div></div></div>');
 		}else{
 		array.push(
-			'<div class="item"><h3 class="layer-person-title text-center">'+item.laboratoryName+'</h3>'
+			'<div class="item">'
 			+'<div class="form-horizontal"><input type="hidden" name="textName" value="'+item.id+'"/><div class="form-group text-center">'
-			+'<img src="/images/user_head.png" alt="" /></div><div class="form-group">'
-			+'<p class="text-center" >'+item.academicLeader+'</p></div><div class="form-group"><label class="col-md-4 text-right control-label">机构性质</label>'
+			+'</div><div class="form-group"><label class="col-md-4 text-right control-label">带头人</label><div class="col-md-7">'
+			+'<p class="form-control-static" >'+item.academicLeader+'</p></div></div><div class="form-group"><label class="col-md-4 text-right control-label">机构性质</label>'
 			+'<div class="col-md-7"><p class="form-control-static">'+item.institutionalCategory+'</p></div></div>'
 			+'<div class="form-group"><label class="col-md-4 text-right control-label">机构产业</label><div class="col-md-7">'
 			+'<p class="form-control-static">'+item.industry+'</p></div></div><div class="form-group">'

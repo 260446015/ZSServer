@@ -152,10 +152,16 @@ public class IndustryInfoController extends BaseController{
 			obj.put("value", "物联网");
 			array.add(obj);
 			obj =new JSONObject();
-			obj.put("value", "生物技术");
+			obj.put("value", "生物医药");
 			array.add(obj);
 		}else{
-			obj.put("value", industry);
+			if(industry.equals("生物技术")){
+				
+				obj.put("value", "生物医药");
+			}else{
+				
+				obj.put("value", industry);
+			}
 			array.add(obj);
 		}
 		json.put("industry", array);
@@ -180,7 +186,20 @@ public class IndustryInfoController extends BaseController{
 				}
 			}
 		});
-		return successPage(page,page.getNumber()+1);
+		JSONObject result = new JSONObject();
+		result.put("dataList", page.getContent());
+		if(page.getTotalElements()>=6000){
+			result.put("totalNumber",6000);
+		}else{
+			result.put("totalNumber",page.getTotalElements());
+		}
+		if(page.getTotalPages()>=1000){
+			result.put("totalPage",1000);
+		}else{
+			result.put("totalPage",page.getTotalPages());
+		}
+		result.put("pageNumber",page.getNumber()+1);
+		return new AjaxResult().setData(result).setSuccess(true).setStatus(0);
 	}
 	
 }
