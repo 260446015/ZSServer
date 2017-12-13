@@ -15,6 +15,7 @@ public class KeyConstan {
 	public static final String RONGZIDONGTAI = "融资动态";
 	public static final String RONGZIKUAIXUN = "融资快讯";
 	public static final String ZHENGCEJIDU = "政策解读";
+	public static final String ZHAO_SHANG_BAO_GAO = "招商报告";
 	/**
 	 * local
 	 */

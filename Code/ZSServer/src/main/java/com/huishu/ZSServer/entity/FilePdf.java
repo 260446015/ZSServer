@@ -33,11 +33,21 @@ public class FilePdf implements Serializable {
 	private String url;
 	/** 文件对应时间 */
 	private String data;
+	/** 文件类型 */
+	private String fileType;
 	/** 维度 */
 	private String dimension;
 	/** 创建时间 */
 	private String createTime;
 	
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
 	public String getCreateTime() {
 		return createTime;
 	}

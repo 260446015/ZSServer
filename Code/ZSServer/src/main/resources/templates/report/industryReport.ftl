@@ -34,28 +34,17 @@
                             <span class="icon-block"></span>
                             年份
                         </div>
-                        <div class="search-item-content">
-                            <span class="search-item">2017</span>
+                        <div class="search-item-content" id="year_item">
                         </div>
                     </div>
                     <div class="search-group">
                         <div class="search-item-title">
                             <span class="icon-block"></span>
-                            季度
+                            类型
                         </div>
                         <div class="search-item-content">
-                            <span class="search-item">第四季度</span>
-                        </div>
-                    </div>
-                    <div class="search-group">
-                        <div class="search-item-title">
-                            <span class="icon-block"></span>
-                            月份
-                        </div>
-                        <div class="search-item-content">
-                            <span class="search-item">10月</span>
-                            <span class="search-item">11月</span>
-                            <span class="search-item">12月</span>
+                            <a href="javascript:void(0);" class="search-item active">按季度</a>
+                            <a href="javascript:void(0);" class="search-item">按月份</a>
                         </div>
                     </div>
                 </div>
@@ -72,33 +61,6 @@
 <!-- js 共用部分 start -->
 <#include  "/common/script.ftl"/>
 <!-- js 共用部分 end -->
+<script src="/js/industryReport/industryReport.js"></script>
 </body>
-<script type="text/javascript">
-	$(function(){
-		$("#report").addClass("active");
-        $.ajax({
-            url: "/apis/report/getExpertReport.json",
-            success: function (response) {
-                if(response.message!=null){
-                	alert(response.message);
-                }else{
-               		$('#biuuu_city_list').html(show(response.data.dataList));
-                }
-            }
-        });
-    })
-	function show(d){
-        var arr = []
-        $.each(d, function(index, item){
-          arr.push('<div class="col-md-3"><div class="report-list"><a href="'+item.url+'" target="_blank" class="border-box"><img class="circle-img" src="/images/report.png" /></a>'+
-          			'<a href="'+item.url+'" class="report-title" target="_blank">'+item.name+'</a>'+
-          			'<p class="report-date">'+item.data+'</p>'+
-          			'<p class="report-tags"><i class="glyphicon glyphicon-tag"></i>'+
-          			'<span class="tag">'+item.label+'</span></p></p></div></div>'
-          		);
-        });
-        var inner=arr.join('');
-        return inner;
-  	}
-</script> 
 </html>
