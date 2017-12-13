@@ -79,7 +79,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			}
 		}
 		bq.must(or);
-		TermsBuilder articleBuilder = AggregationBuilders.terms("articleLink").field("articleLink").size(1000);
+		TermsBuilder articleBuilder = AggregationBuilders.terms("articleLink").field("articleLink").size(300);
 		SearchQuery query = getSearchQueryBuilder().addAggregation(articleBuilder).withQuery(bq).build();
 		List<String> contentList = new ArrayList<String>();
 		JSONArray data = template.query(query, res -> {
@@ -106,7 +106,6 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 					}
 					jsonArray.add(KeywordModel);
 				});
-//				jsonArray.add((List<KeywordModel>) keywordCloud.get("result"));
 			}
 
 			return jsonArray;
@@ -122,7 +121,25 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 	 */
 	@Override
 	public JSONArray getArticleListByKeyWord(JSONObject obj) {
-		BoolQueryBuilder bq = getQueryBoolBuilder(obj);
+		BoolQueryBuilder bq = new BoolQueryBuilder();
+		if (StringUtil.isNotEmpty(obj.getString("dimension"))) {
+			String dimension = obj.getString("dimension");
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
+		}
+		BoolQueryBuilder or = new BoolQueryBuilder();
+		JSONArray arr = obj.getJSONArray("industryLabel");
+		if(arr!= null){
+			for(int i=0;i<arr.size();i++){
+				JSONObject jso = arr.getJSONObject(i);
+				String str = jso.getString("value");
+				or.should(QueryBuilders.termQuery("industryLabel",str ));
+			}
+		}
+		bq.must(or);
+		if (StringUtil.isNotEmpty(obj.getString("keyWord"))) {
+			String keyWord = obj.getString("keyWord");
+			bq.must(QueryBuilders.wildcardQuery("content", "*" + keyWord + "*"));
+		}
 		TermsBuilder articleLinkBuilder = AggregationBuilders.terms("articleLink").field("articleLink")
 				.order(Order.count(false)).size(500);
 
@@ -194,7 +211,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 		if(arr!= null){
 			for(int i=0;i<arr.size();i++){
 				JSONObject jso = arr.getJSONObject(i);
-				or.should(QueryBuilders.termQuery("industryLabel", jso.getString("industryLabel")));
+				or.should(QueryBuilders.termQuery("industryLabel", jso.getString("value")));
 			}
 		}
 		bq.must(or);
@@ -219,15 +236,11 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 				String content = action.getContent();
 				if(content.length()>300){
 					String replaceHtml = StringUtil.replaceHtml(content.substring(0, 300));
-					while(replaceHtml.length()<300){
-						replaceHtml = replaceHtml+"";
-					}
+					
 					action.setSummary(replaceHtml);
 				}else{
 					String replaceHtml = StringUtil.replaceHtml(content.substring(0, 150));
-					while(replaceHtml.length()<150){
-						replaceHtml = replaceHtml+"";
-					}
+					
 					action.setSummary(replaceHtml);
 			}
 			

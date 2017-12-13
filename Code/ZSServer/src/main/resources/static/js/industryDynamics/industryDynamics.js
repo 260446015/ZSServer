@@ -163,7 +163,6 @@ function getArticleByKeyWord(a,b){
 	$.ajax({
 		type: 'post',
         url: "/indus/findArticleListByKeyWord.json",
-        async: false,
         data: param,
         success:function(res){
         	if(res.data==null){
@@ -197,6 +196,17 @@ function getIndustry(a,b){
 	var param ={industry:industry,area:area,sort:sort,pageSize:pageSize,pageNumber:pageNumber};
 	AjaxPost(param);
 };
+
+$(".search-box").on("click",".search-item-content>a",function(){
+	$(this).addClass("active").siblings().removeClass("active");
+	var _id = $(this).attr("id");
+	var array = _id.split('-');
+	var a = array[0];
+	var b = array[1];
+	getIndustry(a,b);
+});
+
+
 function AjaxPost(param){
 	$.ajax({
 		url:'/indus/findIndustryInfoArticleList.json',

@@ -68,11 +68,11 @@
                                 产业
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" onclick="Click(1,'全部')" class="search-item active">全部</a>
-                                <a href="javascript:void(0);" onclick="Click(1,'人工智能')"  class="search-item">人工智能</a>
-                                <a href="javascript:void(0);" onclick="Click(1,'大数据')" class="search-item">大数据</a>
-                                <a href="javascript:void(0);" onclick="Click(1,'物联网')" class="search-item">物联网</a>
-                                <a href="javascript:void(0);" onclick="Click(1,'生物技术')" class="search-item">生物技术</a>
+                                <a href="javascript:void(0);" id="1-全部" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" id="1-人工智能"  class="search-item">人工智能</a>
+                                <a href="javascript:void(0);" id="1-大数据" class="search-item">大数据</a>
+                                <a href="javascript:void(0);" id="1-物联网" class="search-item">物联网</a>
+                                <a href="javascript:void(0);" id="1-生物技术" class="search-item">生物技术</a>
                             </div>
                         </div>      
                         <div class="search-group">
@@ -80,11 +80,11 @@
                                 区域
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" onclick="Click(2,'全部')" class="search-item active">全部</a>
-                                <a href="javascript:void(0);" onclick="Click(2,'北京')" class="search-item">北京</a>
-                                <a href="javascript:void(0);" onclick="Click(2,'上海')" class="search-item">上海</a>
-                                <a href="javascript:void(0);" onclick="Click(2,'广州')" class="search-item">广州</a>
-                                <a href="javascript:void(0);" onclick="Click(2,'深圳')"  class="search-item">深圳</a>
+                                <a href="javascript:void(0);" id="2-全部" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" id="2-北京" class="search-item">北京</a>
+                                <a href="javascript:void(0);" id="2-上海" class="search-item">上海</a>
+                                <a href="javascript:void(0);" id="2-广州" class="search-item">广州</a>
+                                <a href="javascript:void(0);" id="2-深圳"  class="search-item">深圳</a>
                             </div>
                         </div>
                         <div class="search-group">
@@ -92,8 +92,8 @@
                                 排序
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" onclick="Click(3,'按热度')" class="search-item active">按热度</a>
-                                <a href="javascript:void(0);" onclick="Click(3,'按时间')" class="search-item">按时间</a>
+                                <a href="javascript:void(0);" id="3-按热度" class="search-item active">按热度</a>
+                                <a href="javascript:void(0);" id="3-按时间" class="search-item">按时间</a>
                             </div>
                         </div>
                     </div>

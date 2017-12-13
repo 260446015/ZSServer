@@ -1,7 +1,7 @@
 <div class="left-nav">
             <ul>
                 <li id="recommend">
-                    <a href="/intelligent/intelligentRecommendation.ftl">
+                    <a href="/intelligent/intelligentRecommendation.html">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">
 
@@ -11,7 +11,7 @@
                     </a>
                 </li>
                 <li id="screen">
-                    <a href="/accurateScreening/accurateScreening.ftl">
+                    <a href="/accurateScreening/accurateScreening.html ">
                         <div class="circle-out parkIcon">
                             <div class="circle-in">
 

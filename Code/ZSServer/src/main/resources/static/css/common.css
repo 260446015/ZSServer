@@ -892,7 +892,7 @@ body{
     overflow: hidden;
     margin-bottom: 5px;
     padding-left: 30px;
-    max-height: 108px;
+    height: 108px;
     line-height: 36px;
 }
 .scatter-lib{
@@ -1054,6 +1054,12 @@ a.search-item.active{
     font-size: 12px;
     line-height: 22px;
     color: #0084b6;
+}
+
+.img-list .details .date-time{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .follow {
@@ -2059,10 +2065,14 @@ a.search-item.active{
 .layer-body .carousel-inner .item>div{
     margin: 0 20px;
     height: 275px;
-    overflow-y: auto;
+    /* overflow-y: auto; */
+    overflow:hidden;
 }
 .layer-body .carousel-inner .item>div .form-control-static{
     word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .text-blue{
     font-weight: 400;

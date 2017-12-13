@@ -269,3 +269,7 @@ function initEchartData(array,datalist){
 	});
 	return data;
 };
+//关闭内容
+$(".close").on("click",function () {
+	$(this).parents(".layer-person").hide();
+});
