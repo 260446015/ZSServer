@@ -69,7 +69,7 @@ public class GardenController extends BaseController {
 			LOGGER.error("查询园区动态失败!", e);
 			return error(e.getMessage());
 		}
-		return success(page.getContent());
+		return success(page);
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class GardenController extends BaseController {
 		if (StringUtil.isEmpty(dto.getProvince()))
 			return error(MsgConstant.ILLEGAL_PARAM);
 		Page<AITInfo> page = gardenService.findGardenPolicy(dto);
-		return success(page.getContent());
+		return success(page);
 	}
 
 	/**

@@ -4,15 +4,16 @@
 $(function(){
 	$("#gardenMap").addClass("active");
 	$("#all").addClass("active");
-	var value = GetQueryString("area");
-	if(value != null)
-		area = value;
 	showGardenindustry();
 	showGardenArea();
-	showGardenList(industryType,area,sort,sortType,pageNumber,pageSize);
+	$(".search-box").on("click",".search-item-content>a",function(){
+		$(this).addClass("active").siblings().removeClass("active");
+		showGardenList(sortType,pageNumber,pageSize);
+	});
+	showGardenList(sortType,pageNumber,pageSize);
 });
 var pageNumber = 0;
-var pageSize = 6;
+var pageSize = 10;
 var options={
 		"id":"page",//显示页码的元素
 		"data":null,//显示数据
@@ -37,11 +38,11 @@ function showGardenindustry(){//获取园区产业
 		success:function(res){
 			if(res.success){
 				var arr = res.data;
-				var html = '<a href="javascript:void(0);" class="search-item active" onclick="sendIndustry(\'全部\')">全部</a>';
+				var html = '';
 				for(var i=0;i<arr.length;i++){
-					html += '<a href="javascript:void(0);" class="search-item" onclick="sendIndustry(\''+arr[i].industryOne+'\')">'+arr[i].industryOne+'</a>';
+					html += '<a href="javascript:void(0);" class="search-item">'+arr[i].industryOne+'</a>';
 				}
-				$("#gardenIndustry").html(html);
+				$("#gardenIndustry").append(html);
 			}
 		}
 	});
@@ -53,34 +54,24 @@ function showGardenArea(){//获取园区地域分组
 		success:function(res){
 			if(res.success){
 				var arr = res.data;
-				var html = ' <a href="javascript:void(0);" class="search-item active" onclick="sendArea(\'全部\')">全部</a>';
+				var html = '';
 				for(var i=0;i<arr.length;i++){
-					html += '<a href="javascript:void(0);" class="search-item" onclick="sendArea(\''+arr[i]+'\')">'+arr[i]+'</a>';
+					html += '<a href="javascript:void(0);" class="search-item">'+arr[i]+'</a>';
 				}
-				$("#gardenArea").html(html);
+				$("#gardenArea").append(html);
 			}
 		}
 	});
 }
-function sendIndustry(data){
-	industryType = data;
-	showGardenList(industryType,area,sort,sortType);
-}
-function sendArea(data){
-	area = data;
-	showGardenList(industryType,area,sort,sortType);
-}
-function sendSort(data){
-	sort = data;
-	showGardenList(industryType,area,sort,sortType);
-}
-
-var industryType = '全部';
-var area = '全部';
-var sort = '园区占地';
 var sortType = 'desc';
-function showGardenList(a,b,c,d,e,f){
-	var req = {"pageNumber":e,"pageSize":f,msg:[a,b,c,d]};
+function showGardenList(d,e,f){
+	var msg = new Array();
+	var arr = $(".search-box").find(".active");
+	arr.each(function(){
+		msg.push($(this).html());
+	});
+	msg.push(d);
+	var req = {"pageNumber":e,"pageSize":f,"msg":msg};
 	$.ajax({
 		type:'post',
 		url:'/apis/area/findGardensList.json',
@@ -89,27 +80,35 @@ function showGardenList(a,b,c,d,e,f){
 		success:function(res){
 			if(res.success){
 				var arr = res.data.content;
-				console.log(res.data);
+				console.log(arr);
 				var html = "";
-				for (var i = 0; i < arr.length; i++) {
-					var gid = arr[i].id;
-					html += '<div class="col-md-12 border-bottom">' +
-							'<div class="layout-box">' +
-								'<div class="left-img">' +
-									'<img src="'+arr[i].gardenPicture+'" width="160" /></div>' +
-							'<div class="right-list">' +
-								'<a class="scatter-blocks no-border" href="/apis/area/garden/allCityParkDetails?name='+arr[i].gardenName+'">' +
-								'<span class="scatter-title">'+arr[i].gardenName+'</span>' +
-								'<span class="scatter-type ml10">'+arr[i].gardenLevel+'</span>' +
-								'<span class="pull-right">入驻企业<span class="numbers">'+arr[i].enterCount+'</span>家</span></a>' +
-							'<p class="park-address">' +
-								'<span class="glyphicon glyphicon-map-marker"></span>'+arr[i].address+'</p>' +
-							'<p class="net-address">' +
-								'<span class="glyphicon glyphicon-globe"></span>'+arr[i].gardenWebsite;
-					if(arr[i].flag)
-						html += '<a href="javascript:void(0);" class="follow pull-right" onclick="attentionGarden('+arr[i].id+',false);">取消关注</a></p></div></div></div>';
-					else
-						html += '<a href="javascript:void(0);" class="follow pull-right" onclick="attentionGarden('+arr[i].id+',true);">添加关注</a></p></div></div></div>';
+				if(arr.length != 0){
+					for (var i = 0; i < arr.length; i++) {
+						var gid = arr[i].id;
+						html += '<div class="col-md-12 border-bottom">' +
+								'<div class="layout-box">' +
+									'<div class="left-img">' +
+										'<img src="'+arr[i].gardenPicture+'" width="160" /></div>' +
+								'<div class="right-list">' +
+									'<a class="scatter-blocks no-border" href="/apis/area/garden/allCityParkDetails.html?name='+arr[i].gardenName+'">' +
+									'<span class="scatter-title">'+arr[i].gardenName+'</span>' +
+									'<span class="scatter-type ml10">'+arr[i].gardenLevel+'</span>' +
+									'<span class="pull-right">入驻企业<span class="numbers">'+arr[i].enterCount+'</span>家</span></a>' +
+								'<p class="park-address">' +
+									'<span class="glyphicon glyphicon-map-marker"></span>'+arr[i].address+'</p>' +
+								'<p class="net-address">' +
+									'<span class="glyphicon glyphicon-globe"></span>'+arr[i].gardenWebsite;
+						if(arr[i].flag)
+							html += '<a href="javascript:void(0);" class="follow pull-right" onclick="attentionGarden('+arr[i].id+',false);">取消关注</a></p></div></div></div>';
+						else
+							html += '<a href="javascript:void(0);" class="follow pull-right" onclick="attentionGarden('+arr[i].id+',true);">添加关注</a></p></div></div></div>';
+					}
+				}else{
+					new Alert({
+						flag : false,
+						text : '暂无数据',
+						timer : 2000
+					}).show();
 				}
 				$("#gardenList").html(html);
 				if(res.data.totalPages>1){
@@ -132,7 +131,7 @@ function attentionGarden(id,flag){//关注园区
 		success:function(res){
 			if(res.success){
 				if(flag)
-					new Alert({flag:false,text:'关注成功',timer:2000}).show();
+					new Alert({flag:true,text:'关注成功',timer:2000}).show();
 				else
 					new Alert({flag:false,text:'取消关注成功',timer:2000}).show();
 			}else{
@@ -140,5 +139,5 @@ function attentionGarden(id,flag){//关注园区
 			}
 		}
 	});
-	showGardenList(industryType,area,sort,sortType);
+	showGardenList(sortType,pageNumber,pageSize);
 }

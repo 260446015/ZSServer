@@ -38,6 +38,7 @@
                                 产业
                             </div>
                             <div class="search-item-content" id="gardenIndustry">
+                            	<a href="javascript:void(0);" class="search-item active">全部</a>
                             </div>
                         </div>
                         <div class="search-group">
@@ -45,6 +46,7 @@
                                 区域
                             </div>
                             <div class="search-item-content" id="gardenArea">
+                            	<a href="javascript:void(0);" class="search-item active">全部</a>
                             </div>
                         </div>
                         <div class="search-group">
@@ -52,9 +54,8 @@
                                 排序
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active" onclick="sendSort('园区占地')">按园区占地</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendSort('企业数量')">按企业数</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendSort('产值')">按产值</a>
+                                <a href="javascript:void(0);" class="search-item active">按园区占地</a>
+                                <a href="javascript:void(0);" class="search-item">按企业数</a>
                             </div>
                         </div>
                     </div>

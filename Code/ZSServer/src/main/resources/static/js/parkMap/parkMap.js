@@ -6,75 +6,71 @@ $(function(){
 		showGardenCondition("","condition");
 		showGardenIndustryCount(industryType);
 		showGardenGdpPiechart(province);
-	});
+});
 var data = [
     {name: '上海', value: 200},
     {name: '天津', value: 200},
-    {name: '太原', value: 60},
-    {name: '清远', value: 60},
-    {name: '中山', value: 50},
-    {name: '昆明', value: 60},
-    {name: '寿光', value: 60},
-    {name: '盘锦', value: 60},
-    {name: '长治', value: 60},
-    {name: '深圳', value: 60},
-    {name: '珠海', value: 60},
-    {name: '大连', value: 60},
-    {name: '临汾', value: 60},
-    {name: '吴江', value: 60},
-    {name: '石嘴山', value: 60},
-    {name: '沈阳', value: 60},
-    {name: '苏州', value: 60},
-    {name: '茂名', value: 60},
-    {name: '嘉兴', value: 60},
-    {name: '长春', value: 60},
-    {name: '胶州', value: 60},
-    {name: '银川', value: 60},
-    {name: '张家港', value: 60},
-    {name: '三门峡', value: 60},
-    {name: '西安', value: 60},
-    {name: '金坛', value: 60},
-    {name: '东营', value: 60},
-    {name: '牡丹江', value: 60},
-    {name: '遵义', value: 60},
-    {name: '绍兴', value: 60},
-    {name: '扬州', value: 60},
-    {name: '常州', value: 60},
-    {name: '潍坊', value: 60},
+    {name: '太原', value: 50},
+    {name: '清远', value: 50},
+    {name: '寿光', value: 49},
+    {name: '盘锦', value: 50},
+    {name: '长治', value: 50},
+    {name: '深圳', value: 50},
+    {name: '珠海', value: 50},
+    {name: '大连', value: 50},
+    {name: '临汾', value: 50},
+    {name: '吴江', value: 50},
+    {name: '石嘴山', value: 50},
+    {name: '沈阳', value: 50},
+    {name: '苏州', value: 50},
+    {name: '茂名', value: 50},
+    {name: '嘉兴', value: 50},
+    {name: '长春', value: 50},
+    {name: '胶州', value: 50},
+    {name: '银川', value: 50},
+    {name: '张家港', value: 50},
+    {name: '三门峡', value: 50},
+    {name: '西安', value: 50},
+    {name: '金坛', value: 50},
+    {name: '东营', value: 50},
+    {name: '牡丹江', value: 50},
+    {name: '遵义', value: 50},
+    {name: '绍兴', value: 50},
+    {name: '扬州', value: 50},
+    {name: '常州', value: 50},
+    {name: '潍坊', value: 50},
     {name: '重庆', value: 200},
     {name: '台州', value: 50},
-    {name: '渭南', value: 60},
-    {name: '马鞍山', value: 50},
-    {name: '宝鸡', value: 60},
-    {name: '焦作', value: 60},
-    {name: '句容', value: 60},
-    {name: '徐州', value: 60},
-    {name: '衡水', value: 60},
-    {name: '包头', value: 60},
-    {name: '绵阳', value: 60},
-    {name: '乌鲁木齐', value: 60},
-    {name: '兰州', value: 60},
-    {name: '沧州', value: 60},
-    {name: '临沂', value: 60},
-    {name: '宜昌', value: 60},
-    {name: '义乌', value: 60},
-    {name: '丽水', value: 60},
-    {name: '洛阳', value: 60},
-    {name: '秦皇岛', value: 60},
-    {name: '株洲', value: 60},
-    {name: '石家庄', value: 60},
-    {name: '莱芜', value: 60},
-    {name: '常德', value: 60},
-    {name: '保定', value: 60},
-    {name: '湘潭', value: 60},
-    {name: '金华', value: 60},
-    {name: '岳阳', value: 60},
-    {name: '长沙', value: 60},
-    {name: '衢州', value: 60},
-    {name: '廊坊', value: 60},
-    {name: '菏泽', value: 60},
-    {name: '合肥', value: 60},
-    {name: '武汉', value: 60},
+    {name: '渭南', value: 50},
+    {name: '焦作', value: 50},
+    {name: '句容', value: 50},
+    {name: '徐州', value: 50},
+    {name: '衡水', value: 50},
+    {name: '包头', value: 50},
+    {name: '绵阳', value: 50},
+    {name: '乌鲁木齐', value: 50},
+    {name: '兰州', value: 50},
+    {name: '沧州', value: 50},
+    {name: '临沂', value: 50},
+    {name: '宜昌', value: 50},
+    {name: '义乌', value: 50},
+    {name: '丽水', value: 50},
+    {name: '洛阳', value: 50},
+    {name: '秦皇岛', value: 50},
+    {name: '株洲', value: 50},
+    {name: '石家庄', value: 50},
+    {name: '莱芜', value: 50},
+    {name: '常德', value: 50},
+    {name: '保定', value: 50},
+    {name: '湘潭', value: 50},
+    {name: '金华', value: 50},
+    {name: '岳阳', value: 50},
+    {name: '长沙', value: 50},
+    {name: '衢州', value: 50},
+    {name: '廊坊', value: 50},
+    {name: '菏泽', value: 50},
+    {name: '合肥', value: 50},
+    {name: '武汉', value: 50},
     {name: '北京', value: 200}
 ];
 
@@ -113,11 +109,9 @@ var geoCoordMap = {
     '常州':[119.95,31.79],
     '潍坊':[119.1,36.62],
     '重庆':[106.54,29.59],
-    '台州':[121.420757,28.656386],
     '渭南':[109.5,34.52],
     '马鞍山':[118.48,31.56],
     '宝鸡':[107.15,34.38],
-    '焦作':[113.21,35.24],
     '句容':[119.16,31.95],
     '北京':[116.46,39.92],
     '徐州':[117.2,34.26],
@@ -239,6 +233,7 @@ parkMap.setOption(chinaOption);
 
 var area = "北京";
 var year = 2015;
+var flag = false;
 parkMap.on("click",function (e) {
     if(e.componentType=="series"){
     	area = e.data.name;
@@ -254,8 +249,14 @@ parkMap.on("click",function (e) {
     	$("#myModalLabel").html(area);
     	showGardenPolicy(area);
     	showGardenList(area);
-        $("#myModal").modal("show");
+    	if(flag)
+    		$("#myModal").modal("show");
+    	else
+    		new Alert({flag:false,text:'暂无数据',timer:2000}).show();
     }
+    $("#morePolicy").on('click',function(){
+		$(this).attr('href','/apis/area/garden/findMorePolicy.html?area='+area);
+	});
 });
 
 var barOption = {
@@ -312,7 +313,7 @@ var barOption = {
            ],
     series : [
         {
-            name:'直接访问',
+            name:'园区数量',
             type:'bar',
             barWidth: '20%',
             data:[10, 52, 200, 334, 390, 330, 220]
@@ -528,7 +529,7 @@ function showGardenCondition(area,target){
 		success:function(res){
 			if(res.success){
 				var html = "";
-				var arr = res.data;
+				var arr = res.data.content;
 				for(var i=0;i<arr.length;i++){
 					html += '<div class="col-md-12 border-bottom">' +
 								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
@@ -554,7 +555,8 @@ function showGardenPolicy(area){
 		success:function(res){
 			if(res.success){
 				var html = '';
-				var arr = res.data;
+				console.log(res.data);
+				var arr = res.data.content;
 				for(var i=0;i<arr.length;i++){
 					html += '<div class="col-md-12 border-bottom">' +
 								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
@@ -576,12 +578,18 @@ function showGardenList(area){
 		url:'/apis/area/findGardensList.json',
 		data:JSON.stringify(req),
 		contentType:'application/json',
+		async:false,
 		success:function(res){
 			if(res.success){
 				var arr = res.data.content;
+				if(arr.length == 0){
+					flag = false;
+				}else{
+					flag = true;
+				}
 				var html = "";
 				for (var i = 0; i < arr.length; i++) {
-					html += '<li><a href="/apis/area/garden/allCityParkDetails?name='+arr[i].gardenName+'" class="circle-img-box">' +
+					html += '<li><a href="/apis/area/garden/allCityParkDetails.html?name='+arr[i].gardenName+'" class="circle-img-box">' +
 									'<img src="'+arr[i].gardenPicture+'" alt="" /><p class="park-name">'+arr[i].gardenName+'</p>'+
 							'</a></li>';
 				}
@@ -710,7 +718,7 @@ function showGardenGdpPiechart(province){//获取某个省份哪种产业最多�
 	});
 }
 function showFindMore(area){
-	$("#findMore").attr("href","/apis/area/garden/allCityPark?area="+area);
+	$("#findMore").attr("href","/apis/area/garden/allCityPark.html?area="+area);
 }
 
 

@@ -38,84 +38,83 @@
                             <tr>
                                 <td>
                                     <span class="lyt-lt">法人信息</span>
-                                    <span class="lyt-rt" id="legalPerson">雷军</span>
+                                    <span class="lyt-rt" id="legalPerson"></span>
                                 </td>
                                 <td>
                                     <span class="lyt-lt">注册资本</span>
-                                    <span class="lyt-rt" id="regCapital">209，09万</span>
+                                    <span class="lyt-rt" id="regCapital"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span class="lyt-lt">注册时间</span>
-                                    <span class="lyt-rt" id="estiblishTime">2010-09-09</span>
+                                    <span class="lyt-rt" id="estiblishTime"></span>
                                 </td>
                                 <td>
                                     <span class="lyt-lt">企业状态</span>
-                                    <span class="lyt-rt" id="regStatus">开业</span>
+                                    <span class="lyt-rt" id="regStatus"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span class="lyt-lt">工商注册号</span>
-                                    <span class="lyt-rt" id="regNumber">120210310231023123</span>
+                                    <span class="lyt-rt" id="regNumber"></span>
                                 </td>
                                 <td>
                                     <span class="lyt-lt">行业</span>
-                                    <span class="lyt-rt" id="industry">科技推广，硬件服务</span>
+                                    <span class="lyt-rt" id="industry"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span class="lyt-lt">组织机构代码</span>
-                                    <span class="lyt-rt" id="orgNumber">29122319231293712392</span>
+                                    <span class="lyt-rt" id="orgNumber"></span>
                                 </td>
                                 <td>
                                     <span class="lyt-lt">营业期限</span>
-                                    <span class="lyt-rt" id="toTime">2036-09-09</span>
+                                    <span class="lyt-rt" id="toTime"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span class="lyt-lt">统一信用代码</span>
-                                    <span class="lyt-rt" id="creditCode">29122319231293712392</span>
+                                    <span class="lyt-rt" id="creditCode"></span>
                                 </td>
                                 <td>
                                     <span class="lyt-lt">核准日期</span>
-                                    <span class="lyt-rt" id="approvedTime">2036-09-09</span>
+                                    <span class="lyt-rt" id="approvedTime"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span class="lyt-lt">企业类型</span>
-                                    <span class="lyt-rt" id="companyOrgType">有限责任公司（自然人投资或控股）</span>
+                                    <span class="lyt-rt" id="companyOrgType"></span>
                                 </td>
                                 <td>
                                     <span class="lyt-lt">英文名称</span>
-                                    <span class="lyt-rt" id="">XiaoMi Inc.</span>
+                                    <span class="lyt-rt" id=""></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span class="lyt-lt">纳税人识别号</span>
-                                    <span class="lyt-rt" id="">19208041024120923</span>
+                                    <span class="lyt-rt" id=""></span>
                                 </td>
                                 <td>
                                     <span class="lyt-lt">登记机关</span>
-                                    <span class="lyt-rt" id="regInstitute">海淀分局</span>
+                                    <span class="lyt-rt" id="regInstitute"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <span class="lyt-lt">注册地址</span>
-                                    <span class="lyt-rt" id="regLocation">北京市海淀区清河中街68号华润五彩城购物中心二期13层</span>
+                                    <span class="lyt-rt" id="regLocation"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <span class="lyt-lt">经营范围</span>
-                                    <span class="lyt-rt" id="businessScope">计算机软、硬件的设计、技术开发、销售（不含专营、专控、专卖商品及限制项目）；数据库及计算机网络服务；国内商业、物资供销业（不含专营、
-专控、专卖商品）；第二类增值电信业务中的信息服务业务（不含固定网电话信息服务和互联网信息服务，并按许可证B2-20090028号文办）</span>
+                                    <span class="lyt-rt" id="businessScope"></span>
                                 </td>
                             </tr>
                         </tbody>
