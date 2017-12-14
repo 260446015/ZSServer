@@ -178,7 +178,7 @@ function showList(arr){
 	$.each(arr,function(index,item){
 		array.push(
 		'<div class="col-md-6"><a class="scatter-blocks" href="/summit/getEssayDetails.json?essayId='+item.id+'">'
-        +'<span class="scatter-type">'+item.industryLabel+'</span><span class="scatter-title">'+
+        +'<span class="scatter-type">【'+item.industryLabel+'】</span><span class="scatter-title">'+
         item.title+'</span></a></div>');
 	});
 	var inner = array.join('');
@@ -243,7 +243,7 @@ function ShowArticleList(arr){
 		array.push(
 				'<div class="col-md-12 border-bottom">'+
                 '<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+item.id+'" >'+
-                '<span class="scatter-type">'+item.industryLabel+'</span><span class="scatter-title">'+
+                '<span class="scatter-type">【'+item.industryLabel+'】</span><span class="scatter-title">'+
                 item.title+'</span></a><p class="scatter-content">'+item.content+'</p>'
                 +'<p class="scatter-lib"><span>发布时间:'+item.publishTime+'</span></p></div>'
 		);

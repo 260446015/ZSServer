@@ -47,53 +47,7 @@
                     <div class="charts" id="charts"></div>
                 </div>
             </div>
-            <div class="layer-person">
-                <h3 class="layer-person-title text-center" id="cname">深圳市腾讯计算机系统有限公司
-                	 <button type="button" class="close">×</button>
-                </h3>
-                <div class="layer-body small-line-height">
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-md-4 text-right control-label">法人代表</label>
-                            <div class="col-md-7">
-                                <p class="form-control-static" id="boss1">马化腾</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 text-right control-label">状态</label>
-                            <div class="col-md-7">
-                                <p class="form-control-static" id="state1">存续</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 text-right control-label">注册时间</label>
-                            <div class="col-md-7">
-                                <p class="form-control-static" id="time1">1998-11-11</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 text-right control-label">行业</label>
-                            <div class="col-md-7">
-                                <p class="form-control-static" id="ind1">软件和信息技术服务业</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 text-right control-label">注册资本</label>
-                            <div class="col-md-7">
-                                <p class="form-control-static" id="money1">6,500.0000万元人民币</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 text-right control-label">注册地址</label>
-                            <div class="col-md-7">
-                                <p class="form-control-static" id="address1">深圳市南山区高新区高新南 一路飞亚达大厦5-10楼</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layer-footer text-center" id="text-content">
-                    <a href="javascript:void(0);" class="like">查看更多</a>
-                </div>
+            <div class="layer-person" id="horizontal-info">
             </div>
             <div class="modal fade in customed-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -131,21 +85,11 @@
                                         <a href="javascript:void(0);" onclick="searchTab(2,'全部')" class="search-item active">全部</a>
                                         <a href="javascript:void(0);" onclick="searchTab(2,'北京')" class="search-item">北京</a>
                                         <a href="javascript:void(0);" onclick="searchTab(2,'上海')" class="search-item">上海</a>
-                                        <a href="javascript:void(0);" onclick="searchTab(2,'广州')" class="search-item">广州</a>
-                                        <a href="javascript:void(0);" onclick="searchTab(2,'天津')" class="search-item">天津</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(2,'广东')" class="search-item">广东</a>
+                                        <a href="javascript:void(0);" onclick="searchTab(2,'山东')" class="search-item">山东</a>
                                     </div>
                                 </div>
-                                <!--	<div class="search-group">
-                                    	<div class="search-item-title">
-                                      	  产业规模
-                                   	 </div>
-                                    <div class="search-item-content">
-                                         <a href="javascript:void(0);" class="search-item active">1-15人</a>
-                                         <a href="javascript:void(0);" class="search-item">51-100人</a>
-                                         <a href="javascript:void(0);" class="search-item">101-200人</a>
-                                         <a href="javascript:void(0);" class="search-item">200人以上</a>
-                                     </div>
-                                 </div>-->
+                               
                                 <div class="search-group">
                                     <div class="search-item-title">
                                         成立时间
