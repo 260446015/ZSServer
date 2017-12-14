@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -50,7 +51,7 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 
 	@Override
 	public GardenUser attentionGarden(Long gardenId, Long userId, boolean flag) {
-		GardenUser gardenUser = gardenUserRepository.findByUserIdAndGardenIdAndDr(userId, gardenId, 0);
+		GardenUser gardenUser = gardenUserRepository.findByUserIdAndGardenId(userId, gardenId);
 		try {
 			if (flag) {
 
@@ -111,8 +112,7 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 				}
 			} else {
 				if (gardenUser != null) {
-					gardenUser.setDr(1);
-					gardenUserRepository.save(gardenUser);
+					gardenUserRepository.delete(gardenUser);
 				}
 			}
 		} catch (Exception e) {
@@ -130,16 +130,11 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 		String sort = msg[2];
 		String direct = msg[3];
 		Sort sortType = null;
-		if (sort.equals("园区占地")) {
+		if (sort.equals("按园区占地")) {
 			if (direct.equalsIgnoreCase("desc"))
 				sortType = new Sort(Direction.DESC, "gardenSquare");
 			else
 				sortType = new Sort(Direction.ASC, "gardenSquare");
-		} else {
-			if (direct.equalsIgnoreCase("desc"))
-				sortType = new Sort(Direction.DESC, "gdp");
-			else
-				sortType = new Sort(Direction.ASC, "gdp");
 		}
 		PageRequest pageRequest = new PageRequest(pageNum, pageSize, sortType);
 		if (msg[0].equals("不限") || msg[0].equals("全部")) {
@@ -152,6 +147,7 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 
 		try {
 			page = gardenUserRepository.findByProvinceLikeAndIndustryTypeLike(msg[1], msg[0], pageRequest);
+			List<GardenUser> list = new ArrayList<>();
 			page.getContent().forEach(GardenUser -> {
 				String picture = GardenUser.getGardenPicture();
 				String description = GardenUser.getDescription();
@@ -165,7 +161,16 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 				if (address == null || StringUtil.isEmpty(address) || address.equals("NULL")) {
 					GardenUser.setAddress("暂无");
 				}
+				int count = companyRepository.findCountByPark(GardenUser.getGardenName());
+				GardenUser.setEnterCount(count);
+				list.add(GardenUser);
 			});
+			if(sort.equals("按企业数")){
+				list.sort((a,b) -> {
+					return b.getEnterCount() - a.getEnterCount();
+				});
+				page = new PageImpl<>(list, pageRequest, page.getTotalElements());
+			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			return null;

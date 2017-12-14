@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,15 +57,15 @@ public class IndustryMapController extends BaseController{
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="/map",method=RequestMethod.GET)
-	public String getIndustryMap(Map<String,Object> map){
+	@RequestMapping(value="/{page}",method=RequestMethod.GET)
+	public String getIndustryMap(Map<String,Object> map,@PathVariable String page){
 		JSONObject obj = new JSONObject();
 		obj.put("dimension", "高峰论坛");
 		obj.put("industryLabel", "人工智能");
 		List<SummitInfo> list = service.findIndustrySummitList(obj);
 		LOGGER.info("获取峰会数据成功");
 		map.put("summit", list);
-		return "/industry/industryMap";
+		return "/industry/"+page;
 	}
 	
 	

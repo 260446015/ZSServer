@@ -36,35 +36,30 @@
                 <a href="javascript:void(0);" class="follow follow-black" id="attation" onclick="attation(this);">添加关注</a>
                 <div class="panel panel-primary panel-opacity">
                     <div class="panel-heading">
-                        <h3 class="panel-title text-center" id="gardenName">中关村软件园</h3>
+                        <h3 class="panel-title text-center" id="gardenName"></h3>
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div class="form-group">
                                 <label class="col-md-4 control-label">地址：</label>
                                 <div class="col-md-8">
-                                    <p class="form-control-static" id="gardenAddress">北京市海淀区西二旗</p>
+                                    <p class="form-control-static" id="gardenAddress"></p>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">成立时间：</label>
-                                <div class="col-md-8">
-                                    <p class="form-control-static" id="registTime">2009年</p></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">产业：</label>
                                 <div class="col-md-8">
-                                    <p class="form-control-static" id="gardenIndustry">人工智能、大数据、互联网</p></div>
+                                    <p class="form-control-static" id="gardenIndustry"></p></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">占地面积：</label>
                                 <div class="col-md-8">
-                                    <p class="form-control-static" id="gardenSquare">159公顷</p></div>
+                                    <p class="form-control-static" id="gardenSquare"></p></div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label">项目地址：</label>
+                                <label class="col-md-4 control-label">园区级别：</label>
                                 <div class="col-md-8">
-                                    <p class="form-control-static" id="ddd">海淀区东北旺西路8号中关村软件园1号楼 （信息中心）C座运</p></div>
+                                    <p class="form-control-static" id="gardenLevel"></p></div>
                             </div>
                         </div>
                     </div>
@@ -72,68 +67,14 @@
             </div>
             <div class="container">
                 <div class="model-box">
-                    <div class="search-box">
-                        <div class="search-group">
-                            <div class="search-item-title">
-                                产业
-                            </div>
-                            <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active" onclick="sendIndustry('全部');">全部</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('节能环保和新能源产业');">节能环保和新能源产业</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('生物产业');">生物产业</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('高端装备制造产业');">高端装备制造产业</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('新材料产业');">新材料产业</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('数字创意产业');">数字创意产业</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('新兴信息产业');">新兴信息产业</a>
-                            </div>
-                        </div>
-                        <div class="search-group">
-                            <div class="search-item-title">
-                                成立时间
-                            </div>
-                            <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active" onclick="sendRegister('全部');">全部</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendRegister('1');">成立1年内</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendRegister('1-5');">成立1-5年</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendRegister('5-10');">成立5-10年</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendRegister('10-15');">成立10-15年</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendRegister('more');">成立5年以上</a>
-                            </div>
-                        </div>
-                        <div class="search-group">
-                            <div class="search-item-title">
-                                注册资本
-                            </div>
-                            <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active" onclick="sendCapital('全部');">全部</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendCapital('0-100');">0-100万</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendCapital('100-200');">100-200万</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendCapital('200-500');">200-500万</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendCapital('500-1000');">500-1000万</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendCapital('more');">1000万以上</a>
-                            </div>
-                        </div>
-                        <div class="search-group">
-                            <div class="search-item-title">
-                                融资阶段
-                            </div>
-                            <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active" onclick="sendInvest('全部');">全部</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('天使轮');">天使轮</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('A轮');">A轮</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('B轮');">B轮</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('C轮');">C轮</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('D轮');">D轮</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('新三板');">新三板</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('创业板');">创业板</a>
-                            </div>
-                        </div>
-                    </div>
                     <div class="model-body border-box">
                         <div class="row" id="companyList">
                             
                         </div>
                     </div>
+                    <div class="page-box clearfix">
+        				<ul class="page pull-right" id="page"></ul>
+            		</div>
                 </div>
             </div>
         </div>
@@ -145,7 +86,7 @@
 <!-- js 共用部分 start -->
 <#include  "/common/script.ftl"/>
 <!-- js 共用部分 end -->
-<script type="text/javascript" src = 'http://webapi.amap.com/maps?v=1.4.0&key=8a3cd2d06a064e33adbf0d7a71c3246f'></script>
+<script type="text/javascript" src = 'http://webapi.amap.com/maps?v=1.4.0&key=8a3cd2d06a064e33adbf0d7a71c3246f&plugin=AMap.Geocoder'></script>
 <script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
 <script src="/js/allCityPark/allCityParkDetails.js"></script>
 </body>

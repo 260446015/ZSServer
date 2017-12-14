@@ -48,7 +48,9 @@
                 </div>
             </div>
             <div class="layer-person">
-                <h3 class="layer-person-title text-center" id="cname">深圳市腾讯计算机系统有限公司</h3>
+                <h3 class="layer-person-title text-center" id="cname">深圳市腾讯计算机系统有限公司
+                	 <button type="button" class="close">×</button>
+                </h3>
                 <div class="layer-body small-line-height">
                     <div class="form-horizontal">
                         <div class="form-group">

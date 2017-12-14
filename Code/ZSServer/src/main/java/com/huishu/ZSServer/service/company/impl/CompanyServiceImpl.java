@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.huishu.ZSServer.common.util.DateUtils;
@@ -92,12 +93,21 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 						return obj.getRegisterDate().compareTo(stime) >= 0
 								&& obj.getRegisterDate().compareTo(etime) < 0;
 					}).filter(obj -> {
-						return Double.parseDouble(obj.getRegisterCapital().substring(0, obj.getRegisterCapital().indexOf("万"))) - sregist >= 0
-								&& Double.parseDouble(obj.getRegisterCapital().substring(0, obj.getRegisterCapital().indexOf("万"))) - eregist < 0;
-					}).skip(pageNum * pageSize).limit(pageSize)
-					.sorted((a, b) -> b.getRegisterCapital().compareTo(a.getRegisterCapital()))
+						return Double.parseDouble(
+								obj.getRegisterCapital().substring(0, obj.getRegisterCapital().indexOf("万")))
+								- sregist >= 0
+								&& Double.parseDouble(
+										obj.getRegisterCapital().substring(0, obj.getRegisterCapital().indexOf("万")))
+										- eregist < 0;
+					})
+					.skip(pageNum * pageSize).limit(pageSize)
+					.sorted((a, b) -> new Double(Double
+							.parseDouble(b.getRegisterCapital().substring(0, b.getRegisterCapital().indexOf("万"))))
+									.compareTo(new Double(Double.parseDouble(
+											a.getRegisterCapital().substring(0, a.getRegisterCapital().indexOf("万"))))))
 					.collect(Collectors.toList());
-			page = new PageImpl<>(list2);
+			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
+			page = new PageImpl<>(list2, pageRequest, findAll.size());
 		} catch (Exception e) {
 			LOGGER.error("查询企业列表失败", e.getMessage());
 		}
@@ -115,26 +125,25 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 
 	@Override
 	public boolean attationCompany(Long companyId, boolean flag, Long userId) {
-		CompanyAttation ca = companyAttaRepository.findByCompanyIdAndUserId(companyId,userId);
-		try{
-			if(flag){
-				if(ca == null){
+		CompanyAttation ca = companyAttaRepository.findByCompanyIdAndUserId(companyId, userId);
+		try {
+			if (flag) {
+				if (ca == null) {
 					ca = new CompanyAttation();
 					ca.setCompanyId(companyId);
 					ca.setUserId(userId);
 					companyAttaRepository.save(ca);
 				}
-			}else{
-				if(ca == null){
+			} else {
+				if (ca == null) {
 					return true;
-				}else
+				} else
 					companyAttaRepository.delete(ca);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			return false;
 		}
 		return true;
 	}
-
 
 }

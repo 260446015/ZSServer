@@ -167,19 +167,29 @@ $(function () {
     	        	success:function(res){
     	        		if(res.data==null){
     	        			new Alert({flag:false,text:res.message,timer:2000}).show();
+    	        		}else{
+    	        		  $('#layer-person-info').html(
+    	        				  '<h3 class="layer-person-title text-center">'
+    	        				  +res.data.name+'<button type="button" class="close">×</button></h3>'
+    	        				  +'<div class="layer-body small-line-height"><div class="form-horizontal">'
+    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">法人代表</label>'
+    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.boss+'</p></div></div>'
+    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">状态</label>'
+    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.state+'</p></div></div>'
+    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册时间</label>'
+    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.time+'</p></div></div>'
+    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">行业</label>'
+    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.industry+'</p></div></div>'
+    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册资本</label>'
+    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
+    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
+    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
+    	        				  +'</div></div>' +'<div class="layer-footer text-center" >'
+    	        				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
+    	        		  );
+    	        			
     	        		}
-    	        		var a = res.data;
-    	        		console.log(res.data);
-    	        		$('#name').html(a.name);
-    	        		$('#address').html(a.address);
-    	        		$('#time').html(a.time);
-    	        		$('#boss').html(a.boss);
-    	        		$('#ind').html(a.industry);
-    	        		$('#money').html(a.money);
-    	        		$('#state').html(a.state);
-    	        		$('.like').remove();
-    	        		$('#footer-content').append('<a href="/apis/company/baseInfo.html?companyName='+a.name+'" class="like">查看更多</a>');
-    	        	}
+    	        		}
     	    	});
     	        $(".layer-person").css({
     	            display: "block",
@@ -193,6 +203,7 @@ $(function () {
     });
    
 });
+
 function initDataList(option,arr){
 	
 	for(var i = 0;i<option.series.length;i++){
@@ -209,3 +220,7 @@ function initDataList(option,arr){
 	
 	return option;
 };
+//关闭内容
+$(".layer-person").on("click",".text-center .close",function () {
+	$(this).parents("#layer-person-info").hide();
+});

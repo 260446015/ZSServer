@@ -38,6 +38,7 @@
                                 产业
                             </div>
                             <div class="search-item-content" id="gardenIndustry">
+                            	<a href="javascript:void(0);" class="search-item active">全部</a>
                             </div>
                         </div>
                         <div class="search-group">
@@ -45,6 +46,7 @@
                                 区域
                             </div>
                             <div class="search-item-content" id="gardenArea">
+                            	<a href="javascript:void(0);" class="search-item active">全部</a>
                             </div>
                         </div>
                         <div class="search-group">
@@ -54,7 +56,6 @@
                             <div class="search-item-content">
                                 <a href="javascript:void(0);" class="search-item active">按园区占地</a>
                                 <a href="javascript:void(0);" class="search-item">按企业数</a>
-                                <a href="javascript:void(0);" class="search-item">按产值</a>
                             </div>
                         </div>
                     </div>
@@ -90,12 +91,6 @@
                                 <div class="small-charts" id="charts1"></div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <span>主导产业年产值</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="gdp">53亿</span>
-                                    </div>
-                                    <div class="col-md-6">
                                         <span>企业</span>
                                     </div>
                                     <div class="col-md-6">
@@ -114,12 +109,6 @@
                                 <div class="small-charts" id="charts2"></div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <span>主导产业年产值</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="gdp">53亿</span>
-                                    </div>
-                                    <div class="col-md-6">
                                         <span>企业</span>
                                     </div>
                                     <div class="col-md-6">
@@ -137,12 +126,6 @@
                                 <p class="charts-title">中关村软件园</p>
                                 <div class="small-charts" id="charts3"></div>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <span>主导产业年产值</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="gdp">53亿</span>
-                                    </div>
                                     <div class="col-md-6">
                                         <span>企业</span>
                                     </div>

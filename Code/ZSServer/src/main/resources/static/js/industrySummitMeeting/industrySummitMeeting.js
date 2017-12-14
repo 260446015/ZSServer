@@ -28,6 +28,14 @@ function Click(a,b){
 	var param={industry:industry,area:area,sort:sort,pageSize:pageSize,pageNumber:pageNumber}
 	SummitInfo(param);
 };
+$(".search-box").on("click",".search-item-content>a",function(){
+	$(this).addClass("active").siblings().removeClass("active");
+	var _id = $(this).attr("id");
+	var array = _id.split('-');
+	var a = array[0];
+	var b = array[1];
+	Click(a,b);
+});
 function SummitInfo(param){
 	$.ajax({
 		type:'POST',
@@ -62,12 +70,12 @@ function show(b){
 			imgsrc=item.logo;
 		}
 		arr.push('<div class="col-md-3"><div class="img-list">'
-		+'<a href="/summit/getEssayDetails.json?essayId='+item.id+'&isFollow=can")>'		
+		+'<a href="'+item.articleLink+'"; target="_blank")>'		
 		+'<img src="'+imgsrc+'"/>'
-		+'<p class="title">'+item.title+'</p></a>'
+		+'<p class="title" title="'+item.title+'">'+item.title+'</p></a>'
 		+'<div class="details">'
 		+'<p class="address">'+item.address+'</p>'
-		+'<p class="date-time">'+item.exhibitiontime+'</p>'
+		+'<p class="date-time" title="'+item.exhibitiontime+'">'+item.exhibitiontime+'</p>'
 		+'<a href="javascript:void(0);" id="'+item.id+'" class="follow">添加关注</a>'
 		+'</div></div></div>'
 		);

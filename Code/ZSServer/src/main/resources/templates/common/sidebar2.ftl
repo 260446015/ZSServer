@@ -1,7 +1,7 @@
  <div class="left-nav">
             <ul>
                 <li>
-                    <a href="/indusMap/map">
+                    <a href="/indusMap/industryMap.html">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">
 
@@ -11,10 +11,10 @@
                     </a>
                     <ul class="left-nav-menu">
                         <li>
-                            <a href="/indus/get">产业动态</a>
+                            <a href="/indus/industryDynamics.html">产业动态</a>
                         </li>
                         <li>
-                            <a href="/summit/getInfo">产业峰会</a>
+                            <a href="/summit/industrySummitMeeting.html">产业峰会</a>
                         </li>
                     </ul>
                 </li>

@@ -1,6 +1,7 @@
 package com.huishu.ZSServer.entity.garden;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.util.StringUtil;
+import com.huishu.ZSServer.entity.Company;
 
 /**
  * 
@@ -59,7 +61,21 @@ public class GardenData implements Serializable {
 	/** 是否被关注标识 */
 	@Transient
 	private Boolean flag;
-	
+	/** 园区企业数量 */
+	@Transient
+	private List<Company> cList;
+
+	@Transient
+	private int enterCount;
+
+	public int getEnterCount() {
+		return enterCount;
+	}
+
+	public void setEnterCount(int enterCount) {
+		this.enterCount = enterCount;
+	}
+
 	public Boolean getFlag() {
 		return flag;
 	}
@@ -179,15 +195,22 @@ public class GardenData implements Serializable {
 	public void setIndustryType(String industryType) {
 		this.industryType = industryType;
 	}
-	@Transient
-	private Integer enterCount;
-	
-	public Integer getEnterCount() {
-		String[] str = (StringUtil.isEmpty(this.getEnterCompany()) ? "" : this.getEnterCompany()).split("、");
-		if (str[0].equals("")) {
-			return 0;
-		}
-		return str.length;
+
+	/*
+	 * @Transient private Integer enterCount;
+	 * 
+	 * public Integer getEnterCount() { String[] str =
+	 * (StringUtil.isEmpty(this.getEnterCompany()) ? "" :
+	 * this.getEnterCompany()).split("、"); if (str[0].equals("")) { return 0; }
+	 * return str.length; }
+	 */
+
+	public List<Company> getcList() {
+		return cList;
+	}
+
+	public void setcList(List<Company> cList) {
+		this.cList = cList;
 	}
 
 	@Override

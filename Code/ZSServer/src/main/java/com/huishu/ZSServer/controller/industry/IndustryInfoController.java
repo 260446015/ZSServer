@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,28 +44,15 @@ public class IndustryInfoController extends BaseController{
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="/get",method=RequestMethod.GET)
-	public String getIndustryInfo(Map<String,Object> map){
+	@RequestMapping(value="/{page}",method=RequestMethod.GET)
+	public String getIndustryInfo(Map<String,Object> map,@PathVariable String page){
 		JSONObject json = new JSONObject();
 		json.put("dimension", "科学研究");
-		JSONArray arr = new JSONArray();
-		JSONObject obj = new JSONObject();
-		obj.put("industryLabel", "人工智能");
-		arr.add(obj);
-		obj = new JSONObject();
-		obj.put("industryLabel", "大数据");
-		arr.add(obj);
-		obj = new JSONObject();
-		obj.put("industryLabel", "物联网");
-		arr.add(obj);
-		obj = new JSONObject();
-		obj.put("industryLabel", "生物医药");
-		arr.add(obj);
-		json.put("industryLabel", arr);
-		Page<AITInfo> page = service.findResearchResultList(json);
+		addData(json);
+		Page<AITInfo> page1 = service.findResearchResultList(json);
 		
-		map.put("content", page.getContent());
-		return "/industry/industryDynamics";
+		map.put("content", page1.getContent());
+		return "/industry/"+page;
 	}
 	
 	
@@ -82,6 +70,13 @@ public class IndustryInfoController extends BaseController{
 		}
 		JSONObject obj1 = new JSONObject();
 		initTime(obj1, time);
+		addData(obj1);
+		JSONArray jsonArray = service.getKeyWordList(obj1);
+		return success(jsonArray);
+	}
+
+
+	private void addData(JSONObject obj1) {
 		obj1.put("dimension","产业头条");
 		JSONArray arr = new JSONArray();
 		JSONObject obj = new JSONObject();
@@ -97,8 +92,6 @@ public class IndustryInfoController extends BaseController{
 		obj.put("value", "生物医药");
 		arr.add(obj);
 		obj1.put("industryLabel", arr);
-		JSONArray jsonArray = service.getKeyWordList(obj1);
-		return success(jsonArray);
 	}
 	
 	/**
@@ -114,11 +107,11 @@ public class IndustryInfoController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		
-		JSONObject obj = new JSONObject();
-		initTime(obj, time);
-		obj.put("keyWord", keyWord);
-		obj.put("dimension","产业头条");	
-		JSONArray json = service.getArticleListByKeyWord(obj);
+		JSONObject obj1 = new JSONObject();
+		initTime(obj1, time);
+		obj1.put("keyWord", keyWord);
+		addData(obj1);
+		JSONArray json = service.getArticleListByKeyWord(obj1);
 		return success(json);
 	}
 	

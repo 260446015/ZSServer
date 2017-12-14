@@ -1,6 +1,7 @@
 package com.huishu.ZSServer.entity.garden;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.util.StringUtil;
+import com.huishu.ZSServer.entity.Company;
 
 /**
  * 
@@ -43,15 +45,26 @@ public class GardenUser implements Serializable {
 	private String gardenWebsite;
 	/** 园区等级 */
 	private String gardenLevel;
-	/** 是否被删除 */
-	private int dr;
+	/** 园区数量 */
+	@Transient
+	private List<Company> cList;
 
-	public int getDr() {
-		return dr;
+	private int enterCount;
+
+	public int getEnterCount() {
+		return enterCount;
 	}
 
-	public void setDr(int dr) {
-		this.dr = dr;
+	public void setEnterCount(int enterCount) {
+		this.enterCount = enterCount;
+	}
+
+	public List<Company> getcList() {
+		return cList;
+	}
+
+	public void setcList(List<Company> cList) {
+		this.cList = cList;
 	}
 
 	public String getGardenLevel() {
@@ -178,16 +191,14 @@ public class GardenUser implements Serializable {
 		this.gardenWebsite = gardenWebsite;
 	}
 
-	@Transient
-	private Integer enterCount;
-
-	public Integer getEnterCount() {
-		String[] str = (StringUtil.isEmpty(this.getEnterCompany()) ? "" : this.getEnterCompany()).split("、");
-		if (str[0].equals("")) {
-			return 0;
-		}
-		return str.length;
-	}
+	/*
+	 * @Transient private Integer enterCount;
+	 * 
+	 * public Integer getEnterCount() { String[] str =
+	 * (StringUtil.isEmpty(this.getEnterCompany()) ? "" :
+	 * this.getEnterCompany()).split("、"); if (str[0].equals("")) { return 0; }
+	 * return str.length; }
+	 */
 
 	@Override
 	public String toString() {

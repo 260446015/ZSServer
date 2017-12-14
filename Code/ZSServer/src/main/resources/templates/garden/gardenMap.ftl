@@ -38,6 +38,9 @@
                             
                         </div>
                     </div>
+                    <div class="modal-footer text-center">
+                		<a href="/apis/area/garden/findMoreCondition.html" class="btn btn-link">查看更多</a>
+            		</div>
                 </div>
             </div>
             <h3 class="border-shadow-title">园区数量</h3>
@@ -68,9 +71,17 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
+                    <h3 class="border-shadow-title">
+                    <span class="icon-block"></span>
+                   年产值
+                </h3>
                         <div class="charts sm" id="charts_1"></div>
                     </div>
                     <div class="col-md-6">
+                    <h3 class="border-shadow-title">
+                    <span class="icon-block"></span>
+                   单位:亿
+                </h3>
                         <div class="charts sm" id="charts_2"></div>
                     </div>
                 </div>
@@ -82,6 +93,9 @@
                     <div class="row" id="condition2">
                         
                     </div>
+                    <div class="modal-footer text-center">
+                		<a href="javascript:void(0);" class="btn btn-link" id="morePolicy">查看更多</a>
+            		</div>
                 </div>
                 <ul class="img-list-box" id="gardenList">
                     

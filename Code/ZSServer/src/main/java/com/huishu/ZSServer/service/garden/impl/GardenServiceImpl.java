@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
+import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.entity.dto.IndustryCount;
@@ -25,6 +27,7 @@ import com.huishu.ZSServer.entity.garden.GardenIndustry;
 import com.huishu.ZSServer.entity.garden.GardenMap;
 import com.huishu.ZSServer.entity.garden.GardenUser;
 import com.huishu.ZSServer.es.entity.AITInfo;
+import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.garden.GardenIndustryRepository;
 import com.huishu.ZSServer.repository.garden.GardenMapRepositroy;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
@@ -44,6 +47,8 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	private GardenUserRepository gardenUserRepository;
 	@Autowired
 	private GardenIndustryRepository gardenIndustryRepository;
+	@Autowired
+	private CompanyRepository companyRepository;
 
 	@Override
 	public Page<AITInfo> getInformationPush(AreaSearchDTO dto) {
@@ -60,6 +65,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	@Override
 	public Page<AITInfo> findGardensCondition(GardenDTO dto) {
 		Page<AITInfo> aitInfos = null;
+		PageImpl<AITInfo> page = null;
 		try {
 			List<String> names = gardenUserRepository.findGardenNames(dto.getUserId());
 			if (names.size() == 0) {
@@ -73,11 +79,16 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 			if (!StringUtil.isEmpty(dto.getProvince()))
 				params.put("area", dto.getProvince());
 			aitInfos = getAitinfo(params, pageRequest);
+			
+			aitInfos.getContent().forEach(obj ->{
+				obj.setSummary(StringUtil.replaceHtml(obj.getSummary()));
+			});
+			page = new PageImpl<>(aitInfos.getContent(), pageRequest, aitInfos.getTotalElements());
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}
 		LOGGER.info("园区动态查询结果:" + aitInfos.toString());
-		return aitInfos;
+		return page;
 	}
 
 	@Override
@@ -103,16 +114,11 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		String sort = msg[2];
 		String direct = msg[3];
 		Sort sortType = null;
-		if (sort.equals("园区占地")) {
+		if (sort.equals("按园区占地")) {
 			if (direct.equalsIgnoreCase("desc"))
 				sortType = new Sort(Direction.DESC, "gardenSquare");
 			else
 				sortType = new Sort(Direction.ASC, "gardenSquare");
-		} else {
-			if (direct.equalsIgnoreCase("desc"))
-				sortType = new Sort(Direction.DESC, "gdp");
-			else
-				sortType = new Sort(Direction.ASC, "gdp");
 		}
 		PageRequest pageRequest = new PageRequest(pageNum, pageSize, sortType);
 		if (msg[0].equals("不限") || msg[0].equals("全部")) {
@@ -126,6 +132,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		}
 		try {
 			page = gardenRepository.findByProvinceLikeAndIndustryTypeLike(msg[1], msg[0], pageRequest);
+			List<GardenData> list = new ArrayList<>();
 			page.getContent().forEach(GardenData -> {
 				String gardenIntroduce = GardenData.getGardenIntroduce();
 				String gardenSuperiority = GardenData.getGardenSuperiority();
@@ -151,7 +158,16 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
 					GardenData.setGardenPicture(KeyConstan.IP_PORT + "fileserver/img/list_img.jpg");
 				}
+				int count = companyRepository.findCountByPark(GardenData.getGardenName());
+				GardenData.setEnterCount(count);
+				list.add(GardenData);
 			});
+			if(sort.equals("按企业数")){
+				list.sort((a,b) -> {
+					return b.getEnterCount() - a.getEnterCount();
+				});
+				page = new PageImpl<>(list, pageRequest, page.getTotalElements());
+			}
 
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
@@ -184,6 +200,10 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(),
 				new Sort(Direction.DESC, "publishTime"));
 		Page<AITInfo> page = getAitinfo(params, pageRequest);
+		page.getContent().forEach(obj ->{
+			obj.setSummary(StringUtil.replaceHtml(obj.getSummary()));
+		});
+		page = new PageImpl<>(page.getContent(), pageRequest, page.getTotalElements());
 		return page;
 	}
 

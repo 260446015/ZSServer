@@ -28,7 +28,7 @@
             <div class="left-nav">
                 <ul>
                     <li class="active">
-                        <a href="/indusMap/map">
+                        <a href="/indusMap/industryMap.html">
                             <div class="circle-out industryIcon">
                                 <div class="circle-in">
 
@@ -38,10 +38,10 @@
                         </a>
                         <ul class="left-nav-menu">
                             <li>
-                                <a href="/indus/get">产业动态</a>
+                                <a href="/indus/industryDynamics.html">产业动态</a>
                             </li>
                             <li>
-                                <a href="/summit/getInfo">产业峰会</a>
+                                <a href="/summit/industrySummitMeeting.html">产业峰会</a>
                             </li>
                         </ul>
                     </li>
@@ -108,7 +108,8 @@
 
                             </div>
                             <div class="layer-person">
-                             <h3 class="layer-person-title text-center">无线移动通信国家重点实验室
+                             <h3 class="layer-person-title text-center">
+                             	无线移动通信国家重点实验室
                                     <button type="button" class="close">×</button>
                                </h3>
                                 <div class="layer-body">
@@ -134,12 +135,12 @@
                         <div class="timeline-box">
                             <h3 class="timeline-title">
                                 <span class="title">产业峰会</span>
-                                <a class="more" href="/summit/getInfo">更多</a>
+                                <a class="more" href="/summit/industrySummitMeeting.html">更多</a>
                             </h3>
                             <ul class="timeline" id="timeline">
                             	<#list summit as info>
                             	<li>
-                                    <a href="/summit/getEssayDetails.json?essayId=${info.id}&isFollow=can" )>
+                                    <a href="${info.articleLink}"; target="_blank" )>
                                         <i class="timeline-circle"></i>
                                         <span class="time">${info.publishTime}</span>
                                         <span class="line-title">${info.title}</span>

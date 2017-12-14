@@ -4,32 +4,30 @@
 var industry="";
 $(function (){
 	new Loading({isfullscreen:true,text:"正在努力加载,三秒后消失"}).show();
-	 industry= $("#mark-item1").val();
-	
+	 industry= $(".mark-box").find($(".active")).find($("li>a.mark-item"))[0].id;
 	/*获取企业排行的数据*/
 	industryHotRank(industry);
 	industryMapData(industry);
 	new Loading({isfullscreen:true}).hide();
 });
 
-function getIndustry(industry){
-	console.log(industry);
-	
-	$(".mark-box").on("click","li>a.mark-item",function () {
+$(".mark-box").on("click","li>a.mark-item",function () {
         var _this = $(this);
         _this.parent().addClass("active").siblings().removeClass("active");
         $(".layer-person").hide();
+        
+         industry  = $(this).attr("id");
+        
+        /*获取企业排行的数据*/
+        industryHotRank(industry);
+        /*获取地图的数据*/
+        industryMapData(industry);
+        
+        /*获取峰会数据*/
+        industrySummitInfo(industry);
     });
-	$("#mark-item1").val(industry);
-	/*获取企业排行的数据*/
-	industryHotRank(industry);
-	/*获取地图的数据*/
-	industryMapData(industry);
 	
-	/*获取峰会数据*/
-	industrySummitInfo(industry);
-	
-};
+
 
 function industrySummitInfo(industry){
 	$.ajax({
@@ -42,7 +40,7 @@ function industrySummitInfo(industry){
 			$("#timeline li").remove();
 				var aa = res.data;
 				for(var i=0;i<aa.length;i++){
-					$("#timeline").append('<li>'+'<a href="/summit/getEssayDetails.json?essayId='+aa[i].id+'"; target="_blank")><i class="timeline-circle"></i><span class="time">'+aa[i].publishTime+'</span><span class="line-title">'+aa[i].title+'</span></a></li>');
+					$("#timeline").append('<li>'+'<a href="'+aa[i].articleLink+'"; target="_blank")><i class="timeline-circle"></i><span class="time">'+aa[i].publishTime+'</span><span class="line-title">'+aa[i].title+'</span></a></li>');
 				}
 				
 			}
@@ -51,97 +49,101 @@ function industrySummitInfo(industry){
 	});
 };
 
+var industryHotCity = {
+	    title: {
+	        text: '产业热度城市排行',
+	        textStyle:{
+	            fontWeight: 400,
+	            fontSize: 26
+	        }
+	    },
+	    tooltip: {
+	        trigger: 'axis',
+	        axisPointer: {
+	            type: 'shadow'
+	        }
+	    },
+	    grid: {
+	        show:false,
+	        left: '3%',
+	        right: '4%',
+	        bottom: '3%',
+	        containLabel:true,
+	    },
+	    xAxis: {
+	        axisLine:{
+	            show:false
+	        },
+	        axisTick:{
+	            show:false
+	        },
+	        axisLabel:{
+	            show:false
+	        },
+	        splitLine:{
+	            show:false
+	        },
+	        type: 'value',
+	        boundaryGap: [0, 0.01]
+	    },
+	    yAxis: {
+	        axisLine:{
+	            show:false
+	        },
+	        axisTick:{
+	            show:false
+	        },
+	        splitLine:{
+	            show:false
+	        },
+	        type: 'category',
+
+	        data: ["苏州","青岛","南京",'天津','广州','杭州','深圳','上海','北京']
+	    },
+	    series: [
+	        {
+	            type: 'bar',
+	            barWidth:14,
+	            itemStyle: {
+	                normal: {
+	                    borderColor: "#2768ca",
+	                    borderWidth: 1,
+	                    barBorderRadius: 7,
+	                    color: new echarts.graphic.LinearGradient(
+	                        0, 0, 1, 0,
+	                        [
+	                            {offset: 0, color: '#0096ff'},
+	                            {offset: 0.5, color: '#53c9f0'},
+	                            {offset: 1, color: '#00ffe4'}
+	                        ]
+	                    )
+	                },
+	                emphasis: {
+	                    borderColor: "#2768ca",
+	                    borderWidth: 1,
+	                    barBorderRadius: 7,
+	                    color: new echarts.graphic.LinearGradient(
+	                        0, 0, 1, 0,
+	                        [
+	                            {offset: 0, color: '#00ffe4'},
+	                            {offset: 0.7, color: '#53c9f0'},
+	                            {offset: 1, color: '#0096ff'}
+	                        ]
+	                    )
+	                }
+	            },
+	            
+	            data: [50, 51, 52, 53, 54, 55, 56,57, 58]
+	        }
+	    ]
+	};
+var industryHotCityCharts = echarts.init(document.getElementById("industryHotCity"), 'customed');
+industryHotCityCharts.setOption(industryHotCity);
+industryHotCityCharts.on('click',function(param){
+	findCompany(param.name,industry);
+});
 function industryHotRank(industry){
 	var a=[],b=[];
-	var industryHotCity = {
-		    title: {
-		        text: '产业热度城市排行',
-		        textStyle:{
-		            fontWeight: 400,
-		            fontSize: 26
-		        }
-		    },
-		    tooltip: {
-		        trigger: 'axis',
-		        axisPointer: {
-		            type: 'shadow'
-		        }
-		    },
-		    grid: {
-		        show:false,
-		        left: '3%',
-		        right: '4%',
-		        bottom: '3%',
-		        containLabel:true,
-		    },
-		    xAxis: {
-		        axisLine:{
-		            show:false
-		        },
-		        axisTick:{
-		            show:false
-		        },
-		        axisLabel:{
-		            show:false
-		        },
-		        splitLine:{
-		            show:false
-		        },
-		        type: 'value',
-		        boundaryGap: [0, 0.01]
-		    },
-		    yAxis: {
-		        axisLine:{
-		            show:false
-		        },
-		        axisTick:{
-		            show:false
-		        },
-		        splitLine:{
-		            show:false
-		        },
-		        type: 'category',
-
-		        data: ["苏州","青岛","南京",'天津','广州','杭州','深圳','上海','北京']
-		    },
-		    series: [
-		        {
-		            type: 'bar',
-		            barWidth:14,
-		            itemStyle: {
-		                normal: {
-		                    borderColor: "#2768ca",
-		                    borderWidth: 1,
-		                    barBorderRadius: 7,
-		                    color: new echarts.graphic.LinearGradient(
-		                        0, 0, 1, 0,
-		                        [
-		                            {offset: 0, color: '#0096ff'},
-		                            {offset: 0.5, color: '#53c9f0'},
-		                            {offset: 1, color: '#00ffe4'}
-		                        ]
-		                    )
-		                },
-		                emphasis: {
-		                    borderColor: "#2768ca",
-		                    borderWidth: 1,
-		                    barBorderRadius: 7,
-		                    color: new echarts.graphic.LinearGradient(
-		                        0, 0, 1, 0,
-		                        [
-		                            {offset: 0, color: '#00ffe4'},
-		                            {offset: 0.7, color: '#53c9f0'},
-		                            {offset: 1, color: '#0096ff'}
-		                        ]
-		                    )
-		                }
-		            },
-		            
-		            data: [50, 51, 52, 53, 54, 55, 56,57, 58]
-		        }
-		    ]
-		};
-		var industryHotCityCharts = echarts.init(document.getElementById("industryHotCity"), 'customed');
 	 $.ajax({
 		 url:'/indusMap/getRankInfoByIndustry.json?industry='+industry,
 		 type: 'GET',
@@ -158,11 +160,7 @@ function industryHotRank(industry){
 					industryHotCity.series[0].data = b.reverse();
 					industryHotCityCharts.setOption(industryHotCity);
 					findCompany(data[0].area,industry);
-					industryHotCityCharts.on('click',function(param){
-						console.log(param.name);
-						$("#box-title").html(param.name);
-						findCompany(param.name,industry);
-					});
+					
 			 }
 			
 		 }
@@ -193,10 +191,8 @@ function industryMapData(a){
 		type:'GET',
 		data:{"industry":a},
 		success:function(res){
-			console.log(res.data);
 			var  dd =  res.data.map;
 			var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
-			
 			chinaOption.series[0].data = convertData(dd.sort(function (a, b) {
                 return b.value - a.value;
             }).slice(0, 6));
@@ -474,9 +470,8 @@ industryMap.setOption(chinaOption);
  */
 industryMap.on("click",function (e) {
     /*这里需要判断一下 点击哪一个类型的点，才显示简介*/
-	console.log(e);
 	if(e.seriesType=="effectScatter"){
-		var industry = $("#mark-item1").val();
+		
 		var area = e.name;
 		$.ajax({
 			url:'/indusMap/getLaboratoryInfo.json',
@@ -486,7 +481,6 @@ industryMap.on("click",function (e) {
 			 
 				if(res.data==null){
 					new Alert({flag:false,text:"暂无数据",timer:2000}).show();
-//					$("#carousel-inner").html('');
 				}else{
 					var arr = res.data;
 					$("#carousel-inner").html(showInfo(arr));
@@ -510,8 +504,6 @@ industryMap.on("click",function (e) {
 $(".like").on("click",function () {
     var _this = $(this);
     var _id = _this.parents(".layer-person").find('.layer-body').find('#myCarousel').find($("#carousel-inner .item-active")).find($('input[name="textName"]').val());
-    console.log(_id.selector);
-//    var _id = $('input[name="textName"]').val();
     _this.parents(".layer-person").hide();
     $.ajax({
     	url:'/indusMap/insertLaboratoryInfo.json',
@@ -537,26 +529,36 @@ function showInfo(arr){
 		array.push(
 		'<div class="item active">'
 		+'<div class="form-horizontal"><input type="hidden" name="textName" value="'+item.id+'"/><div class="form-group text-center">'
-		+'</div><div class="form-group"><label class="col-md-4 text-right control-label">带头人</label><div class="col-md-7">'
-        +'<p class="form-control-static" >'+item.academicLeader+'</p></div></div><div class="form-group"><label class="col-md-4 text-right control-label">机构性质</label>'
+		+'</div>'
+		+'<div class="form-group"><label class="col-md-4 text-right control-label">实验室名称</label><div class="col-md-7">'
+        +'<p class="form-control-static" >'+item.laboratoryName+'</p></div></div>'
+		+'<div class="form-group"><label class="col-md-4 text-right control-label">带头人</label><div class="col-md-7">'
+        +'<p class="form-control-static" >'+item.academicLeader+'</p></div></div>'
+        +'<div class="form-group"><label class="col-md-4 text-right control-label">机构性质</label>'
         +'<div class="col-md-7"><p class="form-control-static">'+item.institutionalCategory+'</p></div></div>'
         +'<div class="form-group"><label class="col-md-4 text-right control-label">机构产业</label><div class="col-md-7">'
-        +'<p class="form-control-static">'+item.industry+'</p></div></div><div class="form-group">'
-        +'<label class="col-md-4 text-right control-label">委托单位</label><div class="col-md-7">'
-        +'<p class="form-control-static">'+item.supportUnit+'</p></div></div><div class="form-group"><label class="col-md-4 text-right control-label">机构网址</label>'
-        +'<div class="col-md-7"><p class="form-control-static">'+item.url+'</p></div></div></div></div>');
+        +'<p class="form-control-static">'+item.industry+'</p></div></div>'
+        +'<div class="form-group"><label class="col-md-4 text-right control-label">委托单位</label><div class="col-md-7">'
+        +'<p class="form-control-static">'+item.supportUnit+'</p></div></div>'
+        +'<div class="form-group"><label class="col-md-4 text-right control-label">机构网址</label>'
+        +'<div class="col-md-7"><p class="form-control-static" title="'+item.url+'">'+item.url+'</p></div></div></div></div>');
 		}else{
 		array.push(
 			'<div class="item">'
 			+'<div class="form-horizontal"><input type="hidden" name="textName" value="'+item.id+'"/><div class="form-group text-center">'
-			+'</div><div class="form-group"><label class="col-md-4 text-right control-label">带头人</label><div class="col-md-7">'
-			+'<p class="form-control-static" >'+item.academicLeader+'</p></div></div><div class="form-group"><label class="col-md-4 text-right control-label">机构性质</label>'
+			+'</div>'
+			+'<div class="form-group"><label class="col-md-4 text-right control-label">实验室名称</label><div class="col-md-7">'
+			+'<p class="form-control-static" >'+item.laboratoryName+'</p></div></div>'
+			+'<div class="form-group"><label class="col-md-4 text-right control-label">带头人</label><div class="col-md-7">'
+			+'<p class="form-control-static" >'+item.academicLeader+'</p></div></div>'
+			+'<div class="form-group"><label class="col-md-4 text-right control-label">机构性质</label>'
 			+'<div class="col-md-7"><p class="form-control-static">'+item.institutionalCategory+'</p></div></div>'
 			+'<div class="form-group"><label class="col-md-4 text-right control-label">机构产业</label><div class="col-md-7">'
-			+'<p class="form-control-static">'+item.industry+'</p></div></div><div class="form-group">'
-			+'<label class="col-md-4 text-right control-label">委托单位</label><div class="col-md-7">'
-			+'<p class="form-control-static">'+item.supportUnit+'</p></div></div><div class="form-group"><label class="col-md-4 text-right control-label">机构网址</label>'
-			+'<div class="col-md-7"><p class="form-control-static">'+item.url+'</p></div></div></div></div>'
+			+'<p class="form-control-static">'+item.industry+'</p></div></div>'
+			+'<div class="form-group"><label class="col-md-4 text-right control-label">委托单位</label><div class="col-md-7">'
+			+'<p class="form-control-static" >'+item.supportUnit+'</p></div></div>'
+			+'<div class="form-group"><label class="col-md-4 text-right control-label">机构网址</label>'
+			+'<div class="col-md-7"><p class="form-control-static" title="'+item.url+'">'+item.url+'</p></div></div></div></div>'
 			);
 		}
 	});

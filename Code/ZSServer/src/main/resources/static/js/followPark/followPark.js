@@ -6,10 +6,15 @@ $(function () {
 	$("#follow").addClass("active");
 	showGardenindustry();
     showGardenAttainArea();
-    showGardenAttainList(industryType,area,sort,sortType);
-    // var circleCharts1 = echarts.init(document.getElementById("charts1"),"customed");
-    // var circleCharts2 = echarts.init(document.getElementById("charts2"),"customed");
-    // var circleCharts3 = echarts.init(document.getElementById("charts3"),"customed");
+    showGardenAttainList(sortType,pageNumber,pageSize);
+    $(".search-box").on("click",".search-item-content>a",function(){
+		$(this).addClass("active").siblings().removeClass("active");
+		var _industry = $(this).html();
+		var arr = $(".search-box").find(".active");
+		arr.each(function(){
+			showGardenAttainList(sortType,pageNumber,pageSize);
+		});
+	});
     var clickIndex = 0,chartsIndex=0;
     $("#gardenList").on("click",".follow-btn",function () {
     	var value = $(this).html();
@@ -87,11 +92,11 @@ function showGardenindustry(){//获取园区产业
 		success:function(res){
 			if(res.success){
 				var arr = res.data;
-				var html = '<a href="javascript:void(0);" class="search-item active" onclick="sendIndustry(\'全部\')">全部</a>';
+				var html = '';
 				for(var i=0;i<arr.length;i++){
-					html += '<a href="javascript:void(0);" class="search-item" onclick="sendIndustry(\''+arr[i].industryOne+'\')">'+arr[i].industryOne+'</a>';
+					html += '<a href="javascript:void(0);" class="search-item">'+arr[i].industryOne+'</a>';
 				}
-				$("#gardenIndustry").html(html);
+				$("#gardenIndustry").append(html);
 			}
 		}
 	});
@@ -103,34 +108,25 @@ function showGardenAttainArea(){
 		success:function(res){
 			if(res.success){
 				var arr = res.data;
-				var html = ' <a href="javascript:void(0);" class="search-item active" onclick="sendArea(\'全部\')">全部</a>';
+				var html = '';
 				for(var i=0;i<arr.length;i++){
-					html += '<a href="javascript:void(0);" class="search-item" onclick="sendArea(\''+arr[i]+'\')">'+arr[i]+'</a>';
+					html += '<a href="javascript:void(0);" class="search-item">'+arr[i]+'</a>';
 				}
-				$("#gardenArea").html(html);
+				$("#gardenArea").append(html);
 			}
 		}
 	});
 }
-function sendIndustry(data){
-	industryType = data;
-	showGardenAttainList(industryType,area,sort,sortType);
-}
-function sendArea(data){
-	area = data;
-	showGardenAttainList(industryType,area,sort,sortType);
-}
-function sendSort(data){
-	sort = data;
-	showGardenAttainList(industryType,area,sort,sortType);
-}
-var industryType = '全部';
-var area = '全部';
-var sort = '园区占地';
 var sortType = 'desc';
 var gardenAttList;//定义全局变量初始化关注园区数据
-function showGardenAttainList(a,b,c,d,e,f){
-	var req = {"pageNumber":e,"pageSize":f,msg:[a,b,c,d]};
+function showGardenAttainList(d,e,f){
+	var msg = new Array();
+	var arr = $(".search-box").find(".active");
+	arr.each(function(){
+		msg.push($(this).html());
+	});
+	msg.push(d);
+	var req = {"pageNumber":e,"pageSize":f,"msg":msg};
 	$.ajax({
 		type:'post',
 		url:'/apis/area/getAttentionGardenList.json',
@@ -144,7 +140,7 @@ function showGardenAttainList(a,b,c,d,e,f){
 				for (var i = 0; i < arr.length; i++) {
 					html += '<div class="col-md-12 border-bottom"><input type="hidden" class="gdp" value="'+arr[i].gdp+'"/><input type="hidden" class="square" value="'+arr[i].gardenSquare+'"/><input type="hidden" value="'+arr[i].gardenId+'" class="attId"/><div class="layout-box">' +
 								'<div class="left-img"><img src="'+arr[i].gardenPicture+'" width="160" /></div>' +
-								'<div class="right-list"><a class="scatter-blocks no-border" href="./allCityParkDetails.html">'+
+								'<div class="right-list"><a class="scatter-blocks no-border" href="/apis/area/garden/followAllCityPark.html?name='+arr[i].gardenName+'">'+
 								'<span class="scatter-title">'+arr[i].gardenName+'</span>'+
 								'<span class="scatter-type ml10">'+arr[i].gardenLevel+'</span>'+
 								'<span class="pull-right">入驻企业<span class="numbers">'+arr[i].enterCount+'</span>家</span></a>' +
@@ -162,7 +158,7 @@ function showGardenAttainList(a,b,c,d,e,f){
 				if(res.data.totalPages>1){
 					page.init(res.data.totalElements,res.data.number+1,options);
 					$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
-	            		showGardenList(industryType,area,sort,sortType,$(this).attr("page-data")-1,pageSize);
+						showGardenAttainList(sortType,$(this).attr("page-data")-1,pageSize);
 	                });
 				}else{
 					$('#page').html("");
@@ -185,7 +181,7 @@ function attation(event){
 		type:'get',
 		success:function(res){
 			if(res.success){
-				showGardenAttainList(industryType,area,sort,sortType);
+				showGardenAttainList(sortType,pageNumber,pageSize);
 			}
 		}
 	});
@@ -248,7 +244,6 @@ function showCompareEcharts(ids){//园区对比展示echarts的功能
 				option.series[0].data = showDatas;
 				var circleCharts1 = echarts.init(document.getElementById("charts"+i),"customed");
 	            circleCharts1.setOption(option,true);
-//	            $(".charts-box").find(".gdp").eq(i-1).html(arr[i-1].gdp);
 	            $(".charts-box").find(".enterCount").eq(i-1).html(arr[i-1].enterCount);
 	            $(".charts-box").find(".square").eq(i-1).html(arr[i-1].square+'平方千米');
 	            $(".charts-box").find(".charts-title").eq(i-1).html(arr[i-1].gardenName);
