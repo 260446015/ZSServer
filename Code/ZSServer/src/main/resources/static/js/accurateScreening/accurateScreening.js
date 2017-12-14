@@ -7,7 +7,25 @@ $(function () {
     $(".search-tag span.close").on("click",function () {
         $(this).parent().remove();
     });
+   
+    $("#myModal").modal("show");
+    $("#LabelBlue").click(function(){
+    	$("#myModal").modal("hide");
+    	var arr=[];
+    	if(industry=="全部"){
+    		arr = [area,registerTime,register];
+    	}else if(area=="全部"){
+    		arr=[industry,registerTime,register];
+    	}else{
+    		arr = [industry,area,registerTime,register];
+    	}
+    	$("#searchTag").html(TagList(arr));
+    	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
+    	searchAjax(param);
+    	
+    });
 });
+
 function searchTab(a,b){
 	if(a == 1){
 		industry = b;
@@ -19,6 +37,14 @@ function searchTab(a,b){
 		register = b;
 	}
 };
+$(".search-box").on("click",".search-item-content>a",function(){
+	$(this).addClass("active").siblings().removeClass("active");
+	var _id = $(this).attr("id");
+	var array = _id.split(',');
+	var a = array[0];
+	var b = array[1];
+	searchTab(a,b);
+});
 $("#search_tag").on("click",function () {
     $("#myModal").modal("show");
     $("#LabelBlue").click(function(){
@@ -271,4 +297,15 @@ function initEchartData(array,datalist){
 //关闭内容
 $(".close").on("click",function () {
 	$(this).parents(".layer-person").hide();
+	/*var arr=[];
+	if(industry=="全部"){
+		arr = [area,registerTime,register];
+	}else if(area=="全部"){
+		arr=[industry,registerTime,register];
+	}else{
+		arr = [industry,area,registerTime,register];
+	}
+	$("#searchTag").html(TagList(arr));
+	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
+	searchAjax(param);*/
 });
