@@ -3,7 +3,6 @@ package com.huishu.ZSServer.security;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -22,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.huishu.ZSServer.entity.user.Permission;
 import com.huishu.ZSServer.entity.user.UserBase;
 import com.huishu.ZSServer.exception.AccountExpiredException;
 import com.huishu.ZSServer.exception.AccountStartException;
@@ -48,9 +46,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		LOGGER.info("===============进行权限配置================");
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
+		/*ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
 		// 获取权限
-		/*List<Long> permissionIds = userPermissionService.getPermissionIdsByUserId(user.getId());
+		List<Long> permissionIds = userPermissionService.getPermissionIdsByUserId(user.getId());
 		if (permissionIds != null && permissionIds.size() != 0) {
 			authorizationInfo.addRole(user.getUserLevel().toString());
 			for (Long permissionId : permissionIds) {

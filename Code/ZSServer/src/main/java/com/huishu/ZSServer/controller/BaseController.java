@@ -2,12 +2,13 @@ package com.huishu.ZSServer.controller;
 
 import java.util.Date;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.util.ConcersUtils.DateUtil;
-import com.huishu.ZSServer.entity.dto.AbstractDTO;
+import com.huishu.ZSServer.security.ShiroDbRealm.ShiroUser;
 
 /**
  * @author hhy
@@ -32,6 +33,15 @@ public abstract class BaseController {
 		result.put("totalPage",data.getTotalPages());
 		result.put("pageNumber",pageNum);
 		return new AjaxResult().setData(result).setSuccess(true).setStatus(0);
+	}
+	
+	/**
+	 * 获取shiro中用户信息
+	 * @return
+	 */
+	public ShiroUser getCurrentShiroUser() {
+		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		return user;
 	}
 	
 	public JSONObject initTime(JSONObject obj,String time){

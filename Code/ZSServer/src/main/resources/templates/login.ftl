@@ -19,10 +19,10 @@
 	        <legend>登录</legend>
 	        <div>
 	            <lable>用户名:</lable>
-	            <input type="text" name="username"/></div>
+	            <input type="text" name="username" id="username"/></div>
 	        <div>
 	            <lable>密码:</lable>
-	            <input type="password" name="password"/></div>
+	            <input type="password" name="password" id="userPassword"/></div>
 	        <div>
 	            <lable>记住我:</lable>
 	            <input id="rememberMe" type="checkbox" name="rememberMe"/></div>
@@ -36,7 +36,7 @@
 	<script type="text/javascript">
 		function doLogin() {
 	        $.ajax({
-	            url: "/apis/security/generateKey.do",
+	            url: "/security/generateKey.do",
 	            dataType: "json",
 	            success: function (response) {
 	                if (response.success) {
@@ -48,18 +48,15 @@
 	                    var encrypedPwd = RSAUtils.encryptedString(key, password);
 	                    $.ajax({
 	                        type: 'post',
-	                        url: "/apis/login.do",
+	                        url: "/login.do",
 	                        async: false,
 	                        data: {username: $("#username").val(), password: encrypedPwd,rememberMe: $("#rememberMe").val()},
 	                        success: function (response) {
-		                        layui.use('layer', function(){
-								  var layer = layui.layer;
-								  if(response.success){
-								 		window.location.href="/indusMap/industryMap.html";
-			                        }else{
-			                       		layer.alert(response.message);
-			                        }
-								});              
+							  	if(response.success){
+							 		window.location.href="/indusMap/industryMap.html";
+		                        }else{
+		                       		alert(response.message);
+		                        }
 	                        }
 	                    });
 	                }

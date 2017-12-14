@@ -4,6 +4,9 @@ import org.apache.shiro.authc.AuthenticationException;
 
 /**
  * 账号过期异常
+ * 
+ * @author yindq
+ * @date 2017年12月14日
  */
 public class AccountExpiredException extends AuthenticationException {
 

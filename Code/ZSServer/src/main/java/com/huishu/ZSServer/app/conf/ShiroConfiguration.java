@@ -50,15 +50,18 @@ public class ShiroConfiguration {
 
 		filterChainDefinitionMap.put("/login.html", "anon");
 
-		filterChainDefinitionMap.put("/**", "anon");
+//		filterChainDefinitionMap.put("/**", "anon");
 //		filterChainDefinitionMap.put("/**/*.html", "authc");
+//		filterChainDefinitionMap.put("/**/*.json", "authc");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
+		filters.put("ajaxSessionFilter", getMyUserFilter());
+		filters.put("authc", getMyFormAuthenticationFilter());
+		
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
-		shiroFilterFactoryBean.setLoginUrl("/login.html");
-		shiroFilterFactoryBean.setSuccessUrl("/");
-		shiroFilterFactoryBean.setUnauthorizedUrl("/apis/unauthorized.do");
+		shiroFilterFactoryBean.setLoginUrl("/login.do");
+		shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized.do");
 		shiroFilterFactoryBean.setFilters(filters);
 		return shiroFilterFactoryBean;
 	}
