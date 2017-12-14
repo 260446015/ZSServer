@@ -54,9 +54,14 @@
                                     <p class="form-control-static" id="gardenSquare">159公顷</p></div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label">项目地址：</label>
+                                <label class="col-md-4 control-label">园区级别：</label>
                                 <div class="col-md-8">
-                                    <p class="form-control-static" id="ddd">海淀区东北旺西路8号中关村软件园1号楼 （信息中心）C座运</p></div>
+                                    <p class="form-control-static" id="gardenLevel"></p></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">入驻企业数量：</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static" id="gardenCompanys"></p></div>
                             </div>
                         </div>
                     </div>
@@ -67,29 +72,15 @@
                 	<div class="search-box">
                         <div class="search-group">
                             <div class="search-item-title">
-                                产业
-                            </div>
-                            <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active" onclick="sendIndustry('全部');">全部</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('节能环保和新能源产业');">节能环保和新能源产业</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('生物产业');">生物产业</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('高端装备制造产业');">高端装备制造产业</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('新材料产业');">新材料产业</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('数字创意产业');">数字创意产业</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendIndustry('新兴信息产业');">新兴信息产业</a>
-                            </div>
-                        </div>
-                        <div class="search-group">
-                            <div class="search-item-title">
                                 成立时间
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active" onclick="sendRegister('全部');">全部</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendRegister('1');">成立1年内</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendRegister('1-5');">成立1-5年</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendRegister('5-10');">成立5-10年</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendRegister('10-15');">成立10-15年</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendRegister('more');">成立5年以上</a>
+                                <a href="javascript:void(0);" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" class="search-item">成立1年内</a>
+                                <a href="javascript:void(0);" class="search-item">成立1-5年</a>
+                                <a href="javascript:void(0);" class="search-item">成立5-10年</a>
+                                <a href="javascript:void(0);" class="search-item">成立10-15年</a>
+                                <a href="javascript:void(0);" class="search-item">成立5年以上</a>
                             </div>
                         </div>
                         <div class="search-group">
@@ -97,27 +88,12 @@
                                 注册资本
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active" onclick="sendCapital('全部');">全部</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendCapital('0-100');">0-100万</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendCapital('100-200');">100-200万</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendCapital('200-500');">200-500万</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendCapital('500-1000');">500-1000万</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendCapital('more');">1000万以上</a>
-                            </div>
-                        </div>
-                        <div class="search-group">
-                            <div class="search-item-title">
-                                融资阶段
-                            </div>
-                            <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active" onclick="sendInvest('全部');">全部</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('天使轮');">天使轮</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('A轮');">A轮</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('B轮');">B轮</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('C轮');">C轮</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('D轮');">D轮</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('新三板');">新三板</a>
-                                <a href="javascript:void(0);" class="search-item" onclick="sendInvest('创业板');">创业板</a>
+                                <a href="javascript:void(0);" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" class="search-item">0-100万</a>
+                                <a href="javascript:void(0);" class="search-item">100-200万</a>
+                                <a href="javascript:void(0);" class="search-item">200-500万</a>
+                                <a href="javascript:void(0);" class="search-item">500-1000万</a>
+                                <a href="javascript:void(0);" class="search-item">1000万以上</a>
                             </div>
                         </div>
                     </div>

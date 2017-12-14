@@ -31,7 +31,7 @@
                 <div class="col-md-8">
                     <div class="map" id="parkMap"></div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" id="gardenCondition">
                     <h3 class="border-shadow-title">关注园区动态</h3>
                     <div class="border-shadow-box">
                         <div class="row" id="condition">

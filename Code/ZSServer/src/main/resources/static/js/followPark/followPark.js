@@ -53,6 +53,7 @@ $(function () {
     $(".park-btn").on("click",function () {
         var parent_wrapper = $(this).parent();
         if(parent_wrapper.hasClass("open-img")){
+        	$("#gardenList").find(".follow-btn").removeClass("follow-btn");
         	var value = $(".park-contrast-box").find(".img-box-list>.img-box>input[type=hidden]");
         	var arr = new Array();
         	value.each(function(){
@@ -62,6 +63,19 @@ $(function () {
         		}
         	});
         	if(arr.length < 2){
+        		if(arr.length == 0){
+        			new Alert({
+						flag : false,
+						text : '您必须先选择园区才能进行对比',
+						timer : 3000
+					}).show();
+        		}else if(arr.length == 1){
+        			new Alert({
+						flag : false,
+						text : '您必须至少选择两个园区才能进行对比',
+						timer : 3000
+					}).show();
+        		}
         		return;
         	}
         	for(var i=0;i<arr.length;i++){
@@ -77,9 +91,16 @@ $(function () {
             });
             showCompareEcharts(sendIds);
         }else if(parent_wrapper.hasClass("open-charts")){
+        	$("#gardenList").find(".btn-blue").addClass("follow-btn");
             parent_wrapper.removeClass("open-charts");
         }else if(parent_wrapper.find(".small-charts>div").length>0){
             parent_wrapper.addClass("open-charts");
+        }else{
+        	new Alert({
+				flag : false,
+				text : '您必须先选择园区才能进行对比',
+				timer : 3000
+			}).show();
         }
     });
 });

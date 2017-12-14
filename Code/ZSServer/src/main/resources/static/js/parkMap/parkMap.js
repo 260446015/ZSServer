@@ -530,16 +530,20 @@ function showGardenCondition(area,target){
 			if(res.success){
 				var html = "";
 				var arr = res.data.content;
-				for(var i=0;i<arr.length;i++){
-					html += '<div class="col-md-12 border-bottom">' +
-								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
-									'<span class="scatter-title">'+arr[i].title+'</span></a>' +
-									'<p class="scatter-content">'+arr[i].summary +'</p>' + 
-									'<p class="scatter-lib">' +
-										'<span>'+arr[i].park+'</span>' +
-                                		'<span>'+arr[i].publishTime+'</span></p></div>';
+				if(arr.length != 0){
+					for(var i=0;i<arr.length;i++){
+						html += '<div class="col-md-12 border-bottom">' +
+									'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
+										'<span class="scatter-title">'+arr[i].title+'</span></a>' +
+										'<p class="scatter-content">'+arr[i].summary +'</p>' + 
+										'<p class="scatter-lib">' +
+											'<span>'+arr[i].park+'</span>' +
+	                                		'<span>'+arr[i].publishTime+'</span></p></div>';
+					}
+					$("#"+target).html(html);
+				}else{
+					$("#gardenCondition").hide();
 				}
-				$("#"+target).html(html);
 			
 			}
 		}

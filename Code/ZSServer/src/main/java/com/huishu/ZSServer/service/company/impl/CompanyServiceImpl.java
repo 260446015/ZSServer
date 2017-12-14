@@ -43,34 +43,31 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 		PageImpl<Company> page = null;
 		try {
 			String[] msg = dto.getMsg();
-			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("industry", msg[0]);
-			params.put("invest", msg[3]);
-			params.put("park", msg[4]);
 			Integer pageNum = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
-			List<Company> findAll = companyRepository.findAll(getSpec(params));
-			// String scale = msg[2];
-			// if (scale.equals("全部"))
-			// scale = "0-100000";
-			// String sscale = scale.substring(0, scale.indexOf("-"));
-			// String escale = scale.substring(scale.indexOf("-") + 1);
-			String time = msg[1];
+			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
+			if(msg.length == 1){
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("park", msg[0]);
+				return companyRepository.findAll(getSpec(params), pageRequest);
+			}
+			List<Company> findAll = companyRepository.findByPark(msg[2]);
+			String time = msg[0];
 			String startTime = null;
 			String endTime = null;
-			if ("1".equals(time)) {
+			if ("成立1年内".equals(time)) {
 				startTime = DateUtils.getMonthDate(-12);
 				endTime = DateUtils.getTodayDate1();
-			} else if ("1-5".equals(time)) {
+			} else if ("成立1-5年".equals(time)) {
 				startTime = DateUtils.getMonthDate(-60);
 				endTime = DateUtils.getMonthDate(-12);
-			} else if ("5-10".equals(time)) {
+			} else if ("成立5-10年".equals(time)) {
 				startTime = DateUtils.getMonthDate(-120);
 				endTime = DateUtils.getMonthDate(-60);
-			} else if ("10-15".equals(time)) {
+			} else if ("成立10-15年".equals(time)) {
 				startTime = DateUtils.getMonthDate(-180);
 				endTime = DateUtils.getMonthDate(-120);
-			} else if ("more".equals(time)) {
+			} else if ("成立15年以上".equals(time)) {
 				startTime = DateUtils.getMonthDate(-1800);
 				endTime = DateUtils.getMonthDate(-180);
 			} else if ("全部".equals(time)) {
@@ -79,9 +76,19 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 			}
 			String stime = startTime;
 			String etime = endTime;
-			String regist = msg[2];
+			String regist = msg[1];
 			if (regist.equals("全部"))
 				regist = "0-999999";
+			else if("0-100万".equals(regist))
+				regist = "0-100";
+			else if("100-200万".equals(regist))
+				regist = "100-200";
+			else if("200-500万".equals(regist))
+				regist = "200-500";
+			else if("500-1000万".equals(regist))
+				regist = "500-1000";
+			else if("1000万以上".equals(regist))
+				regist = "1000-9999999";
 			Double sregist = Double.parseDouble(regist.substring(0, regist.indexOf("-")));
 			Double eregist = Double.parseDouble(regist.substring(regist.indexOf("-") + 1));
 			List<Company> list2 = findAll.stream()
@@ -93,12 +100,7 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 						return obj.getRegisterDate().compareTo(stime) >= 0
 								&& obj.getRegisterDate().compareTo(etime) < 0;
 					}).filter(obj -> {
-						return Double.parseDouble(
-								obj.getRegisterCapital().substring(0, obj.getRegisterCapital().indexOf("万")))
-								- sregist >= 0
-								&& Double.parseDouble(
-										obj.getRegisterCapital().substring(0, obj.getRegisterCapital().indexOf("万")))
-										- eregist < 0;
+						return new Double(obj.getRegisterCapital().indexOf("万")) >= sregist && new Double(obj.getRegisterCapital().indexOf("万")) < eregist;
 					})
 					.skip(pageNum * pageSize).limit(pageSize)
 					.sorted((a, b) -> new Double(Double
@@ -106,7 +108,6 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 									.compareTo(new Double(Double.parseDouble(
 											a.getRegisterCapital().substring(0, a.getRegisterCapital().indexOf("万"))))))
 					.collect(Collectors.toList());
-			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
 			page = new PageImpl<>(list2, pageRequest, findAll.size());
 		} catch (Exception e) {
 			LOGGER.error("查询企业列表失败", e.getMessage());

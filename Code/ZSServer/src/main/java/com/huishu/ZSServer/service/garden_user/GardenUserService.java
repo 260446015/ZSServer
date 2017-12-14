@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import com.huishu.ZSServer.entity.dto.GardenCompareDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenUser;
+import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 
 public interface GardenUserService {
 
@@ -36,4 +37,5 @@ public interface GardenUserService {
 	 * @return
 	 */
 	List<GardenCompareDTO> getGardenCompare(Long[] arrId);
+
 }

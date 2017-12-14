@@ -180,6 +180,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		Map<String, Object> params = new HashMap<>();
 		params.put("gardenName", gardenName);
 		GardenData findOne = gardenRepository.findOne(getSpec(params));
+		findOne.setEnterCount(companyRepository.findByPark(gardenName).size());
 		if(findOne != null){
 			GardenUser gu = gardenUserRepository.findByGardenNameAndUserId(gardenName,
 					userId);

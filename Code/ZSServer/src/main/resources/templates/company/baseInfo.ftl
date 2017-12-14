@@ -130,7 +130,6 @@
 <#include  "/common/script.ftl"/>
 <script src="/js/companyDetails/common.js"></script>
 <!-- js 共用部分 end -->
-<script src="/js/companyDetails/baseInfo.js"></script>
 
 </body>
 </html>

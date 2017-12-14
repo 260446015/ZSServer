@@ -82,6 +82,20 @@ function showCompanyDetail(){
 				$("#baseWeb").text(resData.websiteList);
 				$("#baseAddr").text(resData.regLocation);
 				$("#baseDesc").text(resData.businessScope);
+				$("#legalPerson").text(resData.legalPersonName);
+				$("#regCapital").text(resData.regCapital);
+				$("#estiblishTime").text(getFormatDate(new Date(resData.estiblishTime)));
+				$("#regStatus").text(resData.regStatus);
+				$("#regNumber").text(resData.regNumber);
+				$("#industry").text(resData.industry);
+				$("#orgNumber").text(resData.orgNumber);
+				$("#toTime").text(getFormatDate(new Date(resData.toTime)));
+				$("#creditCode").text(resData.creditCode);
+				$("#approvedTime").text(resData.approvedTime);
+				$("#companyOrgType").text(resData.companyOrgType);
+				$("#regLocation").text(resData.regLocation);
+				$("#regInstitute").text(resData.regInstitute);
+				$("#businessScope").text(resData.businessScope);
 			}
 		}
 	});
