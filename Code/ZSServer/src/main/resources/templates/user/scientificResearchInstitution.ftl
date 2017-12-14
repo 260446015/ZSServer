@@ -13,7 +13,7 @@
    
 </head>
 <body class="bg2">
-<#include "/common/header.ftl"/>
+<#include "/common/header3.ftl"/>
 <div class="wrapper">
     <ul class="mark-box">
         <li class="active">
@@ -138,10 +138,8 @@
         </div>
     </div>
 </div>
-<div class="footer">
-    <p class="text-center">Copyright©2008-2016 中科点击（北京）科技有限公司-版权所有  京ICP备11012241-3号</p>
-</div>
+<#include  "/common/footer.ftl"/>
 <#include  "/common/script.ftl"/>
-
+<script src="/js/follow/scientificResearchInstitution.js"></script>
 </body>
 </html>

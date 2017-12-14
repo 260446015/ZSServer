@@ -19,7 +19,7 @@
                     <span class="nav-text">精准招商</span>
                 </a>
             </li>
-            <li class="active">
+            <li>
                 <a href="/indusMap/industryMap.html">
                     <i class="icon-group-map icon-map-2"></i>
                     <span class="nav-text">招商情报</span>

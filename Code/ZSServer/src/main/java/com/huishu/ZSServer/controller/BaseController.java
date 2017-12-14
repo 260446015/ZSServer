@@ -44,6 +44,14 @@ public abstract class BaseController {
 		return user;
 	}
 	
+	public Long getUserId() {
+		return getCurrentShiroUser().getId();
+	}
+
+	public String getUserAccount() {
+		return getCurrentShiroUser().getLoginName();
+	}
+
 	public JSONObject initTime(JSONObject obj,String time){
 		Date date = new Date();
 		String endTime = DateUtil.getFormatDate(date, DateUtil.FORMAT_DATE); // 今天的当前时间（获取服务端时间）
