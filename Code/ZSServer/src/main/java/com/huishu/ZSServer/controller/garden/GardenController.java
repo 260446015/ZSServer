@@ -32,7 +32,7 @@ import com.huishu.ZSServer.service.garden_user.GardenUserService;
 
 /**
  * 处理园区的controller
- * 
+ *
  * @author yindawei
  * @date 2017年10月27日上午11:39:44
  * @description
@@ -49,7 +49,7 @@ public class GardenController extends BaseController {
 
 	/**
 	 * 获取园区动态
-	 * 
+	 *
 	 * @param dto
 	 * @return
 	 */
@@ -74,7 +74,7 @@ public class GardenController extends BaseController {
 
 	/**
 	 * 获取园区产值
-	 * 
+	 *
 	 * @param dto
 	 * @return
 	 */
@@ -91,7 +91,7 @@ public class GardenController extends BaseController {
 
 	/**
 	 * 关注/取消关注园区
-	 * 
+	 *
 	 * @param gardenId
 	 *            园区id
 	 * @param flag
@@ -122,7 +122,7 @@ public class GardenController extends BaseController {
 
 	/**
 	 * 获取园区列表
-	 * 
+	 *
 	 * @param dto
 	 * @return
 	 */
@@ -147,7 +147,7 @@ public class GardenController extends BaseController {
 
 	/**
 	 * 获取关注园区列表
-	 * 
+	 *
 	 * @param dto
 	 *            [id,area,industryType]
 	 * @return
@@ -172,7 +172,7 @@ public class GardenController extends BaseController {
 
 	/**
 	 * 查询园区基本信息
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/findGardenInfo.json", method = RequestMethod.GET, params = { "gardenName" })
@@ -187,7 +187,7 @@ public class GardenController extends BaseController {
 
 	/**
 	 * 关注园区-情报推送
-	 * 
+	 *
 	 * @param dto
 	 * @return
 	 */
@@ -208,7 +208,7 @@ public class GardenController extends BaseController {
 
 	/**
 	 * 政策动向
-	 * 
+	 *
 	 * @param dto
 	 * @return
 	 */
@@ -223,7 +223,7 @@ public class GardenController extends BaseController {
 
 	/**
 	 * echarts返回数据
-	 * 
+	 *
 	 * @param province
 	 *            省份
 	 * @return
@@ -247,9 +247,9 @@ public class GardenController extends BaseController {
 	/**
 	 * 访问链接
 	 */
-	@RequestMapping(value = { "/{path}/{page}" })
-	public String gardenMap(@PathVariable String path,@PathVariable String page,Model model) {
-		return path +"/" + page;
+	@RequestMapping(value = { "/garden/{page}" })
+	public String gardenMap(@PathVariable String page,Model model) {
+		return "garden/" + page;
 	}
 
 	/**
@@ -278,7 +278,7 @@ public class GardenController extends BaseController {
 
 	/**
 	 * 查询园区产业分类
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/getGardenIndustry.json", method = RequestMethod.GET)
