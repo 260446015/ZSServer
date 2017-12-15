@@ -91,7 +91,8 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 				regist = "1000-9999999";
 			Double sregist = Double.parseDouble(regist.substring(0, regist.indexOf("-")));
 			Double eregist = Double.parseDouble(regist.substring(regist.indexOf("-") + 1));
-			List<Company> list2 = findAll.stream()
+			List<Company> list2;
+					findAll = findAll.stream()
 					// .filter(obj -> {
 					// return obj.getScale() >= Integer.parseInt(sscale) &&
 					// obj.getScale() < Integer.parseInt(escale);
@@ -99,29 +100,18 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 					.filter(obj -> {
 						return obj.getRegisterDate().compareTo(stime) >= 0
 								&& obj.getRegisterDate().compareTo(etime) < 0;
-					}).filter(obj -> {
-						return new Double(obj.getRegisterCapital().indexOf("万")) >= sregist && new Double(obj.getRegisterCapital().indexOf("万")) < eregist;
-					})
-					.skip(pageNum * pageSize).limit(pageSize)
-					.sorted((a, b) -> new Double(Double
-							.parseDouble(b.getRegisterCapital().substring(0, b.getRegisterCapital().indexOf("万"))))
-									.compareTo(new Double(Double.parseDouble(
-											a.getRegisterCapital().substring(0, a.getRegisterCapital().indexOf("万"))))))
+					}).collect(Collectors.toList());
+					findAll = findAll.stream().filter(obj -> {
+						return obj.getRc() >= sregist && obj.getRc() < eregist;
+					}).collect(Collectors.toList());
+			list2 = findAll.stream().skip(pageNum * pageSize).limit(pageSize)
+					.sorted((a, b) -> b.getRegisterCapital().compareTo(a.getRegisterCapital()))
 					.collect(Collectors.toList());
 			page = new PageImpl<>(list2, pageRequest, findAll.size());
 		} catch (Exception e) {
 			LOGGER.error("查询企业列表失败", e.getMessage());
 		}
 		return page;
-	}
-
-	/**
-	 * 查找公司名称
-	 */
-	@Override
-	public List<String> findCompanyName(String area, String industry) {
-		List<String> list = companyRepository.findByAreaAndIndustry(area, industry);
-		return list;
 	}
 
 	@Override

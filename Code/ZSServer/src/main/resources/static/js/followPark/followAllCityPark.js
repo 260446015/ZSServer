@@ -11,10 +11,26 @@ $(function() {
 	$(".search-box").on("click",".search-item-content>a",function(){
         $(this).addClass("active").siblings().removeClass("active");
         showCompanyList(park,pageNumber,pageSize);
+        showScan(province, address);
     });
 	AMapUI.setDomLibrary($);
 	showCompanyList(park, pageNumber, pageSize);
 	// 加载BasicControl，loadUI的路径参数为模块名中 'ui/' 之后的部分
+	showScan(province,address);
+});
+var pageNumber = 0;
+var pageSize = 10;
+var park = GetQueryString('name');
+var options = {
+	"id" : "page",// 显示页码的元素
+	"data" : null,// 显示数据
+	"maxshowpageitem" : 5,// 最多显示的页码个数
+	"pagelistcount" : 10,// 每页显示数据个数
+	"callBack" : function() {
+	}
+};
+
+function showScan(_province,_address){
 	AMapUI.loadUI([ 'control/BasicControl' ], function(BasicControl) {
 		var map = new AMap.Map('map', {
 			// mapStyle: 'amap://styles/e15ea366314a2314abda4c7761ee02a6',
@@ -22,16 +38,19 @@ $(function() {
 			center : [ 117.125867, 36.680942 ],
 			zoom : 13,
 		});
-		map.setCity(province);
+//		map.setCity(_province);
 		var geocoder = new AMap.Geocoder({
 			radius : 1000
 		// 范围，默认：500
 		});
-		for (var j = 0; j < address.length; j++) {
+		geocoder.getLocation(park, function(status, result) {
+        	map.setZoomAndCenter(12, [result.geocodes[0].location.lng, result.geocodes[0].location.lat]);
+        });
+		for (var j = 0; j < _address.length; j++) {
 			(function(j){
-				var addr = address[j].address;
+				var addr = _address[j].address;
 				var point;
-				var companyName = address[j].companyName;
+				var companyName = _address[j].companyName;
 				// 地理编码,返回地理编码结果
 				geocoder.getLocation(addr, function(status, result) {
 					if (status === 'complete' && result.info === 'OK') {
@@ -67,32 +86,21 @@ $(function() {
 			unrotates();
 		}, 2000);
 	});
-	function unrotates() {
-		$("body,.page-content").removeClass("modal-open");
-		$(".search-circle-box").removeClass("open").children(".search-circle-img").removeClass("rotates").css({
-			"margin-left" : function() {
-				return -$(this).width() / 2
-			},
-			"margin-top" : function() {
-				return -$(this).height() / 2
-			}
-		});
-		$('html,body').animate({
-			scrollTop : $(".right-content .container").offset().top - 50
-		}, 300);
-	}
-});
-var pageNumber = 0;
-var pageSize = 10;
-var park = GetQueryString('name');
-var options = {
-	"id" : "page",// 显示页码的元素
-	"data" : null,// 显示数据
-	"maxshowpageitem" : 5,// 最多显示的页码个数
-	"pagelistcount" : 10,// 每页显示数据个数
-	"callBack" : function() {
-	}
-};
+}
+function unrotates() {
+	$("body,.page-content").removeClass("modal-open");
+	$(".search-circle-box").removeClass("open").children(".search-circle-img").removeClass("rotates").css({
+		"margin-left" : function() {
+			return -$(this).width() / 2
+		},
+		"margin-top" : function() {
+			return -$(this).height() / 2
+		}
+	});
+	$('html,body').animate({
+		scrollTop : $(".right-content .container").offset().top - 50
+	}, 300);
+}
 function showCompanyList(e, f, g) {//e-查询的园区名称,f页码数,g每页总大小
 	var msg = new Array();
     var arr = $(".search-box").find(".active");
@@ -128,6 +136,7 @@ function showCompanyList(e, f, g) {//e-查询的园区名称,f页码数,g每页�
 						page.init(res.data.totalElements, res.data.number + 1, options);
 						$("#" + page.pageId + ">li[class='pageItem']").on("click", function() {
 							showCompanyList(park, $(this).attr("page-data") - 1, pageSize);
+							showScan(province, address);
 						});
 					} else {
 						$('#page').html("");

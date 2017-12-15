@@ -61,7 +61,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">入驻企业数量：</label>
                                 <div class="col-md-8">
-                                    <p class="form-control-static" id="gardenCompanys"></p></div>
+                                    <p class="form-control-static" id="enterCount"></p></div>
                             </div>
                         </div>
                     </div>

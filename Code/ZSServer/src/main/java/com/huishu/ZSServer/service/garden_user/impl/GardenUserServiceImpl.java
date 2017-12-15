@@ -51,9 +51,6 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 	private OpeneyesService openeyesService;
 	@Autowired
 	private ScanGardenRepository scanGardenRepository;
-	@Autowired
-	private UserBaseRepository userBaseRepository;
-
 	@Override
 	public GardenUser attentionGarden(Long gardenId, Long userId, boolean flag) {
 		GardenUser gardenUser = gardenUserRepository.findByUserIdAndGardenId(userId, gardenId);
@@ -65,13 +62,10 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 				} else {
 					List<ScanGarden> gardenIds = scanGardenRepository.findByGardenIdAndDr(gardenId, 0);
 					GardenData garden = gardenRepository.findOne(gardenId);
-					if (gardenIds.size() == 0) {
+					if (gardenIds.size() <= 0) {
 						List<Company> cs = companyRepository.findByPark(garden.getGardenName());
 						List<Company> list2 = cs.stream().sorted((a, b) -> {
-							return new Double(
-									(b.getRegisterCapital().substring(0, b.getRegisterCapital().indexOf("万"))))
-											.compareTo(new Double(a.getRegisterCapital().substring(0,
-													a.getRegisterCapital().indexOf("万"))));
+							return b.getRc().compareTo(a.getRc());
 						}).limit(50).collect(Collectors.toList());
 						LOGGER.info("关注园区后开始搜索园区下按注册金额排名前50企业的名称");
 						OpeneyesDTO dto = new OpeneyesDTO();

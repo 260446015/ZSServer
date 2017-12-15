@@ -191,6 +191,8 @@ function showGardenAttainList(d,e,f){
 						text : '暂无关注园区数据',
 						timer : 3000
 					}).show();
+					setTimeout("window.location.href = '/apis/area/garden/allCityPark.html'",3000);
+					
 				}
 			}
 		}
