@@ -29,4 +29,15 @@ public interface DataService {
 	 */
 	JSONObject rederData(String value);
 	boolean  saveData(JSONObject obj);
+	//生物产业数据读取
+	JSONObject redData(String value);
+
+	/**
+	 * 生物产业数据保存
+	 * @param obj
+	 * @return
+	 */
+	boolean updateData(JSONObject obj);
+	
+	
 }

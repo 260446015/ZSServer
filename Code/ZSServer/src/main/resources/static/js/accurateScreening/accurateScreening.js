@@ -1,29 +1,33 @@
 var industry ="全部";
-var registerTime = "1-5年";
+var registerTime = "全部";
 var area = "全部";
-var register="0-50万";
+var register="全部";
+var label=[];
 $(function () {
 	$("#screen").addClass("active");
     $(".search-tag span.close").on("click",function () {
         $(this).parent().remove();
     });
-   
-    $("#myModal").modal("show");
-    $("#LabelBlue").click(function(){
-    	$("#myModal").modal("hide");
-    	var arr=[];
-    	if(industry=="全部"){
-    		arr = [area,registerTime,register];
-    	}else if(area=="全部"){
-    		arr=[industry,registerTime,register];
-    	}else{
-    		arr = [industry,area,registerTime,register];
-    	}
-    	$("#searchTag").html(TagList(arr));
-    	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
-    	searchAjax(param);
-    	
-    });
+   if(label.length<=0){
+	   $("#myModal").modal("show");
+	   
+	   $("#LabelBlue").click(function(){
+		   $("#myModal").modal("hide");
+		   var arr=[];
+		   if(industry=="全部" && area!="全部"){
+			   arr = [area,registerTime,register];
+		   }
+		   if(area=="全部"&&industry !="全部"){
+			   arr=[industry,registerTime,register];
+		   }else{
+			   arr = [industry,area,registerTime,register];
+		   }
+		   $("#searchTag").html(TagList(arr));
+		   var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
+		   label.push(param);
+		   searchAjax(param);
+	   });
+   }
 });
 
 function searchTab(a,b){
@@ -60,6 +64,7 @@ $("#search_tag").on("click",function () {
     	}
     	$("#searchTag").html(TagList(arr));
     	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
+    	label.push(param);
     	searchAjax(param);
     	
     });
@@ -297,15 +302,4 @@ function initEchartData(array,datalist){
 //关闭内容
 $(".close").on("click",function () {
 	$(this).parents(".layer-person").hide();
-	/*var arr=[];
-	if(industry=="全部"){
-		arr = [area,registerTime,register];
-	}else if(area=="全部"){
-		arr=[industry,registerTime,register];
-	}else{
-		arr = [industry,area,registerTime,register];
-	}
-	$("#searchTag").html(TagList(arr));
-	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
-	searchAjax(param);*/
 });

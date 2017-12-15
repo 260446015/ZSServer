@@ -20,6 +20,7 @@ import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.Enterprise;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
+import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
 import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
 import com.huishu.ZSServer.repository.openeyes.BaseInfoRepository;
@@ -42,7 +43,8 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 	private BaseInfoRepository repository;
 	@Autowired
 	private IndusCompanyRepository indrepository;
-	
+	@Autowired
+	private CompanyRepository cpository;
 	@Override
 	public List<String> findCompanyName(String area, String industry) {
 		int count = rep.getCount(area, industry);
@@ -131,7 +133,8 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 		System.out.println(obj.getString("endTime"));
 		List<Enterprise> list = rep.findByIndustryLikeAndAreaLikeAndRegisterTimeBetween(industry,area,obj.getString("startTime"),obj.getString("endTime"));
 		List<IndusCompany> li = new ArrayList<IndusCompany>();
-		if(list.size()>0){
+		
+		if(list.size()>=10){
 			List<Integer> ll = StringUtil.initMoney(money);
 //			List<String>  companyName= getName(list,ll);
 			List<JSONObject>  companyName= getName(list,ll);
@@ -161,6 +164,7 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 			System.out.println(li.size());
 			return li;
 		}else{
+			
 			return null;
 		}
 	}
@@ -194,6 +198,7 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 			});
 		}else{
 			list.forEach(action->{
+				
 				String reg = action.getRegisterCapital();
 				double i = ll.get(0);
 				double i1 = ll.get(1);
