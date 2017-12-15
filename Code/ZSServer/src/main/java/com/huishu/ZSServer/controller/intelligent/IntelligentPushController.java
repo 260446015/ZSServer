@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.controller.intelligent;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +54,7 @@ public class IntelligentPushController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/list.json",method=RequestMethod.GET)
 	public AjaxResult getInteList(){
-		Iterable<IndusCompany> list = service.listCompany();
+		List<IndusCompany> list = service.listCompany();
 		
 		return success(list);
 	}
@@ -69,7 +71,7 @@ public class IntelligentPushController extends BaseController{
 		}
 		IndusCompany company = service.findCompanyInfoByCompanyName(name);
 		if(company==null){
-			return error(MsgConstant.SYSTEM_ERROR);
+			return error("暂无数据");
 		}
 		//根据全称获取相应的信息
 		JSONObject obj = epservice.getCompanyInfoByCompany(company.getCompany());

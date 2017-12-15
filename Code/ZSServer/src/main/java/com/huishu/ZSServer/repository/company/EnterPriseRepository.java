@@ -37,4 +37,6 @@ public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> ,
 	 * @return
 	 */
 	List<Enterprise> findByIndustryLikeAndAreaLikeAndRegisterTimeBetween(String industry, String area, String startTime,String endTime);
+
+	List<Enterprise> findByIndustryLikeAndAreaLike(String industry, String area);
 }

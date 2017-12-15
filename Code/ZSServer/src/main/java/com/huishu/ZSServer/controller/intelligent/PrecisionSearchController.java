@@ -55,7 +55,7 @@ public class PrecisionSearchController extends BaseController{
 		String time = dto.getRegisterTime();
 		String area = dto.getArea();
 		if(area.equals("全部")&&industry.equals("全部")&&time.equals("全部")&&money.equals("全部")){
-			Iterable<IndusCompany> list = iservice.listCompany();
+			List<IndusCompany> list = iservice.listCompany();
 			return success(list);
 		}else{
 			if(area.equals("全部")){
