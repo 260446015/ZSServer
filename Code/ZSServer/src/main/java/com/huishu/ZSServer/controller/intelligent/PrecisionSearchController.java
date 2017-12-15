@@ -18,6 +18,7 @@ import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.dto.SearchDTO;
 import com.huishu.ZSServer.service.company.EnterPriseService;
+import com.huishu.ZSServer.service.company.IndusCompanyService;
 
 /**
  * @author hhy
@@ -32,6 +33,8 @@ public class PrecisionSearchController extends BaseController{
 	private Logger LOGGER = LoggerFactory.getLogger(PrecisionSearchController.class);
 	@Autowired
 	private EnterPriseService service;
+	@Autowired
+	private  IndusCompanyService  iservice;
 	/**
 	 * 直接跳转页面
 	 * @param page
@@ -51,21 +54,26 @@ public class PrecisionSearchController extends BaseController{
 		String money = dto.getRegister();
 		String time = dto.getRegisterTime();
 		String area = dto.getArea();
-		if(area.equals("全部")){
-			area = "%%";
+		if(area.equals("全部")&&industry.equals("全部")&&time.equals("全部")&&money.equals("全部")){
+			Iterable<IndusCompany> list = iservice.listCompany();
+			return success(list);
 		}else{
-			area = "%"+area+"%";
+			if(area.equals("全部")){
+				area = "%%";
+			}else{
+				area = "%"+area+"%";
+			}
+			if(industry.equals("全部")){
+				industry = "%%";
+			}else{
+				industry="%"+industry+"%";
+			}
+			
+			List<IndusCompany> info = service.getCompanyList(industry,money,time,area);
+			if(info==null){
+				return error("暂无数据");
+			}
+			return success(info);
 		}
-		if(industry.equals("全部")){
-			industry = "%%";
-		}else{
-			industry="%"+industry+"%";
-		}
-		
-		List<IndusCompany> info = service.getCompanyList(industry,money,time,area);
-		if(info==null){
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		return success(info);
 	}
 }

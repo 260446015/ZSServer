@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.util.StringUtil;
+import com.huishu.ZSServer.common.util.StringUtil;
 
 /**
  * @author yxq
@@ -327,10 +327,7 @@ public class Company implements Serializable {
 	}
 
 	public String getRegisterCapital() {
-		if(StringUtil.isEmpty(this.registerCapital)){
-			this.registerCapital = "0万人民币";
-		}
-		return registerCapital;
+		return this.registerCapital;
 	}
 
 	public void setRegisterCapital(String registerCapital) {
@@ -415,6 +412,26 @@ public class Company implements Serializable {
 
 	public void setIndustryLabel(String industryLabel) {
 		this.industryLabel = industryLabel;
+	}
+	
+	public Double getRc(){
+		Double rc = null;
+		String rcStr = "";
+		if(StringUtil.isEmpty(this.registerCapital)){
+			return 0.0;
+		}else{
+			try{
+				rcStr = this.registerCapital.substring(0, this.registerCapital.indexOf("万"));
+			}catch(StringIndexOutOfBoundsException e){
+				return 0.0;
+			}
+		}
+		try {
+			rc = new Double(rcStr);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		return rc;
 	}
 
 	@Override

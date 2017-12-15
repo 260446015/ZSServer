@@ -1,6 +1,6 @@
  <div class="left-nav">
             <ul>
-                <li>
+                <li class="active">
                     <a href="/indusMap/industryMap.html">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">
@@ -10,10 +10,10 @@
                         产业地图
                     </a>
                     <ul class="left-nav-menu">
-                        <li>
+                        <li id="industryinfo">
                             <a href="/indus/industryDynamics.html">产业动态</a>
                         </li>
-                        <li>
+                        <li id="industrySummit">
                             <a href="/summit/industrySummitMeeting.html">产业峰会</a>
                         </li>
                     </ul>
@@ -29,10 +29,10 @@
                     </a>
                      <ul class="left-nav-menu">
                         <li id="all">
-                            <a href="/apis/area/garden/allCityPark">全域园区</a>
+                            <a href="/apis/area/garden/allCityPark.html">全域园区</a>
                         </li>
                         <li id="follow">
-                            <a href="/apis/area/garden/followPark">关注园区</a>
+                            <a href="/apis/area/garden/followPark.html">关注园区</a>
                         </li>
                     </ul>
                 </li>

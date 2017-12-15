@@ -173,4 +173,71 @@ public class DataServiceImpl implements DataService {
 		}
 	}
 
+	/**
+	 * 对生物产业数据进行维护
+	 */
+	@Override
+	public JSONObject redData(String value) {
+		String[] split = value.split("---");
+		JSONObject obj = new JSONObject();
+		obj.put("company", split[0]);
+		obj.put("area", split[1]);
+		obj.put("sorce", split[2]);
+		obj.put("state", split[3]);
+		obj.put("boss", split[5]);
+		obj.put("money", split[6]);
+		obj.put("time", split[7]);
+		obj.put("rang", split[8]);
+		obj.put("address", split[9]);
+		obj.put("industry", split[10]);
+		return obj;
+	}
+	
+	@Override
+	public boolean updateData(JSONObject obj) {
+		Enterprise entity = new Enterprise();
+		IndusCompany indus = new  IndusCompany();
+		String company = obj.getString("company");
+		String area = obj.getString("area");
+		String sorce = obj.getString("sorce");
+		String state = obj.getString("state");
+		String boss = obj.getString("boss");
+		String money = obj.getString("money");
+		String time = obj.getString("time");
+		String rang = obj.getString("rang");
+		String address = obj.getString("address");
+		String industry = obj.getString("industry");
+		entity.setAddress(address);
+		entity.setArea(area);
+		entity.setBoss(boss);
+		entity.setCompany(company);
+		entity.setIndustry(industry);
+		String replace = sorce.replace("'", "");
+		System.out.println(replace);
+		entity.setScoring(replace);
+		entity.setIndustryType(industry);
+		entity.setEngageState(state);
+		entity.setRegisterCapital(money);
+		entity.setOperateScope(rang);
+//		 time = time.replaceAll("/", "-");
+//		 time= time+"00:00:00";
+		 entity.setRegisterTime(time);
+		 try {
+			
+			 Enterprise ent = ep.findByCompany(company);
+			 if(ent == null){
+				 ep.save(entity);
+			 }else{
+				 ent.setScoring(sorce);
+				 ent.setOperateScope(rang);
+				 ent.setEngageState(state);
+				 System.out.println(ent.toString());
+				 ep.save(ent);
+			 }
+			 return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 }

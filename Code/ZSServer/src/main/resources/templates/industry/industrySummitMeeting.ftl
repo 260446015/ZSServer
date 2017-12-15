@@ -23,7 +23,7 @@
 <#include "/common/header.ftl"/>
 <div class="wrapper">
     <div class="page-content">
-        <#include "/common/sidebar.ftl"/>
+        <#include "/common/sidebar2.ftl"/>
         <div class="right-content">
             <div id="myCarousel" class="carousel slide">
                 <ol class="carousel-indicators">
