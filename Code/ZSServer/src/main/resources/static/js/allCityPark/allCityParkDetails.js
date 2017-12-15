@@ -6,6 +6,7 @@ var province;
 $(function() {
     $("#gardenMap").addClass("active");
     $("#all").addClass("active");
+    $("#follow").removeClass("active");
     AMapUI.setDomLibrary($);
     showGardenInfo(park);
     showCompanyList(park, pageNumber, pageSize);
@@ -16,11 +17,15 @@ $(function() {
             resizeEnable : false,
             zoom : 13,
         });
-        map.setCity(province);
         var geocoder = new AMap.Geocoder({
-            radius : 1000
-            // 范围，默认：500
+        	radius : 1000
+        	// 范围，默认：500
         });
+//        map.setCity(province);
+        geocoder.getLocation(park, function(status, result) {
+        	map.setZoomAndCenter(12, [result.geocodes[0].location.lng, result.geocodes[0].location.lat]);
+        });
+//        console.log(province);
         for (var j = 0; j < address.length; j++) {
             (function(j){
                 var addr = address[j].address;
@@ -172,7 +177,7 @@ function showGardenInfo(data) {
         success : function(res) {
             if (res.success) {
                 console.log(res.data);
-                province = res.data.province;
+                province = res.data.gardenName;
                 if (res.data.flag)
                     $("#attation").html('取消关注');
                 else

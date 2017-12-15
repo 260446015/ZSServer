@@ -5,7 +5,8 @@ var address = new Array();
 var province;
 $(function() {
 	$("#gardenMap").addClass("active");
-	$("#all").addClass("active");
+	$("#all").removeClass("active");
+	$("#follow").addClass("active");
 	showGardenInfo(park);
 	$(".search-box").on("click",".search-item-content>a",function(){
         $(this).addClass("active").siblings().removeClass("active");

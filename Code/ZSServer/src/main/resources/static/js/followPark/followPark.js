@@ -158,31 +158,39 @@ function showGardenAttainList(d,e,f){
 				var arr = res.data.content;
 				var html = "";
 				gardenAttList = arr;
-				for (var i = 0; i < arr.length; i++) {
-					html += '<div class="col-md-12 border-bottom"><input type="hidden" class="gdp" value="'+arr[i].gdp+'"/><input type="hidden" class="square" value="'+arr[i].gardenSquare+'"/><input type="hidden" value="'+arr[i].gardenId+'" class="attId"/><div class="layout-box">' +
-								'<div class="left-img"><img src="'+arr[i].gardenPicture+'" width="160" /></div>' +
-								'<div class="right-list"><a class="scatter-blocks no-border" href="/apis/area/garden/followAllCityPark.html?name='+arr[i].gardenName+'">'+
-								'<span class="scatter-title">'+arr[i].gardenName+'</span>'+
-								'<span class="scatter-type ml10">'+arr[i].gardenLevel+'</span>'+
-								'<span class="pull-right">入驻企业<span class="numbers">'+arr[i].enterCount+'</span>家</span></a>' +
-								'<p class="park-address"><span class="glyphicon glyphicon-tag"></span>';
-								var arr2 = arr[i].industryType.split('、')
-								for(var j=0;j<arr2.length;j++){
-									html += '<span class="mr15">'+arr2[j]+'</span>';
-								}
-								html += '</p><p class="net-address"><span class="mr15"><span class="glyphicon glyphicon-map-marker"></span>' +
-								arr[i].address +'</span><span class="mr15"><span class="glyphicon glyphicon-globe"></span>' +
-								arr[i].gardenWebsite + '</span><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right">园区对比</a><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right  mr15" onclick="attation(this);">取消关注</a>' +
-								'</p></div></div></div>';
-				}
-				$("#gardenList").html(html);
-				if(res.data.totalPages>1){
-					page.init(res.data.totalElements,res.data.number+1,options);
-					$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
-						showGardenAttainList(sortType,$(this).attr("page-data")-1,pageSize);
-	                });
+				if(arr.length != 0){
+					for (var i = 0; i < arr.length; i++) {
+						html += '<div class="col-md-12 border-bottom"><input type="hidden" class="gdp" value="'+arr[i].gdp+'"/><input type="hidden" class="square" value="'+arr[i].gardenSquare+'"/><input type="hidden" value="'+arr[i].gardenId+'" class="attId"/><div class="layout-box">' +
+									'<div class="left-img"><img src="'+arr[i].gardenPicture+'" width="160" /></div>' +
+									'<div class="right-list"><a class="scatter-blocks no-border" href="/apis/area/garden/followAllCityPark.html?name='+arr[i].gardenName+'">'+
+									'<span class="scatter-title">'+arr[i].gardenName+'</span>'+
+									'<span class="scatter-type ml10">'+arr[i].gardenLevel+'</span>'+
+									'<span class="pull-right">入驻企业<span class="numbers">'+arr[i].enterCount+'</span>家</span></a>' +
+									'<p class="park-address"><span class="glyphicon glyphicon-tag"></span>';
+									var arr2 = arr[i].industryType.split('、')
+									for(var j=0;j<arr2.length;j++){
+										html += '<span class="mr15">'+arr2[j]+'</span>';
+									}
+									html += '</p><p class="net-address"><span class="mr15"><span class="glyphicon glyphicon-map-marker"></span>' +
+									arr[i].address +'</span><span class="mr15"><span class="glyphicon glyphicon-globe"></span>' +
+									arr[i].gardenWebsite + '</span><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right">园区对比</a><a href="javascript:void(0);" class="btn btn-fill btn-blue follow-btn pull-right  mr15" onclick="attation(this);">取消关注</a>' +
+									'</p></div></div></div>';
+					}
+					$("#gardenList").html(html);
+					if(res.data.totalPages>1){
+						page.init(res.data.totalElements,res.data.number+1,options);
+						$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+							showGardenAttainList(sortType,$(this).attr("page-data")-1,pageSize);
+		                });
+					}else{
+						$('#page').html("");
+					}
 				}else{
-					$('#page').html("");
+					new Alert({
+						flag : false,
+						text : '暂无关注园区数据',
+						timer : 3000
+					}).show();
 				}
 			}
 		}
