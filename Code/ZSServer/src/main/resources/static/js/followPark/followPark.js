@@ -53,7 +53,7 @@ $(function () {
     $(".park-btn").on("click",function () {
         var parent_wrapper = $(this).parent();
         if(parent_wrapper.hasClass("open-img")){
-        	$("#gardenList").find(".follow-btn").removeClass("follow-btn");
+//        	$("#gardenList").find(".follow-btn").removeClass("follow-btn");
         	var value = $(".park-contrast-box").find(".img-box-list>.img-box>input[type=hidden]");
         	var arr = new Array();
         	value.each(function(){
@@ -90,10 +90,13 @@ $(function () {
             	}
             });
             showCompareEcharts(sendIds);
+            $("body").addClass("modal-open").append('<div class="modal-backdrop fade in"></div>');
         }else if(parent_wrapper.hasClass("open-charts")){
-        	$("#gardenList").find(".btn-blue").addClass("follow-btn");
+//        	$("#gardenList").find(".btn-blue").addClass("follow-btn");
             parent_wrapper.removeClass("open-charts");
+            $("body").removeClass("modal-open").find(".modal-backdrop.in").remove();
         }else if(parent_wrapper.find(".small-charts>div").length>0){
+        	$("body").addClass("modal-open").append('<div class="modal-backdrop fade in"></div>');
             parent_wrapper.addClass("open-charts");
         }else{
         	new Alert({
@@ -133,6 +136,7 @@ function showGardenAttainArea(){
 				for(var i=0;i<arr.length;i++){
 					html += '<a href="javascript:void(0);" class="search-item">'+arr[i]+'</a>';
 				}
+				$("#gardenArea").children().eq(0).siblings().remove();
 				$("#gardenArea").append(html);
 			}
 		}
@@ -210,12 +214,14 @@ function attation(event){
 	$.ajax({
 		url:'/apis/area/attentionGarden.json?gardenId='+gardenId+'&flag='+flag,
 		type:'get',
+		async:false,
 		success:function(res){
 			if(res.success){
 				showGardenAttainList(sortType,pageNumber,pageSize);
 			}
 		}
 	});
+	showGardenAttainArea();
 }
 var option = {
         tooltip: {

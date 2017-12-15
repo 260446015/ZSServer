@@ -292,23 +292,25 @@ var barOption = {
     ],
     dataZoom: [
                {
-                   show: true,
+                   show: false,
                    start: 50,
-                   end: 90
+                   end: 90,
+                   left:"10%",
+                   start: 0
                },
                {
                    type: 'inside',
-                   start: 94,
+                   start: 50,
                    end: 100
                },
                {
-                   show: true,
+                   show: false,
                    yAxisIndex: 0,
                    filterMode: 'empty',
                    width: 30,
                    height: '80%',
                    showDataShadow: false,
-                   left: '93%'
+                   left: '10%'
                }
            ],
     series : [

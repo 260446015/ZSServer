@@ -1457,7 +1457,7 @@ a.search-item.active{
 .park-contrast-box {
     position: fixed;
     right: 0;
-    z-index: 0;
+    z-index: 1042;
     top: 50%;
     margin-top:-57px;
 }
