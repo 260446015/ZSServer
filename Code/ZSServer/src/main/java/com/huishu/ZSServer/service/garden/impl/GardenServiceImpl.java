@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
-import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.entity.dto.IndustryCount;
@@ -55,7 +54,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		List<Order> orders = new ArrayList<Order>();
 		orders.add(new Order(Direction.DESC, "publishTime"));
 		orders.add(new Order(Direction.DESC, "hitCount"));
-		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), 4, new Sort(orders));
+		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(), new Sort(orders));
 		Map<String, Object> params = new HashMap<>();
 		params.put("park", dto.getPark());
 		params.put("dimension", dto.getDimension());
