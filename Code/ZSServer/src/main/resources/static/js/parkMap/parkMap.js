@@ -330,6 +330,7 @@ var  label = {
             fontSize: '16',
             color: '#ffffff'
         },
+        position: 'inside',
         formatter: function(param) {
             return param.data.name;
         }
@@ -338,53 +339,53 @@ var  label = {
 function initEcharts(pieChartName){
 	data1 = [
 	         {
-	             value: [18,90], symbolSize: 140, name: pieChartName[0], itemStyle: {normal: {color: '#5D9CEC'}},label:label
+	             value: [18,90], symbolSize: 140, name: pieChartName[0], label:label
 	         },
 	         {
-	             value: [10,20], symbolSize: 120, name: pieChartName[1], itemStyle: {normal: {color: '#62C87F'}},label:label
+	             value: [10,20], symbolSize: 120, name: pieChartName[1], label:label
 	         },
 	         {
-	             value: [57,11], symbolSize: 105, name: pieChartName[2], itemStyle: {normal: {color: '#F57BC1'}},label:label
+	             value: [57,11], symbolSize: 105, name: pieChartName[2], label:label
 	         },
 	         {
-	             value: [90,30], symbolSize: 93, name: pieChartName[3], itemStyle: {normal: {color: '#6ED5E6'}},label:label
+	             value: [90,30], symbolSize: 93, name: pieChartName[3], label:label
 	         },
 	         {
-	             value: [85,82], symbolSize: 86, name: pieChartName[4], itemStyle: {normal: {color: '#DCB186'}},label:label
+	             value: [85,82], symbolSize: 86, name: pieChartName[4], label:label
 	         },
 	         {
-	             value: [65,90], symbolSize: 70, name: pieChartName[5], itemStyle: {normal: {color: '#7053B6'}},label: label
+	             value: [65,90], symbolSize: 70, name: pieChartName[5], label: label
 	         }
 	     ];
 	return data1;
 }
 var data1 = [
 	 {
-		 value: [90,30], symbolSize: 140, name: '环保产业', itemStyle: {normal: {color: '#6ED5E6'}},label:label
+		 value: [90,30], symbolSize: 140, name: '环保产业', label:label
 	 },
 	 {
-		 value:  [50, 50], symbolSize:90, name: '融合', itemStyle: {normal: {color: '#FC863F'}},label:label
+		 value:  [50, 50], symbolSize:90, name: '融合', label:label
 	 },
     {
-        value: [18,90], symbolSize: 79, name: '新一代信息技术', itemStyle: {normal: {color: '#5D9CEC'}},label:label
+        value: [18,90], symbolSize: 79, name: '新一代信息技术', label:label
     },
     {
-        value: [10,20], symbolSize: 76, name: '新能源', itemStyle: {normal: {color: '#62C87F'}},label:label
+        value: [10,20], symbolSize: 76, name: '新能源', label:label
     },
     {
-        value: [57,11], symbolSize: 69, name: '生物产业', itemStyle: {normal: {color: '#F57BC1'}},label:label
+        value: [57,11], symbolSize: 69, name: '生物产业', label:label
     },
     {
-        value: [85,82], symbolSize: 79, name: '新材料', itemStyle: {normal: {color: '#DCB186'}},label:label
+        value: [85,82], symbolSize: 79, name: '新材料', label:label
     },
     {
-        value: [65,90], symbolSize: 63, name: '科技园', itemStyle: {normal: {color: '#7053B6'}},label: label
+        value: [65,90], symbolSize: 63, name: '科技园', label: label
     },
     {
-        value: [42,100], symbolSize: 74, name: '行业', itemStyle: {normal: {color: '#647C9D'}},label: label
+        value: [42,100], symbolSize: 74, name: '行业', label: label
     },
     {
-        value: [18,55], symbolSize: 74, name: '创新', itemStyle: {normal: {color: '#F15755'}},label:label
+        value: [18,55], symbolSize: 74, name: '创新', label:label
     }
 ];
 
@@ -410,7 +411,20 @@ var option = {
 
     series: [{
         name: '热词',
-        type: 'scatter',
+        type: 'effectScatter',
+        showEffectOn: 'emphasis',
+        itemStyle: {
+            normal: {
+                color: new echarts.graphic.LinearGradient(
+                    0, 0, 0, 1,
+                    [
+                        {offset: 0, color: '#20c2fe'},
+                        {offset: 0.5, color: '#6e92fb'},
+                        {offset: 1, color: '#bd62f7'}
+                    ]
+                )
+            }
+        },
         data: data1
     }]
 };
