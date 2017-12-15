@@ -24,9 +24,6 @@
 	            <lable>密码:</lable>
 	            <input type="password" name="password" id="userPassword"/></div>
 	        <div>
-	            <lable>记住我:</lable>
-	            <input id="rememberMe" type="checkbox" name="rememberMe"/></div>
-	        <div>
 	            <lable>提交:</lable>
 	            <input type="button" value="提交" onclick="doLogin()"/>
 	        </div>
@@ -50,7 +47,7 @@
 	                        type: 'post',
 	                        url: "/login.do",
 	                        async: false,
-	                        data: {username: $("#username").val(), password: encrypedPwd,rememberMe: $("#rememberMe").val()},
+	                        data: {username: $("#username").val(), password: encrypedPwd},
 	                        success: function (response) {
 							  	if(response.success){
 							 		window.location.href="/indusMap/industryMap.html";

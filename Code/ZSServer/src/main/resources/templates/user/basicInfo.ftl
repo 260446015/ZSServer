@@ -71,36 +71,42 @@
                                                     <div class="col-sm-5">
                                                         <input class="form-control blue-border" type="text" id="name" placeholder="">
                                                     </div>
+                                                    <div class="namestatus"></div>
                                                 </div>
                                                 <div class="form-group form-group-sm mb30">
                                                     <label class="col-sm-4 control-label info-label" for="park">所在园区</label>
                                                     <div class="col-sm-5">
                                                         <input class="form-control blue-border" type="text" id="park" placeholder="">
                                                     </div>
+                                                    <div class="parkstatus"></div>
                                                 </div>
                                                 <div class="form-group form-group-sm mb30">
                                                     <label class="col-sm-4 control-label info-label" for="department">所在部门</label>
                                                     <div class="col-sm-5">
                                                         <input class="form-control blue-border" type="text" id="department" placeholder=" ">
                                                     </div>
+                                                    <div class="departmentstatus"></div>
                                                 </div>
                                                 <div class="form-group form-group-sm mb30">
                                                     <label class="col-sm-4 control-label info-label" for="position">职位</label>
                                                     <div class="col-sm-5">
                                                         <input class="form-control blue-border" type="text" id="position" placeholder=" ">
                                                     </div>
+                                                    <div class="positionstatus"></div>
                                                 </div>
                                                 <div class="form-group form-group-sm mb30">
                                                     <label class="col-sm-4 control-label info-label" for="phone">联系电话</label>
                                                     <div class="col-sm-5">
                                                         <input class="form-control blue-border" type="text" id="phone" placeholder=" ">
                                                     </div>
+                                                    <div class="phonestatus"></div>
                                                 </div>
                                                 <div class="form-group form-group-sm mb30">
                                                     <label class="col-sm-4 control-label info-label" for="email">邮箱</label>
                                                     <div class="col-sm-5">
                                                         <input class="form-control blue-border" type="text" id="email" placeholder=" ">
                                                     </div>
+                                                    <div class="emailstatus"></div>
                                                 </div>
                                                 <div class="form-group form-group-sm mb30">
                                                     <label class="col-sm-4 control-label info-label" for="email"></label>
@@ -125,18 +131,21 @@
                                                     <div class="col-sm-5">
                                                         <input class="form-control blue-border" type="text" id="beforPassword">
                                                     </div>
+                                                    <div class="beforstatus"></div>
                                                 </div>
                                                 <div class="form-group form-group-sm mb30">
                                                     <label class="col-sm-4 control-label info-label" for="newPassword">新密码</label>
                                                     <div class="col-sm-5">
                                                         <input class="form-control blue-border" type="text" id="newPassword">
                                                     </div>
+                                                    <div class="newstatus"></div>
                                                 </div>
                                                 <div class="form-group form-group-sm mb30">
                                                     <label class="col-sm-4 control-label info-label" for="rePassword">在次输入新密码</label>
                                                     <div class="col-sm-5">
                                                         <input class="form-control blue-border" type="text" id="rePassword">
                                                     </div>
+                                                    <div class="restatus"></div>
                                                 </div>
                                                 <div class="form-group form-group-sm mb30">
                                                     <label class="col-sm-4 control-label info-label" for="code">验证码</label>
@@ -146,6 +155,7 @@
                                                     <a href="#" id="changeImg">
 													    <canvas class="show-captcha" id="canvas" width="140" height="35"></canvas>
 													</a>
+													<div class="codestatus"></div>
                                                 </div>
                                                 <div class="form-group form-group-sm mb30">
                                                     <label class="col-sm-4 control-label info-label" for="email"></label>

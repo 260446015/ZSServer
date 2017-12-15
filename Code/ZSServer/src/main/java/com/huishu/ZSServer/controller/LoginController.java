@@ -15,7 +15,6 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,11 +52,10 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login(HttpServletResponse response) {
-		System.out.println(getCurrentShiroUser());
-//		if(getUserId()==null){
+		if(getCurrentShiroUser()==null){
 			return "login";
-//		}
-//		return "/indusMap/industryMap";
+		}
+		return "/indusMap/industryMap";
 	}
 	
 	/**

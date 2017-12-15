@@ -5,13 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
+import com.huishu.ZSServer.entity.dto.UserDTO;
 import com.huishu.ZSServer.entity.user.UserBase;
 import com.huishu.ZSServer.service.user.UserBaseService;
 
@@ -59,4 +62,56 @@ public class UserBaseController extends BaseController{
 		}
 
 	}
+	
+	/**
+	 * 修改密码
+	 * @param beforPassword
+	 * @param newPassword
+	 * @return
+	 */
+	@RequestMapping(value = "modifyPassword.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult modifyPassword(String beforPassword,String newPassword) {
+		if (StringUtil.isEmpty(beforPassword) || StringUtil.isEmpty(newPassword)) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			String message = userBaseService.modifyPassword(getUserId(),beforPassword,newPassword);
+			if (MsgConstant.OPERATION_SUCCESS.equals(message)) {
+				return success(true).setMessage(MsgConstant.OPERATION_SUCCESS);
+			}else{
+				return success(false).setMessage(message);
+			}
+		} catch (Exception e) {
+			LOGGER.error("modifyPassword失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
+	
+	/**
+	 * 修改个人信息
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "modifyInformation.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult modifyInformation(@RequestBody UserDTO dto) {
+		if (StringUtil.isEmpty(dto.getRealName()) || StringUtil.isEmpty(dto.getTelphone())||StringUtil.isEmpty(dto.getUserDepartment())
+				|| StringUtil.isEmpty(dto.getUserEmail()) || StringUtil.isEmpty(dto.getUserJob())||StringUtil.isEmpty(dto.getUserPark())) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			if (userBaseService.modifyInformation(getUserId(),dto)) {
+				return success(true).setMessage(MsgConstant.OPERATION_SUCCESS);
+			}else{
+				return success(false).setMessage(MsgConstant.OPERATION_ERROR);
+			}
+		} catch (Exception e) {
+			LOGGER.error("modifyPassword失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
+	
 }

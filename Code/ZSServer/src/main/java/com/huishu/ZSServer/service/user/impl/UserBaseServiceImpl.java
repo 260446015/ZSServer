@@ -1,18 +1,18 @@
 package com.huishu.ZSServer.service.user.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.entity.dto.UserDTO;
 import com.huishu.ZSServer.entity.user.UserBase;
 import com.huishu.ZSServer.repository.user.UserBaseRepository;
+import com.huishu.ZSServer.security.Digests;
+import com.huishu.ZSServer.security.Encodes;
 import com.huishu.ZSServer.service.user.UserBaseService;
 
 @Service
 public class UserBaseServiceImpl implements UserBaseService {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserBaseServiceImpl.class);
 
 	@Autowired
 	private UserBaseRepository userBaseRepository;
@@ -22,5 +22,44 @@ public class UserBaseServiceImpl implements UserBaseService {
 		return userBaseRepository.findOne(id);
 	}
 
+	@Override
+	public String modifyPassword(long id, String beforPassword, String newPassword) {
+		UserBase one = userBaseRepository.findOne(id);
+		String oldPassword = getPasswordDB(beforPassword, one.getSalt());
+		String password = getPasswordDB(newPassword, one.getSalt());
+		if (oldPassword.equals(one.getPassword())) {
+			one.setPassword(password);
+			UserBase save = userBaseRepository.save(one);
+			if (save == null) {
+				return MsgConstant.OPERATION_ERROR;
+			}else{
+				return MsgConstant.OPERATION_SUCCESS;
+			}
+		}
+		return MsgConstant.OLDPASSWORD_ERROR;
+	}
+
+	@Override
+	public Boolean modifyInformation(long id, UserDTO dto) {
+		UserBase one = userBaseRepository.findOne(id);
+		one.setRealName(dto.getRealName());
+		one.setTelphone(dto.getTelphone());
+		one.setUserEmail(dto.getUserEmail());
+		one.setUserDepartment(dto.getUserDepartment());
+		one.setUserJob(dto.getUserJob());
+		one.setUserPark(dto.getUserPark());
+		UserBase save = userBaseRepository.save(one);
+		if (save == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	private String getPasswordDB(String password,String salt){
+		byte[] saltByte = Encodes.decodeHex(salt);
+		byte[] passwordByte = Digests.sha1(password.getBytes(), saltByte, Encodes.HASH_INTERATIONS);
+		String passwordTrue = Encodes.encodeHex(passwordByte);
+		return passwordTrue;
+	}
 
 }

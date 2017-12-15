@@ -90,9 +90,18 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	public void onLogout(PrincipalCollection principals) {
 		super.clearCachedAuthorizationInfo(principals);
 		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-		removeUserCache(shiroUser.getLoginName());
+		removeUserCache(shiroUser);
 	}
 
+	/**
+	 * 清除用户缓存
+	 * 
+	 * @param shiroUser
+	 */
+	public void removeUserCache(ShiroUser shiroUser) {
+		removeUserCache(shiroUser.getLoginName());
+	}
+	
 	/**
 	 * 清除用户缓存
 	 * 

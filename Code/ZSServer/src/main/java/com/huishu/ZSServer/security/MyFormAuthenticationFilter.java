@@ -73,7 +73,8 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 		String username = getUsername(request);
 		String password = getPassword(request);
 		boolean rememberMe = isRememberMe(request);
-		return new UsernamePasswordToken(username,password,rememberMe);
+		String host = getHost(request);
+		return new UsernamePasswordToken(username,password.toCharArray(),rememberMe, host);
 	}
 
 	/**
@@ -106,7 +107,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
              }  
              return false;  
          }  
-	}  
+	}
    
 	private static boolean isAjax(ServletRequest request){  
 		String header = ((HttpServletRequest) request).getHeader("X-Requested-With");  
