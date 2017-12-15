@@ -200,7 +200,7 @@ var chinaOption = {
             coordinateSystem: 'geo',
             data: convertData(data.sort(function (a, b) {
                 return b.value - a.value;
-            }).slice(0, 6)),
+            }).slice(0, 4)),
             symbolSize: function (val) {
                 return val[2] / 10;
             },
