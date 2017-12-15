@@ -2,19 +2,30 @@ var industry ="全部";
 var registerTime = "1-5年";
 var area = "全部";
 var register="0-50万";
-var arrTab;
 $(function () {
 	$("#screen").addClass("active");
-	/*var param = {industry:industry,area:area,register:register,registerTime:registerTime};
-    searchAjax(param);*/
     $(".search-tag span.close").on("click",function () {
         $(this).parent().remove();
-        console.log($(this).parent().val());
     });
-    if(arrTab!=null){
-    	$("#searchTag").html(TagList(arrTab));
-    }
+   
+    $("#myModal").modal("show");
+    $("#LabelBlue").click(function(){
+    	$("#myModal").modal("hide");
+    	var arr=[];
+    	if(industry=="全部"){
+    		arr = [area,registerTime,register];
+    	}else if(area=="全部"){
+    		arr=[industry,registerTime,register];
+    	}else{
+    		arr = [industry,area,registerTime,register];
+    	}
+    	$("#searchTag").html(TagList(arr));
+    	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
+    	searchAjax(param);
+    	
+    });
 });
+
 function searchTab(a,b){
 	if(a == 1){
 		industry = b;
@@ -26,10 +37,16 @@ function searchTab(a,b){
 		register = b;
 	}
 };
+$(".search-box").on("click",".search-item-content>a",function(){
+	$(this).addClass("active").siblings().removeClass("active");
+	var _id = $(this).attr("id");
+	var array = _id.split(',');
+	var a = array[0];
+	var b = array[1];
+	searchTab(a,b);
+});
 $("#search_tag").on("click",function () {
     $("#myModal").modal("show");
-    
-  
     $("#LabelBlue").click(function(){
     	
     	$("#myModal").modal("hide");
@@ -41,7 +58,6 @@ $("#search_tag").on("click",function () {
     	}else{
     		arr = [industry,area,registerTime,register];
     	}
-    	arrTab=arr;
     	$("#searchTag").html(TagList(arr));
     	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
     	searchAjax(param);
@@ -110,7 +126,8 @@ var dot = {
         [75, 70, '小米', 87, 1],
         [52, 83, '360', 60, 0],
         [32, 83, '微软', 90, 0],
-        [17, 60, '网易', 70, 0]
+        [17, 60, '网易', 70, 0],
+        [32, 26, '网易', 70, 0],
     ];
 
     var dataMap = datalist.map((item) => {
@@ -232,18 +249,26 @@ function searchAjax(param){
             	        		if(res.data==null){
             	        			new Alert({flag:false,text:res.message,timer:2000}).show();
             	        		}else{
-            	        			var a = res.data;
-            	        			console.log(res.data);
-            	        			$('#cname').html(a.name);
-            	        			$('#address1').html(a.address);
-            	        			$('#time1').html(a.time);
-            	        			$('#boss1').html(a.boss);
-            	        			$('#ind1').html(a.industry);
-            	        			$('#money1').html(a.money);
-            	        			$('#state1').html(a.state);
-            	        			$('.like').remove();
-                	        		$('#text-content').append('<a href="/apis/company/baseInfo.html?companyName='+a.name+'"  class="like">查看更多</a>');
-            	        		}
+            	        			 $('#horizontal-info').html(
+               	        				  '<h3 class="layer-person-title text-center">'
+               	        				  +res.data.name+'<button type="button" class="close">×</button></h3>'
+               	        				  +'<div class="layer-body small-line-height"><div class="form-horizontal">'
+               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">法人代表</label>'
+               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.boss+'</p></div></div>'
+               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">状态</label>'
+               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.state+'</p></div></div>'
+               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册时间</label>'
+               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.time+'</p></div></div>'
+               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">行业</label>'
+               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.industry+'</p></div></div>'
+               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册资本</label>'
+               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
+               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
+               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
+               	        				  +'</div></div>' +'<div class="layer-footer text-center" >'
+               	        				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
+               	        		  );
+            	        			 }
             	        	}
             	    	});
             	        $(".layer-person").css({
@@ -272,4 +297,15 @@ function initEchartData(array,datalist){
 //关闭内容
 $(".close").on("click",function () {
 	$(this).parents(".layer-person").hide();
+	/*var arr=[];
+	if(industry=="全部"){
+		arr = [area,registerTime,register];
+	}else if(area=="全部"){
+		arr=[industry,registerTime,register];
+	}else{
+		arr = [industry,area,registerTime,register];
+	}
+	$("#searchTag").html(TagList(arr));
+	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
+	searchAjax(param);*/
 });

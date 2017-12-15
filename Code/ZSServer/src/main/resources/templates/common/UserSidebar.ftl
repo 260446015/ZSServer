@@ -1,8 +1,8 @@
  <!-- header部分  start -->
   <div class="left-nav left-nav-icon3">
             <ul>
-                <li>
-                    <a href="../html/basicInfo.html">
+                <li id="basicinfoItem">
+                    <a href="/user/basicinfo.html">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">
 
@@ -12,8 +12,8 @@
                     </a>
 
                 </li>
-                <li   class="active">
-                    <a href="javascript:void(0)">
+                <li id="followItem">
+                    <a href="javascript:void(0)" onclick="expandMenu()">
                         <div class="circle-out parkIcon">
                             <div class="circle-in">
 
@@ -22,16 +22,16 @@
                         关注中心
                     </a>
                      <ul class="left-nav-menu">
-                         <li>
+                         <li id="companyItem">
                              <a href="javascript:void(0)">企业</a>
                          </li>
-                         <li class="active">
-                             <a href="javascript:void(0)">科研机构</a>
+                         <li id="organizationItem">
+                             <a href="/user/scientificResearchInstitution.html">科研机构</a>
                          </li>
-                         <li>
+                         <li id="summitItem">
                              <a href="javascript:void(0)">产业峰会</a>
                          </li>
-                         <li>
+                         <li id=reportItem">
                              <a href="javascript:void(0)">报告中心</a>
                          </li>
                      </ul>

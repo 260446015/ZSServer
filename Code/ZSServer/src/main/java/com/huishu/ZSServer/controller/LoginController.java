@@ -39,16 +39,6 @@ public class LoginController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
 	/**
-	 * 直接跳转页面
-	 * @param page
-	 * @return
-	 */
-	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
-	public String show(@PathVariable String page) {
-		return page;
-	}
-
-	/**
 	 * 没有权限
 	 * @param response
 	 */
@@ -63,7 +53,11 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login(HttpServletResponse response) {
-		return "login";
+		System.out.println(getCurrentShiroUser());
+//		if(getUserId()==null){
+			return "login";
+//		}
+//		return "/indusMap/industryMap";
 	}
 	
 	/**

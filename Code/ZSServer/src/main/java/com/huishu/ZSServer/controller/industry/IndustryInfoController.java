@@ -167,14 +167,17 @@ public class IndustryInfoController extends BaseController{
 		json.put("pageNumber", dto.getPageNumber());
 		Page<AITInfo> page = service.getIndustryInfoByPage(json);
 		page.getContent().forEach(action->{
+			if(action.getIndustryLabel().equals("生物医药")){
+				action.setIndustryLabel("生物技术");
+			}
 			String summary = action.getSummary();
 			if(StringUtil.isNotEmpty(summary)){
 				String replaceHtml = StringUtil.replaceHtml(summary);
 				action.setContent(replaceHtml);
 			}else{
 				String content = action.getContent();
-				if(content.length()>150){
-					String substring = content.substring(0, 50);
+				if(content.length()>300){
+					String substring = content.substring(0, 300);
 					action.setContent( StringUtil.replaceHtml(substring));
 				}
 			}
