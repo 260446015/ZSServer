@@ -1061,6 +1061,11 @@ a.search-item.active{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.img-list .details .address{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 .follow {
     display: inline-block;

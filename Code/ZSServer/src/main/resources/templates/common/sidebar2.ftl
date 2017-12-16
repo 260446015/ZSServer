@@ -1,4 +1,4 @@
- <div class="left-nav">
+ <div class="left-nav posa">
             <ul>
                 <li class="active">
                     <a href="/indusMap/industryMap.html">

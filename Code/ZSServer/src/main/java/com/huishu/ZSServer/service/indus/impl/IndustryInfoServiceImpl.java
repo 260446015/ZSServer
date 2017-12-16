@@ -59,7 +59,6 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 	@Override
 	public JSONArray getKeyWordList(JSONObject json) {
 		BoolQueryBuilder bq = new BoolQueryBuilder();
-//		BoolQueryBuilder bq = getQueryBoolBuilder(json);
 		if (StringUtil.isNotEmpty(json.getString("dimension"))) {
 			String dimension = json.getString("dimension");
 			bq.must(QueryBuilders.termQuery("dimension", dimension));
@@ -95,7 +94,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 				}
 			}
 
-			JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, 10);
+			JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, 12);
 			if (keywordCloud.getBooleanValue("status")) {
 
 				List<KeywordModel> list = (List<KeywordModel>) keywordCloud.get("result");
