@@ -3,6 +3,8 @@
  */
 $(function(){
     $("#gardenMap").addClass("active");
+    $("#indus").removeClass("active");
+    $("#report").removeClass("active");
     $("#all").addClass("active");
     showGardenindustry();
     showGardenArea();

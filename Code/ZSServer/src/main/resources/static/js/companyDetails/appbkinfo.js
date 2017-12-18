@@ -12,6 +12,9 @@ function showAppbkinfo(){
 			if(res.success){
 				console.log(res.data);
 				var arr = res.data.data.companyPurchaseLandList;
+				var thead = '<tr><th class="text-left">图标</th><th class="text-left">产品名称</th><th class="text-left">产品简称</th>' +
+                            '<th class="text-left">产品分类</th><th class="text-left">领域</th></tr>';
+				$("#appbkinfo").prev().html(thead);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var signedDate = getFormatDate(new Date(arr[i].signedDate));
@@ -20,6 +23,9 @@ function showAppbkinfo(){
 							'<td>'+arr[i].adminRegion+'</td><td>'+arr[i].location+'</td>' +
 							'<td>'+arr[i].totalArea+'</td><td>'+startTime+'</td>'+'</tr>'
 				}
+				$("#appbkinfo").html(html);
+			}else{
+				 var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
 				$("#appbkinfo").html(html);
 			}
 		}

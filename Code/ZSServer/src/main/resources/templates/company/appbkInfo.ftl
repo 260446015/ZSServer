@@ -2,7 +2,7 @@
 <html lang="zh_CN">
 <head>
     <meta charset="UTF-8">
-    <title>慧数招商-企业业务</title>
+    <title>慧数招商-产品信息</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="慧数招商平台，是一个关于园区产业招商的大数据管理平台">
     <meta name="keywords" content="慧数，招商，慧数招商，招商平台，园区，园区招商，园区招商平台，科技园，产业园，大数据，产业">
@@ -26,22 +26,16 @@
 <div class="wrapper">
     <div class="page-content">
       <#include "/common/sidebar2.ftl"/>
-      	<div class="right-content">
+      	<div class="posa-right-container">
       		<#include "/common/companyDetail.ftl"/>
       		<div class="model-box">
       			 <div class="model-header">
-                    <div class="modal-sub-title">投资事件</div>
+      			 	<h3 class="model-title">经营状况</h3>
+                    <div class="modal-sub-title">产品信息</div>
                 </div>
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">图标</th>
-                                <th class="text-left">产品名称</th>
-                                <th class="text-left">产品简称</th>
-                                <th class="text-left">产品分类</th>
-                                <th class="text-left">领域</th>
-                            </tr>
                             				
                         </thead>
                         <tbody id="appbkinfo">

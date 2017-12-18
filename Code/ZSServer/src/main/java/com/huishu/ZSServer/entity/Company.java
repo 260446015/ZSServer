@@ -413,16 +413,16 @@ public class Company implements Serializable {
 	public void setIndustryLabel(String industryLabel) {
 		this.industryLabel = industryLabel;
 	}
-	
-	public Double getRc(){
+
+	public Double getRc() {
 		Double rc = null;
 		String rcStr = "";
-		if(StringUtil.isEmpty(this.registerCapital)){
+		if (StringUtil.isEmpty(this.registerCapital)) {
 			return 0.0;
-		}else{
-			try{
+		} else {
+			try {
 				rcStr = this.registerCapital.substring(0, this.registerCapital.indexOf("万"));
-			}catch(StringIndexOutOfBoundsException e){
+			} catch (StringIndexOutOfBoundsException e) {
 				return 0.0;
 			}
 		}

@@ -3,6 +3,8 @@
  */
 $(function(){
 		$("#gardenMap").addClass("active");
+		$("#indus").removeClass("active");
+		$("#report").removeClass("active");
 		showGardenCondition("","condition");
 		showGardenIndustryCount(industryType);
 		showGardenGdpPiechart(province);
@@ -546,6 +548,7 @@ function showGardenCondition(area,target){
 			if(res.success){
 				var html = "";
 				var arr = res.data.content;
+				console.log(arr);
 				if(arr.length != 0){
 					for(var i=0;i<arr.length;i++){
 						html += '<div class="col-md-12 border-bottom">' +

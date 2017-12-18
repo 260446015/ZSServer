@@ -2,7 +2,9 @@ package com.huishu.ZSServer.service.garden_user.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -11,13 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.dto.GardenCompareDTO;
@@ -26,13 +25,10 @@ import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenUser;
 import com.huishu.ZSServer.entity.garden.ScanGarden;
-import com.huishu.ZSServer.entity.openeyes.BaseInfo;
-import com.huishu.ZSServer.entity.user.UserBase;
 import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
 import com.huishu.ZSServer.repository.garden_user.GardenUserRepository;
 import com.huishu.ZSServer.repository.garden_user.ScanGardenRepository;
-import com.huishu.ZSServer.repository.user.UserBaseRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
@@ -100,13 +96,13 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 					}
 					gardenUser.setUserId(userId);
 					gardenUser.setGardenPicture(garden.getGardenPicture());
-					gardenUser.setEnterCompany(garden.getEnterCompany());
 					gardenUser.setGardenId(gardenId);
 					gardenUser.setGdp(garden.getGdp());
 					gardenUser.setGardenSquare(garden.getGardenSquare());
 					gardenUser.setIndustryType(garden.getIndustryType());
 					gardenUser.setGardenWebsite(garden.getGardenWebsite());
 					gardenUser.setGardenLevel(garden.getGardenLevel());
+					gardenUser.setEnterCount(garden.getEnterCount());
 					gardenUserRepository.save(gardenUser);
 					return gardenUser;
 				}
@@ -128,52 +124,34 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 		int pageSize = dto.getPageSize();
 		Page<GardenUser> page = null;
 		String sort = msg[2];
-		String direct = msg[3];
-		Sort sortType = null;
-		if (sort.equals("按园区占地")) {
-			if (direct.equalsIgnoreCase("desc"))
-				sortType = new Sort(Direction.DESC, "gardenSquare");
-			else
-				sortType = new Sort(Direction.ASC, "gardenSquare");
-		}
-		PageRequest pageRequest = new PageRequest(pageNum, pageSize, sortType);
-		if (msg[0].equals("不限") || msg[0].equals("全部")) {
-			msg[0] = "%%";
-		} else
-			msg[0] = "%" + msg[0] + "%";
-		if (msg[1].equals("不限") || msg[1].equals("全部")) {
-			msg[1] = "%%";
-		}
-
-		try {
-			page = gardenUserRepository.findByProvinceLikeAndIndustryTypeLike(msg[1], msg[0], pageRequest);
-			List<GardenUser> list = new ArrayList<>();
-			page.getContent().forEach(GardenUser -> {
-				String picture = GardenUser.getGardenPicture();
-				String description = GardenUser.getDescription();
-				String address = GardenUser.getAddress();
-				if (description == null || StringUtil.isEmpty(description) || description.equals("NULL")) {
-					GardenUser.setDescription("暂无");
-				}
-				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
-					GardenUser.setGardenPicture(KeyConstan.IP_PORT + "fileserver/img/list_img.jpg");
-				}
-				if (address == null || StringUtil.isEmpty(address) || address.equals("NULL")) {
-					GardenUser.setAddress("暂无");
-				}
-				int count = companyRepository.findCountByPark(GardenUser.getGardenName());
-				GardenUser.setEnterCount(count);
-				list.add(GardenUser);
-			});
-			if(sort.equals("按企业数")){
-				list.sort((a,b) -> {
-					return b.getEnterCount() - a.getEnterCount();
-				});
-				page = new PageImpl<>(list, pageRequest, page.getTotalElements());
+//		String direct = msg[3];
+		PageRequest pageRequest = new PageRequest(pageNum, pageSize);
+		List<GardenUser> returnList = new ArrayList<>();
+		if(msg[0].equals("全部") && msg[1].equals("全部")){
+			returnList = (List<GardenUser>) gardenUserRepository.findAll();
+		}else{
+			if(msg[0].equals("全部")){
+				Map<String, Object> params = new HashMap<>();
+				params.put("province", msg[1]);
+				returnList = gardenUserRepository.findAll(getSpec(params));
+			}else{
+				returnList = gardenUserRepository.findByIndustryTypeLike("%" + msg[0] + "%");
 			}
+		}
+		List<GardenUser> list = new ArrayList<>();
+		if(sort.equals("按企业数")){
+			list = returnList.stream().sorted((a,b) -> {
+				return b.getEnterCount() - a.getEnterCount();
+			}).skip(pageNum * pageSize).limit(pageSize).collect(Collectors.toList());
+		}else{
+			list = returnList.stream().sorted((a,b) -> {
+				return (int)(b.getGardenSquare() - a.getGardenSquare());
+			}).skip(pageNum * pageSize).limit(pageSize).collect(Collectors.toList());
+		}
+		try {
+			page = new PageImpl<>(list, pageRequest, returnList.size());
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
-			return null;
 		}
 		return page;
 	}

@@ -1,4 +1,7 @@
 $(function(){
+	$("#indus").removeClass("active");
+	$("#gardenMap").addClass("active");
+	$("#report").removeClass("active");
 	area = GetQueryString('area');
 	showGardenPolicy(area,pageNumber,pageSize);
 });

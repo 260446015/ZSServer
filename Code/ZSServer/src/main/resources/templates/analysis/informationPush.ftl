@@ -31,14 +31,6 @@
                         <h3 class="model-title">${Request.park}</h3>
                     </div>
                     <div class="model-body">
-                        <ul class="mark-box">
-                            <li>
-                                <a class="mark-item" href="/apis/analysis/analysisOutputValue.html?park=${Request.park}">图表分析</a>
-                            </li>
-                            <li class="active">
-                                <a class="mark-item" href="/apis/analysis/informationPush.html?park=${Request.park}">情报推送</a>
-                            </li>
-                        </ul>
                         <h3 class="text-center sub-title">园区政策</h3>
                         <div class="border-shadow-box small-list">
                             <div class="row" id="policy_list">
@@ -88,11 +80,11 @@
 	}
 	function show(d,b){
 		if(d.length==0){
-			return "暂无数据";
+			return '<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">未查询到相关讯息！</p></div>';
 		}
         var arr = []
         $.each(d, function(index, item){
-          arr.push('<div class="col-md-12 border-bottom"><a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+item.id+'">'+
+          arr.push('<div class="col-md-12 border-bottom"><a class="scatter-blocks no-border" target="_blank" href="/summit/getEssayDetails.json?essayId='+item.id+'">'+
 					'<span class="scatter-title">'+item.title+'</span></a><p class="scatter-content">'+item.summary+'</p>'+
 					'<p class="scatter-lib"><span class="glyphicon glyphicon-globe"></span><span>'+item.vector+'</span></p></div>'
           		);

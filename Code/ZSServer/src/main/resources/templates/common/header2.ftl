@@ -13,13 +13,13 @@
     </div>
     <div class="navbar-collapse collapse" role="navigation">
         <ul class="nav navbar-nav nav-menu">
-            <li class="active">
+            <li class="active" id="jzzs">
                 <a href="/intelligent/intelligentRecommendation.html">
                     <i class="icon-group-map icon-map-1"></i>
                     <span class="nav-text">精准招商</span>
                 </a>
             </li>
-            <li>
+            <li id="zsqb">
                 <a href="/indusMap/industryMap.html">
                     <i class="icon-group-map icon-map-2"></i>
                     <span class="nav-text">招商情报</span>

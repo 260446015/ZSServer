@@ -26,20 +26,17 @@
 <div class="wrapper">
     <div class="page-content">
       <#include "/common/sidebar2.ftl"/>
-      	<div class="right-content">
+      	<div class="posa-right-container">
       		<#include "/common/companyDetail.ftl"/>
       		<div class="model-box">
       			<div class="model-header">
+      				<h3 class="model-title">经营状况</h3>
                     <div class="modal-sub-title">招投标</div>
                 </div>
                 <div class="model-body border-shadow-box pd0">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">发布时间</th>
-                                <th class="text-left">标题</th>
-                                <th class="text-left">采购人</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="bids">
                         </tbody>

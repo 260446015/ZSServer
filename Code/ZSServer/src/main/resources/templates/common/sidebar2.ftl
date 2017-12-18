@@ -1,6 +1,10 @@
  <div class="left-nav posa">
             <ul>
+<<<<<<< HEAD
                 <li class="active" id="indus">
+=======
+                <li >
+>>>>>>> branch 'master' of https://gitlab.junquan.com.cn/hskj/pd_210_merchantssys.git
                     <a href="/indusMap/industryMap.html">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">

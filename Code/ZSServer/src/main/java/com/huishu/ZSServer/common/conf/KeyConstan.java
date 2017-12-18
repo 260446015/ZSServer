@@ -231,6 +231,10 @@ public class KeyConstan {
 		 * 【web版】分红情况（股票）
 		 */
 		public static final String ALLOTMEN = "https://open.api.tianyancha.com/services/v3/newopen/allotmen.json";
+		/**
+		 * 【web版】资质证书
+		 */
+		public static final String CERTIFICATE = "https://open.api.tianyancha.com/services/v3/newopen/certificate.json";
 	}
 
 	/**

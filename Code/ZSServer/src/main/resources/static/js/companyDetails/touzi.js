@@ -12,6 +12,9 @@ function showTouzi(){
 			if(res.success){
 				console.log(res.data);
 				var arr = res.data.result.items;
+				var thead = '<tr><th class="text-left">时间</th><th class="text-left">轮次</th><th class="text-left">投资方</th>' +
+							'<th class="text-left">产品</th><th class="text-left">地区</th><th class="text-left">行业</th><th class="text-left">业务</th></tr>';
+				$("#touzi").prev().html(thead);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var dateStr = getFormatDate(new Date(arr[i].tzdate));
@@ -20,6 +23,9 @@ function showTouzi(){
 							'<td>'+arr[i].product+'</td><td>'+arr[i].location+'</td>'+
 							'<td>'+arr[i].hangye1+'</td><td>'+arr[i].yewu+'</td>'+'</tr>'
 				}
+				$("#touzi").html(html);
+			}else{
+				html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
 				$("#touzi").html(html);
 			}
 		}

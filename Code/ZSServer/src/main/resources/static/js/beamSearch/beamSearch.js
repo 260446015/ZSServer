@@ -24,9 +24,9 @@ $(function () {
 			window.location.href="/apis/getcompany/listCompanyByName.json?companyName="+$("#mySearch").val() 
 		}
     });
-    $(".upload-card").on("click",function () {
-        $(this).parents(".col-md-4").addClass("active");
-    });
+    // $(".upload-card").on("click",function () {
+    //     $(this).parents(".col-md-4").addClass("active");
+    // });
     $("input[type=file]").on("change",function () {
         run(this, function(data){  
         	$("#myModal").modal({
@@ -82,8 +82,8 @@ function run(input_file, get_data) {
 var options;
 function showCompany(list){
 	if(list.length==0){
-		new Alert({flag:'warning',text:"未查询到相关讯息！",timer:2000}).show();
-	}else{
+		$('#city_list').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">未查询到相关讯息！</p></div>');
+    }else{
 		options={
 			"id":"page",//显示页码的元素
 			"data":list,//显示数据
@@ -103,8 +103,8 @@ function showCompany(list){
 	               '<p>成立时间:<span class="company-time">'+obj.estiblishTime.substring(0,10)+'</span></p>'+
 	               '<p>注册资金:<span class="company-money">'+obj.regCapital+'</span></p>'+
 	               '<p>总部地点:<span class="company-address">'+obj.base+'</span></p>'+
-	               '<div class="company-mask"><div class="circle-empty"><a href="/apis/company/baseInfo.html?companyName='+name+'" class="text-center"><img src="/images/see_icon.png" /></a>'+
-	               '<a href="/apis/company/baseInfo.html?companyName='+name+'" class="text-center">查看详情</a></div></div></div></div></div>';
+	               '<div class="company-mask"><div class="circle-empty"><a href="/apis/company/baseInfo.html?companyName='+name+'" class="text-center" target="_blank"><img src="/images/see_icon.png" /></a>'+
+	               '<a href="/apis/company/baseInfo.html?companyName='+name+'" class="text-center" target="_blank">查看详情</a></div></div></div></div></div>';
 	           }
 	           $("#city_list").html(cHtml);//将数据增加到页面中
 	       }

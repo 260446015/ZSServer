@@ -26,7 +26,7 @@
 <div class="wrapper">
     <div class="page-content">
       <#include "/common/sidebar2.ftl"/>
-<div class="right-content">
+<div class="posa-right-container">
             <div class="container">
                 <div class="model-box">
                     <div class="model-header">
@@ -54,8 +54,8 @@
                                 排序
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">按园区占地</a>
-                                <a href="javascript:void(0);" class="search-item">按企业数</a>
+                                <a href="javascript:void(0);" class="search-item active">按企业数</a>
+                                <a href="javascript:void(0);" class="search-item">按园区占地</a>
                             </div>
                         </div>
                     </div>

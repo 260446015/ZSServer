@@ -1,4 +1,5 @@
 $(function(){
+	showStaff();
 	$(".tabs-custom").find("a").on("click",function(){
 		var value = $(this).text();
 		$(this).parent("li").addClass("active");
@@ -9,26 +10,33 @@ $(function(){
 			showHolder();
 		}
 	});
-	showStaff(companyName);
 });
-function showStaff(companyName){//展示主要人员的功能
+function showStaff(){//展示主要人员的功能
 	var req = {"cname":companyName,"pageNumber":1}
 	$.ajax({
 		url:'/apis/openeyes/getStaffInfo.json',
 		data:JSON.stringify(req),
 		contentType:'application/json',
 		type:'post',
+		async:false,
 		success:function(res){
 			if(res.success){
 				var html = '';
-				var arr = res.data;
+				var arr = res.data.result;
 				console.log(arr);
 				$(".tableShow").eq(1).css("display","none");
 				$(".tableShow").eq(0).css("display","inline");
 				for(var i=0;i<arr.length;i++){
-					html += '<tr><td>'+arr[i].name+'<a href="javascript:void(0)" >他有7家公司>></a></td>' +
-							'<td>77.08%</td><td>143，934.0478万元</td><td>2017-09-09</td></tr>'
+					console.log(arr[i]);
+					html += '<div class="item"><div class="slider-header">'+arr[i].name+'('+arr[i].typeJoin[0]+')</div><div class="row">' +
+							'<div class="col-md-3 col-md-offset-1"><label class="control-label col-md-5">联系方式</label>' +
+							'<div class="col-md-7"><input class="input phone masks" readonly value="" /></div></div>' +
+							'<div class="col-md-3 col-md-offset-1"><label class="control-label col-md-5">邮箱</label>' +
+							'<div class="col-md-7"><input class="input email masks" readonly value="" /></div></div>' +
+							'<div class="col-md-3 col-md-offset-1"><button class="btn btn-blue">我要联系</button></div></div></div>';
 				}
+				$("#staff").html(html);
+				$(".item").eq(0).addClass("active");
 			}
 		}
 	});

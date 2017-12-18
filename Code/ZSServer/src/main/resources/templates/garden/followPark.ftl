@@ -26,7 +26,7 @@
 <div class="wrapper">
     <div class="page-content">
       <#include "/common/sidebar2.ftl"/>
-      <div class="right-content">
+      <div class="posa-right-container">
             <div class="container">
                 <div class="model-box">
                     <div class="model-header">
@@ -54,8 +54,8 @@
                                 排序
                             </div>
                             <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">按园区占地</a>
-                                <a href="javascript:void(0);" class="search-item">按企业数</a>
+                                <a href="javascript:void(0);" class="search-item active">按企业数</a>
+                                <a href="javascript:void(0);" class="search-item">按园区占地</a>
                             </div>
                         </div>
                     </div>
@@ -87,56 +87,56 @@
                         </div>
                         <div class="charts-box-list" id="compareList">
                            <div class="charts-box" style="display:none">
-                                <p class="charts-title">中关村软件园</p>
+                                <p class="charts-title"></p>
                                 <div class="small-charts" id="charts1"></div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <span>企业</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span class="enterCount">230家</span>
+                                        <span class="enterCount"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <span>占地</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span class="square">530公顷</span>
+                                        <span class="square"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="charts-box" style="display:none">
-                                <p class="charts-title">中关村软件园</p>
+                                <p class="charts-title"></p>
                                 <div class="small-charts" id="charts2"></div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <span>企业</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span class="enterCount">230家</span>
+                                        <span class="enterCount"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <span>占地</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span class="square">530公顷</span>
+                                        <span class="square"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="charts-box" style="display:none">
-                                <p class="charts-title">中关村软件园</p>
+                                <p class="charts-title"></p>
                                 <div class="small-charts" id="charts3"></div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <span>企业</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span class="enterCount">230家</span>
+                                        <span class="enterCount"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <span>占地</span>
                                     </div>
                                     <div class="col-md-6">
-                                        <span class="square">530公顷</span>
+                                        <span class="square"></span>
                                     </div>
                                 </div>
                             </div>

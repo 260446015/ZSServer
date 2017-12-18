@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,65 +110,42 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		String[] msg = dto.getMsg();
 		int pageNum = dto.getPageNumber();
 		int pageSize = dto.getPageSize();
-		Page<GardenData> page = null;
+		PageImpl<GardenData> page = null;
 		String sort = msg[2];
-		String direct = msg[3];
-		Sort sortType = null;
-		if (sort.equals("按园区占地")) {
-			if (direct.equalsIgnoreCase("desc"))
-				sortType = new Sort(Direction.DESC, "gardenSquare");
-			else
-				sortType = new Sort(Direction.ASC, "gardenSquare");
-		}
-		PageRequest pageRequest = new PageRequest(pageNum, pageSize, sortType);
-		if (msg[0].equals("不限") || msg[0].equals("全部")) {
-			msg[0] = "%%";
-		} else
-			msg[0] = "%" + msg[0] + "%";
-		if (msg[1].equals("不限") || msg[1].equals("全部")) {
-			msg[1] = "%%";
+//		String direct = msg[3];
+		PageRequest pageRequest = new PageRequest(pageNum, pageSize);
+		List<GardenData> returnList = new ArrayList<>();
+		if(msg[0].equals("全部") && msg[1].equals("全部")){
+			returnList = (List<GardenData>) gardenRepository.findAll();
 		}else{
-			msg[1] = "%" + msg[1] + "%";
-		}
-		try {
-			page = gardenRepository.findByProvinceLikeAndIndustryTypeLike(msg[1], msg[0], pageRequest);
-			List<GardenData> list = new ArrayList<>();
-			page.getContent().forEach(GardenData -> {
-				String gardenIntroduce = GardenData.getGardenIntroduce();
-				String gardenSuperiority = GardenData.getGardenSuperiority();
-				String address = GardenData.getAddress();
-				String picture = GardenData.getGardenPicture();
-				GardenUser gu = gardenUserRepository.findByGardenNameAndUserId(GardenData.getGardenName(),
-						dto.getUserId());
-				if (gu != null)
-					GardenData.setFlag(true);
-				else
-					GardenData.setFlag(false);
-				if (gardenIntroduce == null || StringUtil.isEmpty(gardenIntroduce) || gardenIntroduce.equals("NULL")) {
-					if (gardenSuperiority == null || StringUtil.isEmpty(gardenSuperiority)
-							|| gardenSuperiority.equals("NULL")) {
-						GardenData.setGardenIntroduce("暂无");
-					} else {
-						GardenData.setGardenIntroduce(gardenSuperiority);
-					}
-				}
-				if (address == null || StringUtil.isEmpty(address) || address.equals("NULL")) {
-					GardenData.setAddress("暂无");
-				}
-				if (picture == null || StringUtil.isEmpty(picture) || picture.equals("NULL")) {
-					GardenData.setGardenPicture(KeyConstan.IP_PORT + "fileserver/img/list_img.jpg");
-				}
-				int count = companyRepository.findCountByPark(GardenData.getGardenName());
-				GardenData.setEnterCount(count);
-				list.add(GardenData);
-			});
-			if(sort.equals("按企业数")){
-				list.sort((a,b) -> {
-					return b.getEnterCount() - a.getEnterCount();
-				});
-				page = new PageImpl<>(list, pageRequest, page.getTotalElements());
+			if(msg[0].equals("全部")){
+				Map<String, Object> params = new HashMap<>();
+				params.put("province", msg[1]);
+				returnList = gardenRepository.findAll(getSpec(params));
+			}else{
+				returnList = gardenRepository.findByIndustryTypeLike("%" + msg[0] + "%");
 			}
-
+		}
+		List<GardenData> list = new ArrayList<>();
+		if(sort.equals("按企业数")){
+			list = returnList.stream().sorted((a,b) -> {
+				return b.getEnterCount() - a.getEnterCount();
+			}).skip(pageNum * pageSize).limit(pageSize).collect(Collectors.toList());
+		}else{
+			list = returnList.stream().sorted((a,b) -> {
+				return (int)(b.getGardenSquare() - a.getGardenSquare());
+			}).skip(pageNum * pageSize).limit(pageSize).collect(Collectors.toList());
+		}
+		list.forEach(GardenData -> {
+			GardenUser gu = gardenUserRepository.findByGardenNameAndUserId(GardenData.getGardenName(),
+					dto.getUserId());
+			if (gu != null)
+				GardenData.setFlag(true);
+			else
+				GardenData.setFlag(false);
+		});
+		try {
+			page = new PageImpl<>(list, pageRequest, returnList.size());
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}

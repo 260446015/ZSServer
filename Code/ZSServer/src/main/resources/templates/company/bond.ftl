@@ -26,23 +26,17 @@
 <div class="wrapper">
     <div class="page-content">
       <#include "/common/sidebar2.ftl"/>
-      	<div class="right-content">
+      	<div class="posa-right-container">
       		<#include "/common/companyDetail.ftl"/>
       		<div class="model-box">
       			<div class="model-header">
+      				<h3 class="model-title">经营状况</h3>
                     <div class="modal-sub-title">债券信息</div>
                 </div>
                 <div class="model-body border-shadow-box pd0">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">发行日期</th>
-                                <th class="text-left">债券名称</th>
-                                <th class="text-left">债券代码</th>
-                                <th class="text-left">债券类型</th>
-                                <th class="text-left">最新评级</th>
-                                <th class="text-left">操作</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="bond">
                         </tbody>

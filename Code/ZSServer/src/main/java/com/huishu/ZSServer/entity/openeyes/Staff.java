@@ -72,8 +72,13 @@ public class Staff implements Serializable {
 		this.name = name;
 	}
 
-	public String getTypeJoin() {
-		return typeJoin;
+	public String[] getTypeJoin() {
+		String[] str = this.typeJoin.replace("[", "").replace("]", "").split(",");
+		String[] returnStr = new String[str.length];
+		for (int i=0;i<str.length;i++) {
+			returnStr[i] = str[i].replaceAll("\"", "");
+		}
+		return returnStr;
 	}
 
 	public void setTypeJoin(String typeJoin) {

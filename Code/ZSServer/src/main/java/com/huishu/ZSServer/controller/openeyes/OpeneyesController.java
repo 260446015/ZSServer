@@ -686,6 +686,25 @@ public class OpeneyesController extends BaseController {
 		}
 		return success(returnObj);
 	}
+	/**
+	 * 资质证书
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getCertificate.json", method = RequestMethod.POST)
+	public AjaxResult getCertificate(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getCertificate(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
 
 	/**
 	 * 著作权

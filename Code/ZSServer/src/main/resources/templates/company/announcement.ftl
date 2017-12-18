@@ -20,29 +20,36 @@
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- js 兼容低版本IE end -->
+    <style>
+    	.btn-box-more{
+    		margin-top:25px;
+    		text-align:center;
+    	}
+    </style>
 </head>
 <body class="bg2">
 <#include "/common/header.ftl"/>
 <div class="wrapper">
     <div class="page-content">
       <#include "/common/sidebar2.ftl"/>
-      	<div class="right-content">
+      	<div class="posa-right-container">
       		<#include "/common/companyDetail.ftl"/>
       		<div class="model-box">
       			 <div class="model-header">
+      			 	<h3 class="model-title">上市信息</h3>
                     <div class="modal-sub-title">上市公告</div>
                 </div>
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">日期</th>
-                                <th class="text-left">上市公告</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="announcement">
                         </tbody>
                     </table>
+                </div>
+                <div class="btn-box-more">
+                	<button class="btn btn-link">加载更多</button>
                 </div>
             </div>
       		

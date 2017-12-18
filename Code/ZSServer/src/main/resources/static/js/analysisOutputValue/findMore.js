@@ -24,7 +24,7 @@ function showMore(a,b,p){
 				var arr = res.data.dataList;
 				for(var i=0;i<arr.length;i++){
 					html += '<div class="col-md-12 border-bottom">' +
-								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
+								'<a class="scatter-blocks no-border" target="_blank" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
 									'<span class="scatter-title">'+arr[i].title+'</span></a>' +
 									'<p class="scatter-content">'+arr[i].summary +'</p>' + 
 									'<p class="scatter-lib">' +

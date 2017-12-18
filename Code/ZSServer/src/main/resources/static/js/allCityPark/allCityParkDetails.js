@@ -2,11 +2,19 @@
  * Created by zhangxin on 2017/11/22.
  */
 var address = new Array();
-var province;
 $(function() {
+	park = GetQueryString('name')
     $("#gardenMap").addClass("active");
     $("#all").addClass("active");
     $("#follow").removeClass("active");
+    /* 雷达转动 */
+    if ($(window).scrollTop() > 0) {
+        $(window).scrollTop(0);
+    }
+    rotates();
+    setTimeout(function() {
+        unrotates();
+    }, 2000);
     AMapUI.setDomLibrary($);
     showGardenInfo(park);
     showCompanyList(park, pageNumber, pageSize);
@@ -15,7 +23,7 @@ $(function() {
 });
 var pageNumber = 0;
 var pageSize = 10;
-var park = GetQueryString('name');
+var park;
 var options = {
     "id" : "page",// 显示页码的元素
     "data" : null,// 显示数据
@@ -138,14 +146,6 @@ function showScan(_province,_address){
             showZoomNum : false
             // 显示zoom值
         }));
-        /* 雷达转动 */
-        if ($(window).scrollTop() > 0) {
-            $(window).scrollTop(0);
-        }
-        rotates();
-        setTimeout(function() {
-            unrotates();
-        }, 2000);
     });
 }
 function rotates() {

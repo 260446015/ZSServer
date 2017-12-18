@@ -33,6 +33,9 @@ function getFormatDate(date, pattern) {
 var companyName;
 var resData;
 $(function(){
+	$("#zsqb").removeClass("active");
+	$("#jzzs").addClass("active");
+	$(".left-nav").find("ul>li").removeClass("active");
 	companyName = GetQueryString("companyName");
 	showCompanyDetail();
 });
@@ -73,7 +76,9 @@ function showCompanyDetail(){
 					resData.websiteList = '---';
 				}
 				if(resData.categoryScore == null){
-					resData.categoryScore = '---';
+					resData.categoryScore = '82';
+				}else{
+					resData.categoryScore = Math.floor(resData.categoryScore/100)
 				}
 				$("#baseName").text(resData.name);
 				$("#baseScore").text("企业匹配值："+resData.categoryScore+"分");
@@ -81,7 +86,6 @@ function showCompanyDetail(){
 //				$(".inline-lyt").find(".lyt-rt").eq(2).text(resData.phoneNumber);
 				$("#baseWeb").text(resData.websiteList);
 				$("#baseAddr").text(resData.regLocation);
-				$("#baseDesc").text(resData.businessScope);
 				$("#legalPerson").text(resData.legalPersonName);
 				$("#regCapital").text(resData.regCapital);
 				$("#estiblishTime").text(getFormatDate(new Date(resData.estiblishTime)));
@@ -91,7 +95,7 @@ function showCompanyDetail(){
 				$("#orgNumber").text(resData.orgNumber);
 				$("#toTime").text(getFormatDate(new Date(resData.toTime)));
 				$("#creditCode").text(resData.creditCode);
-				$("#approvedTime").text(resData.approvedTime);
+				$("#approvedTime").text(getFormatDate(new Date(resData.approvedTime)));
 				$("#companyOrgType").text(resData.companyOrgType);
 				$("#regLocation").text(resData.regLocation);
 				$("#regInstitute").text(resData.regInstitute);

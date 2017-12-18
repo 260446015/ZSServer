@@ -134,10 +134,12 @@ function ajaxPost(param){
 	            		var param={invest:invest,sort:sort,area:area,industry:industry,pageNumber:$(this).attr("page-data")-1};
 	            		ajaxPost(param)
 	                });
+	            	$('#city_list').html(show(response.data.dataList));
             	 }else{
             		 $('#page').html("");
+            		 $('#city_list').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
             	 }
-            	 $('#city_list').html(show(response.data.dataList));
+            	 
             }
         }
     });
@@ -156,7 +158,7 @@ function showDynamic(d){
 	var arr2 = [];
 	$.each(d, function(index, item){
 		var inner='<div class="model-body border-no-shadow"><div class="row"><div class="col-md-12 border-bottom">'+
-        '<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+item.id+'">'+
+        '<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+item.id+'" target="_blank">'+
         '<span class="icon-block"></span><span class="scatter-type">【'+item.industry+'】</span>'+
         '  <span class="scatter-title">'+item.title+'</span></a></div></div></div>';
 		(index%2 ==0) ?arr.push(inner):arr2.push(inner); 
@@ -166,7 +168,8 @@ function showDynamic(d){
 }
 function show(d){
     var arr = []
-    $.each(d, function(index, item){
+    var before='<table class="table table-striped"><thead><tr><th>时间</th><th class="text-left">公司</th><th>轮次</th><th>融资额</th><th>投资方</th><th>详情</th></tr></thead><tbody>';
+	$.each(d, function(index, item){
       var imageSrc=item.logo;
       if(item.logo==null||item.logo.length==0){
     	  imageSrc='/images/c_logo.png';
@@ -180,6 +183,6 @@ function show(d){
 			    '<td class="text-center"><a href="'+item.articleLink+'" target="_blank" class="btn btn-fill btn-blue">详情</a></td></tr>'
       		);
     });
-    var inner=arr.join('');
-    return inner;
+    var after='</tbody></table>';
+    return before+arr.join('')+after;
 }

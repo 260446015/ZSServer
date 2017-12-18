@@ -28,6 +28,10 @@ public interface GardenRepository extends CrudRepository<GardenData, Long>, JpaS
 	List<String> findArea();
 
 	Page<GardenData> findByProvinceLikeAndIndustryTypeLike(String province,String industry,Pageable page);
+
+	List<GardenData> findByIndustryTypeLike(String string);
+	
+	GardenData findByGardenName(String gardenName);
 	
 	
 }

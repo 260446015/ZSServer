@@ -26,7 +26,7 @@
 <div class="wrapper">
     <div class="page-content">
       <#include "/common/sidebar2.ftl"/>
-        <div class="right-content">
+        <div class="posa-right-container">
             <div class="row">
                 <div class="col-md-8">
                     <div class="map" id="parkMap"></div>

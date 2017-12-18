@@ -1,4 +1,4 @@
-/*package garden;
+package garden;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,9 +26,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -39,15 +36,17 @@ import com.huishu.ZSServer.entity.Enterprise;
 import com.huishu.ZSServer.entity.IndustryRank;
 import com.huishu.ZSServer.entity.dto.AreaSearchDTO;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
+import com.huishu.ZSServer.entity.dto.GardenDTO;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
-import com.huishu.ZSServer.entity.garden.GardenDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenMap;
 import com.huishu.ZSServer.entity.garden.GardenUser;
+import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.entity.openeyes.Patents;
 import com.huishu.ZSServer.entity.openeyes.TouZi;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
+import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
 import com.huishu.ZSServer.repository.company.IndusRankRepository;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
@@ -59,8 +58,8 @@ import com.huishu.ZSServer.service.garden.GardenService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
-//@SpringBootTest(classes = Application.class)
-//@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = Application.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public class GardenTest {
 
 	@Autowired
@@ -82,8 +81,11 @@ public class GardenTest {
 	@Autowired
 	private EnterPriseRepository enterPriseRepository;
 	private static Logger log = LoggerFactory.getLogger(GardenTest.class);
+	
+	@Autowired
+	private GardenRepository gardenRepository;
 
-	@Test
+	/*@Test
 	public void testFindGardenList() {
 		GardenDTO dto = new GardenDTO();
 		dto.setIndustryType("生物产业");
@@ -575,8 +577,6 @@ public class GardenTest {
 		});
 		indusRankRepository.save(list);
 	}
-	@Autowired
-	private GardenRepository gardenRepository;
 	@Test
 	public void testSaveGardenList() throws FileNotFoundException{
 		WpsUtilsTest util = new WpsUtilsTest();
@@ -614,7 +614,25 @@ public class GardenTest {
 			Company c = new Company();
 			c.setPark(split);
 		});
+	}*/
+	@Autowired
+	private CompanyRepository companyRepository;
+	@Test
+	public void testTTTT(){
+		String s = "三明高新技术产业开发区、上海张江高新技术产业开发区、上海紫竹高新技术产业开发区、东莞松山湖高新技术产业开发区、中关村科技园区、中关村科技园区—东城、中关村科技园区—东城园、中关村科技园区—丰台园、中关村科技园区—大兴园、中关村科技园区—怀柔区、中关村科技园区—房山园、中关村科技园区—昌平园、中关村科技园区—朝阳园、中关村科技园区—海淀园、中关村科技园区—石景山园、中关村科技园区—经济开发区园、中关村科技园区—西城园、中关村科技园区—通州园、中关村科技园区—门头沟园、中关村科技园区—顺义园中国苏州高新区、中山火炬高技术产业开发区、临沂高新技术产业开发区、乌鲁木齐高新技术产业开发区、乐山高新技术产业开发区、仙桃高新技术产业开发区、佛山高新技术产业开发区、保定高新技术产业开发区、兰州高新技术产业开发区、内江高新技术产业开发区、包头稀土高新技术产业开发区、北海高新技术产业开发区、南京高新技术产业开发区、南宁高新技术产业开发区、南昌高新技术产业开发区、南通高新技术产业开发区、南阳高新技术产业开发区、厦门火炬高技术产业开发区、合肥高新技术产业开发区、吉安高新技术产业开发区、吉林高新技术产业开发区、呼和浩特金山高新技术产业开发区、哈尔滨高新技术产业开发区、唐山高新技术产业开发区、嘉兴秀洲高新技术产业开发区、大庆高新技术产业开发区、大连高新技术产业园区、天津滨海高新技术产业开发区、太原高新技术产业开发区、威海火炬高技术产业开发区、孝感高新技术产业开发区、宁波高新技术产业开发区、安康高新技术产业开发区、安阳高新技术产业开发区、安顺高新技术产业开发区、宜昌高新技术产业开发区、宿迁高新技术产业开发区、常州高新技术产业开发区、常德高新技术产业开发区、常熟高新技术产业开发区、平顶山高新技术产业开发区、广州高新技术产业开发区、延吉高新技术产业开发区、徐州高新技术产业开发区、德州高新技术产业开发区、德阳高新技术产业开发区、惠州仲恺高新技术产业开发区、成都高新技术产业开发区、扬州高新技术产业开发区、承德高新技术产业开发区、抚州高新技术产业开发区、攀枝花钒钛高新技术产业开发区、新乡高新技术产业开发区、新余高新技术产业开发区、新疆生产建设兵团石河子高新技术产业开发区、无锡高新技术产业开发区、昆山高新技术产业开发区、昆明高新技术产业开发区、昌吉高新技术产业开发区、景德镇高新技术产业开发区、本溪高新技术产业开发区、杨凌农业高新技术产业示范区、杭州高新技术产业开发区、枣庄高新技术产业开发区、柳州高新技术产业开发区、株洲高新技术产业开发区、桂林高新技术产业开发区、榆林高新技术产业开发区、武汉东湖新技术开发区、武进高新技术产业开发区、汕头高新技术产业开发区、江门高新技术产业开发区、江阴高新技术产业开发区、沈阳高新技术产业开发区、泉州高新技术产业开发区、泰安高新技术产业开发区、泰州医药高新技术产业开发区、泸州高新技术产业开发区、洛阳高新技术产业开发区、济南高新技术产业开发区、济宁高新技术产业开发区、海口高新技术产业开发区、淮安高新技术产业开发区、深圳市高新技术产业园区、深圳湾园区、清远高新技术产业开发区、温州高新技术产业开发区、渭南工业园区、渭南高新技术产业开发区、湖州莫干山高新技术产业开发区、湘潭高新技术产业开发区、源城高新技术产业开发区、漳州高新技术产业开发区、潍坊高新技术产业开发区、烟台高新技术产业开发区、焦作高新技术产业开发区、燕郊高新技术产业开发区、玉溪高新技术产业开发区、珠海高新技术产业开发区、璧山高新技术产业开发区、白银高新技术产业开发区、益阳高新技术产业开发区、盐城高新技术产业开发区（盐城经济技术开发区)、石嘴山高新技术产业开发区、石家庄高新技术产业开发区、福州高新技术产业开发区、绍兴高新技术产业开发区、绵阳高新技术产业开发区、肇庆高新技术产业开发区、自贡高新技术产业开发区、芜湖高新技术产业开发区、苏州高新技术产业开发区、荆门高新技术产业开发区、莆田高新技术产业开发区、莱芜高新技术产业开发区、营口高新技术产业开发区、萧山临江高新技术产业开发区、蚌埠高新技术产业开发区、衡阳高新技术产业开发区、衢州高新技术产业开发区、襄阳高新技术产业开发区、西安高新技术产业开发区、贵阳高新技术产业开发区、赣州高新技术产业开发区（赣州高新技术产业园区）、辽阳高新技术产业开发区、连云港高新技术产业开发区、通化医药高新技术产业开发区、郑州高新技术产业开发区、郴州高新技术产业开发区、鄂尔多斯高新技术产业开发区、重庆高新技术产业开发区、铜陵狮子山高新技术产业开发区（狮子山经济开发区）、银川高新技术产业开发区、锦州高新技术产业开发区、镇江高新技术产业开发区、长春净月高新技术产业开发区、长春高新技术产业开发区、长沙高新技术产业开发区、长治高新技术产业开发区、阜新高新技术产业开发区、随州高新技术产业开发区、青岛高新技术产业开发区、青海高新技术产业开发区、鞍山高新技术产业开发区、顺义产业园、马鞍山慈湖高新技术产业开发区、鹰潭高新技术产业开发区、黄冈高新技术产业开发区、黄河三角洲农业高新技术产业示范区、齐齐哈尔高新技术产业开发区、龙岩高新技术产业开发区";
+		String[] split = s.split("、");
+		for (int i = 0; i < split.length; i++) {
+			String park = split[i];
+			GardenData one = gardenRepository.findByGardenName(park);
+			if(one == null){
+				continue;
+			}
+			List<Company> findByPark = companyRepository.findByPark(park);
+			findByPark.forEach((c) ->{
+				c.setGid(one);
+				companyRepository.save(c);
+			});
+		}
 	}
 
 }
-*/

@@ -1,7 +1,6 @@
 package com.huishu.ZSServer.entity.garden;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
-import com.huishu.ZSServer.entity.Company;
 
 /**
  * 
@@ -61,11 +61,7 @@ public class GardenData implements Serializable {
 	/** 是否被关注标识 */
 	@Transient
 	private Boolean flag;
-	/** 园区企业数量 */
-	@Transient
-	private List<Company> cList;
 
-	@Transient
 	private int enterCount;
 
 	public int getEnterCount() {
@@ -125,7 +121,10 @@ public class GardenData implements Serializable {
 	}
 
 	public String getAddress() {
-		return address;
+		if (address == null || StringUtil.isEmpty(address) || address.equals("NULL")) {
+			return "暂无";
+		} else
+			return address;
 	}
 
 	public void setAddress(String address) {
@@ -157,7 +156,12 @@ public class GardenData implements Serializable {
 	}
 
 	public String getGardenIntroduce() {
-		return gardenIntroduce;
+		if (gardenSuperiority == null || StringUtil.isEmpty(gardenSuperiority) || gardenSuperiority.equals("NULL")) {
+			return "暂无";
+		} else {
+			return gardenIntroduce;
+		}
+
 	}
 
 	public void setGardenIntroduce(String gardenIntroduce) {
@@ -165,7 +169,10 @@ public class GardenData implements Serializable {
 	}
 
 	public String getGardenPicture() {
-		return gardenPicture;
+		if (gardenPicture == null || StringUtil.isEmpty(gardenPicture) || gardenPicture.equals("NULL")) {
+			return KeyConstan.IP_PORT + "fileserver/img/list_img.jpg";
+		} else
+			return gardenPicture;
 	}
 
 	public void setGardenPicture(String gardenPicture) {
@@ -173,7 +180,12 @@ public class GardenData implements Serializable {
 	}
 
 	public String getGardenSuperiority() {
-		return gardenSuperiority;
+		if (gardenSuperiority == null || StringUtil.isEmpty(gardenSuperiority) || gardenSuperiority.equals("NULL")) {
+			return "暂无";
+		} else {
+			return gardenSuperiority;
+		}
+
 	}
 
 	public void setGardenSuperiority(String gardenSuperiority) {
@@ -204,14 +216,6 @@ public class GardenData implements Serializable {
 	 * this.getEnterCompany()).split("、"); if (str[0].equals("")) { return 0; }
 	 * return str.length; }
 	 */
-
-	public List<Company> getcList() {
-		return cList;
-	}
-
-	public void setcList(List<Company> cList) {
-		this.cList = cList;
-	}
 
 	@Override
 	public String toString() {

@@ -24,6 +24,7 @@ import com.huishu.ZSServer.entity.openeyes.Bids;
 import com.huishu.ZSServer.entity.openeyes.Bond;
 import com.huishu.ZSServer.entity.openeyes.BonusInfo;
 import com.huishu.ZSServer.entity.openeyes.Branch;
+import com.huishu.ZSServer.entity.openeyes.Certificate;
 import com.huishu.ZSServer.entity.openeyes.ChangeInfo;
 import com.huishu.ZSServer.entity.openeyes.CheckInfo;
 import com.huishu.ZSServer.entity.openeyes.CompanyInfo;
@@ -71,6 +72,7 @@ import com.huishu.ZSServer.repository.openeyes.BidsRepository;
 import com.huishu.ZSServer.repository.openeyes.BondRepository;
 import com.huishu.ZSServer.repository.openeyes.BonusInfoRepository;
 import com.huishu.ZSServer.repository.openeyes.BranchRepository;
+import com.huishu.ZSServer.repository.openeyes.CertificateRepository;
 import com.huishu.ZSServer.repository.openeyes.ChangeInfoRepository;
 import com.huishu.ZSServer.repository.openeyes.CheckInfoRepository;
 import com.huishu.ZSServer.repository.openeyes.CompanyInfoRepository;
@@ -208,6 +210,8 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	private BonusInfoRepository bonusInfoRepository;
 	@Autowired
 	private AllotmenRepository allotmenRepository;
+	@Autowired
+	private CertificateRepository certificateRepository;
 
 	@Override
 	public JSONObject getStaffInfo(OpeneyesDTO dto) throws OpeneyesException {
@@ -1693,6 +1697,43 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				list.add(parseObject);
 			});
 			holdingCompanyRepository.save(list);
+		}
+		return openEyesTarget;
+	}
+
+	
+	@Override
+	public JSONObject getCertificate(OpeneyesDTO dto) throws OpeneyesException {
+		JSONObject result = new JSONObject();
+		Map<String, Object> params = new HashMap<>();
+		params.put("name", dto.getCname());
+		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
+		dto.setSpec(KeyConstan.URL.CERTIFICATE);
+		dto.setParams(params);
+		List<Certificate> list = certificateRepository.findByCname(dto.getCname());
+		List<Certificate> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (newList.size() > 0) {
+			JSONObject inList = new JSONObject();
+			inList.put("resultList", newList);
+			result.put("data", inList);
+			return result;
+		}
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONArray jsonArr = null;
+		try {
+			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("resultList");
+		} catch (NullPointerException e) {
+			log.debug("天眼查公司参股控股查询出现问题",e.getMessage());
+			throw new OpeneyesException();
+		}
+		if(jsonArr != null){
+			jsonArr.forEach(obj -> {
+				Certificate parseObject = JSONObject.parseObject(obj.toString(), Certificate.class);
+				parseObject.setCname(dto.getCname());
+				list.add(parseObject);
+			});
+			certificateRepository.save(list);
 		}
 		return openEyesTarget;
 	}

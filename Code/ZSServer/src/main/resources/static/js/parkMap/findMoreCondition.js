@@ -1,4 +1,7 @@
 $(function(){
+	$("#indus").removeClass("active");
+	$("#gardenMap").addClass("active");
+	$("#report").removeClass("active");
 	showGardenCondition('',pageNumber,pageSize);
 });
 var pageNumber = 0;

@@ -26,14 +26,6 @@
             </div>
             <div class="lyt-rt" id="baseAddr"></div>
         </div>
-        <div class="lyt-item">
-            <div class="lyt-lt">
-                <span class="icon-block"></span> 简介
-            </div>
-            <div class="lyt-rt" id="baseDesc">
-               
-            </div>
-        </div>
     </div>
 </div>
 <ul class="mark-box">
@@ -104,7 +96,7 @@
                 <a href="/apis/company/appbkInfo.html?companyName=${companyName}">产品信息</a>
             </li>
             <li>
-                <a href="/apis/company/jingpin.html?companyName=${companyName}">资质证书</a>
+                <a href="/apis/company/certificate.html?companyName=${companyName}">资质证书</a>
             </li>
             <li>
                 <a href="/apis/company/lawSuit.html?companyName=${companyName}">法律诉讼</a>

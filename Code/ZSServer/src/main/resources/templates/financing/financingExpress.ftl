@@ -24,7 +24,7 @@
 <div class="wrapper">
     <div class="page-content">
 		<#include "/common/sidebar2.ftl"/>
-        <div class="right-content">
+        <div class="posa-right-container">
             <div class="model-box">
                 <div class="model-header">
                     <h3 class="model-title">产业融资</h3>
@@ -131,21 +131,7 @@
                     </div>
                 </div>
                 <div class="model-body border-box">
-                    <div class="row">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>时间</th>
-                                    <th class="text-left">公司</th>
-                                    <th>轮次</th>
-                                    <th>融资额</th>
-                                    <th>投资方</th>
-                                    <th>详情</th>
-                                </tr>
-                            </thead>
-                            <tbody id="city_list">
-                            </tbody>
-                        </table>
+                    <div class="row" id="city_list">
                     </div>
                 </div>
                 <div class="page-box clearfix">

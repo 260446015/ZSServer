@@ -341,12 +341,13 @@ public class AITInfo {
 	}
 
 	public String getSummary() {
-		return summary;
+		if(!StringUtil.isEmpty(this.summary))
+			return StringUtil.replaceHtml(summary);
+		else
+			return StringUtil.replaceHtml(content).substring(0, 15);
 	}
 
 	public void setSummary(String summary) {
-		if(!StringUtil.isEmpty(summary))
-			summary = StringUtil.replaceHtml(summary);
 		this.summary = summary;
 	}
 

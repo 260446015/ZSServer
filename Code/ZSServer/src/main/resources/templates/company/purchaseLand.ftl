@@ -26,10 +26,11 @@
 <div class="wrapper">
     <div class="page-content">
       <#include "/common/sidebar2.ftl"/>
-      	<div class="right-content">
+      	<div class="posa-right-container">
       		<#include "/common/companyDetail.ftl"/>
       		<div class="model-box">
       			<div class="model-header">
+      				<h3 class="model-title">经营状况</h3>
                     <div class="modal-sub-title">购地信息</div>
                 </div>
                 <div class="model-body border-shadow-box pd0">

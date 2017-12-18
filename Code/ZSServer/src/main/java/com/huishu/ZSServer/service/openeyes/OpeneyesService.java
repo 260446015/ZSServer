@@ -366,4 +366,11 @@ public interface OpeneyesService {
 	 */
 	JSONObject getAllotmen(OpeneyesDTO dto) throws OpeneyesException;
 
+	/**
+	 * 【web版】资质证书
+	 * @param dto
+	 * @return
+	 */
+	JSONObject getCertificate(OpeneyesDTO dto) throws OpeneyesException;
+
 }

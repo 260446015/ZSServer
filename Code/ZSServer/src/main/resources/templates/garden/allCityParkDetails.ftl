@@ -26,7 +26,7 @@
 <div class="wrapper">
     <div class="page-content">
       <#include "/common/sidebar2.ftl"/>
-        <div class="right-content">
+        <div class="posa-right-container">
             <div class="map-box">
                <div class="gaodeMap" id="map"></div>
                 <div id="tip"></div>

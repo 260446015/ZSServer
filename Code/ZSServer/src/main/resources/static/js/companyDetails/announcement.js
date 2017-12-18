@@ -13,11 +13,16 @@ function showBond(){
 			if(res.success){
 				console.log(res.data);
 				arr = res.data.data.dataList;
+				var thead = '<tr><th class="text-left">日期</th><th class="text-left">上市公告</th></tr>';
+				$("#announcement").prev().html(thead);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+arr[i].time+'</td><td><a href="javascript:void(0)" onclick="showModel(this)">'+arr[i].title+'</a></td>' +
 							'</tr>';
 				}
+				$("#announcement").html(html);
+			}else{
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
 				$("#announcement").html(html);
 			}
 		}

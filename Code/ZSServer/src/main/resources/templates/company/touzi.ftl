@@ -26,25 +26,17 @@
 <div class="wrapper">
     <div class="page-content">
       <#include "/common/sidebar2.ftl"/>
-      	<div class="right-content">
+      	<div class="posa-right-container">
       		<#include "/common/companyDetail.ftl"/>
       		<div class="model-box">
       			 <div class="model-header">
+      			 	<h3 class="model-title">企业发展</h3>
                     <div class="modal-sub-title">投资事件</div>
                 </div>
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">时间</th>
-                                <th class="text-left">轮次</th>
-                                <th class="text-left">金额</th>
-                                <th class="text-left">投资方</th>
-                                <th class="text-left">产品</th>
-                                <th class="text-left">地区</th>
-                                <th class="text-left">行业</th>
-                                <th class="text-left">业务</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="touzi">
                         </tbody>
