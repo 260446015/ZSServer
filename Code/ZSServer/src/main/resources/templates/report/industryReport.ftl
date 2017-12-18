@@ -25,7 +25,7 @@
     <div class="page-content">
 		<#include "/common/sidebar2.ftl"/>
         <div class="posa-right-container">
-            <div class="model-box">
+            <div class="model-box" id="report_list">
                 <div class="model-header">
                 </div>
                 <div class="search-box">

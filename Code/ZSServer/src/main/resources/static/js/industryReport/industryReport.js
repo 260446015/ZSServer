@@ -9,6 +9,7 @@ var options={
 };
 $(function(){
 	$("#report").addClass("active");
+//	new Loading({dom:document.getElementById("report_list"),text:"数据加载中，请勿刷新页面！"}).show();
 	$.ajax({
         url: "/apis/report/getScreeningItem.json",
         success: function (response) {
@@ -21,6 +22,7 @@ $(function(){
             		$('#year_item').html(item(response.data));
             	}
             }
+//            new Loading({dom:document.getElementById("report_list")}).hide();
             $(".search-item").on("click",function(){
 				$(this).addClass("active").siblings().removeClass("active");
 				var _value = $(this).html();
@@ -48,8 +50,8 @@ function ajsxPost(y,t,n){
             	new Alert({flag:false,text:response.message,timer:1500}).show();
             }else{
             	if(response.data.dataList.length==0){
-            		new Alert({flag:'warning',text:"暂无数据！",timer:2000}).show();
-            	}else{
+            		$('#biuuu_city_list').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
+               	 }else{
             		$('#biuuu_city_list').html(show(response.data.dataList));
             	}
             	if(response.data.totalPage>1){
