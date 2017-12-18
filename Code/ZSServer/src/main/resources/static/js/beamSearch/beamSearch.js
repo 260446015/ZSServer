@@ -24,9 +24,9 @@ $(function () {
 			window.location.href="/apis/getcompany/listCompanyByName.json?companyName="+$("#mySearch").val() 
 		}
     });
-    $(".upload-card").on("click",function () {
-        $(this).parents(".col-md-4").addClass("active");
-    });
+    // $(".upload-card").on("click",function () {
+    //     $(this).parents(".col-md-4").addClass("active");
+    // });
     $("input[type=file]").on("change",function () {
         run(this, function(data){  
         	$("#myModal").modal({
