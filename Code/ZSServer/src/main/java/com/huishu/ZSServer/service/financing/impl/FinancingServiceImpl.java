@@ -67,6 +67,7 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 				info.setFinancingAmount(map.get("financingAmount").toString());
 				info.setInvestor(map.get("investor").toString());
 				info.setArticleLink(map.get("articleLink").toString());
+				info.setLogo(map.get("logo").toString());
 				list.add(info);
 			}
 		}

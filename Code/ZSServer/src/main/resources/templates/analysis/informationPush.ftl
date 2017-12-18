@@ -80,7 +80,7 @@
 	}
 	function show(d,b){
 		if(d.length==0){
-			return '<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">未查询到相关讯息！</p></div>';
+			return '<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
 		}
         var arr = []
         $.each(d, function(index, item){
