@@ -24,7 +24,7 @@
 <div class="wrapper">
     <div class="page-content">
 		<#include "/common/sidebar2.ftl"/>
-        <div class="right-content">
+        <div class="posa-right-container">
             <div class="model-box">
                 <div class="model-header">
                 </div>

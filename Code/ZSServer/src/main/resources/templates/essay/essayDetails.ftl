@@ -28,7 +28,7 @@
 <div class="wrapper">
     <div class="page-content">
         <#include "/common/sidebar2.ftl"/>
-        <div class="right-content right-content-padding">
+        <div class="posa-right-container right-content-padding">
             <div class="border-shadow-box mt30">
                 <div class="meeting-details-box" id="essay">
 					
