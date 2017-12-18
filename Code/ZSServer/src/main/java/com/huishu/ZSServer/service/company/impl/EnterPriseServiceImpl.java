@@ -128,45 +128,113 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 	
 	@Override
 	public List<IndusCompany> getCompanyList(String industry, String money, String time, String area) {
-		JSONObject obj = initTime(time);
-		System.out.println(obj.getString("startTime"));
-		System.out.println(obj.getString("endTime"));
-		List<Enterprise> list = rep.findByIndustryLikeAndAreaLikeAndRegisterTimeBetween(industry,area,obj.getString("startTime"),obj.getString("endTime"));
-		List<IndusCompany> li = new ArrayList<IndusCompany>();
-		
-		if(list.size()>=10){
-			List<Integer> ll = StringUtil.initMoney(money);
-//			List<String>  companyName= getName(list,ll);
-			List<JSONObject>  companyName= getName(list,ll);
-			companyName.forEach(action->{
-//				IndusCompany ind = indrepository.findByCompanyName(action.getString("company"));
-				IndusCompany ind = indrepository.findByCompany(action.getString("company"));
-				if(ind==null){
-					try {
-						JSONObject json = Analysis.getInitCompanyAbbr(action.getString("company"));
-						if(json.getBoolean("status")){
-							Set<String> set = (Set<String>) json.get("result");
-							String ss = set.iterator().next();
-							IndusCompany indus = new IndusCompany();
-							indus.setCompany(action.getString("company"));
-							indus.setCompanyName(ss);
-							indus.setIndustry(action.getString("industry"));
-							IndusCompany save = indrepository.save(indus);
-							li.add(save);
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}else{
-					li.add(ind);
-				}
-			});
-			System.out.println(li.size());
-			return li;
+		List<Enterprise> list = null;
+		if(time.equals("全部")){
+			list = rep.findByIndustryLikeAndAreaLike(industry,area);
 		}else{
-			
+			JSONObject obj = initTime(time);
+			 list = rep.findByIndustryLikeAndAreaLikeAndRegisterTimeBetween(industry,area,obj.getString("startTime"),obj.getString("endTime"));
+		}
+		List<IndusCompany> li = new ArrayList<IndusCompany>();
+		List<Enterprise> List = new ArrayList<Enterprise>();
+		if(list.size()>=10){
+			int i = list.size();
+			int si = updateData(i);
+			for(int n = 0;i <= 9;i++){
+				Enterprise enter = list.get(n+si);
+				 List.add(enter);
+			}
+			if(money.equals("全部")){
+				 List.forEach(action->{
+					IndusCompany ind = indrepository.findByCompany(action.getCompany());
+					if(ind==null){
+						try {
+							JSONObject json = Analysis.getInitCompanyAbbr(action.getCompany());
+							if(json.getBoolean("status")){
+								Set<String> set = (Set<String>) json.get("result");
+								String ss = set.iterator().next();
+								IndusCompany indus = new IndusCompany();
+								indus.setCompany(action.getCompany());
+								indus.setCompanyName(ss);
+								indus.setIndustry(action.getIndustry());
+								IndusCompany save = indrepository.save(indus);
+								li.add(save);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}else{
+						li.add(ind);
+					}
+				});
+				return li;
+			}else{
+				List<Integer> ll = StringUtil.initMoney(money);
+				List<JSONObject>  companyName= getName( list,ll);
+				if(companyName.size()<10){
+					companyName.forEach(action->{
+						IndusCompany ind = indrepository.findByCompany(action.getString("company"));
+						if(ind==null){
+							try {
+								getCompanyName(li, action);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}else{
+							li.add(ind);
+						}
+					});
+					return li;
+				}else{
+					int size = companyName.size();
+					
+					 si = updateData(size);
+					List<JSONObject>  o= new ArrayList<JSONObject>() ;
+					for(int j = 0; j<=9 ; j++){
+						JSONObject obj = companyName.get(j+si);
+						o.add(obj);
+					}
+					o.forEach(action->{
+						IndusCompany ind = indrepository.findByCompany(action.getString("company"));
+						if(ind==null){
+							try {
+								getCompanyName(li, action);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}else{
+							li.add(ind);
+						}
+					});
+					return li;
+				}
+			}
+		}else{
 			return null;
 		}
+		
+	}
+
+	private void getCompanyName(List<IndusCompany> li, JSONObject action) throws Exception {
+		JSONObject json = Analysis.getInitCompanyAbbr(action.getString("company"));
+		if(json.getBoolean("status")){
+			Set<String> set = (Set<String>) json.get("result");
+			String ss = set.iterator().next();
+			IndusCompany indus = new IndusCompany();
+			indus.setCompany(action.getString("company"));
+			indus.setCompanyName(ss);
+			indus.setIndustry(action.getString("industry"));
+			IndusCompany save = indrepository.save(indus);
+			li.add(save);
+		}
+	}
+
+	private int updateData(int size) {
+		int si = (int)(Math.random()*size);
+		while(si>(size-10)){
+			si=(int)(Math.random()*size+1);
+		}
+		return si;
 	}
 
 	/**
@@ -175,7 +243,6 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 	 * @return
 	 */
 	private List<JSONObject> getName(List<Enterprise> list, List<Integer> ll) {
-//		List<String> li = new ArrayList<String>();
 		List<JSONObject> l1 = new ArrayList<JSONObject>();
 		
 		if(ll.size()==1){
@@ -191,7 +258,6 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 						obj.put("company", action.getCompany());
 						obj.put("industry", action.getIndustry());
 						l1.add(obj);
-//						li.add(action.getCompany());
 					}
 				}
 				
@@ -211,7 +277,6 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 						obj.put("company", action.getCompany());
 						obj.put("industry", action.getIndustry());
 						l1.add(obj);
-//						li.add(action.getCompany());
 					}
 				}
 			});

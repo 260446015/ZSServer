@@ -74,7 +74,7 @@ function show(b){
 		+'<img src="'+imgsrc+'"/>'
 		+'<p class="title" title="'+item.title+'">'+item.title+'</p></a>'
 		+'<div class="details">'
-		+'<p class="address">'+item.address+'</p>'
+		+'<p class="address" title="'+item.address+'">'+item.address+'</p>'
 		+'<p class="date-time" title="'+item.exhibitiontime+'">'+item.exhibitiontime+'</p>'
 		+'<a href="javascript:void(0);" id="'+item.id+'" class="follow">添加关注</a>'
 		+'</div></div></div>'

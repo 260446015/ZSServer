@@ -157,55 +157,56 @@ $(function () {
     		var arr = res.data;
     		initDataList(option,arr);
     	    $("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-122);
-    	    var charts = echarts.init(document.getElementById("charts"),"customed");
-    	    charts.setOption(option)
-    	    charts.on("click",function (e) {
-    	    	var name = e.data[2];
-    	    	console.log(name);
-    	    	$.ajax({
-    	    		url:'/intelligent/getCompanyInfoByName.json?name='+name,
-    	        	type:'GET',
-    	        	async: false,
-    	        	success:function(res){
-    	        		if(res.data==null){
-    	        			new Alert({flag:false,text:res.message,timer:2000}).show();
-    	        		}else{
-    	        		  $('#layer-person-info').html(
-    	        				  '<h3 class="layer-person-title text-center">'
-    	        				  +res.data.name+'<button type="button" class="close">×</button></h3>'
-    	        				  +'<div class="layer-body small-line-height"><div class="form-horizontal">'
-    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">法人代表</label>'
-    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.boss+'</p></div></div>'
-    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">状态</label>'
-    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.state+'</p></div></div>'
-    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册时间</label>'
-    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.time+'</p></div></div>'
-    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">行业</label>'
-    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.industry+'</p></div></div>'
-    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册资本</label>'
-    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
-    	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
-    	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
-    	        				  +'</div></div>' +'<div class="layer-footer text-center" >'
-    	        				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
-    	        		  );
-    	        			
-    	        		}
-    	        		}
-    	    	});
-    	        $(".layer-person").css({
-    	            display: "block",
-    	            top: e.event.offsetY,
-    	            left: e.event.offsetX+200
-    	        });
-    	        
-    	    })
+    	   
+    	    charts.setOption(option);
+    	    
     		
     	}
     });
    
 });
-
+var charts = echarts.init(document.getElementById("charts"),"customed");
+charts.on("click",function (e) {
+	var name = e.data[2];
+	console.log(name);
+	$.ajax({
+		url:'/intelligent/getCompanyInfoByName.json?name='+name,
+    	type:'GET',
+    	async: false,
+    	success:function(res){
+    		if(res.data==null){
+    			new Alert({flag:false,text:res.message,timer:2000}).show();
+    		}else{
+    		  $('#layer-person-info').html(
+    				  '<h3 class="layer-person-title text-center">'
+    				  +res.data.name+'<button type="button" class="close">×</button></h3>'
+    				  +'<div class="layer-body small-line-height"><div class="form-horizontal">'
+    				  +'<div class="form-group"><label class="col-md-4 text-right control-label">法人代表</label>'
+    				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.boss+'</p></div></div>'
+    				  +'<div class="form-group"><label class="col-md-4 text-right control-label">状态</label>'
+    				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.state+'</p></div></div>'
+    				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册时间</label>'
+    				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.time+'</p></div></div>'
+    				  +'<div class="form-group"><label class="col-md-4 text-right control-label">行业</label>'
+    				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.industry+'</p></div></div>'
+    				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册资本</label>'
+    				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
+    				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
+    				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
+    				  +'</div></div>' +'<div class="layer-footer text-center" >'
+    				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
+    		  );
+    		  $(".layer-person").css({
+    		        display: "block",
+    		        top: e.event.offsetY,
+    		        left: e.event.offsetX+200
+    		    });
+    		}
+    		}
+	});
+   
+    
+});
 function initDataList(option,arr){
 	
 	for(var i = 0;i<option.series.length;i++){

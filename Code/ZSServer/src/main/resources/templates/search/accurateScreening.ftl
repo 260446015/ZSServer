@@ -28,18 +28,6 @@
                     <button class="btn btn-blue" id="search_tag" type="button">筛选标签</button>
                 </div>
                 <div id="searchTag">
-                    <!--<button class="btn btn-fill btn-blue search-tag">生物技术
-                        <span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span>
-                    </button>
-                    <button class="btn btn-fill btn-blue search-tag">5000人以上
-                        <span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span>
-                    </button>
-                    <button class="btn btn-fill btn-blue search-tag">创业板块
-                        <span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span>
-                    </button>
-                    <button class="btn btn-fill btn-blue search-tag">5000-10000万
-                        <span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span>
-                    </button>-->
                 </div>
             </div>
             <div class="row">

@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.service.company;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
@@ -24,7 +26,7 @@ public interface IndusCompanyService {
 	 * 智能推荐优质企业
 	 * @return
 	 */
-	Iterable<IndusCompany> listCompany();
+	List<IndusCompany> listCompany();
 	/**
 	 * 根据上传名片获取相关公司关键字
 	 * @param imageBase64

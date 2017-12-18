@@ -463,7 +463,7 @@ var chinaOption = {
     ]
 };
 
-var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
+var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
 industryMap.setOption(chinaOption);
 /**
  * 地图点击事件

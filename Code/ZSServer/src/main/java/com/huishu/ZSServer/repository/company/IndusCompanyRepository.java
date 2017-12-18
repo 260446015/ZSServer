@@ -1,6 +1,9 @@
 package com.huishu.ZSServer.repository.company;
 
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 
@@ -28,10 +31,10 @@ public interface IndusCompanyRepository extends CrudRepository<IndusCompany,Long
 	IndusCompany findByCompany(String company);
 	@Query(value = "select COUNT(*) FROM t_indus_company ", nativeQuery = true)
 	int getCount();
-	
-	@Query(value = "SELECT MIN(id) FROM t_indus_company ", nativeQuery = true)
-	int getMINId();
-	
-	@Query(value = "SELECT MAX(id) FROM t_indus_company ", nativeQuery = true)
-	int getMAXId();
+	/**
+	 * @param i
+	 * @return
+	 */
+	@Query(value = "SELECT * FROM t_indus_company LIMIT ?1,10", nativeQuery = true)
+	List<IndusCompany> getCompanyInfo(int i);
 }

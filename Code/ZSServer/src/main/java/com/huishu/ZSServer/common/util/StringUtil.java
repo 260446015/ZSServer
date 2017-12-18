@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * 字符串工具类
  * 
@@ -22,7 +25,7 @@ public class StringUtil {
 	private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
 	private static final String regEx_html1 = "<[^>]+"; // 定义HTML标签的正则表达式
 	private static final String regEx_space = "\\s*|\t|\r|\n";// 定义空格回车换行符
-
+	private final static String[] industry_info = {"大数据","人工智能","物联网","生物医药","生物技术"};
 	private final static int[] LI_SECPOSVALUE = { 1601, 1637, 1833, 2078, 2274, 2302, 2433, 2594, 2787, 3106, 3212,
 			3472, 3635, 3722, 3730, 3858, 4027, 4086, 4390, 4558, 4684, 4925, 5249, 5590 };
 	private final static String[] LC_FIRSTLETTER = { "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n",
@@ -275,5 +278,26 @@ public class StringUtil {
 		}
 		
 		return list;
+	}
+	public static String getIndustryInfo(String keyWord){
+		for(int i=0;i< industry_info.length ;i++){
+			if(keyWord.equals(industry_info[i])){
+				return industry_info[i];
+			}
+		}
+		return "";
+	}
+	public static JSONObject getIndustry(JSONObject json){
+		int i = industry_info.length;
+		int i1 = (int)(Math.random()*i);
+		JSONArray array = new JSONArray();
+		for(int j = 0; j<i1;j++){
+			JSONObject obj = new JSONObject();
+			String industry = industry_info[j];
+			obj.put("value", industry);
+			array.add(obj);
+		}
+		json.put("industryLabel", array);
+		return json;
 	}
 }
