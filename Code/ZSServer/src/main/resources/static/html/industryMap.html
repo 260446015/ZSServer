@@ -396,11 +396,121 @@
     <script src="../vendor/echarts/china.js"></script>
     <script src="../vendor/echarts/customed.js"></script>
     <script src="../vendor/alert/alert.js"></script>
+    <script src="../vendor/loading/js/loading.js"></script>
     <script src="../js/common.js"></script>
     <!-- js 共用部分 end -->
     <!--<script src="../js/industryMap/industryMap.js"></script>-->
     <script>
+        var industryHotCity = {
+            title: {
+                text: '产业热度城市排行',
+                textStyle:{
+                    fontWeight: 400,
+                    fontSize: 26
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            grid: {
+                show:false,
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel:true,
+            },
+            xAxis: {
+                axisLine:{
+                    show:false
+                },
+                axisTick:{
+                    show:false
+                },
+                axisLabel:{
+                    show:false
+                },
+                splitLine:{
+                    show:false
+                },
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                axisLine:{
+                    show:false
+                },
+                axisTick:{
+                    show:false
+                },
+                splitLine:{
+                    show:false
+                },
+                type: 'category',
 
+                data: ["苏州","青岛","南京",'天津','广州','杭州','深圳','上海','北京']
+            },
+            series: [
+                {
+                    type: 'bar',
+                    barWidth: 18,
+                    itemStyle: {
+                        normal: {
+                            color: 'rgba(0,0,0,1)',
+                            borderWidth: 1,
+                            barBorderRadius: 9,
+                            borderColor: "#0096ff"
+                        },
+                        emphasis: {
+                            color: 'rgba(0,0,0,1)',
+                            borderWidth: 1,
+                            barBorderRadius: 9,
+                            borderColor: "#0096ff"
+                        }
+                    },
+                    data: [46756, 46756, 46756, 46756, 46756, 46756, 46756, 46756, 46756]
+                },
+                {
+                    type: 'bar',
+                    barWidth:14,
+                    barGap: '-89%',
+                    itemStyle: {
+                        normal: {
+                            borderColor: "#2768ca",
+                            borderWidth: 1,
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 1, 0,
+                                [
+                                    {offset: 0, color: '#0096ff'},
+                                    {offset: 0.5, color: '#53c9f0'},
+                                    {offset: 1, color: '#00ffe4'}
+                                ]
+                            )
+                        },
+                        emphasis: {
+                            borderColor: "#2768ca",
+                            borderWidth: 1,
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 1, 0,
+                                [
+                                    {offset: 0, color: '#00ffe4'},
+                                    {offset: 0.7, color: '#53c9f0'},
+                                    {offset: 1, color: '#0096ff'}
+                                ]
+                            )
+                        }
+                    },
+
+                    data: [20000, 5100, 5020, 11503, 34504, 15250, 22456,21157, 42258]
+                }
+            ]
+        };
+        var industryHotCityCharts = echarts.init(document.getElementById("industryHotCity"), 'customed');
+        industryHotCityCharts.setOption(industryHotCity);
         var data = [
             {name: '河北', value: 38},
             {name: '河南', value: 39},

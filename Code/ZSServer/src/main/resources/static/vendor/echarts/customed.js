@@ -68,18 +68,6 @@
             "symbol": "emptyCircle",
             "smooth": true
         },
-        "bar": {
-            "itemStyle": {
-                "normal": {
-                    "barBorderWidth": 0,
-                    "barBorderColor": "#2562bf"
-                },
-                "emphasis": {
-                    "barBorderWidth": 0,
-                    "barBorderColor": "#2562bf"
-                }
-            }
-        },
         "pie": {
             "itemStyle": {
                 "normal": {
