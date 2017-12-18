@@ -1,6 +1,6 @@
- <div class="left-nav">
+ <div class="left-nav posa">
             <ul>
-                <li class="active">
+                <li class="active" id="indus">
                     <a href="/indusMap/industryMap.html">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">
