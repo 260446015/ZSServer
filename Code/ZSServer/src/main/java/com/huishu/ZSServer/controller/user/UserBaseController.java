@@ -14,6 +14,7 @@ import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
+import com.huishu.ZSServer.entity.UserLabel;
 import com.huishu.ZSServer.entity.dto.UserDTO;
 import com.huishu.ZSServer.entity.user.UserBase;
 import com.huishu.ZSServer.service.user.UserBaseService;
@@ -113,5 +114,34 @@ public class UserBaseController extends BaseController{
 		}
 
 	}
-	
+	@ResponseBody
+	@RequestMapping(value="/getLabel.json",method = RequestMethod.GET)
+	public AjaxResult getLabel(){
+		//获取用户的id，测试使用测试数据
+		//		Long id = getCurrentShiroUser().getId(); 
+		Long uid = (long) 1;
+		UserLabel user = userBaseService.findLabelByUserId(uid);
+		if(user==null){
+			return error("没有标签信息");
+		}else{
+			return success(user.getLabel());
+		}
+	}
+	@ResponseBody
+	@RequestMapping(value="/updateLabel.json",method = RequestMethod.GET)
+	public AjaxResult updateLabel(String label){
+		//获取用户的id，测试使用测试数据
+		//		Long id = getCurrentShiroUser().getId(); 
+		Long uid = (long) 1;
+		UserLabel user = userBaseService.findLabelByUserId(uid);
+		if(user==null){
+			 user = new UserLabel();
+			user.setUid(uid);
+			user.setLabel(label);
+		}else{
+			user.setLabel(label);
+		}
+		boolean info = userBaseService.updateLabel(user);
+		return success(info);
+	}
 }

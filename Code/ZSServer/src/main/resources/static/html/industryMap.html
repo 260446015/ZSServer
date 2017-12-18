@@ -398,6 +398,280 @@
     <script src="../vendor/alert/alert.js"></script>
     <script src="../js/common.js"></script>
     <!-- js 共用部分 end -->
-    <script src="../js/industryMap/industryMap.js"></script>
+    <!--<script src="../js/industryMap/industryMap.js"></script>-->
+    <script>
+
+        var data = [
+            {name: '河北', value: 38},
+            {name: '河南', value: 39},
+            {name: '北京', value: 39},
+            {name: '上海', value: 39},
+            {name: '云南', value: 39},
+            {name: '天津', value: 40},
+            {name: '内蒙古', value: 40},
+            {name: '海南', value: 41},
+        ];
+
+        var geoCoordMap = {
+            '北京' :[116.28, 39.54] ,
+            '青岛' :[120.19, 36.04] ,
+            '天津' :[117.10, 39.10] ,
+            '河南' :[113.42, 34.44] ,
+            '郑州' :[113.42, 34.44] ,
+            '石家庄': [114.26, 38.03] ,
+            '河北': [114.26, 38.03] ,
+            '开封' :[114.23, 34.52] ,
+            '保定': [115.28, 38.53] ,
+            '洛阳' :[112.26, 34.43] ,
+            '唐山' :[118.09, 39.37] ,
+            '许昌': [113.48, 34.00] ,
+            '秦皇岛' :[119.37, 39.54] ,
+            '新乡' :[113.54, 35.18] ,
+            '张家口': [114.55, 40.51] ,
+            '湖北' :[114.20, 30.37] ,
+            '武汉' :[114.20, 30.37] ,
+            '承德' : [117.52, 40.59] ,
+            '宜昌' : [111.15, 30.42] ,
+            '山西' : [112.33, 37.51] ,
+            '太原' : [112.33, 37.51] ,
+            '沙市' : [112.17, 30.16] ,
+            '大同' : [113.13, 40.07] ,
+            '湖南' : [112.55, 28.12] ,
+            '长沙' : [112.55, 28.12] ,
+            '临汾' : [111.31, 36.05] ,
+            '衡阳' : [112.34, 26.55] ,
+            '长治' : [113.13, 36.05] ,
+            '湘潭' : [112.51, 27.54] ,
+            '内蒙古' : [111.38, 40.48] ,
+            '呼和浩特' : [111.38, 40.48] ,
+            '常德' : [111.39, 29.00] ,
+            '包头' : [110.00, 40.35] ,
+            '广东' : [113.18, 23.10] ,
+            '广州' : [113.18, 23.10] ,
+            '海拉尔' : [119.43, 49.14] ,
+            '汕头' : [116.40, 23.21] ,
+            '辽宁' : [123.23, 41.48] ,
+            '沈阳' : [123.23, 41.48] ,
+            '韶关' : [113.33, 24.48] ,
+            '大连' : [121.38, 38.54] ,
+            '海口' : [110.10, 20.03] ,
+            '海南' : [110.10, 20.03] ,
+            '鞍山' : [123.00, 41.04] ,
+            '南宁' : [108.21, 22.47] ,
+            '锦州' : [121.09, 41.09] ,
+            '桂林' : [110.10, 25.18] ,
+            '长春' : [125.18, 43.55] ,
+            '柳州' : [109.19, 24.20] ,
+            '吉林' : [126.36, 43.48] ,
+            '悟州' : [111.18, 23.28] ,
+            '黑龙江' : [126.38, 45.45] ,
+            '哈尔滨' : [126.38, 45.45] ,
+            '四川' : [104.04, 30.39] ,
+            '成都' : [104.04, 30.39] ,
+            '齐齐哈尔' : [123.55, 47.22] ,
+            '重庆' : [106.33, 29.33] ,
+            '牡丹江' : [129.36, 44.35] ,
+            '内江' : [105.03, 29.35] ,
+            '上海' : [121.26, 31.12] ,
+            '泸州' : [105.27, 28.54] ,
+            '江苏' : [118.46, 32.03] ,
+            '南京' : [118.46, 32.03] ,
+            '万县' : [108.22, 30.48] ,
+            '无锡' : [120.18, 31.35] ,
+            '贵州' : [106.43, 26.34] ,
+            '贵阳' : [106.43, 26.34] ,
+            '苏州' : [120.39, 31.20] ,
+            '遵义' : [106.53, 27.45] ,
+            '徐州' : [117.12, 34.16] ,
+            '云南' : [102.42, 25.03] ,
+            '昆明' : [102.42, 25.03] ,
+            '杭州' : [ 120.10, 30.15] ,
+            '浙江' : [ 120.10, 30.15] ,
+            '拉萨' : [91.02, 29.39] ,
+            '宁波' : [121.34, 29.53] ,
+            '日喀则' : [88.49, 29.16] ,
+            '温州' : [120.38, 28.00] ,
+            '陕西' : [108.55, 34.15] ,
+            '西安' : [108.55, 34.15] ,
+            '金华' : [119.49, 29.10] ,
+            '宝鸡' : [107.09, 34.21] ,
+            '安徽' : [117.16, 31.51] ,
+            '合肥' : [117.16, 31.51] ,
+            '延安' : [109.26, 36.35] ,
+            '芜湖' : [118.20, 31.21] ,
+            '甘肃' : [103.50, 36.03] ,
+            '兰州' : [103.50, 36.03] ,
+            '安庆' : [117.02, 30.32] ,
+            '天水' : [105.33, 34.35] ,
+            '福州' : [119.19, 26.02] ,
+            '福建' : [119.19, 26.02] ,
+            '酒泉' : [98.30, 39.44] ,
+            '厦门' : [118.04, 24.26] ,
+            '青海' : [101.49, 36.37] ,
+            '西宁' : [101.49, 36.37] ,
+            '泉州' : [118.37, 24.54] ,
+            '宁夏' : [106.13, 38.28] ,
+            '银川' : [106.13, 38.28] ,
+            '江西' : [115.53, 28.41] ,
+            '南昌' : [115.53, 28.41] ,
+            '新疆' : [87.36, 43.46] ,
+            '乌鲁木齐' : [87.36, 43.46] ,
+            '九江' : [115.59, 29.43] ,
+            '哈密' : [93.27, 42.50] ,
+            '赣州' : [114.56, 25.51] ,
+            '喀什' : [75.59, 39.27] ,
+            '山东' : [117.02, 36.40] ,
+            '济南' : [117.02, 36.40] ,
+            '和田' : [79.55, 37.07] ,
+            '烟台' : [121.20, 37.33] ,
+            '台湾' : [121.31, 25.02],
+            '台北' : [121.31, 25.02]
+        };
+        function randomData() {
+            return Math.round(Math.random()*2500);
+        }
+        var convertData = function (data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+                var geoCoord = geoCoordMap[data[i].name];
+                if(data[i].value>500){
+                    data[i].value = 500;
+                }
+                if (geoCoord) {
+                    res.push({
+                        name: data[i].name,
+                        value: geoCoord.concat(data[i].value)
+                    });
+                }
+            }
+            return res;
+        };
+        var chinaOption = {
+            visualMap: {
+                seriesIndex: 0,
+                min: 0,
+                max: 2500,
+                left: 'left',
+                top: 'bottom',
+                text:['高','低'],           // 文本，默认为数值文本
+                calculable : true,
+                show: false,
+                inRange: {
+                    color: ["#bbdafd","#22508e"]
+                }
+            },
+            geo: {
+                map: 'china',
+                zoom: 1.25,
+                label: {
+                    normal: {
+                        show: false,
+                        color: '#fff'
+                    },
+                    emphasis: {
+                        show: true,
+                        color: '#fff'
+                    }
+                },
+                itemStyle: {
+                    emphasis: {
+                        show: false,
+                        areaColor: '',
+                        borderColor: ''
+                    }
+                },
+                roam: false,
+            },
+            series : [
+                {
+                    type: 'map',
+                    mapType: 'china',
+                    zoom: 1.25,
+                    geoIndex:0,
+                    label: {
+                        normal: {
+                            show: true
+                        },
+                        emphasis: {
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        emphasis: {
+                            show: false,
+                            areaColor: '',
+                            borderColor: ''
+                        }
+                    },
+                    roam: false,
+                    data:[
+                        {name: '北京',value: randomData() },
+                        {name: '天津',value: randomData() },
+                        {name: '上海',value: randomData() },
+                        {name: '重庆',value: randomData() },
+                        {name: '河北',value: randomData() },
+                        {name: '河南',value: randomData() },
+                        {name: '云南',value: randomData() },
+                        {name: '辽宁',value: randomData() },
+                        {name: '黑龙江',value: randomData() },
+                        {name: '湖南',value: randomData() },
+                        {name: '安徽',value: randomData() },
+                        {name: '山东',value: randomData() },
+                        {name: '新疆',value: randomData() },
+                        {name: '江苏',value: randomData() },
+                        {name: '浙江',value: randomData() },
+                        {name: '江西',value: randomData() },
+                        {name: '湖北',value: randomData() },
+                        {name: '广西',value: randomData() },
+                        {name: '甘肃',value: randomData() },
+                        {name: '山西',value: randomData() },
+                        {name: '内蒙古',value: randomData() },
+                        {name: '陕西',value: randomData() },
+                        {name: '吉林',value: randomData() },
+                        {name: '福建',value: randomData() },
+                        {name: '贵州',value: randomData() },
+                        {name: '广东',value: randomData() },
+                        {name: '青海',value: randomData() },
+                        {name: '西藏',value: randomData() },
+                        {name: '四川',value: randomData() },
+                        {name: '宁夏',value: randomData() },
+                        {name: '海南',value: randomData() },
+                        {name: '台湾',value: randomData() },
+                        {name: '香港',value: randomData() },
+                        {name: '澳门',value: randomData() }
+                    ]
+                },
+                {
+                    name: 'Top 5',
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    data: convertData(data),
+                    symbolSize: 15,
+                    showEffectOn: 'emphasis',
+                    rippleEffect: {
+                        brushType: 'stroke'
+                    },
+                    hoverAnimation: true,
+                    label: {
+                        normal: {
+                            formatter: '{b}',
+                            position: 'right',
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#04fee4',
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        }
+                    },
+                    zlevel: 1
+                }
+            ]
+        };
+        var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
+        industryMap.setOption(chinaOption);
+    </script>
 </body>
 </html>

@@ -13,6 +13,7 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -59,7 +60,6 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 	@Override
 	public JSONArray getKeyWordList(JSONObject json) {
 		BoolQueryBuilder bq = new BoolQueryBuilder();
-//		BoolQueryBuilder bq = getQueryBoolBuilder(json);
 		if (StringUtil.isNotEmpty(json.getString("dimension"))) {
 			String dimension = json.getString("dimension");
 			bq.must(QueryBuilders.termQuery("dimension", dimension));
@@ -79,8 +79,8 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			}
 		}
 		bq.must(or);
-		TermsBuilder articleBuilder = AggregationBuilders.terms("articleLink").field("articleLink").size(300);
-		SearchQuery query = getSearchQueryBuilder().addAggregation(articleBuilder).withQuery(bq).build();
+		PageRequest pageRequest = new PageRequest(0,500);
+		SearchQuery query = getSearchQueryBuilder().withQuery(bq).withPageable(pageRequest).build();
 		List<String> contentList = new ArrayList<String>();
 		JSONArray data = template.query(query, res -> {
 			JSONArray jsonArray = new JSONArray();
@@ -95,7 +95,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 				}
 			}
 
-			JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, 10);
+			JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, 12);
 			if (keywordCloud.getBooleanValue("status")) {
 
 				List<KeywordModel> list = (List<KeywordModel>) keywordCloud.get("result");
@@ -215,8 +215,10 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			}
 		}
 		bq.must(or);
-		Pageable pageable = new PageRequest(0, 6,new Sort(Direction.ASC, "hitCount"));
-		Page<AITInfo> search = rep.search(bq, pageable);
+		Pageable pageable = new PageRequest(0, 6,new Sort(Direction.DESC, "publishTime"));
+		SearchQuery query = getSearchQueryBuilder().withQuery(bq).withPageable(pageable).withSort(SortBuilders.fieldSort("hitCount")).build();
+		Page<AITInfo> search = template.queryForPage(query, AITInfo.class);
+//		Page<AITInfo> search = rep.search(bq, pageable);
 		search.getContent().forEach(action->{
 			List<String> list = null;
 			try {
@@ -239,7 +241,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 					
 					action.setSummary(replaceHtml);
 				}else{
-					String replaceHtml = StringUtil.replaceHtml(content.substring(0, 150));
+					String replaceHtml = StringUtil.replaceHtml(content.substring(0, content.length()));
 					
 					action.setSummary(replaceHtml);
 			}

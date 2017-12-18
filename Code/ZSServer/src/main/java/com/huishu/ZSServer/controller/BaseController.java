@@ -64,14 +64,26 @@ public abstract class BaseController {
 		if(time.equals("昨天")){
 			obj.put("startTime", yesterAgo);
 			obj.put("endTime", startTime);
-		}else if(time.equals("近一周")){
+		}else if(time.equals("近1周")){
 			obj.put("startTime", weekAgo);
+			obj.put("endTime", endTime);
+		} else if(time.equals("近一周")){
+			obj.put("startTime", weekAgo);
+			obj.put("endTime", endTime);
+		} else if(time.equals("近1个月")){
+			obj.put("startTime",monthAgo);
 			obj.put("endTime", endTime);
 		} else if(time.equals("近一个月")){
 			obj.put("startTime",monthAgo);
 			obj.put("endTime", endTime);
+		} else if(time.equals("近六个月")){
+			obj.put("startTime",halfYearAgo);
+			obj.put("endTime", endTime);
 		} else if(time.equals("近6个月")){
 			obj.put("startTime",halfYearAgo);
+			obj.put("endTime", endTime);
+		} else if(time.equals("近1年")){
+			obj.put("startTime",yearAgo);
 			obj.put("endTime", endTime);
 		} else if(time.equals("近一年")){
 			obj.put("startTime",yearAgo);

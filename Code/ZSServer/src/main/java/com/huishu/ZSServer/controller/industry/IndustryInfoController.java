@@ -48,7 +48,7 @@ public class IndustryInfoController extends BaseController{
 	public String getIndustryInfo(Map<String,Object> map,@PathVariable String page){
 		JSONObject json = new JSONObject();
 		json.put("dimension", "科学研究");
-		addData(json);
+		json = StringUtil.getIndustry(json);
 		Page<AITInfo> page1 = service.findResearchResultList(json);
 		
 		map.put("content", page1.getContent());
@@ -80,10 +80,10 @@ public class IndustryInfoController extends BaseController{
 		obj1.put("dimension","产业头条");
 		JSONArray arr = new JSONArray();
 		JSONObject obj = new JSONObject();
-		obj.put("value", "人工智能");
+		obj.put("value", "大数据");
 		arr.add(obj);
 		obj = new JSONObject();
-		obj.put("value", "大数据");
+		obj.put("value", "人工智能");
 		arr.add(obj);
 		obj = new JSONObject();
 		obj.put("value", "物联网");
@@ -110,7 +110,17 @@ public class IndustryInfoController extends BaseController{
 		JSONObject obj1 = new JSONObject();
 		initTime(obj1, time);
 		obj1.put("keyWord", keyWord);
-		addData(obj1);
+		String info = StringUtil.getIndustryInfo(keyWord);
+		if(StringUtil.isNotEmpty(info)){
+			obj1.put("dimension","产业头条");
+			JSONArray arr = new JSONArray();
+			JSONObject obj = new JSONObject();
+			obj.put("value", info);
+			arr.add(obj);
+			obj1.put("industryLabel", arr);
+		}else{
+			addData(obj1);
+		}
 		JSONArray json = service.getArticleListByKeyWord(obj1);
 		return success(json);
 	}

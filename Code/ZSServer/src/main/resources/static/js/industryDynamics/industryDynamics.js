@@ -19,6 +19,11 @@ $(function () {
 	getKeyWordCloud(time);
     getIndustry(0,0);
 });
+var scatter = echarts.init(document.getElementById("scatter"));
+scatter.on('click',function(param){
+	var d = $("input[type=radio]:checked").val();
+	getArticleByKeyWord(d,param.name);
+});
 
 function getKeyWordCloud(d){
 	console.log(d);
@@ -35,11 +40,7 @@ function getKeyWordCloud(d){
 			var arr = res.data;
 			getArticleByKeyWord(d,arr[0].name);
 			echartDataInit(arr);
-			var scatter = echarts.init(document.getElementById("scatter"));
 		    option.series[0].data=data1;
-		    scatter.on('click',function(param){
-		    	getArticleByKeyWord(d,param.name);
-		    });
 			scatter.setOption(option);
 		}
 		
@@ -56,33 +57,43 @@ $("input[type=radio]").iCheck({
 function echartDataInit(arr){
 	data1 = [
 		{
-			value: [18,90], symbolSize: 140, name: arr[0].name, label:label
+			value: [50, 50], symbolSize: 140, name: arr[0].name, label:label
 		},
 		{
-			value: [10,20], symbolSize: 90, name: arr[1].name, label:label
+			value: [25,60], symbolSize: 100, name: arr[1].name, label:label
 		},
 		{
-			value: [57,11], symbolSize: 79, name: arr[2].name, label:label
+			value: [65,90], symbolSize: 85, name: arr[2].name, label:label
 		},
 		{
-			value: [90,30], symbolSize: 79, name: arr[3].name, label:label
+			value: [32,20], symbolSize: 75, name: arr[3].name, label:label
 		},
 		{
-			value: [85,82], symbolSize: 76, name: arr[4].name, label:label
+			value: [55,10], symbolSize: 70, name: arr[4].name, label:label
 		},
 		{
-			value: [65,90], symbolSize: 74, name: arr[5].name, label: label
+			value: [70,50], symbolSize: 65, name: arr[5].name, label: label
 		},
 		{
-			value: [42,100], symbolSize: 74, name: arr[6].name, label: label
+			value: [35,95], symbolSize: 60, name: arr[6].name, label: label
 		},
 		{
-			value: [18,55], symbolSize: 69, name: arr[7].name, label:label
+			value: [50,100], symbolSize: 55, name: arr[7].name, label:label
 		},
 		{
-			value: [50, 50], symbolSize: 63, name: arr[8].name, label:label
+			value:  [82,90], symbolSize: 50, name: arr[8].name, label:label
+		},
+		{
+			value:  [15,80], symbolSize: 45, name: arr[9].name, label:label
+		},
+		{
+			value:  [15,10], symbolSize: 45, name: arr[10].name, label:label
+		},
+		{
+			value:  [82,15], symbolSize: 45, name: arr[11].name, label:label
 		}
 	];
+	
 	return data1;
 };
 var label = {
@@ -99,33 +110,42 @@ var label = {
 	}
 };
 var data1 = [
-	{
-		value: [18,90], symbolSize: 140, name: '智能', label:label
-	},
-	{
-		value: [10,20], symbolSize: 90, name: '节能', label:label
-	},
-	{
-		value: [57,11], symbolSize: 79, name: '大数据', label:label
-	},
-	{
-		value: [90,30], symbolSize: 79, name: 'AI', label:label
-	},
-	{
-		value: [85,82], symbolSize: 76, name: 'VR', label:label
-	},
-	{
-		value: [65,90], symbolSize: 74, name: '科技园', label: label
-	},
-	{
-		value: [42,100], symbolSize: 74, name: '行业', label: label
-	},
-	{
-		value: [18,55], symbolSize:  69, name: '创新', label:label
-	},
-	{
-		value:  [50, 50], symbolSize:63, name: '融合', label:label
-	}
+{
+	value: [50, 50], symbolSize: 140, name: '智能', label:label
+},
+{
+	value: [35,60], symbolSize: 100, name: '节能', label:label
+},
+{
+	value: [65,90], symbolSize: 85, name: '大数据', label:label
+},
+{
+	value: [32,20], symbolSize: 75, name: 'AI', label:label
+},
+{
+	value: [55,10], symbolSize: 70, name: 'VR', label:label
+},
+{
+	value: [70,50], symbolSize: 65, name: '科技园', label: label
+},
+{
+	value: [35,95], symbolSize: 60, name: '行业', label: label
+},
+{
+	value: [50,100], symbolSize: 55, name: '创新', label:label
+},
+{
+	value:  [82,90], symbolSize: 50, name: '融合', label:label
+},
+{
+	value:  [15,80], symbolSize: 50, name: '大数据', label:label
+},
+{
+	value:  [15,10], symbolSize: 50, name: '智能化', label:label
+},
+{
+	value:  [82,15], symbolSize: 50, name: '变化', label:label
+}
 ];
 var option = {
 	xAxis: {

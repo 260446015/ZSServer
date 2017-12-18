@@ -7,7 +7,7 @@ $("#searchTag").on("click",".search-tag span.close",function () {
 	$(this).parent().remove();
 });
 $(function () {
-	   $("#myModal").modal("show");
+		getTab();
 	   $("#LabelBlue").click(function(){
 		   $("#myModal").modal("hide");
 		   var arr=[];
@@ -15,10 +15,39 @@ $(function () {
 			   $("#searchTag").html(TagList(arr));
 			   var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
 			   $("#horizontal-info").hide();
+			   var ss = industry+','+area+','+registerTime+','+register;
+			   updateLabel(ss);
 			   searchAjax(param);
 	   });
 });
-
+function getTab(){
+	$.ajax({
+		url:'/user/getLabel.json',
+		type:'GET',
+		success:function(res){
+			if(res.data==null){
+				 $("#myModal").modal("show");
+			}else{
+				var arr = res.data.split(',');
+				 $("#searchTag").html(TagList(arr));
+				 var  param = {industry:arr[0],area:arr[1],registerTime:arr[2],register:arr[3]};
+				   $("#horizontal-info").hide();
+				   searchAjax(param);
+			}
+		}
+	});
+};
+function updateLabel(ss){
+	$.ajax({
+	  url:'/user/updateLabel.json?label='+ss,
+	  type:'GET',
+	  success:function(res){
+		  if(res.data != null){
+			  console.log("更新标签成功");
+		  }
+	  }
+	});
+};
 function searchTab(a,b){
 	if(a == 1){
 		industry = b;
@@ -47,6 +76,8 @@ $("#search_tag").on("click",function () {
     	    $("#searchTag").html(TagList(arr));
     	   var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
     	   $("#horizontal-info").hide();
+    	   var ss = industry+','+area+','+registerTime+','+register;
+    	   updateLabel(ss);
     	   searchAjax(param);
     	
     });
@@ -207,7 +238,46 @@ var dot = {
         ]
     }]
 };
-   
+var charts = echarts.init(document.getElementById("charts"),"customed");
+charts.on("click",function (e) {
+	var name = e.data[2];
+	$.ajax({
+		url:'/intelligent/getCompanyInfoByName.json?name='+name,
+    	type:'GET',
+    	async: false,
+    	success:function(res){
+    		if(res.data==null){
+    			new Alert({flag:false,text:res.message,timer:2000}).show();
+    		}else{
+    			 $('#horizontal-info').html(
+       				  '<h3 class="layer-person-title text-center">'
+       				  +res.data.name+'<button type="button" class="close">×</button></h3>'
+       				  +'<div class="layer-body small-line-height"><div class="form-horizontal">'
+       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">法人代表</label>'
+       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.boss+'</p></div></div>'
+       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">状态</label>'
+       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.state+'</p></div></div>'
+       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册时间</label>'
+       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.time+'</p></div></div>'
+       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">行业</label>'
+       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.industry+'</p></div></div>'
+       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册资本</label>'
+       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
+       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
+       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
+       				  +'</div></div>' +'<div class="layer-footer text-center" >'
+       				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
+       		  );
+    			 $(".layer-person").css({
+        	            display: "block",
+        	            top: e.event.offsetY,
+        	            left: e.event.offsetX+200
+        	        }); 
+    		}
+    	}
+	});
+    
+});   
 function searchAjax(param){
 	console.log(param);
 	$.ajax({
@@ -224,51 +294,12 @@ function searchAjax(param){
             	var arr = initEchartData(array,datalist);
             	/**根据返回结果构建echart图形*/
             	 $("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-192-$(".mt50.mb20").height());
-            	    var charts = echarts.init(document.getElementById("charts"),"customed");
-            	    option.series.data=arr;
+            	     option.series.data=arr;
             	    option.series[option.series.length-1].data.push(
             	    		[50, 50, array[array.length-1].companyName, '#fff']
             	    );
             	    charts.setOption(option);
-            	    charts.on("click",function (e) {
-            	    	var name = e.data[2];
-            	    	$.ajax({
-            	    		url:'/intelligent/getCompanyInfoByName.json?name='+name,
-            	        	type:'GET',
-            	        	async: false,
-            	        	success:function(res){
-            	        		if(res.data==null){
-            	        			new Alert({flag:false,text:res.message,timer:2000}).show();
-            	        		}else{
-            	        			 $('#horizontal-info').html(
-               	        				  '<h3 class="layer-person-title text-center">'
-               	        				  +res.data.name+'<button type="button" class="close">×</button></h3>'
-               	        				  +'<div class="layer-body small-line-height"><div class="form-horizontal">'
-               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">法人代表</label>'
-               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.boss+'</p></div></div>'
-               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">状态</label>'
-               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.state+'</p></div></div>'
-               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册时间</label>'
-               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.time+'</p></div></div>'
-               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">行业</label>'
-               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.industry+'</p></div></div>'
-               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册资本</label>'
-               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
-               	        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
-               	        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
-               	        				  +'</div></div>' +'<div class="layer-footer text-center" >'
-               	        				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
-               	        		  );
-            	        			 $(".layer-person").css({
-            	            	            display: "block",
-            	            	            top: e.event.offsetY,
-            	            	            left: e.event.offsetX+200
-            	            	        }); 
-            	        		}
-            	        	}
-            	    	});
-            	        
-            	    });
+            	   
             	
             }
 		}

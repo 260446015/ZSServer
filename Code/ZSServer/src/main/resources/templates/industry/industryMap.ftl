@@ -26,7 +26,7 @@
        
         <div class="page-content">
             <#include "/common/sidebar2.ftl"/>
-            <div class="right-content">
+            <div class="posa-right-container">
              <#include "/common/mark.ftl"/>
                 <div class="row">
                     <div class="col-md-3">
