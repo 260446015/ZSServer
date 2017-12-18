@@ -26,25 +26,25 @@ scatter.on('click',function(param){
 });
 
 function getKeyWordCloud(d){
-	console.log(d);
-	var param={time:d};
-	
-	$.ajax({
-		url:'/indus/findKeyWord.json',
-		type:'POST',
-		data:param,
-		success:function(res){
-			if(res.data==null){
-				new Alert({flag:false,text:res.message,timer:2000}).show();
-			}
-			var arr = res.data;
-			getArticleByKeyWord(d,arr[0].name);
-			echartDataInit(arr);
-		    option.series[0].data=data1;
+// 	console.log(d);
+// 	var param={time:d};
+//
+// 	$.ajax({
+// 		url:'/indus/findKeyWord.json',
+// 		type:'POST',
+// 		data:param,
+// 		success:function(res){
+// 			if(res.data==null){
+// 				new Alert({flag:false,text:res.message,timer:2000}).show();
+// 			}
+// 			var arr = res.data;
+// 			getArticleByKeyWord(d,arr[0].name);
+// 			echartDataInit(arr);
+// 		    option.series[0].data=data1;
 			scatter.setOption(option);
-		}
-		
-	});
+		// }
+	//
+	// });
 }
 $("input[type=radio]").on("ifClicked",function(event){
 	if(event.type == 'ifClicked'){
@@ -169,18 +169,31 @@ var option = {
 
 	series: [{
 		name: '热词',
-		type: 'effectScatter',
+		type: 'scatter',
 		showEffectOn: 'emphasis',
 		itemStyle: {
 			normal: {
+				color: "rgba(0,0,0,0)",
+				borderWidth: 1,
+                borderType: "solid",
+				borderColor: "#093982",
+                shadowBlur: 20,
+                shadowColor: "#00c3f3",
+                shadowOffsetX: 3,
+                opacity: 1
+			},
+            emphasis: {
 				color: new echarts.graphic.LinearGradient(
-					0, 0, 0, 1,
-					[
-						{offset: 0, color: '#20c2fe'},
-						{offset: 0.5, color: '#6e92fb'},
-						{offset: 1, color: '#bd62f7'}
-					]
-				)
+                    0, 0, 0, 1,
+                    [
+                        {offset: 0, color: '#00a5fb'},
+                        {offset: 0.5, color: '#00caf2'},
+                        {offset: 1, color: '#00f0e8'}
+                    ]
+                ),
+                shadowBlur: 0,
+                borderWidth: 0,
+                shadowOffsetX: 0,
 			}
 		},
 		data: data1
