@@ -49,11 +49,7 @@
             	if(response.message!=null){
             		new Alert({flag:false,text:result.message,timer:1500}).show();
             	}else{
-					if(response.data==null){
-            			$('#essay').html('暂无该文章详情');
-            		}else{
-           				$('#essay').html(show(response.data));
-			        }
+           			$('#essay').html(show(response.data));
 				}
         	}
     	});

@@ -51,6 +51,8 @@
 <script src="/js/analysisOutputValue/findMore.js"></script>
 <script type="text/javascript">
 	$(function(){
+		$("#gardenMap").addClass("active");
+		$("#follow").addClass("active");
 		showMore('${Request.park}','园区政策',0);
     })
 </script>

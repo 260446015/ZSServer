@@ -174,7 +174,7 @@ function showGardenInfo(data) {
 					$("#attation").html('取消关注');
 				else
 					$("#attation").html('关注');
-				$("#analysis").attr('href','/apis/analysis/analysisOutputValue.html?park='+data);
+				$("#analysis").attr('href','/apis/analysis/informationPush.html?park='+data);
 				$("#attation").before('<input type="hidden" value="' + res.data.id + '"/>');
 				$("#gardenName").html(res.data.gardenName);
 				$("#gardenAddress").html(res.data.address);

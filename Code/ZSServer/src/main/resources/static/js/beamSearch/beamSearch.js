@@ -82,8 +82,8 @@ function run(input_file, get_data) {
 var options;
 function showCompany(list){
 	if(list.length==0){
-		new Alert({flag:'warning',text:"未查询到相关讯息！",timer:2000}).show();
-	}else{
+		$('#city_list').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">未查询到相关讯息！</p></div>');
+    }else{
 		options={
 			"id":"page",//显示页码的元素
 			"data":list,//显示数据

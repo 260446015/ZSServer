@@ -40,11 +40,13 @@
                         <div class="side-active">
                             <label>
                                 <img src="/images/right_side_active.png" width="100%" />
-                                <input type="file" class="file-opacity" />
                             </label>
                         </div>
                         <div class="mt30 btn-box-center">
-                            <button class="btn btn-blue btn-gradient upload-card" type="button">上传名片</button>
+                            <label  class="btn btn-blue btn-gradient upload-card" for="upload_file">
+                                <input type="file" name="upload_file" id="upload_file" class="file-opacity" />
+                                上传名片
+                            </label>
                         </div>
                     </div>
                 </div>
