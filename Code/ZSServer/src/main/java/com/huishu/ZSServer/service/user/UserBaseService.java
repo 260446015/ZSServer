@@ -1,5 +1,6 @@
 package com.huishu.ZSServer.service.user;
 
+import com.huishu.ZSServer.entity.UserLabel;
 import com.huishu.ZSServer.entity.dto.UserDTO;
 import com.huishu.ZSServer.entity.user.UserBase;
 
@@ -33,4 +34,17 @@ public interface UserBaseService {
 	 * @return
 	 */
 	Boolean modifyInformation(long id,UserDTO dto);
+
+	/**
+	 * @param uid
+	 * @return
+	 */
+	UserLabel findLabelByUserId(Long uid);
+
+	/**
+	 * @param user
+	 * @return
+	 */
+	boolean updateLabel(UserLabel user);
+	
 }

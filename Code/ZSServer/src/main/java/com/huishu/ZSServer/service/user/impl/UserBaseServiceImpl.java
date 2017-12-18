@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.entity.UserLabel;
 import com.huishu.ZSServer.entity.dto.UserDTO;
 import com.huishu.ZSServer.entity.user.UserBase;
 import com.huishu.ZSServer.repository.user.UserBaseRepository;
+import com.huishu.ZSServer.repository.user.UserLabelRepository;
 import com.huishu.ZSServer.security.Digests;
 import com.huishu.ZSServer.security.Encodes;
 import com.huishu.ZSServer.service.user.UserBaseService;
@@ -16,7 +18,8 @@ public class UserBaseServiceImpl implements UserBaseService {
 
 	@Autowired
 	private UserBaseRepository userBaseRepository;
-
+	@Autowired
+	private UserLabelRepository userLabelRepository;
 	@Override
 	public UserBase findByUserId(long id) {
 		return userBaseRepository.findOne(id);
@@ -60,6 +63,32 @@ public class UserBaseServiceImpl implements UserBaseService {
 		byte[] passwordByte = Digests.sha1(password.getBytes(), saltByte, Encodes.HASH_INTERATIONS);
 		String passwordTrue = Encodes.encodeHex(passwordByte);
 		return passwordTrue;
+	}
+
+	/**
+	 * 获取用户标签信息
+	 */
+	@Override
+	public UserLabel findLabelByUserId(Long uid) {
+		UserLabel userlabel = userLabelRepository.findByUid(uid);
+		if(userlabel==null){
+			return null;
+		}else{
+			return userlabel;
+		}
+	}
+
+	/**
+	 * 保存或者更新标签信息
+	 */
+	@Override
+	public boolean updateLabel(UserLabel user) {
+		UserLabel save = userLabelRepository.save(user);
+		if(save!= null){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }

@@ -7,7 +7,7 @@ $("#searchTag").on("click",".search-tag span.close",function () {
 	$(this).parent().remove();
 });
 $(function () {
-	   $("#myModal").modal("show");
+		getTab();
 	   $("#LabelBlue").click(function(){
 		   $("#myModal").modal("hide");
 		   var arr=[];
@@ -15,10 +15,39 @@ $(function () {
 			   $("#searchTag").html(TagList(arr));
 			   var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
 			   $("#horizontal-info").hide();
+			   var ss = industry+','+area+','+registerTime+','+register;
+			   updateLabel(ss);
 			   searchAjax(param);
 	   });
 });
-
+function getTab(){
+	$.ajax({
+		url:'/user/getLabel.json',
+		type:'GET',
+		success:function(res){
+			if(res.data==null){
+				 $("#myModal").modal("show");
+			}else{
+				var arr = res.data.split(',');
+				 $("#searchTag").html(TagList(arr));
+				 var  param = {industry:arr[0],area:arr[1],registerTime:arr[2],register:arr[3]};
+				   $("#horizontal-info").hide();
+				   searchAjax(param);
+			}
+		}
+	});
+};
+function updateLabel(ss){
+	$.ajax({
+	  url:'/user/updateLabel.json?label='+ss,
+	  type:'GET',
+	  success:function(res){
+		  if(res.data != null){
+			  console.log("更新标签成功");
+		  }
+	  }
+	});
+};
 function searchTab(a,b){
 	if(a == 1){
 		industry = b;
@@ -47,6 +76,8 @@ $("#search_tag").on("click",function () {
     	    $("#searchTag").html(TagList(arr));
     	   var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
     	   $("#horizontal-info").hide();
+    	   var ss = industry+','+area+','+registerTime+','+register;
+    	   updateLabel(ss);
     	   searchAjax(param);
     	
     });
