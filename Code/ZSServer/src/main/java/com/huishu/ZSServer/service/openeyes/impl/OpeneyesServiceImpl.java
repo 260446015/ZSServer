@@ -853,7 +853,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONArray("result");
-			if(jsonArr.size() == 0){
+			if(jsonArr == null){
 				throw new NullPointerException();
 			}
 		} catch (NullPointerException e) {

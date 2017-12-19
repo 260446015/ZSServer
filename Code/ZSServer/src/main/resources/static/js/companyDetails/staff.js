@@ -1,4 +1,5 @@
 $(function(){
+	showNews();
 	showStaff();
 	$(".tabs-custom").find("a").on("click",function(){
 		var value = $(this).text();
@@ -90,4 +91,12 @@ function telContact(element){
 			}
 		}
 	});
+}
+function showNews(){
+	$.ajax({
+		url:'/apis/openeyes/searchInfo.json?target=riskinfo&pageNum=1&name=广西医科大学',
+		success:function(res){
+			console.log(res.data);
+		}
+	})
 }

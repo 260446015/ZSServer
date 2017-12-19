@@ -56,7 +56,6 @@ function showCompanyDetail(){
 		success:function(res){
 			if(res.success){
 				resData = res.data.result;
-				console.log(resData);
 				var value;
 				var flag;
 				if(resData.isAttation){
