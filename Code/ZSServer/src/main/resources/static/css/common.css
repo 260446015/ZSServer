@@ -2128,3 +2128,100 @@ a.search-item.active{
 .not-data>img {
     margin-bottom:  15px;
 }
+/*登录页面*/
+.login-bg{
+    background-image: url("../images/login_bg.jpg");
+}
+.panel-login {
+    position:  fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -234px;
+    margin-top: -214px;
+    width:  468px;
+    /*border: 1px solid #2c48a5;*/
+    border-radius:  8px;
+    -webkit-box-shadow: 0 0 13px rgba(0,172,235,.41);
+    -moz-box-shadow: 0 0 13px rgba(0,172,235,.41);
+    -ms-box-shadow: 0 0 13px rgba(0,172,235,.41);
+    -o-box-shadow: 0 0 13px rgba(0,172,235,.41);
+    box-shadow: 0 0 13px rgba(0,172,235,.41);
+    background-color: #000626;
+}
+
+.panel-login .panel-heading {
+    padding-top: 48px;
+    padding-bottom:  15px;
+    font-size: 28px;
+}
+
+.panel-login .panel-heading .panel-title {
+    font-size:  28px;
+    text-align:  center;
+}
+
+.panel-login .panel-body {
+    padding-left: 75px;
+    padding-right: 75px;
+}
+
+.panel-login .form-group {
+    margin-bottom: 20px;
+}
+
+.panel-login .form-group .input-icon {
+    position: relative;
+}
+
+.panel-login .form-group .input-icon .glyphicon {
+    position: absolute;
+    left:10px;
+    top: 16px;
+    color: #20c2fe;
+    font-size: 20px;
+}
+
+.panel-login .form-group .input-icon .form-control {
+    padding-left: 40px;
+    height: 56px;
+    font-size:20px;
+    color: #20c2fe;
+    border-color: transparent;
+    background-color: #000626;
+    -webkit-box-shadow:  0 0 7px rgba(0,172,235,.35);
+    -moz-box-shadow:  0 0 7px rgba(0,172,235,.35);
+    -ms-box-shadow:  0 0 7px rgba(0,172,235,.35);
+    -o-box-shadow:  0 0 7px rgba(0,172,235,.35);
+    box-shadow:  0 0 7px rgba(0,172,235,.35);
+}
+.panel-login input::-webkit-input-placeholder {
+    color: #017ca9;
+}
+.panel-login input:-moz-placeholder {
+    color: #017ca9;
+}
+.panel-login input::-moz-placeholder {
+    color: #017ca9;
+}
+.panel-login input:-ms-input-placeholder {
+    color: #017ca9;
+}
+.panel-login .form-control-static{
+    font-size: 16px;
+    text-align: center;;
+}
+.btn-login{
+    margin-top: 15px;
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 20px;
+}
+.login-bg .footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding-bottom: 30px;
+}
