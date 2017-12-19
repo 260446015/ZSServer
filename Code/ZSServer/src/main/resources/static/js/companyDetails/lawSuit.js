@@ -10,7 +10,6 @@ function showBond(){
 		url:'/apis/openeyes/getLawsuit.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.data.items;
 				var thead = '<tr><th class="text-left">日期</th><th class="text-left">案件号</th><th class="text-left">裁判文书</th><th class="text-left">案件类型</th></tr>';
 				$("#lawSuit").prev().html(thead);

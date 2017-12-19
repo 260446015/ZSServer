@@ -10,7 +10,6 @@ function showBond(){
 		url:'/apis/openeyes/getDishonest.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.result.items;
 				var thead = '<tr><th class="text-left">立案日期</th><th class="text-left">案号</th><th class="text-left">执行法院</th><th class="text-left">履行状态</th>'+
                             '<th class="text-left">执行依据文号</th></tr>'

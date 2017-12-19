@@ -11,7 +11,6 @@ function showBond(){
 		url:'/apis/openeyes/getHoldingCompany.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				arr = res.data.data.dataList;
 				var thead = '<tr><th class="text-left">关联公司</th><th class="text-left">参股关系</th><th class="text-left">参股比例（%）</th><th class="text-left">投资金额（万元）</th>'+
                             '<th class="text-left">被参股公司净利润(元)</th><th class="text-left">是否报表合并</th></tr>';

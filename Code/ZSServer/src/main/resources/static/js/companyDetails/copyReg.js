@@ -10,7 +10,6 @@ function showBond(){
 		url:'/apis/openeyes/getCopyReg.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.data.items;
 				var thead = '<tr><th class="text-left">批准日期</th><th class="text-left">软件全称</th><th class="text-left">软件简称</th><th class="text-left">登记号</th>'+
 							'<th class="text-left">分类号</th><th class="text-left">版本号</th></tr>';

@@ -11,7 +11,6 @@ function showBond(){
 		url:'/apis/openeyes/getShareholder.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				arr = res.data.data.holderList;
 				var thead = '<tr><th class="text-left">机构或基金</th><th class="text-left">持有数量</th><th class="text-left">持股变化 （万股）</th><th class="text-left">占股本比例（%）</th>'+
                             '<th class="text-left">实际增减持（%）</th><th class="text-left">股份类型</th></tr>';

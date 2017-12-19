@@ -10,7 +10,6 @@ function showTouzi(){
 		url:'/apis/openeyes/getTouZi.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.result.items;
 				var thead = '<tr><th class="text-left">时间</th><th class="text-left">轮次</th><th class="text-left">金额</th><th class="text-left">投资方</th>' +
 							'<th class="text-left">产品</th><th class="text-left">地区</th><th class="text-left">行业</th><th class="text-left">业务</th></tr>';

@@ -10,7 +10,6 @@ function showBond(){
 		url:'/apis/openeyes/getEmployment.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.result.items;
 				var thead = '<tr><th class="text-left">发布时间</th><th class="text-left">招聘职位</th><th class="text-left">薪资</th><th class="text-left">工作经验</th>'+
                             '<th class="text-left">招聘人数</th><th class="text-left">所在城市</th></tr>';

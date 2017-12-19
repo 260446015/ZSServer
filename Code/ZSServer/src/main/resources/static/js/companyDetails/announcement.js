@@ -11,7 +11,6 @@ function showBond(){
 		url:'/apis/openeyes/getAnnouncement.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				arr = res.data.data.dataList;
 				var thead = '<tr><th class="text-left">日期</th><th class="text-left">上市公告</th></tr>';
 				$("#announcement").prev().html(thead);

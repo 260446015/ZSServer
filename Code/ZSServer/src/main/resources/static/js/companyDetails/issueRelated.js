@@ -10,7 +10,6 @@ function showIssueRelated(){
 		url:'/apis/openeyes/getIssueRelated.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var data = res.data.data;
 				$("#issueDate").html(data.issueDate);
 				$("#listingDate").html(data.listingDate);

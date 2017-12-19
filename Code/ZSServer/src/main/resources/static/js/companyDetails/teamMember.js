@@ -10,7 +10,6 @@ function showTeamMember(){
 		type:'post',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var html = '';
 				var arr = res.data.result.page.rows;
 				for(var i=0;i<arr.length;i++){

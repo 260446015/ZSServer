@@ -10,7 +10,6 @@ function showBond(){
 		url:'/apis/openeyes/getVolatility.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.data;
 				$("#cname").html(arr.stockname);
 				$("#tmaxprice").html(arr.tmaxprice);

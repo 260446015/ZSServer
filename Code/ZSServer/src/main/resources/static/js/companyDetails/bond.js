@@ -12,7 +12,6 @@ function showBond(){
 		success:function(res){
 			if(res.success){
 				arr = res.data.data.bondList;
-				console.log(arr);
 				var thead = '<tr><th class="text-left">发行日期</th><th class="text-left">债券名称</th><th class="text-left">债券代码</th>' +
                             '<th class="text-left">债券类型</th><th class="text-left">最新评级</th></tr>'
 				$("#bond").prev().html(thead);

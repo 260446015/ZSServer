@@ -10,7 +10,6 @@ function showBond(){
 		url:'/apis/openeyes/getZhixingInfo.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.data.items;
 				var thead = '<tr><th class="text-left">立案日期</th><th class="text-left">案号</th><th class="text-left">执行标的</th><th class="text-left">执行法院</th></tr>';
 				$("#zhixinginfo").prev().html(thead);

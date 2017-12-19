@@ -10,7 +10,6 @@ function showBond(){
 		url:'/apis/openeyes/getGonggao.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.courtAnnouncements;
 				var thead = '<tr><th class="text-left">公告时间</th><th class="text-left">上诉方</th><th class="text-left">被诉方</th>'+
                             '<th class="text-left">公告类型</th><th class="text-left">法院</th></tr>';

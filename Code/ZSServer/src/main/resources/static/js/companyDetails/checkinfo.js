@@ -10,7 +10,6 @@ function showBond(){
 		url:'/apis/openeyes/getCheckInfo.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.data.companyPurchaseLandList;
 				var thead = '<tr><th class="text-left">日期</th><th class="text-left">类型</th><th class="text-left">结果</th><th class="text-left">检查实施机关</th></tr>';
 				$("#checkinfo").prev().html(thead);

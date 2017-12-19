@@ -13,7 +13,6 @@ function showCertificate(){
 				var arr = res.data.data.resultList;
 				var thead = '<tr><td>证书类型</td><td>许可编号</td><td>发证日期</td><td>截止日期</td></tr>	';
 				$("#certificate").prev().html(thead);
-				console.log(arr);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					html += '<tr><td>'+arr[i].certificateName+'</td><td>'+arr[i].certNo+'</td>' +

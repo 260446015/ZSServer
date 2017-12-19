@@ -10,7 +10,6 @@ function showTaxCredit(){
 		url:'/apis/openeyes/getTaxCredit.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.data.items;
 				var thead = '<tr><th class="text-left">年份</th><th class="text-left">纳税评级</th><th class="text-left">类型</th><th class="text-left">纳税人识别号</th><th class="text-left">评价单位</th></tr>';
 				$("#taxCredit").prev().html(thead);

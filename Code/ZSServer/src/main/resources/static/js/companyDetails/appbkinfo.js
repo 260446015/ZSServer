@@ -10,7 +10,6 @@ function showAppbkinfo(){
 		url:'/apis/openeyes/getAppbkInfo.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.data.items;
 				var thead = '<tr><th class="text-left">图标</th><th class="text-left">产品名称</th><th class="text-left">产品简称</th>' +
                             '<th class="text-left">产品分类</th><th class="text-left">领域</th></tr>';

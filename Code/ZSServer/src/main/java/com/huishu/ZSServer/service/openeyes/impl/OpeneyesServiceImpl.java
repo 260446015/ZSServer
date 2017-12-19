@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.entity.Company;
+import com.huishu.ZSServer.entity.CompanyAttation;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.entity.openeyes.Abnormal;
 import com.huishu.ZSServer.entity.openeyes.Allotmen;
@@ -62,6 +63,7 @@ import com.huishu.ZSServer.entity.openeyes.TouZi;
 import com.huishu.ZSServer.entity.openeyes.Volatility;
 import com.huishu.ZSServer.entity.openeyes.ZhixingInfo;
 import com.huishu.ZSServer.exception.OpeneyesException;
+import com.huishu.ZSServer.repository.company.CompanyAttaRepository;
 import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.openeyes.AbnormalRepository;
 import com.huishu.ZSServer.repository.openeyes.AllotmenRepository;
@@ -212,6 +214,8 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 	private AllotmenRepository allotmenRepository;
 	@Autowired
 	private CertificateRepository certificateRepository;
+	@Autowired
+	private CompanyAttaRepository companyAttaRepository;
 
 	@Override
 	public JSONObject getStaffInfo(OpeneyesDTO dto) throws OpeneyesException {
@@ -256,12 +260,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if (list.size() > 0) {
 			BaseInfo info = list.get(0);
 			info.setIsAttation(false);
-			info.getUsers().forEach((obj) ->{
-				if(obj.getId() == dto.getUserId()){
-					info.setIsAttation(true);
-				}
-			});
-			info.setUsers(null);
+			CompanyAttation ca = companyAttaRepository.findByCompanyIdAndUserId(info.getId(), dto.getUserId());
+			if(ca != null){
+				info.setIsAttation(true);
+			}	
 			openEyesTarget.put("result", info);
 			return openEyesTarget;
 		}
@@ -851,6 +853,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONArray("result");
+			if(jsonArr.size() == 0){
+				throw new NullPointerException();
+			}
 		} catch (NullPointerException e) {
 			log.debug("天眼查新闻查询数据为空",e.getMessage());
 			throw new OpeneyesException();

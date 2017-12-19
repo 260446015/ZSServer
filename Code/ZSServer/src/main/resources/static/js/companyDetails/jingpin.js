@@ -15,7 +15,6 @@ function showJinpin(){
 				var thead = '<tr><th class="text-left">企业名称</th><th class="text-left">行业</th><th class="text-left">竞品名</th><th class="text-left">地区</th><th class="text-left">产品</th>'+
                     '<th class="text-left">轮次</th><th class="text-left">投资时间</th><th class="text-left">估值</th><th class="text-left">业务范围</th></tr>';
 				$("#jingpin").prev().html(thead);
-				console.log(arr);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var dateStr = getFormatDate(new Date(arr[i].setupDate));

@@ -11,7 +11,6 @@ function showShareStructure(){
 		url:'/apis/openeyes/getShareStructure.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				arr = res.data.data.dataList;
 				var thead = '<tr><th class="text-left">时间</th><th class="text-left">总股本</th><th class="text-left">A股总股本</th><th class="text-left">流通A股</th><th class="text-left">限售A股</th>'+
                             '<th class="text-left">H股总股本</th><th class="text-left">流通H股</th><th class="text-left">限售H股</th><th class="text-left">变动原因</th></tr>';

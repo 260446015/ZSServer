@@ -92,9 +92,6 @@ public class BaseInfo implements Serializable {
 	private Long updateTimes;
 	/** 统一社会信用代码 */
 	private String creditCode;
-	/** 关联用户表 */
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "infos",fetch=FetchType.LAZY)
-	private List<UserBase> users;
 	@Transient
 	private boolean isAttation;
 
@@ -352,14 +349,6 @@ public class BaseInfo implements Serializable {
 
 	public void setCreditCode(String creditCode) {
 		this.creditCode = creditCode;
-	}
-
-	public List<UserBase> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<UserBase> users) {
-		this.users = users;
 	}
 
 	@Override

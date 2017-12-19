@@ -10,7 +10,6 @@ function showChangeInfo(){
 		url:'/apis/openeyes/getChangeInfo.json',
 		success:function(res){
 			if(res.success){
-				console.log(res);
 				var arr = res.data.data.result;
 				var thead = '<tr><th class="text-left">变更时间</th><th class="text-left">变更项目</th><th class="text-left">变更前</th><th class="text-left">变更后</th></tr>';
 				$("#changeInfo").prev().html(thead);

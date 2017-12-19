@@ -10,7 +10,6 @@ function showBond(){
 		url:'/apis/openeyes/getPatents.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var arr = res.data.data.items;
 				var thead = '<tr><th class="text-left">申请公布日</th><th class="text-left">专利名称</th><th class="text-left">申请号</th><th class="text-left">申请公布号</th></tr>';
 				$("#patents").prev().html(thead);

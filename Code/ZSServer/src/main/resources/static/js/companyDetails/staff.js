@@ -23,11 +23,9 @@ function showStaff(){//展示主要人员的功能
 			if(res.success){
 				var html = '';
 				var arr = res.data.result;
-				console.log(arr);
 				$(".tableShow").eq(1).css("display","none");
 				$(".tableShow").eq(0).css("display","inline");
 				for(var i=0;i<arr.length;i++){
-					console.log(arr[i]);
 					html += '<div class="item"><div class="slider-header">'+arr[i].name+'('+arr[i].typeJoin[0]+')</div><div class="row">' +
 							'<div class="col-md-3 col-md-offset-1"><label class="control-label col-md-5">联系方式</label>' +
 							'<div class="col-md-7"><input class="input phone masks" readonly value="" /></div></div>' +
@@ -60,7 +58,6 @@ function showHolder(){//展示股东的功能
 				var arr = res.data.data.result;
 				var thead = '<tr class="tabTitle"><th class="text-left">股东</th><th class="text-left">出资比例</th><th class="text-left">认缴出资</th></tr>';
 				$("#holder").prev().html(thead);
-				console.log(arr);
 				$(".tableShow").eq(0).css("display","none");
 				$(".tableShow").eq(1).css("display","inline");
 				for(var i=0;i<arr.length;i++){

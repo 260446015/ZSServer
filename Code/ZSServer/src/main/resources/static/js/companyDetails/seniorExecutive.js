@@ -11,7 +11,6 @@ function showSeniorExecutive(){
 		url:'/apis/openeyes/getSeniorExecutive.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				arr = res.data.data.dataList;
 				var thead = '<tr><th class="text-left">姓名</th><th class="text-left">职务</th><th class="text-left">持股数</th><th class="text-left">年龄</th></tr>';
 				$("#seniorExecutive").prev().html(thead);
