@@ -239,11 +239,11 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 				if(content.length()>300){
 					String replaceHtml = StringUtil.replaceHtml(content.substring(0, 300));
 					
-					action.setSummary(replaceHtml);
+					action.setContent(replaceHtml);
 				}else{
 					String replaceHtml = StringUtil.replaceHtml(content.substring(0, content.length()));
 					
-					action.setSummary(replaceHtml);
+					action.setContent(replaceHtml);
 			}
 			
 		});

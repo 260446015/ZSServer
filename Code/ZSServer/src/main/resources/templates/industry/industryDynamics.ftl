@@ -125,7 +125,7 @@
                         <div class="row">
                         <#list content as info>
                             <div class="col-md-6">
-                                <a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId=${info.id}" target="_blank" >
+                                <a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId=${info.id}"  >
                                     <span class="icon-block"></span>
                                     <span class="scatter-type">${info.industryLabel}</span>
                                     <span class="scatter-title">${info.title}</span>
@@ -135,7 +135,7 @@
                                 </p>
                                 <p class="scatter-lib"><span>时间：${info.publishTime}</span><span>涉及公司：
                                    <#list info.bus as param>
-                                       ${param}
+                                      <a href="/apis/company/baseInfo.html?companyName=${param}" >${param}</a>
                                    </#list>
                                 </span></p>
                             </div>

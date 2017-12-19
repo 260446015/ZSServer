@@ -182,8 +182,17 @@ public class IndustryInfoController extends BaseController{
 			}
 			String summary = action.getSummary();
 			if(StringUtil.isNotEmpty(summary)){
-				String replaceHtml = StringUtil.replaceHtml(summary);
-				action.setContent(replaceHtml);
+				
+				if(summary.length()<10){
+					String content = action.getContent();
+					if(content.length()>300){
+						String substring = content.substring(0, 300);
+						action.setContent( StringUtil.replaceHtml(substring));
+					}
+				}else{
+					String replaceHtml = StringUtil.replaceHtml(summary);
+					action.setContent(replaceHtml);
+				}
 			}else{
 				String content = action.getContent();
 				if(content.length()>300){

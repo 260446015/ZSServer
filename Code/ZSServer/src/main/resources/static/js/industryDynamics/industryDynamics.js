@@ -14,7 +14,8 @@ var options={
 	    "callBack":function(){}
 	};
 $(function () {
-	$("#dynamic").addClass("active");
+	new Loading({isfullscreen:true,text:"正在努力加载,三秒后消失"}).show();
+	$("#indus").addClass("active");
 	var time ="近一周";
 	getKeyWordCloud(time);
     getIndustry(0,0);
@@ -26,25 +27,25 @@ scatter.on('click',function(param){
 });
 
 function getKeyWordCloud(d){
-// 	console.log(d);
-// 	var param={time:d};
-//
-// 	$.ajax({
-// 		url:'/indus/findKeyWord.json',
-// 		type:'POST',
-// 		data:param,
-// 		success:function(res){
-// 			if(res.data==null){
-// 				new Alert({flag:false,text:res.message,timer:2000}).show();
-// 			}
-// 			var arr = res.data;
-// 			getArticleByKeyWord(d,arr[0].name);
-// 			echartDataInit(arr);
-// 		    option.series[0].data=data1;
-			scatter.setOption(option);
-		// }
-	//
-	// });
+ 	var param={time:d};
+ 	$.ajax({
+ 		url:'/indus/findKeyWord.json',
+ 		type:'POST',
+		data:param,
+ 		success:function(res){
+ 			if(res.data==null){
+ 				new Alert({flag:false,text:res.message,timer:2000}).show();
+ 			}else{
+ 				var arr = res.data;
+ 				echartDataInit(arr);
+ 				option.series[0].data=data1;
+ 				scatter.setOption(option);
+ 				new Loading({isfullscreen:true}).hide();
+ 				getArticleByKeyWord(d,arr[0].name);
+ 			}
+		 }
+	
+	 });
 }
 $("input[type=radio]").on("ifClicked",function(event){
 	if(event.type == 'ifClicked'){
@@ -202,8 +203,6 @@ var option = {
 
 function getArticleByKeyWord(a,b){
 	var param={time:a,keyWord:b};
-	console.log(a);
-	console.log(b);
 	$.ajax({
 		type: 'post',
         url: "/indus/findArticleListByKeyWord.json",
