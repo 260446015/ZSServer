@@ -130,7 +130,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="model-body border-box">
+                <div class="model-body border-box  max-height-content">
                     <div class="row" id="city_list">
                     </div>
                 </div>
