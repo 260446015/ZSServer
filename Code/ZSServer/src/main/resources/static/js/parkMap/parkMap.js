@@ -422,11 +422,11 @@ var option = {
                 color: new echarts.graphic.LinearGradient(
                     0, 0, 0, 1,
                     [
-                        {offset: 0, color: '#20c2fe'},
-                        {offset: 0.5, color: '#6e92fb'},
-                        {offset: 1, color: '#bd62f7'}
+                        {offset: 0, color: '#00a5fb'},
+                        {offset: 0.5, color: '#00caf2'},
+                        {offset: 1, color: '#00f0e8'}
                     ]
-                )
+                ),
             }
         },
         data: data1
@@ -549,21 +549,18 @@ function showGardenCondition(area,target){
 				var html = "";
 				var arr = res.data.content;
 				console.log(arr);
-				if(arr.length != 0){
-					for(var i=0;i<arr.length;i++){
-						html += '<div class="col-md-12 border-bottom">' +
-									'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
-										'<span class="scatter-title">'+arr[i].title+'</span></a>' +
-										'<p class="scatter-content">'+arr[i].summary +'</p>' + 
-										'<p class="scatter-lib">' +
-											'<span>'+arr[i].park+'</span>' +
-	                                		'<span>'+arr[i].publishTime+'</span></p></div>';
-					}
-					$("#"+target).html(html);
-				}else{
-					$("#gardenCondition").hide();
+				for(var i=0;i<arr.length;i++){
+					html += '<div class="col-md-12 border-bottom">' +
+								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
+									'<span class="scatter-title">'+arr[i].title+'</span></a>' +
+									'<p class="scatter-content">'+arr[i].summary +'</p>' + 
+									'<p class="scatter-lib">' +
+										'<span>'+arr[i].park+'</span>' +
+                                		'<span>'+arr[i].publishTime+'</span></p></div>';
 				}
-			
+				$("#"+target).html(html);
+			}else{
+				$("#gardenCondition").hide();
 			}
 		}
 	});
