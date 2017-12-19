@@ -58,27 +58,31 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 				} else {
 					List<ScanGarden> gardenIds = scanGardenRepository.findByGardenIdAndDr(gardenId, 0);
 					GardenData garden = gardenRepository.findOne(gardenId);
+					ScanGarden sg = new ScanGarden();
+					sg.setDr(0);
+					sg.setGardenId(gardenId);
+					sg.setGardenName(garden.getGardenName());
 					if (gardenIds.size() <= 0) {
-						List<Company> cs = companyRepository.findByPark(garden.getGardenName());
-						List<Company> list2 = cs.stream().sorted((a, b) -> {
-							return b.getRc().compareTo(a.getRc());
-						}).limit(50).collect(Collectors.toList());
-						LOGGER.info("关注园区后开始搜索园区下按注册金额排名前50企业的名称");
-						OpeneyesDTO dto = new OpeneyesDTO();
-						list2.forEach((company) -> {
-							String name = company.getCompanyName();
-							LOGGER.info("搜索接口触发，当前搜索企业名称为:" + name);
-							dto.setCname(name);
-							try {
-								openeyesService.getBaseInfo(dto);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						});
-						ScanGarden sg = new ScanGarden();
-						sg.setDr(0);
-						sg.setGardenId(gardenId);
-						sg.setGardenName(garden.getGardenName());
+						try{
+							List<Company> cs = companyRepository.findByPark(garden.getGardenName());
+							List<Company> list2 = cs.stream().sorted((a, b) -> {
+								return b.getRc().compareTo(a.getRc());
+							}).limit(50).collect(Collectors.toList());
+							LOGGER.info("关注园区后开始搜索园区下按注册金额排名前50企业的名称");
+							OpeneyesDTO dto = new OpeneyesDTO();
+							list2.forEach((company) -> {
+								String name = company.getCompanyName();
+								LOGGER.info("搜索接口触发，当前搜索企业名称为:" + name);
+								dto.setCname(name);
+								try {
+									openeyesService.getBaseInfo(dto);
+								} catch (Exception e) {
+									LOGGER.info("搜索接口获取天眼查基本信息报错:"+e.getMessage());
+								}
+							});
+						}catch(Exception e){
+							sg.setDr(2);
+						}
 						scanGardenRepository.save(sg);
 					}
 					gardenUser = new GardenUser();
