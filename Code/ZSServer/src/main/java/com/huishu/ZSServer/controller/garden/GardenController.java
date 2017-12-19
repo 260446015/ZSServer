@@ -65,6 +65,9 @@ public class GardenController extends BaseController {
 		Page<AITInfo> page = null;
 		try {
 			page = gardenService.findGardensCondition(dto);
+			if(page == null){
+				return error("暂无数据");
+			}
 		} catch (Exception e) {
 			LOGGER.error("查询园区动态失败!", e);
 			return error(e.getMessage());

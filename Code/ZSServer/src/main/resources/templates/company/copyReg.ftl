@@ -36,14 +36,6 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">批准日期</th>
-                                <th class="text-left">软件全称</th>
-                                <th class="text-left">软件简称</th>
-                                <th class="text-left">登记号</th>
-                                <th class="text-left">分类号</th>
-                                <th class="text-left">版本号</th>
-                            </tr>
                             						
                         </thead>
                         <tbody id="copyReg">

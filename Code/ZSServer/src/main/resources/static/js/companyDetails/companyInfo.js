@@ -10,7 +10,6 @@ function showBids(){
 		url:'/apis/openeyes/getCompanyInfo.json',
 		success:function(res){
 			if(res.success){
-				console.log(res.data);
 				var data = res.data.data;
 				$("#engName").html(data.engName);
 				$("#usedName").html(data.usedName);
@@ -25,6 +24,13 @@ function showBids(){
 				$("#controllingShareholder").html(data.controllingShareholder);
 				$("#actualController").html(data.actualController);
 				$("#finalController").html(data.finalController);
+			}else{
+				new Alert({
+                    flag : true,
+                    text : '暂无数据',
+                    timer : 2000
+                }).show();
+				goBack();
 			}
 		}
 	});

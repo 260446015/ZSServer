@@ -36,14 +36,6 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">申请日期</th>
-                                <th class="text-left">商标</th>
-                                <th class="text-left">商标名称</th>
-                                <th class="text-left">注册号</th>
-                                <th class="text-left">类别</th>
-                                <th class="text-left">状态</th>
-                            </tr>
                             					
                         </thead>
                         <tbody id="shangbiao">

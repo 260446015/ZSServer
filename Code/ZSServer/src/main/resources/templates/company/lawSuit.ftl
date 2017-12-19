@@ -36,12 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">日期</th>
-                                <th class="text-left">案件号</th>
-                                <th class="text-left">裁判文书</th>
-                                <th class="text-left">案件类型</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="lawSuit">
                         </tbody>

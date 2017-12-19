@@ -36,15 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">时间</th>
-                                <th class="text-left">轮次</th>
-                                <th class="text-left">估值</th>
-                                <th class="text-left">金额</th>
-                                <th class="text-left">比例</th>
-                                <th class="text-left">投资方</th>
-                                <th class="text-left">新闻来源</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="rongzi">
                         </tbody>

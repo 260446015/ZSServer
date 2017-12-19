@@ -22,7 +22,9 @@ function showTeamMember(){
 				}
 				$("#teamMember").html(html);
 			}else{
-				new Alert({flag:false,text:res.message,timer:2000}).show();
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+				$("#teamMember").html(html);
+				window.setTimeout(goBack, 2000); 
 			}
 		}
 	});

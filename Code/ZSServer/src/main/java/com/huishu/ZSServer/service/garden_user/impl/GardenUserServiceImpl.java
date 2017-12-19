@@ -71,15 +71,15 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 							dto.setCname(name);
 							try {
 								openeyesService.getBaseInfo(dto);
-								ScanGarden sg = new ScanGarden();
-								sg.setDr(0);
-								sg.setGardenId(gardenId);
-								sg.setGardenName(garden.getGardenName());
-								scanGardenRepository.save(sg);
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
 						});
+						ScanGarden sg = new ScanGarden();
+						sg.setDr(0);
+						sg.setGardenId(gardenId);
+						sg.setGardenName(garden.getGardenName());
+						scanGardenRepository.save(sg);
 					}
 					gardenUser = new GardenUser();
 					gardenUser.setGardenName(garden.getGardenName());

@@ -13,6 +13,9 @@ function showShareStructure(){
 			if(res.success){
 				console.log(res.data);
 				arr = res.data.data.dataList;
+				var thead = '<tr><th class="text-left">时间</th><th class="text-left">总股本</th><th class="text-left">A股总股本</th><th class="text-left">流通A股</th><th class="text-left">限售A股</th>'+
+                            '<th class="text-left">H股总股本</th><th class="text-left">流通H股</th><th class="text-left">限售H股</th><th class="text-left">变动原因</th></tr>';
+				$("#shareStructure").prev().html(thead);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var pubDate = getFormatDate(new Date(arr[i].pubDate));
@@ -31,6 +34,10 @@ function showShareStructure(){
 							'<td>'+arr[i].hlimitShare+'</td><td>'+arr[i].changeReason+'</td>'+'</tr>';
 				}
 				$("#shareStructure").html(html);
+			}else{
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+				$("#shareStructure").html(html);
+				window.setTimeout(goBack, 2000); 
 			}
 		}
 	});

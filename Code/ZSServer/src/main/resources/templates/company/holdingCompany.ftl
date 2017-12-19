@@ -36,14 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">关联公司</th>
-                                <th class="text-left">参股关系</th>
-                                <th class="text-left">参股比例（%）</th>
-                                <th class="text-left">投资金额（万元）</th>
-                                <th class="text-left">被参股公司净利润(元)</th>
-                                <th class="text-left">是否报表合并</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="holdingCompany">
                         </tbody>

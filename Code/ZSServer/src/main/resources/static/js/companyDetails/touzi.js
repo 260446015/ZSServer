@@ -25,8 +25,9 @@ function showTouzi(){
 				}
 				$("#touzi").html(html);
 			}else{
-				html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
 				$("#touzi").html(html);
+				goBack();
 			}
 		}
 	});

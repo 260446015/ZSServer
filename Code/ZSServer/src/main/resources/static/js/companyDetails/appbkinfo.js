@@ -27,6 +27,7 @@ function showAppbkinfo(){
 			}else{
 				 var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
 				$("#appbkinfo").html(html);
+				window.setTimeout(goBack, 2000); 
 			}
 		}
 	});

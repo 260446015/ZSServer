@@ -36,13 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">姓名</th>
-                                <th class="text-left">职务</th>
-                                <th class="text-left">持股数</th>
-                                <th class="text-left">年龄</th>
-                                <th class="text-left">操作</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="seniorExecutive">
                         </tbody>

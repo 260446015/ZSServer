@@ -36,12 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">日期</th>
-                                <th class="text-left">类型</th>
-                                <th class="text-left">结果</th>
-                                <th class="text-left">检查实施机关</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="checkinfo">
                         </tbody>

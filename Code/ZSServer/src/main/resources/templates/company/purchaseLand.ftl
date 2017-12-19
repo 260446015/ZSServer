@@ -36,14 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">签订日期</th>
-                                <th class="text-left">电子监管号</th>
-                                <th class="text-left">行政区</th>
-                                <th class="text-left">宗地位置</th>
-                                <th class="text-left">供地总面积</th>
-                                <th class="text-left">约定动工日</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="bond">
                         </tbody>

@@ -36,15 +36,6 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">审核时间</th>
-                                <th class="text-left">网站名称</th>
-                                <th class="text-left">网站首页</th>
-                                <th class="text-left">域名</th>
-                                <th class="text-left">备案号</th>
-                                <th class="text-left">状态</th>
-                                <th class="text-left">单位性质</th>
-                            </tr>
                             						
                         </thead>
                         <tbody id="icp">

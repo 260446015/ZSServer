@@ -13,6 +13,9 @@ function showShareStructure(){
 			if(res.success){
 				console.log(res.data);
 				arr = res.data.data.dataList;
+				var thead = '<tr><th class="text-left">时间</th><th class="text-left">变动原因</th><th class="text-left">变动后A股总股本</th>'+
+                            '<th class="text-left">变动后流通A股</th><th class="text-left">变动后限售A股</th></tr>';
+				$("#equityChange").prev().html(thead);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var changeDate = getFormatDate(new Date(arr[i].changeDate));
@@ -30,6 +33,10 @@ function showShareStructure(){
 							'<td>'+arr[i].afterLimit+'</td>'+'</tr>';
 				}
 				$("#equityChange").html(html);
+			}else{
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+				$("#equityChange").html(html);
+				window.setTimeout(goBack, 2000); 
 			}
 		}
 	});

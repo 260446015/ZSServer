@@ -63,11 +63,7 @@
 					<div class="tableShow">
 						<table class="table table-striped">
 							<thead>
-								<tr class="tabTitle">
-									<th class="text-left">股东</th>
-									<th class="text-left">出资比例</th>
-									<th class="text-left">认缴出资</th>
-								</tr>
+								
 							</thead>
 							<tbody id="holder">
 

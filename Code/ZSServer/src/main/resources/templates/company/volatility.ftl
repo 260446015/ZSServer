@@ -36,18 +36,50 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">时间</th>
-                                <th class="text-left">轮次</th>
-                                <th class="text-left">金额</th>
-                                <th class="text-left">投资方</th>
-                                <th class="text-left">产品</th>
-                                <th class="text-left">地区</th>
-                                <th class="text-left">行业</th>
-                                <th class="text-left">业务</th>
-                            </tr>
+                            
                         </thead>
-                        <tbody id="touzi">
+                        <tbody id="volatility">
+                        	<tr colspan="6"><td id="cname"></td></tr>
+                        	<tr>
+                        		<td>涨停：</td>
+                        		<td id="tmaxprice"></td>
+                        		<td>跌停：</td>
+                        		<td id="tminprice"></td>
+                        		<td>今开：</td>
+                        		<td id="topenprice"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>昨收：</td>
+                        		<td id="pprice"></td>
+                        		<td>最高：</td>
+                        		<td id="thighprice"></td>
+                        		<td>最低：</td>
+                        		<td id="tlowprice"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>总市值：</td>
+                        		<td id="tvalue"></td>
+                        		<td>流通市值：</td>
+                        		<td id="flowvalue"></td>
+                        		<td>成交量：</td>
+                        		<td id="tamount"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>成交额：</td>
+                        		<td id="tamounttotal"></td>
+                        		<td>市净率：</td>
+                        		<td id="tvaluep"></td>
+                        		<td>市盈率（动）：</td>
+                        		<td id="fvaluep"></td>
+                        	</tr>
+                        	<tr>
+                        		<td>振幅：</td>
+                        		<td id="trange"></td>
+                        		<td>换手：</td>
+                        		<td id="tchange"></td>
+                        		<td></td>
+                        		<td></td>
+                        	</tr>
                         </tbody>
                     </table>
                 </div>
@@ -61,7 +93,7 @@
 <#include  "/common/script.ftl"/>
 <script src="/js/companyDetails/common.js"></script>
 <!-- js 共用部分 end -->
-<script src="/js/companyDetails/touzi.js"></script>
+<script src="/js/companyDetails/volatility.js"></script>
 
 </body>
 </html>

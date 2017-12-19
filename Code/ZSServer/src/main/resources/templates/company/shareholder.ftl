@@ -36,14 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">机构或基金</th>
-                                <th class="text-left">持有数量</th>
-                                <th class="text-left">持股变化 （万股）</th>
-                                <th class="text-left">占股本比例（%）</th>
-                                <th class="text-left">实际增减持（%）</th>
-                                <th class="text-left">股份类型</th>
-                            </tr>
+                            
                         </thead>
                        					
                         <tbody id="shareholder">

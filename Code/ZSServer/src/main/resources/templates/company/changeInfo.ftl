@@ -36,12 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">变更时间</th>
-                                <th class="text-left">变更项目</th>
-                                <th class="text-left">变更前</th>
-                                <th class="text-left">变更后</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="changeInfo">
                             

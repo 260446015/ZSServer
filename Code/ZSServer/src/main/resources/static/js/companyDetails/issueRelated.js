@@ -24,6 +24,13 @@ function showIssueRelated(){
 				$("#mainUnderwriter").html(data.mainUnderwriter.name);
 				$("#listingSponsor").html(data.listingSponsor.name);
 				$("#history").html(data.history);
+			}else{
+				new Alert({
+	                flag : true,
+	                text : '暂无数据',
+	                timer : 2000
+	            }).show();
+				window.setTimeout(goBack, 2000); 
 			}
 		}
 	});

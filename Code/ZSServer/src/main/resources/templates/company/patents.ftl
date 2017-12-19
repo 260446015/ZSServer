@@ -36,12 +36,6 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">申请公布日</th>
-                                <th class="text-left">专利名称</th>
-                                <th class="text-left">申请号</th>
-                                <th class="text-left">申请公布号</th>
-                            </tr>
                             			
                         </thead>
                         <tbody id="patents">

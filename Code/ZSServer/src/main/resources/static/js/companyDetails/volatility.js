@@ -11,16 +11,26 @@ function showBond(){
 		success:function(res){
 			if(res.success){
 				console.log(res.data);
-				var arr = res.data.data.companyPurchaseLandList;
-				var html = '';
-				for(var i=0;i<arr.length;i++){
-					var signedDate = getFormatDate(new Date(arr[i].signedDate));
-					var startTime = getFormatDate(new Date(arr[i].startTime));
-					html += '<tr><td>'+signedDate+'</td><td>'+arr[i].elecSupervisorNo+'</td>' +
-							'<td>'+arr[i].adminRegion+'</td><td>'+arr[i].location+'</td>' +
-							'<td>'+arr[i].totalArea+'</td><td>'+startTime+'</td>'+'</tr>'
-				}
-				$("#checkinfo").html(html);
+				var arr = res.data.data;
+				$("#cname").html(arr.stockname);
+				$("#tmaxprice").html(arr.tmaxprice);
+				$("#tminprice").html(arr.tminprice);
+				$("#topenprice").html(arr.topenprice);
+				$("#pprice").html(arr.pprice);
+				$("#thighprice").html(arr.thighprice);
+				$("#tlowprice").html(arr.tlowprice);
+				$("#tvalue").html(arr.tvalue);
+				$("#flowvalue").html(arr.flowvalue);
+				$("#tamount").html(arr.tamount);
+				$("#tamounttotal").html(arr.tamounttotal);
+				$("#tvaluep").html(arr.tvaluep);
+				$("#fvaluep").html(arr.fvaluep);
+				$("#trange").html(arr.trange);
+				$("#tchange").html(arr.tchange);
+			}else{
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+				$("#volatility").html(html);
+				window.setTimeout(goBack, 2000); 
 			}
 		}
 	});

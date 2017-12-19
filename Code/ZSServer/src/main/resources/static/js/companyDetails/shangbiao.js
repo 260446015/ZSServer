@@ -12,6 +12,9 @@ function showBond(){
 			if(res.success){
 				console.log(res.data);
 				var arr = res.data.data.items;
+				var thead = '<tr><th class="text-left">申请日期</th><th class="text-left">商标</th><th class="text-left">商标名称</th><th class="text-left">注册号</th>'+
+                            '<th class="text-left">类别</th><th class="text-left">状态</th></tr>';
+				$("#shangbiao").prev().html(thead);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var appDate = getFormatDate(new Date(arr[i].appDate));
@@ -20,6 +23,10 @@ function showBond(){
 							'<td>'+arr[i].intCls+'</td><td>'+arr[i].status+'</td>'+'</tr>'
 				}
 				$("#shangbiao").html(html);
+			}else{
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+				$("#shangbiao").html(html);
+				window.setTimeout(goBack, 2000); 
 			}
 		}
 	});

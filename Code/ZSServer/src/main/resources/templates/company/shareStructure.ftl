@@ -36,17 +36,6 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">时间</th>
-                                <th class="text-left">总股本</th>
-                                <th class="text-left">A股总股本</th>
-                                <th class="text-left">流通A股</th>
-                                <th class="text-left">限售A股</th>
-                                <th class="text-left">H股总股本</th>
-                                <th class="text-left">流通H股</th>
-                                <th class="text-left">限售H股</th>
-                                <th class="text-left">变动原因</th>
-                            </tr>
                             								
                         </thead>
                         <tbody id="shareStructure">

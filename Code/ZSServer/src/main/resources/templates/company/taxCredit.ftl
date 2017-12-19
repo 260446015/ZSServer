@@ -36,13 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">年份</th>
-                                <th class="text-left">纳税评级</th>
-                                <th class="text-left">类型</th>
-                                <th class="text-left">纳税人识别号</th>
-                                <th class="text-left">评价单位</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="taxCredit">
                         </tbody>

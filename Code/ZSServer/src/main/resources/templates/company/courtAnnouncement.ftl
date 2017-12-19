@@ -36,13 +36,6 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">公告时间</th>
-                                <th class="text-left">上诉方</th>
-                                <th class="text-left">被诉方</th>
-                                <th class="text-left">公告类型</th>
-                                <th class="text-left">法院</th>
-                            </tr>
                             				
                         </thead>
                         <tbody id="courtAnnouncement">

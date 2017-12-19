@@ -36,15 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">被投资企业名称</th>
-                                <th class="text-left">被投资法定代表人</th>
-                                <th class="text-left">注册资本</th>
-                                <th class="text-left">投资数额</th>
-                                <th class="text-left">投资占比</th>
-                                <th class="text-left">注册时间</th>
-                                <th class="text-left">状态</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="inverst">
                         </tbody>

@@ -107,6 +107,8 @@ public class Company implements Serializable {
 	private String openRegNumber;
 	/** 天眼查营业期限结束时间 */
 	private Long openToTime;
+	/** 天眼查注册金额 */
+	private String openRegisterCapital;
 	/** 天眼查法人类型，1 人 2 公司 */
 	private Integer openType;
 
@@ -412,6 +414,14 @@ public class Company implements Serializable {
 
 	public void setIndustryLabel(String industryLabel) {
 		this.industryLabel = industryLabel;
+	}
+
+	public String getOpenRegisterCapital() {
+		return openRegisterCapital;
+	}
+
+	public void setOpenRegisterCapital(String openRegisterCapital) {
+		this.openRegisterCapital = openRegisterCapital;
 	}
 
 	public Double getRc() {

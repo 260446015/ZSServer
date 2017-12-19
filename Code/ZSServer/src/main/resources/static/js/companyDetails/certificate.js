@@ -20,6 +20,7 @@ function showCertificate(){
 				$("#companyList").html(html);
 			}else{
 				new Alert({flag:false,text:res.message,timer:2000}).show();
+				window.setTimeout(goBack, 2000); 
 			}
 		}
 	});

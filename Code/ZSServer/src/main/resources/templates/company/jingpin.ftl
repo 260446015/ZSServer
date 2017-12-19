@@ -36,17 +36,7 @@
                 <div class="model-body border-shadow-box pd0">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">企业名称</th>
-                                <th class="text-left">行业</th>
-                                <th class="text-left">竞品名</th>
-                                <th class="text-left">地区</th>
-                                <th class="text-left">产品</th>
-                                <th class="text-left">轮次</th>
-                                <th class="text-left">投资时间</th>
-                                <th class="text-left">估值</th>
-                                <th class="text-left">业务范围</th>
-                            </tr>
+                            
                         </thead>
                         <tbody id="jingpin">
                         </tbody>

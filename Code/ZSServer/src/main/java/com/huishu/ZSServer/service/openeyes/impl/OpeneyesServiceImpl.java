@@ -289,7 +289,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 //			company.setInvest(parseObject.get);
 //			company.setInvestor(parseObject.get);
 				company.setLogo(parseObject.getWebsiteList());
-				company.setRegisterCapital(parseObject.getRegCapital());
+				company.setOpenRegisterCapital(parseObject.getRegCapital());
 //			company.setRegisterDate(parseObject.get);
 //			company.setScale(scale);
 				company.setOpenActualCapital(parseObject.getActualCapital());
@@ -1314,6 +1314,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("companyPurchaseLandList");
+			if(jsonArr.size() == 0){
+				throw new NullPointerException();
+			}
 		} catch (NullPointerException e) {
 			log.debug("天眼查购地信息查询出现问题",e.getMessage());
 			throw new OpeneyesException();
@@ -1526,6 +1529,8 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				list.add(parseObject);
 			});
 			courtAnnouncementRepository.save(list);
+		}else{
+			throw new OpeneyesException();
 		}
 		return openEyesTarget;
 	}
@@ -1584,6 +1589,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONObject jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data");
+			if("无数据".equals(jsonArr.getString("message"))){
+				throw new NullPointerException();
+			}
 		} catch (NullPointerException e) {
 			log.debug("天眼查股票行情查询出现问题",e.getMessage());
 			throw new OpeneyesException();
@@ -1614,8 +1622,11 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONObject jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data");
+			if("无数据".equals(jsonArr.getString("message"))){
+				throw new NullPointerException();
+			}
 		} catch (NullPointerException e) {
-			log.debug("天眼查被执行人查询出现问题",e.getMessage());
+			log.debug("天眼查企业简介查询出现问题",e.getMessage());
 			throw new OpeneyesException();
 		}
 		if(jsonArr != null){
@@ -1824,6 +1835,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONObject jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data");
+			if("无数据".equals(jsonArr.getString("message"))){
+				throw new NullPointerException();
+				
+			}
 		} catch (NullPointerException e) {
 			log.debug("天眼查发⾏相关（股票）查询出现问题",e.getMessage());
 			throw new OpeneyesException();
@@ -1831,6 +1846,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			IssueRelated parseObject = JSONObject.parseObject(jsonArr.toJSONString(), IssueRelated.class);
 			String id = getGeneratedId(parseObject);
+			parseObject.setCname(dto.getCname());
 			parseObject.setId(id);
 			issueRelatedRepository.save(parseObject);
 		}

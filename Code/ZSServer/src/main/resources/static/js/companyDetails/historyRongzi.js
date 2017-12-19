@@ -11,6 +11,9 @@ function showRongZi(){
 		success:function(res){
 			if(res.success){
 				var arr = res.data.result.page.rows;
+				var thead = '<tr><th class="text-left">时间</th><th class="text-left">轮次</th><th class="text-left">估值</th><th class="text-left">金额</th>'+
+                            '<th class="text-left">比例</th><th class="text-left">投资方</th><th class="text-left">新闻来源</th></tr>';
+				$("#rongzi").prev().html(thead);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var dateStr = getFormatDate(new Date(arr[i].date));
@@ -24,6 +27,10 @@ function showRongZi(){
 							'</td><td>'+arr[i].newsTitle+'</td></tr>';
 				}
 				$("#rongzi").html(html);
+			}else{
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+				$("#rongzi").html(html);
+				window.setTimeout(goBack, 2000); 
 			}
 		}
 	});

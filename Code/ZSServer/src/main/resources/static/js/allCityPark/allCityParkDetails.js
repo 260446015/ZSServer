@@ -7,14 +7,6 @@ $(function() {
     $("#gardenMap").addClass("active");
     $("#all").addClass("active");
     $("#follow").removeClass("active");
-    /* 雷达转动 */
-    if ($(window).scrollTop() > 0) {
-        $(window).scrollTop(0);
-    }
-    rotates();
-    setTimeout(function() {
-        unrotates();
-    }, 2000);
     AMapUI.setDomLibrary($);
     showGardenInfo(park);
     showCompanyList(park, pageNumber, pageSize);
@@ -146,6 +138,16 @@ function showScan(_province,_address){
             showZoomNum : false
             // 显示zoom值
         }));
+        
+        /* 雷达转动 */
+        if ($(window).scrollTop() > 0) {
+            $(window).scrollTop(0);
+        }
+        rotates();
+        setTimeout(function() {
+            unrotates();
+        }, 2000);
+
     });
 }
 function rotates() {

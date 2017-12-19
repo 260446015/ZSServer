@@ -37,6 +37,12 @@ function showStaff(){//展示主要人员的功能
 				}
 				$("#staff").html(html);
 				$(".item").eq(0).addClass("active");
+			}else{
+				$(".tableShow").eq(1).css("display","none");
+				$(".tableShow").eq(0).css("display","inline");
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+				$("#staff").html(html);
+				$(".item").eq(0).addClass("active");
 			}
 		}
 	});
@@ -52,6 +58,8 @@ function showHolder(){//展示股东的功能
 			if(res.success){
 				var html = '';
 				var arr = res.data.data.result;
+				var thead = '<tr class="tabTitle"><th class="text-left">股东</th><th class="text-left">出资比例</th><th class="text-left">认缴出资</th></tr>';
+				$("#holder").prev().html(thead);
 				console.log(arr);
 				$(".tableShow").eq(0).css("display","none");
 				$(".tableShow").eq(1).css("display","inline");
@@ -59,8 +67,14 @@ function showHolder(){//展示股东的功能
 					html += '<tr><td>'+arr[i].name+'</td>' +
 							'<td>'+arr[i].capital[0].percent+'</td><td>'+arr[i].capital[0].amomon+'</td></tr>'
 				}
+				$("#holder").html(html);
+			}else{
+				$(".tableShow").eq(0).css("display","none");
+				$(".tableShow").eq(1).css("display","inline");
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+				$("#holder").html(html);
+				window.setTimeout(goBack, 2000); 
 			}
-			$("#holder").html(html);
 		}
 	});
 }
