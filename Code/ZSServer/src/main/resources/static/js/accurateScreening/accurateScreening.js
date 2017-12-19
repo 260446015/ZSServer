@@ -142,14 +142,23 @@ var dot = {
          * symbolSize 点大小
          * 趋势，1:上升 0:下降
          */
-        [22, 36, '北京现代', 80, 1],
+       [38, 26, '北京现代', 80, 1],
+        [70, 100, '百度', 60, 1],
+        [60, 20, '矿视科技', 80, 1],
+        [65, 70, '长电科技', 87, 1],
+        [52, 95, '腾讯', 60, 0],
+        [32, 83, '神州数据', 90, 0],
+        [22, 36, '华胜天成', 60, 0],
+        [75, 30, '神州融讯', 60, 0]
+        
+        /*[22, 36, '北京现代', 80, 1],
         [80, 50, '百度', 70, 1],
         [60, 20, '矿视科技', 80, 1],
         [75, 70, '长电科技', 87, 1],
         [52, 83, '腾讯', 60, 0],
         [32, 83, '神州数据', 90, 0],
         [17, 60, '华胜天成', 70, 0],
-        [32, 26, '神州融讯', 70, 0],
+        [32, 26, '神州融讯', 70, 0],*/
     ];
 
     var dataMap = datalist.map((item) => {
@@ -265,6 +274,10 @@ charts.on("click",function (e) {
        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
+       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">&nbsp</label>'
+       				  +'<div class="col-md-7"><p class="form-control-static" >'+'&nbsp</p></div></div>'
+       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">&nbsp</label>'
+       				  +'<div class="col-md-7"><p class="form-control-static" >'+'&nbsp</p></div></div>'
        				  +'</div></div>' +'<div class="layer-footer text-center" >'
        				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
        		  );

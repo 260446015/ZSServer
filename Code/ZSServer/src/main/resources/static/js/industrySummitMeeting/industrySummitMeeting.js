@@ -14,7 +14,7 @@ var options={
 	    "callBack":function(){}
 	};
 $(function(){
-	$("#summit").addClass("active");
+	$("#indus").addClass("active");
 	Click(0,0);
 });
 function Click(a,b){

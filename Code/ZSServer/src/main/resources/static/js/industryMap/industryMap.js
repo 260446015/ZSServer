@@ -4,11 +4,12 @@
 var industry="";
 $(function (){
 	new Loading({isfullscreen:true,text:"正在努力加载,三秒后消失"}).show();
+	$("#indus").addClass("active");
 	 industry= $(".mark-box").find($(".active")).find($("li>a.mark-item"))[0].id;
 	/*获取企业排行的数据*/
 	industryHotRank(industry);
 	industryMapData(industry);
-	new Loading({isfullscreen:true}).hide();
+	
 });
 
 $(".mark-box").on("click","li>a.mark-item",function () {
@@ -35,7 +36,6 @@ function industrySummitInfo(industry){
 		type:'POST',
 		data:{"industry":industry},
 		success:function(res){
-			console.log(res.data);
 			if(res.data != null){
 			$("#timeline li").remove();
 				var aa = res.data;
@@ -101,9 +101,29 @@ var industryHotCity = {
 	        data: ["苏州","青岛","南京",'天津','广州','杭州','深圳','上海','北京']
 	    },
 	    series: [
+{
+    type: 'bar',
+    barWidth: 18,
+    itemStyle: {
+        normal: {
+            color: 'rgba(0,0,0,1)',
+            borderWidth: 1,
+            barBorderRadius: 9,
+            borderColor: "#0096ff"
+        },
+        emphasis: {
+            color: 'rgba(0,0,0,1)',
+            borderWidth: 1,
+            barBorderRadius: 9,
+            borderColor: "#0096ff"
+        }
+    },
+    data: [46756,46756, 46756, 46756, 46756, 46756, 46756, 46756, 46756, 46756]
+},
 	        {
 	            type: 'bar',
 	            barWidth:14,
+	            barGap: '-89%',
 	            itemStyle: {
 	                normal: {
 	                    borderColor: "#2768ca",
@@ -156,8 +176,11 @@ function industryHotRank(industry){
 						a[i]= data[i].area;
 						b[i]= data[i].count;	
 					}
+					 var array = b.reverse();
+					var arr =  [array[array.length-1], array[array.length-1], array[array.length-1], array[array.length-1], array[array.length-1], array[array.length-1], array[array.length-1], array[array.length-1],array[array.length-1], array[array.length-1]];
 					industryHotCity.yAxis.data = a.reverse();
-					industryHotCity.series[0].data = b.reverse();
+					industryHotCity.series[1].data = array;
+					industryHotCity.series[0].data = arr;
 					industryHotCityCharts.setOption(industryHotCity);
 					findCompany(data[0].area,industry);
 					
@@ -174,7 +197,7 @@ function findCompany(a,b){
 		data :{ "area":a,"industry":b},
 		success :function(result){
 			var data = result.data;
-				$(".box-title").html(a);
+				$(".box-title").html('优质企业('+a+')');
 				$("#box-list li").remove();
 			for(var i = 0;i<data.length ; i++){
 				$("#box-list").append('<li>'+'<a href="/apis/company/baseInfo.html?companyName='+data[i]+'">'+data[i]+'</a></li>');
@@ -191,12 +214,18 @@ function industryMapData(a){
 		type:'GET',
 		data:{"industry":a},
 		success:function(res){
-			var  dd =  res.data.map;
-			var industryMap = echarts.init(document.getElementById('industryMap'),"industryMap");
-			chinaOption.series[0].data = convertData(dd.sort(function (a, b) {
-                return b.value - a.value;
-            }).slice(0, 6));
-			industryMap.setOption(chinaOption);
+			if(res.message!=null){
+				new Loading({isfullscreen:true}).hide();
+				new Alert({flag:false,text:res.message,timer:2000}).show();
+			}else{
+				var  dd =  res.data.map;
+				var label = res.data.label;
+				var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
+				chinaOption.series[1].data = convertData(dd);
+				chinaOption.series[0].data = label;
+				industryMap.setOption(chinaOption);
+				new Loading({isfullscreen:true}).hide();
+			}
 		}
 	});
 };
@@ -404,25 +433,93 @@ var convertData = function (data) {
 };
 
 var chinaOption = {
-    geo: {
-        map: 'china',
+		 visualMap: {
+             seriesIndex: 0,
+             min: 0,
+             max: 1000,
+             left: 'left',
+             top: 'bottom',
+             text:['高','低'],           // 文本，默认为数值文本
+             calculable : true,
+             show: false,
+             inRange: {
+                 color: ["#bbdafd","#22508e"]
+             }
+         },
+		geo: {
+            map: 'china',
+            zoom: 1.25,
+            label: {
+                normal: {
+                    show: false,
+                    color: '#fff'
+                },
+                emphasis: {
+                    show: true,
+                    color: '#fff'
+                }
+            },
+            itemStyle: {
+                emphasis: {
+                    show: false,
+                    areaColor: '',
+                    borderColor: ''
+                }
+            },
+            roam: false,
+        },
+    series : [{
+        type: 'map',
+        mapType: 'china',
+        zoom: 1.25,
+        geoIndex:0,
         label: {
+            normal: {
+                show: true
+            },
             emphasis: {
-                show: false
+                show: true
+            }
+        },
+        itemStyle: {
+            emphasis: {
+                show: false,
+                areaColor: '',
+                borderColor: ''
+            }
+        },
+        roam: false,
+        data:[
+        ]
+    },
+    {
+        name: 'Top 5',
+        type: 'effectScatter',
+        coordinateSystem: 'geo',
+        data: convertData(data),
+        symbolSize: 15,
+        showEffectOn: 'emphasis',
+        rippleEffect: {
+            brushType: 'stroke'
+        },
+        hoverAnimation: true,
+        label: {
+            normal: {
+                formatter: '{b}',
+                position: 'right',
+                show: true
             }
         },
         itemStyle: {
             normal: {
-                areaColor: '#000622',
-                borderColor: '#13acf3'
-            },
-            emphasis: {
-                areaColor: '#2a333d'
+                color: '#04fee4',
+                shadowBlur: 10,
+                shadowColor: '#333'
             }
-        }
-    },
-    series : [
-       
+        },
+        zlevel: 1
+    }
+]/*
         {
             name: 'Top 5',
             type: 'effectScatter',
@@ -431,13 +528,9 @@ var chinaOption = {
                 return b.value - a.value;
             }).slice(0, 6)),
             symbolSize: function (val) {
-            	if(val[2]<10){
-            		return val[2]*3;
-            	}else if(val[2]>100){
-            		return 60;
-            	}else {
-            		return val[2]/2;
-            	}
+            	
+            		return 20;
+            	
             },
             showEffectOn: 'emphasis',
             rippleEffect: {
@@ -460,7 +553,7 @@ var chinaOption = {
             },
             zlevel: 1
         }
-    ]
+    ]*/
 };
 
 var industryMap = echarts.init(document.getElementById('industryMap'),"customed");

@@ -37,7 +37,7 @@
                             <img class="lay lay-top" src="/images/lay_top.png" alt="">
                             <img class="lay lay-right" src="/images/lay_right.png" alt="">
                             <img class="lay lay-bottom" src="/images/lay_bottom.png" alt="">
-                           <h3 class="box-title" id="box-title">北京</h3>
+                           <h3 class="box-title" id="box-title">优选企业（北京）</h3>
                             <div class="box-body">
                                 <ul class="box-list" id="box-list">
                                 </ul>

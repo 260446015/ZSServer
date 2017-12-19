@@ -50,7 +50,7 @@ public class IndustryRankServiceImpl  implements IndustryRankService {
 			return null;
 		}
 		List<Object[]> list = isr.findByIndustry(industry);
-		
+		List<IndustryRank> list2 = rep.findByIndustry(industry);
 		JSONObject obj = new JSONObject();
 		if(list.size()==0){
 			LOGGER.info("查询产业地图城市数据失败");	
@@ -64,7 +64,15 @@ public class IndustryRankServiceImpl  implements IndustryRankService {
 			dd.setValue( Long.parseLong( action[1].toString()));
 			json.add(dd);
 		});
+		JSONArray arr = new JSONArray();
+		list2.forEach(action->{
+			Data dd = new Data();
+			dd.setName(action.getArea());
+			dd.setValue(action.getCount());
+			arr.add(dd);
+		});
 		obj.put("map",json);
+		obj.put("label", arr);
 		return obj;
 	}
 

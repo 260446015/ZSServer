@@ -47,15 +47,15 @@ $(function () {
          * symbolSize 点大小
          * 趋势，1:上升 0:下降
          */
-        [22, 36, '浪潮', 80, 1],
-        [80, 50, '华为', 70, 1],
+        [38, 26, '浪潮', 80, 1],
+        [70, 100, '华为', 60, 1],
         [60, 20, '亚信', 80, 1],
-        [75, 70, '小米', 87, 1],
-        [52, 83, '360', 60, 0],
+        [65, 70, '小米', 87, 1],
+        [52, 95, '360', 60, 0],
         [32, 83, '微软', 90, 0],
-        [17, 60, '网易', 70, 0],
-        [32, 26, '网易', 70, 0],
-        [80, 25, '网易', 70, 0]
+        [17, 80, '网易', 60, 0],
+        [22, 36, '网易', 60, 0],
+        [75, 30, '新浪', 60, 0]
     ];
 
     var dataMap = datalist.map((item) => {
@@ -140,27 +140,24 @@ $(function () {
                 }
             },
             data: [
-                [50, 50, '中科点击', '#fff']
+                [50, 50, '中科点击','#fff']
             ]
         }]
     };
     
-    $.ajax({
+   $.ajax({
     	url:'/intelligent/list.json',
     	type:'GET',
     	async: false,
     	success:function(res){
     		if(res.data==null){
     			new Alert({flag:false,text:res.message,timer:2000}).show();
+    		}else{
+    			var arr = res.data;
+    			initDataList(option,arr);
+    			$("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-122);
+    			charts.setOption(option);
     		}
-    		console.log(res.data);
-    		var arr = res.data;
-    		initDataList(option,arr);
-    	    $("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-122);
-    	   
-    	    charts.setOption(option);
-    	    
-    		
     	}
     });
    
@@ -168,7 +165,6 @@ $(function () {
 var charts = echarts.init(document.getElementById("charts"),"customed");
 charts.on("click",function (e) {
 	var name = e.data[2];
-	console.log(name);
 	$.ajax({
 		url:'/intelligent/getCompanyInfoByName.json?name='+name,
     	type:'GET',
@@ -193,6 +189,10 @@ charts.on("click",function (e) {
     				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
     				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
     				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
+    				  +'<div class="form-group"><label class="col-md-4 text-right control-label">&nbsp</label>'
+    				  +'<div class="col-md-7"><p class="form-control-static" >'+'&nbsp</p></div></div>'
+    				  +'<div class="form-group"><label class="col-md-4 text-right control-label">&nbsp</label>'
+    				  +'<div class="col-md-7"><p class="form-control-static" >'+'&nbsp</p></div></div>'
     				  +'</div></div>' +'<div class="layer-footer text-center" >'
     				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
     		  );
