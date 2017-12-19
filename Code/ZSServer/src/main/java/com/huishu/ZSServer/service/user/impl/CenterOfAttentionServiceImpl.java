@@ -25,8 +25,24 @@ public class CenterOfAttentionServiceImpl implements CenterOfAttentionService {
 	@Override
 	public Page<Institutional> findOrganizationList(String industry, Long userId,Integer pageNum) {
 		List<Institutional> list = institutionalRepostitory.findByIdAndIndustry(userId, industry, pageNum*PageConstant.FIVE, PageConstant.FIVE);
-		Integer total = institutionalRepostitory.findCountByIdAndIndustry(userId, industry);
 		PageRequest request = new PageRequest(pageNum,PageConstant.FIVE);
+		if(list.size()==0){
+			return new PageImpl<>(null, request, 0);
+		}else{
+			list.forEach(act ->{
+				String url = act.getUrl();
+				int i1 = url.indexOf("%");
+				int i = url.indexOf("?");
+				if(i1>0){
+					act.setUrl(url.substring(0, i1));
+					
+				}
+				if(i>0){
+					act.setUrl(url.substring(0, i));
+				}
+			});
+		}
+		Integer total = institutionalRepostitory.findCountByIdAndIndustry(userId, industry);
 		Page<Institutional> impl = new PageImpl<>(list, request, total);
 		return impl;
 	}
