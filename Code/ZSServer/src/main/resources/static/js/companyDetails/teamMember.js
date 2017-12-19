@@ -2,7 +2,7 @@ $(function(){
 	showTeamMember();
 });
 function showTeamMember(){
-	var req = {"cname":companyName,"pageNumber":1}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
 		url:'/apis/openeyes/getTeamMember.json',
 		data:JSON.stringify(req),

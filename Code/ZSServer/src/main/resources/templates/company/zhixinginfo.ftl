@@ -36,12 +36,6 @@
                 <div class="model-body border-shadow-box pd0">
                      <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th class="text-left">立案日期</th>
-                                <th class="text-left">案号</th>
-                                <th class="text-left">执行标的</th>
-                                <th class="text-left">执行法院</th>
-                            </tr>
                             			
                         </thead>
                         <tbody id="zhixinginfo">

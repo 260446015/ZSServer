@@ -18,4 +18,6 @@ public interface CompanyService {
 
 	boolean attationCompany(Long companyId, boolean flag, Long userId);
 
+	boolean telContact(String name, String cname, Long userId);
+
 }

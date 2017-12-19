@@ -217,4 +217,13 @@ function attation(event) {
             }
         }
     });
+    scanGarden(id);
+}
+function scanGarden(id){
+	$.ajax({
+		 url:'/apis/area/scanGarden.json?gardenId='+id,
+		 success:function(res){
+			 console.log(res.data)
+		 }
+	});
 }

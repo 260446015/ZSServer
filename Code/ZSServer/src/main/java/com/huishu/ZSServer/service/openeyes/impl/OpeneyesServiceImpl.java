@@ -1278,18 +1278,19 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("bondList");
+			if(jsonArr.size() == 0){
+				throw new NullPointerException();
+			}
 		} catch (NullPointerException e) {
 			log.debug("天眼查债券信息查询出现问题",e.getMessage());
 			throw new OpeneyesException();
 		}
-		if(jsonArr != null){
-			jsonArr.forEach(obj -> {
-				Bond parseObject = JSONObject.parseObject(obj.toString(), Bond.class);
-				parseObject.setCname(dto.getCname());
-				list.add(parseObject);
-			});
-			bondRepository.save(list);
-		}
+		jsonArr.forEach(obj -> {
+			Bond parseObject = JSONObject.parseObject(obj.toString(), Bond.class);
+			parseObject.setCname(dto.getCname());
+			list.add(parseObject);
+		});
+		bondRepository.save(list);
 		return openEyesTarget;
 	}
 

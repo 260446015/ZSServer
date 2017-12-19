@@ -177,8 +177,8 @@ body{
 /*产业地图部分 end*/
 /*mark start*/
 .mark-box{
-    padding-top: 45px;
-    padding-bottom: 45px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     text-align: center;
 }
 .mark-box>li{
@@ -790,7 +790,7 @@ body{
 /*carousel end*/
 /*model-box start*/
 .model-header {
-    padding-top: 50px;
+    padding-top: 10px;
     padding-bottom: 20px;
     text-align: center;
 }
@@ -892,8 +892,11 @@ body{
     overflow: hidden;
     margin-bottom: 5px;
     padding-left: 30px;
-    height: 108px;
-    line-height: 36px;
+    max-height: 74px;
+    line-height: 24px;
+}
+.max-height-content .scatter-content{
+    height: 74px;
 }
 .scatter-lib{
     padding-left: 30px;

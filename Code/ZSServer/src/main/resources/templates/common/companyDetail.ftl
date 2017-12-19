@@ -33,6 +33,7 @@
         <a class="mark-item" href="javascript:void(0);">基本信息</a>
         <ul class="mark-menu">
             <li>
+                <a href="/apis/company/baseInfo.html?companyName=${companyName}">基本信息</a>
                 <a href="/apis/company/staff.html?companyName=${companyName}">主要人员</a>
             </li>
         </ul>
@@ -136,34 +137,34 @@
                 <a href="/apis/company/volatility.html?companyName=${companyName}">股票行情</a>
             </li>
             <li>
-                <a href="/apis/company/companyInfo.html?companyName=${companyName}">企业简介（股票）</a>
+                <a href="/apis/company/companyInfo.html?companyName=${companyName}">企业简介</a>
             </li>
             <li>
-                <a href="/apis/company/seniorExecutive.html?companyName=${companyName}">高管信息（股票）</a>
+                <a href="/apis/company/seniorExecutive.html?companyName=${companyName}">高管信息</a>
             </li>
             <li>
-                <a href="/apis/company/holdingCompany.html?companyName=${companyName}">参股控股（股票）</a>
+                <a href="/apis/company/holdingCompany.html?companyName=${companyName}">参股控股</a>
             </li>
             <li>
-                <a href="/apis/company/announcement.html?companyName=${companyName}">上市公告（股票）</a>
+                <a href="/apis/company/announcement.html?companyName=${companyName}">上市公告</a>
             </li>
             <li>
-                <a href="/apis/company/shareholder.html?companyName=${companyName}">十大股东（股票）</a>
+                <a href="/apis/company/shareholder.html?companyName=${companyName}">十大股东</a>
             </li>
             <li>
-                <a href="/apis/company/issueRelated.html?companyName=${companyName}">发行相关（股票）</a>
+                <a href="/apis/company/issueRelated.html?companyName=${companyName}">发行相关</a>
             </li>
             <li>
-                <a href="/apis/company/shareStructure.html?companyName=${companyName}">股本结构（股票）</a>
+                <a href="/apis/company/shareStructure.html?companyName=${companyName}">股本结构</a>
             </li>
             <li>
-                <a href="/apis/company/equityChange.html?companyName=${companyName}">股本变动（股票）</a>
+                <a href="/apis/company/equityChange.html?companyName=${companyName}">股本变动</a>
             </li>
             <li>
-                <a href="/apis/company/bonusInfo.html?companyName=${companyName}">分红情况（股票）</a>
+                <a href="/apis/company/bonusInfo.html?companyName=${companyName}">分红情况</a>
             </li>
             <li>
-                <a href="/apis/company/allotmen.html?companyName=${companyName}">配股情况（股票）</a>
+                <a href="/apis/company/allotmen.html?companyName=${companyName}">配股情况</a>
             </li>
         </ul>
     </li>
