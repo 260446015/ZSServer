@@ -25,6 +25,6 @@ public interface InstitutionalService {
 	 * @param name
 	 * @return
 	 */
-	String saveLaboratoryInfoById(Long id, String name);
+	String saveLaboratoryInfoById(Long id, Long userId);
 
 }

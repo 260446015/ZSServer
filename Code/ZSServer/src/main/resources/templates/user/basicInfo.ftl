@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="info-content">
                                         <div class="img-box">
-                                            <img src="../images/user_head.png" alt="">
+                                            <img src="/images/user_head.png" alt="">
                                            <div class="account-info">
                                                <p>
                                                    <span>账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</span>
@@ -50,7 +50,7 @@
                                                </p>
                                                <p>
                                                    <span>注册时间</span>
-                                                   <span id="createTime">20170717</span>
+                                                   <span id="createTime"></span>
                                                </p>
                                            </div>
                                         </div>

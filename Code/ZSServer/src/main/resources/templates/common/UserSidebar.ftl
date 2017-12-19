@@ -2,7 +2,7 @@
   <div class="left-nav left-nav-icon3">
             <ul>
                 <li id="basicinfoItem">
-                    <a href="/user/basicinfo.html">
+                    <a href="/apis/user/basicinfo.html">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">
 
@@ -26,7 +26,7 @@
                              <a href="javascript:void(0)">企业</a>
                          </li>
                          <li id="organizationItem">
-                             <a href="/user/scientificResearchInstitution.html">科研机构</a>
+                             <a href="/apis/user/scientificResearchInstitution.html">科研机构</a>
                          </li>
                          <li id="summitItem">
                              <a href="javascript:void(0)">产业峰会</a>

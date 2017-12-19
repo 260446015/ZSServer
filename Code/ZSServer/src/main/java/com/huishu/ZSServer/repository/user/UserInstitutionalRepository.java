@@ -1,6 +1,7 @@
 package com.huishu.ZSServer.repository.user;
 
-import org.springframework.data.jpa.repository.Query;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ZSServer.entity.UserInstitutionalEntity;
@@ -13,13 +14,12 @@ import com.huishu.ZSServer.entity.UserInstitutionalEntity;
  * 
  */
 public interface UserInstitutionalRepository extends CrudRepository<UserInstitutionalEntity, Long> {
-
 	/**
-	 * @param id
-	 * @param name
+	 * 
+	 * @param insId
+	 * @param userId
 	 * @return
 	 */
-	@Query(value="select * from  t_user_institutional  where t_ist_id = ?1 and t_us_name = ?2",nativeQuery = true)
-	UserInstitutionalEntity getInfoByInsIdAndName(Long id, String name);
+	UserInstitutionalEntity findByInsIdAndUserId(Long insId, Long userId);
 
 }
