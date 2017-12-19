@@ -27,8 +27,10 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.util.StringUtil;
+import com.huishu.ZSServer.entity.KeyWordEntity;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
+import com.huishu.ZSServer.repository.keyword.KeyWordRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.indus.IndustryInfoService;
 import com.merchantKey.articleToKeywordCloud.ArticleConToKeywordCloud;
@@ -53,13 +55,27 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 	protected Client client;
 	@Autowired
 	protected BaseElasticsearch rep;
+	@Autowired
+	private KeyWordRepository krep;
 	/**
 	 * 获取关键词云
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONArray getKeyWordList(JSONObject json) {
-		BoolQueryBuilder bq = new BoolQueryBuilder();
+		JSONArray data = new JSONArray();
+		String time = json.getString("time");
+		if(StringUtil.isEmpty(time)){
+			return null;
+		}
+		List<KeyWordEntity> list = krep.getByTime(time);
+		list.forEach(action ->{
+			JSONObject obj = new JSONObject();
+			obj.put("name", action.getKey());
+			obj.put("value", action.getValue());
+			data.add(obj);
+		});
+		/*BoolQueryBuilder bq = new BoolQueryBuilder();
 		if (StringUtil.isNotEmpty(json.getString("dimension"))) {
 			String dimension = json.getString("dimension");
 			bq.must(QueryBuilders.termQuery("dimension", dimension));
@@ -110,7 +126,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			}
 
 			return jsonArray;
-		});
+		});*/
 		return data;
 	}
 
@@ -292,7 +308,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			}
 			return "";
 		});
-	 	JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, 12);
+	 	JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, 50);
 	 	List<KeywordModel> list = null;
 	 	if (keywordCloud.getBooleanValue("status")) {
 		  list = (List<KeywordModel>) keywordCloud.get("result");

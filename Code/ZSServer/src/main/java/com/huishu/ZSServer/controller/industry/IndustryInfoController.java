@@ -70,8 +70,9 @@ public class IndustryInfoController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		JSONObject obj1 = new JSONObject();
-		DateUtils.initTime(obj1, time);
-		addData(obj1);
+		obj1.put("time", time);
+		/*DateUtils.initTime(obj1, time);
+		addData(obj1);*/
 		JSONArray jsonArray = service.getKeyWordList(obj1);
 		return success(jsonArray);
 	}

@@ -16,7 +16,7 @@ var options={
 $(function () {
 	new Loading({isfullscreen:true,text:"正在努力加载,三秒后消失"}).show();
 	$("#indus").addClass("active");
-	var time ="近一周";
+	var time ="近1周";
 	getKeyWordCloud(time);
     getIndustry(0,0);
 });

@@ -2,6 +2,7 @@ package com.huishu.ZSServer.repository.keyword;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ZSServer.entity.KeyWordEntity;
@@ -22,5 +23,13 @@ public interface KeyWordRepository extends CrudRepository<KeyWordEntity, Long>{
 	 * 
 	 */
 	List<KeyWordEntity> findByTime(String str);
+
+	/**
+	 * @param time
+	 * @return
+	 * 获取Top10词云
+	 */
+	@Query(value="SELECT * FROM t_key_value  WHERE time = ?1 limit 0,12" , nativeQuery = true)
+	List<KeyWordEntity> getByTime(String time);
 
 }
