@@ -2,7 +2,7 @@ $(function(){
 	showAppbkinfo();
 });
 function showAppbkinfo(){
-	var req = {"cname":companyName,"pageNumber":1,"pageSize":10}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
@@ -11,17 +11,15 @@ function showAppbkinfo(){
 		success:function(res){
 			if(res.success){
 				console.log(res.data);
-				var arr = res.data.data.companyPurchaseLandList;
+				var arr = res.data.data.items;
 				var thead = '<tr><th class="text-left">图标</th><th class="text-left">产品名称</th><th class="text-left">产品简称</th>' +
                             '<th class="text-left">产品分类</th><th class="text-left">领域</th></tr>';
 				$("#appbkinfo").prev().html(thead);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
-					var signedDate = getFormatDate(new Date(arr[i].signedDate));
-					var startTime = getFormatDate(new Date(arr[i].startTime));
-					html += '<tr><td>'+signedDate+'</td><td>'+arr[i].elecSupervisorNo+'</td>' +
-							'<td>'+arr[i].adminRegion+'</td><td>'+arr[i].location+'</td>' +
-							'<td>'+arr[i].totalArea+'</td><td>'+startTime+'</td>'+'</tr>'
+					html += '<tr><td><img src="'+arr[i].icon+'" width="120px" height="50px"/></td><td>'+arr[i].name+'</td>' +
+							'<td>'+arr[i].filterName+'</td><td>'+arr[i].type+'</td>' +
+							'<td>'+arr[i].classes+'</td></tr>';
 				}
 				$("#appbkinfo").html(html);
 			}else{

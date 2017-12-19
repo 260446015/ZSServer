@@ -2,7 +2,7 @@ $(function(){
 	showBids();
 });
 function showBids(){
-	var req = {"cname":companyName,"pageNumber":1,"pageSize":500}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
@@ -30,7 +30,7 @@ function showBids(){
                     text : '暂无数据',
                     timer : 2000
                 }).show();
-				goBack();
+				window.setTimeout(goBack,2000);
 			}
 		}
 	});

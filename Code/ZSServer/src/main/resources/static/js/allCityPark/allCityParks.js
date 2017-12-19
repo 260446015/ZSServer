@@ -129,17 +129,27 @@ function attentionGarden(id,flag){//关注园区
     $.ajax({
         type:'get',
         url:'/apis/area/attentionGarden.json?gardenId='+id+'&flag='+flag,
-        async:false,
         success:function(res){
             if(res.success){
                 if(flag)
                     new Alert({flag:true,text:'关注成功',timer:2000}).show();
                 else
-                    new Alert({flag:false,text:'取消关注成功',timer:2000}).show();
+                    new Alert({flag:true,text:'取消关注成功',timer:2000}).show();
             }else{
                 new Alert({flag:true,text:'关注失败',timer:2000}).show();
             }
+            showGardenList(sortType,pageNumber,pageSize);
         }
     });
-    showGardenList(sortType,pageNumber,pageSize);
+    if(flag){
+    	scanGarden(id);
+    }
+}
+function scanGarden(id){
+	$.ajax({
+		 url:'/apis/area/scanGarden.json?gardenId='+id,
+		 success:function(res){
+			 console.log(res.data)
+		 }
+	});
 }

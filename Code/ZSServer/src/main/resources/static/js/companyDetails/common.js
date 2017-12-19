@@ -56,6 +56,7 @@ function showCompanyDetail(){
 		success:function(res){
 			if(res.success){
 				resData = res.data.result;
+				console.log(resData);
 				var value;
 				var flag;
 				if(resData.isAttation){
@@ -76,7 +77,7 @@ function showCompanyDetail(){
 					resData.websiteList = '---';
 				}
 				if(resData.categoryScore == null){
-					resData.categoryScore = '82';
+//					resData.categoryScore = '82';
 				}else{
 					resData.categoryScore = Math.floor(resData.categoryScore/100)
 				}
@@ -105,6 +106,11 @@ function showCompanyDetail(){
 	});
 }
 function attationCompany(companyId,flag){
+	if(flag)
+		new Alert({flag : true,text : '关注成功',timer : 2000}).show();
+	else{
+		new Alert({flag : true,text : '取消关注成功',timer : 2000}).show();
+	}
 	$.ajax({
 		url:'/apis/company/attationCompany.json?companyId='+companyId+'&flag='+flag,
 		type:'get',

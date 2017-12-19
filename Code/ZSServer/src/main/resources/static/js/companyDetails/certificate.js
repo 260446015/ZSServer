@@ -11,15 +11,18 @@ function showCertificate(){
 		success:function(res){
 			if(res.success){
 				var arr = res.data.data.resultList;
+				var thead = '<tr><td>证书类型</td><td>许可编号</td><td>发证日期</td><td>截止日期</td></tr>	';
+				$("#certificate").prev().html(thead);
 				console.log(arr);
 				var html = '';
 				for(var i=0;i<arr.length;i++){
-					html += '<tr><td>'+arr[i].name+'</td><td>'+arr[i].legalPersonName+'</td>' +
-							'<td>'+arr[i].regStatus+'</td><td>'+dateStr+'</td></tr>'
+					html += '<tr><td>'+arr[i].certificateName+'</td><td>'+arr[i].certNo+'</td>' +
+							'<td>'+arr[i].startDate+'</td><td>'+arr[i].endDate+'</td></tr>'
 				}
-				$("#companyList").html(html);
+				$("#certificate").html(html);
 			}else{
-				new Alert({flag:false,text:res.message,timer:2000}).show();
+				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+				$("#certificate").html(html);
 				window.setTimeout(goBack, 2000); 
 			}
 		}

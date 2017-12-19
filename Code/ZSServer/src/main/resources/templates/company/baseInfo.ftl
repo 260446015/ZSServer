@@ -30,6 +30,7 @@
       		<#include "/common/companyDetail.ftl"/>
       		<div class="model-box">
       			<div class="model-header">
+      				<h3 class="model-title">基本信息</h3>
                     <div class="modal-sub-title">基本信息</div>
                 </div>
                 <div class="model-body border-shadow-box pd0">

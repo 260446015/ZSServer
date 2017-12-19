@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.service.company.CompanyService;
@@ -63,6 +64,20 @@ public class CompnayController extends BaseController {
 	public String companyDetail(@PathVariable String page,@RequestParam(name="companyName") String companyName,Model model) {
 		model.addAttribute("companyName", companyName);
 		return "company/" + page;
+	}
+	
+	/**
+	 * 需要联系人
+	 */
+	@RequestMapping(value = "telContact.json", method = RequestMethod.GET,params={"name","cname"})
+	@ResponseBody
+	public AjaxResult telContact(String name,String cname){
+		Long userId = 1L;
+		if(StringUtil.isEmpty(cname) || StringUtil.isEmpty(name) || userId == null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		boolean flag = companyService.telContact(name,cname,userId);
+		return success(flag);
 	}
 
 }

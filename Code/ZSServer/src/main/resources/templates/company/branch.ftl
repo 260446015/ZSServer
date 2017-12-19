@@ -38,7 +38,7 @@
                         <thead>
                             
                         </thead>
-                        <tbody id="companyList">
+                        <tbody id="branch">
                         </tbody>
                     </table>
                 </div>
