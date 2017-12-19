@@ -321,4 +321,32 @@ public class GardenController extends BaseController {
 		}
 		return success(gardenUserService.getGardenCompare(ids));
 	}
+	
+	/**
+	 * 扫描园区企业
+	 *
+	 * @param gardenId
+	 *            园区id
+	 * @param flag
+	 *            true关注，false取消关注
+	 * @return
+	 */
+	@RequestMapping(value = "/scanGarden.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult scanGarden(Long gardenId) {
+		GardenUser gardenUser = null;
+		if (null == gardenId) {
+			error(MsgConstant.ILLEGAL_PARAM);
+		}
+		// Long userId = getUserId();
+		Long userId = 1L;
+		try {
+			gardenUserService.scanGarden(gardenId);
+		} catch (Exception e) {
+			LOGGER.error("扫描园区企业失败", e);
+			return error("扫描园区企业失败");
+		}
+		return success(gardenUser);
+
+	}
 }

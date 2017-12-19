@@ -20,6 +20,11 @@
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- js 兼容低版本IE end -->
+    <style>
+    	th{
+    		width : 130px;
+    	}
+    </style>
 </head>
 <body class="bg2">
 <#include "/common/header.ftl"/>
@@ -39,41 +44,41 @@
                         </thead>
                         <tbody id="issueRelated">
                         	<tr>
-                        		<td>成立日期：</td>
+                        		<th>成立日期：</th>
                         		<td id="issueDate"></td>
-                        		<td>上市日期：</td>
+                        		<th>上市日期：</th>
                         		<td id="listingDate"></td>
                         	</tr>
                         	<tr>
-                        		<td>发行数量：</td>
+                        		<th>发行数量：</th>
                         		<td id="issueNumber"></td>
-                        		<td>发行价格：</td>
+                        		<th>发行价格：</th>
                         		<td id="issuePrice"></td>
                         	</tr>
                         	<tr>
-                        		<td>发行市盈率：</td>
+                        		<th>发行市盈率：</th>
                         		<td id="ipoRatio"></td>
-                        		<td>预计募资：</td>
+                        		<th>预计募资：</th>
                         		<td id="expectedToRaise"></td>
                         	</tr>
                         	<tr>
-                        		<td>首日开盘价：</td>
+                        		<th>首日开盘价：</th>
                         		<td id="openingPrice"></td>
-                        		<td>发行中签率：</td>
+                        		<th>发行中签率：</th>
                         		<td id="rate"></td>
                         	</tr>
                         	<tr>
-                        		<td>实际募资：</td>
+                        		<th>实际募资：</th>
                         		<td id="actualRaised"></td>
-                        		<td>主承销商：</td>
+                        		<th>主承销商：</th>
                         		<td id="mainUnderwriter"></td>
                         	</tr>
                         	<tr>
-                        		<td>上市保荐人：</td>
+                        		<th>上市保荐人：</th>
                         		<td colspan="3" id="listingSponsor"></td>
                         	</tr>
                         	<tr>
-                        		<td>历史沿革：</td>
+                        		<th>历史沿革：</th>
                         		<td colspan="3" id="history"></td>
                         	</tr>
                         </tbody>

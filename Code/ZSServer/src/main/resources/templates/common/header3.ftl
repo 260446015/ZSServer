@@ -28,7 +28,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right hidden-sm">
             <li>
-                <a href="/user/basicinfo.html">
+                <a href="/apis/user/basicinfo.html">
                     <img width="20" height="22" src="/images/usericon.png">
                 </a>
             </li>

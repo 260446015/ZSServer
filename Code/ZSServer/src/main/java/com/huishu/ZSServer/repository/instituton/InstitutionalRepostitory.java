@@ -32,4 +32,21 @@ public interface InstitutionalRepostitory extends CrudRepository<Institutional, 
 	 */
 	@Query(value="select area ,count(*) from t_institutional_repository where t_industry = ?1 group by area",nativeQuery = true)
 	List<Object[]> findByIndustry(String industry);
+	
+	/**
+	 * 根据用户ID和产业查询机构
+	 * @param id
+	 * @param industry
+	 * @return
+	 */
+	@Query(value="select i.* from t_user_institutional u LEFT JOIN t_institutional_repository i on u.t_ist_id = i.id where t_user_id=?1 and t_industry=?2 limit ?3,?4",nativeQuery = true)
+	List<Institutional> findByIdAndIndustry(Long userId, String industry,Integer pageFrom,Integer pageSize);
+	/**
+	 * 根据用户ID和产业查询机构数量
+	 * @param id
+	 * @param industry
+	 * @return
+	 */
+	@Query(value="select count(1) from t_user_institutional u LEFT JOIN t_institutional_repository i on u.t_ist_id = i.id where t_user_id=?1 and t_industry=?2",nativeQuery = true)
+	Integer findCountByIdAndIndustry(Long userId, String industry);
 }

@@ -16,9 +16,11 @@ import org.springframework.stereotype.Service;
 import com.huishu.ZSServer.common.util.DateUtils;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.CompanyAttation;
+import com.huishu.ZSServer.entity.TelContect;
 import com.huishu.ZSServer.entity.dto.CompanySearchDTO;
 import com.huishu.ZSServer.repository.company.CompanyAttaRepository;
 import com.huishu.ZSServer.repository.company.CompanyRepository;
+import com.huishu.ZSServer.repository.company.TelContectRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.company.CompanyService;
 
@@ -37,6 +39,8 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 	private CompanyRepository companyRepository;
 	@Autowired
 	private CompanyAttaRepository companyAttaRepository;
+	@Autowired
+	private TelContectRepository telContectRepository;
 
 	@Override
 	public Page<Company> findCompanyList(CompanySearchDTO dto) {
@@ -46,7 +50,7 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 			Integer pageNum = dto.getPageNumber();
 			Integer pageSize = dto.getPageSize();
 			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
-			if(msg.length == 1){
+			if (msg.length == 1) {
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("park", msg[0]);
 				return companyRepository.findAll(getSpec(params), pageRequest);
@@ -79,20 +83,20 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 			String regist = msg[1];
 			if (regist.equals("全部"))
 				regist = "0-999999";
-			else if("0-100万".equals(regist))
+			else if ("0-100万".equals(regist))
 				regist = "0-100";
-			else if("100-200万".equals(regist))
+			else if ("100-200万".equals(regist))
 				regist = "100-200";
-			else if("200-500万".equals(regist))
+			else if ("200-500万".equals(regist))
 				regist = "200-500";
-			else if("500-1000万".equals(regist))
+			else if ("500-1000万".equals(regist))
 				regist = "500-1000";
-			else if("1000万以上".equals(regist))
+			else if ("1000万以上".equals(regist))
 				regist = "1000-9999999";
 			Double sregist = Double.parseDouble(regist.substring(0, regist.indexOf("-")));
 			Double eregist = Double.parseDouble(regist.substring(regist.indexOf("-") + 1));
 			List<Company> list2;
-					findAll = findAll.stream()
+			findAll = findAll.stream()
 					// .filter(obj -> {
 					// return obj.getScale() >= Integer.parseInt(sscale) &&
 					// obj.getScale() < Integer.parseInt(escale);
@@ -101,12 +105,11 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 						return obj.getRegisterDate().compareTo(stime) >= 0
 								&& obj.getRegisterDate().compareTo(etime) < 0;
 					}).collect(Collectors.toList());
-					findAll = findAll.stream().filter(obj -> {
-						return obj.getRc() >= sregist && obj.getRc() < eregist;
-					}).collect(Collectors.toList());
-			list2 = findAll.stream().skip(pageNum * pageSize).limit(pageSize)
-					.sorted((a, b) -> b.getRegisterCapital().compareTo(a.getRegisterCapital()))
-					.collect(Collectors.toList());
+			findAll = findAll.stream().filter(obj -> {
+				return obj.getRc() >= sregist && obj.getRc() < eregist;
+			}).collect(Collectors.toList());
+			list2 = findAll.stream().sorted((a, b) -> b.getRegisterCapital().compareTo(a.getRegisterCapital()))
+					.skip(pageNum * pageSize).limit(pageSize).collect(Collectors.toList());
 			page = new PageImpl<>(list2, pageRequest, findAll.size());
 		} catch (Exception e) {
 			LOGGER.error("查询企业列表失败", e.getMessage());
@@ -135,6 +138,27 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public boolean telContact(String name, String cname, Long userId) {
+		try {
+			TelContect tc = telContectRepository.telContact(userId, cname, name);
+			if (tc == null) {
+				tc = new TelContect();
+				tc.setCname(cname);
+				tc.setName(name);
+				tc.setUserId(userId);
+				tc.setUrgency("false");
+				tc.setDate(System.currentTimeMillis());
+				telContectRepository.save(tc);
+				return true;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return false;
+
 	}
 
 }

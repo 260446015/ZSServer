@@ -28,8 +28,8 @@ public class UserInstitutionalEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
 	private Long id;
-	@Column(name="t_us_name",nullable = true)
-	private String name;
+	@Column(name="t_user_id",nullable = true)
+	private Long userId;
 	@Column(name="t_ist_id",nullable = true)
 	private Long insId;
 	public Long getId() {
@@ -38,11 +38,11 @@ public class UserInstitutionalEntity implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public Long getUserId() {
+		return userId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	public Long getInsId() {
 		return insId;

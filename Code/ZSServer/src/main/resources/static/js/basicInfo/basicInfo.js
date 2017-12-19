@@ -1,7 +1,7 @@
 $(function(){
 	$("#basicinfoItem").addClass("active");
 	$.ajax({  
-        url: "/user/findMyInformation.json",  
+        url: "/apis/user/findMyInformation.json",  
         async: false,  
         success: function (result) {  
         	if(result.success){
@@ -41,7 +41,7 @@ function changeInformation(){
 			&&checkString(_position,"position")&&checkEmail(_email)){
 		var param={realName:_name,userPark:_park,userDepartment:_department,userJob:_position,telphone:_phone,userEmail:_email};
 		$.ajax({  
-			url:'/user/modifyInformation.json',
+			url:'/apis/user/modifyInformation.json',
 			type:'POST',
 			async: false,
 		    contentType: 'application/json',
@@ -111,7 +111,7 @@ function changePassword(){
 		return false;
 	}
 	$.ajax({  
-        url: "/user/modifyPassword.json",  
+        url: "/apis/user/modifyPassword.json",  
         data:{beforPassword:$("#beforPassword").val(),newPassword:$("#newPassword").val()},
         async: false,  
         success: function (result) {  

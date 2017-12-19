@@ -2,7 +2,7 @@ $(function(){
 	showBond();
 });
 function showBond(){
-	var req = {"cname":companyName,"pageNumber":1,"pageSize":10}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
@@ -29,6 +29,7 @@ function showBond(){
 			}else{
 				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
 				$("#copyReg").html(html);
+				window.setTimeout(goBack,2000);
 			}
 		}
 	});

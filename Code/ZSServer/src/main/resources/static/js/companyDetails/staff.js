@@ -12,7 +12,7 @@ $(function(){
 	});
 });
 function showStaff(){//展示主要人员的功能
-	var req = {"cname":companyName,"pageNumber":1}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
 		url:'/apis/openeyes/getStaffInfo.json',
 		data:JSON.stringify(req),
@@ -33,7 +33,7 @@ function showStaff(){//展示主要人员的功能
 							'<div class="col-md-7"><input class="input phone masks" readonly value="" /></div></div>' +
 							'<div class="col-md-3 col-md-offset-1"><label class="control-label col-md-5">邮箱</label>' +
 							'<div class="col-md-7"><input class="input email masks" readonly value="" /></div></div>' +
-							'<div class="col-md-3 col-md-offset-1"><button class="btn btn-blue">我要联系</button></div></div></div>';
+							'<div class="col-md-3 col-md-offset-1"><button class="btn btn-blue" onclick="telContact(this)">我要联系</button></div></div></div>';
 				}
 				$("#staff").html(html);
 				$(".item").eq(0).addClass("active");
@@ -48,7 +48,7 @@ function showStaff(){//展示主要人员的功能
 	});
 }
 function showHolder(){//展示股东的功能
-	var req = {"cname":companyName,"pageNumber":1}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
 		url:'/apis/openeyes/getHolder.json',
 		data:JSON.stringify(req),
@@ -74,6 +74,22 @@ function showHolder(){//展示股东的功能
 				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
 				$("#holder").html(html);
 				window.setTimeout(goBack, 2000); 
+			}
+		}
+	});
+}
+function telContact(element){
+	var name = $(element).parents(".row").prev().html();
+	
+	$.ajax({
+		url:'/apis/company/telContact.json?name='+name+'&cname='+companyName,
+		success:function(res){
+			if(res.success){
+				if(res.data){
+					new Alert({flag:true,text:'正在为您全力联系，稍后可在个人中心中查看',timer:2000}).show();
+				}else{
+					new Alert({flag:false,text:'暂无数据',timer:2000}).show();
+				}
 			}
 		}
 	});

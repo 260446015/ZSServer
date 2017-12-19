@@ -2,7 +2,7 @@ $(function(){
 	showInverst();
 });
 function showInverst(){
-	var req = {"cname":companyName,"pageNumber":1,"pageSize":500}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),

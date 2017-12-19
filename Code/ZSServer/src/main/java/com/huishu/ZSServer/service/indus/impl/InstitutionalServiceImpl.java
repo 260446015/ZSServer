@@ -62,12 +62,11 @@ public class InstitutionalServiceImpl implements InstitutionalService {
 	 * 关注实验室
 	 */
 	@Override
-	public String saveLaboratoryInfoById(Long id, String name) {
+	public String saveLaboratoryInfoById(Long id, Long userId) {
 		
 		UserInstitutionalEntity uie = null;
 		try {
-			
-			uie = uir.getInfoByInsIdAndName(id,name);
+			uie = uir.findByInsIdAndUserId(id,userId);
 			if(uie!= null){
 				return "已关注";
 			}
@@ -76,7 +75,7 @@ public class InstitutionalServiceImpl implements InstitutionalService {
 		}
 		UserInstitutionalEntity entity = new UserInstitutionalEntity();
 		entity.setInsId(id);
-		entity.setName(name);
+		entity.setUserId(userId);
 		try {
 			uir.save(entity);
 			Institutional one = rep.findOne(id);

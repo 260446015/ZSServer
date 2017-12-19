@@ -343,13 +343,13 @@ var  label = {
 function initEcharts(pieChartName){
 	data1 = [
 	         {
-	             value: [18,90], symbolSize: 140, name: pieChartName[0], label:label
+	             value: [50,50], symbolSize: 140, name: pieChartName[0], label:label
 	         },
 	         {
-	             value: [10,20], symbolSize: 120, name: pieChartName[1], label:label
+	             value: [10,60], symbolSize: 95, name: pieChartName[1], label:label
 	         },
 	         {
-	             value: [57,11], symbolSize: 105, name: pieChartName[2], label:label
+	             value: [24,18], symbolSize: 65, name: pieChartName[2], label:label
 	         },
 	         {
 	             value: [90,30], symbolSize: 93, name: pieChartName[3], label:label
@@ -358,7 +358,7 @@ function initEcharts(pieChartName){
 	             value: [85,82], symbolSize: 86, name: pieChartName[4], label:label
 	         },
 	         {
-	             value: [65,90], symbolSize: 70, name: pieChartName[5], label: label
+	             value: [30,92], symbolSize: 70, name: pieChartName[5], label: label
 	         }
 	     ];
 	return data1;
@@ -548,7 +548,6 @@ function showGardenCondition(area,target){
 			if(res.success){
 				var html = "";
 				var arr = res.data.content;
-				console.log(arr);
 				for(var i=0;i<arr.length;i++){
 					html += '<div class="col-md-12 border-bottom">' +
 								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
@@ -575,7 +574,6 @@ function showGardenPolicy(area){
 		success:function(res){
 			if(res.success){
 				var html = '';
-				console.log(res.data);
 				var arr = res.data.content;
 				for(var i=0;i<arr.length;i++){
 					html += '<div class="col-md-12 border-bottom">' +
@@ -722,6 +720,7 @@ function showGardenGdpPiechart(province){//获取某个省份哪种产业最多�
 		success:function(res){
 			if(res.success){
 				var arr = res.data;
+				console.log(arr);
 				pieChartName = [];
 				for(var i=0;i<arr.length;i++){
 					pieChartName.push(arr[i].industryType);

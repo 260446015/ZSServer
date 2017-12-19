@@ -9,24 +9,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.ZSServer.common.AjaxResult;
-import com.huishu.ZSServer.common.Data;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.IndustryRank;
 import com.huishu.ZSServer.entity.Institutional;
 import com.huishu.ZSServer.es.entity.SummitInfo;
-import com.huishu.ZSServer.service.company.CompanyService;
 import com.huishu.ZSServer.service.company.EnterPriseService;
 import com.huishu.ZSServer.service.indus.IndusSummitService;
 import com.huishu.ZSServer.service.indus.IndustryRankService;
@@ -183,8 +177,8 @@ public class IndustryMapController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		//当前用户的用户名，测试专用
-		String name = "张三";
-		String info = iservice.saveLaboratoryInfoById(id,name);
+		Long userId = (long) 1;
+		String info = iservice.saveLaboratoryInfoById(id,userId);
 		return success(info);
 	}
 }

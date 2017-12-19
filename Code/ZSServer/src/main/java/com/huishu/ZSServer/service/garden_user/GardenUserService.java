@@ -38,4 +38,10 @@ public interface GardenUserService {
 	 */
 	List<GardenCompareDTO> getGardenCompare(Long[] arrId);
 
+	/**
+	 * 扫描园区
+	 * @param gardenId
+	 */
+	boolean scanGarden(Long gardenId);
+
 }

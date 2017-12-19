@@ -2,7 +2,7 @@ $(function(){
 	showBids();
 });
 function showBids(){
-	var req = {"cname":companyName,"pageNumber":1,"pageSize":10}
+	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),

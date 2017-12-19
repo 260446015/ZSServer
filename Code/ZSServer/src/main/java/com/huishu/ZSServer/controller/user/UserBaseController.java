@@ -26,7 +26,7 @@ import com.huishu.ZSServer.service.user.UserBaseService;
  * @date 2017年12月14日
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/apis/user")
 public class UserBaseController extends BaseController{
 
 	private Logger LOGGER = LoggerFactory.getLogger(UserBaseController.class);
