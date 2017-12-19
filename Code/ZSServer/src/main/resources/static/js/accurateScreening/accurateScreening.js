@@ -4,7 +4,9 @@ var area = "全部";
 var register="全部";
 $("#screen").addClass("active");
 $("#searchTag").on("click",".search-tag span.close",function () {
+	var _id = $(this).attr("id");
 	$(this).parent().remove();
+	console.log(_id);
 });
 $(function () {
 		getTab();
@@ -89,7 +91,7 @@ function TagList(arr){
 			return true;
 		}else{
 			array.push(
-					'<button class="btn btn-fill btn-blue search-tag">'+item
+					'<button class="btn btn-fill btn-blue search-tag" id="'+item+'">'+item
 					+'<span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span></button>'
 			);
 		}
@@ -119,7 +121,9 @@ var dot = {
             
         },
         itemStyle: {
+        	
             normal: {
+            	opacity:.5,
                 color: new echarts.graphic.LinearGradient(
                     0, 0, 0, 1,
                     [
@@ -128,6 +132,9 @@ var dot = {
                         {offset: 1, color: '#bd62f7'}
                     ]
                 )
+            },
+            emphasis:{
+            	opacity:1
             }
         },
 
@@ -274,10 +281,6 @@ charts.on("click",function (e) {
        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
        				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
        				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
-       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">&nbsp</label>'
-       				  +'<div class="col-md-7"><p class="form-control-static" >'+'&nbsp</p></div></div>'
-       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">&nbsp</label>'
-       				  +'<div class="col-md-7"><p class="form-control-static" >'+'&nbsp</p></div></div>'
        				  +'</div></div>' +'<div class="layer-footer text-center" >'
        				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
        		  );

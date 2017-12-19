@@ -16,6 +16,13 @@
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- js 兼容低版本IE end -->
+    <style type="text/css">
+			.layer-body{
+  		 	 height: 325px;
+ 	   		overflow-y:  auto;
+		}
+	</style>
+	</style>
 </head>
 <body class="bg2">
 <#include "/common/header2.ftl"/>

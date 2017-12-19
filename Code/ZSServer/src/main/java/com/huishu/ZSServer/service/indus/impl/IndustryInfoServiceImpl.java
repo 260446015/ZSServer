@@ -78,6 +78,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 				or.should(QueryBuilders.termQuery("industryLabel",str ));
 			}
 		}
+		
 		bq.must(or);
 		PageRequest pageRequest = new PageRequest(0,500);
 		SearchQuery query = getSearchQueryBuilder().withQuery(bq).withPageable(pageRequest).build();
@@ -248,6 +249,55 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			
 		});
 		 return search;
+	}
+
+
+
+
+	@Override
+	public List<KeywordModel> fiindKeyWordList(JSONObject json) {
+		BoolQueryBuilder bq = new BoolQueryBuilder();
+		if (StringUtil.isNotEmpty(json.getString("dimension"))) {
+			String dimension = json.getString("dimension");
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
+		}
+		if (StringUtil.isNotEmpty(json.getString("startTime")) && StringUtil.isNotEmpty(json.getString("endTime"))) {
+			String startTime = json.getString("startTime");
+			String endTime = json.getString("endTime");
+			bq.must(QueryBuilders.rangeQuery("publishTime").from(startTime).to(endTime));
+		}
+		BoolQueryBuilder or = new BoolQueryBuilder();
+		JSONArray arr = json.getJSONArray("industryLabel");
+		if(arr!= null){
+			for(int i=0;i<arr.size();i++){
+				JSONObject jso = arr.getJSONObject(i);
+				String str = jso.getString("value");
+				or.should(QueryBuilders.termQuery("industryLabel",str ));
+			}
+		}
+		
+		bq.must(or);
+		PageRequest pageRequest = new PageRequest(0,500);
+		SearchQuery query = getSearchQueryBuilder().withQuery(bq).withPageable(pageRequest).build();
+		List<String> contentList = new ArrayList<String>();
+		template.query(query, res -> {
+			SearchHits hits = res.getHits();
+			if (hits != null) {
+				SearchHit[] hitsList = hits.getHits();
+				for (SearchHit h : hitsList) {
+					if (h.getSource() != null) {
+						contentList.add(h.getSource().get("content") + "");
+					}
+				}
+			}
+			return "";
+		});
+	 	JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, 12);
+	 	List<KeywordModel> list = null;
+	 	if (keywordCloud.getBooleanValue("status")) {
+		  list = (List<KeywordModel>) keywordCloud.get("result");
+	 	}
+		return list;
 	}
 
 	

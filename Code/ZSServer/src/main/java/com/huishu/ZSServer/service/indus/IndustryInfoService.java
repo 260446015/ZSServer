@@ -1,10 +1,13 @@
 package com.huishu.ZSServer.service.indus;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.es.entity.AITInfo;
+import com.merchantKey.itemModel.KeywordModel;
 
 /**
  * @author hhy
@@ -17,7 +20,9 @@ public interface IndustryInfoService {
 	
 	/**  查询关键词云	 */
 	JSONArray  getKeyWordList(JSONObject jsonArray);
-
+	
+	/**  查询关键词云	 */
+	List<KeywordModel>  fiindKeyWordList(JSONObject jsonArray);
 	/**
 	 * 根据关键词查询文章列表
 	 * @param obj

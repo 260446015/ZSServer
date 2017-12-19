@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.common.util.DateUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.dto.IndustryInfoDTO;
@@ -69,7 +70,7 @@ public class IndustryInfoController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		JSONObject obj1 = new JSONObject();
-		initTime(obj1, time);
+		DateUtils.initTime(obj1, time);
 		addData(obj1);
 		JSONArray jsonArray = service.getKeyWordList(obj1);
 		return success(jsonArray);
@@ -108,7 +109,7 @@ public class IndustryInfoController extends BaseController{
 		}
 		
 		JSONObject obj1 = new JSONObject();
-		initTime(obj1, time);
+		DateUtils.initTime(obj1, time);
 		obj1.put("keyWord", keyWord);
 		String info = StringUtil.getIndustryInfo(keyWord);
 		if(StringUtil.isNotEmpty(info)){
@@ -180,26 +181,18 @@ public class IndustryInfoController extends BaseController{
 			if(action.getIndustryLabel().equals("生物医药")){
 				action.setIndustryLabel("生物技术");
 			}
-			String summary = action.getSummary();
-			if(StringUtil.isNotEmpty(summary)){
-				
-				if(summary.length()<10){
-					String content = action.getContent();
-					if(content.length()>300){
-						String substring = content.substring(0, 300);
-						action.setContent( StringUtil.replaceHtml(substring));
-					}
-				}else{
-					String replaceHtml = StringUtil.replaceHtml(summary);
-					action.setContent(replaceHtml);
-				}
-			}else{
 				String content = action.getContent();
-				if(content.length()>300){
+				if(content.length()>=300){
 					String substring = content.substring(0, 300);
 					action.setContent( StringUtil.replaceHtml(substring));
+				}else if(content.length()>=150){
+					String substring = content.substring(0, 150);
+					action.setContent( StringUtil.replaceHtml(substring));
+				}else{
+					String substring = content.substring(0, 50);
+					action.setContent( StringUtil.replaceHtml(substring));
 				}
-			}
+		
 		});
 		JSONObject result = new JSONObject();
 		result.put("dataList", page.getContent());

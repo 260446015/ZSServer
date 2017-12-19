@@ -25,6 +25,7 @@ $(function () {
         },
         itemStyle: {
             normal: {
+            	opacity:.5,
                 color: new echarts.graphic.LinearGradient(
                     0, 0, 0, 1,
                     [
@@ -33,6 +34,9 @@ $(function () {
                         {offset: 1, color: '#bd62f7'}
                     ]
                 )
+            },
+            emphasis:{
+            	opacity:1
             }
         },
 
@@ -189,10 +193,6 @@ charts.on("click",function (e) {
     				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
     				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
     				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
-    				  +'<div class="form-group"><label class="col-md-4 text-right control-label">&nbsp</label>'
-    				  +'<div class="col-md-7"><p class="form-control-static" >'+'&nbsp</p></div></div>'
-    				  +'<div class="form-group"><label class="col-md-4 text-right control-label">&nbsp</label>'
-    				  +'<div class="col-md-7"><p class="form-control-static" >'+'&nbsp</p></div></div>'
     				  +'</div></div>' +'<div class="layer-footer text-center" >'
     				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
     		  );
