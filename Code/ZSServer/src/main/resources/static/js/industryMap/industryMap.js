@@ -222,6 +222,7 @@ function industryMapData(a){
 				var label = res.data.label;
 				var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
 				chinaOption.series[1].data = convertData(dd);
+				chinaOption.visualMap.max = label[0].value;
 				chinaOption.series[0].data = label;
 				industryMap.setOption(chinaOption);
 				new Loading({isfullscreen:true}).hide();
@@ -519,41 +520,7 @@ var chinaOption = {
         },
         zlevel: 1
     }
-]/*
-        {
-            name: 'Top 5',
-            type: 'effectScatter',
-            coordinateSystem: 'geo',
-            data: convertData(data.sort(function (a, b) {
-                return b.value - a.value;
-            }).slice(0, 6)),
-            symbolSize: function (val) {
-            	
-            		return 20;
-            	
-            },
-            showEffectOn: 'emphasis',
-            rippleEffect: {
-                brushType: 'stroke'
-            },
-            hoverAnimation: true,
-            label: {
-                normal: {
-                    formatter: '{b}',
-                    position: 'right',
-                    show: true
-                }
-            },
-            itemStyle: {
-                normal: {
-                    color: '#04fee4',
-                    shadowBlur: 10,
-                    shadowColor: '#333'
-                }
-            },
-            zlevel: 1
-        }
-    ]*/
+]
 };
 
 var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
@@ -564,7 +531,6 @@ industryMap.setOption(chinaOption);
 industryMap.on("click",function (e) {
     /*这里需要判断一下 点击哪一个类型的点，才显示简介*/
 	if(e.seriesType=="effectScatter"){
-		
 		var area = e.name;
 		$.ajax({
 			url:'/indusMap/getLaboratoryInfo.json',
@@ -585,11 +551,7 @@ industryMap.on("click",function (e) {
 				}
 			}
 		});
-	}else{
-		
 	}
-	
-   
 });
 /**
  * 点击关注
