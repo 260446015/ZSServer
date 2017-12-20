@@ -151,6 +151,7 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 				tc.setUserId(userId);
 				tc.setUrgency("false");
 				tc.setDate(System.currentTimeMillis());
+				tc.setType("company");
 				telContectRepository.save(tc);
 				return true;
 			}

@@ -23,16 +23,16 @@
                     </a>
                      <ul class="left-nav-menu">
                          <li id="companyItem">
-                             <a href="javascript:void(0)">企业</a>
+                             <a href="/apis/user/enterprise.html">企业</a>
                          </li>
                          <li id="organizationItem">
                              <a href="/apis/user/scientificResearchInstitution.html">科研机构</a>
                          </li>
                          <li id="summitItem">
-                             <a href="javascript:void(0)">产业峰会</a>
+                             <a href="/apis/user/summitMeeting.html">产业峰会</a>
                          </li>
                          <li id=reportItem">
-                             <a href="javascript:void(0)">报告中心</a>
+                             <a href="/apis/user/reportCenter.html">报告中心</a>
                          </li>
                      </ul>
                 </li>

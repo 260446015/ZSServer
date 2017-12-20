@@ -19,5 +19,20 @@ public interface CenterOfAttentionService {
 	 * @return
 	 */
 	Page<Institutional> findOrganizationList(String industry,Long userId,Integer pageNum);
+	
+	/**
+	 * 取消对机构的关注
+	 * @param id
+	 * @param userId
+	 */
+	void cancelOrganization(Long id,Long userId);
+	
+	/**
+	 * 意向联络
+	 * @param id
+	 * @param userId
+	 * @return
+	 */
+	String liaison(Long id,Long userId);
 
 }

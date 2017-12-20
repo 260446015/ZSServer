@@ -1,7 +1,5 @@
 package com.huishu.ZSServer.repository.user;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ZSServer.entity.UserInstitutionalEntity;
@@ -14,12 +12,12 @@ import com.huishu.ZSServer.entity.UserInstitutionalEntity;
  * 
  */
 public interface UserInstitutionalRepository extends CrudRepository<UserInstitutionalEntity, Long> {
+	UserInstitutionalEntity findByInsIdAndUserId(Long insId, Long userId);
 	/**
-	 * 
+	 * 删除该用户关注的机构
 	 * @param insId
 	 * @param userId
 	 * @return
 	 */
-	UserInstitutionalEntity findByInsIdAndUserId(Long insId, Long userId);
-
+	void deleteByInsIdAndUserId(Long insId, Long userId);
 }

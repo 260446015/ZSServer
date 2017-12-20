@@ -52,4 +52,48 @@ public class CenterOfAttentionController extends BaseController{
 		}
 
 	}
+	
+	/**
+	 * 取消对该园区的关注
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "cancelOrganization.json", method = RequestMethod.GET)
+	public AjaxResult cancelOrganization(Long id) {
+		if(id==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			centerOfAttentionService.cancelOrganization(id,getUserId());
+			return success(MsgConstant.OPERATION_SUCCESS);
+		} catch (Exception e) {
+			LOGGER.error("cancelOrganization失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
+	
+	/**
+	 * 意向联络
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "liaison.json", method = RequestMethod.GET)
+	public AjaxResult liaison(Long id) {
+		if(id==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			String msg = centerOfAttentionService.liaison(id,getUserId());
+			if(msg.equals(MsgConstant.OPERATION_ERROR)){
+				return error(MsgConstant.OPERATION_ERROR);
+			}else{
+				return success(msg);
+			}
+		} catch (Exception e) {
+			LOGGER.error("liaison失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
 }

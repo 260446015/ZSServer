@@ -10,5 +10,12 @@ public interface TelContectRepository extends CrudRepository<TelContect, Long>, 
 
 	@Query(value = "select * from t_telcontect where user_id = ?1 and cname=?2 and name=?3", nativeQuery = true)
 	TelContect telContact(Long userId, String cname, String name);
-
+	/**
+	 * 
+	 * @param userId
+	 * @param organizationId
+	 * @param type
+	 * @return
+	 */
+	TelContect findByUserIdAndOrganizationIdAndType(Long userId, Long organizationId, String type);
 }
