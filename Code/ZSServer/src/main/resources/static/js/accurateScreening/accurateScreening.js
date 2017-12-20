@@ -4,7 +4,7 @@ var area = "全部";
 var register="全部";
 $("#screen").addClass("active");
 $("#searchTag").on("click",".search-tag span.close",function () {
-	var _id = $(this).attr("id");
+	var _id = $(this).parent().attr("id");
 	$(this).parent().remove();
 	console.log(_id);
 });
@@ -24,7 +24,7 @@ $(function () {
 });
 function getTab(){
 	$.ajax({
-		url:'/user/getLabel.json',
+		url:'/apis/user/getLabel.json',
 		type:'GET',
 		success:function(res){
 			if(res.data==null){
@@ -41,7 +41,7 @@ function getTab(){
 };
 function updateLabel(ss){
 	$.ajax({
-	  url:'/user/updateLabel.json?label='+ss,
+	  url:'/apis/user/updateLabel.json?label='+ss,
 	  type:'GET',
 	  success:function(res){
 		  if(res.data != null){

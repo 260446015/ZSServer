@@ -51,7 +51,7 @@
                             </div>
                             <div class="layer-person">
                              <h3 class="layer-person-title text-center">
-                             	无线移动通信国家重点实验室
+                             	产业科研机构
                                     <button type="button" class="close">×</button>
                                </h3>
                                 <div class="layer-body">
