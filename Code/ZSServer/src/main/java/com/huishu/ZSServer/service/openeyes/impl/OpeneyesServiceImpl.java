@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.CompanyAttation;
+import com.huishu.ZSServer.entity.dto.BaseInfoCustom;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.entity.openeyes.Abnormal;
 import com.huishu.ZSServer.entity.openeyes.Allotmen;
@@ -256,66 +258,65 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		params.put("name", dto.getCname());
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.BASEINFO);
-		List<BaseInfo> list = baseInfoRepository.findByName(dto.getCname());
-		if (list.size() > 0) {
-			BaseInfo info = list.get(0);
-			info.setIsAttation(false);
+		BaseInfo info = baseInfoRepository.findByName(dto.getCname());
+		if (info != null) {
+			BaseInfoCustom custom = new BaseInfoCustom();
+			BeanUtils.copyProperties(info, custom);
+			custom.setIsAttation(false);
 			CompanyAttation ca = companyAttaRepository.findByCompanyIdAndUserId(info.getId(), dto.getUserId());
 			if(ca != null){
-				info.setIsAttation(true);
+				custom.setIsAttation(true);
 			}	
-			openEyesTarget.put("result", info);
+			openEyesTarget.put("result", custom);
 			return openEyesTarget;
 		}
 		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
-		BaseInfo parseObject = null;
 		if(null != openEyesTarget){
 			JSONObject jsonObj = openEyesTarget.getJSONObject("result");
 			if(jsonObj == null){
 				throw new OpeneyesException();
 			}
-			parseObject = JSONObject.parseObject(jsonObj.toString(), BaseInfo.class);
-			list.add(parseObject);
+			info = JSONObject.parseObject(jsonObj.toString(), BaseInfo.class);
 			if(dto.getFlag() != null){
 				if(dto.getFlag())
 					getJingPin(dto);//此处调用获取竞品信息的功能，存入数据库
 			}
 			Company company = companyRepository.findByCompanyName(dto.getCname());
 			if(null != company){
-				company.setAddress(parseObject.getRegLocation());
-				company.setBoss(parseObject.getLegalPersonName());
-				company.setEngageState(parseObject.getRegStatus());
+				company.setAddress(info.getRegLocation());
+				company.setBoss(info.getLegalPersonName());
+				company.setEngageState(info.getRegStatus());
 //			company.setFinancingAmount(parseObject.get);
 //			company.setFinancingDate(financingDate);
-				company.setOpenIndustry(parseObject.getIndustry());
+				company.setOpenIndustry(info.getIndustry());
 //			company.setInvest(parseObject.get);
 //			company.setInvestor(parseObject.get);
-				company.setLogo(parseObject.getWebsiteList());
-				company.setOpenRegisterCapital(parseObject.getRegCapital());
+				company.setLogo(info.getWebsiteList());
+				company.setOpenRegisterCapital(info.getRegCapital());
 //			company.setRegisterDate(parseObject.get);
 //			company.setScale(scale);
-				company.setOpenActualCapital(parseObject.getActualCapital());
-				company.setOpenBase(parseObject.getBase());
-				company.setOpenBusinessScope(parseObject.getBusinessScope());
-				company.setOpenCategoryScore(parseObject.getCategoryScore());
-				company.setOpenCompanyOrgType(parseObject.getCompanyOrgType());
-				company.setOpenCorrectCompanyId(parseObject.getCorrectCompanyId());
-				company.setOpenCreditCode(parseObject.getCreditCode());
-				company.setOpenEstiblishTime(parseObject.getEstiblishTime());
-				company.setOpenFromTime(parseObject.getFromTime());
-				company.setOpenLegalPersonId(parseObject.getLegalPersonId());
-				company.setOpenLegalPersonName(parseObject.getLegalPersonName());;
-				company.setOpenOrgApprovedInstitute(parseObject.getOrgApprovedInstitute());
-				company.setOpenOrgNumber(parseObject.getOrgNumber());
-				company.setOpenPercentileScore(parseObject.getPercentileScore());
-				company.setOpenPhoneNumber(parseObject.getPhoneNumber());
-				company.setOpenRegInstitute(parseObject.getRegInstitute());
-				company.setOpenRegNumber(parseObject.getRegNumber());
-				company.setOpenToTime(parseObject.getToTime());
-				company.setOpenType(parseObject.getType());
+				company.setOpenActualCapital(info.getActualCapital());
+				company.setOpenBase(info.getBase());
+				company.setOpenBusinessScope(info.getBusinessScope());
+				company.setOpenCategoryScore(info.getCategoryScore());
+				company.setOpenCompanyOrgType(info.getCompanyOrgType());
+				company.setOpenCorrectCompanyId(info.getCorrectCompanyId());
+				company.setOpenCreditCode(info.getCreditCode());
+				company.setOpenEstiblishTime(info.getEstiblishTime());
+				company.setOpenFromTime(info.getFromTime());
+				company.setOpenLegalPersonId(info.getLegalPersonId());
+				company.setOpenLegalPersonName(info.getLegalPersonName());;
+				company.setOpenOrgApprovedInstitute(info.getOrgApprovedInstitute());
+				company.setOpenOrgNumber(info.getOrgNumber());
+				company.setOpenPercentileScore(info.getPercentileScore());
+				company.setOpenPhoneNumber(info.getPhoneNumber());
+				company.setOpenRegInstitute(info.getRegInstitute());
+				company.setOpenRegNumber(info.getRegNumber());
+				company.setOpenToTime(info.getToTime());
+				company.setOpenType(info.getType());
 				companyRepository.save(company);
 			}
-			baseInfoRepository.save(list);
+			baseInfoRepository.save(info);
 		}
 		return openEyesTarget;
 	}
