@@ -74,9 +74,9 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 				obj.put("money", enter.getRegisterCapital());
 				obj.put("industry", enter.getIndustry());
 			}else{
-				List<BaseInfo> list = repository.findByName(company);
-				if (list.size() != 0) {
-					BaseInfo baseInfo = list.get(0);
+				BaseInfo list = repository.findByName(company);
+				if (list != null) {
+					BaseInfo baseInfo = list;
 				}else{
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("name", company);

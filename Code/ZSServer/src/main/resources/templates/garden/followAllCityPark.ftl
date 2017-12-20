@@ -80,7 +80,7 @@
                                 <a href="javascript:void(0);" class="search-item">成立1-5年</a>
                                 <a href="javascript:void(0);" class="search-item">成立5-10年</a>
                                 <a href="javascript:void(0);" class="search-item">成立10-15年</a>
-                                <a href="javascript:void(0);" class="search-item">成立5年以上</a>
+                                <a href="javascript:void(0);" class="search-item">成立15年以上</a>
                             </div>
                         </div>
                         <div class="search-group">

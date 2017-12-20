@@ -50,9 +50,8 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 			LOGGER.debug(MsgConstant.SYSTEM_ERROR);
 			return null;
 		}
-		List<BaseInfo> list = rep.findByName(com.getCompany());
-		if (list.size() != 0) {
-			BaseInfo baseInfo = list.get(0);
+		BaseInfo baseInfo = rep.findByName(com.getCompany());
+		if (baseInfo != null) {
 			com.setIndustry(baseInfo.getIndustry());
 
 			repository.save(com);

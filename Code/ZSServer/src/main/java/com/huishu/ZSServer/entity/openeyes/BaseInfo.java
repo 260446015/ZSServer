@@ -1,18 +1,12 @@
 package com.huishu.ZSServer.entity.openeyes;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ZSServer.entity.user.UserBase;
 
 /**
  * 
@@ -92,16 +86,6 @@ public class BaseInfo implements Serializable {
 	private Long updateTimes;
 	/** 统一社会信用代码 */
 	private String creditCode;
-	@Transient
-	private boolean isAttation;
-
-	public boolean getIsAttation() {
-		return isAttation;
-	}
-
-	public void setIsAttation(boolean isAttation) {
-		this.isAttation = isAttation;
-	}
 
 	public Long getCompanyId() {
 		return companyId;
