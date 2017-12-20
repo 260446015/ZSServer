@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.service.user;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.huishu.ZSServer.entity.Institutional;
@@ -34,5 +36,18 @@ public interface CenterOfAttentionService {
 	 * @return
 	 */
 	String liaison(Long id,Long userId);
-
+	
+	/**
+	 * 查询关注园区产业分类
+	 * @param userId
+	 * @return
+	 */
+	List<String> getGardenIndustry(Long userId);
+	
+	/**
+	 * 查询关注园区地域
+	 * @param userId
+	 * @return
+	 */
+	List<String> getGardenArea(Long userId);
 }

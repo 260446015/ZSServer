@@ -13,8 +13,18 @@
 </head>
 <body class="bg2">
 <#include "/common/header3.ftl"/>
-
+<div class="wrapper">
+    <div class="page-content">
+        <#include "/common/UserSidebar.ftl"/>
+        <div class="right-content">
+        </div>
+    </div>
+</div>
 <#include  "/common/footer.ftl"/>
 <#include  "/common/script.ftl"/>
+<script type="text/javascript">
+	$("#followItem").addClass("active");
+	$("#summitItem").addClass("active");
+</script>
 </body>
 </html>

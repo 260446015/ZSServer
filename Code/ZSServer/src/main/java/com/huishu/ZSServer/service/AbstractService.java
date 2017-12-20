@@ -443,4 +443,111 @@ public class AbstractService<T> {
 		}
 		return myMoney;
 	}
+	
+	/**
+	 * 将拼音简写地域转化成汉字
+	 * @param list
+	 * @return
+	 */
+	protected List<String> conversionArea(List<String> list) {
+		List<String> result = new ArrayList<String>();
+		for (String string : list) {
+			 switch(string){
+	            case "bj":
+	            	result.add("北京");
+	                break;
+	            case "tj":
+	            	result.add("天津");
+	                break;
+	            case "heb":
+	            	result.add("河北");
+	                break;
+	            case "sx":
+	            	result.add("山西");
+	                break;
+	            case "nmg":
+	            	result.add("内蒙古");
+	                break;
+	            case "ln":
+	            	result.add("辽宁");
+	                break;
+	            case "jl":
+	            	result.add("吉林");
+	                break;
+	            case "hlj":
+	            	result.add("黑龙江");
+	                break;
+	            case "sh":
+	            	result.add("上海");
+	                break;
+	            case "js":
+	            	result.add("江苏");
+	                break;
+	            case "zj":
+	            	result.add("浙江");
+	                break;
+	            case "ah":
+	            	result.add("安徽");
+	                break;
+	            case "fj":
+	            	result.add("福建");
+	                break;
+	            case "jx":
+	            	result.add("江西");
+	                break;
+	            case "sd":
+	            	result.add("山东");
+	                break;
+	            case "gd":
+	            	result.add("广东");
+	                break;
+	            case "gx":
+	            	result.add("广西");
+	                break;
+	            case "han":
+	            	result.add("海南");
+	                break;
+	            case "hen":
+	            	result.add("河南");
+	                break;
+	            case "hub":
+	            	result.add("湖北");
+	                break;
+	            case "hun":
+	            	result.add("湖南");
+	                break;
+	            case "cq":
+	            	result.add("重庆");
+	                break;
+	            case "sc":
+	            	result.add("四川");
+	                break;
+	            case "gz":
+	            	result.add("贵州");
+	                break;
+	            case "yn":
+	            	result.add("云南");
+	                break;
+	            case "xz":
+	            	result.add("西藏");
+	                break;
+	            case "snx":
+	            	result.add("陕西");
+	                break;
+	            case "gs":
+	            	result.add("甘肃");
+	                break;
+	            case "qh":
+	            	result.add("青海");
+	                break;
+	            case "nx":
+	            	result.add("宁夏");
+	                break;
+	            case "xj":
+	            	result.add("新疆");
+	                break;
+			 }
+		}
+		return result;
+	}
 }

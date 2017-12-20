@@ -13,8 +13,93 @@
 </head>
 <body class="bg2">
 <#include "/common/header3.ftl"/>
-
+<div class="wrapper">
+    <div class="page-content">
+        <#include "/common/UserSidebar.ftl"/>
+        <div class="right-content">
+        	<div class="container">
+                <div class="model-box">
+                    <div class="search-box">
+                        <div class="search-group">
+                            <div class="search-item-title">
+                                产业
+                            </div>
+                            <div class="search-item-content" id="gardenIndustry">
+                            	<a href="javascript:void(0);" class="search-item active">全部</a>
+                            </div>
+                        </div>
+                        <div class="search-group">
+                            <div class="search-item-title">
+                                企业规模
+                            </div>
+                            <div class="search-item-content">
+                            	<a href="javascript:void(0);" class="search-item active">全部</a>
+                            	<a href="javascript:void(0);" class="search-item">1-50人</a>
+                            	<a href="javascript:void(0);" class="search-item">51-200人</a>
+                            	<a href="javascript:void(0);" class="search-item">201-500人</a>
+                            	<a href="javascript:void(0);" class="search-item">501-2000人</a>
+                            	<a href="javascript:void(0);" class="search-item">2000人以上</a>
+                            </div>
+                        </div>
+                        <div class="search-group">
+                            <div class="search-item-title">
+                               成立时间
+                            </div>
+                            <div class="search-item-content">
+                            	<a href="javascript:void(0);" class="search-item active">全部</a>
+                            	<a href="javascript:void(0);" class="search-item">1年内</a>
+                            	<a href="javascript:void(0);" class="search-item">1-5年</a>
+                            	<a href="javascript:void(0);" class="search-item">5-10年</a>
+                            	<a href="javascript:void(0);" class="search-item">10-15年</a>
+                            	<a href="javascript:void(0);" class="search-item">15年以上</a>
+                            </div>
+                        </div>
+                         <div class="search-group">
+                            <div class="search-item-title">
+                               注册资本
+                            </div>
+                            <div class="search-item-content">
+                            	<a href="javascript:void(0);" class="search-item active">全部</a>
+                            	<a href="javascript:void(0);" class="search-item">0-100万</a>
+                            	<a href="javascript:void(0);" class="search-item">100-200万</a>
+                            	<a href="javascript:void(0);" class="search-item">200-500万</a>
+                            	<a href="javascript:void(0);" class="search-item">500-1000万</a>
+                            	<a href="javascript:void(0);" class="search-item">1000万以上</a>
+                            </div>
+                        </div>
+                        <div class="search-group">
+                            <div class="search-item-title">
+                                地域
+                            </div>
+                            <div class="search-item-content" id="gardenArea">
+                            	<a href="javascript:void(0);" class="search-item active">全部</a>
+                            </div>
+                        </div>
+                        <div class="search-group">
+                            <div class="search-item-title">
+                                企业分组
+                            </div>
+                            <div class="search-item-content">
+                                <a href="javascript:void(0);" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" class="add-item active" style= "margin-left:80%;">+添加企业分组</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="model-body border-box">
+                        <div class="row" id="gardenList">
+                            
+                        </div>
+                    </div>
+                    <div class="page-box clearfix">
+        				<ul class="page pull-right" id="page"></ul>
+            		</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <#include  "/common/footer.ftl"/>
 <#include  "/common/script.ftl"/>
+<script src="/js/follow/enterprise.js"></script>
 </body>
 </html>

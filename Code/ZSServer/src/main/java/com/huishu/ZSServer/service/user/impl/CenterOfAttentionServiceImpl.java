@@ -4,26 +4,26 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.conf.PageConstant;
 import com.huishu.ZSServer.entity.Institutional;
 import com.huishu.ZSServer.entity.TelContect;
-import com.huishu.ZSServer.entity.UserInstitutionalEntity;
-import com.huishu.ZSServer.entity.user.UserBase;
+import com.huishu.ZSServer.repository.company.CompanyAttaRepository;
 import com.huishu.ZSServer.repository.company.TelContectRepository;
 import com.huishu.ZSServer.repository.instituton.InstitutionalRepostitory;
 import com.huishu.ZSServer.repository.user.UserInstitutionalRepository;
+import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.user.CenterOfAttentionService;
 
 @Service
-public class CenterOfAttentionServiceImpl implements CenterOfAttentionService {
+public class CenterOfAttentionServiceImpl extends AbstractService<T> implements CenterOfAttentionService{
 	
 	@Autowired
 	private InstitutionalRepostitory institutionalRepostitory;
@@ -31,6 +31,8 @@ public class CenterOfAttentionServiceImpl implements CenterOfAttentionService {
 	private UserInstitutionalRepository userInstitutionalRepository;
 	@Autowired
 	private TelContectRepository telContectRepository;
+	@Autowired
+	private CompanyAttaRepository companyAttaRepository;
 	
 	@Override
 	public Page<Institutional> findOrganizationList(String industry, Long userId,Integer pageNum) {
@@ -81,6 +83,17 @@ public class CenterOfAttentionServiceImpl implements CenterOfAttentionService {
 		}else{
 			return "已反馈意向，请耐心等待消息";
 		}
+	}
+
+	@Override
+	public List<String> getGardenIndustry(Long userId) {
+		return companyAttaRepository.getGardenIndustry(userId);
+	}
+
+	@Override
+	public List<String> getGardenArea(Long userId) {
+		List<String> list = companyAttaRepository.getGardenArea(userId);
+		return conversionArea(list);
 	}
 
 }

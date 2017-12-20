@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.controller.user;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,5 +97,33 @@ public class CenterOfAttentionController extends BaseController{
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 
+	}
+	
+	/**
+	 * 查询关注园区产业分类
+	 * @return
+	 */
+	@RequestMapping(value = "/getGardenIndustry.json", method = RequestMethod.GET)
+	public AjaxResult getGardenIndustry() {
+		try {
+			return success(centerOfAttentionService.getGardenIndustry(getUserId()));
+		} catch (Exception e) {
+			LOGGER.error("getGardenIndustry失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	/**
+	 * 查询关注园区地域
+	 * @return
+	 */
+	@RequestMapping(value = "/getGardenArea.json", method = RequestMethod.GET)
+	public AjaxResult getGardenArea() {
+		try {
+			return success(centerOfAttentionService.getGardenArea(getUserId()));
+		} catch (Exception e) {
+			LOGGER.error("getGardenIndustry失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
 	}
 }
