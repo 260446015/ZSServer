@@ -745,6 +745,25 @@ public class OpeneyesController extends BaseController {
 		}
 		return success(returnObj);
 	}
+	/**
+	 * 欠税公告
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws OpeneyesException 
+	 */
+	@RequestMapping(value = "/getOwnTax.json", method = RequestMethod.POST)
+	public AjaxResult getOwnTax(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
+		if (StringUtil.isEmpty(dto.getCname()))
+			return error(MsgConstant.ILLEGAL_PARAM);
+		JSONObject returnObj = new JSONObject();
+		try {
+			returnObj = openeyesService.getOwnTax(dto);
+		} catch (Exception e) {
+			return error("查询数据为空");
+		}
+		return success(returnObj);
+	}
 
 	/**
 	 * 税务评级

@@ -39,11 +39,11 @@ public class OwnTax implements Serializable {
 	/** 欠税余额 */
 	private String ownTaxBalance;
 	/** 纳税人识别号 */
-	private Long taxIdNumber;
+	private String taxIdNumber;
 	/** 0国税 1地税 */
-	private Long type;
+	private String type;
 	/** 欠税税种 */
-	private Long taxCategory;
+	private String taxCategory;
 	/** 发布时间 */
 	private String publishDate;
 	/** 欠税数量 */
@@ -107,27 +107,27 @@ public class OwnTax implements Serializable {
 		this.ownTaxBalance = ownTaxBalance;
 	}
 
-	public Long getTaxIdNumber() {
+	public String getTaxIdNumber() {
 		return taxIdNumber;
 	}
 
-	public void setTaxIdNumber(Long taxIdNumber) {
+	public void setTaxIdNumber(String taxIdNumber) {
 		this.taxIdNumber = taxIdNumber;
 	}
 
-	public Long getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Long type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
-	public Long getTaxCategory() {
+	public String getTaxCategory() {
 		return taxCategory;
 	}
 
-	public void setTaxCategory(Long taxCategory) {
+	public void setTaxCategory(String taxCategory) {
 		this.taxCategory = taxCategory;
 	}
 

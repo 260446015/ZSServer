@@ -50,6 +50,7 @@ public class IndustryRankServiceImpl  implements IndustryRankService {
 			return null;
 		}
 		List<Object[]> list = isr.findByIndustry(industry);
+		
 		List<IndustryRank> list2 = rep.findByIndustry(industry);
 		JSONObject obj = new JSONObject();
 		if(list.size()==0){

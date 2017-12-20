@@ -75,13 +75,13 @@ function showCompanyDetail(){
 				if(resData.websiteList == null){
 					resData.websiteList = '---';
 				}
-				if(resData.categoryScore == null){
-//					resData.categoryScore = '82';
+				if(resData.percentileScore == null){
+					resData.percentileScore = '82';
 				}else{
-					resData.categoryScore = Math.floor(resData.categoryScore/100)
+					resData.percentileScore = Math.round(resData.percentileScore/100)
 				}
 				$("#baseName").text(resData.name);
-				$("#baseScore").text("企业匹配值："+resData.categoryScore+"分");
+				$("#baseScore").text("企业匹配值："+resData.percentileScore+"分");
 				$("#baseTel").text(resData.phoneNumber);
 //				$(".inline-lyt").find(".lyt-rt").eq(2).text(resData.phoneNumber);
 				$("#baseWeb").text(resData.websiteList);

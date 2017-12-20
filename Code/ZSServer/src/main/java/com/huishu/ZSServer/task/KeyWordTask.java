@@ -41,7 +41,7 @@ public class KeyWordTask {
 	/**
 	 * 关键词云
 	 */
-	@Scheduled(fixedDelay = 1000 * 60 *5)
+	@Scheduled(fixedDelay = 1000 * 60 *60*2)
 	public void getKeyWord(){
 		log.info("==========定时任务开启===========");
 		//第一步 获取所有的关于关键词的条件
