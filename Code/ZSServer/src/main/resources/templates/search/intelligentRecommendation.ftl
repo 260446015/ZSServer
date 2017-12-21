@@ -9,13 +9,13 @@
     <meta name="author" content="张鑫，慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <#include "/common/link.ftl"/>
-    <!-- js 兼容低版本IE start -->
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- js 兼容低版本IE end -->
+   
+    <style type="text/css">
+			.layer-body{
+  		 	 height: 325px;
+ 	   		overflow-y:  auto;
+		}
+	</style>
 </head>
 <body class="bg2">
 <#include "/common/header2.ftl"/>

@@ -2,6 +2,8 @@ package com.huishu.ZSServer.controller.industry;
 
 import java.util.Map;
 
+import javax.swing.Action;
+
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,6 +127,10 @@ public class IndustrySummitController extends BaseController{
 						action.setAddress("&nbsp;");
 					}
 					
+				}
+				
+				if(StringUtil.isEmpty(action.getExhibitiontime())){
+					action.setExhibitiontime("&nbsp;");
 				}
 			});;
 			/*JSONObject obj1 = new JSONObject();

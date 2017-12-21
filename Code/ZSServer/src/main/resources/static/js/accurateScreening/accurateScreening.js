@@ -4,23 +4,33 @@ var area = "全部";
 var register="全部";
 $("#screen").addClass("active");
 $("#searchTag").on("click",".search-tag span.close",function () {
-	var _id = $(this).parent().attr("id");
+	var _id = $(this).parent().attr("id").split('+');
 	$(this).parent().remove();
-	console.log(_id);
+	$.ajax({
+		url:'/apis/user/getLabel.json',
+		type:'GET',
+		success:function(res){
+			if(res.data==null){
+				 $("#myModal").modal("show");
+			}else{
+				var arr = res.data.split(',');
+				arr.splice($.inArray(_id[1],arr),1);
+				$("#searchTag").html(TagList(arr));
+				var str = arr.join(',');
+				updateLabel(str);
+			}
+		}
+	});
+	$('#searchTag button').each(function(){
+			console.log($(this).attr('id'));
+			var _item = $(this).attr('id').split('+');
+			searchTab(_item[0],_item[1]);
+		});
+	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
+	searchAjax(param);
 });
 $(function () {
 		getTab();
-	   $("#LabelBlue").click(function(){
-		   $("#myModal").modal("hide");
-		   var arr=[];
-			  arr = [industry,area,registerTime,register];
-			   $("#searchTag").html(TagList(arr));
-			   var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
-			   $("#horizontal-info").hide();
-			   var ss = industry+','+area+','+registerTime+','+register;
-			   updateLabel(ss);
-			   searchAjax(param);
-	   });
 });
 function getTab(){
 	$.ajax({
@@ -90,8 +100,9 @@ function TagList(arr){
 		if(item=="全部"){
 			return true;
 		}else{
+			var i = index+1;
 			array.push(
-					'<button class="btn btn-fill btn-blue search-tag" id="'+item+'">'+item
+					'<button class="btn btn-fill btn-blue search-tag" id="'+i+'+'+item+'">'+item
 					+'<span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span></button>'
 			);
 		}
@@ -157,15 +168,6 @@ var dot = {
         [32, 83, '神州数据', 90, 0],
         [22, 36, '华胜天成', 60, 0],
         [75, 30, '神州融讯', 60, 0]
-        
-        /*[22, 36, '北京现代', 80, 1],
-        [80, 50, '百度', 70, 1],
-        [60, 20, '矿视科技', 80, 1],
-        [75, 70, '长电科技', 87, 1],
-        [52, 83, '腾讯', 60, 0],
-        [32, 83, '神州数据', 90, 0],
-        [17, 60, '华胜天成', 70, 0],
-        [32, 26, '神州融讯', 70, 0],*/
     ];
 
     var dataMap = datalist.map((item) => {
