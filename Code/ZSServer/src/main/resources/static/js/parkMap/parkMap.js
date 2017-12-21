@@ -295,10 +295,9 @@ var barOption = {
     dataZoom: [
                {
                    show: false,
-                   start: 50,
-                   end: 90,
+                   end: 50,
                    left:"10%",
-                   start: 0
+                   start: 0,
                },
                {
                    type: 'inside',
@@ -312,7 +311,7 @@ var barOption = {
                    width: 30,
                    height: '80%',
                    showDataShadow: false,
-                   left: '10%'
+                   left: '10%',
                }
            ],
     series : [
@@ -343,22 +342,22 @@ var  label = {
 function initEcharts(pieChartName){
 	data1 = [
 	         {
-	             value: [50,50], symbolSize: 140, name: pieChartName[0], label:label
+	             value: [50,50], symbolSize: 160, name: pieChartName[0], label:label
 	         },
 	         {
-	             value: [10,60], symbolSize: 95, name: pieChartName[1], label:label
+	             value: [10,60], symbolSize: 115, name: pieChartName[1], label:label
 	         },
 	         {
-	             value: [24,18], symbolSize: 65, name: pieChartName[2], label:label
+	             value: [24,18], symbolSize: 85, name: pieChartName[2], label:label
 	         },
 	         {
-	             value: [90,30], symbolSize: 93, name: pieChartName[3], label:label
+	             value: [90,30], symbolSize: 113, name: pieChartName[3], label:label
 	         },
 	         {
-	             value: [85,82], symbolSize: 86, name: pieChartName[4], label:label
+	             value: [85,82], symbolSize: 106, name: pieChartName[4], label:label
 	         },
 	         {
-	             value: [30,92], symbolSize: 70, name: pieChartName[5], label: label
+	             value: [30,92], symbolSize: 90, name: pieChartName[5], label: label
 	         }
 	     ];
 	return data1;
@@ -590,7 +589,7 @@ function showGardenPolicy(area){
 	});
 }
 function showGardenList(area){
-	var req = {"pageNumber":0,"pageSize":5,msg:['不限',area,'园区占地','desc']};
+	var req = {"pageNumber":0,"pageSize":5,msg:['全部',area,'园区占地','desc']};
 	$.ajax({
 		type:'post',
 		url:'/apis/area/findGardensList.json',

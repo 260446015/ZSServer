@@ -109,23 +109,33 @@ function showScan(_province,_address){
                             position : [ result.geocodes[0].location.lng, result.geocodes[0].location.lat ]
                         });
                         marker.on('click',function(){
-                            // 自定义点标记内容
-                            var markerContent = document.createElement("div");
-
-                            // 点标记中的图标
-                            var markerImg = document.createElement("img");
-                            markerImg.className = "markerlnglat";
-                            markerImg.src = "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png";
-                            markerContent.appendChild(markerImg);
-
-                            // 点标记中的文本
-                            var markerSpan = document.createElement("span");
-                            markerSpan.className = 'marker';
-                            markerSpan.style.color = 'blue';
-                            markerSpan.innerHTML = companyName;
-                            markerContent.appendChild(markerSpan);
-
-                            marker.setContent(markerContent); //更新点标记内容
+                        	if(marker.Pg.content == undefined){
+	                            // 自定义点标记内容
+	                            var markerContent = document.createElement("div");
+	                            // 点标记中的图标
+	                            var markerImg = document.createElement("img");
+	                            markerImg.className = "markerlnglat";
+	                            markerImg.src = "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png";
+	                            markerContent.appendChild(markerImg);
+	
+	                            // 点标记中的文本
+	                            var markerSpan = document.createElement("span");
+	                            markerSpan.className = 'marker';
+	                            markerSpan.style.color = 'blue';
+	                            markerSpan.innerHTML = companyName;
+	                            markerContent.appendChild(markerSpan);
+	
+	                            marker.setContent(markerContent); //更新点标记内容
+                        	}else{
+                        		 var markerContent = document.createElement("div");
+                        		// 点标记中的图标
+ 	                            var markerImg = document.createElement("img");
+ 	                            markerImg.className = "markerlnglat";
+ 	                            markerImg.src = "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png";
+ 	                            markerContent.appendChild(markerImg);
+                        		marker.setContent(markerContent);
+                        		marker.Pg.content = undefined;
+                        	}
                         });
                     }
                 });

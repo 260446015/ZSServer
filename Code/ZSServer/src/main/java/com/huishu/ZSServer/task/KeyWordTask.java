@@ -62,8 +62,8 @@ public class KeyWordTask {
 //			JSONArray arr = service.getKeyWordList(obj);
 			List<KeywordModel> list1 = service.fiindKeyWordList(obj);
 			List<KeyWordEntity> list = kservice.findKeyWordList(str);
-			
-			if(list.size() == 0){
+			if(list1 != null){
+			 if(list.size() == 0){
 				List<KeyWordEntity> li = new ArrayList<KeyWordEntity>();
 				list1.forEach(json->{
 					try {
@@ -89,6 +89,7 @@ public class KeyWordTask {
 				}
 				boolean info = kservice.saveKeyWord(li);
 				log.info("保存的结果是：》》》》》》》》》"+info);
+				}
 			}
 		});
 		log.info("词云更新/保存成功");
