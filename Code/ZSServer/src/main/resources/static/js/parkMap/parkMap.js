@@ -342,22 +342,22 @@ var  label = {
 function initEcharts(pieChartName){
 	data1 = [
 	         {
-	             value: [50,50], symbolSize: 140, name: pieChartName[0], label:label
+	             value: [50,50], symbolSize: 160, name: pieChartName[0], label:label
 	         },
 	         {
-	             value: [10,60], symbolSize: 95, name: pieChartName[1], label:label
+	             value: [10,60], symbolSize: 115, name: pieChartName[1], label:label
 	         },
 	         {
-	             value: [24,18], symbolSize: 65, name: pieChartName[2], label:label
+	             value: [24,18], symbolSize: 85, name: pieChartName[2], label:label
 	         },
 	         {
-	             value: [90,30], symbolSize: 93, name: pieChartName[3], label:label
+	             value: [90,30], symbolSize: 113, name: pieChartName[3], label:label
 	         },
 	         {
-	             value: [85,82], symbolSize: 86, name: pieChartName[4], label:label
+	             value: [85,82], symbolSize: 106, name: pieChartName[4], label:label
 	         },
 	         {
-	             value: [30,92], symbolSize: 70, name: pieChartName[5], label: label
+	             value: [30,92], symbolSize: 90, name: pieChartName[5], label: label
 	         }
 	     ];
 	return data1;
