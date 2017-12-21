@@ -295,10 +295,9 @@ var barOption = {
     dataZoom: [
                {
                    show: false,
-                   start: 50,
-                   end: 90,
+                   end: 50,
                    left:"10%",
-                   start: 0
+                   start: 0,
                },
                {
                    type: 'inside',
@@ -312,7 +311,7 @@ var barOption = {
                    width: 30,
                    height: '80%',
                    showDataShadow: false,
-                   left: '10%'
+                   left: '10%',
                }
            ],
     series : [
@@ -590,7 +589,7 @@ function showGardenPolicy(area){
 	});
 }
 function showGardenList(area){
-	var req = {"pageNumber":0,"pageSize":5,msg:['不限',area,'园区占地','desc']};
+	var req = {"pageNumber":0,"pageSize":5,msg:['全部',area,'园区占地','desc']};
 	$.ajax({
 		type:'post',
 		url:'/apis/area/findGardensList.json',

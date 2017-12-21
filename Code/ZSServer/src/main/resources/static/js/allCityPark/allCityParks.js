@@ -93,9 +93,11 @@ function showGardenList(d,e,f){
                             '<img src="'+arr[i].gardenPicture+'" width="160" /></div>' +
                             '<div class="right-list">' +
                             '<a class="scatter-blocks no-border" href="/apis/area/garden/allCityParkDetails.html?name='+arr[i].gardenName+'">' +
-                            '<span class="scatter-title">'+arr[i].gardenName+'</span>' +
-                            '<span class="scatter-type ml10">'+arr[i].gardenLevel+'</span>' +
-                            '<span class="pull-right">入驻企业<span class="numbers">'+arr[i].enterCount+'</span>家</span></a>' +
+                            '<span class="scatter-title">'+arr[i].gardenName+'</span>';
+                        if(arr[i].gardenLevel != null && arr[i].gardenLevel != ''){
+                        	html += '<span class="scatter-type ml10">'+arr[i].gardenLevel+'</span>';
+                        }
+                        	html += '<span class="pull-right">入驻企业<span class="numbers">'+arr[i].enterCount+'</span>家</span></a>' +
                             '<p class="park-address">' +
                             '<span class="glyphicon glyphicon-map-marker"></span>'+arr[i].address+'</p>' +
                             '<p class="net-address">' +
