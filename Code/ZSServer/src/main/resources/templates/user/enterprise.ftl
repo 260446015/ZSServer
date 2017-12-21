@@ -30,19 +30,6 @@
                         </div>
                         <div class="search-group">
                             <div class="search-item-title">
-                                企业规模
-                            </div>
-                            <div class="search-item-content">
-                            	<a href="javascript:void(0);" class="search-item active">全部</a>
-                            	<a href="javascript:void(0);" class="search-item">1-50人</a>
-                            	<a href="javascript:void(0);" class="search-item">51-200人</a>
-                            	<a href="javascript:void(0);" class="search-item">201-500人</a>
-                            	<a href="javascript:void(0);" class="search-item">501-2000人</a>
-                            	<a href="javascript:void(0);" class="search-item">2000人以上</a>
-                            </div>
-                        </div>
-                        <div class="search-group">
-                            <div class="search-item-title">
                                成立时间
                             </div>
                             <div class="search-item-content">
@@ -79,14 +66,14 @@
                             <div class="search-item-title">
                                 企业分组
                             </div>
-                            <div class="search-item-content">
-                                <a href="javascript:void(0);" class="search-item active">全部</a>
-                                <a href="javascript:void(0);" class="add-item active" style= "margin-left:80%;">+添加企业分组</a>
+                            <div class="search-item-content" >
+                                <a href="javascript:void(0);" id="gardenGroup" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" class="add-item active" style= "margin-left:80%;" onclick="addGroup();">+添加企业分组</a>
                             </div>
                         </div>
                     </div>
-                    <div class="model-body border-box">
-                        <div class="row" id="gardenList">
+                    <div class="model-body">
+                        <div class="row" id="city_list">
                             
                         </div>
                     </div>

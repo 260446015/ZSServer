@@ -126,6 +126,7 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 					ca = new CompanyAttation();
 					ca.setCompanyId(companyId);
 					ca.setUserId(userId);
+					ca.setCompanyGroup("");
 					companyAttaRepository.save(ca);
 				}
 			} else {

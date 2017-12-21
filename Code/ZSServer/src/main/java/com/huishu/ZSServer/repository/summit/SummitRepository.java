@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.repository.summit;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -23,5 +25,21 @@ public interface SummitRepository extends CrudRepository<UserSummitInfo, Long>{
 	 * @return
 	 */
 	UserSummitInfo findByAidAndUid(String aid, Long uid);
+	
+	/**
+	 * 关注峰会列表
+	 * @param uid
+	 * @param address
+	 * @param idustry
+	 * @return
+	 */
+	Page<UserSummitInfo> findByUidAndAddressLikeAndIdustryLike(Long uid,String address,String idustry,Pageable request);
+	
+	/**
+	 * 删除该用户关注的峰会
+	 * @param aid
+	 * @param uid
+	 */
+	void deleteByAidAndUid(Long aid, Long uid);
 
 }

@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.huishu.ZSServer.entity.Institutional;
+import com.huishu.ZSServer.entity.UserSummitInfo;
+import com.huishu.ZSServer.entity.dto.CompnayDTO;
+import com.huishu.ZSServer.entity.dto.IndustrySummitDTO;
+import com.huishu.ZSServer.entity.vo.CompanyVO;
 
 /**
  * 关注中心service
@@ -42,12 +46,63 @@ public interface CenterOfAttentionService {
 	 * @param userId
 	 * @return
 	 */
-	List<String> getGardenIndustry(Long userId);
+	List<String> getCompnayIndustry(Long userId);
 	
 	/**
 	 * 查询关注园区地域
 	 * @param userId
 	 * @return
 	 */
-	List<String> getGardenArea(Long userId);
+	List<String> getCompnayArea(Long userId);
+	
+	/**
+	 * 查询关注园区分组
+	 * @param userId
+	 * @return
+	 */
+	List<String> getCompnayGroup(Long userId);
+	
+	/**
+	 * 查询关注企业列表
+	 * @param userId
+	 * @param dto
+	 * @return
+	 */
+	List<CompanyVO> findCompnayList(Long userId,CompnayDTO dto);
+	
+	/**
+	 * 添加企业分组
+	 * @param userId
+	 * @param name
+	 */
+	Boolean addCompnayGroup(Long userId,String name);
+	/**
+	 * 移动企业分组
+	 * @param userId
+	 * @param id
+	 * @param name
+	 * @return
+	 */
+	Boolean moveCompnayGroup(Long id,Long groupId,String name);
+	
+	/**
+	 * 取消对企业的关注
+	 * @param id
+	 * @param userId
+	 */
+	void cancelCompnay(Long id,Long userId);
+	
+	/**
+	 * 查询关注峰会列表
+	 * @param json
+	 * @return
+	 */
+	Page<UserSummitInfo> listSummitMeetingList(Long userId,IndustrySummitDTO dto);
+	
+	/**
+	 * 取消对峰会的关注
+	 * @param id
+	 * @param userId
+	 */
+	void cancelSummitMeeting(Long id,Long userId);
 }
