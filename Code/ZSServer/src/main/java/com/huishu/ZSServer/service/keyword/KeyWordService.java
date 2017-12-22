@@ -28,4 +28,12 @@ public interface KeyWordService {
 	 */
 	boolean saveKeyWord(List<KeyWordEntity> li);
 
+	/**
+	 * 删除多余的数据
+	 * @param list
+	 * @return
+	 */
+	boolean deleteData(List<KeyWordEntity> list);
+	
+	
 }

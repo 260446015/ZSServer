@@ -143,19 +143,22 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			String dimension = obj.getString("dimension");
 			bq.must(QueryBuilders.termQuery("dimension", dimension));
 		}
-		BoolQueryBuilder or = new BoolQueryBuilder();
 		JSONArray arr = obj.getJSONArray("industryLabel");
 		if(arr!= null){
 			for(int i=0;i<arr.size();i++){
 				JSONObject jso = arr.getJSONObject(i);
 				String str = jso.getString("value");
-				or.should(QueryBuilders.termQuery("industryLabel",str ));
+				bq.must(QueryBuilders.termQuery("industryLabel",str ));
 			}
 		}
-		bq.must(or);
 		if (StringUtil.isNotEmpty(obj.getString("keyWord"))) {
 			String keyWord = obj.getString("keyWord");
 			bq.must(QueryBuilders.wildcardQuery("content", "*" + keyWord + "*"));
+		}
+		if (StringUtil.isNotEmpty(obj.getString("startTime")) && StringUtil.isNotEmpty(obj.getString("endTime"))) {
+			String startTime = obj.getString("startTime");
+			String endTime = obj.getString("endTime");
+			bq.must(QueryBuilders.rangeQuery("publishTime").from(startTime).to(endTime));
 		}
 		TermsBuilder articleLinkBuilder = AggregationBuilders.terms("articleLink").field("articleLink")
 				.order(Order.count(false)).size(500);
@@ -235,7 +238,6 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 		Pageable pageable = new PageRequest(0, 6,new Sort(Direction.DESC, "publishTime"));
 		SearchQuery query = getSearchQueryBuilder().withQuery(bq).withPageable(pageable).withSort(SortBuilders.fieldSort("hitCount")).build();
 		Page<AITInfo> search = template.queryForPage(query, AITInfo.class);
-//		Page<AITInfo> search = rep.search(bq, pageable);
 		search.getContent().forEach(action->{
 			List<String> list = null;
 			try {

@@ -43,4 +43,17 @@ public class KeyWordServiceImpl implements KeyWordService {
 		}
 	}
 
+	@Override
+	public boolean deleteData(List<KeyWordEntity> list) {
+		try {
+			rep.delete(list);
+			return true;	
+		} catch (Exception e) {
+			list.forEach(action->{
+				rep.delete(action);
+			});
+			return true;
+		}
+	}
+
 }

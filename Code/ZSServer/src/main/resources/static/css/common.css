@@ -90,10 +90,14 @@ body{
     background-color: transparent;
 }
 .navbar-trans{
-    background-color: rgba(4,9,14,.5);
+    background-color: rgba(4,9,14,1);
     -webkit-box-shadow:  0 0 7px rgba(10,118,197,.35);
     -moz-box-shadow:  0 0 7px rgba(10,118,197,.35);
     box-shadow:  0 0 7px rgba(10,118,197,.35);
+    right: 0;
+    left: 0;
+    position: fixed;
+    z-index: 9;
 }
 /*PC  header*/
 @media (min-width: 768px) {
@@ -136,6 +140,7 @@ body{
 }
 .page-content{
     position: relative;
+    padding-top: 80px;
 }
 /*页面主体部分  end*/
 /*产业地图 start*/
@@ -238,8 +243,8 @@ body{
 .left-nav {
     float:left;
     width: 120px;
-    padding-top: 46px;
-    padding-bottom: 46px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     background-color: #050b14;
     box-shadow: 0 0 9px rgba(0, 191, 255, .25);
 }
@@ -249,7 +254,7 @@ body{
 .left-nav.posa{
     position: fixed;
     left:0;
-    top:10px;
+    top:82px;
     z-index: 1;
 }
 .right-content{

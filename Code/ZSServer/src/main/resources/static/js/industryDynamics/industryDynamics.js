@@ -19,6 +19,8 @@ $(function () {
 	var time ="近1周";
 	getKeyWordCloud(time);
     getIndustry(0,0);
+    new Loading({isfullscreen:true}).hide();
+
 });
 var scatter = echarts.init(document.getElementById("scatter"));
 scatter.on('click',function(param){
@@ -33,14 +35,21 @@ function getKeyWordCloud(d){
  		type:'POST',
 		data:param,
  		success:function(res){
- 			if(res.data==null){
- 				new Alert({flag:false,text:res.message,timer:2000}).show();
+ 			if(res.data.length==0){
+ 				echarts.dispose(document.getElementById("scatter"));
+ 				 $('#scatter').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
+ 				 $('#articleList').html('');
  			}else{
  				var arr = res.data;
+ 				echarts.dispose(document.getElementById("scatter"));
+ 				var scatter = echarts.init(document.getElementById("scatter"));
  				echartDataInit(arr);
  				option.series[0].data=data1;
- 				scatter.setOption(option);
- 				new Loading({isfullscreen:true}).hide();
+ 				scatter.setOption(option, true);
+ 				scatter.on('click',function(param){
+ 					var d = $("input[type=radio]:checked").val();
+ 					getArticleByKeyWord(d,param.name);
+ 				});
  				getArticleByKeyWord(d,arr[0].name);
  			}
 		 }
