@@ -32,7 +32,7 @@ function showMore(a,b,p){
                                 		'<span>'+arr[i].publishTime+'</span></p></div>';
 				}
 				$("#findMore").html(html);
-				if(res.data.totalPage>1){
+				if(res.data.totalPage>0){
 					page.init(res.data.totalNumber,res.data.pageNumber,options);
 					$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
 						showMore(park,dimension,$(this).attr("page-data")-1);

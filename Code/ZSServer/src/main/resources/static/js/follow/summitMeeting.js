@@ -50,17 +50,13 @@ function SummitInfo(param){
 					$('#summit-list').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
 					$('#page').html('');
 			    }else{
-			    	$('#summit-list').html(show(res.data.dataList));
-			    }
-				if(res.data.totalPage>1){
-					page.init(res.data.totalNumber,res.data.pageNumber,options);
+			    	page.init(res.data.totalNumber,res.data.pageNumber,options);
 					$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
 	            		var param={industry:industry,sort:sort,area:area,pageNumber:$(this).attr("page-data")-1,pageSize:pageSize};
 	            		SummitInfo(param);
 	                });
-				}else{
-					$('#page').html("");
-				}
+			    	$('#summit-list').html(show(res.data.dataList));
+			    }
 			}else{
         		new Alert({flag:false,text:res.message,timer:2000}).show();
         	}

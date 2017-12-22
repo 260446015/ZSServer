@@ -24,14 +24,10 @@ function myAjax(i,num){
             		 $('#organization_list').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
             		 $('#page').html("");
         		}else{
-        			if(result.data.totalPage<2){
-            			$('#page').html("");
-                	}else{
-                		page.init(result.data.totalNumber,result.data.pageNumber,options);
-    	            	$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
-    	            		myAjax(i,$(this).attr("page-data")-1);
-    	                });
-                	}
+            		page.init(result.data.totalNumber,result.data.pageNumber,options);
+	            	$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+	            		myAjax(i,$(this).attr("page-data")-1);
+	                });
         			$('#organization_list').html(show(result.data.dataList));
         		}
         	}else{
