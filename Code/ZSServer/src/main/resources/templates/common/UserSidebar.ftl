@@ -2,7 +2,7 @@
   <div class="left-nav left-nav-icon3">
             <ul>
                 <li id="basicinfoItem">
-                    <a href="/apis/user/basicinfo.html">
+                    <a href="/apis/user/basicInfo.html">
                         <div class="circle-out industryIcon">
                             <div class="circle-in">
 
