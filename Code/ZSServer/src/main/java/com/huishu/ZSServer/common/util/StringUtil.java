@@ -280,12 +280,27 @@ public class StringUtil {
 		return list;
 	}
 	public static String getIndustryInfo(String keyWord){
-		for(int i=0;i< industry_info.length ;i++){
-			if(keyWord.equals(industry_info[i])){
-				return industry_info[i];
-			}
+		
+		JSONObject obj = KeyWordInfo();
+		String s1 = obj.getString("生物技术");
+		String s2 =obj.getString("人工智能");
+		String s3 =obj.getString("大数据");
+		String s4 = obj.getString("物联网");
+		if(s1.indexOf(keyWord)>0){
+			return "生物医药";
 		}
-		return "";
+		if(s2.indexOf(keyWord)>0){
+			return "人工智能";
+		}
+		if(s3.indexOf(keyWord)>=0){
+			return "大数据";
+		}
+		if(s4.indexOf(keyWord)>=0){
+			return "物联网";
+		}else{
+			return "";
+		}
+		
 	}
 	public static JSONObject getIndustry(JSONObject json){
 		int i = industry_info.length;
@@ -299,5 +314,15 @@ public class StringUtil {
 		}
 		json.put("industryLabel", array);
 		return json;
+	}
+	public static JSONObject KeyWordInfo(){
+		String s1="人工智能,智能算法,深度学习,机器学习,自然语言处理,语义分析,传感器,量子计算机,芯片,无人驾驶,自动驾驶,智能家居,智能设备,无人机,机器人,识别,生物识别,语音识别,图像识别";
+		String s2="生物药品,生物制药,食品制造,生物燃料制造,生物农业用品制造,生物化工品制造,生物制品,医疗设备制造,生物设备制造,生物仪器制造,生物技术,基因技术";
+		JSONObject obj= new JSONObject();
+		obj.put("人工智能", s1);
+		obj.put("生物技术", s2);
+		obj.put("大数据", "大数据");
+		obj.put("物联网", "物联网");
+		return obj;
 	}
 }
