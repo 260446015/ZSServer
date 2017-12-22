@@ -10,8 +10,8 @@ import com.forget.analysis.Analysis;
 import com.huishu.ZSServer.entity.Enterprise;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.Institutional;
+import com.huishu.ZSServer.repository.company.EnterPriseRepository;
 import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
-import com.huishu.ZSServer.repository.instituton.EnterpriseRepository;
 import com.huishu.ZSServer.repository.instituton.InstitutionalRepostitory;
 import com.huishu.ZSServer.service.data.DataService;
 
@@ -31,7 +31,7 @@ public class DataServiceImpl implements DataService {
 	@Autowired
 	private IndusCompanyRepository rep;
 	@Autowired
-	private EnterpriseRepository ep;
+	private EnterPriseRepository ep;
 
 	/**
 	 * 转换机构库数据

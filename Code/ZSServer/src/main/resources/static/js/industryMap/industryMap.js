@@ -9,7 +9,7 @@ $(function (){
 	/*获取企业排行的数据*/
 	industryHotRank(industry);
 	industryMapData(industry);
-	
+	new Loading({isfullscreen:true}).hide();
 });
 
 $(".mark-box").on("click","li>a.mark-item",function () {
@@ -220,12 +220,13 @@ function industryMapData(a){
 			}else{
 				var  dd =  res.data.map;
 				var label = res.data.label;
-				var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
+//				var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
 				chinaOption.series[1].data = convertData(dd);
 				chinaOption.visualMap.max = label[0].value;
-				chinaOption.series[0].data = label;
+//				chinaOption.series[0].data = label;
+				chinaOption.series[0].data = EopaciData(label);
 				industryMap.setOption(chinaOption);
-				new Loading({isfullscreen:true}).hide();
+				
 			}
 		}
 	});
@@ -418,6 +419,7 @@ var geoCoordMap = {
 };
 var convertData = function (data) {
     var res = [];
+   
     for (var i = 0; i < data.length; i++) {
         var geoCoord = geoCoordMap[data[i].name];
         if(data[i].value>500){
@@ -432,7 +434,26 @@ var convertData = function (data) {
     }
     return res;
 };
-
+var EopaciData = function (a){
+	 	var sum =0;
+	 	var res = [];
+	    for(var j =0;j<a.length;j++){
+	    	sum += a[j].value;
+	    }
+	    for (var i = 0; i < a.length; i++) {
+	    	res.push({
+	    		name:a[i].name,
+	    		value:a[i].value,
+	    		itemStyle:{
+	    			normal:{
+	    				opacity:parseFloat((a[i].value/sum).toFixed(2))
+    				}
+	    		}
+	    		
+	    	});
+	    }
+	    return res;
+}
 var chinaOption = {
 		 visualMap: {
              seriesIndex: 0,
@@ -452,6 +473,7 @@ var chinaOption = {
             zoom: 1.25,
             label: {
                 normal: {
+                	opacity:.6,
                     show: false,
                     color: '#fff'
                 },
@@ -483,15 +505,18 @@ var chinaOption = {
             }
         },
         itemStyle: {
+        	normal:{
+        		opacity:.6,
+        	},
             emphasis: {
+            	opacity:1,
                 show: false,
                 areaColor: '',
                 borderColor: ''
             }
         },
         roam: false,
-        data:[
-        ]
+        data:[]
     },
     {
         name: 'Top 5',

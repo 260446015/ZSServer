@@ -247,9 +247,9 @@ body{
     background-color: rgba(5,11,20,.9);
 }
 .left-nav.posa{
-    position: absolute;
+    position: fixed;
     left:0;
-    top:0;
+    top:10px;
     z-index: 1;
 }
 .right-content{
@@ -2100,6 +2100,7 @@ a.search-item.active{
 .posa-right-container {
     padding-left: 140px;
     padding-right: 20px;
+     padding-top : 1px;
 }
 #industryInfoList .border-bottom .scatter-content{
 	margin-bottom:10px;

@@ -640,6 +640,16 @@
         function randomData() {
             return Math.round(Math.random()*2500);
         }
+		function randomEData(param , data){
+		
+		 var sum =0;
+		 for(var i = 0; i < data.length; i++){
+			param = data[i].value;
+			sum += data[i].value;
+		 }
+		 
+			return (param/sum)*100;
+		}
         var convertData = function (data) {
             var res = [];
             for (var i = 0; i < data.length; i++) {
@@ -710,9 +720,9 @@
                         }
                     },
                     itemStyle: {
-//                        normal: {
-//                            opacity: .1
-//                        },
+                        /**normal: {
+                            opacity: randomEData(data.value,data),
+                        },*/
                         emphasis: {
                             show: false,
                             areaColor: '',
@@ -721,40 +731,40 @@
                     },
                     roam: false,
                     data:[
-                        {name: '北京',value: randomData() },
-                        {name: '天津',value: randomData() },
-                        {name: '上海',value: randomData() },
-                        {name: '重庆',value: randomData() },
-                        {name: '河北',value: randomData() },
-                        {name: '河南',value: randomData() },
-                        {name: '云南',value: randomData() },
-                        {name: '辽宁',value: randomData() },
-                        {name: '黑龙江',value: randomData() },
-                        {name: '湖南',value: randomData() },
-                        {name: '安徽',value: randomData() },
-                        {name: '山东',value: randomData() },
-                        {name: '新疆',value: randomData() },
-                        {name: '江苏',value: randomData() },
-                        {name: '浙江',value: randomData() },
-                        {name: '江西',value: randomData() },
-                        {name: '湖北',value: randomData() },
-                        {name: '广西',value: randomData() },
-                        {name: '甘肃',value: randomData() },
-                        {name: '山西',value: randomData() },
-                        {name: '内蒙古',value: randomData() },
-                        {name: '陕西',value: randomData() },
-                        {name: '吉林',value: randomData() },
-                        {name: '福建',value: randomData() },
-                        {name: '贵州',value: randomData() },
-                        {name: '广东',value: randomData() },
-                        {name: '青海',value: randomData() },
-                        {name: '西藏',value: randomData() },
-                        {name: '四川',value: randomData() },
-                        {name: '宁夏',value: randomData() },
-                        {name: '海南',value: randomData() },
-                        {name: '台湾',value: randomData() },
-                        {name: '香港',value: randomData() },
-                        {name: '澳门',value: randomData() }
+                        {name: '北京',value: randomData(),normal:{opacity:.5} },
+                        {name: '天津',value: randomData(),normal:{opacity:.2} },
+                        {name: '上海',value: randomData() ,normal:{opacity:.3}},
+                        {name: '重庆',value: randomData(),normal:{opacity:.2} },
+                        {name: '河北',value: randomData() ,normal:{opacity:.3}},
+                        {name: '河南',value: randomData(),normal:{opacity:.2} },
+                        {name: '云南',value: randomData() ,normal:{opacity:.3}},
+                        {name: '辽宁',value: randomData(),normal:{opacity:.6} },
+                        {name: '黑龙江',value: randomData(),normal:{opacity:.8} },
+                        {name: '湖南',value: randomData(),normal:{opacity:.9} },
+                        {name: '安徽',value: randomData(),normal:{opacity:.6} },
+                        {name: '山东',value: randomData(),normal:{opacity:.4} },
+                        {name: '新疆',value: randomData() ,normal:{opacity:.3}},
+                        {name: '江苏',value: randomData() ,normal:{opacity:.6}},
+                        {name: '浙江',value: randomData() ,normal:{opacity:.8}},
+                        {name: '江西',value: randomData(),normal:{opacity:.2} },
+                        {name: '湖北',value: randomData(),normal:{opacity:.8} },
+                        {name: '广西',value: randomData() ,normal:{opacity:.4}},
+                        {name: '甘肃',value: randomData() ,normal:{opacity:.6}},
+                        {name: '山西',value: randomData() ,normal:{opacity:.5}},
+                        {name: '内蒙古',value: randomData() ,normal:{opacity:.5}},
+                        {name: '陕西',value: randomData() ,normal:{opacity:.5}},
+                        {name: '吉林',value: randomData() ,normal:{opacity:.6}},
+                        {name: '福建',value: randomData() ,normal:{opacity:.3}},
+                        {name: '贵州',value: randomData() ,normal:{opacity:.2}},
+                        {name: '广东',value: randomData(),normal:{opacity:.5} },
+                        {name: '青海',value: randomData() ,normal:{opacity:.7}},
+                        {name: '西藏',value: randomData() ,normal:{opacity:.5}},
+                        {name: '四川',value: randomData(),normal:{opacity:.6} },
+                        {name: '宁夏',value: randomData() ,normal:{opacity:.5}},
+                        {name: '海南',value: randomData() ,normal:{opacity:.4}},
+                        {name: '台湾',value: randomData() ,normal:{opacity:.5}},
+                        {name: '香港',value: randomData(),normal:{opacity:.4} },
+                        {name: '澳门',value: randomData() ,normal:{opacity:.5}}
                     ]
                 },
                 {
