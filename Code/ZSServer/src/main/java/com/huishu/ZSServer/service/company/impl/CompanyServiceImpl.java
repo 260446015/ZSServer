@@ -104,12 +104,10 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 					.filter(obj -> {
 						return obj.getRegisterDate().compareTo(stime) >= 0
 								&& obj.getRegisterDate().compareTo(etime) < 0;
-					}).collect(Collectors.toList());
-			findAll = findAll.stream().filter(obj -> {
-				return obj.getRc() >= sregist && obj.getRc() < eregist;
-			}).collect(Collectors.toList());
-			list2 = findAll.stream().sorted((a, b) -> b.getRegisterCapital().compareTo(a.getRegisterCapital()))
-					.skip(pageNum * pageSize).limit(pageSize).collect(Collectors.toList());
+					}).filter(obj -> {
+						return obj.getRc() >= sregist && obj.getRc() < eregist;
+					}).sorted((a, b) -> b.getRegisterCapital().compareTo(a.getRegisterCapital())).collect(Collectors.toList());
+			list2 = findAll.stream().skip(pageNum * pageSize).limit(pageSize).collect(Collectors.toList());
 			page = new PageImpl<>(list2, pageRequest, findAll.size());
 		} catch (Exception e) {
 			LOGGER.error("查询企业列表失败", e.getMessage());
@@ -126,6 +124,7 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 					ca = new CompanyAttation();
 					ca.setCompanyId(companyId);
 					ca.setUserId(userId);
+					ca.setCompanyGroup("");
 					companyAttaRepository.save(ca);
 				}
 			} else {
