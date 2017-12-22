@@ -92,6 +92,7 @@ function showScan(_province,_address){
         });
 //        map.setCity(province);
         geocoder.getLocation(park, function(status, result) {
+        	console.log(result);
         	map.setZoomAndCenter(12, [result.geocodes[0].location.lng, result.geocodes[0].location.lat]);
         });
 //        console.log(province);
@@ -181,9 +182,6 @@ function unrotates() {
             return -$(this).height() / 2
         }
     });
-    $('html,body').animate({
-        scrollTop : $(".right-content .container").offset().top - 50
-    }, 300);
 }
 function showGardenInfo(data) {
     $.ajax({
@@ -192,7 +190,6 @@ function showGardenInfo(data) {
         url : '/apis/area/findGardenInfo.json?gardenName=' + data,
         success : function(res) {
             if (res.success) {
-                console.log(res.data);
                 province = res.data.gardenName;
                 if (res.data.flag)
                     $("#attation").html('取消关注');
