@@ -6,14 +6,21 @@ $(function(){
     $("#indus").removeClass("active");
     $("#report").removeClass("active");
     $("#all").addClass("active");
+    area = GetQueryString("area");
     showGardenindustry();
     showGardenArea();
+    $("#gardenArea a").each(function(){
+    	if($(this).html() == area){
+    		$(this).addClass("active").siblings().removeClass("active");
+    	}
+    });
     $(".search-box").on("click",".search-item-content>a",function(){
         $(this).addClass("active").siblings().removeClass("active");
         showGardenList(sortType,pageNumber,pageSize);
     });
     showGardenList(sortType,pageNumber,pageSize);
 });
+var area;
 var pageNumber = 0;
 var pageSize = 10;
 var options={
@@ -53,6 +60,7 @@ function showGardenArea(){//获取园区地域分组
     $.ajax({
         type:'get',
         url:'/apis/area/getGardenArea.json',
+        async:false,
         success:function(res){
             if(res.success){
                 var arr = res.data;
