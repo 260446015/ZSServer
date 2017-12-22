@@ -33,6 +33,22 @@ public class CompanyAttation implements Serializable{
 	private Long companyId;
 	/**是否删除*/
 	private Integer isDelete;
+	/** 分组 */
+	private Long groupId;
+	private String companyGroup;
+	
+	public Long getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+	public String getCompanyGroup() {
+		return companyGroup;
+	}
+	public void setCompanyGroup(String companyGroup) {
+		this.companyGroup = companyGroup;
+	}
 	public Long getId() {
 		return id;
 	}

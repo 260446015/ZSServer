@@ -291,6 +291,8 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 				entity.setExhibitiontime(one.getExhibitiontime());
 				entity.setTitle(one.getTitle());
 				entity.setUid(uid);
+				entity.setIdustry(one.getIdustryZero()+one.getIdustryTwice()+one.getIdustryThree());
+				entity.setArticleLink(one.getArticleLink());
 				rep.save(entity);
 			} catch (Exception e) {
 				return "关注失败！";

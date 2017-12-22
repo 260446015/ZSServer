@@ -449,105 +449,167 @@ public class AbstractService<T> {
 	 * @param list
 	 * @return
 	 */
-	protected List<String> conversionArea(List<String> list) {
-		List<String> result = new ArrayList<String>();
-		for (String string : list) {
+	protected String conversionArea(String string) {
 			 switch(string){
 	            case "bj":
-	            	result.add("北京");
-	                break;
+	            	return "北京";
 	            case "tj":
-	            	result.add("天津");
-	                break;
+	            	return "天津";
 	            case "heb":
-	            	result.add("河北");
-	                break;
+	            	return "河北";
 	            case "sx":
-	            	result.add("山西");
-	                break;
+	            	return "山西";
 	            case "nmg":
-	            	result.add("内蒙古");
-	                break;
+	            	return "内蒙古";
 	            case "ln":
-	            	result.add("辽宁");
-	                break;
+	            	return "辽宁";
 	            case "jl":
-	            	result.add("吉林");
-	                break;
+	            	return "吉林";
 	            case "hlj":
-	            	result.add("黑龙江");
-	                break;
+	            	return "黑龙江";
 	            case "sh":
-	            	result.add("上海");
-	                break;
+	            	return "上海";
+	                
 	            case "js":
-	            	result.add("江苏");
-	                break;
+	            	return "江苏";
+	                
 	            case "zj":
-	            	result.add("浙江");
-	                break;
+	            	return "浙江";
+	                
 	            case "ah":
-	            	result.add("安徽");
-	                break;
+	            	return "安徽";
+	                
 	            case "fj":
-	            	result.add("福建");
-	                break;
+	            	return "福建";
+	                
 	            case "jx":
-	            	result.add("江西");
-	                break;
+	            	return "江西";
+	                
 	            case "sd":
-	            	result.add("山东");
-	                break;
+	            	return "山东";
+	                
 	            case "gd":
-	            	result.add("广东");
-	                break;
+	            	return "广东";
+	                
 	            case "gx":
-	            	result.add("广西");
-	                break;
+	            	return "广西";
+	                
 	            case "han":
-	            	result.add("海南");
-	                break;
+	            	return "海南";
+	                
 	            case "hen":
-	            	result.add("河南");
-	                break;
+	            	return "河南";
+	                
 	            case "hub":
-	            	result.add("湖北");
-	                break;
+	            	return "湖北";
+	                
 	            case "hun":
-	            	result.add("湖南");
-	                break;
+	            	return "湖南";
+	                
 	            case "cq":
-	            	result.add("重庆");
-	                break;
+	            	return "重庆";
+	                
 	            case "sc":
-	            	result.add("四川");
-	                break;
+	            	return "四川";
+	                
 	            case "gz":
-	            	result.add("贵州");
-	                break;
+	            	return "贵州";
+	                
 	            case "yn":
-	            	result.add("云南");
-	                break;
+	            	return "云南";
+	                
 	            case "xz":
-	            	result.add("西藏");
-	                break;
+	            	return "西藏";
+	                
 	            case "snx":
-	            	result.add("陕西");
-	                break;
+	            	return "陕西";
+	                
 	            case "gs":
-	            	result.add("甘肃");
-	                break;
+	            	return "甘肃";
+	                
 	            case "qh":
-	            	result.add("青海");
-	                break;
+	            	return "青海";
+	                
 	            case "nx":
-	            	result.add("宁夏");
-	                break;
+	            	return "宁夏";
+	                
 	            case "xj":
-	            	result.add("新疆");
-	                break;
+	            	return "新疆";
+	                
 			 }
-		}
-		return result;
+			return null;
+	}
+	
+	/**
+	 * 将汉字地域转化成拼音简写
+	 * @param list
+	 * @return
+	 */
+	protected String conversionAreaTwo(String string) {
+			 switch(string){
+	            case "北京":
+	            	return "bj";
+	            case "天津":
+	            	return "tj";
+	            case "河北":
+	            	return "heb";
+	            case "山西":
+	            	return "sx";
+	            case "内蒙古":
+	            	return "nmg";
+	            case "辽宁":
+	            	return "ln";
+	            case "吉林":
+	            	return "jl";
+	            case "黑龙江":
+	            	return "hlj";
+	            case "上海":
+	            	return "sh";
+	            case "江苏":
+	            	return "js";
+	            case "浙江":
+	            	return "zj";
+	            case "安徽":
+	            	return "ah";
+	            case "福建":
+	            	return "fj";
+	            case "江西":
+	            	return "jx";
+	            case "山东":
+	            	return "sd";
+	            case "广东":
+	            	return "gd";
+	            case "广西":
+	            	return "gx";
+	            case "海南":
+	            	return "han";
+	            case "河南":
+	            	return "hen";
+	            case "湖北":
+	            	return "hub";
+	            case "湖南":
+	            	return "hun";
+	            case "重庆":
+	            	return "cq";
+	            case "四川":
+	            	return "sc";
+	            case "贵州":
+	            	return "gz";
+	            case "云南":
+	            	return "yn";
+	            case "西藏":
+	            	return "xz";
+	            case "陕西":
+	            	return "snx";
+	            case "甘肃":
+	            	return "gs";
+	            case "青海":
+	            	return "qh";
+	            case "宁夏":
+	            	return "nx";
+	            case "新疆":
+	            	return "xj";
+			 }
+			return null;
 	}
 }

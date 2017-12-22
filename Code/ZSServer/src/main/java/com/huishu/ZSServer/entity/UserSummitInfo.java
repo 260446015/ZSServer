@@ -39,7 +39,26 @@ public class UserSummitInfo implements Serializable {
 	
 	private String title;
 	
+	private String idustry;
 	
+	private String articleLink;
+	
+	public String getArticleLink() {
+		return articleLink;
+	}
+
+	public void setArticleLink(String articleLink) {
+		this.articleLink = articleLink;
+	}
+
+	public String getIdustry() {
+		return idustry;
+	}
+
+	public void setIdustry(String idustry) {
+		this.idustry = idustry;
+	}
+
 	public String getLogo() {
 		return logo;
 	}

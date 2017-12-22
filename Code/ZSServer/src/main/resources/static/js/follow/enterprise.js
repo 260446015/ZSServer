@@ -1,58 +1,64 @@
 var industry="全部";
-var size="全部";
 var time="全部";
 var money="全部";
 var area="全部";
 var group="全部";
+var sum=0;
 $("#followItem").addClass("active");
 $("#companyItem").addClass("active");
-$(".search-item").on("click",function(){
-	$(this).addClass("active").siblings().removeClass("active");
-	var type = $(this).parent().siblings().html();  
-	if(type.trim()=='产业'){
-		industry=$(this).html();
-	}else if(type.trim()=='企业规模'){
-		size=$(this).html();
-	}else if(type.trim()=='成立时间'){
-		time=$(this).html();
-	}else if(type.trim()=='注册资本'){
-		money=$(this).html();
-	}else if(type.trim()=='地域'){
-		area=$(this).html();
-	}else if(type.trim()=='企业分组'){
-		group=$(this).html();
-	}
-});
 String.prototype.trim=function() {
     return this.replace(/(^\s*)|(\s*$)/g,'');
 }
 $(function(){
 	addIndustryItem();
 	addAreaItem();
+	addGroupItem();
 	myAjax();
 });
+function injection(){
+	if(sum==3){
+		$(".search-item").on("click",function(){
+			$(this).addClass("active").siblings().removeClass("active");
+			var type = $(this).parent().siblings().html();  
+			if(type.trim()=='产业'){
+				industry=$(this).html();
+			}else if(type.trim()=='成立时间'){
+				time=$(this).html();
+			}else if(type.trim()=='注册资本'){
+				money=$(this).html();
+			}else if(type.trim()=='地域'){
+				area=$(this).html();
+			}else if(type.trim()=='企业分组'){
+				group=$(this).html();
+			}
+			myAjax();
+		});
+	}
+}
 function addIndustryItem(){
 	$.ajax({
         type:'get',
-        url:'/apis/area/getGardenIndustry.json',
+        url:'/apis/follow/getCompnayIndustry.json',
         success:function(res){
             if(res.success){
                 var arr = res.data;
                 var html = '';
                 for(var i=0;i<arr.length;i++){
-                    html += '<a href="javascript:void(0);" class="search-item">'+arr[i].industryOne+'</a>';
+                    html += '<a href="javascript:void(0);" class="search-item">'+arr[i]+'</a>';
                 }
                 $("#gardenIndustry").append(html);
             }else{
-        		new Alert({flag:false,text:result.message,timer:2000}).show();
+        		new Alert({flag:false,text:res.message,timer:2000}).show();
         	}
+            sum=sum+1;
+            injection();
         }
     });
 }
 function addAreaItem(){
 	$.ajax({
         type:'get',
-        url:'/apis/area/getGardenArea.json',
+        url:'/apis/follow/getCompnayArea.json',
         success:function(res){
             if(res.success){
                 var arr = res.data;
@@ -62,67 +68,97 @@ function addAreaItem(){
                 }
                 $("#gardenArea").append(html);
             }else{
-        		new Alert({flag:false,text:result.message,timer:2000}).show();
+        		new Alert({flag:false,text:res.message,timer:2000}).show();
         	}
+            sum=sum+1;
+            injection();
+        }
+    });
+}
+function addGroupItem(){
+	$.ajax({
+        type:'get',
+        url:'/apis/follow/getCompnayGroup.json',
+        success:function(res){
+            if(res.success){
+                var arr = res.data;
+                var html = '';
+                for(var i=0;i<arr.length;i++){
+                    html += '<a href="javascript:void(0);" class="search-item">'+arr[i]+'</a>';
+                }
+                $("#gardenGroup").after(html);
+            }else{
+        		new Alert({flag:false,text:res.message,timer:2000}).show();
+        	}
+            sum=sum+1;
+            injection();
         }
     });
 }
 function myAjax(){
-	var msg = new Array();
-    var arr = $(".search-box").find(".active");
-    arr.each(function(){
-        msg.push($(this).html());
-    });
-    msg.push(d);
-    var req = {"pageNumber":e,"pageSize":f,"msg":msg};
+    var req = {industry:industry,time:time,money:money,area:area,group:group};
     $.ajax({
         type:'post',
-        url:'/apis/area/findGardensList.json',
+        url:'/apis/follow/findCompnayList.json',
         data:JSON.stringify(req),
         contentType:'application/json',
         success:function(res){
             if(res.success){
-                var arr = res.data.content;
-                console.log(arr);
-                var html = "";
-                if(arr.length != 0){
-                    for (var i = 0; i < arr.length; i++) {
-                        var gid = arr[i].id;
-                        html += '<div class="col-md-12 border-bottom">' +
-                            '<div class="layout-box">' +
-                            '<div class="left-img">' +
-                            '<img src="'+arr[i].gardenPicture+'" width="160" /></div>' +
-                            '<div class="right-list">' +
-                            '<a class="scatter-blocks no-border" href="/apis/area/garden/allCityParkDetails.html?name='+arr[i].gardenName+'">' +
-                            '<span class="scatter-title">'+arr[i].gardenName+'</span>' +
-                            '<span class="scatter-type ml10">'+arr[i].gardenLevel+'</span>' +
-                            '<span class="pull-right">入驻企业<span class="numbers">'+arr[i].enterCount+'</span>家</span></a>' +
-                            '<p class="park-address">' +
-                            '<span class="glyphicon glyphicon-map-marker"></span>'+arr[i].address+'</p>' +
-                            '<p class="net-address">' +
-                            '<span class="glyphicon glyphicon-globe"></span>'+arr[i].gardenWebsite;
-                        if(arr[i].flag)
-                            html += '<a href="javascript:void(0);" class="follow pull-right" onclick="attentionGarden('+arr[i].id+',false);">取消关注</a></p></div></div></div>';
-                        else
-                            html += '<a href="javascript:void(0);" class="follow pull-right" onclick="attentionGarden('+arr[i].id+',true);">添加关注</a></p></div></div></div>';
-                    }
-                }else{
-                    new Alert({
-                        flag : false,
-                        text : '暂无数据',
-                        timer : 2000
-                    }).show();
-                }
-                $("#gardenList").html(html);
-                if(res.data.totalPages>1){
-                    page.init(res.data.totalElements,res.data.number+1,options);
-                    $("#"+page.pageId +">li[class='pageItem']").on("click",function(){
-                        showGardenList(sortType,$(this).attr("page-data")-1,pageSize);
-                    });
-                }else{
-                    $('#page').html("");
-                }
-            }
+            	showCompany(res.data);
+            }else{
+        		new Alert({flag:false,text:res.message,timer:2000}).show();
+        	}
         }
     });
+}
+function addGroup(){
+	
+}
+function myMove(id){
+	
+}
+function quxiao(id){
+    $.ajax({  
+        url: "/apis/follow/cancelCompnay.json",  
+        async: false,  
+        data:{id:id},
+        success: function (result) {  
+        	if(result.success){
+        		new Alert({flag:true,text:"操作成功"}).show();
+    			setTimeout("window.location.reload()",2000);
+        	}else{
+        		new Alert({flag:false,text:result.message,timer:2000}).show();
+        	}
+        }
+	});
+}
+var options;
+function showCompany(list){
+	if(list.length==0){
+		$('#city_list').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
+		$('#page').html('');
+    }else{
+		options={
+			"id":"page",//显示页码的元素
+			"data":list,//显示数据
+	       "maxshowpageitem":5,//最多显示的页码个数
+	       "pagelistcount":10,//每页显示数据个数
+	       "callBack":function(result){
+	       	   var cHtml="";
+	           for(var i=0;i<result.length;i++){
+	        	   cHtml += '<div class="col-md-12 border-bottom">' +
+                       '<a class="scatter-blocks no-border" href="/apis/company/baseInfo.html?companyName='+result[i].name+'" target="_blank">' +
+                       '<span class="scatter-title">'+result[i].name+'</span></a>' +
+                       '<p class="park-address">' +
+                       '<span class="glyphicon glyphicon-map-marker"></span>'+result[i].base+'</p>' +
+                       '<p class="net-address mb20">' +
+                       '<span class="mr15">法定代表人：'+result[i].legalPersonName+'</span><span class="mr15">注册资本：'+result[i].regCapital+'</span><span class="mr15">注册时间：'+result[i].estiblishTime+'</span>'+
+            	   		'<a href="javascript:void(0);" class="pull-right mr15" onclick="quxiao('+result[i].id+');">取消关注</a>'+
+            	   		'<a href="javascript:void(0);" class="pull-right mr15" onclick="myMove('+result[i].id+');">移动到</a></p></div>';
+               }
+	           $("#city_list").html(cHtml);//将数据增加到页面中
+	       }
+	   };
+	   page.init(list.length,1,options);
+	}
 }
