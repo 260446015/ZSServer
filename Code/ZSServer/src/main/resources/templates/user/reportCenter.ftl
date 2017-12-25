@@ -17,14 +17,45 @@
     <div class="page-content">
         <#include "/common/UserSidebar.ftl"/>
         <div class="right-content">
+	        <div class="container">
+	        	<div class="model-box" id="report_list">
+	                <div class="model-header">
+	                </div>
+	                <div class="search-box">
+	                    <div class="search-group">
+	                        <div class="search-item-title">
+	                            <span class="icon-block"></span>
+	                            年份
+	                        </div>
+	                        <div class="search-item-content" id="year_item">
+	                        </div>
+	                    </div>
+	                    <div class="search-group">
+	                        <div class="search-item-title">
+	                            <span class="icon-block"></span>
+	                            类型
+	                        </div>
+	                        <div class="search-item-content">
+	                            <a href="javascript:void(0);" class="search-item active">按季度</a>
+	                            <a href="javascript:void(0);" class="search-item">按月份</a>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="model-body">
+	                    <div class="row">
+	                    	<ul id="biuuu_city_list"></ul>
+	                    </div>
+	                </div>
+	                <div class="page-box clearfix">
+	                	<ul class="page pull-right" id="page"></ul>
+	            	</div>
+	            </div>
+	        </div>
         </div>
     </div>
 </div>
 <#include  "/common/footer.ftl"/>
 <#include  "/common/script.ftl"/>
-<script type="text/javascript">
-	$("#followItem").addClass("active");
-	$("#reportItem").addClass("active");
-</script>
+<script src="/js/follow/reportCenter.js"></script>
 </body>
 </html>

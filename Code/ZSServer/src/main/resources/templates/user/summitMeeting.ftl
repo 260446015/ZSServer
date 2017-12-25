@@ -17,7 +17,7 @@
     <div class="page-content">
         <#include "/common/UserSidebar.ftl"/>
         <div class="right-content">
-        	<div class="right-container">
+        	<div class="container">
                 <div class="model-box">
                     <div class="model-header">
                         <h3 class="model-title">产业峰会</h3>

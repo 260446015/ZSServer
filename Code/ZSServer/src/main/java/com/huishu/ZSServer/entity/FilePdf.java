@@ -31,6 +31,8 @@ public class FilePdf implements Serializable {
 	private String name;
 	/** 文件访问地址 */
 	private String url;
+	/** 图片类型文件地址 */
+	private String imageUrl;
 	/** 文件对应时间 */
 	private String data;
 	/** 文件类型 */
@@ -39,7 +41,25 @@ public class FilePdf implements Serializable {
 	private String dimension;
 	/** 创建时间 */
 	private String createTime;
+	/** 下载量 */
+	private Integer downloads;
 	
+	public Integer getDownloads() {
+		return downloads;
+	}
+
+	public void setDownloads(Integer downloads) {
+		this.downloads = downloads;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	public String getFileType() {
 		return fileType;
 	}

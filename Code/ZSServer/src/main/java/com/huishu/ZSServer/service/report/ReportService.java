@@ -27,4 +27,19 @@ public interface ReportService {
 	 * @return
 	 */
 	Page<FilePdf> getExpertReport(ReportSearchDTO dto);
+	
+	/**
+	 * 获取报告筛选项
+	 * @param id
+	 * @return
+	 */
+	Set<Integer> getUserScreeningItem(Long userId);
+	
+	/**
+	 * 查询招商报告PDF列表
+	 * @param id
+	 * @param dto
+	 * @return
+	 */
+	Page<FilePdf> getUserExpertReport(Long userId,ReportSearchDTO dto);
 }

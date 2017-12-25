@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.entity.FilePdf;
+import com.huishu.ZSServer.entity.FilePdfDownload;
 import com.huishu.ZSServer.entity.dto.ReportSearchDTO;
+import com.huishu.ZSServer.repository.report.FileDownloadRepository;
 import com.huishu.ZSServer.repository.report.FilePdfRepository;
 import com.huishu.ZSServer.service.report.ReportService;
 
@@ -29,6 +31,8 @@ public class ReportServiceImpl implements ReportService {
 
 	@Autowired
 	private FilePdfRepository filePdfRepository;
+	@Autowired
+	private FileDownloadRepository fileDownloadRepository;
 	
 	@Override
 	public Set<Integer> getScreeningItem() {
@@ -55,6 +59,18 @@ public class ReportServiceImpl implements ReportService {
 		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), 8,new Sort(Direction.DESC, "createTime"));
 		Page<FilePdf> impl = new PageImpl<FilePdf>(list,pageRequest,count);
 		return impl;
+	}
+
+	@Override
+	public Set<Integer> getUserScreeningItem(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<FilePdf> getUserExpertReport(Long userId,ReportSearchDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
