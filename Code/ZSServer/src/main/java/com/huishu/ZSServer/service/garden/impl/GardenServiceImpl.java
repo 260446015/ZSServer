@@ -232,12 +232,12 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 				xxxxCount++;
 			}
 		}
-		IndustryCount c1 = new IndustryCount(KeyConstan.IndustyType.GDZB, gdzbCount);
-		IndustryCount c2 = new IndustryCount(KeyConstan.IndustyType.JNHB, jnhbCount);
-		IndustryCount c3 = new IndustryCount(KeyConstan.IndustyType.SWCY, swcyCount);
-		IndustryCount c4 = new IndustryCount(KeyConstan.IndustyType.SZCY, szcyCount);
-		IndustryCount c5 = new IndustryCount(KeyConstan.IndustyType.XCL, xclCount);
-		IndustryCount c6 = new IndustryCount(KeyConstan.IndustyType.XXXX, xxxxCount);
+		IndustryCount c1 = new IndustryCount("高端装备\n制造产业", gdzbCount);
+		IndustryCount c2 = new IndustryCount("节能环保\n新能源产业", jnhbCount);
+		IndustryCount c3 = new IndustryCount("生物产业", swcyCount);
+		IndustryCount c4 = new IndustryCount("数字创意\n产业", szcyCount);
+		IndustryCount c5 = new IndustryCount("新材料\n产业", xclCount);
+		IndustryCount c6 = new IndustryCount("新兴信息\n产业", xxxxCount);
 		countList.add(c1);
 		countList.add(c2);
 		countList.add(c3);
