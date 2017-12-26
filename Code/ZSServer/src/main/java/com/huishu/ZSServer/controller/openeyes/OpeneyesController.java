@@ -825,32 +825,21 @@ public class OpeneyesController extends BaseController {
 	 * @return 查询信息统一接口
 	 */
 	@RequestMapping(value = "/searchInfo.json", method = RequestMethod.GET)
-	public JSONObject getTargetInfo(String name, String target, String pageNum, String pageSize, Long id) {
+	public JSONObject getTargetInfo(String name, String target, Long id, String humanName) {
 		JSONObject returnObj = new JSONObject();
-		if (StringUtil.isEmpty(name) || StringUtil.isEmpty(target)) {
-			returnObj.put("message", MsgConstant.ILLEGAL_PARAM);
-			return returnObj;
+		if(!"riskDetail".equalsIgnoreCase(target)){
+			if (StringUtil.isEmpty(name) || StringUtil.isEmpty(target)) {
+				returnObj.put("message", MsgConstant.ILLEGAL_PARAM);
+				return returnObj;
+			}
 		}
 		OpeneyesDTO dto = new OpeneyesDTO();
-		if (!StringUtil.isEmpty(pageNum)) {
-			try {
-				dto.setPageNumber(Integer.parseInt(pageNum));
-			} catch (NumberFormatException e) {
-				returnObj.put("message", "请输入正确的页码数并从1开始");
-				return returnObj;
-			}
-		}
-		if (!StringUtil.isEmpty(pageSize)) {
-			try {
-				dto.setPageSize(Integer.parseInt(pageSize));
-			} catch (NumberFormatException e) {
-				returnObj.put("message", "请输入正确的页码数量");
-				return returnObj;
-			}
-		}
+		dto.setPageNumber(1);
+		dto.setPageSize(200);
 		dto.setCname(name);
 		dto.setFrom("2");// dto中有from字段，1代表用户，2代表广西
 		dto.setId(id);
+		dto.setHumanName(humanName);
 		try {
 			if (target.equalsIgnoreCase("abnormal"))
 				return openeyesService.getAbnormal(dto);
@@ -866,9 +855,13 @@ public class OpeneyesController extends BaseController {
 				return openeyesService.getDishonest(dto);
 			else if (target.equalsIgnoreCase("riskInfo"))
 				return openeyesService.getRiskInfo(dto);
-			else if (target.equalsIgnoreCase("humanRiskInfo"))
+			else if (target.equalsIgnoreCase("humanRiskInfo")){
+				if(StringUtil.isEmpty(humanName)){
+					returnObj.put("message", MsgConstant.ILLEGAL_PARAM);
+					return returnObj;
+				}
 				return openeyesService.getHumanRiskInfo(dto);
-			else if (target.equalsIgnoreCase("riskDetail"))
+			}else if (target.equalsIgnoreCase("riskDetail"))
 				return openeyesService.getRiskDetail(dto);
 			else if (target.equalsIgnoreCase("baseInfo"))
 				return openeyesService.getBaseInfo(dto);

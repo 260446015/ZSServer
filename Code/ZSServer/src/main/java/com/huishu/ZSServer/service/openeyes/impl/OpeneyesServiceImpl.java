@@ -970,6 +970,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONObject result = new JSONObject();
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", dto.getCname());
+		params.put("humanName", dto.getHumanName());
+		params.put("pageNum", dto.getPageNumber());
+		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.RENFENGXIAN);
 		dto.setParams(params);
 		List<HumanRiskInfo> list = humanRiskInfoRepository.findByCompanyName(dto.getCname());
@@ -1007,7 +1010,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.FENGXIANXINXI);
 		dto.setParams(params);
-		List<RiskDetail> list = riskDetailRepository.findByCompanyName(dto.getCname());
+		List<RiskDetail> list = riskDetailRepository.findBySearchId(dto.getId());
 		List<RiskDetail> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
 		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
@@ -1027,6 +1030,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			jsonArr.forEach(obj -> {
 				RiskDetail parseObject = JSONObject.parseObject(obj.toString(), RiskDetail.class);
 				parseObject.setCompanyName(dto.getCname());
+				String id = getGeneratedId(parseObject);
+				parseObject.setId(id);
+				parseObject.setSearchId(dto.getId());
 				list.add(parseObject);
 			});
 			riskDetailRepository.save(list);
