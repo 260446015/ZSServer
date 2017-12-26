@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.controller.user;
 
+import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.UserLabel;
+import com.huishu.ZSServer.entity.dto.LabelDTO;
 import com.huishu.ZSServer.entity.dto.UserDTO;
 import com.huishu.ZSServer.entity.user.UserBase;
 import com.huishu.ZSServer.service.user.UserBaseService;
@@ -28,26 +31,27 @@ import com.huishu.ZSServer.service.user.UserBaseService;
  */
 @Controller
 @RequestMapping("/apis/user")
-public class UserBaseController extends BaseController{
+public class UserBaseController extends BaseController {
 
 	private Logger LOGGER = LoggerFactory.getLogger(UserBaseController.class);
-	
+
 	@Autowired
 	private UserBaseService userBaseService;
-	
+
 	/**
 	 * 直接跳转页面
+	 * 
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value="/{page}",method=RequestMethod.GET)
-	public String show(@PathVariable String page,String articleLink,Model model) {
-		if(!StringUtil.isEmpty(articleLink)){
+	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
+	public String show(@PathVariable String page, String articleLink, Model model) {
+		if (!StringUtil.isEmpty(articleLink)) {
 			model.addAttribute("articleLink", articleLink);
 		}
-		return "/user/"+page;
+		return "/user/" + page;
 	}
-	
+
 	/**
 	 * 查看我的个人信息
 	 * 
@@ -67,24 +71,25 @@ public class UserBaseController extends BaseController{
 		}
 
 	}
-	
+
 	/**
 	 * 修改密码
+	 * 
 	 * @param beforPassword
 	 * @param newPassword
 	 * @return
 	 */
 	@RequestMapping(value = "modifyPassword.json", method = RequestMethod.GET)
 	@ResponseBody
-	public AjaxResult modifyPassword(String beforPassword,String newPassword) {
+	public AjaxResult modifyPassword(String beforPassword, String newPassword) {
 		if (StringUtil.isEmpty(beforPassword) || StringUtil.isEmpty(newPassword)) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			String message = userBaseService.modifyPassword(getUserId(),beforPassword,newPassword);
+			String message = userBaseService.modifyPassword(getUserId(), beforPassword, newPassword);
 			if (MsgConstant.OPERATION_SUCCESS.equals(message)) {
 				return success(true).setMessage(MsgConstant.OPERATION_SUCCESS);
-			}else{
+			} else {
 				return success(false).setMessage(message);
 			}
 		} catch (Exception e) {
@@ -93,23 +98,25 @@ public class UserBaseController extends BaseController{
 		}
 
 	}
-	
+
 	/**
 	 * 修改个人信息
+	 * 
 	 * @param dto
 	 * @return
 	 */
 	@RequestMapping(value = "modifyInformation.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult modifyInformation(@RequestBody UserDTO dto) {
-		if (StringUtil.isEmpty(dto.getRealName()) || StringUtil.isEmpty(dto.getTelphone())||StringUtil.isEmpty(dto.getUserDepartment())
-				|| StringUtil.isEmpty(dto.getUserEmail()) || StringUtil.isEmpty(dto.getUserJob())||StringUtil.isEmpty(dto.getUserPark())) {
+		if (StringUtil.isEmpty(dto.getRealName()) || StringUtil.isEmpty(dto.getTelphone())
+				|| StringUtil.isEmpty(dto.getUserDepartment()) || StringUtil.isEmpty(dto.getUserEmail())
+				|| StringUtil.isEmpty(dto.getUserJob()) || StringUtil.isEmpty(dto.getUserPark())) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			if (userBaseService.modifyInformation(getUserId(),dto)) {
+			if (userBaseService.modifyInformation(getUserId(), dto)) {
 				return success(true).setMessage(MsgConstant.OPERATION_SUCCESS);
-			}else{
+			} else {
 				return success(false).setMessage(MsgConstant.OPERATION_ERROR);
 			}
 		} catch (Exception e) {
@@ -118,32 +125,45 @@ public class UserBaseController extends BaseController{
 		}
 
 	}
+
 	@ResponseBody
-	@RequestMapping(value="/getLabel.json",method = RequestMethod.GET)
-	public AjaxResult getLabel(){
-		//获取用户的id，测试使用测试数据
-		//		Long id = getCurrentShiroUser().getId(); 
+	@RequestMapping(value = "/getLabel.json", method = RequestMethod.GET)
+	public AjaxResult getLabel() {
+		// 获取用户的id，测试使用测试数据
+		// Long id = getCurrentShiroUser().getId();
 		Long uid = (long) 1;
 		UserLabel user = userBaseService.findLabelByUserId(uid);
-		if(user==null){
+		if (user == null) {
 			return error("没有标签信息");
-		}else{
-			return success(user.getLabel());
+		} else {
+			LabelDTO dto = new LabelDTO();
+			dto.setArea(user.getArea());
+			dto.setIndustry(user.getIndustry());
+			dto.setRegister(user.getRegister().split(","));
+			dto.setRegisterTime(user.getRegisterTime().split(","));
+			return success(dto);
 		}
 	}
+
 	@ResponseBody
-	@RequestMapping(value="/updateLabel.json",method = RequestMethod.GET)
-	public AjaxResult updateLabel(String label){
-		//获取用户的id，测试使用测试数据
-		//		Long id = getCurrentShiroUser().getId(); 
+	@RequestMapping(value = "/updateLabel.json", method = RequestMethod.POST)
+	public AjaxResult updateLabel(@RequestBody LabelDTO dto) {
+		// 获取用户的id，测试使用测试数据
+		// Long id = getCurrentShiroUser().getId();
 		Long uid = (long) 1;
 		UserLabel user = userBaseService.findLabelByUserId(uid);
-		if(user==null){
-			 user = new UserLabel();
+		if (user == null) {
+			user = new UserLabel();
 			user.setUid(uid);
-			user.setLabel(label);
-		}else{
-			user.setLabel(label);
+			user.setArea(dto.getArea());
+			user.setIndustry(dto.getIndustry());
+			user.setRegister(Arrays.toString(dto.getRegister()));
+			user.setRegisterTime(Arrays.toString(dto.getRegisterTime()));
+		} else {
+			user.setArea(dto.getArea());
+			user.setIndustry(dto.getIndustry());
+			user.setRegister(Arrays.toString(dto.getRegister()).replace("[", "").replace("]", ""));
+			user.setRegisterTime(Arrays.toString(dto.getRegisterTime()).replace("[", "").replace("]", ""));
 		}
 		boolean info = userBaseService.updateLabel(user);
 		return success(info);

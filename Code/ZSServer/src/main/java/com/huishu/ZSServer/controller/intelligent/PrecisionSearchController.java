@@ -16,7 +16,7 @@ import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.IndusCompany;
-import com.huishu.ZSServer.entity.dto.SearchDTO;
+import com.huishu.ZSServer.entity.dto.LabelDTO;
 import com.huishu.ZSServer.service.company.EnterPriseService;
 import com.huishu.ZSServer.service.company.IndusCompanyService;
 
@@ -46,13 +46,13 @@ public class PrecisionSearchController extends BaseController{
 	}
 	@ResponseBody
 	@RequestMapping(value="/getCompanyInfoBySearch.json",method=RequestMethod.POST)
-	public AjaxResult getCompanyInfoBySearch(@RequestBody SearchDTO  dto){
+	public AjaxResult getCompanyInfoBySearch(@RequestBody LabelDTO  dto){
 		if(dto==null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		String industry =dto.getIndustry();
-		String money = dto.getRegister();
-		String time = dto.getRegisterTime();
+		String[] money = dto.getRegister();
+		String[] time = dto.getRegisterTime();
 		String area = dto.getArea();
 		if(area.equals("全部")&&industry.equals("全部")&&time.equals("全部")&&money.equals("全部")){
 			List<IndusCompany> list = iservice.listCompany();
