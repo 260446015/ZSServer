@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.huishu.ZSServer.entity.FilePdf;
 import com.huishu.ZSServer.entity.FilePdfDownload;
 
 /**
@@ -18,12 +17,9 @@ import com.huishu.ZSServer.entity.FilePdfDownload;
 @Repository
 public interface FileDownloadRepository extends CrudRepository<FilePdfDownload, Long> {
 	
-	/**
-	 * 下载的文件所有年份
-	 * @param userId
-	 * @return
-	 */
 	List<FilePdfDownload> findByUserId(Long userId);
+	
+	FilePdfDownload findByUserIdAndFileId(Long userId,Long fileId);
 	
 	/**
 	 * 查询该类型PDF的数量

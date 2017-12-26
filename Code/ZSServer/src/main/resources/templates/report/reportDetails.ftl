@@ -13,13 +13,6 @@
     <!-- css 共用部分 end -->
 
     <link rel="stylesheet" href="/css/summitMeetingDetails.css">
-    <!-- js 兼容低版本IE start -->
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- js 兼容低版本IE end -->
 </head>
 <body class="bg2">
 <!-- header部分  start -->
@@ -68,7 +61,7 @@ $("#reportItem").addClass("active");
     	});
 	})
 	function show(data){
-		var follow='<a href="http://58.16.181.24:9322/fileserver/file/downLoad.do?filePath='+data.url+'" class="pull-right">点击下载报告</a>';
+		var follow='<a href="http://58.16.181.24:9322/fileserver/file/downLoad.do?filePath='+data.url+'" onclick="aa()" class="pull-right">点击下载报告</a>';
 		var before='<div class="meeting-details-box-header"><h4>'+data.name+follow+'</h4></div><div class="item"><div></div></div>';
 		var inner='';
 		var strs= new Array(); 
@@ -78,6 +71,13 @@ $("#reportItem").addClass("active");
 		} 
         var after='<div>'+inner+'</div>';
        return before+after;
+	}
+	function aa(){
+		$.ajax({
+       		url: "/apis/report/addReportRecord.json?id="+'${fileId}',
+        	success: function (response) {
+        	}
+    	});
 	}
 </script>
 </body>

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.transaction.Transactional;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -101,6 +103,28 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public FilePdf getReportContent(Long id) {
 		return filePdfRepository.findOne(id);
+	}
+
+	@Transactional
+	@Override
+	public void addReportRecord(Long userId,Long id) {
+		FilePdf one = filePdfRepository.findOne(id);
+		one.setDownloads(one.getDownloads()+1);
+		filePdfRepository.save(one);
+		FilePdfDownload download = fileDownloadRepository.findByUserIdAndFileId(userId, id);
+		if(download==null){
+			download = new FilePdfDownload();
+			download.setDownloads(1);
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			download.setDownloadTime(format.format(new Date()));
+			download.setFileData(one.getData());
+			download.setFileId(id);
+			download.setFileType(one.getFileType());
+			download.setUserId(userId);
+		}else{
+			download.setDownloads(download.getDownloads()+1);
+		}
+		fileDownloadRepository.save(download);
 	}
 
 }

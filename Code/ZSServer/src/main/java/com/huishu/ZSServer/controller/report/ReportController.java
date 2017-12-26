@@ -140,4 +140,24 @@ public class ReportController extends BaseController {
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
+	
+	/**
+	 * 下载记录
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "addReportRecord.json", method = RequestMethod.GET)
+	public AjaxResult addReportRecord(Long id) {
+		if(id==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			reportService.addReportRecord(getUserId(),id);
+			return success(MsgConstant.OPERATION_SUCCESS);
+		} catch (Exception e) {
+			LOGGER.error("查询失败：", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
 }

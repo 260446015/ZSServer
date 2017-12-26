@@ -49,4 +49,11 @@ public interface ReportService {
 	 * @return
 	 */
 	FilePdf getReportContent(Long id);
+	
+	/**
+	 * PDF下载记录
+	 * @param id
+	 * @return
+	 */
+	void addReportRecord(Long userId,Long id);
 }
