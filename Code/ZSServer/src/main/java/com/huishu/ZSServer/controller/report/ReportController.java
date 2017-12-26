@@ -77,4 +77,39 @@ public class ReportController extends BaseController {
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
+	
+	/**
+	 * 获取用户下载的报告筛选项
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getUserScreeningItem.json", method = RequestMethod.GET)
+	public AjaxResult getUserScreeningItem() {
+		try {
+			return success(reportService.getUserScreeningItem(getUserId()));
+		} catch (Exception e) {
+			LOGGER.error("获取报告筛选项失败：", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	/**
+	 * 获取用户下载PDF列表
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getUserExpertReport.json", method = RequestMethod.POST)
+	public AjaxResult getUserExpertReport(@RequestBody ReportSearchDTO dto) {
+		if(dto==null||StringUtil.isEmpty(dto.getType())||StringUtil.isEmpty(dto.getYear())){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			Page<FilePdf> page = reportService.getUserExpertReport(getUserId(),dto);
+			return successPage(page,dto.getPageNumber()+1);
+		} catch (Exception e) {
+			LOGGER.error("查询失败：", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
 }

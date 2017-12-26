@@ -1,5 +1,6 @@
 package com.huishu.ZSServer.controller.industry;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -51,9 +52,10 @@ public class IndustryInfoController extends BaseController{
 		json.put("dimension", "科学研究");
 		json = StringUtil.getIndustry(json);
 		addData(json);
-		Page<AITInfo> page1 = service.findResearchResultList(json);
-		
-		map.put("content", page1.getContent());
+//		Page<AITInfo> page1 = service.findResearchResultList(json);
+		List<AITInfo> list = service.findResearchList(json);
+//		map.put("content", page1.getContent());
+		map.put("content", list);
 		return "/industry/"+page;
 	}
 	

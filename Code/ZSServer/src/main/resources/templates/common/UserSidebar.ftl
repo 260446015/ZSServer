@@ -1,5 +1,5 @@
  <!-- header部分  start -->
-  <div class="left-nav left-nav-icon3">
+  <div class="left-nav left-nav-icon3 posa">
             <ul>
                 <li id="basicinfoItem">
                     <a href="/apis/user/basicInfo.html">

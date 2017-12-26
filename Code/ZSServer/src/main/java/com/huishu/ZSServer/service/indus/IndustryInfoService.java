@@ -43,6 +43,14 @@ public interface IndustryInfoService {
 	 * @return
 	 */
 	Page<AITInfo> findResearchResultList(JSONObject json);
+
+	/**
+	 * @param json
+	 * @return
+	 * 获取科研成果列表
+	 * 
+	 */
+	List<AITInfo> findResearchList(JSONObject json);
 	
 	
 	
