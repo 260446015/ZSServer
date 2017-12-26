@@ -23,16 +23,26 @@
 </head>
 <body class="bg2">
 <!-- header部分  start -->
-<#include "/common/header.ftl"/>
+<#if isUser>
+	<#include "/common/header3.ftl"/>
+<#else>
+	<#include "/common/header.ftl"/>
+</#if>
 <!-- header部分  end -->
 <div class="wrapper">
     <div class="page-content">
-        <#include "/common/sidebar2.ftl"/>
+    	<#if isUser>
+        	<#include "/common/UserSidebar.ftl"/>
+        <#else>
+        	<#include "/common/sidebar2.ftl"/>
+        </#if>
         <div class="posa-right-container right-content-padding">
+        	<div class="container">
             <div class="border-shadow-box mt30">
                 <div class="meeting-details-box" id="essay">
 					
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -42,9 +52,12 @@
 <#include  "/common/script.ftl"/>
 <!-- js 共用部分 end -->
 <script type="text/javascript">
+$("#report").addClass("active");
+$("#followItem").addClass("active");
+$("#reportItem").addClass("active");
 	$(function(){
 		$.ajax({
-       		url: "/summit/get?id="+'${Request.essayId}',
+       		url: "/apis/report/getReportContent.json?id="+'${fileId}',
         	success: function (response) {
             	if(response.success){
             		$('#essay').html(show(response.data));
@@ -55,39 +68,16 @@
     	});
 	})
 	function show(data){
-		var follow='';
-        if('${Request.isFollow}'=='can'){
-        	follow='<a href="javascript:void(0);" onclick="addFollow(\'${Request.essayId}\')" class="follow pull-right">添加关注</a>';
-		}
-		var before='<div class="meeting-details-box-header"><h4>'+data.title+follow+'</h4></div><div class="item"><div><span class="iconfont icon-company"></span>涉及公司:<span>';
-		var arr = []
-        $.each(data.bus, function(index, item){
-        	if(item.indexOf('暂无')!=-1){
-        		arr.push(item);
-        	}else{
-        		arr.push('<a href="/apis/company/baseInfo.html?companyName='+item+'">'+item+'</a>  ');
-        	}
-          	
-        });
-        var inner=arr.join('');
-        var after='</span></div><div><span class="iconfont icon-shijian2"></span>发布时间:<span>'+data.publishDate+'</span></div>'+
-				  '</div><pre id="kr-article-article" class="kr-article-article meeting-details-box-text" v-html="content">'+data.content+'</pre>'+
-                  '<div class="item"><div><span class="iconfont icon-qianbi"></span>情报采集:<span>'+data.vector+'</span></div>'+
-                  '<div>情报原址:<a href="'+data.articleLink+'" target="_blank">'+data.articleLink+'</a></div></div>';
-       return before+inner+after;
-	}
-	function addFollow(id){
-		$.ajax({
-			url:'/summit/insert?aid='+id,
-			success:function(res){
-				if(res.message!= null){
-					new Alert({flag:false,text:res.message,timer:2000}).show();
-				}else{
-					new Alert({flag:true,text:res.data,timer:2000}).show();
-					$(this).html("已关注");
-				}
-			}
-		});
+		var follow='<a href="http://58.16.181.24:9322/fileserver/file/downLoad.do?filePath='+data.url+'" class="pull-right">点击下载报告</a>';
+		var before='<div class="meeting-details-box-header"><h4>'+data.name+follow+'</h4></div><div class="item"><div></div></div>';
+		var inner='';
+		var strs= new Array(); 
+		strs=data.imageUrl.split("、"); 
+		for (i=0;i<strs.length;i++ ){
+			inner+='<img src="'+strs[i]+'" style="width: 100%;height: 100%;">';
+		} 
+        var after='<div>'+inner+'</div>';
+       return before+after;
 	}
 </script>
 </body>

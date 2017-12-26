@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,15 @@ public class ReportController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
-	public String show(@PathVariable String page) {
+	public String show(@PathVariable String page,String fileId,String isUser,Model model) {
+		if(!StringUtil.isEmpty(fileId)){
+			model.addAttribute("fileId",fileId);
+		}
+		if(StringUtil.isEmpty(isUser)){
+			model.addAttribute("isUser",false);
+		}else{
+			model.addAttribute("isUser",true);
+		}
 		return "/report/"+page;
 	}
 	
@@ -107,6 +116,25 @@ public class ReportController extends BaseController {
 		try {
 			Page<FilePdf> page = reportService.getUserExpertReport(getUserId(),dto);
 			return successPage(page,dto.getPageNumber()+1);
+		} catch (Exception e) {
+			LOGGER.error("查询失败：", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	/**
+	 * 查看PDF详情
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getReportContent.json", method = RequestMethod.GET)
+	public AjaxResult getReportContent(Long id) {
+		if(id==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(reportService.getReportContent(id));
 		} catch (Exception e) {
 			LOGGER.error("查询失败：", e);
 			return error(MsgConstant.SYSTEM_ERROR);

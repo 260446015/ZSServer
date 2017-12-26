@@ -81,12 +81,12 @@ function item(d){
 function show(d){
     var arr = []
     $.each(d, function(index, item){
-      arr.push('<div class="col-md-3"><div class="report-list"><a href="'+item.url+'" target="_blank" class="border-box"><img class="circle-img" src="/images/report.png" /></a>'+
-      			'<a href="'+item.url+'" class="report-title" target="_blank">'+item.name+'</a>'+
-      			'<p class="report-date">'+item.data+'</p>'+
-      			'<p class="report-tags"><i class="glyphicon glyphicon-tag"></i>'+
-      			'<span class="tag">'+item.label+'</span></p></p></div></div>'
-      		);
+        arr.push('<div class="col-md-3"><div class="report-list"><a href="/apis/report/reportDetails.html?fileId='+item.id+'&isUser=user" class="border-box"><img class="circle-img" src="/images/report.png" /></a>'+
+        			'<a href="/apis/report/reportDetails.html?fileId='+item.id+'&isUser=user" class="report-title">'+item.name+'</a>'+
+        			'<p class="report-date">'+item.data+'</p>'+
+        			'<p class="report-tags"><i class="glyphicon glyphicon-tag"></i>'+
+        			'<span class="tag">'+item.label+'</span></p></p></div></div>'
+        		);
     });
     var inner=arr.join('');
     return inner;

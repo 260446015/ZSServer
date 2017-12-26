@@ -19,23 +19,21 @@ public interface FilePdfRepository extends CrudRepository<FilePdf, Long> {
 	
 	/**
 	 * 查询该类型PDF的数量
-	 * @param dimension
 	 * @param fileType
 	 * @param data
 	 * @return
 	 */
-	@Query(value="select count(1) from t_file_pdf WHERE dimension=?1 and file_type=?2 and date_format(data,'%Y')=?3", nativeQuery = true)
-	Integer findExpertReportCount(String dimension,String fileType,String data);
+	@Query(value="select count(1) from t_file_pdf WHERE file_type=?1 and date_format(data,'%Y')=?2", nativeQuery = true)
+	Integer findExpertReportCount(String fileType,String data);
 	
 	/**
 	 * 分页查询PDF列表
-	 * @param dimension
 	 * @param fileType
 	 * @param data
 	 * @param pageFrom
 	 * @param pageSize
 	 * @return
 	 */
-	@Query(value="select * from t_file_pdf WHERE dimension=?1 and file_type=?2 and date_format(data,'%Y')=?3 order by create_time desc limit ?4,?5", nativeQuery = true)
-	List<FilePdf> findExpertReport(String dimension,String fileType,String data,Integer pageFrom,Integer pageSize);
+	@Query(value="select * from t_file_pdf WHERE file_type=?1 and date_format(data,'%Y')=?2 order by create_time desc limit ?3,?4", nativeQuery = true)
+	List<FilePdf> findExpertReport(String fileType,String data,Integer pageFrom,Integer pageSize);
 }

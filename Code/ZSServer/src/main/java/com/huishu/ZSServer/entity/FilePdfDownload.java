@@ -29,10 +29,30 @@ public class FilePdfDownload implements Serializable {
 	private Long userId;
 	/** 文件ID */
 	private Long fileId;
+	/** 文件类型 */
+	private String fileType;
+	/** 文件时间 */
+	private String fileData;
 	/** 最后下载时间 */
 	private String downloadTime;
 	/** 下载量 */
 	private Integer downloads;
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+	public String getFileData() {
+		return fileData;
+	}
+
+	public void setFileData(String fileData) {
+		this.fileData = fileData;
+	}
 
 	public Long getId() {
 		return id;

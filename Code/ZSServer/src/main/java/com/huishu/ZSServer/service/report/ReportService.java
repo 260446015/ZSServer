@@ -42,4 +42,11 @@ public interface ReportService {
 	 * @return
 	 */
 	Page<FilePdf> getUserExpertReport(Long userId,ReportSearchDTO dto);
+	
+	/**
+	 * 查看PDF详情
+	 * @param id
+	 * @return
+	 */
+	FilePdf getReportContent(Long id);
 }

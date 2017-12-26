@@ -1,6 +1,5 @@
 package com.huishu.ZSServer.repository.report;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -18,27 +17,31 @@ import com.huishu.ZSServer.entity.FilePdfDownload;
  */
 @Repository
 public interface FileDownloadRepository extends CrudRepository<FilePdfDownload, Long> {
+	
+	/**
+	 * 下载的文件所有年份
+	 * @param userId
+	 * @return
+	 */
 	List<FilePdfDownload> findByUserId(Long userId);
 	
 	/**
 	 * 查询该类型PDF的数量
-	 * @param dimension
 	 * @param fileType
 	 * @param data
 	 * @return
 	 */
-	@Query(value="select count(1) from t_file_download WHERE dimension=?1 and file_type=?2 and date_format(data,'%Y')=?3", nativeQuery = true)
-	Integer findExpertReportCount(String dimension,String fileType,String data);
+	@Query(value="select count(1) from t_file_download WHERE user_id=?1 and file_type=?2 and date_format(file_data,'%Y')=?3", nativeQuery = true)
+	Integer findExpertReportCount(Long userId,String fileType,String data);
 	
 	/**
 	 * 分页查询PDF列表
-	 * @param dimension
 	 * @param fileType
 	 * @param data
 	 * @param pageFrom
 	 * @param pageSize
 	 * @return
 	 */
-	@Query(value="select * from t_file_download WHERE dimension=?1 and file_type=?2 and date_format(data,'%Y')=?3 order by create_time desc limit ?4,?5", nativeQuery = true)
-	ArrayList<FilePdf> findExpertReport(String dimension,String fileType,String data,Integer pageFrom,Integer pageSize);
+	@Query(value="select p.id,p.label,p.name,p.data from t_file_download d left join t_file_pdf p on d.file_id=p.id WHERE d.user_id=?1 and p.file_type=?2 and date_format(p.data,'%Y')=?3 order by p.create_time desc limit ?4,?5", nativeQuery = true)
+	List<Object[]> findExpertReport(Long userId,String fileType,String data,Integer pageFrom,Integer pageSize);
 }

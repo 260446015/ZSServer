@@ -37,8 +37,6 @@ public class FilePdf implements Serializable {
 	private String data;
 	/** 文件类型 */
 	private String fileType;
-	/** 维度 */
-	private String dimension;
 	/** 创建时间 */
 	private String createTime;
 	/** 下载量 */
@@ -74,14 +72,6 @@ public class FilePdf implements Serializable {
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
-	}
-
-	public String getDimension() {
-		return dimension;
-	}
-
-	public void setDimension(String dimension) {
-		this.dimension = dimension;
 	}
 
 	public Long getId() {
