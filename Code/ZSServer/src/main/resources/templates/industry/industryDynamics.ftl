@@ -131,7 +131,7 @@
                                     <span class="scatter-title">${info.title}</span>
                                 </a>
                                 <p class="scatter-content">
-                                    ${info.summary}
+                                    ${info.content}
                                 </p>
                                 <p class="scatter-lib"><span>时间：${info.publishTime}</span><span>涉及公司：
                                    <#list info.bus as param>

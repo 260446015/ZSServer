@@ -148,7 +148,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			for(int i=0;i<arr.size();i++){
 				JSONObject jso = arr.getJSONObject(i);
 				String str = jso.getString("value");
-				bq.must(QueryBuilders.termQuery("industryLabel",str ));
+				bq.should(QueryBuilders.termQuery("industryLabel",str ));
 			}
 		}
 		if (StringUtil.isNotEmpty(obj.getString("keyWord"))) {
@@ -189,16 +189,14 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 	@Override
 	public Page<AITInfo> getIndustryInfoByPage(JSONObject json) {
 		BoolQueryBuilder bq = new BoolQueryBuilder();
-		BoolQueryBuilder or = new BoolQueryBuilder();
 		JSONArray arr = json.getJSONArray("industry");
 		if(arr!= null){
 			for(int i=0;i<arr.size();i++){
 				JSONObject jso = arr.getJSONObject(i);
 				String str = jso.getString("value");
-				or.should(QueryBuilders.termQuery("industryLabel",str ));
+				bq.should(QueryBuilders.termQuery("industryLabel",str ));
 			}
 		}
-		bq.must(or);
 		String area = json.getString("area");
 		if(StringUtil.isNotEmpty(area)){
 			bq.must(QueryBuilders.wildcardQuery("area", "*"+area+"*"));
@@ -235,7 +233,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			}
 		}
 		bq.must(or);
-		Pageable pageable = new PageRequest(0, 6,new Sort(Direction.DESC, "publishTime"));
+		Pageable pageable = new PageRequest(0, 3,new Sort(Direction.DESC, "publishTime"));
 		SearchQuery query = getSearchQueryBuilder().withQuery(bq).withPageable(pageable).withSort(SortBuilders.fieldSort("hitCount")).build();
 		Page<AITInfo> search = template.queryForPage(query, AITInfo.class);
 		search.getContent().forEach(action->{
@@ -284,17 +282,15 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			String endTime = json.getString("endTime");
 			bq.must(QueryBuilders.rangeQuery("publishTime").from(startTime).to(endTime));
 		}
-		BoolQueryBuilder or = new BoolQueryBuilder();
 		JSONArray arr = json.getJSONArray("industryLabel");
 		if(arr!= null){
 			for(int i=0;i<arr.size();i++){
 				JSONObject jso = arr.getJSONObject(i);
 				String str = jso.getString("value");
-				or.should(QueryBuilders.termQuery("industryLabel",str ));
+				bq.must(QueryBuilders.termQuery("industryLabel",str ));
 			}
 		}
 		
-		bq.must(or);
 		PageRequest pageRequest = new PageRequest(0,500);
 		SearchQuery query = getSearchQueryBuilder().withQuery(bq).withPageable(pageRequest).build();
 		List<String> contentList = new ArrayList<String>();
@@ -316,6 +312,93 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 		  list = (List<KeywordModel>) keywordCloud.get("result");
 	 	}
 		return list;
+	}
+
+
+
+
+	/**
+	 * 获取科学研究的结果
+	 */
+	@Override
+	public List<AITInfo> findResearchList(JSONObject json) {
+		List<AITInfo>  list= new ArrayList<AITInfo>();
+		String ss = json.getString("dimenison");
+		
+		JSONArray arr = json.getJSONArray("industryLabel");
+		
+		if(arr!= null){
+			for(int i=0;i<arr.size();i++){
+				JSONObject jso = arr.getJSONObject(i);
+				String str = jso.getString("value");
+				List<AITInfo> li = getInfo(str,ss);
+				if(li.size()>1){
+					list.add(li.get(0));
+					list.add(li.get(1));
+				}
+			}
+		}
+		return list;
+	}
+
+
+
+
+	/**
+	 * @param str
+	 * @param bq
+	 */
+	@SuppressWarnings("unchecked")
+	private List<AITInfo> getInfo(String str, String  ss) {
+		BoolQueryBuilder bq = new BoolQueryBuilder();
+		if (StringUtil.isNotEmpty(ss)) {
+			bq.must(QueryBuilders.termQuery("dimension", ss));
+		}
+		bq.must(QueryBuilders.termQuery("industryLabel",str ));
+		Pageable pageable = new PageRequest(0, 3,new Sort(Direction.DESC, "publishTime"));
+		SearchQuery query = getSearchQueryBuilder().withQuery(bq).withPageable(pageable).withSort(SortBuilders.fieldSort("hitCount")).build();
+		List<AITInfo> li = template.query(query, res->{
+			SearchHits hits = res.getHits();
+			List<AITInfo>  list = new ArrayList<AITInfo>();
+			if(hits != null){
+				SearchHit[] hitsList = hits.getHits();
+				for (SearchHit hit : hits) {
+					AITInfo info = new AITInfo();
+					String industrylabel = hit.getSource().get("industryLabel").toString();
+					if(industrylabel.equals("生物医药")){
+						info.setIndustryLabel("生物技术");
+					}else{
+						info.setIndustryLabel(industrylabel);
+					}
+					String title = hit.getSource().get("title").toString();
+					info.setArticleLink(hit.getSource().get("articleLink").toString());
+					
+					info.setTitle(title);
+					info.setId(hit.getId());
+					info.setPublishTime(hit.getSource().get("publishTime").toString());
+					String content = hit.getSource().get("content").toString();
+					List<String> business = null;
+					try {
+						 business = getBusiness(title,content);
+						 info.setBus(business);
+					} catch (Exception e) {
+						business = getBusiness(title,content);
+						info.setBus(business);
+					}
+					if(content.length()>300){
+						String replaceHtml = StringUtil.replaceHtml(content.substring(0, 300));
+						info.setContent(replaceHtml);
+					}else{
+						String replaceHtml = StringUtil.replaceHtml(content.substring(0, content.length()));
+						info.setContent(replaceHtml);
+					}
+//					info.setContent(hit.getSource().get("content").toString());
+					list.add(info);
+				}
+			}
+			return list;
+		});
+		return li;
 	}
 
 	

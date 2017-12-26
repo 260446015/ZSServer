@@ -54,6 +54,16 @@ public class RiskDetail implements Serializable {
 	private String casecode;
 	/***/
 	private String companyName;
+	/***/
+	private Long searchId;
+
+	public Long getSearchId() {
+		return searchId;
+	}
+
+	public void setSearchId(Long searchId) {
+		this.searchId = searchId;
+	}
 
 	public String getId() {
 		return id;

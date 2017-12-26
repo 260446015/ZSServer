@@ -10,4 +10,6 @@ public interface RiskDetailRepository extends CrudRepository<RiskDetail, String>
 
 	List<RiskDetail> findByCompanyName(String cname);
 
+	List<RiskDetail> findBySearchId(Long id);
+
 }

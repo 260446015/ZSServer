@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ZSServer.entity.Enterprise;
@@ -16,6 +17,7 @@ import com.huishu.ZSServer.entity.Enterprise;
  * 
  */
 public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> , JpaSpecificationExecutor<Enterprise>{
+	
 	@Query(value="SELECT company FROM t_enterprise t WHERE t.area = ?1 and t.industry = ?2 ORDER BY t.scoring DESC LIMIT ?3,7" , nativeQuery = true)
 	List<String> getCompanyNameByIndustryAndArea(String area, String industry,int i);
 	
@@ -39,4 +41,7 @@ public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> ,
 	List<Enterprise> findByIndustryLikeAndAreaLikeAndRegisterTimeBetween(String industry, String area, String startTime,String endTime);
 
 	List<Enterprise> findByIndustryLikeAndAreaLike(String industry, String area);
+	
+	@Query(value="select company from t_enterprise GROUP BY company" , nativeQuery = true)
+	List<String> findAllGroupByCompany();
 }

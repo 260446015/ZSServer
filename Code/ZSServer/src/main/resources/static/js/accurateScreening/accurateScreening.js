@@ -72,18 +72,35 @@ function searchTab(a,b){
 	}
 };
 $(".search-box").on("click",".search-item-content>a",function(){
-	$(this).addClass("active").siblings().removeClass("active");
-	var _id = $(this).attr("id");
-	var array = _id.split(',');
-	var a = array[0];
-	var b = array[1];
-	searchTab(a,b);
+	var esTime = $('#esTime').children().text().replace('全部','');
+	var capital = $('#capital').children().text().replace('全部','');
+	if(esTime.indexOf($(this).html()) != -1){
+		$(this).addClass("active");
+		$(this).siblings().eq(0).removeClass('active');
+	}else if(capital.indexOf($(this).html()) != -1){
+		$(this).addClass("active");
+		$(this).siblings().eq(0).removeClass('active');
+	}else{
+		var _id = $(this).attr("id");
+		$(this).addClass("active").siblings().removeClass("active");
+		var array = _id.split(',');
+		var a = array[0];
+		var b = array[1];
+		searchTab(a,b);
+	}
 });
 $("#search_tag").on("click",function () {
     $("#myModal").modal("show");
     $("#LabelBlue").click(function(){
     	$("#myModal").modal("hide");
     		var arr = [];
+    		var s = $(".search-box").find('.search-item-content');
+    		s.each(function(i){
+    			if(i == 0){
+    				
+    			}
+    			console.log($(this).find('.active').text());
+    		})
     		arr = [industry,area,registerTime,register];
     	    $("#searchTag").html(TagList(arr));
     	   var  param = {industry:industry,area:area,registerTime:registerTime,register:register};

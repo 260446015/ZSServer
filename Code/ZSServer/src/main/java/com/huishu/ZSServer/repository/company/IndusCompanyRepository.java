@@ -23,12 +23,17 @@ public interface IndusCompanyRepository extends CrudRepository<IndusCompany,Long
 	 * @return
 	 */
 	IndusCompany findByCompanyName(String companyName);
+	
 	/**
 	 * 根据公司全名查看公司信息
 	 * @param company
 	 * @return
 	 */
 	IndusCompany findByCompany(String company);
+	
+	
+	
+	
 	@Query(value = "select COUNT(*) FROM t_indus_company ", nativeQuery = true)
 	int getCount();
 	/**
