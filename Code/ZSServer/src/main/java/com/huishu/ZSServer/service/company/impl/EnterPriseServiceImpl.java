@@ -127,13 +127,16 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 
 	
 	@Override
-	public List<IndusCompany> getCompanyList(String industry, String money, String time, String area) {
-		List<Enterprise> list = null;
-		if(time.equals("全部")){
+	public List<IndusCompany> getCompanyList(String industry, String[] moneys, String[] times, String area) {
+		List<Enterprise> list = new ArrayList<>();
+		if(times[0].equals("全部")){
 			list = rep.findByIndustryLikeAndAreaLike(industry,area);
 		}else{
-			JSONObject obj = initTime(time);
-			 list = rep.findByIndustryLikeAndAreaLikeAndRegisterTimeBetween(industry,area,obj.getString("startTime"),obj.getString("endTime"));
+			for (String time : times) {
+				time = time.trim();
+				JSONObject obj = initTime(time);
+				list.addAll(rep.findByIndustryLikeAndAreaLikeAndRegisterTimeBetween(industry,area,obj.getString("startTime"),obj.getString("endTime")));
+			}
 		}
 		List<IndusCompany> li = new ArrayList<IndusCompany>();
 		List<Enterprise> List = new ArrayList<Enterprise>();
@@ -144,7 +147,7 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 				Enterprise enter = list.get(n+si);
 				 List.add(enter);
 			}
-			if(money.equals("全部")){
+			if(moneys[0].equals("全部")){
 				 List.forEach(action->{
 					IndusCompany ind = indrepository.findByCompany(action.getCompany());
 					if(ind==null){
@@ -169,45 +172,49 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 				});
 				return li;
 			}else{
-				List<Integer> ll = StringUtil.initMoney(money);
-				List<JSONObject>  companyName= getName( list,ll);
-				if(companyName.size()<10){
-					companyName.forEach(action->{
-						IndusCompany ind = indrepository.findByCompany(action.getString("company"));
-						if(ind==null){
-							try {
-								getCompanyName(li, action);
-							} catch (Exception e) {
-								e.printStackTrace();
+				for (String money : moneys) {
+					money = money.trim();
+					List<IndusCompany> el = new ArrayList<>();
+					List<Integer> ll = StringUtil.initMoney(money);
+					List<JSONObject>  companyName= getName( list,ll);
+					if(companyName.size()<10){
+						companyName.forEach(action->{
+							IndusCompany ind = indrepository.findByCompany(action.getString("company"));
+							if(ind==null){
+								try {
+									getCompanyName(el, action);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}else{
+								el.add(ind);
 							}
-						}else{
-							li.add(ind);
+						});
+					}else{
+						int size = companyName.size();
+						
+						 si = updateData(size);
+						List<JSONObject>  o= new ArrayList<JSONObject>() ;
+						for(int j = 0; j<=9 ; j++){
+							JSONObject obj = companyName.get(j+si);
+							o.add(obj);
 						}
-					});
-					return li;
-				}else{
-					int size = companyName.size();
-					
-					 si = updateData(size);
-					List<JSONObject>  o= new ArrayList<JSONObject>() ;
-					for(int j = 0; j<=9 ; j++){
-						JSONObject obj = companyName.get(j+si);
-						o.add(obj);
+						o.forEach(action->{
+							IndusCompany ind = indrepository.findByCompany(action.getString("company"));
+							if(ind==null){
+								try {
+									getCompanyName(el, action);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}else{
+								el.add(ind);
+							}
+						});
 					}
-					o.forEach(action->{
-						IndusCompany ind = indrepository.findByCompany(action.getString("company"));
-						if(ind==null){
-							try {
-								getCompanyName(li, action);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}else{
-							li.add(ind);
-						}
-					});
-					return li;
+					li.addAll(el);
 				}
+				return li;
 			}
 		}else{
 			return null;

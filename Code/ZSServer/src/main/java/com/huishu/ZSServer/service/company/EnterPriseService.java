@@ -36,6 +36,6 @@ public interface EnterPriseService {
 	 * @param area
 	 * @return
 	 */
-	List<IndusCompany> getCompanyList(String industry, String money, String time, String area);
+	List<IndusCompany> getCompanyList(String industry, String[] moneys, String[] times, String area);
 
 }

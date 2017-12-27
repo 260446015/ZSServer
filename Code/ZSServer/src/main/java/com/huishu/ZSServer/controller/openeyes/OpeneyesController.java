@@ -865,6 +865,8 @@ public class OpeneyesController extends BaseController {
 				return openeyesService.getRiskDetail(dto);
 			else if (target.equalsIgnoreCase("baseInfo"))
 				return openeyesService.getBaseInfo(dto);
+			else if (target.equalsIgnoreCase("staff"))
+				return openeyesService.getStaffInfo(dto);
 			else {
 				returnObj.put("message", "输入的type值无效");
 				return returnObj;
