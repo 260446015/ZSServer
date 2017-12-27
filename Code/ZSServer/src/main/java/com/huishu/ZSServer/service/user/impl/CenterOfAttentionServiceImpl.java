@@ -124,14 +124,8 @@ public class CenterOfAttentionServiceImpl extends AbstractService<T> implements 
 	}
 
 	@Override
-	public List<String> getCompnayGroup(Long userId) {
-		List<String> group = companyAttaRepository.getCompnayGroup(userId);
-		for (String string : group) {
-			if(StringUtil.isEmpty(string)){
-				group.remove(string);
-			}
-		}
-		return group;
+	public List<CompnayGroup> getCompnayGroup(Long userId) {
+		return compnayGroupRepository.findByUserId(userId);
 	}
 	
 	@Override
@@ -171,7 +165,7 @@ public class CenterOfAttentionServiceImpl extends AbstractService<T> implements 
 		}
 		String area="%%";
 		if(!dto.getArea().equals("%%")){
-			conversionAreaTwo(dto.getArea());
+			area = conversionAreaTwo(dto.getArea());
 		}
 		List<Object[]> list = companyAttaRepository.findCompnayList(userId, dto.getIndustry(), time1, time2, area, dto.getGroup());
 		List<CompanyVO> arrayList = new ArrayList<CompanyVO>();
@@ -236,21 +230,21 @@ public class CenterOfAttentionServiceImpl extends AbstractService<T> implements 
 
 	@Override
 	public Boolean addCompnayGroup(Long userId, String name) {
+		CompnayGroup groupName = compnayGroupRepository.findByUserIdAndGroupName(userId,name);
+		if(groupName!=null){
+			return false;
+		}
 		CompnayGroup group = new CompnayGroup();
 		group.setGroupName(name);
 		group.setUserId(userId);
-		CompnayGroup save = compnayGroupRepository.save(group);
-		if(save==null){
-			return false;
-		}else{
-			return true;
-		}
+		compnayGroupRepository.save(group);
+		return true;
 	}
 
 	@Transactional
 	@Override
-	public Boolean moveCompnayGroup(Long id, Long groupId, String name) {
-		CompanyAttation attation = companyAttaRepository.findOne(id);
+	public Boolean moveCompnayGroup(Long id, Long userId,Long groupId, String name) {
+		CompanyAttation attation = companyAttaRepository.findByCompanyIdAndUserId(id, userId);
 		attation.setCompanyGroup(name);
 		attation.setGroupId(groupId);
 		CompanyAttation save = companyAttaRepository.save(attation);

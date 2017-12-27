@@ -38,7 +38,7 @@ function changeInformation(){
 	var _phone=$("#phone").val();
 	var _email=$("#email").val();
 	if(checkString(_name,"name")&&checkString(_park,"park")&&checkString(_department,"department")
-			&&checkString(_position,"position")&&checkEmail(_email)){
+			&&checkString(_position,"position")&&checkPhone(_phone)&&checkEmail(_email)){
 		var param={realName:_name,userPark:_park,userDepartment:_department,userJob:_position,telphone:_phone,userEmail:_email};
 		$.ajax({  
 			url:'/apis/user/modifyInformation.json',
@@ -67,7 +67,7 @@ function checkString(str,type){
 	 }
 }
 function checkEmail(str){
-	reg=/^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/;
+	reg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 	 if(!reg.test(str)){
 	 $(".emailstatus").html("<b>请输入有效的邮箱号</b>");
 	  	return false;
@@ -77,7 +77,7 @@ function checkEmail(str){
 	 }
 }
 function checkPhone(str){
-	reg=/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$/;
+	reg=/^1[34578]\d{9}$/;
 	 if(!reg.test(str)){
 	 $(".phonestatus").html("<b>请输入有效的手机号</b>");
 	  	return false;

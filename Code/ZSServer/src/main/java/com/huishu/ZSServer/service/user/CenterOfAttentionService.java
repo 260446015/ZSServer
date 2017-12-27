@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.huishu.ZSServer.entity.CompnayGroup;
 import com.huishu.ZSServer.entity.Institutional;
 import com.huishu.ZSServer.entity.UserSummitInfo;
 import com.huishu.ZSServer.entity.dto.CompnayDTO;
@@ -60,7 +61,7 @@ public interface CenterOfAttentionService {
 	 * @param userId
 	 * @return
 	 */
-	List<String> getCompnayGroup(Long userId);
+	List<CompnayGroup> getCompnayGroup(Long userId);
 	
 	/**
 	 * 查询关注企业列表
@@ -78,12 +79,13 @@ public interface CenterOfAttentionService {
 	Boolean addCompnayGroup(Long userId,String name);
 	/**
 	 * 移动企业分组
-	 * @param userId
 	 * @param id
+	 * @param userId
+	 * @param groupId
 	 * @param name
 	 * @return
 	 */
-	Boolean moveCompnayGroup(Long id,Long groupId,String name);
+	Boolean moveCompnayGroup(Long id, Long userId,Long groupId,String name);
 	
 	/**
 	 * 取消对企业的关注

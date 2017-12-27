@@ -17,9 +17,6 @@ public interface CompanyAttaRepository extends CrudRepository<CompanyAttation, L
 	@Query(value="select base from t_company_attation a LEFT JOIN t_baseinfo c on a.company_id=c.company_id where a.user_id=? GROUP BY base" , nativeQuery = true)
 	List<String> getCompnayArea(Long userId);
 	
-	@Query(value="select company_group from t_company_attation where user_id=? GROUP BY company_group" , nativeQuery = true)
-	List<String> getCompnayGroup(Long userId);
-	
 	@Query(value="select c.company_id,c.name,c.base,c.legal_person_name,c.reg_capital,c.estiblish_time from t_company_attation a LEFT JOIN t_baseinfo c on a.company_id=c.company_id where a.user_id=?1 and c.industry like ?2 and c.estiblish_time between ?3 and ?4 and c.base like ?5 and a.company_group like ?6" , nativeQuery = true)
 	List<Object[]> findCompnayList(Long userId,String industry,Long time1,Long time2,String area,String group);
 	/**

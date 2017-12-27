@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
@@ -19,10 +18,7 @@ import com.huishu.ZSServer.entity.Institutional;
 import com.huishu.ZSServer.entity.UserSummitInfo;
 import com.huishu.ZSServer.entity.dto.CompnayDTO;
 import com.huishu.ZSServer.entity.dto.IndustrySummitDTO;
-import com.huishu.ZSServer.es.entity.SummitInfo;
 import com.huishu.ZSServer.service.user.CenterOfAttentionService;
-
-import net.minidev.json.JSONArray;
 
 /**
  * 关注中心的代码
@@ -178,7 +174,7 @@ public class CenterOfAttentionController extends BaseController{
 			if(b){
 				return success(MsgConstant.OPERATION_SUCCESS);
 			}
-			return error(MsgConstant.OPERATION_ERROR);
+			return success("该分组已存在");
 		} catch (Exception e) {
 			LOGGER.error("addCompnayGroup失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
@@ -198,7 +194,7 @@ public class CenterOfAttentionController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			Boolean b = centerOfAttentionService.moveCompnayGroup(id,groupId,name);
+			Boolean b = centerOfAttentionService.moveCompnayGroup(id,getUserId(),groupId,name);
 			if(b){
 				return success(MsgConstant.OPERATION_SUCCESS);
 			}
