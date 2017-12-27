@@ -58,7 +58,7 @@
                                         产业
                                     </div>
                                     <div class="search-item-content">
-                                        <a href="javascript:void(0);" id="1,全部"  class="search-item active">全部</a>
+                                        <a href="javascript:void(0);" id="1,全部"  class="search-item">全部</a>
                                         <a href="javascript:void(0);" id="1,人工智能"  class="search-item">人工智能</a>
                                         <a href="javascript:void(0);" id="1,大数据"  class="search-item">大数据</a>
                                         <a href="javascript:void(0);" id="1,物联网"  class="search-item">物联网</a>
@@ -71,7 +71,7 @@
                                         区域
                                     </div>
                                     <div class="search-item-content">
-                                        <a href="javascript:void(0);" id="2,全部" class="search-item active">全部</a>
+                                        <a href="javascript:void(0);" id="2,全部" class="search-item">全部</a>
                                         <a href="javascript:void(0);" id="2,北京" class="search-item">北京</a>
                                         <a href="javascript:void(0);" id="2,上海" class="search-item">上海</a>
                                         <a href="javascript:void(0);" id="2,广东" class="search-item">广东</a>
@@ -83,8 +83,8 @@
                                     <div class="search-item-title">
                                         成立时间
                                     </div>
-                                    <div class="search-item-content">
-                                        <a href="javascript:void(0);" id="3,全部" class="search-item active">全部</a>
+                                    <div class="search-item-content" id="esTime">
+                                        <a href="javascript:void(0);" id="3,全部" class="search-item">全部</a>
                                         <a href="javascript:void(0);" id="3,1-5年" class="search-item ">1-5年</a>
                                         <a href="javascript:void(0);" id="3,5-10年" class="search-item">5-10年</a>
                                         <a href="javascript:void(0);" id="3,10-20年" class="search-item">10-20年</a>
@@ -95,8 +95,8 @@
                                     <div class="search-item-title">
                                         成立资本
                                     </div>
-                                    <div class="search-item-content">
-                                      	<a href="javascript:void(0);" id="4,全部" class="search-item active">全部</a>
+                                    <div class="search-item-content" id="capital">
+                                      	<a href="javascript:void(0);" id="4,全部" class="search-item">全部</a>
                                         <a href="javascript:void(0);" id="4,0-50万" class="search-item ">0-50万</a>
                                         <a href="javascript:void(0);" id="4,50-100万" class="search-item">50-100万</a>
                                         <a href="javascript:void(0);" id="4,100-500万" class="search-item">100-500万</a>

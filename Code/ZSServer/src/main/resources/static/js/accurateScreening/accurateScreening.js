@@ -1,33 +1,19 @@
 var industry ="全部";
-var registerTime = "全部";
+var registerTime = new Array();
 var area = "全部";
-var register="全部";
+var register= new Array();
 $("#screen").addClass("active");
 $("#searchTag").on("click",".search-tag span.close",function () {
-	var _id = $(this).parent().attr("id").split('+');
-	$(this).parent().remove();
-	$.ajax({
-		url:'/apis/user/getLabel.json',
-		type:'GET',
-		success:function(res){
-			if(res.data==null){
-				 $("#myModal").modal("show");
-			}else{
-				var arr = res.data.split(',');
-				arr.splice($.inArray(_id[1],arr),1);
-				$("#searchTag").html(TagList(arr));
-				var str = arr.join(',');
-				updateLabel(str);
-			}
+	var del = $(this).parent().text();
+	$(".search-box").find(".active").each(function(){
+		alert($(this).html());
+		if(del.indexOf($(this).html()) >= 0){
+			$(this).removeClass("active");
 		}
-	});
-	$('#searchTag button').each(function(){
-			console.log($(this).attr('id'));
-			var _item = $(this).attr('id').split('+');
-			searchTab(_item[0],_item[1]);
-		});
-	var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
-	searchAjax(param);
+	})
+	$(this).parent().remove();
+	updateLabel();
+	searchAjax();
 });
 $(function () {
 		getTab();
@@ -36,23 +22,50 @@ function getTab(){
 	$.ajax({
 		url:'/apis/user/getLabel.json',
 		type:'GET',
+		async:false,
 		success:function(res){
+			console.log(res.data);
 			if(res.data==null){
 				 $("#myModal").modal("show");
 			}else{
-				var arr = res.data.split(',');
+				arr = [];
+				arr.push(res.data.industry);
+				industry = res.data.industry;
+				arr.push(res.data.area);
+				area = res.data.area;
+				registerTime = [];
+				for(var i = 0;i<res.data.registerTime.length;i++){
+					arr.push(res.data.registerTime[i]);
+					registerTime.push(res.data.registerTime[i]);
+				}
+				register = [];
+				for(var i = 0;i<res.data.register.length;i++){
+					arr.push(res.data.register[i]);
+					register.push(res.data.register[i]);
+				}
+				for(var i = 0;i<arr.length;i++){
+					$(".search-box").find(".active").each(function(){
+						alert($(this).text());
+						if($(this).text() == arr[i]){
+							$(this).addClass("active");
+						}
+					});
+				}
 				 $("#searchTag").html(TagList(arr));
-				 var  param = {industry:arr[0],area:arr[1],registerTime:arr[2],register:arr[3]};
+//				 var  param = {industry:arr[0],area:arr[1],registerTime:arr[2],register:arr[3]};
 				   $("#horizontal-info").hide();
-				   searchAjax(param);
+				   searchAjax();
 			}
 		}
 	});
 };
-function updateLabel(ss){
+function updateLabel(){
+	var req = {'industry':industry,'area':area,'registerTime':registerTime,'register':register}
 	$.ajax({
-	  url:'/apis/user/updateLabel.json?label='+ss,
-	  type:'GET',
+	  url:'/apis/user/updateLabel.json',
+	  type:'post',
+	  data:JSON.stringify(req),
+	  contentType:'application/json',
 	  success:function(res){
 		  if(res.data != null){
 			  console.log("更新标签成功");
@@ -83,33 +96,50 @@ $(".search-box").on("click",".search-item-content>a",function(){
 	}else{
 		var _id = $(this).attr("id");
 		$(this).addClass("active").siblings().removeClass("active");
-		var array = _id.split(',');
-		var a = array[0];
-		var b = array[1];
-		searchTab(a,b);
 	}
 });
 $("#search_tag").on("click",function () {
     $("#myModal").modal("show");
-    $("#LabelBlue").click(function(){
-    	$("#myModal").modal("hide");
-    		var arr = [];
-    		var s = $(".search-box").find('.search-item-content');
-    		s.each(function(i){
-    			if(i == 0){
-    				
-    			}
-    			console.log($(this).find('.active').text());
-    		})
-    		arr = [industry,area,registerTime,register];
-    	    $("#searchTag").html(TagList(arr));
-    	   var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
-    	   $("#horizontal-info").hide();
-    	   var ss = industry+','+area+','+registerTime+','+register;
-    	   updateLabel(ss);
-    	   searchAjax(param);
-    	
-    });
+   
+});
+$("#LabelBlue").click(function(){
+	$("#myModal").modal("hide");
+		var arr = [];
+		var s = $(".search-box").find('.search-item-content');
+		s.each(function(i){
+			if(i == 0){
+				industry = $(this).find('.active').text();
+			}else if(i == 1){
+				area = $(this).find('.active').text();
+			}else if(i == 2){
+				registerTime = [];
+				var reTime = $(this).find('.active');
+				reTime.each(function(){
+					var h = $(this).html();
+					registerTime.push(h);
+				});
+			}else if(i == 3){
+				register = [];
+				var reg = $(this).find('.active');
+				reg.each(function(){
+					var r = $(this).html();
+					register.push(r);
+				});
+			}
+		})
+//		arr = [industry,area,registerTime,register];
+		var select = $(".search-box").find('.active');
+		arr = [];
+		select.each(function(){
+			arr.push($(this).html());
+		});
+	    $("#searchTag").html(TagList(arr));
+	   $("#horizontal-info").hide();
+//	   var ss = industry+','+area+','+registerTime+','+register;
+	   updateLabel();
+//	   var  param = {industry:industry,area:area,registerTime:registerTime,register:register};
+	   searchAjax();
+	
 });
 function TagList(arr){
 	var array=[];
@@ -314,8 +344,8 @@ charts.on("click",function (e) {
 	});
     
 });   
-function searchAjax(param){
-	console.log(param);
+function searchAjax(){
+	var param = {'industry':industry,'area':area,'registerTime':registerTime,'register':register};
 	$.ajax({
 		url:'/accurateScreening/getCompanyInfoBySearch.json',
 		type:'POST',
