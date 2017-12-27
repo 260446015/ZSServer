@@ -6,9 +6,11 @@ $("#screen").addClass("active");
 $("#searchTag").on("click",".search-tag span.close",function () {
 	var del = $(this).parent().text();
 	$(".search-box").find(".active").each(function(){
-		alert($(this).html());
 		if(del.indexOf($(this).html()) >= 0){
 			$(this).removeClass("active");
+			if($(this).parent().find(".active").length == 0){
+				$(this).parent().children().eq(0).addClass("active");
+			}
 		}
 	})
 	$(this).parent().remove();
@@ -24,32 +26,49 @@ function getTab(){
 		type:'GET',
 		async:false,
 		success:function(res){
-			console.log(res.data);
 			if(res.data==null){
 				 $("#myModal").modal("show");
 			}else{
 				arr = [];
 				arr.push(res.data.industry);
 				industry = res.data.industry;
+				$(".search-box").find(".search-item-content").eq(0).find("a").each(function(){
+					if($(this).text() == industry){
+						$(this).addClass("active");
+					}
+				})
 				arr.push(res.data.area);
 				area = res.data.area;
+				$(".search-box").find(".search-item-content").eq(1).find("a").each(function(){
+					if($(this).text() == area){
+						$(this).addClass("active");
+					}
+				})
 				registerTime = [];
 				for(var i = 0;i<res.data.registerTime.length;i++){
+					if(res.data.registerTime[i] == ""){
+						continue;
+					}
 					arr.push(res.data.registerTime[i]);
 					registerTime.push(res.data.registerTime[i]);
+					$(".search-box").find(".search-item-content").eq(2).find("a").each(function(){
+						if($(this).text() == res.data.registerTime[i]){
+							$(this).addClass("active");
+						}
+					})
 				}
 				register = [];
 				for(var i = 0;i<res.data.register.length;i++){
+					if(res.data.register[i] == ""){
+						continue;
+					}
 					arr.push(res.data.register[i]);
 					register.push(res.data.register[i]);
-				}
-				for(var i = 0;i<arr.length;i++){
-					$(".search-box").find(".active").each(function(){
-						alert($(this).text());
-						if($(this).text() == arr[i]){
+					$(".search-box").find(".search-item-content").eq(3).find("a").each(function(){
+						if($(this).text() == res.data.register[i]){
 							$(this).addClass("active");
 						}
-					});
+					})
 				}
 				 $("#searchTag").html(TagList(arr));
 //				 var  param = {industry:arr[0],area:arr[1],registerTime:arr[2],register:arr[3]};
@@ -60,6 +79,24 @@ function getTab(){
 	});
 };
 function updateLabel(){
+	var label = $(".search-box").find(".search-item-content");
+	label.each(function(i){
+		if(i == 0){
+			industry = $(this).find(".active").text();
+		}else if(i == 1){
+			area = $(this).find(".active").text();
+		}else if(i == 2){
+			registerTime = [];
+			$(this).find(".active").each(function(){
+				registerTime.push($(this).text());
+			});
+		}else if(i == 3){
+			register = [];
+			$(this).find(".active").each(function(){
+				register.push($(this).text());
+			});
+		}
+	})
 	var req = {'industry':industry,'area':area,'registerTime':registerTime,'register':register}
 	$.ajax({
 	  url:'/apis/user/updateLabel.json',

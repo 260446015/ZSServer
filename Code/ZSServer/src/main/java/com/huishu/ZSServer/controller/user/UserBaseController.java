@@ -157,13 +157,13 @@ public class UserBaseController extends BaseController {
 			user.setUid(uid);
 			user.setArea(dto.getArea());
 			user.setIndustry(dto.getIndustry());
-			user.setRegister(Arrays.toString(dto.getRegister()));
-			user.setRegisterTime(Arrays.toString(dto.getRegisterTime()));
+			user.setRegister(Arrays.toString(dto.getRegister()).replace("[", "").replace("]", "").replaceAll(" ", ""));
+			user.setRegisterTime(Arrays.toString(dto.getRegisterTime()).replace("[", "").replace("]", "").replaceAll(" ", ""));
 		} else {
 			user.setArea(dto.getArea());
 			user.setIndustry(dto.getIndustry());
-			user.setRegister(Arrays.toString(dto.getRegister()).replace("[", "").replace("]", ""));
-			user.setRegisterTime(Arrays.toString(dto.getRegisterTime()).replace("[", "").replace("]", ""));
+			user.setRegister(Arrays.toString(dto.getRegister()).replace("[", "").replace("]", "").replaceAll(" ", ""));
+			user.setRegisterTime(Arrays.toString(dto.getRegisterTime()).replace("[", "").replace("]", "").replaceAll(" ", ""));
 		}
 		boolean info = userBaseService.updateLabel(user);
 		return success(info);
