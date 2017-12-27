@@ -975,7 +975,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		params.put("pageSize", dto.getPageSize());
 		dto.setSpec(KeyConstan.URL.RENFENGXIAN);
 		dto.setParams(params);
-		List<HumanRiskInfo> list = humanRiskInfoRepository.findByCompanyName(dto.getCname());
+		List<HumanRiskInfo> list = humanRiskInfoRepository.findByCompanyNameAndHumanName(dto.getCname(),dto.getHumanName());
 		List<HumanRiskInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
 		if (newList.size() > 0) {
 			JSONObject inList = new JSONObject();
@@ -994,6 +994,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				HumanRiskInfo parseObject = JSONObject.parseObject(obj.toString(), HumanRiskInfo.class);
+				parseObject.setHumanName(dto.getHumanName());
 				list.add(parseObject);
 			});
 			humanRiskInfoRepository.save(list);
@@ -1022,6 +1023,9 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");
+			if(jsonArr == null){
+				throw new NullPointerException();
+			}
 		} catch (Exception e) {
 			log.debug("天眼查风险信息查询出现问题",e.getMessage());
 			return openEyesTarget;

@@ -38,6 +38,16 @@ public class HumanRiskInfo implements Serializable {
 	private String companyName;
 	/** 风险数量 */
 	private Integer riskCount;
+	/** 关联人名称 */
+	private String humanName;
+
+	public String getHumanName() {
+		return humanName;
+	}
+
+	public void setHumanName(String humanName) {
+		this.humanName = humanName;
+	}
 
 	public Long getId() {
 		return id;
