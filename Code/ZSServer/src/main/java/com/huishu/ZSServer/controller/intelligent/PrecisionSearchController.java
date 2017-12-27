@@ -70,10 +70,10 @@ public class PrecisionSearchController extends BaseController{
 			}
 			
 			List<IndusCompany> info = service.getCompanyList(industry,money,time,area);
-			if(info==null){
-				return error("暂无数据");
+			if(info!=null && info.size() != 0){
+				return success(info);
 			}
-			return success(info);
+			return error("暂无数据");
 		}
 	}
 }
