@@ -2,8 +2,11 @@
 	<div class="sidebar-collapse">
 		<!-- Sidebar Header Logo-->
 		<div class="sidebar-header">
-			<img src="/assets/img/logo.png" class="img-responsive" alt="" />
+            <div style="background-color: #3BBFB4;height: 100%;width: 100%">
+			    <img src="/assets/img/logo.png" class="img-responsive" alt="" />
+            </div>
 		</div>
+
 		<!-- Sidebar Menu-->
 		<div class="sidebar-menu">
 			<nav id="menu" class="nav-main" role="navigation">
