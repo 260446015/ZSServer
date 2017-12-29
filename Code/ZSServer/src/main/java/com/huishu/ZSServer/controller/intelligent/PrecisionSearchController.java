@@ -44,6 +44,11 @@ public class PrecisionSearchController extends BaseController{
 	public String show(@PathVariable String page) {
 		return "/search/"+page;
 	}
+	/**
+	 * 精准筛选--搜企业
+	 * @param dto
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/getCompanyInfoBySearch.json",method=RequestMethod.POST)
 	public AjaxResult getCompanyInfoBySearch(@RequestBody LabelDTO  dto){

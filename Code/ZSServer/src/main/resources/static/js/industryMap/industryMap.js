@@ -206,7 +206,9 @@ function findCompany(a,b){
 	});
 };
 
-
+function isArray(o){
+	return Object.prototype.toString.call(o)=='[object Array]';
+}
 
 function industryMapData(a){
 	$.ajax({
@@ -435,26 +437,46 @@ var convertData = function (data) {
     return res;
 };
 var EopaciData = function (a){
-	 	var sum =0;
+//	 	var sum =0;
 	 	var res = [];
-	    for(var j =0;j<a.length;j++){
+	   /* for(var j =0;j<a.length;j++){
 	    	sum += a[j].value;
-	    }
+	    }*/
 	    for (var i = 0; i < a.length; i++) {
 	    	res.push({
 	    		name:a[i].name,
 	    		value:a[i].value,
-	    		itemStyle:{
+	    		/*itemStyle:{
 	    			normal:{
 	    				opacity:parseFloat((a[i].value/sum).toFixed(2))
     				}
-	    		}
+	    		}*/
 	    		
 	    	});
 	    }
 	    return res;
 }
+var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
+console.log(industryMap)
 var chinaOption = {
+	    itemStyle : {
+	        normal: {
+	            opacity: 0.6,
+	        }
+	    },
+		tooltip: {
+            show: true,
+            formatter: function(data){
+                console.log(data)
+                if(isArray(data.data['value'])){
+                	return data.data["name"]+ data.data['value'][2];
+                }else{
+                	return data.data["name"]+ data.data['value'];
+                }
+                
+            }
+        },
+
 		 visualMap: {
              seriesIndex: 0,
              min: 0,
@@ -465,7 +487,9 @@ var chinaOption = {
              calculable : true,
              show: false,
              inRange: {
-                 color: ["#bbdafd","#22508e"]
+                 color: ["#104E8B","#000080"]
+//        color: ["#6959CD","#4B0082"]
+//        color: ["#badcfe","#204f8e"]
              }
          },
 		geo: {
@@ -473,7 +497,7 @@ var chinaOption = {
             zoom: 1.25,
             label: {
                 normal: {
-                	opacity:.6,
+//                	opacity:.6,
                     show: false,
                     color: '#fff'
                 },
@@ -492,6 +516,7 @@ var chinaOption = {
             roam: false,
         },
     series : [{
+    	name:'产业热度',
         type: 'map',
         mapType: 'china',
         zoom: 1.25,
@@ -506,7 +531,7 @@ var chinaOption = {
         },
         itemStyle: {
         	normal:{
-        		opacity:.6,
+        		opacity:0.8,
         	},
             emphasis: {
             	opacity:1,
@@ -519,7 +544,7 @@ var chinaOption = {
         data:[]
     },
     {
-        name: 'Top 5',
+        name: '产业科研机构',
         type: 'effectScatter',
         coordinateSystem: 'geo',
         data: convertData(data),
@@ -528,12 +553,14 @@ var chinaOption = {
         rippleEffect: {
             brushType: 'stroke'
         },
-        hoverAnimation: true,
+        hoverAnimation: false,
         label: {
             normal: {
-                formatter: '{b}',
+            	formatter: function(data){
+                	console.log(data)
+                },
                 position: 'right',
-                show: true
+                show: false
             }
         },
         itemStyle: {
@@ -547,8 +574,8 @@ var chinaOption = {
     }
 ]
 };
+  
 
-var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
 industryMap.setOption(chinaOption);
 /**
  * 地图点击事件

@@ -287,7 +287,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 			for(int i=0;i<arr.size();i++){
 				JSONObject jso = arr.getJSONObject(i);
 				String str = jso.getString("value");
-				bq.must(QueryBuilders.termQuery("industryLabel",str ));
+				bq.should(QueryBuilders.termQuery("industryLabel",str ));
 			}
 		}
 		
