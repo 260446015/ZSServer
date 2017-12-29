@@ -144,8 +144,7 @@ function initPage(){
 		delIndus(id);
 	})
 	$(".cancel-row").on("click",function(){
-		$(".btn-info").attr("disabled",false);
-		showIndusCompany(pageNum,pageSize);
+		window.location.reload();
 	})
 }
  
