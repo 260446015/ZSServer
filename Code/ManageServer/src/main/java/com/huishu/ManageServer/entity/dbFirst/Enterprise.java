@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,7 +25,7 @@ public class Enterprise implements Serializable {
 	private static final long serialVersionUID = 8373154264210121342L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Long id;
 	/** 产业类型 */
@@ -84,6 +85,7 @@ public class Enterprise implements Serializable {
 	/** 评分 */
 	private String scoring;
 	/** 上市公司 */
+	@Column(name = "public_company")
 	private String publicCompany;
 
 	public String getPublicCompany() {

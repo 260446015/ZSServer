@@ -1,14 +1,42 @@
 package com.huishu.ManageServer.service.enterprise;
 
 import com.huishu.ManageServer.entity.dbFirst.Enterprise;
+import com.huishu.ManageServer.entity.dto.AbstractDTO;
+import org.springframework.data.domain.Page;
 
 /**
- * @author hhy
- * @date 2017年12月12日
- * @Parem
- * @return 
- * 
+ * 企业库service
+ *
+ * @author yindq
+ * @date 2017/12/29
  */
 public interface EnterpriseService {
-	Enterprise findOneByName(String name);
+	/**
+	 * 分页查看企业列表
+	 * @param dto
+	 * @return
+	 */
+	Page<Enterprise> listEnterprise(AbstractDTO dto);
+
+	/**
+	 * 添加/修改企业
+	 * @param enter
+	 * @return
+	 */
+	Boolean saveEnterprise(Enterprise enter);
+
+	/**
+	 * 删除企业
+	 * @param id
+	 * @return
+	 */
+	Boolean dropEnterprise(Long id);
+
+	/**
+	 * 查看详情
+	 * @param id
+	 * @return
+	 */
+	Enterprise findById(Long id);
+
 }
