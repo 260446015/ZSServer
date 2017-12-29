@@ -3,6 +3,7 @@ package garden;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -31,6 +34,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.app.Application;
 import com.huishu.ZSServer.common.conf.KeyConstan;
+import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.Enterprise;
 import com.huishu.ZSServer.entity.IndustryRank;
@@ -46,6 +50,7 @@ import com.huishu.ZSServer.entity.openeyes.Patents;
 import com.huishu.ZSServer.entity.openeyes.TouZi;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
+import com.huishu.ZSServer.exception.OpeneyesException;
 import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
 import com.huishu.ZSServer.repository.company.IndusRankRepository;
@@ -58,8 +63,8 @@ import com.huishu.ZSServer.service.garden.GardenService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
-@SpringBootTest(classes = Application.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringBootTest(classes = Application.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 public class GardenTest {
 
 	@Autowired
@@ -635,4 +640,41 @@ public class GardenTest {
 		}
 	}*/
 
+	@Test
+	public void testBaseInfo() throws OpeneyesException, IOException {
+//		Map<String, Object> params = new HashMap<>();
+//		params.put("target", "riskinfo");
+//		params.put("pageNum", "1");
+//		params.put("name", "广西医科大学");
+		List<NameValuePair> list = new ArrayList<>();
+		list.add(new BasicNameValuePair("target", "riskinfo"));
+		list.add(new BasicNameValuePair("pageNum", "1"));
+		list.add(new BasicNameValuePair("name", "广西路桥工程集团有限公司"));
+		JSONObject sendGet = HttpUtils.sendGet("http://58.16.181.24:9323/apis/openeyes/searchInfo.json", list);
+		System.out.println(sendGet.toJSONString());
+	}
+	@Test
+	public void testSaveGardenList() throws FileNotFoundException{
+		WpsUtilsTest util = new WpsUtilsTest();
+		FileInputStream is = new FileInputStream("C:\\Users\\yindawei\\Documents\\Tencent Files\\260446015\\FileRecv\\园区高新区及分园区信息汇总11.1.xlsx");
+		Map<Integer, String> content = util.readExcelContentXlsx(is, "&");
+		List<GardenData> list = new ArrayList<>();
+		for (int i = 1; i <= content.size(); i++) {
+			try{
+			String[] split = content.get(i).split("&");
+			GardenData data = new GardenData();
+			data.setGardenName(split[1]);
+			data.setProvince(split[2]);
+			data.setAddress(split[3]);
+			data.setGardenWebsite(split[4]);
+			data.setIndustryType(split[5]);
+			data.setGardenSquare(Double.parseDouble(split[6]));
+			data.setEstablishDate(split[7]);
+			list.add(data);
+			}catch(Exception e){
+				System.out.println(i);
+			}
+		}
+		gardenRepository.save(list);
+	}
 }

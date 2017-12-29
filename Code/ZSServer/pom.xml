@@ -1,31 +1,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.huishu</groupId>
-  <artifactId>ZSServer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+	<groupId>com.huishu</groupId>
+	<artifactId>ZSServer</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-  <name>ZSServer Maven Plugin</name>
+	<name>ZSServer Maven Plugin</name>
 
-  <!-- FIXME change it to the project's website -->
-  <url>http://maven.apache.org</url>
-	
+	<!-- FIXME change it to the project's website -->
+	<url>http://maven.apache.org</url>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
- 	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	<java.version>1.8</java.version>
-	<resteasy_version>3.0.7.Final</resteasy_version>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<resteasy_version>3.0.7.Final</resteasy_version>
+	</properties>
 
-  <dependencies>
-    <dependency>
+	<dependencies>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -65,9 +65,9 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-aop</artifactId>
-	   </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
@@ -83,10 +83,10 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 		</dependency>
-		<dependency>  
-            <groupId>org.apache.httpcomponents</groupId>  
-            <artifactId>httpmime</artifactId>  
-        </dependency> 
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
@@ -182,22 +182,22 @@
 			<artifactId>quartz</artifactId>
 			<version>2.2.1</version>
 		</dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.scala-lang</groupId>
-    	<artifactId>scala-library</artifactId>
-    	<version>2.11.0</version>
-    </dependency>
-  </dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+	</dependencies>
 
-  <build>
+	<build>
 
-    		<finalName>zsserver</finalName>
-    		<resources>
+		<finalName>zsserver</finalName>
+		<resources>
 			<resource>
 				<directory>${basedir}/src/main/webapp</directory>
 				<!--必须要放在此目录下才能被访问到 -->
@@ -206,7 +206,7 @@
 					<include>**/**</include>
 				</includes>
 				<excludes>
-				 	<exclude>**/*.jar</exclude>
+					<exclude>**/*.jar</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -217,13 +217,13 @@
 					<include>**/*.jar</include>
 				</includes>
 			</resource>
-			
-			 <resource>
+
+			<resource>
 				<directory>${basedir}/src/main/resources</directory>
 				<includes>
 					<include>**/**</include>
 				</includes>
-			</resource> 
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>
@@ -232,7 +232,7 @@
 				<configuration>
 					<skip>true</skip>
 				</configuration>
-			</plugin> 
+			</plugin>
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -241,8 +241,20 @@
 					<mainClass>com.huishu.ZSServer.app.Application</mainClass>
 				</configuration>
 			</plugin>
-        </plugins>
 
-      </build>
-    
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<dependencies>    <!-- 修改代码后自动生效，Reload Java classes without restarting the container -->
+					<dependency>
+						<groupId>org.springframework</groupId>
+						<artifactId>springloaded</artifactId>
+						<version>1.2.6.RELEASE</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+
+	</build>
+
 </project>

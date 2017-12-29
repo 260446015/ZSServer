@@ -14,7 +14,7 @@ function showCertificate(){
 				var thead = '<tr><td>证书类型</td><td>许可编号</td><td>发证日期</td><td>截止日期</td></tr>	';
 				$("#certificate").prev().html(thead);
 				var html = '';
-				for(var i=0;i<arr.length;i++){
+				for(var i=0;i<10;i++){
 					html += '<tr><td>'+arr[i].certificateName+'</td><td>'+arr[i].certNo+'</td>' +
 							'<td>'+arr[i].startDate+'</td><td>'+arr[i].endDate+'</td></tr>'
 				}

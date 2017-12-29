@@ -20,12 +20,6 @@
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- js 兼容低版本IE end -->
-    <style>
-    	.btn-box-more{
-    		margin-top:25px;
-    		text-align:center;
-    	}
-    </style>
 </head>
 <body class="bg2">
 <#include "/common/header.ftl"/>
@@ -49,7 +43,7 @@
                     </table>
                 </div>
                 <div class="btn-box-more">
-                	<button class="btn btn-link">加载更多</button>
+                	<button class="btn btn-link more">加载更多</button>
                 </div>
             </div>
       		

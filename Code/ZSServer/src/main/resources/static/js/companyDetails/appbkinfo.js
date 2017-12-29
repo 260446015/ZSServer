@@ -15,6 +15,9 @@ function showAppbkinfo(){
                             '<th class="text-left">产品分类</th><th class="text-left">领域</th></tr>';
 				$("#appbkinfo").prev().html(thead);
 				var html = '';
+				if(arr.length > 10){
+					arr.length = 10;
+				}
 				for(var i=0;i<arr.length;i++){
 					html += '<tr><td><img src="'+arr[i].icon+'" width="120px" height="50px"/></td><td>'+arr[i].name+'</td>' +
 							'<td>'+arr[i].filterName+'</td><td>'+arr[i].type+'</td>' +

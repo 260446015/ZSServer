@@ -100,11 +100,17 @@
 						</div>
 					</div>					   
 				</div>
+<<<<<<< HEAD
 				<!-- End Main Page -->	
 		
 				<!-- Footer -->
 				<#include "/common/footer.ftl">
 				<!-- End Footer -->
+=======
+				<!-- End Main Page -->
+
+			<#include "/common/footer.ftl">
+>>>>>>> branch 'master' of https://gitlab.junquan.com.cn/hskj/pd_210_merchantssys.git
 			
 			</div>
 		</div><!--/container-->

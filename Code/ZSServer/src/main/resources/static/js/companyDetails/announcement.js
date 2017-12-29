@@ -1,7 +1,24 @@
 $(function(){
 	showBond();
+	$(".more").on("click",function(){
+		count ++;
+		var html = '';
+		var len = count * 10;
+		if(len < arr.length){
+			for(var i=0;i<len;i++){
+				html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+arr[i].time+'</td><td>'+arr[i].title+'</td>' +
+						'</tr>';
+			}
+			$("#announcement").html(html);
+		}else{
+			$(this).html("已无更多数据").attr("disabled",true).after('<button class="btn btn-link top">返回顶部</button>');
+			$(".top").click(function(){
+				var sc=$(window).scrollTop();
+				$('body,html').animate({scrollTop:0},500);
+			});
+		}
+	})
 });
-var arr;
 function showBond(){
 	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
@@ -15,7 +32,8 @@ function showBond(){
 				var thead = '<tr><th class="text-left">日期</th><th class="text-left">上市公告</th></tr>';
 				$("#announcement").prev().html(thead);
 				var html = '';
-				for(var i=0;i<arr.length;i++){
+				
+				for(var i=0;i<10;i++){
 					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+arr[i].time+'</td><td>'+arr[i].title+'</td>' +
 							'</tr>';
 				}

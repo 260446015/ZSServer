@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import com.huishu.ManageServer.entity.dbFirst.IndusCompany;
 
@@ -18,30 +19,10 @@ import com.huishu.ManageServer.entity.dbFirst.IndusCompany;
  * @return 
  * 
  */
-public interface IndusCompanyRepository extends PagingAndSortingRepository<IndusCompany, Long> {
-	/**
-	 * 根据公司简称查看详细信息
-	 * @param companyName
-	 * @return
-	 */
-	IndusCompany findByCompanyName(String companyName);
-	
-	/**
-	 * 根据公司全名查看公司信息
-	 * @param company
-	 * @return
-	 */
-	IndusCompany findByCompany(String company);
-	
-	
-	
-	
+@Repository
+public interface IndusCompanyRepository extends CrudRepository<IndusCompany, Long> {
+	@Query(value="select * from t_indus_company limit ?,?",nativeQuery=true)
+	List<IndusCompany> findIndus(int currentCount ,int pageSize);
 	@Query(value = "select COUNT(*) FROM t_indus_company ", nativeQuery = true)
 	int getCount();
-	/**
-	 * @param i
-	 * @return
-	 */
-	@Query(value = "SELECT * FROM t_indus_company LIMIT ?1,10", nativeQuery = true)
-	List<IndusCompany> getCompanyInfo(int i);
 }

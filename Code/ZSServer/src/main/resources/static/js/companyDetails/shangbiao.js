@@ -17,6 +17,9 @@ function showBond(){
 				var html = '';
 				for(var i=0;i<arr.length;i++){
 					var appDate = getFormatDate(new Date(arr[i].appDate));
+					if(arr[i].tmName == null){
+						arr[i].tmName = '---';
+					}
 					html += '<tr><td>'+appDate+'</td><td><img src="'+arr[i].tmPic+'" width="120px" height="50px"/></td>' +
 							'<td>'+arr[i].tmName+'</td><td>'+arr[i].regNo+'</td>' +
 							'<td>'+arr[i].intCls+'</td><td>'+arr[i].status+'</td>'+'</tr>'

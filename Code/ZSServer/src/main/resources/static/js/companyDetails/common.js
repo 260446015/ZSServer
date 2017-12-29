@@ -123,4 +123,6 @@ function attationCompany(companyId,flag){
 function goBack(){
 	window.history.back(-1);
 }
+var arr;
+var count = 1;
 

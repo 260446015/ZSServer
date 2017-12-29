@@ -1,4 +1,3 @@
-<script src="/assets/plugins/modernizr/js/modernizr.js"></script>
 <script src="/assets/vendor/js/jquery.min.js"></script>
 		<script src="/assets/vendor/js/jquery-2.1.1.min.js"></script>
 		<script src="/assets/vendor/js/jquery-migrate-1.2.1.min.js"></script>
@@ -16,7 +15,7 @@
 		
 		<!-- Theme JS -->		
 		<script src="/assets/js/jquery.mmenu.min.js"></script>
-		<script src="/assets/js/core.min.js"></script>
 		
 		<!-- Pages JS -->
-		<script src="/assets/js/pages/table-editable.js"></script>
+		
+				<script src="/assets/js/page.js"></script>
