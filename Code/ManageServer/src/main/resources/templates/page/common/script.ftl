@@ -15,7 +15,7 @@
 		
 		<!-- Theme JS -->		
 		<script src="/assets/js/jquery.mmenu.min.js"></script>
-		
+		<script src="/assets/js/core.min.js"></script>
 		<!-- Pages JS -->
 		
 				<script src="/assets/js/page.js"></script>

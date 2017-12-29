@@ -28,6 +28,7 @@ function showIndusCompany(_pageNum,_pageSize) {
 				if(res.data.totalPages>1){
                     page.init(res.data.totalElements,res.data.number+1,options);
                     $("#"+page.pageId +">li[class='pageItem']").on("click",function(){
+                    	pageNum = $(this).attr("page-data")-1;
                     	showIndusCompany($(this).attr("page-data")-1,pageSize);
                     });
                 }else{
@@ -104,7 +105,7 @@ function initPage(){
 		var indus = {"id":indusArr[0],"industry":indusArr[1],"company":indusArr[2],"companyName":indusArr[3],"industryLabel":indusArr[4],"induszero":indusArr[5]}
 		insertIndus(indus);
 	})
-	$(".btn-info").on("click",function(i){
+	$("#addToTable").on("click",function(i){
 		$(this).attr("disabled",true);
 		var html = '<tr role="row" class="adding odd"><td class="sorting_1"><input class="form-control input-block" value="" type="text"></td>' +
 			'<td><input class="form-control input-block" value="" type="text"></td>' +
@@ -135,7 +136,7 @@ function initPage(){
 			insertIndus(indus);
 		})
 		$(".cancel-row").on("click",function(){
-			showIndusCompany(pageNum,pageSize);
+			window.location.reload();
 		})
 	})
 	$(".remove-row").on("click",function(i){
@@ -143,6 +144,7 @@ function initPage(){
 		delIndus(id);
 	})
 	$(".cancel-row").on("click",function(){
+		$(".btn-info").attr("disabled",false);
 		showIndusCompany(pageNum,pageSize);
 	})
 }
