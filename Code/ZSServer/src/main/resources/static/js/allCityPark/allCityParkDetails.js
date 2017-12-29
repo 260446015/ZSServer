@@ -2,6 +2,7 @@
  * Created by zhangxin on 2017/11/22.
  */
 var address = new Array();
+var gardenAddress;
 $(function() {
 	park = GetQueryString('name')
     $("#gardenMap").addClass("active");
@@ -91,7 +92,7 @@ function showScan(_province,_address){
         	// 范围，默认：500
         });
 //        map.setCity(province);
-        geocoder.getLocation(park, function(status, result) {
+        geocoder.getLocation(gardenAddress, function(status, result) {
         	console.log(result);
         	map.setZoomAndCenter(12, [result.geocodes[0].location.lng, result.geocodes[0].location.lat]);
         });
@@ -191,6 +192,7 @@ function showGardenInfo(data) {
         success : function(res) {
             if (res.success) {
                 province = res.data.gardenName;
+                gardenAddress = res.data.address;
                 if (res.data.flag)
                     $("#attation").html('取消关注');
                 else

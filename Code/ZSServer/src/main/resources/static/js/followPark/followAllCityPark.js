@@ -43,7 +43,7 @@ function showScan(_province,_address){
 			radius : 1000
 		// 范围，默认：500
 		});
-		geocoder.getLocation(park, function(status, result) {
+		geocoder.getLocation(gardenAddress, function(status, result) {
         	map.setZoomAndCenter(12, [result.geocodes[0].location.lng, result.geocodes[0].location.lat]);
         });
 		for (var j = 0; j < _address.length; j++) {
@@ -132,7 +132,6 @@ function showCompanyList(e, f, g) {//e-查询的园区名称,f页码数,g每页�
 		data : JSON.stringify(req),
 		success : function(res) {
 			if (res.success) {
-				console.log(res.data);
 				if (res.data != null) {
 					var arr = res.data.content;
 					var html = '';
@@ -174,6 +173,7 @@ function GetQueryString(key) {// 获取地址栏中的name
 	// 返回参数值
 	return result ? decodeURIComponent(result[2]) : null;
 }
+var gardenAddress;
 function showGardenInfo(data) {
 	$.ajax({
 		type : 'get',
@@ -182,6 +182,7 @@ function showGardenInfo(data) {
 		success : function(res) {
 			if (res.success) {
 				province = res.data.province;
+				gardenAddress = res.data.address;
 				if (res.data.flag)
 					$("#attation").html('取消关注');
 				else

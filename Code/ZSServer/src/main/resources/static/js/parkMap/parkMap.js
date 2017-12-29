@@ -5,6 +5,16 @@ $(function(){
 		$("#gardenMap").addClass("active");
 		$("#indus").removeClass("active");
 		$("#report").removeClass("active");
+		barCharts = echarts.init(document.getElementById('barCharts'),"customed");
+		barCharts.on('click',function(param){
+			province = param.name;
+			showGardenGdpPiechart(province);
+		});
+		scatter = echarts.init(document.getElementById("scatter"),"customed");
+		scatter.on('click',function(param){
+			industryType = param.name;
+			showGardenIndustryCount(industryType);
+		});
 		showGardenCondition("","condition");
 		showGardenIndustryCount(industryType);
 		showGardenGdpPiechart(province);
@@ -547,16 +557,20 @@ function showGardenCondition(area,target){
 			if(res.success){
 				var html = "";
 				var arr = res.data.content;
-				for(var i=0;i<arr.length;i++){
-					html += '<div class="col-md-12 border-bottom">' +
-								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
-									'<span class="scatter-title">'+arr[i].title+'</span></a>' +
-									'<p class="scatter-content">'+arr[i].summary +'</p>' + 
-									'<p class="scatter-lib">' +
-										'<span>'+arr[i].park+'</span>' +
-                                		'<span>'+arr[i].publishTime+'</span></p></div>';
+				if(arr.length != 0){
+					for(var i=0;i<arr.length;i++){
+						html += '<div class="col-md-12 border-bottom">' +
+									'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
+										'<span class="scatter-title">'+arr[i].title+'</span></a>' +
+										'<p class="scatter-content">'+arr[i].summary +'</p>' + 
+										'<p class="scatter-lib">' +
+											'<span>'+arr[i].park+'</span>' +
+	                                		'<span>'+arr[i].publishTime+'</span></p></div>';
+					}
+					$("#"+target).html(html);
+				}else{
+					$("#gardenCondition").hide();
 				}
-				$("#"+target).html(html);
 			}else{
 				$("#gardenCondition").hide();
 			}
@@ -677,6 +691,7 @@ function showGardenModelIndustry(area,year){
 var industryType='新兴信息产业';
 var histogramName = new Array();
 var histogramValue = new Array();
+var barCharts;
 function showGardenIndustryCount(industryType){//查询不同省份某种产业数量的接口
 	var req = {"industryType":industryType};
 	$.ajax({
@@ -688,6 +703,7 @@ function showGardenIndustryCount(industryType){//查询不同省份某种产业�
 		success:function(res){
 			if(res.success){
 				var arr = res.data;
+				console.log(arr);
 				histogramName = [];
 				histogramValue = [];
 				for(var i=0;i<arr.length;i++){
@@ -696,18 +712,16 @@ function showGardenIndustryCount(industryType){//查询不同省份某种产业�
 				}
 				barOption.xAxis[0].data = histogramName;
 				barOption.series[0].data = histogramValue;
-				var barCharts = echarts.init(document.getElementById('barCharts'),"customed");
-				barCharts.on('click',function(param){
-					province = param.name;
-					showGardenGdpPiechart(province);
-				});
-				barCharts.setOption(barOption);
+				
+				
+				barCharts.setOption(barOption,true);
 			}
 		}
 	});
 }
 var province = '山东';
 var pieChartName = new Array();
+var scatter;
 function showGardenGdpPiechart(province){//获取某个省份哪种产业最多的接口
 	var req = {"province":province};
 	$.ajax({
@@ -725,12 +739,9 @@ function showGardenGdpPiechart(province){//获取某个省份哪种产业最多�
 					pieChartName.push(arr[i].industryType);
 				}
 				option.series[0].data = initEcharts(pieChartName);
-				var scatter = echarts.init(document.getElementById("scatter"),"customed");
-				scatter.on('click',function(param){
-					industryType = param.name;
-					showGardenIndustryCount(industryType);
-				});
-				scatter.setOption(option);
+				
+				
+				scatter.setOption(option,true);
 			}
 		}
 	});

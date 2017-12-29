@@ -824,7 +824,7 @@ public class OpeneyesController extends BaseController {
 	 *            获取风险信息接口需要天眼查公司id,可通过查询企业基本信息接口获得id false
 	 * @return 查询信息统一接口
 	 */
-	@RequestMapping(value = "/searchInfo.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchInfo.do", method = RequestMethod.GET)
 	public JSONObject getTargetInfo(String name, String target, Long id, String humanName) {
 		JSONObject returnObj = new JSONObject();
 		if(!"riskDetail".equalsIgnoreCase(target)){

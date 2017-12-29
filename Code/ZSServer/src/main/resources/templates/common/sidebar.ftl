@@ -19,7 +19,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/apis/area/garden/gardenMap">
+                    <a href="/apis/area/garden/gardenMap.html">
                         <div class="circle-out parkIcon">
                             <div class="circle-in">
 

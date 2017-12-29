@@ -192,7 +192,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 
 	@Override
 	public List<Object[]> getGardenIndustryCount(GardenDTO dto) {
-		String industry = "%" + dto.getIndustryType() + "%";
+		String industry = "%" + dto.getIndustryType().replaceAll("\n", "") + "%";
 		List<Object[]> list = gardenRepository.getGardenIndustryCount(industry);
 		list.sort((a, b) -> {
 			return Integer.parseInt(b[1].toString()) - Integer.parseInt(a[1].toString());
@@ -202,7 +202,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 
 	@Override
 	public List<IndustryCount> getIndustryByProvince(GardenDTO dto) {
-		String province = "%" + dto.getProvince() + "%";
+		String province = "%" + dto.getProvince().replaceAll("\n", "") + "%";
 		List<GardenData> list = gardenRepository.findByProvinceLike(province);
 		List<IndustryCount> countList = new ArrayList<>();
 		int jnhbCount = 0;// 节能环保
@@ -233,7 +233,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 			}
 		}
 		IndustryCount c1 = new IndustryCount("高端装备\n制造产业", gdzbCount);
-		IndustryCount c2 = new IndustryCount("节能环保\n新能源产业", jnhbCount);
+		IndustryCount c2 = new IndustryCount("节能环保和\n新能源产业", jnhbCount);
 		IndustryCount c3 = new IndustryCount("生物产业", swcyCount);
 		IndustryCount c4 = new IndustryCount("数字创意\n产业", szcyCount);
 		IndustryCount c5 = new IndustryCount("新材料\n产业", xclCount);
