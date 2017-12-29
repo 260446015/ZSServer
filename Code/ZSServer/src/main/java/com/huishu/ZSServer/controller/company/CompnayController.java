@@ -53,7 +53,7 @@ public class CompnayController extends BaseController {
 		if(companyId == null || flag == null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		Long userId = 1L;
+		Long userId = getUserId();
 		return success(companyService.attationCompany(companyId,flag,userId));
 	}
 	
@@ -72,7 +72,7 @@ public class CompnayController extends BaseController {
 	@RequestMapping(value = "telContact.json", method = RequestMethod.GET,params={"name","cname"})
 	@ResponseBody
 	public AjaxResult telContact(String name,String cname){
-		Long userId = 1L;
+		Long userId = getUserId();
 		if(StringUtil.isEmpty(cname) || StringUtil.isEmpty(name) || userId == null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}

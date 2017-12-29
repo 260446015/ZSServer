@@ -57,7 +57,7 @@ public class GardenController extends BaseController {
 	@ResponseBody
 	public AjaxResult findGardensCondition(@RequestBody GardenDTO dto) {
 		// Long userId = getUserId();
-		Long userId = 1L;
+		Long userId = getUserId();
 		dto.setUserId(userId);
 		// dto.setPageNumber(pageNumber);
 		// dto.setPageSize(pageSize);
@@ -108,8 +108,7 @@ public class GardenController extends BaseController {
 		if (null == gardenId || null == flag) {
 			error(MsgConstant.ILLEGAL_PARAM);
 		}
-		// Long userId = getUserId();
-		Long userId = 1L;
+		Long userId = getUserId();
 		try {
 			if (flag)
 				gardenUser = gardenUserService.attentionGarden(gardenId, userId, true);
@@ -137,8 +136,7 @@ public class GardenController extends BaseController {
 		}
 		Page<GardenData> page = null;
 		try {
-			Long userId = 1L;
-			// Long userId = getUserId();
+			Long userId = getUserId();
 			dto.setUserId(userId);
 			page = gardenService.findGardensList(dto);
 		} catch (Exception e) {
@@ -158,8 +156,7 @@ public class GardenController extends BaseController {
 	@RequestMapping(value = "/getAttentionGardenList.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult getAttentionGardenList(@RequestBody GardenDTO dto) {
-		// Long userId = getUserId();
-		Long userId = 1L;
+		Long userId = getUserId();
 		if (null == dto || userId == null) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
@@ -184,7 +181,7 @@ public class GardenController extends BaseController {
 		if (StringUtil.isEmpty(gardenName)) {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		Long userId = 1L;
+		Long userId = getUserId();
 		return success(gardenService.findGarden(gardenName,userId));
 	}
 
@@ -338,8 +335,6 @@ public class GardenController extends BaseController {
 		if (null == gardenId) {
 			error(MsgConstant.ILLEGAL_PARAM);
 		}
-		// Long userId = getUserId();
-		Long userId = 1L;
 		try {
 			gardenUserService.scanGarden(gardenId);
 		} catch (Exception e) {
