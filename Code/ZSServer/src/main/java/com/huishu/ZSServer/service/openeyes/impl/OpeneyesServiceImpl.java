@@ -234,7 +234,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", newList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("result");
@@ -270,7 +270,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			openEyesTarget.put("result", custom);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		if(null != openEyesTarget){
 			JSONObject jsonObj = openEyesTarget.getJSONObject("result");
 			if(jsonObj == null){
@@ -338,7 +338,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			openEyesTarget.put("data", inList);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		if(null != openEyesTarget){
 			JSONArray jsonArray = null;
 			try {
@@ -378,7 +378,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			openEyesTarget.put("result", inList2);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		if(null != openEyesTarget){
 			JSONArray jsonArray = null;
 			try {
@@ -419,7 +419,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			openEyesTarget.put("result", page);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
@@ -456,7 +456,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			openEyesTarget.put("result", page);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
@@ -491,7 +491,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
@@ -529,7 +529,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			openEyesTarget.put("result", outList);
 			return openEyesTarget;
 		}
-		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("result").getJSONObject("page").getJSONArray("rows");
@@ -567,7 +567,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -602,7 +602,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -637,7 +637,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArray = null;
 		try {
 			jsonArray = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -671,7 +671,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", newList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArray = openEyesTarget.getJSONArray("data");
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
@@ -704,7 +704,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray abnormal = null;
 		try {
 			abnormal = openEyesTarget.getJSONObject("data").getJSONArray("result");
@@ -742,7 +742,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -779,7 +779,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -817,7 +817,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -850,7 +850,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", newList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONArray("result");
@@ -891,7 +891,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -929,7 +929,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray internalList = null;
 		try {
 			internalList = openEyesTarget.getJSONObject("data").getJSONArray("internalList");
@@ -983,7 +983,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("externalList");
@@ -1019,7 +1019,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");
@@ -1061,7 +1061,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -1095,7 +1095,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 //			result.put("result", inList);
 //			return result;
 //		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 //		JSONArray jsonArr = openEyesTarget.getJSONArray("data");
 //		if(jsonArr != null){
 //			jsonArr.forEach(obj -> {
@@ -1126,7 +1126,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("result");
@@ -1170,7 +1170,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("result");
@@ -1208,7 +1208,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("result");
@@ -1244,7 +1244,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -1290,7 +1290,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("bondList");
@@ -1327,7 +1327,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("companyPurchaseLandList");
@@ -1386,7 +1386,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("result", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("result").getJSONArray("items");
@@ -1421,7 +1421,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -1459,7 +1459,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -1497,7 +1497,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -1531,7 +1531,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("courtAnnouncements", newList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONArray("courtAnnouncements");
@@ -1569,7 +1569,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("items");
@@ -1602,7 +1602,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", list.get(0));
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONObject jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data");
@@ -1635,7 +1635,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", list.get(0));
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONObject jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data");
@@ -1672,7 +1672,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");
@@ -1710,7 +1710,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");
@@ -1747,7 +1747,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("resultList");
@@ -1783,7 +1783,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");
@@ -1817,7 +1817,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("holderList");
@@ -1848,7 +1848,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", list.get(0));
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONObject jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data");
@@ -1884,7 +1884,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");
@@ -1919,7 +1919,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");
@@ -1954,7 +1954,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");
@@ -1992,7 +1992,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			result.put("data", inList);
 			return result;
 		}
-		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom());
+		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
 		JSONArray jsonArr = null;
 		try {
 			jsonArr = openEyesTarget.getJSONObject("data").getJSONArray("dataList");

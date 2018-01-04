@@ -58,7 +58,7 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 			return baseInfo;
 		} else {
 			map.put("name", com.getCompany());
-			JSONObject obj = getOpenEyesTarget(KeyConstan.URL.BASEINFO, map, KeyConstan.From.CUSTOM);
+			JSONObject obj = getOpenEyesTarget(KeyConstan.URL.BASEINFO, map, KeyConstan.From.CUSTOM, null);
 			JSONObject object = obj.getJSONObject("result");
 			BaseInfo info = object.parseObject(object.toJSONString(), BaseInfo.class);
 			BaseInfo save = rep.save(info);

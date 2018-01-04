@@ -41,6 +41,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getStaffInfo(dto);
 		} catch (OpeneyesException e) {
 			return error("查询数据为空");
@@ -59,6 +60,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try{
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getHolder(dto);
 		}catch(OpeneyesException e){
 			return error("查询数据为空");
@@ -103,6 +105,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try{
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getBranch(dto);
 		}catch(OpeneyesException e){
 			return error("查询数据为空");
@@ -123,6 +126,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getHistoryRongZi(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -142,6 +146,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getInverst(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -162,6 +167,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getTeamMember(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -182,6 +188,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getProductInfo(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -201,6 +208,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getChangeInfo(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -221,6 +229,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getTouZi(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -241,6 +250,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getJingPin(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -260,6 +270,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getBids(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -279,6 +290,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getBond(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -298,6 +310,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getPurchaseland(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -317,6 +330,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getEmployment(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -336,6 +350,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getCheckInfo(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -355,6 +370,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getAppbkInfo(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -374,6 +390,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getLawsuit(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -393,6 +410,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getGonggao(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -412,6 +430,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getDishonest(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -431,6 +450,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getZhixingInfo(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -450,6 +470,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getVolatility(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -469,6 +490,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getCompanyInfo(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -488,6 +510,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getSeniorExecutive(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -507,6 +530,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getHoldingCompany(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -526,6 +550,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getAnnouncement(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -545,6 +570,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getShareholder(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -564,6 +590,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getIssueRelated(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -583,6 +610,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getShareStructure(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -602,6 +630,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getEquityChange(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -621,6 +650,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getBonusInfo(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -640,6 +670,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getAllotmen(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -660,6 +691,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getShangBiao(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -680,6 +712,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getPatents(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -699,6 +732,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getCertificate(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -719,6 +753,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getCopyReg(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -739,6 +774,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getIcp(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -758,6 +794,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getOwnTax(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
@@ -778,6 +815,7 @@ public class OpeneyesController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		JSONObject returnObj = new JSONObject();
 		try {
+			dto.setUserId(getUserId());
 			returnObj = openeyesService.getTaxCredit(dto);
 		} catch (Exception e) {
 			return error("查询数据为空");
