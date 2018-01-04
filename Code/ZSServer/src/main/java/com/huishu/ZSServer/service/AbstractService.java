@@ -153,7 +153,7 @@ public class AbstractService<T> {
 		};
 	}
 
-	protected JSONObject getOpenEyesTarget(String spec, Map<String, Object> params, String from) {
+	protected JSONObject getOpenEyesTarget(String spec, Map<String, Object> params, String from, Long userId) {
 		JSONObject parseObj = null;
 		try {
 			parseObj = JSONObject.parseObject(HttpUtils.sendHttpGet(spec, params));
@@ -163,7 +163,7 @@ public class AbstractService<T> {
 				String today = format.format(date);
 				String id = getGeneratedId(from + today +spec);
 				SearchCount search = searchCountRepository.findOne(id);
-				search = assemblySearchCount(date, today, id, from, search, spec);
+				search = assemblySearchCount(date, today, id, from, search, spec, userId);
 				searchCountRepository.save(search);
 			}
 		} catch (IOException e) {
@@ -173,7 +173,7 @@ public class AbstractService<T> {
 		return parseObj;
 	}
 
-	private SearchCount assemblySearchCount(Date date, String today, String id, String from, SearchCount search, String spec) {
+	private SearchCount assemblySearchCount(Date date, String today, String id, String from, SearchCount search, String spec, Long userId) {
 		if (null == search) {
 			search = new SearchCount();
 			search.setId(id);
@@ -181,6 +181,7 @@ public class AbstractService<T> {
 			search.setStartTime(date.getTime());
 			search.setLastTime(date.getTime());
 			search.setTotal(1);
+			search.setUserId(userId);
 			search.setFromType(from);
 			search.setSpec(spec);
 		} else {

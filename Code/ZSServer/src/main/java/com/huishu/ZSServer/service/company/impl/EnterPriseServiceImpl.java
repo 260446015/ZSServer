@@ -82,7 +82,7 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 					map.put("name", company);
 					JSONObject obj1 = null;
 					try {
-						obj1 = getOpenEyesTarget(KeyConstan.URL.BASEINFO, map, KeyConstan.From.CUSTOM);
+						obj1 = getOpenEyesTarget(KeyConstan.URL.BASEINFO, map, KeyConstan.From.CUSTOM, null);
 						
 						JSONObject object = obj1.getJSONObject("result");
 						if(object.isEmpty()){
