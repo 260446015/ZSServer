@@ -16,42 +16,19 @@
 							<img src="/assets/img/flags/USA.png" class="img-flags" alt="" />
 						</div>
 					</div>
-					<li class="nav-parent"><a> <i class="fa fa-copy"
-							aria-hidden="true"></i><span>系统管理</span>
-					</a>
-						<ul class="nav nav-children">
-							<li><a href="page-profile.html"><span class="text">
-										消息管理</span></a></li>
-							<li><a href="page-activity.html"><span class="text">
-										用户管理</span></a></li>
-							<li><a href="page-timeline.html"><span class="text">
-										授权管理</span></a></li>
-							<li><a href="page-invoice.html"><span class="text">
-										操作日志</span></a></li>
-							<li><a href="page-pricing-tables.html"><span
-									class="text">菜单管理</span></a></li>
-							<li><a href="page-login.html"><span class="text">角色管理</span></a></li>
-						</ul></li>
-					<li class="nav-parent"><a> <i class="fa fa-copy"
+					<li id="user_item" class="nav-parent"><a> <i class="fa fa-user"
 							aria-hidden="true"></i><span>账户管理</span>
 					</a>
 						<ul class="nav nav-children">
-							<li><a href="page-timeline.html"><span class="text">账户列表</span></a></li>
-							<li><a href="page-profile.html"><span class="text">交易记录</span></a></li>
-							<li><a href="page-activity.html"><span class="text">充值记录</span></a></li>
+							<li id="usermanage_item"><a href="/apis/user/userManage.html"><span class="text">账户列表</span></a></li>
+							<li><a href="javascript:void(0)"><span class="text">账号审核</span></a></li>
+							<li><a href="javascript:void(0)"><span class="text">账号预警</span></a></li>
 						</ul></li>
-					<li class="nav-parent"><a> <i class="fa fa-copy"
-							aria-hidden="true"></i><span>产品管理</span>
-					</a>
-						<ul class="nav nav-children">
-							<li><a href="page-timeline.html"><span class="text">数据类型管理</span></a></li>
-						</ul></li>
-					<li class="nav-parent"><a> <i class="fa fa-copy"
-							aria-hidden="true"></i><span>内容管理</span>
-					</a>
-						<ul class="nav nav-children">
-							<li><a href="page-timeline.html"><span class="text">内容位管理</span></a></li>
-						</ul></li>
+                    <li id="enterprise_item">
+                        <a href="/apis/enterprise/enterpriseManage.html">
+                            <i class="fa fa-sitemap" aria-hidden="true"></i><span>企业库</span>
+                        </a>
+                    </li>
 				</ul>
 			</nav>
 		</div>

@@ -70,8 +70,8 @@ public class EnterpriseController extends BaseController {
 	@RequestMapping(value = "saveEnterprise.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult saveEnterprise(@RequestBody Enterprise enter) {
-		if(enter!=null&& StringUtil.isEmpty(enter.getCompany())&& StringUtil.isEmpty(enter.getIndustry())
-				&& StringUtil.isEmpty(enter.getRegisterTime())){
+		if(enter==null|| StringUtil.isEmpty(enter.getCompany())|| StringUtil.isEmpty(enter.getIndustry())
+				|| StringUtil.isEmpty(enter.getRegisterTime())){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -95,7 +95,7 @@ public class EnterpriseController extends BaseController {
 	@RequestMapping(value = "dropEnterprise.json", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult delIndusCompany(String id) {
-		if(id!=null&& StringUtil.isEmpty(id)){
+		if(id==null|| StringUtil.isEmpty(id)){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		Long aLong;

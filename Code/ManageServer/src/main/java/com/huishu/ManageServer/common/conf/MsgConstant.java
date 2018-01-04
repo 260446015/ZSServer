@@ -77,5 +77,8 @@ public class MsgConstant {
 	 * 用户不存在
 	 */
 	public static final String USER_ERROR = "该用户不存在";
-
+	/**
+	 * 用户密码：123456
+	 */
+	public static final String USER_PASSWORD = "123456";
 }

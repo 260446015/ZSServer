@@ -1,3 +1,4 @@
+$("#enterprise_item").addClass("active");
 var _id;
 function addData(enter) {
     _id=enter.id;
@@ -30,7 +31,15 @@ $(".btn-success").on("click",function(){
     etitData();
 })
 $(".btn-danger").on("click",function(){
-    window.location.href="/apis/enterprise/enterpriseManage.html";
+    if(_id==null){
+        window.location.href = "/apis/enterprise/enterpriseManage.html";
+    }else {
+        layer.confirm('直接离开将会失去修改内容，确认离开？', {
+            btn: ['确认', '取消'] //按钮
+        }, function () {
+            window.location.href = "/apis/enterprise/enterpriseManage.html";
+        });
+    }
 })
 function etitData() {
     var _industryType = $("input[name='industryType']").val();
@@ -56,24 +65,12 @@ function etitData() {
     var _area = $("input[name='area']").val();
     var _scoring = $("input[name='scoring']").val();
     var _publicCompany = $("input[name='publicCompany']").val();
-    var obj;
-    alert(_id);
-    alert(_id==null);
-    if(_id==null){
-        obj={
-            industryType:_industryType,company:_company,phone:_phone,email:_email,url:_url,address:_address,boss:_boss,
-            registerCapital:_registerCapital,engageState:_engageState,registerTime:_registerTime,industry:_industry,icRegisterNo:_icRegisterNo,
-            companyType:_companyType,orgMechanismNo:_orgMechanismNo,businessDate:_businessDate,registerAgency:_registerAgency,examineTime:_examineTime,
-            registerAddress:_registerAddress,operateScope:_operateScope,park:_park,area:_area,scoring:_scoring,publicCompany:_publicCompany
-        };
-    }else{
-        obj={
+    var obj={
             id:_id,industryType:_industryType,company:_company,phone:_phone,email:_email,url:_url,address:_address,boss:_boss,
             registerCapital:_registerCapital,engageState:_engageState,registerTime:_registerTime,industry:_industry,icRegisterNo:_icRegisterNo,
             companyType:_companyType,orgMechanismNo:_orgMechanismNo,businessDate:_businessDate,registerAgency:_registerAgency,examineTime:_examineTime,
             registerAddress:_registerAddress,operateScope:_operateScope,park:_park,area:_area,scoring:_scoring,publicCompany:_publicCompany
         };
-    }
     $.ajax({
         type : "post",
         contentType : "application/json",
