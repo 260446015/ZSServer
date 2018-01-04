@@ -1,8 +1,36 @@
 $(function(){
-	showShareStructure();
+	showEquityChange();
+	$(".more").on("click",function(){
+		count ++;
+		var html = '';
+		var len = count * 10;
+		if(len <= arr.length){
+			for(var i=0;i<len;i++){
+				var changeDate = getFormatDate(new Date(arr[i].changeDate));
+				if(arr[i].afterAll == null){
+					arr[i].afterAll = '---';
+				}
+				if(arr[i].afterNoLimit == null){
+					arr[i].afterNoLimit = '---';
+				}
+				if(arr[i].afterLimit == null){
+					arr[i].afterLimit = '---';
+				}
+				html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+changeDate+'</td><td>'+arr[i].changeReason+'</td>' +
+						'<td>'+arr[i].afterAll+'</td><td>'+arr[i].afterNoLimit+'</td>' +
+						'<td>'+arr[i].afterLimit+'</td>'+'</tr>';
+			}
+			$("#equityChange").html(html);
+		}else{
+			$(this).html("已无更多数据").attr("disabled",true).after('<button class="btn btn-link top">返回顶部</button>');
+			$(".top").click(function(){
+				var sc=$(window).scrollTop();
+				$('body,html').animate({scrollTop:0},500);
+			});
+		}
+	})
 });
-var arr;
-function showShareStructure(){
+function showEquityChange(){
 	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
 		type:'post',
@@ -16,21 +44,45 @@ function showShareStructure(){
                             '<th class="text-left">变动后流通A股</th><th class="text-left">变动后限售A股</th></tr>';
 				$("#equityChange").prev().html(thead);
 				var html = '';
-				for(var i=0;i<arr.length;i++){
-					var changeDate = getFormatDate(new Date(arr[i].changeDate));
-					if(arr[i].afterAll == null){
-						arr[i].afterAll = '---';
+				if(arr.length > 10){
+					for(var i=0;i<10;i++){
+						var changeDate = getFormatDate(new Date(arr[i].changeDate));
+						if(arr[i].afterAll == null){
+							arr[i].afterAll = '---';
+						}
+						if(arr[i].afterNoLimit == null){
+							arr[i].afterNoLimit = '---';
+						}
+						if(arr[i].afterLimit == null){
+							arr[i].afterLimit = '---';
+						}
+						html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+changeDate+'</td><td>'+arr[i].changeReason+'</td>' +
+								'<td>'+arr[i].afterAll+'</td><td>'+arr[i].afterNoLimit+'</td>' +
+								'<td>'+arr[i].afterLimit+'</td>'+'</tr>';
 					}
-					if(arr[i].afterNoLimit == null){
-						arr[i].afterNoLimit = '---';
+				}else{
+					for(var i=0;i<arr.length;i++){
+						var changeDate = getFormatDate(new Date(arr[i].changeDate));
+						if(arr[i].afterAll == null){
+							arr[i].afterAll = '---';
+						}
+						if(arr[i].afterNoLimit == null){
+							arr[i].afterNoLimit = '---';
+						}
+						if(arr[i].afterLimit == null){
+							arr[i].afterLimit = '---';
+						}
+						html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+changeDate+'</td><td>'+arr[i].changeReason+'</td>' +
+								'<td>'+arr[i].afterAll+'</td><td>'+arr[i].afterNoLimit+'</td>' +
+								'<td>'+arr[i].afterLimit+'</td>'+'</tr>';
 					}
-					if(arr[i].afterLimit == null){
-						arr[i].afterLimit = '---';
-					}
-					html += '<tr><input type="hidden" value="'+arr[i].id+'"/><td>'+changeDate+'</td><td>'+arr[i].changeReason+'</td>' +
-							'<td>'+arr[i].afterAll+'</td><td>'+arr[i].afterNoLimit+'</td>' +
-							'<td>'+arr[i].afterLimit+'</td>'+'</tr>';
+					$(".more").html("暂无更多数据").attr("disabled",true).after('<button class="btn btn-link top">返回顶部</button>');
+					$(".top").click(function(){
+						var sc=$(window).scrollTop();
+						$('body,html').animate({scrollTop:0},500);
+					});
 				}
+				
 				$("#equityChange").html(html);
 			}else{
 				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';

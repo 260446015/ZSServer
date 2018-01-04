@@ -38,9 +38,12 @@
                         <thead>
                             
                         </thead>
-                        <tbody id="bond">
+                        <tbody id="purchaseLand">
                         </tbody>
                     </table>
+                </div>
+                <div class="btn-box-more">
+                	<button class="btn btn-link more">加载更多</button>
                 </div>
             </div>
       	</div>
