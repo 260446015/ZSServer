@@ -17,7 +17,11 @@ $(function () {
     /*mark筛选项*/
     $(".mark-box").on("click","li>a.mark-item",function () {
         var _this = $(this);
-        _this.parent().addClass("active").siblings().removeClass("active");
+        if(_this.parent().hasClass("active")){
+        	_this.parent().removeClass("active");
+        }else{
+        	_this.parent().addClass("active").siblings().removeClass("active");
+        }
     });
     /*mark筛选项下拉列表s*/
     $(".mark-menu").on("click","li>a",function () {

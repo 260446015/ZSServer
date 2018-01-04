@@ -1,7 +1,28 @@
 $(function(){
-	showBond();
+	showpurchaseLand();
+	$(".more").on("click",function(){
+		count ++;
+		var html = '';
+		var len = count * 10;
+		if(len <= arr.length){
+			for(var i=0;i<len;i++){
+				var signedDate = getFormatDate(new Date(arr[i].signedDate));
+				var startTime = getFormatDate(new Date(arr[i].startTime));
+				html += '<tr><td>'+signedDate+'</td><td>'+arr[i].elecSupervisorNo+'</td>' +
+						'<td>'+arr[i].adminRegion+'</td><td>'+arr[i].location+'</td>' +
+						'<td>'+arr[i].totalArea+'</td><td>'+startTime+'</td>'+'</tr>';
+			}
+			$("#purchaseLand").html(html);
+		}else{
+			$(this).html("已无更多数据").attr("disabled",true).after('<button class="btn btn-link top">返回顶部</button>');
+			$(".top").click(function(){
+				var sc=$(window).scrollTop();
+				$('body,html').animate({scrollTop:0},500);
+			});
+		}
+	})
 });
-function showBond(){
+function showpurchaseLand(){
 	var req = {"cname":companyName,"pageNumber":1,"pageSize":200}
 	$.ajax({
 		type:'post',
@@ -10,22 +31,38 @@ function showBond(){
 		url:'/apis/openeyes/getPurchaseland.json',
 		success:function(res){
 			if(res.success){
-				var arr = res.data.data.companyPurchaseLandList;
+				arr = res.data.data.companyPurchaseLandList;
 				var thead = '<tr><th class="text-left">签订日期</th><th class="text-left">电子监管号</th><th class="text-left">行政区</th><th class="text-left">宗地位置</th>'+
                             '<th class="text-left">供地总面积</th><th class="text-left">约定动工日</th></tr>';
-				$("#bond").prev().html(thead);
+				$("#purchaseLand").prev().html(thead);
 				var html = '';
-				for(var i=0;i<arr.length;i++){
-					var signedDate = getFormatDate(new Date(arr[i].signedDate));
-					var startTime = getFormatDate(new Date(arr[i].startTime));
-					html += '<tr><td>'+signedDate+'</td><td>'+arr[i].elecSupervisorNo+'</td>' +
-							'<td>'+arr[i].adminRegion+'</td><td>'+arr[i].location+'</td>' +
-							'<td>'+arr[i].totalArea+'</td><td>'+startTime+'</td>'+'</tr>'
+				if(arr.length > 10){
+					for(var i=0;i<10;i++){
+						var signedDate = getFormatDate(new Date(arr[i].signedDate));
+						var startTime = getFormatDate(new Date(arr[i].startTime));
+						html += '<tr><td>'+signedDate+'</td><td>'+arr[i].elecSupervisorNo+'</td>' +
+								'<td>'+arr[i].adminRegion+'</td><td>'+arr[i].location+'</td>' +
+								'<td>'+arr[i].totalArea+'</td><td>'+startTime+'</td>'+'</tr>';
+					}
+				}else{
+					for(var i=0;i<arr.length;i++){
+						var signedDate = getFormatDate(new Date(arr[i].signedDate));
+						var startTime = getFormatDate(new Date(arr[i].startTime));
+						html += '<tr><td>'+signedDate+'</td><td>'+arr[i].elecSupervisorNo+'</td>' +
+								'<td>'+arr[i].adminRegion+'</td><td>'+arr[i].location+'</td>' +
+								'<td>'+arr[i].totalArea+'</td><td>'+startTime+'</td>'+'</tr>';
+					}
+					$(".more").html("暂无更多数据").attr("disabled",true).after('<button class="btn btn-link top">返回顶部</button>');
+					$(".top").click(function(){
+						var sc=$(window).scrollTop();
+						$('body,html').animate({scrollTop:0},500);
+					});
 				}
-				$("#bond").html(html);
+				
+				$("#purchaseLand").html(html);
 			}else{
 				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
-				$("#bond").html(html);
+				$("#purchaseLand").html(html);
 				window.setTimeout(goBack, 2000); 
 			}
 		}

@@ -108,9 +108,9 @@ function unrotates() {
 			return -$(this).height() / 2
 		}
 	});
-//	$('html,body').animate({
-//		scrollTop : $(".right-content .container").offset().top - 50
-//	}, 300);
+	$('html,body').animate({
+		scrollTop : $(".posa-right-container .container").offset().top - 50
+	}, 300);
 }
 function showCompanyList(e, f, g) {//e-查询的园区名称,f页码数,g每页总大小
 	var msg = new Array();

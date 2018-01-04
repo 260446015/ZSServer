@@ -89,14 +89,10 @@ function showScan(_province,_address){
         });
         var geocoder = new AMap.Geocoder({
         	radius : 1000
-        	// 范围，默认：500
         });
-//        map.setCity(province);
         geocoder.getLocation(gardenAddress, function(status, result) {
-        	console.log(result);
         	map.setZoomAndCenter(12, [result.geocodes[0].location.lng, result.geocodes[0].location.lat]);
         });
-//        console.log(province);
         for (var j = 0; j < _address.length; j++) {
             (function(j){
                 var addr = _address[j].address;
@@ -158,7 +154,7 @@ function showScan(_province,_address){
         rotates();
         setTimeout(function() {
             unrotates();
-        }, 2000);
+        }, 4000);
 
     });
 }
@@ -183,6 +179,9 @@ function unrotates() {
             return -$(this).height() / 2
         }
     });
+    $('html,body').animate({
+        scrollTop : $(".posa-right-container .container").offset().top - 50
+    }, 300);
 }
 function showGardenInfo(data) {
     $.ajax({
@@ -232,7 +231,6 @@ function scanGarden(id){
 	$.ajax({
 		 url:'/apis/area/scanGarden.json?gardenId='+id,
 		 success:function(res){
-			 console.log(res.data)
 		 }
 	});
 }

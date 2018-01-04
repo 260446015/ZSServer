@@ -4,7 +4,7 @@ $(function(){
 		count ++;
 		var html = '';
 		var len = count * 10;
-		if(len < arr.length){
+		if(len <= arr.length){
 			for(var i=0;i<len;i++){
 				html += '<tr><td>'+arr[i].year+'</td><td>'+arr[i].grade+'</td>' +
 				'<td>'+arr[i].type+'</td><td>'+arr[i].idNumber+'</td>' +
@@ -34,13 +34,24 @@ function showTaxCredit(){
 				$("#taxCredit").prev().html(thead);
 				var html = '';
 				if(arr.length > 10){
-					arr.length = 10;
+					for(var i=0;i<10;i++){
+						html += '<tr><td>'+arr[i].year+'</td><td>'+arr[i].grade+'</td>' +
+								'<td>'+arr[i].type+'</td><td>'+arr[i].idNumber+'</td>' +
+								'<td>'+arr[i].evalDepartment+'</td>'+'</tr>';
+					}
+				}else{
+					for(var i=0;i<arr.length;i++){
+						html += '<tr><td>'+arr[i].year+'</td><td>'+arr[i].grade+'</td>' +
+								'<td>'+arr[i].type+'</td><td>'+arr[i].idNumber+'</td>' +
+								'<td>'+arr[i].evalDepartment+'</td>'+'</tr>';
+					}
+					$(".more").html("暂无更多数据").attr("disabled",true).after('<button class="btn btn-link top">返回顶部</button>');
+					$(".top").click(function(){
+						var sc=$(window).scrollTop();
+						$('body,html').animate({scrollTop:0},500);
+					});
 				}
-				for(var i=0;i<arr.length;i++){
-					html += '<tr><td>'+arr[i].year+'</td><td>'+arr[i].grade+'</td>' +
-							'<td>'+arr[i].type+'</td><td>'+arr[i].idNumber+'</td>' +
-							'<td>'+arr[i].evalDepartment+'</td>'+'</tr>';
-				}
+				
 				$("#taxCredit").html(html);
 			}else{
 				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
