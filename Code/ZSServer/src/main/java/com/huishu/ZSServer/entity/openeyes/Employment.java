@@ -56,6 +56,15 @@ public class Employment implements Serializable {
 	private Long createTime;
 	/** 更新时间 */
 	private Long updateTime;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public Long getId() {
 		return id;

@@ -53,6 +53,15 @@ public class HistoryRongZi implements Serializable {
 	private String tzrIds;
 	/** 估值 */
 	private String value;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getId() {
 		return id;

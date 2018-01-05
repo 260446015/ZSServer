@@ -51,8 +51,17 @@ public class JingPin implements Serializable {
 	private String value;
 	/** 业务范围 */
 	private String yewu;
-	/**所属公司*/
+	/** 所属公司 */
 	private String cname;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getCname() {
 		return cname;

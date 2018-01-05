@@ -36,6 +36,7 @@ function showShareStructure(){
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
+		async:false,
 		contentType:'application/json',
 		url:'/apis/openeyes/getShareStructure.json',
 		success:function(res){

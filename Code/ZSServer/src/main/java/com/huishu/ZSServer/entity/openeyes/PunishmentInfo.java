@@ -46,6 +46,15 @@ public class PunishmentInfo implements Serializable {
 	private String departmentName;
 	/** 描述 */
 	private String description;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getId() {
 		return id;

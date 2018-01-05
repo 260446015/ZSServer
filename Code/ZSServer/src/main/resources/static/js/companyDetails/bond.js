@@ -27,6 +27,7 @@ function showBond(){
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
+		async:false,
 		contentType:'application/json',
 		url:'/apis/openeyes/getBond.json',
 		success:function(res){

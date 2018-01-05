@@ -2,12 +2,7 @@ package com.huishu.ZSServer.entity.openeyes;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -36,6 +31,15 @@ public class Capital implements Serializable {
 	/** 认缴形式 */
 	private String paymet;
 	private Holder holder;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public Long getId() {
 		return id;

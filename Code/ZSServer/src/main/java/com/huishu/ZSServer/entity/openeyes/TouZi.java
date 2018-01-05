@@ -59,6 +59,15 @@ public class TouZi implements Serializable {
 	private String icon;
 	/** 所属公司名称 */
 	private String companyName;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public Long getCompany_id() {
 		return company_id;

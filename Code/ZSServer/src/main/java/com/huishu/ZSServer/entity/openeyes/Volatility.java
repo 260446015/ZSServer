@@ -1,11 +1,14 @@
 package com.huishu.ZSServer.entity.openeyes;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -78,6 +81,15 @@ public class Volatility implements Serializable {
 	private String flag;
 	/** 所属公司 */
 	private String cname;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getId() {
 		return id;

@@ -26,6 +26,7 @@ function showPatents(){
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
+		async:false,
 		contentType:'application/json',
 		url:'/apis/openeyes/getPatents.json',
 		success:function(res){

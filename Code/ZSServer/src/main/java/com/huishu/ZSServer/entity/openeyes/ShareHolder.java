@@ -16,7 +16,7 @@ import com.alibaba.fastjson.JSONObject;
  * @description
  * @version
  */
-@Table(name="t_shareholder")
+@Table(name = "t_shareholder")
 @Entity
 public class ShareHolder implements Serializable {
 
@@ -60,6 +60,15 @@ public class ShareHolder implements Serializable {
 	private Integer type;
 	/** 所属公司 */
 	private String cname;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getCname() {
 		return cname;

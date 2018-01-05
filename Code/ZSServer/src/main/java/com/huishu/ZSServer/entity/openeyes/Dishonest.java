@@ -50,6 +50,15 @@ public class Dishonest implements Serializable {
 	private String performance;
 	/** 发布时间 */
 	private String publishdate;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public Long getId() {
 		return id;

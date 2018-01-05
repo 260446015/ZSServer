@@ -1,6 +1,7 @@
 package com.huishu.ZSServer.entity.openeyes;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ import com.alibaba.fastjson.JSONObject;
  * @description 招投标的实体类
  * @version
  */
-@Table(name="t_bids")
+@Table(name = "t_bids")
 @Entity
 public class Bids implements Serializable {
 
@@ -45,6 +46,15 @@ public class Bids implements Serializable {
 	private String content;
 	/** 所属公司 */
 	private String cname;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getUuid() {
 		return uuid;

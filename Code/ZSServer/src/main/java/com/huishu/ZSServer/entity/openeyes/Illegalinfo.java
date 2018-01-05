@@ -38,6 +38,15 @@ public class Illegalinfo implements Serializable {
 	private String removeDepartment;
 	/** 所属公司 */
 	private String companyName;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getId() {
 		return id;

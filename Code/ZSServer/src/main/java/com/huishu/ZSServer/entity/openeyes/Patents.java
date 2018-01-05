@@ -52,7 +52,7 @@ public class Patents implements Serializable {
 	/** 专利名称 */
 	private String patentName;
 	/** 摘要 */
-	@Column(length=1000)
+	@Column(length = 1000)
 	private String abstracts;
 	/** 地址 */
 	private String address;
@@ -66,6 +66,15 @@ public class Patents implements Serializable {
 	private String createTime;
 	/** 修改时间（毫秒） */
 	private String updateTime;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getUuid() {
 		return uuid;

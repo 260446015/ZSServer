@@ -25,6 +25,7 @@ function showAllotmen(){
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
+		async:false,
 		contentType:'application/json',
 		url:'/apis/openeyes/getAllotmen.json',
 		success:function(res){

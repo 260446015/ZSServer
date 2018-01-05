@@ -25,6 +25,7 @@ function showBids(){
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
+		async:false,
 		contentType:'application/json',
 		url:'/apis/openeyes/getBids.json',
 		success:function(res){

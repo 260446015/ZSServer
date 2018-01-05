@@ -1,6 +1,7 @@
 package com.huishu.ZSServer.entity.openeyes;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -82,6 +83,15 @@ public class Bond implements Serializable {
 	private String exeRightTime;
 	/** 所属公司 */
 	private String cname;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getCname() {
 		return cname;

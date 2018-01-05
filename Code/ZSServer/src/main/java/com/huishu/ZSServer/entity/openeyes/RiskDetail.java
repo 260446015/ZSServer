@@ -56,6 +56,15 @@ public class RiskDetail implements Serializable {
 	private String companyName;
 	/***/
 	private Long searchId;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public Long getSearchId() {
 		return searchId;

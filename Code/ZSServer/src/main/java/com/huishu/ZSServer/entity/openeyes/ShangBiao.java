@@ -43,6 +43,15 @@ public class ShangBiao implements Serializable {
 	private Long appDate;
 	/** 公司id */
 	private Long companyId;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public Long getId() {
 		return id;

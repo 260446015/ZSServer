@@ -834,6 +834,7 @@ public class OpeneyesController extends BaseController {
 	public AjaxResult getSousuoCompanyList(@RequestBody OpeneyesDTO dto) throws OpeneyesException {
 		if (StringUtil.isEmpty(dto.getCname()))
 			return error(MsgConstant.ILLEGAL_PARAM);
+		dto.setUserId(getUserId());
 		return success(openeyesService.getSousuoCompanyList(dto));
 	}
 

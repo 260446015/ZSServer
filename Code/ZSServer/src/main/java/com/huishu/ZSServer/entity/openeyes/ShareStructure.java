@@ -15,7 +15,7 @@ import com.alibaba.fastjson.JSONObject;
  * @description 【web版】股本结构（股票）
  * @version
  */
-@Table(name="t_sharestructure")
+@Table(name = "t_sharestructure")
 @Entity
 public class ShareStructure implements Serializable {
 
@@ -45,6 +45,15 @@ public class ShareStructure implements Serializable {
 	private String hlimitShare;
 	/** 所属公司 */
 	private String cname;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getId() {
 		return id;

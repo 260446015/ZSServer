@@ -38,6 +38,15 @@ public class TaxCredit implements Serializable {
 	private String idNumber;
 	/** 纳税人名称 */
 	private String name;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getId() {
 		return id;

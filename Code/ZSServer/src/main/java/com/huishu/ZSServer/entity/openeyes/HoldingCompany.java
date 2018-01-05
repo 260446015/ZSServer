@@ -43,6 +43,15 @@ public class HoldingCompany implements Serializable {
 	private String investmentAmount;
 	/** 所属公司 */
 	private String cname;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public Long getId() {
 		return id;

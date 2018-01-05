@@ -42,6 +42,15 @@ public class LawSuit implements Serializable {
 	private String casetype;
 	/** 所属公司 */
 	private String cname;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getUuid() {
 		return uuid;

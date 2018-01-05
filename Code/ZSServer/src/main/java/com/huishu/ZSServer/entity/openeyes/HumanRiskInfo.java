@@ -40,6 +40,15 @@ public class HumanRiskInfo implements Serializable {
 	private Integer riskCount;
 	/** 关联人名称 */
 	private String humanName;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getHumanName() {
 		return humanName;

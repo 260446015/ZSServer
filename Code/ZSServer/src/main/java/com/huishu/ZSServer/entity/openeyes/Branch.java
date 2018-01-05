@@ -15,7 +15,7 @@ import com.alibaba.fastjson.JSONObject;
  * @description 分支机构
  * @version
  */
-@Table(name="t_branch")
+@Table(name = "t_branch")
 @Entity
 public class Branch implements Serializable {
 
@@ -45,6 +45,15 @@ public class Branch implements Serializable {
 	private Integer pencertileScore;
 	/** 所属公司 */
 	private String companyName;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	@Override
 	public String toString() {

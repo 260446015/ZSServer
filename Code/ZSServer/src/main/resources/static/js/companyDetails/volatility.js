@@ -6,6 +6,7 @@ function showBond(){
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
+		async:false,
 		contentType:'application/json',
 		url:'/apis/openeyes/getVolatility.json',
 		success:function(res){

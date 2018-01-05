@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ZSServer.common.DateUtil;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.CompanyAttation;
@@ -229,9 +230,17 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.STAFF);
 		dto.setParams(params);
 		List<Staff> list = staffRepository.findByCname(dto.getCname());
-		List<Staff> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
-			result.put("result", newList);
+//		List<Staff> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
+			result.put("result", list);
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					staffRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -245,9 +254,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		jsonArray.forEach((obj) -> {
 			Staff parseObject = JSONObject.parseObject(obj.toString(), Staff.class);
 			parseObject.setCname(dto.getCname());
-			newList.add(parseObject);
+			parseObject.setCreationTime(System.currentTimeMillis());
+			list.add(parseObject);
 		});
-		staffRepository.save(newList);
+		staffRepository.save(list);
 		return openEyesTarget;
 	}
 
@@ -268,6 +278,14 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				custom.setIsAttation(true);
 			}	
 			openEyesTarget.put("result", custom);
+			try {
+				long time = System.currentTimeMillis() - info.getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					baseInfoRepository.delete(info);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return openEyesTarget;
 		}
 		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -277,6 +295,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				throw new OpeneyesException();
 			}
 			info = JSONObject.parseObject(jsonObj.toString(), BaseInfo.class);
+			info.setCreationTime(System.currentTimeMillis());
 			if(dto.getFlag() != null){
 				if(dto.getFlag())
 					getJingPin(dto);//此处调用获取竞品信息的功能，存入数据库
@@ -331,11 +350,19 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.BRANCH);
 		List<Branch> list = branchRepository.findByCompanyName(dto.getCname());
-		List<Branch> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Branch> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("result", newList);
+			inList.put("result", list);
 			openEyesTarget.put("data", inList);
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					branchRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return openEyesTarget;
 		}
 		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -351,9 +378,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				jsonArray.forEach(obj -> {
 					Branch parseObject = JSONObject.parseObject(obj.toString(), Branch.class);
 					parseObject.setCompanyName(dto.getCname());
-					newList.add(parseObject);
+					parseObject.setCreationTime(System.currentTimeMillis());
+					list.add(parseObject);
 				});
-				branchRepository.save(newList);
+				branchRepository.save(list);
 			}
 		}
 		return openEyesTarget;
@@ -369,13 +397,21 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.HISTORYRONGZI);
 		List<HistoryRongZi> list = historyRongZiRepository.findByCompanyName(dto.getCname());
-		List<HistoryRongZi> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<HistoryRongZi> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("rows", newList);
+			inList.put("rows", list);
 			JSONObject inList2 = new JSONObject();
 			inList2.put("page", inList);
 			openEyesTarget.put("result", inList2);
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					historyRongZiRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return openEyesTarget;
 		}
 		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -391,10 +427,11 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				jsonArray.forEach(obj -> {
 					HistoryRongZi parseObject = JSONObject.parseObject(obj.toString(), HistoryRongZi.class);
 					String id = getGeneratedId(parseObject);
+					parseObject.setCreationTime(System.currentTimeMillis());
 					parseObject.setId(id);
-					newList.add(parseObject);
+					list.add(parseObject);
 				});
-				historyRongZiRepository.save(newList);
+				historyRongZiRepository.save(list);
 			}
 		}
 		return openEyesTarget;
@@ -410,13 +447,21 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.TEAMMEMBER);
 		List<TeamMember> list = teamMemberRepository.findByCompanyName(dto.getCname());
-		List<TeamMember> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<TeamMember> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("rows", newList);
+			inList.put("rows", list);
 			JSONObject page = new JSONObject();
 			page.put("page", inList);
 			openEyesTarget.put("result", page);
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					teamMemberRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return openEyesTarget;
 		}
 		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -430,9 +475,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				TeamMember parseObject = JSONObject.parseObject(obj.toString(), TeamMember.class);
-				newList.add(parseObject);
+				parseObject.setCreationTime(System.currentTimeMillis());
+				list.add(parseObject);
 			});
-			teamMemberRepository.save(newList);
+			teamMemberRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -447,13 +493,21 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.PRODUCTINFO);
 		List<ProductInfo> list = productInfoRepository.findByCompanyName(dto.getCname());
-		List<ProductInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<ProductInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("rows", newList);
+			inList.put("rows", list);
 			JSONObject page = new JSONObject();
 			page.put("page", inList);
 			openEyesTarget.put("result", page);
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					productInfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return openEyesTarget;
 		}
 		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -467,9 +521,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				ProductInfo parseObject = JSONObject.parseObject(obj.toString(), ProductInfo.class);
-				newList.add(parseObject);
+				parseObject.setCreationTime(System.currentTimeMillis());
+				list.add(parseObject);
 			});
-			productInfoRepository.save(newList);
+			productInfoRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -484,11 +539,19 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.TZANLI);
 		List<TouZi> list = touZiRepository.findByCompanyName(dto.getCname());
-		List<TouZi> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<TouZi> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("result", inList);
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					touZiRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -503,9 +566,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			jsonArray.forEach(obj -> {
 				TouZi parseObject = JSONObject.parseObject(obj.toString(), TouZi.class);
 				parseObject.setCompanyName(dto.getCname());
-				newList.add(parseObject);
+				parseObject.setCreationTime(System.currentTimeMillis());
+				list.add(parseObject);
 			});
-			touZiRepository.save(newList);
+			touZiRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -520,13 +584,21 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.JINGPIN);
 		List<JingPin> list = jingPinRepository.findByCname(dto.getCname());
-		List<JingPin> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<JingPin> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("rows", newList);
+			inList.put("rows", list);
 			JSONObject outList = new JSONObject();
 			outList.put("page", inList);
 			openEyesTarget.put("result", outList);
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					jingPinRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return openEyesTarget;
 		}
 		openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -543,9 +615,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
 				parseObject.setCname(dto.getCname());
-				newList.add(parseObject);
+				parseObject.setCreationTime(System.currentTimeMillis());
+				list.add(parseObject);
 			});
-			jingPinRepository.save(newList);
+			jingPinRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -560,11 +633,19 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.SHANGBIAO);
 		List<ShangBiao> list = shangBiaoRepository.findByApplicantCn(dto.getCname());
-		List<ShangBiao> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<ShangBiao> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("data", inList);
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					shangBiaoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -578,9 +659,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				ShangBiao parseObject = JSONObject.parseObject(obj.toString(), ShangBiao.class);
-				newList.add(parseObject);
+				parseObject.setCreationTime(System.currentTimeMillis());
+				list.add(parseObject);
 			});
-			shangBiaoRepository.save(newList);
+			shangBiaoRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -595,11 +677,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.PATENTS);
 		List<Patents> list = patentsRepository.findByApplicantName(dto.getCname());
-		List<Patents> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Patents> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					patentsRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -613,9 +704,10 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				Patents parseObject = JSONObject.parseObject(obj.toString(), Patents.class);
-				newList.add(parseObject);
+				parseObject.setCreationTime(System.currentTimeMillis());
+				list.add(parseObject);
 			});
-			patentsRepository.save(newList);
+			patentsRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -630,11 +722,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setParams(params);
 		dto.setSpec(KeyConstan.URL.COPYREG);
 		List<CopyReg> list = copyRegRepository.findByCompanyName(dto.getCname());
-		List<CopyReg> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<CopyReg> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					copyRegRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -648,10 +749,11 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				CopyReg parseObject = JSONObject.parseObject(obj.toString(), CopyReg.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCompanyName(dto.getCname());
-				newList.add(parseObject);
+				list.add(parseObject);
 			});
-			copyRegRepository.save(newList);
+			copyRegRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -666,9 +768,18 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.ICP);
 		dto.setParams(params);
 		List<Icp> list = icpRepository.findByCompanyName(dto.getCname());
-		List<Icp> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
-			result.put("data", newList);
+//		List<Icp> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
+			result.put("data", list);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					icpRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -676,11 +787,12 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArray != null){
 			jsonArray.forEach(obj -> {
 				Icp parseObject = JSONObject.parseObject(obj.toString(), Icp.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
-				newList.add(parseObject);
+				list.add(parseObject);
 			});
-			icpRepository.save(newList);
+			icpRepository.save(list);
 		}else
 			throw new OpeneyesException();
 		return openEyesTarget;
@@ -697,11 +809,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.ABNORMAL);
 		dto.setParams(params);
 		List<Abnormal> list = abnormalRepository.findByCompanyName(dto.getCname());
-		List<Abnormal> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Abnormal> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("data", newList);
+			inList.put("data", list);
 			result.put("result", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					abnormalRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -715,12 +836,13 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(abnormal != null){
 			abnormal.forEach(obj -> {
 				Abnormal parseObject = JSONObject.parseObject(obj.toString(), Abnormal.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
 				parseObject.setCompanyName(dto.getCname());
-				newList.add(parseObject);
+				list.add(parseObject);
 			});
-			abnormalRepository.save(newList);
+			abnormalRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -735,11 +857,19 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.XINGZHENGCHUFA);
 		dto.setParams(params);
 		List<PunishmentInfo> list = punishmentInfoRepository.findByName(dto.getCname());
-		List<PunishmentInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<PunishmentInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("data", inList);
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					punishmentInfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -753,11 +883,12 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				PunishmentInfo parseObject = JSONObject.parseObject(obj.toString(), PunishmentInfo.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
-				newList.add(parseObject);
+				list.add(parseObject);
 			});
-			punishmentInfoRepository.save(newList);
+			punishmentInfoRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -772,11 +903,19 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.YANZHONGWEIFA);
 		dto.setParams(params);
 		List<Illegalinfo> list = illegalinfoRepository.findByCompanyName(dto.getCname());
-		List<Illegalinfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Illegalinfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("result", inList);
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					illegalinfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -790,12 +929,13 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				Illegalinfo parseObject = JSONObject.parseObject(obj.toString(), Illegalinfo.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
 				parseObject.setCompanyName(dto.getCname());
-				newList.add(parseObject);
+				list.add(parseObject);
 			});
-			illegalinfoRepository.save(newList);
+			illegalinfoRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -810,11 +950,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.QIANSHUIGONGGAO);
 		dto.setParams(params);
 		List<OwnTax> list = ownTaxRepository.findByName(dto.getCname());
-		List<OwnTax> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<OwnTax> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("result", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					ownTaxRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -828,11 +977,12 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				OwnTax parseObject = JSONObject.parseObject(obj.toString(), OwnTax.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
-				newList.add(parseObject);
+				list.add(parseObject);
 			});
-			ownTaxRepository.save(newList);
+			ownTaxRepository.save(list);
 		}
 		return openEyesTarget;
 	}
@@ -845,9 +995,18 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.NEWS);
 		dto.setParams(params);
 		List<News> list = newsRepository.findByCompanyName(dto.getCname());
-		List<News> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
-			result.put("result", newList);
+//		List<News> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
+			result.put("result", list);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					newsRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -864,6 +1023,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				News parseObject = JSONObject.parseObject(obj.toString(), News.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
 				parseObject.setCompanyName(dto.getCname());
@@ -884,11 +1044,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.SHIXINREN);
 		dto.setParams(params);
 		List<Dishonest> list = dishonestRepository.findByIname(dto.getCname());
-		List<Dishonest> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Dishonest> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("result", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					dishonestRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -902,6 +1071,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				Dishonest parseObject = JSONObject.parseObject(obj.toString(), Dishonest.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				list.add(parseObject);
 			});
 			dishonestRepository.save(list);
@@ -917,16 +1087,25 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.QIYEFENGXIAN);
 		dto.setParams(params);
 		List<RiskInfo> list = riskInfoRepository.findByCname(dto.getCname());
-		List<RiskInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+//		List<RiskInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
 		List<RiskInfo> internal = null;
 		List<RiskInfo> external = null;
-		if (newList.size() > 0) {
-			internal = newList.stream().filter((riskInfo ->riskInfo.getRiskType().equals("internalList"))).collect(Collectors.toList());
-			external = newList.stream().filter((riskInfo ->riskInfo.getRiskType().equals("externalList"))).collect(Collectors.toList());
+		if (list.size() > 0) {
+			internal = list.stream().filter((riskInfo ->riskInfo.getRiskType().equals("internalList"))).collect(Collectors.toList());
+			external = list.stream().filter((riskInfo ->riskInfo.getRiskType().equals("externalList"))).collect(Collectors.toList());
 			JSONObject inList = new JSONObject();
 			inList.put("internalList", internal);
 			inList.put("externalList", external);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					riskInfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -940,6 +1119,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(internalList != null){
 			internalList.forEach(obj -> {
 				RiskInfo parseObject = JSONObject.parseObject(obj.toString(), RiskInfo.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setRiskType("internalList");
 				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
@@ -955,6 +1135,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(externalList != null){
 			externalList.forEach(obj -> {
 				RiskInfo parseObject = JSONObject.parseObject(obj.toString(), RiskInfo.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setRiskType("externalList");
 				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
@@ -976,11 +1157,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.RENFENGXIAN);
 		dto.setParams(params);
 		List<HumanRiskInfo> list = humanRiskInfoRepository.findByCompanyNameAndHumanName(dto.getCname(),dto.getHumanName());
-		List<HumanRiskInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<HumanRiskInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("externalList", newList);
+			inList.put("externalList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					humanRiskInfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -994,6 +1184,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				HumanRiskInfo parseObject = JSONObject.parseObject(obj.toString(), HumanRiskInfo.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setHumanName(dto.getHumanName());
 				list.add(parseObject);
 			});
@@ -1012,11 +1203,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.FENGXIANXINXI);
 		dto.setParams(params);
 		List<RiskDetail> list = riskDetailRepository.findBySearchId(dto.getId());
-		List<RiskDetail> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<RiskDetail> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("dataList", newList);
+			inList.put("dataList", list);
 			result.put("result", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					riskDetailRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1033,6 +1233,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				RiskDetail parseObject = JSONObject.parseObject(obj.toString(), RiskDetail.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCompanyName(dto.getCname());
 				String id = getGeneratedId(parseObject);
 				parseObject.setId(id);
@@ -1054,11 +1255,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.SHUIWU);
 		dto.setParams(params);
 		List<TaxCredit> list = taxCreditRepository.findByName(dto.getCname());
-		List<TaxCredit> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<TaxCredit> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					taxCreditRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1072,6 +1282,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				TaxCredit parseObject = JSONObject.parseObject(obj.toString(), TaxCredit.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(obj);
 				parseObject.setId(id);
 				list.add(parseObject);
@@ -1088,24 +1299,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		params.put("pageNum", dto.getPageNumber());
 		dto.setSpec(KeyConstan.URL.SOUSUO);
 		dto.setParams(params);
-//		List<TaxCredit> list = searchRepository.findByName(dto.getCname());
-//		if (list.size() > 0) {
-//			JSONObject inList = new JSONObject();
-//			inList.put("items", list);
-//			result.put("result", inList);
-//			return result;
-//		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
-//		JSONArray jsonArr = openEyesTarget.getJSONArray("data");
-//		if(jsonArr != null){
-//			jsonArr.forEach(obj -> {
-//				Company parseObject = JSONObject.parseObject(obj.toString(), Company.class);
-//				String id = getGeneratedId(obj);
-//				parseObject.setId(id);
-//				list.add(parseObject);
-//			});
-//			searchRepository.save(list);
-//		}
 		return openEyesTarget;
 	}
 
@@ -1119,11 +1313,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.HOLDER);
 		dto.setParams(params);
 		List<Holder> list = holderRepository.findByCname(dto.getCname());
-		List<Holder> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Holder> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("result", newList);
+			inList.put("result", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					holderRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1138,6 +1341,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			jsonArr.forEach(obj -> {
 				JSONObject target = JSONObject.parseObject(obj.toString());
 				Holder holder = new Holder();
+				holder.setCreationTime(System.currentTimeMillis());
 				holder.setAmount(target.getDouble("amount"));
 				holder.setId(target.getLong("id"));
 				holder.setLogo(target.getString("logo"));
@@ -1163,11 +1367,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.CHANGEINFO);
 		dto.setParams(params);
 		List<ChangeInfo> list = changeInfoRepository.findByCname(dto.getCname());
-		List<ChangeInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<ChangeInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("result", newList);
+			inList.put("result", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					changeInfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1181,6 +1394,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				ChangeInfo parseObject = JSONObject.parseObject(obj.toString(), ChangeInfo.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(obj);
 				parseObject.setId(id);
 				parseObject.setCname(dto.getCname());
@@ -1201,11 +1415,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.INVERST);
 		dto.setParams(params);
 		List<Inverst> list = inverstRepository.findByCname(dto.getCname());
-		List<Inverst> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Inverst> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("result", newList);
+			inList.put("result", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					inverstRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1219,6 +1442,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				Inverst parseObject = JSONObject.parseObject(obj.toString(), Inverst.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
 			});
@@ -1237,11 +1461,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.BIDS);
 		dto.setParams(params);
 		List<Bids> list = bidsRepository.findByCname(dto.getCname());
-		List<Bids> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Bids> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					bidsRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1256,6 +1489,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			jsonArr.forEach(obj -> {
 				JSONObject parseObject = JSONObject.parseObject(obj.toString());
 				Bids bid = new Bids();
+				bid.setCreationTime(System.currentTimeMillis());
 				bid.setAbs(parseObject.getString("abs"));
 				bid.setCname(dto.getCname());
 				bid.setContent(parseObject.getString("content"));
@@ -1283,11 +1517,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.BOND);
 		dto.setParams(params);
 		List<Bond> list = bondRepository.findByCname(dto.getCname());
-		List<Bond> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Bond> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("bondList", newList);
+			inList.put("bondList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					bondRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1303,6 +1546,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		}
 		jsonArr.forEach(obj -> {
 			Bond parseObject = JSONObject.parseObject(obj.toString(), Bond.class);
+			parseObject.setCreationTime(System.currentTimeMillis());
 			parseObject.setCname(dto.getCname());
 			list.add(parseObject);
 		});
@@ -1320,11 +1564,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.PURCHASELAND);
 		dto.setParams(params);
 		List<Purchaseland> list = purchaselandRepository.findByCname(dto.getCname());
-		List<Purchaseland> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Purchaseland> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("companyPurchaseLandList", newList);
+			inList.put("companyPurchaseLandList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					purchaselandRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1342,6 +1595,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			jsonArr.forEach(obj -> {
 				JSONObject parseObject = JSONObject.parseObject(obj.toString());
 				Purchaseland pl = new Purchaseland();
+				pl.setCreationTime(System.currentTimeMillis());
 				pl.setAdminRegion(parseObject.getString("adminRegion"));
 				pl.setAssignee(parseObject.getString("assignee"));
 				pl.setCname(dto.getCname());
@@ -1379,11 +1633,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.EMPLOYMENTS);
 		dto.setParams(params);
 		List<Employment> list = employmentRepository.findByCompanyName(dto.getCname());
-		List<Employment> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Employment> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("result", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					employmentRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1397,6 +1660,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				Employment parseObject = JSONObject.parseObject(obj.toString(), Employment.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				list.add(parseObject);
 			});
 			employmentRepository.save(list);
@@ -1414,11 +1678,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.CHECKINFO);
 		dto.setParams(params);
 		List<CheckInfo> list = checkInfoRepository.findByCname(dto.getCname());
-		List<CheckInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<CheckInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					checkInfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1432,6 +1705,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				CheckInfo parseObject = JSONObject.parseObject(obj.toString(), CheckInfo.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(obj);
 				parseObject.setId(id);
 				parseObject.setCname(dto.getCname());
@@ -1452,11 +1726,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.APPBKINFO);
 		dto.setParams(params);
 		List<AppbkInfo> list = appbkInfoRepository.findByCname(dto.getCname());
-		List<AppbkInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<AppbkInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					appbkInfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1470,6 +1753,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				AppbkInfo parseObject = JSONObject.parseObject(obj.toString(), AppbkInfo.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(obj);
 				parseObject.setId(id);
 				parseObject.setCname(dto.getCname());
@@ -1490,11 +1774,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.LAWSUIT);
 		dto.setParams(params);
 		List<LawSuit> list = lawSuitRepository.findByCname(dto.getCname());
-		List<LawSuit> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<LawSuit> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					lawSuitRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1508,6 +1801,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				LawSuit parseObject = JSONObject.parseObject(obj.toString(), LawSuit.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
 			});
@@ -1526,9 +1820,18 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.COURTANNOUNCEMENT);
 		dto.setParams(params);
 		List<CourtAnnouncement> list = courtAnnouncementRepository.findByCname(dto.getCname());
-		List<CourtAnnouncement> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
-			result.put("courtAnnouncements", newList);
+//		List<CourtAnnouncement> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
+			result.put("courtAnnouncements", list);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					courtAnnouncementRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1542,6 +1845,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				CourtAnnouncement parseObject = JSONObject.parseObject(obj.toString(), CourtAnnouncement.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
 			});
@@ -1562,11 +1866,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.ZHIXINGINFO);
 		dto.setParams(params);
 		List<ZhixingInfo> list = zhixingInfoRepository.findByCname(dto.getCname());
-		List<ZhixingInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<ZhixingInfo> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("items", newList);
+			inList.put("items", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					zhixingInfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1580,6 +1893,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				ZhixingInfo parseObject = JSONObject.parseObject(obj.toString(), ZhixingInfo.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				String id = getGeneratedId(obj);
 				parseObject.setId(id);
@@ -1600,6 +1914,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		List<Volatility> list = volatilityRepository.findByCname(dto.getCname());
 		if (list.size() > 0) {
 			result.put("data", list.get(0));
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					volatilityRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1615,6 +1938,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		}
 		if(jsonArr != null){
 			Volatility parseObject = JSONObject.parseObject(jsonArr.toString(), Volatility.class);
+			parseObject.setCreationTime(System.currentTimeMillis());
 			parseObject.setCname(dto.getCname());
 			String id = getGeneratedId(jsonArr);
 			parseObject.setId(id);
@@ -1633,6 +1957,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		List<CompanyInfo> list = companyInfoRepository.findByCompanyName(dto.getCname());
 		if (list.size() > 0) {
 			result.put("data", list.get(0));
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					companyInfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1648,6 +1981,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		}
 		if(jsonArr != null){
 			CompanyInfo parseObject = JSONObject.parseObject(jsonArr.toJSONString(), CompanyInfo.class);
+			parseObject.setCreationTime(System.currentTimeMillis());
 			String id = getGeneratedId(jsonArr);
 			parseObject.setId(id);
 			companyInfoRepository.save(parseObject);
@@ -1665,11 +1999,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.SENIOREXECUTIVE);
 		dto.setParams(params);
 		List<SeniorExecutive> list = seniorExecutiveRepository.findByCname(dto.getCname());
-		List<SeniorExecutive> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<SeniorExecutive> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("dataList", newList);
+			inList.put("dataList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					seniorExecutiveRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1683,6 +2026,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				SeniorExecutive parseObject = JSONObject.parseObject(obj.toString(), SeniorExecutive.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				String id = getGeneratedId(obj);
 				parseObject.setId(id);
@@ -1703,11 +2047,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.HOLDINGCOMPANY);
 		dto.setParams(params);
 		List<HoldingCompany> list = holdingCompanyRepository.findByCname(dto.getCname());
-		List<HoldingCompany> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<HoldingCompany> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("dataList", newList);
+			inList.put("dataList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					holdingCompanyRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1721,6 +2074,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				HoldingCompany parseObject = JSONObject.parseObject(obj.toString(), HoldingCompany.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
 			});
@@ -1740,11 +2094,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.CERTIFICATE);
 		dto.setParams(params);
 		List<Certificate> list = certificateRepository.findByCname(dto.getCname());
-		List<Certificate> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Certificate> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("resultList", newList);
+			inList.put("resultList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					certificateRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1758,6 +2121,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				Certificate parseObject = JSONObject.parseObject(obj.toString(), Certificate.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
 			});
@@ -1776,11 +2140,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.ANNOUNCEMENT);
 		dto.setParams(params);
 		List<Announcement> list = announcementRepository.findByCname(dto.getCname());
-		List<Announcement> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Announcement> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("dataList", newList);
+			inList.put("dataList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					announcementRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1794,6 +2167,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				Announcement parseObject = JSONObject.parseObject(obj.toString(), Announcement.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
 			});
@@ -1815,6 +2189,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			JSONObject inList = new JSONObject();
 			inList.put("holderList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					shareHolderRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1828,6 +2211,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				ShareHolder parseObject = JSONObject.parseObject(obj.toString(), ShareHolder.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				list.add(parseObject);
 			});
@@ -1846,6 +2230,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		List<IssueRelated> list = issueRelatedRepository.findByCname(dto.getCname());
 		if (list.size() > 0) {
 			result.put("data", list.get(0));
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					issueRelatedRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1862,6 +2255,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		}
 		if(jsonArr != null){
 			IssueRelated parseObject = JSONObject.parseObject(jsonArr.toJSONString(), IssueRelated.class);
+			parseObject.setCreationTime(System.currentTimeMillis());
 			String id = getGeneratedId(parseObject);
 			parseObject.setCname(dto.getCname());
 			parseObject.setId(id);
@@ -1882,6 +2276,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			JSONObject inList = new JSONObject();
 			inList.put("dataList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					shareStructureRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1895,6 +2298,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				ShareStructure parseObject = JSONObject.parseObject(obj.toString(), ShareStructure.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				String id = getGeneratedId(obj);
 				parseObject.setId(id);
@@ -1917,6 +2321,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			JSONObject inList = new JSONObject();
 			inList.put("dataList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					equityChangeRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1930,6 +2343,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				EquityChange parseObject = JSONObject.parseObject(obj.toString(), EquityChange.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				String id = getGeneratedId(obj);
 				parseObject.setId(id);
@@ -1952,6 +2366,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			JSONObject inList = new JSONObject();
 			inList.put("dataList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					bonusInfoRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -1966,6 +2389,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			jsonArr.forEach(obj -> {
 				BonusInfo parseObject = JSONObject.parseObject(obj.toString(), BonusInfo.class);
 				parseObject.setCname(dto.getCname());
+				parseObject.setCreationTime(System.currentTimeMillis());
 				String id = getGeneratedId(obj);
 				parseObject.setId(id);
 				list.add(parseObject);
@@ -1985,11 +2409,20 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		dto.setSpec(KeyConstan.URL.ALLOTMEN);
 		dto.setParams(params);
 		List<Allotmen> list = allotmenRepository.findByCname(dto.getCname());
-		List<Allotmen> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
-		if (newList.size() > 0) {
+//		List<Allotmen> newList = list.stream().skip((dto.getPageNumber()-1) * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		if (list.size() > 0) {
 			JSONObject inList = new JSONObject();
-			inList.put("dataList", newList);
+			inList.put("dataList", list);
 			result.put("data", inList);
+			//当用户查询时，如果存储时间超过1个月就重新查询
+			try {
+				long time = System.currentTimeMillis() - list.get(0).getCreationTime();
+				if(time >= DateUtil.FAILURE_TIME){
+					allotmenRepository.delete(list);
+				}
+			} catch (Exception e) {
+				log.info("删除过期数据出错:",e.getMessage());
+			}
 			return result;
 		}
 		JSONObject openEyesTarget = getOpenEyesTarget(dto.getSpec(), dto.getParams(), dto.getFrom(), dto.getUserId());
@@ -2003,6 +2436,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 		if(jsonArr != null){
 			jsonArr.forEach(obj -> {
 				Allotmen parseObject = JSONObject.parseObject(obj.toString(), Allotmen.class);
+				parseObject.setCreationTime(System.currentTimeMillis());
 				parseObject.setCname(dto.getCname());
 				String id = getGeneratedId(obj);
 				parseObject.setId(id);

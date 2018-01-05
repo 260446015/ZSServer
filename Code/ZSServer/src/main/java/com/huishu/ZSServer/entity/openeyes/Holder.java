@@ -45,9 +45,17 @@ public class Holder implements Serializable {
 	 * 
 	 */
 	private String capital;
-	
+
 	private String cname;
-	
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getCname() {
 		return cname;

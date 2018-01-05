@@ -50,6 +50,15 @@ public class OwnTax implements Serializable {
 	private String ownTaxAmount;
 	/** 部门 */
 	private String department;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getId() {
 		return id;

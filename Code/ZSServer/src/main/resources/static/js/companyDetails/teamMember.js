@@ -27,6 +27,7 @@ function showTeamMember(){
 	$.ajax({
 		url:'/apis/openeyes/getTeamMember.json',
 		data:JSON.stringify(req),
+		async:false,
 		contentType:'application/json',
 		type:'post',
 		success:function(res){

@@ -1,6 +1,7 @@
 package com.huishu.ZSServer.entity.openeyes;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -42,6 +43,15 @@ public class Abnormal implements Serializable {
 	private String createTime;
 	/** 所属公司 */
 	private String companyName;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getId() {
 		return id;

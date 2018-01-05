@@ -40,8 +40,17 @@ public class CopyReg implements Serializable {
 	private Long publishtime;
 	/** 登记日期 */
 	private Long regtime;
-	/**所属公司*/
+	/** 所属公司 */
 	private String companyName;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getCompanyName() {
 		return companyName;

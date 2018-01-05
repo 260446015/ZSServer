@@ -15,7 +15,7 @@ import com.alibaba.fastjson.JSONObject;
  * @description 发⾏相关（股票）
  * @version
  */
-@Table(name="t_issuerelated")
+@Table(name = "t_issuerelated")
 @Entity
 public class IssueRelated implements Serializable {
 
@@ -53,6 +53,15 @@ public class IssueRelated implements Serializable {
 	private String mainUnderwriter;
 	/** （上市保荐⼈） 字段说明 */
 	private String listingSponsor;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getExpectedToRaise() {
 		return expectedToRaise;
@@ -157,7 +166,6 @@ public class IssueRelated implements Serializable {
 	public void setListingSponsor(String listingSponsor) {
 		this.listingSponsor = listingSponsor;
 	}
-	
 
 	public String getId() {
 		return id;

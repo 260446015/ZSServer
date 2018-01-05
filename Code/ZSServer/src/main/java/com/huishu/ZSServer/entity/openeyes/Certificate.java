@@ -13,12 +13,13 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * 资质证书
- * @author yindawei 
+ * 
+ * @author yindawei
  * @date 2017年12月18日上午11:15:28
- * @description 
+ * @description
  * @version
  */
-@Table(name="t_certificate")
+@Table(name = "t_certificate")
 @Entity
 public class Certificate implements Serializable {
 
@@ -41,6 +42,15 @@ public class Certificate implements Serializable {
 	private String detail;
 	/** 所属公司 */
 	private String cname;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public String getId() {
 		return id;

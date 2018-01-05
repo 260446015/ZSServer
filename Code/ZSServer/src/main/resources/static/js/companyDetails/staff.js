@@ -17,6 +17,7 @@ function showStaff(){//展示主要人员的功能
 	$.ajax({
 		url:'/apis/openeyes/getStaffInfo.json',
 		data:JSON.stringify(req),
+		async:false,
 		contentType:'application/json',
 		type:'post',
 		async:false,
@@ -51,6 +52,7 @@ function showHolder(){//展示股东的功能
 	$.ajax({
 		url:'/apis/openeyes/getHolder.json',
 		data:JSON.stringify(req),
+		async:false,
 		contentType:'application/json',
 		type:'post',
 		success:function(res){

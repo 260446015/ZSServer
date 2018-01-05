@@ -31,7 +31,7 @@ public class TeamMember implements Serializable {
 	/** 创建日期 */
 	private Long createTime;
 	/** 人物介绍 */
-	@Column(name="sdesc")
+	@Column(name = "sdesc")
 	private String desc;
 	/** logo来源 */
 	private String icon;
@@ -43,6 +43,15 @@ public class TeamMember implements Serializable {
 	private String name;
 	/** 人物标签 */
 	private String title;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	@Override
 	public String toString() {

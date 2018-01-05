@@ -26,6 +26,7 @@ function showDishonest(){
 	$.ajax({
 		type:'post',
 		data:JSON.stringify(req),
+		async:false,
 		contentType:'application/json',
 		url:'/apis/openeyes/getDishonest.json',
 		success:function(res){

@@ -1,6 +1,7 @@
 package com.huishu.ZSServer.entity.openeyes;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -86,6 +87,15 @@ public class BaseInfo implements Serializable {
 	private Long updateTimes;
 	/** 统一社会信用代码 */
 	private String creditCode;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public Long getCompanyId() {
 		return companyId;

@@ -23,6 +23,8 @@ import com.huishu.ZSServer.common.util.ConcersUtils;
 		public static final String FORMAT_DATE = "yyyy-MM-dd";
 
 		public static final String FORMAT_TIME = "yyyy-MM-dd HH:mm:ss";
+		
+		public static final long FAILURE_TIME = 2750151420L;
 
 		public static String getFormatDate(Date date, String format) {
 			SimpleDateFormat sdf = new SimpleDateFormat(format);

@@ -45,6 +45,15 @@ public class ProductInfo implements Serializable {
 	private Long productId;
 	/** 业务范围 */
 	private String yewu;
+	private Long creationTime;
+
+	public Long getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public Long getId() {
 		return id;
