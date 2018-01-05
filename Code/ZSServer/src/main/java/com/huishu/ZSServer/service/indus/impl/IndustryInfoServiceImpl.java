@@ -190,13 +190,20 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 	public Page<AITInfo> getIndustryInfoByPage(JSONObject json) {
 		BoolQueryBuilder bq = new BoolQueryBuilder();
 		JSONArray arr = json.getJSONArray("industry");
+		BoolQueryBuilder or = new BoolQueryBuilder();
 		if(arr!= null){
 			for(int i=0;i<arr.size();i++){
 				JSONObject jso = arr.getJSONObject(i);
 				String str = jso.getString("value");
-				bq.should(QueryBuilders.termQuery("industryLabel",str ));
+				or.should(QueryBuilders.termQuery("industryLabel",str ));
 			}
 		}
+		bq.must(or);
+		String dimension = json.getString("dimension");
+		if(StringUtil.isNotEmpty(dimension)){
+			bq.must(QueryBuilders.termQuery("dimension", dimension));
+		}
+		
 		String area = json.getString("area");
 		if(StringUtil.isNotEmpty(area)){
 			bq.must(QueryBuilders.wildcardQuery("area", "*"+area+"*"));
@@ -323,7 +330,7 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 	@Override
 	public List<AITInfo> findResearchList(JSONObject json) {
 		List<AITInfo>  list= new ArrayList<AITInfo>();
-		String ss = json.getString("dimenison");
+		String ss = json.getString("dimension");
 		
 		JSONArray arr = json.getJSONArray("industryLabel");
 		

@@ -35,5 +35,9 @@ public interface KeyWordService {
 	 */
 	boolean deleteData(List<KeyWordEntity> list);
 	
+	/**
+	 * 获取所有的关键词
+	 */
+	List<KeyWordEntity> findAllKeyWord();
 	
 }

@@ -117,6 +117,8 @@
 </div>
 <#include "/common/footer.ftl"/>
 <#include "/common/script.ftl"/>
+<!--<script src="/vendor/jquery/jquery-1.10.2.min.js"></script>
+<script src="/vendor/echarts/echarts-all-3.js"></script> -->
 <script src="/js/accurateScreening/accurateScreening.js"></script>
 </body>
 </html>	

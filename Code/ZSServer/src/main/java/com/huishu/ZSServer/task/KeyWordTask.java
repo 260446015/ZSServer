@@ -14,9 +14,13 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.merchantKey.itemModel.KeywordModel;
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.huishu.ZSServer.common.util.DateUtils;
+import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.KeyWordEntity;
+import com.huishu.ZSServer.entity.KeywordArticle;
 import com.huishu.ZSServer.service.indus.IndustryInfoService;
+import com.huishu.ZSServer.service.keyword.KeyArticleService;
 import com.huishu.ZSServer.service.keyword.KeyWordService;
 
 /**
@@ -36,7 +40,8 @@ public class KeyWordTask {
 	private IndustryInfoService service;
 	@Autowired
 	private KeyWordService kservice;
-
+	@Autowired
+	private KeyArticleService keyservice;
 	/**
 	 * 关键词云
 	 */
@@ -47,6 +52,7 @@ public class KeyWordTask {
 		List<String> time1 = Arrays.asList(time.split(","));
 		List<String> asList = Arrays.asList(industry.split(","));
 		time1.forEach(str -> {
+		
 			JSONObject obj = new JSONObject();
 			JSONArray array = new JSONArray();
 			DateUtils.initTime(obj, str);
@@ -58,7 +64,6 @@ public class KeyWordTask {
 			obj.put("industryLabel", array);
 			obj.put("dimension", "产业头条");
 			// 第二步，获取关键词
-			// JSONArray arr = service.getKeyWordList(obj);
 			List<KeywordModel> list1 = service.fiindKeyWordList(obj);
 			List<KeyWordEntity> list = kservice.findKeyWordList(str);
 			if (list1 != null) {
@@ -89,12 +94,73 @@ public class KeyWordTask {
 					boolean info = kservice.saveKeyWord(li);
 					log.info("保存的结果是：》》》》》》》》》" + info);
 				}
+				
+				
 			}else{
 				if(list.size() != 0){
 					boolean info = kservice.deleteData(list);
 				}
 			}
+			
 		});
 		log.info("词云更新/保存成功");
+		log.info("==============词云方法更新完毕=====================");		
+		log.info("==============根据词云获取文章方法开启=====================");		
+		//根据词云查询文章
+		List<KeyWordEntity> list = kservice.findAllKeyWord();
+		if(list.size() != 0){
+			list.forEach(action->{
+				List<KeywordArticle> info = new ArrayList<KeywordArticle>();
+				Long id = action.getId();
+				String key = action.getKey();
+				String time2 = action.getTime();
+				JSONObject obj1 = new JSONObject();
+				DateUtils.initTime(obj1, time2);
+				obj1.put("keyWord",key);
+				String dimension = StringUtil.getIndustryInfo(key);
+				if(StringUtil.isNotEmpty(dimension)){
+					obj1.put("dimension","产业头条");
+					JSONArray arr = new JSONArray();
+					JSONObject obj = new JSONObject();
+					obj.put("value", dimension);
+					arr.add(obj);
+					obj1.put("industryLabel", arr);
+				}else{
+					JSONArray arr = new JSONArray();
+					JSONObject obj = new JSONObject();
+					obj.put("value", "大数据");
+					arr.add(obj);
+					obj = new JSONObject();
+					obj.put("value", "人工智能");
+					arr.add(obj);
+					obj = new JSONObject();
+					obj.put("value", "物联网");
+					arr.add(obj);
+					obj = new JSONObject();
+					obj.put("value", "生物医药");
+					arr.add(obj);
+					obj1.put("industryLabel", arr);
+					obj1.put("dimension","产业头条");
+				}
+				JSONArray json = service.getArticleListByKeyWord(obj1);
+				for(int i=0;i<json.size();i++){
+					KeywordArticle entry = new KeywordArticle();
+					JSONObject obj = json.getJSONObject(i);
+					entry.setAid(obj.getString("id"));
+					entry.setIndustryLabel(obj.getString("industryLabel"));
+					entry.setKid(id);
+					entry.setTitle(obj.getString("title"));
+					entry.setArticleLink(obj.getString("articleLink"));
+					info.add(entry);
+				}
+				boolean result = keyservice.saveInfo(info);
+				if(result){
+					log.info("当前保存成功");
+				}else{
+					log.info("保存当前文章列表失败");
+				}
+			});
+		}
+		log.info("==============根据词云保存文章方法结束=====================");	
 	}
 }

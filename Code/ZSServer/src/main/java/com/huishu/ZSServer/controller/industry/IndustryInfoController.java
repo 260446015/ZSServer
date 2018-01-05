@@ -25,6 +25,7 @@ import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.dto.IndustryInfoDTO;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.service.indus.IndustryInfoService;
+import com.huishu.ZSServer.service.keyword.KeyArticleService;
 
 /**
  * @author hhy
@@ -41,6 +42,8 @@ public class IndustryInfoController extends BaseController{
 	@Autowired
 	private IndustryInfoService service;
 	
+	@Autowired
+	private KeyArticleService kservice;
 	/**
 	 * 产业动态页面跳转
 	 * @param map
@@ -109,7 +112,7 @@ public class IndustryInfoController extends BaseController{
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		
-		JSONObject obj1 = new JSONObject();
+	/*	JSONObject obj1 = new JSONObject();
 		DateUtils.initTime(obj1, time);
 		obj1.put("keyWord", keyWord);
 		String info = StringUtil.getIndustryInfo(keyWord);
@@ -124,7 +127,8 @@ public class IndustryInfoController extends BaseController{
 			addData(obj1);
 			obj1.put("dimension","产业头条");
 		}
-		JSONArray json = service.getArticleListByKeyWord(obj1);
+		JSONArray json = service.getArticleListByKeyWord(obj1);*/
+		JSONArray json = kservice.findArticleInfo(time,keyWord);
 		return success(json);
 	}
 	
@@ -176,6 +180,7 @@ public class IndustryInfoController extends BaseController{
 		}
 		json.put("area", area);
 		json.put("type", type);
+		json.put("dimension", "产业头条");
 		json.put("pageSize", dto.getPageSize());
 		json.put("pageNumber", dto.getPageNumber());
 		Page<AITInfo> page = service.getIndustryInfoByPage(json);

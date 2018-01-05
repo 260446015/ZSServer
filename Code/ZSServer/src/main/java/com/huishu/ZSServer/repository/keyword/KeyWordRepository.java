@@ -32,4 +32,11 @@ public interface KeyWordRepository extends CrudRepository<KeyWordEntity, Long>{
 	@Query(value="SELECT * FROM t_key_value  WHERE time = ?1 limit 0,12" , nativeQuery = true)
 	List<KeyWordEntity> getByTime(String time);
 
+	/**
+	 * @param time
+	 * @param keyWord
+	 * @return
+	 */
+	KeyWordEntity findByTimeAndKey(String time, String keyWord);
+
 }

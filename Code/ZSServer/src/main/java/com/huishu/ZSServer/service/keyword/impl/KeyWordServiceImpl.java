@@ -56,4 +56,10 @@ public class KeyWordServiceImpl implements KeyWordService {
 		}
 	}
 
+	@Override
+	public List<KeyWordEntity> findAllKeyWord() {
+		List<KeyWordEntity> all = (List<KeyWordEntity>) rep.findAll();
+		return all;
+	}
+
 }
