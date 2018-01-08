@@ -103,15 +103,14 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 //		String direct = msg[3];
 		PageRequest pageRequest = new PageRequest(pageNum, pageSize);
 		List<GardenUser> returnList = new ArrayList<>();
+		List<GardenUser> all = (List<GardenUser>) gardenUserRepository.findByUserId(dto.getUserId());
 		if(msg[0].equals("全部") && msg[1].equals("全部")){
-			returnList = (List<GardenUser>) gardenUserRepository.findAll();
+			returnList = all;
 		}else{
 			if(msg[0].equals("全部")){
-				Map<String, Object> params = new HashMap<>();
-				params.put("province", msg[1]);
-				returnList = gardenUserRepository.findAll(getSpec(params));
+				returnList = all.stream().filter(obj -> obj.getProvince().equals(msg[1])).collect(Collectors.toList());
 			}else{
-				returnList = gardenUserRepository.findByIndustryTypeLike("%" + msg[0] + "%");
+				returnList = all.stream().filter(obj -> obj.getIndustryType().contains(msg[0])).collect(Collectors.toList());
 			}
 		}
 		List<GardenUser> list = new ArrayList<>();

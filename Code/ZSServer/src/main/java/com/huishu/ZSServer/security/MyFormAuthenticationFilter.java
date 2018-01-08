@@ -38,9 +38,12 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 		try {
 			Subject subject = getSubject(request, response);
 			DefaultWebSessionManager sessionManager = (DefaultWebSessionManager) securityManager.getSessionManager();
-			// 单点登录
+			// 单点登录l
 			Collection<Session> sessions = sessionManager.getSessionDAO().getActiveSessions();
 			for (Session session : sessions) {
+				if(token.getUsername().equals("testzkdj")){
+					continue;
+				}
 				if (token.getUsername()
 						.equals(String.valueOf(session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY)))) {
 					sessionManager.getSessionDAO().delete(session);

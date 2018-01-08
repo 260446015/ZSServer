@@ -161,6 +161,7 @@ public class GardenController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		Page<GardenUser> page = null;
+		dto.setUserId(userId);
 		try {
 			page = gardenUserService.getAttentionGardenList(dto);
 			return success(page);
