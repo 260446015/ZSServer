@@ -15,7 +15,7 @@ import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.UserBaseDTO;
-import com.huishu.ManageServer.repository.datajpa.first.UserRepository;
+import com.huishu.ManageServer.repository.first.UserRepository;
 import com.huishu.ManageServer.security.Digests;
 import com.huishu.ManageServer.security.Encodes;
 import com.huishu.ManageServer.service.user.UserService;
@@ -27,7 +27,7 @@ import com.huishu.ManageServer.service.user.UserService;
  * @date 2018/1/4
  */
 @Service
-@Transactional("firstTransactionManager")
+//@Transactional("firstTransactionManager")
 public class UserServiceImpl implements UserService {
 
 	@Autowired

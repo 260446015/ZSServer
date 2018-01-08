@@ -56,7 +56,7 @@
 							</ol>						
 						</div>
 						<div class="pull-right">
-							<h2>Editable Table</h2>
+							<h2>企业库管理</h2>
 						</div>					
 					</div>
 					<!-- End Page Header -->

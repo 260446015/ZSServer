@@ -1,4 +1,4 @@
-package com.huishu.ManageServer.config.multipleDs;
+/*package com.huishu.ManageServer.config.multipleDs;
 
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,20 +16,20 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-/**
+*//**
 * Created by hhy on 2017-12-12.
 * 第一个数据源配置
 * If you are using Spring Data, you need to configure @EnableJpaRepositories
-*/
+*//*
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.huishu.ManageServer.repository.datajpa.first",entityManagerFactoryRef = "firstEntityManagerFactory",transactionManagerRef="firstTransactionManager")
 public class FirstDsConfig {
-	 /**
+	 *//**
      * 数据源配置对象
      * Primary 表示默认的对象，Autowire可注入，不是默认的得明确名称注入
      * @return
-     */
+     *//*
     @Bean
     @Primary
     @ConfigurationProperties("first.datasource")
@@ -37,10 +37,10 @@ public class FirstDsConfig {
         return new DataSourceProperties();
     }
 
-    /**
+    *//**
      * 数据源对象
      * @return
-     */
+     *//*
     @Bean
     @Primary
     @ConfigurationProperties("first.datasource")
@@ -48,11 +48,11 @@ public class FirstDsConfig {
         return firstDataSourceProperties().initializeDataSourceBuilder().build();
     }
 
-    /**
+    *//**
      * 实体管理对象
      * @param builder 由spring注入这个对象，首先根据type注入（多个就取声明@Primary的对象），否则根据name注入
      * @return
-     */
+     *//*
     @Bean
     @Primary
     public LocalContainerEntityManagerFactoryBean firstEntityManagerFactory(
@@ -64,10 +64,10 @@ public class FirstDsConfig {
                 .build();
     }
 
-    /**
+    *//**
      * 事务管理对象
      * @return
-     */
+     *//*
     @Bean(name = "firstTransactionManager")
     @Primary
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
@@ -88,3 +88,4 @@ public class FirstDsConfig {
         return new TransactionTemplate(platformTransactionManager);
     }
 }
+*/

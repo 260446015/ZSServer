@@ -325,4 +325,19 @@ public class StringUtil {
 		obj.put("物联网", "物联网");
 		return obj;
 	}
+	public static JSONArray replaceString(String str){
+		JSONArray json = new JSONArray();
+		String rep = str.replace("[", "");
+		String result = rep.replace("]", "");
+		String[] split = result.split(",");
+		for(int i=0;i<split.length;i++){
+			String ss = split[i];
+			String sy = ss.replace(" ", "");
+			json.add(sy);
+		}
+		return json;
+	}
+    	 
+     
+	
 }

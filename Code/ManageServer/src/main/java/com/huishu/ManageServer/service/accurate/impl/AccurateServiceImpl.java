@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.huishu.ManageServer.entity.dbFirst.IndusCompany;
 import com.huishu.ManageServer.entity.dto.AccurateDTO;
-import com.huishu.ManageServer.repository.datajpa.first.IndusCompanyRepository;
+import com.huishu.ManageServer.repository.first.IndusCompanyRepository;
 import com.huishu.ManageServer.service.accurate.AccurateService;
 
 @Service
-@Transactional("firstTransactionManager")
+//@Transactional("firstTransactionManager")
 public class AccurateServiceImpl implements AccurateService {
 
 	private static Logger log = LoggerFactory.getLogger(AccurateServiceImpl.class);

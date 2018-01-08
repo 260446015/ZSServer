@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ManageServer.config.TargetDataSource;
 
 /**
  * @author hhy
@@ -19,7 +20,8 @@ import com.alibaba.fastjson.JSONObject;
  * 舆情信息的实体
  */
 @Entity
-@Table(name = "li_keywords")
+@Table(name = "li_public_opinion")
+@TargetDataSource(name="second")
 public class YQInfoEntity implements Serializable{
 
 	private static final long serialVersionUID = -5140230870865901869L;
@@ -35,24 +37,34 @@ public class YQInfoEntity implements Serializable{
 	@Column(name = "id", nullable = false)
 	private String aid;
 	//发布时间
+	@Column(name = "publishTime")
 	private Timestamp publishTime;
 	//原文地址
+	@Column(name = "url")
 	private String url;
 	//消极
+	@Column(name = "isnegative")
 	private boolean isnegative;
 	//中性
+	@Column(name = "isneutral")
 	private boolean isneutral;
 	//积极
+	@Column(name = "ispositive")
 	private boolean ispositive;
 	//原文标题
+	@Column(name = "title")
 	private String  title;
 	//将文章标题中出现的特殊的字符替换掉,并存储
+	@Column(name = "cleanTitle")
 	private String  cleanTitle;
 	//内容
+	@Column(name = "content")
 	private String content;
 	//摘要
+	@Column(name = "summary")
 	private String summary;
 	//关键词
+	@Column(name = "keywords")
 	private String keywords;
 	//实体-地域
 	@Column(name = "entity_area")
@@ -64,8 +76,10 @@ public class YQInfoEntity implements Serializable{
 	@Column(name = "entity_organization")
 	private String organization;
 	//入库时间
+	@Column(name = "time")
 	private Timestamp time;
 	//备注
+	@Column(name = "remark")
 	private String remark;
 	public Long getId() {
 		return id;
