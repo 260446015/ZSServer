@@ -52,11 +52,11 @@
 							<ol class="breadcrumb visible-sm visible-md visible-lg">								
 								<li><a href="index.html"><i class="icon fa fa-home"></i>Home</a></li>
 								<li><a href="#"><i class="fa fa-table"></i>Tables</a></li>
-								<li class="active"><i class="fa fa-pencil-square-o"></i>Editable</li>
+								<li class="active"><i class="fa fa-pencil-square-o"></i>Company</li>
 							</ol>						
 						</div>
 						<div class="pull-right">
-							<h2>Editable Table</h2>
+							<h2>企业库管理</h2>
 						</div>					
 					</div>
 					<!-- End Page Header -->
