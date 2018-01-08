@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ManageServer.config.TargetDataSource;
 
 /**
  * @author hhy
@@ -20,6 +22,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 @Entity
 @Table(name = "li_keywords")
+@TargetDataSource(name="second")
 public class CompanyEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +31,7 @@ public class CompanyEntity implements Serializable {
 	@Column(name = "id", nullable = false)
 	private Long id;
 	// 关键词
+	@Column(name="keyword")
 	private String keyword;
 	// 关键词缩写
 	@Column(name = "ab_word")

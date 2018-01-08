@@ -1,7 +1,8 @@
 package com.huishu.ManageServer.service.enterprise.impl;
 
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
-import com.huishu.ManageServer.repository.datajpa.first.EnterPriseRepository;
+import com.huishu.ManageServer.repository.first.EnterPriseRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,7 +22,7 @@ import java.util.List;
  * @date 2017/12/29
  */
 @Service
-@Transactional("firstTransactionManager")
+//@Transactional("firstTransactionManager")
 public class EnterpriseServiceImpl implements EnterpriseService{
 
 	@Autowired

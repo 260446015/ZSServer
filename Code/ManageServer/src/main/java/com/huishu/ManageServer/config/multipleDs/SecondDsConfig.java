@@ -1,4 +1,4 @@
-package com.huishu.ManageServer.config.multipleDs;
+/*package com.huishu.ManageServer.config.multipleDs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,15 +22,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
-/**
+*//**
  * Created by hhy on 2017-12-12.
  * 第二个数据源配置
- */
+ *//*
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.huishu.ManageServer.repository.datajpa.second", entityManagerFactoryRef = "secondEntityManagerFactory",transactionManagerRef = "secondTransactionManager")
 public class SecondDsConfig {
-	 @Bean
+	 	@Bean
 	    @ConfigurationProperties("second.datasource")
 	    public DataSourceProperties secondDataSourceProperties() {
 	        return new DataSourceProperties();
@@ -42,11 +42,11 @@ public class SecondDsConfig {
 	        return secondDataSourceProperties().initializeDataSourceBuilder().build();
 	    }
 
-	    /**
+	    *//**
 	     * 实体管理对象
 	     * @param builder  由spring注入这个对象，首先根据type注入（多个就取声明@Primary的对象），否则根据name注入
 	     * @return
-	     */
+	     *//*
 	    @Bean
 	    public LocalContainerEntityManagerFactoryBean secondEntityManagerFactory(
 	            EntityManagerFactoryBuilder builder) {
@@ -57,11 +57,11 @@ public class SecondDsConfig {
 	                .build();
 	    }
 
-	    /**
+	    *//**
 	     * 事物管理对象
 	     * @param secondEntityManagerFactory 实体管理工厂对象（按照名称注入）
 	     * @return 平台事物管理器
-	     */
+	     *//*
 	    @Bean(name = "secondTransactionManager")
 	    public PlatformTransactionManager transactionManager(@Qualifier("secondEntityManagerFactory")LocalContainerEntityManagerFactoryBean secondEntityManagerFactory){
 	        JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -80,3 +80,4 @@ public class SecondDsConfig {
 	    }
 
 }
+*/
