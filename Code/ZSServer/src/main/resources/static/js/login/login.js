@@ -1,4 +1,5 @@
 function doLogin() {
+	new Loading({isfullscreen:true,text:"正在努力登录中，请勿刷新页面！"}).show();
     $.ajax({
         url: "/security/generateKey.do",
         dataType: "json",

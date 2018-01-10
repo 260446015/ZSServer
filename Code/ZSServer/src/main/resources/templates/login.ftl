@@ -25,7 +25,7 @@
             <h2 class="panel-title">登录</h2>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal">
+            <form class="form-horizontal" onsubmit="return false;">
                 <div class="form-group">
                     <div class="input-icon">
                         <i class="glyphicon glyphicon-user"></i>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-blue btn-login" type="button" onclick="doLogin()">立即登录</button>
+                    <button class="btn btn-blue btn-login" type="submit" onclick="doLogin()">立即登录</button>
                 </div>
                 <div class="form-group">
                     <p class="form-control-static">没有账号？<a href="javascript:void(0);"> 申请试用</a></p>
