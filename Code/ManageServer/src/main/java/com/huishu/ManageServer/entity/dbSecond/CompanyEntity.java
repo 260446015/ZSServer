@@ -22,7 +22,6 @@ import com.huishu.ManageServer.config.TargetDataSource;
  */
 @Entity
 @Table(name = "li_keywords")
-@TargetDataSource(name="second")
 public class CompanyEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

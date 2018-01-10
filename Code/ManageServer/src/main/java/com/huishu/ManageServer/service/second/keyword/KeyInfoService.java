@@ -19,5 +19,17 @@ public interface KeyInfoService {
 	 * @return
 	 */
 	boolean saveInfo(List<KeyInfoEntity> list);
+	
+	/**
+	 * 获取关键词
+	 * @return
+	 */
+	List<String> getKeyWord();
+
+	/**
+	 * @param keyname
+	 * @return
+	 */
+	List<KeyInfoEntity> findInfoByKeyName(String keyname);
 
 }

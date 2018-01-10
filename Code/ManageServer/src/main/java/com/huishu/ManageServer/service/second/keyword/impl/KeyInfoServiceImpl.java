@@ -17,8 +17,6 @@ import com.huishu.ManageServer.service.second.keyword.KeyInfoService;
  * @return 
  */
 @Service
-//@Transactional("secondTransactionManager")
-//@TargetDataSource(name="sapro")
 public class KeyInfoServiceImpl implements KeyInfoService {
 
 	@Autowired
@@ -42,6 +40,24 @@ public class KeyInfoServiceImpl implements KeyInfoService {
 			System.out.println(e.getMessage());
 			return false;
 		}
+	}
+
+	/**
+	 * 获取关键词集合
+	 */
+	@TargetDataSource(name="second")
+	@Override
+	public List<String> getKeyWord() {
+		return kirep.getKeyWordList();
+	}
+
+	/**
+	 * 获取关键词
+	 */
+	@Override
+	@TargetDataSource(name="second")
+	public List<KeyInfoEntity> findInfoByKeyName(String keyname) {
+		return kirep.getKeywordInfo(keyname);
 	}
 	
 	

@@ -2,9 +2,9 @@ package com.huishu.ManageServer.repository.second;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.huishu.ManageServer.config.TargetDataSource;
 import com.huishu.ManageServer.entity.dbSecond.YQInfoEntity;
 
 /**
@@ -14,7 +14,6 @@ import com.huishu.ManageServer.entity.dbSecond.YQInfoEntity;
  * @return 
  * 舆情相关信息接口
  */
-@TargetDataSource(name="second")
 public interface YQInfoRepository extends CrudRepository<YQInfoEntity , Long>{
 
 	/**
@@ -22,6 +21,7 @@ public interface YQInfoRepository extends CrudRepository<YQInfoEntity , Long>{
 	 * @return
 	 * 根据kid获取全部信息
 	 */
+	@Query(value="SELECT * FROM li_public_opinion where k_id = ?1",nativeQuery=true)
 	List<YQInfoEntity> findByKid(Long kid);
 
 }

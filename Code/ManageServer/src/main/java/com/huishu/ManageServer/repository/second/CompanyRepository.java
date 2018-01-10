@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.huishu.ManageServer.config.TargetDataSource;
 import com.huishu.ManageServer.entity.dbSecond.CompanyEntity;
 
 
@@ -16,7 +15,6 @@ import com.huishu.ManageServer.entity.dbSecond.CompanyEntity;
  * @return 
  * 
  */
-@TargetDataSource(name="second")
 public interface CompanyRepository  extends CrudRepository<CompanyEntity, Long>{
 	
 	@Query(value="select * from li_keywords ",nativeQuery=true)

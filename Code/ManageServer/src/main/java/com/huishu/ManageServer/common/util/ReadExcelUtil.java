@@ -176,11 +176,28 @@ public class ReadExcelUtil {
         cell = row.createCell((short) 4);  
         cell.setCellValue("主体公司");  
         cell.setCellStyle(style);
-        for(int i=0;i<50;i++){
-        	cell = row.createCell((short) (5+i));  
-            cell.setCellValue("关键词"+(i+1));  
+        for(int i=0;i<100;i++){
+        	cell = row.createCell((short) (5+i));
+        	if((5+i)/2==0&&(5+i)>=0){
+        		cell.setCellValue("关键词所占比重"+(i+1));  
+        	}else{
+        		cell.setCellValue("关键词"+(i+1));  
+        	}
             cell.setCellStyle(style);
         }
+        short s = row.getLastCellNum();
+        cell = row.createCell((short) s+1);
+        cell.setCellValue("人工智能所占比重");  
+        cell.setCellStyle(style);
+        cell = row.createCell((short) s+2);
+        cell.setCellValue("物联网所占比重");  
+        cell.setCellStyle(style);
+        cell = row.createCell((short) s+3);
+        cell.setCellValue("大数据所占比重");  
+        cell.setCellStyle(style);
+        cell = row.createCell((short) s+4);
+        cell.setCellValue("生物医药所占比重");  
+        cell.setCellStyle(style);
         int line = 0;
         System.out.println(array.size());
         // 第五步，写入实体数据 实际应用中这些数据从数据库得到，
@@ -195,17 +212,38 @@ public class ReadExcelUtil {
 			String json3 = obj.getJSONArray("主体公司").toString();
 			row.createCell((short)0).setCellValue(str);
 			row.createCell((short)1).setCellValue(obj.getString("相关关键词"));
-			row.createCell((short)2).setCellValue(json1);
-			row.createCell((short)3).setCellValue(json2);
-			if(json3.length()>=32767){
+			if(json1.length()>=32700){
+				row.createCell((short)2).setCellValue(json1.substring(0, 32700));
+			}else{
+				row.createCell((short)2).setCellValue(json1);
+			}
+			
+			if(json2.length()>=32700){
+				row.createCell((short)3).setCellValue(json2.substring(0, 32700));
+			}else{
+				row.createCell((short)3).setCellValue(json2);
+			}
+			if(json3.length()>=32700){
 				row.createCell((short)4).setCellValue(json3.substring(0, 32700));
+			}else{
+				row.createCell((short)4).setCellValue(json3);
 			}
 			JSONArray arr = obj.getJSONArray("关键词");
 			int count = 5;
 			for(int j =0;j<arr.size();j++){
-				 row.createCell((short)count).setCellValue(arr.getString(j));
-					 count++;
+					JSONObject jsonObject = arr.getJSONObject(j);
+					String string = jsonObject.getString("key");
+					double dd = jsonObject.getDoubleValue("value");
+					 row.createCell((short)count).setCellValue(string);
+					 count ++;
+					 row.createCell((short)count).setCellValue(dd);
+					 count ++;
 			}
+			 row.createCell((short) s+1).setCellValue(obj.getDoubleValue("人工智能所占比"));
+			 row.createCell((short) s+2).setCellValue(obj.getDoubleValue("物联网所占比"));
+			 row.createCell((short) s+3).setCellValue(obj.getDoubleValue("大数据所占比"));
+			 row.createCell((short) s+4).setCellValue(obj.getDoubleValue("生物技术所占比"));
+			
 		}
 		return wb;
 	}

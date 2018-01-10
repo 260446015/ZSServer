@@ -18,8 +18,7 @@ import com.huishu.ManageServer.service.second.yq.YQInfoService;
  * 关于企业舆情信息的相关操作
  */
 @Service
-//@Transactional("secondTransactionManager")
-//@TargetDataSource(name="sapro")
+
 public class YQInfoServiceImpl implements YQInfoService {
 	
 	@Autowired
