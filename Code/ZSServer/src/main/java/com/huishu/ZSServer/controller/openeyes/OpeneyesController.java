@@ -14,6 +14,7 @@ import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.exception.OpeneyesException;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
+import com.huishu.ZSServer.service.user.impl.UserLogoServiceImpl;
 
 /**
  * 
@@ -28,7 +29,9 @@ public class OpeneyesController extends BaseController {
 
 	@Autowired
 	private OpeneyesService openeyesService;
-
+	@Autowired
+	private UserLogoServiceImpl userLogoServiceImpl;
+	
 	/**
 	 * 查询主要人员
 	 * 
@@ -79,6 +82,7 @@ public class OpeneyesController extends BaseController {
 	public AjaxResult getBaseInfo(String name) throws OpeneyesException {
 		if (StringUtil.isEmpty(name))
 			return error(MsgConstant.ILLEGAL_PARAM);
+		userLogoServiceImpl.addOperationLogo(getUserId(), name);
 		Long userId = getUserId();
 		OpeneyesDTO dto = new OpeneyesDTO();
 		dto.setCname(name);

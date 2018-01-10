@@ -20,7 +20,8 @@ function doLogin() {
 					  	if(response.success){
 					 		window.location.href="/indusMap/industryMap.html";
                         }else{
-                       		alert(response.message);
+                        	new Loading({isfullscreen:true}).hide();
+                        	new Alert({flag:false,text:response.message,timer:1500}).show();
                         }
                     }
                 });

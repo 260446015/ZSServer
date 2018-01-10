@@ -94,6 +94,7 @@ public class AccurateController extends BaseController{
 		try{
 			OpeneyesDTO dto = new OpeneyesDTO();
 			dto.setCname(companyName);
+			dto.setUserId(getUserId());
 			JSONObject list = openeyesServiceImpl.getSousuoCompanyList(dto);
 			if(list.getJSONArray("data")==null){
 				model.addAttribute("data",null);

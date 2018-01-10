@@ -26,7 +26,7 @@ import com.huishu.ZSServer.common.util.ShiroUtil;
 import com.huishu.ZSServer.exception.AccountExpiredException;
 import com.huishu.ZSServer.exception.AccountStartException;
 import com.huishu.ZSServer.security.RSAUtils;
-import com.huishu.ZSServer.service.user.UserLoginLogoService;
+import com.huishu.ZSServer.service.user.impl.UserLogoServiceImpl;
 
 /**
  * 登录与相关模块
@@ -40,7 +40,7 @@ public class LoginController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
-	private UserLoginLogoService userLoginLogoService;
+	private UserLogoServiceImpl userLogoServiceImpl;
 	
 	/**
 	 * 没有权限
@@ -74,7 +74,7 @@ public class LoginController extends BaseController {
 	@ResponseBody
 	public AjaxResult loginAjax(HttpServletRequest request, String username,String type, String password) {
 		if (request.getAttribute("success") != null && (boolean) request.getAttribute("success")) {
-			userLoginLogoService.addLoginLogo(getUserId());
+			userLogoServiceImpl.addLoginLogo(getUserId());
 			return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
 		}
 		// 登录失败从request中获取shiro处理的异常信息。

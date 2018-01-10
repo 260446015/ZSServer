@@ -3,6 +3,7 @@ package com.huishu.ZSServer.security;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -22,9 +23,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.huishu.ZSServer.entity.user.UserBase;
+import com.huishu.ZSServer.entity.user.UserLogo;
 import com.huishu.ZSServer.exception.AccountExpiredException;
 import com.huishu.ZSServer.exception.AccountStartException;
 import com.huishu.ZSServer.repository.user.UserBaseRepository;
+import com.huishu.ZSServer.repository.user.UserLogoRepository;
 
 /**
  * 身份校验核心类
@@ -39,6 +42,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	@Autowired
 	private UserBaseRepository userBaseRepository;
 	
+	@Autowired
+	private UserLogoRepository userLogoRepository;
+	
 	/**
 	 * 授权
 	 */
@@ -46,16 +52,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		LOGGER.info("===============进行权限配置================");
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		/*ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
-		// 获取权限
-		List<Long> permissionIds = userPermissionService.getPermissionIdsByUserId(user.getId());
-		if (permissionIds != null && permissionIds.size() != 0) {
-			authorizationInfo.addRole(user.getUserLevel().toString());
-			for (Long permissionId : permissionIds) {
-				Permission permission = permissionService.getPermissionByPermissionId(permissionId);
-				authorizationInfo.addStringPermission(permission.getPermissionName());
-			}
-		}*/
+		ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
+		List<UserLogo> list = userLogoRepository.findByUserId(user.getId());
+		if(list!=null&&list.size()>=50){
+			authorizationInfo.addStringPermission("search");
+		}
 		return authorizationInfo;
 	}
 
