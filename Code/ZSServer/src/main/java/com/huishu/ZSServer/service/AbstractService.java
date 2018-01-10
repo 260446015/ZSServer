@@ -161,7 +161,7 @@ public class AbstractService<T> {
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = new Date();
 				String today = format.format(date);
-				String id = getGeneratedId(from + today +spec);
+				String id = getGeneratedId(from + today +spec+userId);
 				SearchCount search = searchCountRepository.findOne(id);
 				search = assemblySearchCount(date, today, id, from, search, spec, userId);
 				searchCountRepository.save(search);
