@@ -21,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.huishu.ZSServer.common.util.ShiroUtil;
+import com.huishu.ZSServer.entity.user.UserBase;
+import com.huishu.ZSServer.repository.user.UserBaseRepository;
 
 public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 
@@ -28,6 +30,8 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 
 	@Autowired
 	private DefaultWebSecurityManager securityManager;
+	@Autowired
+	private UserBaseRepository userBaseRepository;
 
 	/**
 	 * 登陆验证
@@ -37,16 +41,16 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 		UsernamePasswordToken token = createToken(request, response);
 		try {
 			Subject subject = getSubject(request, response);
-			DefaultWebSessionManager sessionManager = (DefaultWebSessionManager) securityManager.getSessionManager();
-			// 单点登录l
-			Collection<Session> sessions = sessionManager.getSessionDAO().getActiveSessions();
-			for (Session session : sessions) {
-				if(token.getUsername().equals("testzkdj")){
-					continue;
-				}
-				if (token.getUsername()
-						.equals(String.valueOf(session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY)))) {
-					sessionManager.getSessionDAO().delete(session);
+			UserBase base = userBaseRepository.findByUserAccount(token.getUsername());
+			if(base.getIsSingle()==0){
+				DefaultWebSessionManager sessionManager = (DefaultWebSessionManager) securityManager.getSessionManager();
+				// 单点登录l
+				Collection<Session> sessions = sessionManager.getSessionDAO().getActiveSessions();
+				for (Session session : sessions) {
+					if (token.getUsername()
+							.equals(String.valueOf(session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY)))) {
+						sessionManager.getSessionDAO().delete(session);
+					}
 				}
 			}
 			subject.login(token);// 正常验证
@@ -104,7 +108,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
                          "Authentication url [" + getLoginUrl() + "]");  
              }  
              if(isAjax(request)){  
-            	 ShiroUtil.writeResponse((HttpServletResponse)response, "请先登录本系统！");
+            	 ShiroUtil.writeResponse((HttpServletResponse)response, "您的登录已失效，请重新登录本系统！");
              }else{  
                  this.saveRequestAndRedirectToLogin(request, response);  
              }  
