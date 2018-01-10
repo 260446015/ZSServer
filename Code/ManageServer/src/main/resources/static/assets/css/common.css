@@ -1,0 +1,27 @@
+.box1 .box-body .search-box {
+	border: none;
+}
+.search-box+.border-box {
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 0;
+}
+
+.search-box+.border-box .row>.border-bottom:last-child {
+	border-bottom: none;
+}
+
+.search-box+.border-box .scatter-content {
+	margin-bottom: 20px;
+}
+
+.search-box {
+	display: table;
+	width: 100%;
+	border: 1px solid #10274a;
+	margin-bottom: 30px;
+}
+.search-box .search-group {
+	display: table-row;
+	/* border-bottom: 1px dotted #10274a; */
+}

@@ -29,4 +29,5 @@
 		<!-- Page CSS -->		
 		<link href="/assets/css/style.css" rel="stylesheet" />
 		<link href="/assets/css/page.css" rel="stylesheet" />
+		<link href="/assets/css/common.css" rel="stylesheet" />
 		<link href="/assets/css/add-ons.min.css" rel="stylesheet" />
