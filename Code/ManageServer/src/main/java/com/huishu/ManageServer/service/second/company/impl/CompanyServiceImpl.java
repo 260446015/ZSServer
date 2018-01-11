@@ -24,7 +24,8 @@ import com.huishu.ManageServer.service.second.company.CompanyService;
  */
 @Service
 public class CompanyServiceImpl implements CompanyService {
-	private static final Logger LOGGER = Logger.getLogger(CompanyServiceImpl.class);
+	private static final Logger LOGGER = Logger.getLogger( CompanyServiceImpl.class);
+	
 	@Autowired
 	private CompanyRepository rep;
 	/**
@@ -66,6 +67,22 @@ public class CompanyServiceImpl implements CompanyService {
 			return false;
 		}
 		return true;
+	}
+	
+	@TargetDataSource(name="second")
+	@Override
+	public boolean saveOrUpdateCompany(CompanyEntity ent) {
+		try {
+			CompanyEntity save = rep.save(ent);
+			if(save == null){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (Exception e) {
+			LOGGER.info("保存舆情公司信息失败！");
+			return false;
+		}
 	}
 	
 }

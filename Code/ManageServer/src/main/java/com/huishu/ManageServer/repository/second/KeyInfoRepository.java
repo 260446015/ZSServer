@@ -25,4 +25,12 @@ public interface KeyInfoRepository  extends CrudRepository<KeyInfoEntity, Long> 
 	 */
 	@Query(value=" select * from li_indus_word where keyword = ?1 ",nativeQuery=true)
 	List<KeyInfoEntity> getKeywordInfo(String keyname);
+
+	/**
+	 * @param i
+	 * @param pageSize
+	 * @return
+	 */
+	@Query(value="select * from li_indus_word limit ?,?",nativeQuery=true)
+	List<KeyInfoEntity> findPage(int i, Integer pageSize);
 }
