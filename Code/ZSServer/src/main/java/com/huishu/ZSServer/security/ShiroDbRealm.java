@@ -54,7 +54,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
 		List<UserLogo> list = userLogoRepository.findByUserId(user.getId());
-		if(list!=null&&list.size()>=50){
+		if(list!=null&&list.size()<50){
 			authorizationInfo.addStringPermission("search");
 		}
 		return authorizationInfo;
