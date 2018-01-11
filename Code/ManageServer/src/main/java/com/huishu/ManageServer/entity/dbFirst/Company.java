@@ -329,8 +329,6 @@ public class Company implements Serializable {
 	}
 
 	public String getRegisterCapital() {
-		if(this.registerCapital.contains("."))
-			return this.registerCapital.substring(0, this.registerCapital.indexOf("."));
 		return this.registerCapital;
 	}
 

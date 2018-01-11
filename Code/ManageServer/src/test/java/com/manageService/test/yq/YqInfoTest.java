@@ -8,10 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.huishu.ManageServer.Application;
-import com.huishu.ManageServer.entity.dbSecond.CompanyEntity;
-import com.huishu.ManageServer.service.company.CompanyService;
-import com.huishu.ManageServer.service.yq.YQInfoService;
 
 
 /**
@@ -21,24 +17,24 @@ import com.huishu.ManageServer.service.yq.YQInfoService;
  * @return 
  * 测试数据
  */
-@SpringBootTest(classes = Application.class)
+//@SpringBootTest(classes = Application.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class YqInfoTest {
 	
-	@Autowired
-	private CompanyService cservice;
-	
-	@Autowired
-	private YQInfoService yservice;
+//	@Autowired
+//	private CompanyService cservice;
+//	
+//	@Autowired
+//	private YQInfoService yservice;
 	
 	@Test
 	public void getInfo(){
 		System.out.println("？》？？？？？？？？？？？？？？？？");
-		List<CompanyEntity> list = cservice.findAllCompany();
-		System.out.println(list.size());
-		list.forEach(action->{
-			System.out.println(action.toString());
-		});
+//		List<CompanyEntity> list = cservice.findAllCompany();
+//		System.out.println(list.size());
+//		list.forEach(action->{
+//			System.out.println(action.toString());
+//		});
 	}
 	
 }

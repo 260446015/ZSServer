@@ -49,6 +49,8 @@ public class ShiroConfiguration {
 
 		filterChainDefinitionMap.put("/**/*.html", "authc");
 		filterChainDefinitionMap.put("/**/*.json", "authc");
+		
+		filterChainDefinitionMap.put("/apis/openeyes/**", "perms[search]");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 

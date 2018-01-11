@@ -20,7 +20,6 @@ import com.huishu.ManageServer.config.TargetDataSource;
  */
 @Entity
 @Table(name = "li_indus_word")
-@TargetDataSource(name="second")
 public class KeyInfoEntity implements Serializable {
 
 	private static final long serialVersionUID = -6220647475255865478L;

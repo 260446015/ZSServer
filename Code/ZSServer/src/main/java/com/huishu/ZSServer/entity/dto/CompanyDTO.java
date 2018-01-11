@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author yindq
  * @date 2017年12月21日
  */
-public class CompnayDTO extends AbstractDTO{
+public class CompanyDTO extends AbstractDTO{
 
 	private static final long serialVersionUID = 7479964523375035506L;
 	/** 产业 */

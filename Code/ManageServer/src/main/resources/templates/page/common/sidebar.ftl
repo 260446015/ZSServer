@@ -43,6 +43,7 @@
 						<ul class="nav nav-children">
 							<li><a href="/apis/area/condition.html"><span class="text">园区动态</span></a></li>
 							<li><a href="/apis/area/gardens.html"><span class="text">园区列表</span></a></li>
+							<li><a href="/apis/area/gardenCompany.html"><span class="text">园区内企业</span></a></li>
 						</ul></li>
 				</ul>
 			</nav>

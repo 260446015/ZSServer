@@ -21,7 +21,6 @@ import com.huishu.ManageServer.config.TargetDataSource;
  */
 @Entity
 @Table(name = "li_public_opinion")
-@TargetDataSource(name="second")
 public class YQInfoEntity implements Serializable{
 
 	private static final long serialVersionUID = -5140230870865901869L;
@@ -37,7 +36,7 @@ public class YQInfoEntity implements Serializable{
 	@Column(name = "id", nullable = false)
 	private String aid;
 	//发布时间
-	@Column(name = "publishTime")
+	@Column(name = "publish_time")
 	private Timestamp publishTime;
 	//原文地址
 	@Column(name = "url")
@@ -55,7 +54,7 @@ public class YQInfoEntity implements Serializable{
 	@Column(name = "title")
 	private String  title;
 	//将文章标题中出现的特殊的字符替换掉,并存储
-	@Column(name = "cleanTitle")
+	@Column(name = "clean_title")
 	private String  cleanTitle;
 	//内容
 	@Column(name = "content")

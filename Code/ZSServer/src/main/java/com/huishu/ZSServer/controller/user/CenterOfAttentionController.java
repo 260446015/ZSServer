@@ -16,7 +16,7 @@ import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.Institutional;
 import com.huishu.ZSServer.entity.UserSummitInfo;
-import com.huishu.ZSServer.entity.dto.CompnayDTO;
+import com.huishu.ZSServer.entity.dto.CompanyDTO;
 import com.huishu.ZSServer.entity.dto.IndustrySummitDTO;
 import com.huishu.ZSServer.service.user.CenterOfAttentionService;
 
@@ -150,7 +150,7 @@ public class CenterOfAttentionController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "/findCompnayList.json", method = RequestMethod.POST)
-	public AjaxResult findCompnayList(@RequestBody CompnayDTO dto) {
+	public AjaxResult findCompnayList(@RequestBody CompanyDTO dto) {
 		try {
 			return success(centerOfAttentionService.findCompnayList(getUserId(),dto));
 		} catch (Exception e) {

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import com.huishu.ZSServer.entity.CompnayGroup;
 import com.huishu.ZSServer.entity.Institutional;
 import com.huishu.ZSServer.entity.UserSummitInfo;
-import com.huishu.ZSServer.entity.dto.CompnayDTO;
+import com.huishu.ZSServer.entity.dto.CompanyDTO;
 import com.huishu.ZSServer.entity.dto.IndustrySummitDTO;
 import com.huishu.ZSServer.entity.vo.CompanyVO;
 
@@ -69,7 +69,7 @@ public interface CenterOfAttentionService {
 	 * @param dto
 	 * @return
 	 */
-	List<CompanyVO> findCompnayList(Long userId,CompnayDTO dto);
+	List<CompanyVO> findCompnayList(Long userId,CompanyDTO dto);
 	
 	/**
 	 * 添加企业分组

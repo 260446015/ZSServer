@@ -18,7 +18,6 @@ import com.huishu.ManageServer.service.second.company.CompanyService;
  * 关于公司的相关操作
  */
 @Service
-//@Transactional("secondTransactionManager")
 public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired

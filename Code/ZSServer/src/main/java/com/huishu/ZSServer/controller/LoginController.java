@@ -14,6 +14,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,7 @@ import com.huishu.ZSServer.common.util.ShiroUtil;
 import com.huishu.ZSServer.exception.AccountExpiredException;
 import com.huishu.ZSServer.exception.AccountStartException;
 import com.huishu.ZSServer.security.RSAUtils;
+import com.huishu.ZSServer.service.user.impl.UserLogoServiceImpl;
 
 /**
  * 登录与相关模块
@@ -37,6 +39,9 @@ public class LoginController extends BaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
+	@Autowired
+	private UserLogoServiceImpl userLogoServiceImpl;
+	
 	/**
 	 * 没有权限
 	 * @param response
@@ -69,6 +74,7 @@ public class LoginController extends BaseController {
 	@ResponseBody
 	public AjaxResult loginAjax(HttpServletRequest request, String username,String type, String password) {
 		if (request.getAttribute("success") != null && (boolean) request.getAttribute("success")) {
+			userLogoServiceImpl.addLoginLogo(getUserId());
 			return success(MsgConstant.LOGIN_SUCCESS).setMessage(MsgConstant.LOGIN_SUCCESS);
 		}
 		// 登录失败从request中获取shiro处理的异常信息。

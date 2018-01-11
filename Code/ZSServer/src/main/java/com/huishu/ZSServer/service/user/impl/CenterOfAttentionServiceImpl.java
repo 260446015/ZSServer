@@ -26,7 +26,7 @@ import com.huishu.ZSServer.entity.CompnayGroup;
 import com.huishu.ZSServer.entity.Institutional;
 import com.huishu.ZSServer.entity.TelContect;
 import com.huishu.ZSServer.entity.UserSummitInfo;
-import com.huishu.ZSServer.entity.dto.CompnayDTO;
+import com.huishu.ZSServer.entity.dto.CompanyDTO;
 import com.huishu.ZSServer.entity.dto.IndustrySummitDTO;
 import com.huishu.ZSServer.entity.vo.CompanyVO;
 import com.huishu.ZSServer.repository.company.CompanyAttaRepository;
@@ -129,7 +129,7 @@ public class CenterOfAttentionServiceImpl extends AbstractService<T> implements 
 	}
 	
 	@Override
-	public List<CompanyVO> findCompnayList(Long userId, CompnayDTO dto) {
+	public List<CompanyVO> findCompnayList(Long userId, CompanyDTO dto) {
 		Calendar calendar = Calendar.getInstance();
 		Long time1=0L;
 		Long time2=calendar.getTimeInMillis();
