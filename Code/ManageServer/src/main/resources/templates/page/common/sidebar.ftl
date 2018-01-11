@@ -45,6 +45,15 @@
 							<li><a href="/apis/area/gardens.html"><span class="text">园区列表</span></a></li>
 							<li><a href="/apis/area/gardenCompany.html"><span class="text">园区内企业</span></a></li>
 						</ul></li>
+						<!-- 舆情 相关操作 -->
+						<li id="yq_info" class="nav-parent">
+						  <a> <i class="fa fa-archive"
+					 		aria-hidden="true"></i><span>舆情监管</span>
+					      </a>
+					       <ul class="nav nav-children">
+							 <li><a href="/apis/yq/yqCompanyManage.html"><span class="text">舆情企业</span></a></li>
+							 <li><a href="/apis/keywordinfo/yqKeyWordManage.html"><span class="text">产业关键词管理</span></a></li>
+						   </ul></li>
 				</ul>
 			</nav>
 		</div>

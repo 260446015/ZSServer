@@ -21,4 +21,12 @@ public interface CompanyRepository  extends CrudRepository<CompanyEntity, Long>{
 	
 	@Query(value="select * from li_keywords ",nativeQuery=true)
 	List<CompanyEntity> getInfo();
+	
+	/**
+	 * @param i
+	 * @param pageSize
+	 * @return
+	 */
+	@Query(value="select * from li_keywords limit ?,?",nativeQuery=true)
+	List<CompanyEntity> findPage(int i, Integer pageSize);
 }
