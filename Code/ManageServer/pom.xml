@@ -237,7 +237,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.huishu.ManageServer.Application</mainClass>
+					<mainClass>com.huishu.ManageServer.app.Application</mainClass>
 				</configuration>
 			</plugin>
         </plugins>

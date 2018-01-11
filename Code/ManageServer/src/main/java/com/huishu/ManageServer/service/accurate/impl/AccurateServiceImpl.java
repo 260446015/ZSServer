@@ -18,7 +18,6 @@ import com.huishu.ManageServer.repository.first.IndusCompanyRepository;
 import com.huishu.ManageServer.service.accurate.AccurateService;
 
 @Service
-//@Transactional("firstTransactionManager")
 public class AccurateServiceImpl implements AccurateService {
 
 	private static Logger log = LoggerFactory.getLogger(AccurateServiceImpl.class);

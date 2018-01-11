@@ -121,10 +121,7 @@ public class GardenData implements Serializable {
 	}
 
 	public String getAddress() {
-		if (address == null || StringUtil.isEmpty(address) || address.equals("NULL")) {
-			return "暂无";
-		} else
-			return address;
+		return this.address;
 	}
 
 	public void setAddress(String address) {
@@ -156,12 +153,7 @@ public class GardenData implements Serializable {
 	}
 
 	public String getGardenIntroduce() {
-		if (gardenSuperiority == null || StringUtil.isEmpty(gardenSuperiority) || gardenSuperiority.equals("NULL")) {
-			return "暂无";
-		} else {
-			return gardenIntroduce;
-		}
-
+		return this.gardenIntroduce;
 	}
 
 	public void setGardenIntroduce(String gardenIntroduce) {
@@ -169,10 +161,7 @@ public class GardenData implements Serializable {
 	}
 
 	public String getGardenPicture() {
-		if (gardenPicture == null || StringUtil.isEmpty(gardenPicture) || gardenPicture.equals("NULL")) {
-			return KeyConstan.IP_PORT + "fileserver/img/list_img.jpg";
-		} else
-			return gardenPicture;
+		return this.gardenPicture;
 	}
 
 	public void setGardenPicture(String gardenPicture) {
@@ -180,11 +169,7 @@ public class GardenData implements Serializable {
 	}
 
 	public String getGardenSuperiority() {
-		if (gardenSuperiority == null || StringUtil.isEmpty(gardenSuperiority) || gardenSuperiority.equals("NULL")) {
-			return "暂无";
-		} else {
-			return gardenSuperiority;
-		}
+		return this.gardenSuperiority;
 
 	}
 

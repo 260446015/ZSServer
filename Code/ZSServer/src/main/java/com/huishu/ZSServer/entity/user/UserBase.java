@@ -99,21 +99,9 @@ public class UserBase implements Serializable {
 	@Column(name = "is_check")
 	private Integer isCheck;
 
-	/** 是否单点登录(0:单点,1:多点) */
-	@Column(name = "is_single")
-	private Integer isSingle;
-	
 	/** 用户权限，不存数据库 */
 	@Transient
 	private List<Long> permissions;
-
-	public Integer getIsSingle() {
-		return isSingle;
-	}
-
-	public void setIsSingle(Integer isSingle) {
-		this.isSingle = isSingle;
-	}
 
 	public String getUserJob() {
 		return userJob;
