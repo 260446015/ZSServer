@@ -21,8 +21,8 @@
 					</a>
 						<ul class="nav nav-children">
 							<li id="usermanage_item"><a href="/apis/user/userManage.html"><span class="text">账户列表</span></a></li>
-							<li><a href="javascript:void(0)"><span class="text">账号审核</span></a></li>
-							<li><a href="javascript:void(0)"><span class="text">账号预警</span></a></li>
+							<li><a href="javascript:void(0)"><span class="text">登录日志</span></a></li>
+							<li><a href="javascript:void(0)"><span class="text">???</span></a></li>
 						</ul></li>
                     <li id="enterprise_item">
                         <a href="/apis/enterprise/enterpriseManage.html">

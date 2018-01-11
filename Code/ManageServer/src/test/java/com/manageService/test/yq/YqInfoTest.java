@@ -1,17 +1,10 @@
 package com.manageService.test.yq;
 
-import java.util.List;
-
+import com.huishu.ManageServer.app.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.huishu.ManageServer.Application;
-import com.huishu.ManageServer.entity.dbSecond.CompanyEntity;
-import com.huishu.ManageServer.service.company.CompanyService;
-import com.huishu.ManageServer.service.yq.YQInfoService;
 
 
 /**
@@ -25,20 +18,20 @@ import com.huishu.ManageServer.service.yq.YQInfoService;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class YqInfoTest {
 	
-	@Autowired
+/*	@Autowired
 	private CompanyService cservice;
 	
 	@Autowired
-	private YQInfoService yservice;
+	private YQInfoService yservice;*/
 	
 	@Test
 	public void getInfo(){
 		System.out.println("？》？？？？？？？？？？？？？？？？");
-		List<CompanyEntity> list = cservice.findAllCompany();
+		/*List<CompanyEntity> list = cservice.findAllCompany();
 		System.out.println(list.size());
 		list.forEach(action->{
 			System.out.println(action.toString());
-		});
+		});*/
 	}
 	
 }
