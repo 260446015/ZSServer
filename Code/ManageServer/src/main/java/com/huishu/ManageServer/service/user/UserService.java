@@ -40,4 +40,11 @@ public interface UserService {
 	 * @return
 	 */
 	UserBase findById(Long id);
+
+	/**
+	 * 修改用户能否单点登录
+	 * @param id
+	 * @return
+	 */
+	Boolean modifyIsSingle(Long id,Integer isSingle);
 }

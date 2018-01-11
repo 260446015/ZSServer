@@ -143,4 +143,37 @@ public class UserController extends BaseController{
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
+
+	/**
+	 * 修改用户能否单点登录
+	 * @param id
+	 * @param isSingle
+	 * @return
+	 */
+	@RequestMapping(value = "modifyIsSingle.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult modifyIsSingle(String id,String isSingle) {
+		if(id==null||StringUtil.isEmpty(id)||isSingle==null||StringUtil.isEmpty(isSingle)){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		Long aLong;
+		Integer aInt;
+		try{
+			aInt = Integer.valueOf(isSingle);
+			aLong = Long.valueOf(id);
+		}catch (Exception e){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			Boolean flag = userService.modifyIsSingle(aLong,aInt);
+			if (flag) {
+				return success(MsgConstant.OPERATION_SUCCESS);
+			} else {
+				return error(MsgConstant.OPERATION_ERROR);
+			}
+		}catch (Exception e){
+			LOGGER.error("修改用户能否单点登录失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
 }

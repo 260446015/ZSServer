@@ -103,4 +103,15 @@ public class UserServiceImpl implements UserService {
 	public UserBase findById(Long id) {
 		return userRepository.findOne(id);
 	}
+
+	@Override
+	public Boolean modifyIsSingle(Long id,Integer isSingle) {
+		UserBase one = userRepository.findOne(id);
+		one.setIsSingle(isSingle);
+		UserBase save = userRepository.save(one);
+		if(save==null){
+			return false;
+		}
+		return true;
+	}
 }

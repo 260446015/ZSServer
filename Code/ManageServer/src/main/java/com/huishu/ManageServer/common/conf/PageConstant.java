@@ -13,4 +13,8 @@ public class PageConstant {
 	public  final static Integer EIGHT = 8;
 	/** 10 */
 	public  final static Integer TEN = 10;
+
+	public  final static Integer LOGOTYPE_LOGIN = 0;
+
+	public  final static Integer LOGOTYPE_OPERATION = 1;
 }

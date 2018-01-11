@@ -138,7 +138,7 @@
 <!-- start: JavaScript-->
 <!-- Vendor JS-->
 <#include "/common/script.ftl">
-<script src="/assets/js/user/editUserBase.js"></script>
+<script src="/js/user/editUserBase.js"></script>
 <script>
         addData(${id});
 </script>
