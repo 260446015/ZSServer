@@ -53,8 +53,12 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		LOGGER.info("===============进行权限配置================");
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
-		List<UserLogo> list = userLogoRepository.findByUserId(user.getId());
-		if(list!=null&&list.size()<50){
+		if("trial".equals(user.getUserType())){
+			List<UserLogo> list = userLogoRepository.findByUserId(user.getId());
+			if(list!=null&&list.size()<50){
+				authorizationInfo.addStringPermission("search");
+			}
+		}else{
 			authorizationInfo.addStringPermission("search");
 		}
 		return authorizationInfo;
@@ -82,7 +86,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			throw new AccountExpiredException();
 		}
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-				new ShiroUser(user.getId(), user.getUserAccount(), user.getRealName(), user.getUserLevel()),
+				new ShiroUser(user.getId(), user.getUserAccount(), user.getRealName(), user.getUserType()),
 				user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());
 		return authenticationInfo;
 	}
@@ -122,22 +126,22 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		private Long id;
 		private String loginName;
 		private String name;
-		private Integer userLevel;
+		private String userType;
 
-		public ShiroUser(Long id, String loginName, String name, Integer userLevel) {
+		public ShiroUser(Long id, String loginName, String name, String userType) {
 			super();
 			this.id = id;
 			this.loginName = loginName;
 			this.name = name;
-			this.userLevel = userLevel;
+			this.userType = userType;
 		}
 
-		public Integer getUserLevel() {
-			return userLevel;
+		public String getUserType() {
+			return userType;
 		}
 
-		public void setUserLevel(Integer userLevel) {
-			this.userLevel = userLevel;
+		public void setUserType(String userType) {
+			this.userType = userType;
 		}
 
 		public String getLoginName() {
