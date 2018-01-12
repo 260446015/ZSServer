@@ -316,38 +316,4 @@ public class UserServiceImpl extends AbstractService implements UserService {
 		}
 		return true;
 	}
-
-
-	@Override
-	public Boolean modifyIsSingle(Long id,Integer isSingle) {
-		UserBase one = userRepository.findOne(id);
-		one.setIsSingle(isSingle);
-		UserBase save = userRepository.save(one);
-		if(save==null){
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public Page<UserBase> getAccountList(AccountSearchDTO dto) {
-		PageRequest request = new PageRequest(dto.getPageNum(),dto.getPageSize());
-		String[] times = analysisDate(dto.getTime());
-		List<UserBase> list = userRepository.findCheckPage(dto.getType(),times[0], times[1],dto.getPageNum() * dto.getPageSize(), dto.getPageSize());
-		long count = userRepository.countCheckPage(dto.getType(),times[0], times[1]);
-		Page<UserBase> impl = new PageImpl<>(list, request, count);
-		return impl;
-	}
-	
-	@Override
-	public Boolean modifyIsCheck(Long id) {
-		UserBase one = userRepository.findOne(id);
-		one.setIsCheck(1);
-		UserBase save = userRepository.save(one);
-		if(save==null){
-			return false;
-		}
-		return true;
-	}
-
 }
