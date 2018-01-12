@@ -107,6 +107,13 @@
 										</div>
 									</div>
 								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="bk-margin-bottom-10">
+											输入查询园区:<input type="text" id="search"/><button class="btn btn-info">查询</button>总数:<span id="total"></span>
+										</div>
+									</div>
+								</div>
 								<table class="table table-bordered table-striped mb-none"
 									id="datatable-editable">
 									<thead>

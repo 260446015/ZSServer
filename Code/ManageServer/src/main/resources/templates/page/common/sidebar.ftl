@@ -23,6 +23,7 @@
 							<li id="usermanage_item"><a href="/apis/user/userManage.html"><span class="text">账户列表</span></a></li>
 							<li id="examine_item"><a href="/apis/user/userExamine.html"><span class="text">账号审核</span></a></li>
                             <li id="login_item"><a href="/apis/user/userLogin.html"><span class="text">账号登录</span></a></li>
+                            <li><a href="/apis/user/userAccount.html"><span class="text">接口金额</span></a></li>
 						</ul></li>
                     <li id="monitor_item" class="nav-parent"><a> <i class="fa fa-video-camera" aria-hidden="true"></i><span>账户监控</span>
                     </a>

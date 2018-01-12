@@ -1,5 +1,7 @@
 package com.huishu.ManageServer.controller.user;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,7 @@ import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
+import com.huishu.ManageServer.entity.dto.AccountDTO;
 import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
 import com.huishu.ManageServer.entity.dto.UserBaseDTO;
 import com.huishu.ManageServer.service.user.UserService;
@@ -149,6 +152,23 @@ public class UserController extends BaseController{
 			LOGGER.error("删除用户失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
+	}
+	
+	
+	/**
+	 * 统计用户天眼查查询金额
+	 */
+	@RequestMapping(value="/getAccountByUser.json",method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult getAccountByUser(@RequestBody AccountDTO dto){
+		List<AccountDTO> out = null;
+		try{
+			out = userService.getAccountByUser(dto);
+		}catch(Exception e){
+			LOGGER.info("查询天眼查用户金额失败");
+			return error("查询天眼查用户金额失败");
+		}
+		return success(out);
 	}
 
 	/**

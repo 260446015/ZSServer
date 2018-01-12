@@ -18,6 +18,11 @@ public interface UserRepository extends CrudRepository<UserBase, Long> {
 	@Query(value="select * from t_user_base limit ?,?",nativeQuery=true)
 	List<UserBase> findPage(int pageFrom , int pageSize);
 	
+	List<UserBase> findByUserPark(String park); 
+	
+	@Query(value="select id from t_user_base where user_park=?",nativeQuery=true)
+	List<Long> findUserIds(String park);
+	
 	@Query(value="select * from t_user_base where user_type=?1 and create_time between ?2 and ?3 and is_check=0 limit ?4,?5",nativeQuery=true)
 	List<UserBase> findCheckPage(String userType, String time1, String time2,int pageFrom , int pageSize);
 	
