@@ -1,11 +1,12 @@
 package com.huishu.ManageServer.service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -23,11 +24,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.Aggregations;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.aggregations.metrics.tophits.TopHitsBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +41,7 @@ import com.forget.analysis.Analysis;
 import com.forget.category.CategoryModel;
 import com.huishu.ManageServer.common.conf.DBConstant;
 import com.huishu.ManageServer.common.conf.KeyConstan;
+import com.huishu.ManageServer.common.util.DateUtils;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.es.entity.AITInfo;
 import com.huishu.ManageServer.es.repository.BaseElasticsearch;
@@ -617,5 +615,42 @@ public class AbstractService<T> {
 			LOGGER.info("删除es库中的数据失败");
 		}
 		return flag;
+	}
+	
+	/**
+	 * 日期串转化
+	 * @param day
+	 * @return
+	 */
+	protected String[] analysisDate(String day) {
+		String time1;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar today = DateUtils.getNow();
+		today.add(Calendar.DATE, +1);
+		String time2 = sdf.format(today.getTime());
+		Calendar nextDate = DateUtils.getNow();
+		if (day.equals("今日")) {
+			nextDate.add(Calendar.DATE, +1);
+			time1 = sdf.format(new Date());
+		} else if (day.equals("昨日")) {
+			nextDate.add(Calendar.DATE, -1);
+			time1 = sdf.format(nextDate.getTime());
+		} else if (day.equals("近一周")) {
+			nextDate.add(Calendar.DATE, -6);
+			time1 = sdf.format(nextDate.getTime());
+		} else if (day.equals("近三个月")) {
+			nextDate.add(Calendar.MONTH, -3);
+			time1 = sdf.format(nextDate.getTime());
+		} else if (day.equals("近六个月")) {
+			nextDate.add(Calendar.MONTH, -6);
+			time1 = sdf.format(nextDate.getTime());
+		} else if (day.equals("近一年")) {
+			nextDate.add(Calendar.MONTH, -12);
+			time1 = sdf.format(nextDate.getTime());
+		} else {
+			time1 = "2010-01-01";
+		}
+		String[] times = { time1, time2 };
+		return times;
 	}
 }

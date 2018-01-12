@@ -9,15 +9,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
+import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
 import com.huishu.ManageServer.entity.dto.UserBaseDTO;
 import com.huishu.ManageServer.repository.first.UserRepository;
 import com.huishu.ManageServer.security.Digests;
 import com.huishu.ManageServer.security.Encodes;
+import com.huishu.ManageServer.service.AbstractService;
 import com.huishu.ManageServer.service.user.UserService;
 
 /**
@@ -28,7 +29,7 @@ import com.huishu.ManageServer.service.user.UserService;
  */
 @Service
 //@Transactional("firstTransactionManager")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends AbstractService implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -114,4 +115,26 @@ public class UserServiceImpl implements UserService {
 		}
 		return true;
 	}
+
+	@Override
+	public Page<UserBase> getAccountList(AccountSearchDTO dto) {
+		PageRequest request = new PageRequest(dto.getPageNum(),dto.getPageSize());
+		String[] times = analysisDate(dto.getTime());
+		List<UserBase> list = userRepository.findCheckPage(dto.getType(),times[0], times[1],dto.getPageNum() * dto.getPageSize(), dto.getPageSize());
+		long count = userRepository.countCheckPage(dto.getType(),times[0], times[1]);
+		Page<UserBase> impl = new PageImpl<>(list, request, count);
+		return impl;
+	}
+	
+	@Override
+	public Boolean modifyIsCheck(Long id) {
+		UserBase one = userRepository.findOne(id);
+		one.setIsCheck(1);
+		UserBase save = userRepository.save(one);
+		if(save==null){
+			return false;
+		}
+		return true;
+	}
+
 }

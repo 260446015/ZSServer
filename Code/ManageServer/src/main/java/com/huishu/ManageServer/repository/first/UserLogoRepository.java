@@ -1,12 +1,12 @@
 package com.huishu.ManageServer.repository.first;
 
-import com.huishu.ManageServer.entity.dbFirst.UserBase;
-import com.huishu.ManageServer.entity.dbFirst.UserLogo;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.huishu.ManageServer.entity.dbFirst.UserLogo;
 
 /**
  * 用户-日志

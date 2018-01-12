@@ -17,6 +17,7 @@ import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
+import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
 import com.huishu.ManageServer.entity.dto.UserBaseDTO;
 import com.huishu.ManageServer.service.user.UserService;
 
@@ -56,6 +57,10 @@ public class UserController extends BaseController{
 	public AjaxResult listUserBase(@RequestBody AbstractDTO dto) {
 		try {
 			Page<UserBase> page = userService.listUserBase(dto);
+			for (UserBase userBase : page) {
+				userBase.setPassword(null);
+				userBase.setSalt(null);
+			}
 			return successPage(page,dto.getPageNum()+1);
 		}catch (Exception e){
 			LOGGER.error("分页查看用户列表失败!", e);
@@ -107,6 +112,8 @@ public class UserController extends BaseController{
 		}
 		try {
 			UserBase base = userService.findById(aLong);
+			base.setPassword(null);
+			base.setSalt(null);
 			return success(base);
 		}catch (Exception e){
 			LOGGER.error("分页查看用户列表失败!", e);
@@ -173,6 +180,62 @@ public class UserController extends BaseController{
 			}
 		}catch (Exception e){
 			LOGGER.error("修改用户能否单点登录失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	/**
+	 * 查看待审核会员账号分页列表
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "getAccountList.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult getAccountList(@RequestBody AccountSearchDTO dto) {
+		if (null == dto || StringUtil.isEmpty(dto.getType()) || StringUtil.isEmpty(dto.getTime())) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			Page<UserBase> page = userService.getAccountList(dto);
+			for (UserBase userBase : page) {
+				userBase.setPassword(null);
+				userBase.setSalt(null);
+			}
+			return successPage(page,dto.getPageNum()+1);
+		} catch (Exception e) {
+			LOGGER.error("getAccountList查询失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	/**
+	 * 账号审核
+	 * @param id
+	 * @param isSingle
+	 * @return
+	 */
+	@RequestMapping(value = "modifyIsCheck.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult modifyIsCheck(String id) {
+		if(id==null||StringUtil.isEmpty(id)){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		Long aLong;
+		try{
+			aLong = Long.valueOf(id);
+		}catch (Exception e){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			Boolean flag = userService.modifyIsCheck(aLong);
+			if (flag) {
+				return success(MsgConstant.OPERATION_SUCCESS);
+			} else {
+				return error(MsgConstant.OPERATION_ERROR);
+			}
+		}catch (Exception e){
+			LOGGER.error("账号审核失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}

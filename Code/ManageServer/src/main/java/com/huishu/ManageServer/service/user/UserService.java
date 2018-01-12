@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
+import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
 import com.huishu.ManageServer.entity.dto.UserBaseDTO;
 
 /**
@@ -19,6 +20,14 @@ public interface UserService {
 	 * @return
 	 */
 	Page<UserBase> listUserBase(AbstractDTO dto);
+	
+	/**
+	 * 获取待审核账号列表
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	Page<UserBase> getAccountList(AccountSearchDTO dto);
 
 	/**
 	 * 添加/修改用户信息
@@ -47,4 +56,11 @@ public interface UserService {
 	 * @return
 	 */
 	Boolean modifyIsSingle(Long id,Integer isSingle);
+
+	/**
+	 * 账号审核
+	 * @param id
+	 * @return
+	 */
+	Boolean modifyIsCheck(Long id);
 }
