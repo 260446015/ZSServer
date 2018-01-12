@@ -83,4 +83,20 @@ public class YQConpanyController extends BaseController{
 			return error("删除失败！");
 		}
 	}
+	
+	/**
+	 * 舆情公司信息保存
+	 * @param ent
+	 * @return
+	 */
+	@RequestMapping(value = "saveCompany.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult insertCompany(@RequestBody CompanyEntity ent){
+		boolean flag = service.saveOrUpdateCompany(ent);
+		if(flag){
+			return success("保存成功");
+		}else{
+			return error("保存失败！");
+		}
+	}
 }

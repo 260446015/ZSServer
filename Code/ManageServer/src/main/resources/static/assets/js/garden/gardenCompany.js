@@ -4,6 +4,10 @@ $(function(){
         $(this).addClass("active").siblings().removeClass("active");
         showCompany(pageNum,pageSize);
 	 });
+	 $(".btn-info").on("click",function(){
+			park = $("#search").val();
+			showCompany(pageNum,pageSize);
+	 });
 });
 var options={
 	    "id":"page",//显示页码的元素
@@ -14,17 +18,19 @@ var options={
 	};
 var pageSize = 20;
 var pageNum = 0;
-var searchName
+var park = "";
 function showCompany(_pageNum,_pageSize){
 	var msg = new Array();
     var arr = $(".search-box").find(".active");
     arr.each(function(){
         msg.push($(this).html());
     });
+    park = $("#search").val();
 	var req = {
 			"pageNum" : _pageNum,
 			"pageSize" : _pageSize,
-			"msg":msg
+			"msg":msg,
+			"park":park
 		};
 	$.ajax({
 		type:'post',
@@ -33,9 +39,9 @@ function showCompany(_pageNum,_pageSize){
 		data:JSON.stringify(req),
 		async:false,
 		success:function(res){
-			console.log(res.data);
 			var arr = res.data.content;
 			var html = '';
+			$("#total").html(res.data.totalElements);
 			for (var i = 0; i < arr.length; i++) {
 				html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td>' + arr[i].companyName + '</td><td>' + arr[i].address + '</td><td>' + arr[i].boss + '</td><td>' + arr[i].park
 				+ '<td>' + arr[i].registerCapital + '</td><td>' + arr[i].registerDate + '</td></td><td class="actions"><a href="javascript:void(0);" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>'
@@ -87,7 +93,7 @@ function initPage(){
 			var $this = $( this );
 			indusArr.push($this.val());
 		});
-		var indus = {"id":indusArr[0],"industry":indusArr[1],"company":indusArr[2],"companyName":indusArr[3],"industryLabel":indusArr[4],"induszero":indusArr[5]}
+		var indus = {"id":indusArr[0],"companyName":indusArr[1],"address":indusArr[2],"boss":indusArr[3],"park":indusArr[4],"registerCapital":indusArr[5],"registerDate":indusArr[6]}
 		insertIndus(indus);
 	})
 	$("#addToTable").on("click",function(i){
@@ -97,12 +103,13 @@ function initPage(){
 			'<td><input class="form-control input-block" value="" type="text"></td>' +
 			'<td><input class="form-control input-block" value="" type="text"></td>' +
 			'<td><input class="form-control input-block" value="" type="text"></td>' +
+			'<td><input class="form-control input-block" value="" type="text"></td>' +
 			'<td class="actions"><a href="#" class="on-editing save-row">' +
 				'<i class="fa fa-save"></i></a> <a href="#" class="on-editing cancel-row">' +
 				'<i class="fa fa-times"></i></a> <a href="#" class="on-default edit-row hidden">'+
 				'<i class="fa fa-pencil"></i></a> <a href="#" class="on-default remove-row hidden">'+
 				'<i class="fa fa-trash-o"></i></a></td></tr>';
-		$("#indusCompany").children().eq(0).before(html);
+		$("#company").children().eq(0).before(html);
 		$(".save-row").on("click",function(i){
 			var _input = $(this).parents('.adding').find( 'input' );
 			$(this).parents('.adding').find(".actions").find("a").each(function(){
@@ -117,7 +124,7 @@ function initPage(){
 				var $this = $( this );
 				indusArr.push($this.val());
 			});
-			var indus = {"industry":indusArr[0],"company":indusArr[1],"companyName":indusArr[2],"industryLabel":indusArr[3],"induszero":indusArr[4]}
+			var indus = {"id":indusArr[0],"companyName":indusArr[1],"address":indusArr[2],"boss":indusArr[3],"park":indusArr[4],"registerCapital":indusArr[5],"registerDate":indusArr[6]}
 			insertIndus(indus);
 		})
 		$(".cancel-row").on("click",function(){
@@ -131,4 +138,17 @@ function initPage(){
 	$(".cancel-row").on("click",function(){
 		window.location.reload();
 	})
+}
+function insertIndus(_indus){
+	$.ajax({
+		type:'post',
+		data:JSON.stringify(_indus),
+		url:'/apis/company/saveGardenCompany.json',
+		contentType:'application/json',
+		success:function(res){
+			if(res.success){
+				showCompany(pageNum,pageSize);
+			}
+		}
+	});
 }

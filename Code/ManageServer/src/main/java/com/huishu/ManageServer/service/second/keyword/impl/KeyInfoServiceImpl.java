@@ -2,11 +2,16 @@ package com.huishu.ManageServer.service.second.keyword.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.huishu.ManageServer.config.TargetDataSource;
 import com.huishu.ManageServer.entity.dbSecond.KeyInfoEntity;
+import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.repository.second.KeyInfoRepository;
 import com.huishu.ManageServer.service.second.keyword.KeyInfoService;
 
@@ -18,7 +23,7 @@ import com.huishu.ManageServer.service.second.keyword.KeyInfoService;
  */
 @Service
 public class KeyInfoServiceImpl implements KeyInfoService {
-
+	private static final Logger LOGGER = Logger.getLogger( KeyInfoServiceImpl.class);
 	@Autowired
 	private KeyInfoRepository  kirep;
 
@@ -58,6 +63,54 @@ public class KeyInfoServiceImpl implements KeyInfoService {
 	@TargetDataSource(name="second")
 	public List<KeyInfoEntity> findInfoByKeyName(String keyname) {
 		return kirep.getKeywordInfo(keyname);
+	}
+
+	
+	@Override
+	@TargetDataSource(name="second")
+	public Page<KeyInfoEntity> ListKeyWordInfo(AbstractDTO dto) {
+		PageRequest request = new PageRequest(dto.getPageNum(),dto.getPageSize());
+		List<KeyInfoEntity> list =kirep.findPage(dto.getPageNum() * dto.getPageSize(), dto.getPageSize());
+		long count = kirep.count();
+		Page<KeyInfoEntity> impl = new PageImpl<>(list, request, count);
+		return impl;
+	}
+
+	/**
+	 * 删除关键词
+	 */
+	@Override
+	@TargetDataSource(name="second")
+	public boolean deleteKeyWordInfo(String id) {
+		 try {
+			 long _id = Long.parseLong(id);
+			 kirep.delete(_id);
+		} catch (NumberFormatException e) {
+			LOGGER.error("id输入不正确",e);
+			return false;
+		} catch (Exception e){
+			LOGGER.info("数据库出现异常",e);
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	@TargetDataSource(name="second")
+	public boolean saveOrUpdateKeyWord(KeyInfoEntity ent) {
+		try {
+			
+			KeyInfoEntity save = kirep.save(ent);
+			
+			if(save == null){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (Exception e) {
+			LOGGER.info("保存舆情公司信息失败！",e);
+			return false;
+		}
 	}
 	
 	

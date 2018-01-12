@@ -1,5 +1,4 @@
 $(function(){
-	showNews();
 	showStaff();
 	$(".tabs-custom").find("a").on("click",function(){
 		var value = $(this).text();
@@ -24,7 +23,7 @@ function showStaff(){//展示主要人员的功能
 		success:function(res){
 			if(res.success){
 				var html = '';
-				var arr = res.data.result;
+				arr  = res.data.data.result;
 				$(".tableShow").eq(1).css("display","none");
 				$(".tableShow").eq(0).css("display","inline");
 				for(var i=0;i<arr.length;i++){
@@ -58,7 +57,7 @@ function showHolder(){//展示股东的功能
 		success:function(res){
 			if(res.success){
 				var html = '';
-				var arr = res.data.data.result;
+				arr = res.data.data.result;
 				var thead = '<tr class="tabTitle"><th class="text-left">股东</th><th class="text-left">出资比例</th><th class="text-left">认缴出资</th></tr>';
 				$("#holder").prev().html(thead);
 				$(".tableShow").eq(0).css("display","none");

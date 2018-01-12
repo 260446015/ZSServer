@@ -20,6 +20,7 @@ import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.AccountDTO;
+import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
 import com.huishu.ManageServer.entity.dto.UserBaseDTO;
 import com.huishu.ManageServer.service.user.UserService;
 

@@ -6,7 +6,7 @@
 		<!-- Basic -->
     	<meta charset="UTF-8" />
 
-		<title>舆情监管</title>
+		<title>舆情监管-关键词</title>
 	 
 		<!-- Mobile Metas -->
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -74,7 +74,7 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<div class="bk-margin-bottom-10">
-												<button id="addToTable" class="btn btn-info">添加 <i class="fa fa-plus"></i></button>
+												<button id="addOneToTable" class="btn btn-info">添加 <i class="fa fa-plus"></i></button>
 											</div>
 										</div>
 									</div>
@@ -83,12 +83,12 @@
 											<tr>
 												<th>主键</th>
 												<th>产业名称</th>
-												<th>关键词</th>
 												<th>所占比重</th>
+												<th>关键词</th>
 												<th>操作</th>
 											</tr>
 										</thead>
-										<tbody id="">
+										<tbody id="yq_keyword">
 										</tbody>
 									</table>
 									<div class="page-box clearfix">
@@ -117,7 +117,7 @@
 		
 		<!-- Vendor JS-->				
 		<#include "/common/script.ftl">
-		<!-- <script src="/assets/js/accurate/accurate.js"></script>-->
+		<script src="/assets/js/yq/yqkeyword.js"></script>
 		<!-- end: JavaScript-->
 		
 	</body>

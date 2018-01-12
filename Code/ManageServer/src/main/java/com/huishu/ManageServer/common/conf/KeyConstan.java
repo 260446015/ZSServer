@@ -27,6 +27,8 @@ public class KeyConstan {
 
 	/** 图片文本提取URL */
 	public static final String DISTINGUISH = "http://114.55.4.218:6001/Api/OCRServices";
+	
+	public static final double USERAMONT = 6000;
 
 	/**
 	 * 天眼查url
@@ -164,7 +166,7 @@ public class KeyConstan {
 		 */
 		public static final String PURCHASELAND = "https://open.api.tianyancha.com/services/v3/newopen/purchaseLand.json";
 		/**
-		 * 购地信息
+		 * 招聘信息
 		 */
 		public static final String EMPLOYMENTS = "https://open.api.tianyancha.com/services/v3/newopen/employments.json";
 		/**
@@ -228,7 +230,7 @@ public class KeyConstan {
 		 */
 		public static final String BONUSINFO = "https://open.api.tianyancha.com/services/v3/newopen/bonusInfo.json";
 		/**
-		 * 【web版】分红情况（股票）
+		 * 【web版】配股情况（股票）
 		 */
 		public static final String ALLOTMEN = "https://open.api.tianyancha.com/services/v3/newopen/allotmen.json";
 		/**

@@ -81,7 +81,7 @@
 <!-- start: JavaScript-->
 <!-- Vendor JS-->
 <#include "/common/script.ftl">
-<script src="/assets/js/user/userManage.js"></script>
+<script src="/js/user/userManage.js"></script>
 <!-- end: JavaScript-->
 </body>
 </html>

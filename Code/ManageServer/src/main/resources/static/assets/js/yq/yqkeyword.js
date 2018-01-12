@@ -2,9 +2,9 @@ $('#yq_info').addClass("active");
 var pageSize = 20;
 var pageNum = 0;
 $(function(){
-	showList(pageNum,pageSize);
+	showKeyWordList(pageNum,pageSize);
 });
-function showList(_pageNum,_pageSize){
+function showKeyWordList(_pageNum,_pageSize){
 	var req = {
 	        "pageNum" : _pageNum,
 	        "pageSize" : _pageSize
@@ -13,7 +13,7 @@ function showList(_pageNum,_pageSize){
 	        type : "post",
 	        contentType : "application/json",
 	        async:false,
-	        url : "/apis/yq/listCompany.json",
+	        url : "/apis/keywordinfo/listKeyWord.json",
 	        data : JSON.stringify(req),
 	        success:function(res){
 	        	if(res.success){
@@ -24,20 +24,18 @@ function showList(_pageNum,_pageSize){
 	        				string += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+info[i].id+'"/><td>' 
 	        				+ info[i].id+ '</td><td>' 
 	        				+ info[i].keyword + '</td><td>' 
-	        				+ info[i].adword + '</td><td>' 
-	        				+ info[i].index + '</td><td>' 
-	        				+ info[i].createTime+ '</td><td>' + 
-	        				info[i].updateTime + '</td><td class="actions"><a href="javascript:void(0);" class="hidden on-editing save-info"><i class="fa fa-save"></i></a>'
-	        				+ '<a href="javascript:void(0);" class="hidden on-editing cancel-info"><i class="fa fa-times"></i></a>' + '<a href="javascript:void(0);" class="on-default edit-info"><i class="fa fa-pencil"></i></a>'
-							+ '<a href="javascript:void(0);" class="on-default remove-info"><i class="fa fa-trash-o"></i></a></td></tr>';
+	        				+ info[i].proportion + '</td><td>' 
+	        				+ info[i].industry + '</td><td class="actions"><a href="javascript:void(0);" class="hidden on-editing save-keyinfo"><i class="fa fa-save"></i></a>'
+	        				+ '<a href="javascript:void(0);" class="hidden on-editing cancel-keyinfo"><i class="fa fa-times"></i></a>' + '<a href="javascript:void(0);" class="on-default edit-keyinfo"><i class="fa fa-pencil"></i></a>'
+							+ '<a href="javascript:void(0);" class="on-default remove-keyinfo"><i class="fa fa-trash-o"></i></a></td></tr>';
 	        			}
-	        			$("#yq_companyList").html(string);
+	        			$("#yq_keyword").html(string);
 	        			page.init(res.data.totalNumber,res.data.pageNumber,options);
 	                    $("#"+page.pageId +">li[class='pageItem']").on("click",function(){
-	                    	showList($(this).attr("page-data")-1,pageSize);
+	                    	showKeyWordList($(this).attr("page-data")-1,pageSize);
 	                    });
 	        		}else{
-	        			$('#yq_companyList').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
+	        			$('#yq_keyword').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
 	        			$('#page').html('');
 	        		}
 	        	}else{
@@ -45,7 +43,7 @@ function showList(_pageNum,_pageSize){
 	        	}
 	        }
 	 });
-	 initInfo();
+	 initKeyWordInfo();
 };
 var options={
 	    "id":"page",//显示页码的元素
@@ -54,29 +52,27 @@ var options={
 	    "pagelistcount":20,//每页显示数据个数
 	    "callBack":function(){}
 };
-function initInfo(){
+function initKeyWordInfo(){
 	//删除一条数据
-	$(".remove-info").on("click",function(i){
+	$(".remove-keyinfo").on("click",function(i){
 		var id = $(this).parents('.gradeX').find( 'input' ).val();
-		delCompany(id);
+		deleteKeyWord(id);
 	});
 	//添加一条数据
-	$('#addTable').on("click",function(i){
+	$('#addOneToTable').on("click",function(i){
 		$(this).attr("disabled",true);
 		var html = '<tr role="row" class="adding odd"><td class="sorting_1"><input class="form-control input-block" value="" type="text"></td>' +
 		'<td><input class="form-control input-block" value="" type="text"></td>' +
 		'<td><input class="form-control input-block" value="" type="text"></td>' +
 		'<td><input class="form-control input-block" value="" type="text"></td>' +
-		'<td><input class="form-control input-block" value="" type="text"></td>' +
-		'<td><input class="form-control input-block" value="" type="text"></td>' +
-		'<td class="actions"><a href="#" class="on-editing save-info">' +
-			'<i class="fa fa-save"></i></a> <a href="#" class="on-editing cancel-info">' +
-			'<i class="fa fa-times"></i></a> <a href="#" class="on-default edit-info hidden">'+
-			'<i class="fa fa-pencil"></i></a> <a href="#" class="on-default remove-info hidden">'+
+		'<td class="actions"><a href="#" class="on-editing save-keyinfo">' +
+			'<i class="fa fa-save"></i></a> <a href="#" class="on-editing cancel-keyinfo">' +
+			'<i class="fa fa-times"></i></a> <a href="#" class="on-default edit-keyinfo hidden">'+
+			'<i class="fa fa-pencil"></i></a> <a href="#" class="on-default remove-keyinfo hidden">'+
 			'<i class="fa fa-trash-o"></i></a></td></tr>';
-		$('#yq_companyList').children().eq(0).before(html);
+		$('#yq_keyword').children().eq(0).before(html);
 		//保存
-		$('.save-info').on("click",function(){
+		$('.save-keyinfo').on("click",function(){
 			var _input = $(this).parents('.adding').find( 'input' );
 			$(this).parents('.adding').find(".actions").find("a").each(function(){
 				if($(this).hasClass("hidden")){
@@ -90,17 +86,17 @@ function initInfo(){
 				var $this = $( this );
 				indusArr.push($this.val());
 			});
-			var indus = {"id":indusArr[0],"keyword":indusArr[1],"adword":indusArr[2],"index":indusArr[3],"createTime":indusArr[4],"updateTime":indusArr[5]}
-			insertCompany(indus);
+			var indus = {"id":indusArr[0],"keyword":indusArr[1],"proportion":indusArr[2],"industry":indusArr[3]}
+			saveOrUpdateKeyWord(indus);
 			
 		});
 		//取消
-		$(".cancel-info").on("click",function(){
+		$(".cancel-keyinfo").on("click",function(){
 			window.location.reload();
 		});
 	});
 	//修改一条数据
-	$(".edit-info").on("click",function(){
+	$(".edit-keyinfo").on("click",function(){
 		$(this).parents('.gradeX').children( 'td' ).each(function( i ) {
 			var $this = $( this );
 			if ( $this.hasClass('actions') ) {
@@ -117,7 +113,7 @@ function initInfo(){
 		});
 	});
 	//保存按钮
-	$('.save-info').on("click",function(){
+	$('.save-keyinfo').on("click",function(){
 		var _input = $(this).parents('.gradeX').find( '.input-block' );
 		$(this).parents('.gradeX').find(".actions").find("a").each(function(){
 			if($(this).hasClass("hidden")){
@@ -131,36 +127,36 @@ function initInfo(){
 			var $this = $( this );
 			indusArr.push($this.val());
 		});
-		var indus = {"id":indusArr[1],"keyword":indusArr[2],"adword":indusArr[3],"index":indusArr[4],"createTime":indusArr[5],"updateTime":indusArr[6]}
-		insertCompany(indus);
+		var indus = {"id":indusArr[1],"keyword":indusArr[2],"proportion":indusArr[3],"industry":indusArr[4]}
+		saveOrUpdateKeyWord(indus);
 		
 	});
 	//取消按钮
-	$(".cancel-info").on("click",function(){
+	$(".cancel-keyinfo").on("click",function(){
 		window.location.reload();
 	})
 }
-function delCompany(_id){
+function deleteKeyWord(_id){
 	$.ajax({
 		async:false,
-		url : "/apis/yq/delCompany.json?id="+_id,
+		url : "/apis/keywordinfo/deleteKeyWord.json?id="+_id,
 		success : function(res) {
 			if(res.success){
-				showList(pageNum,pageSize);
+				showKeyWordList(pageNum,pageSize);
 			}
 		}
 	});
 };
-function insertCompany(_indus){
+function saveOrUpdateKeyWord(_indus){
 	$.ajax({
 		type : "post",
 		contentType : "application/json",
 		async:false,
-		url : "/apis/yq/saveCompany.json",
+		url : "/apis/keywordinfo/saveOrUpdateKeyWord.json",
 		data : JSON.stringify(_indus),
 		success : function(res) {
 			if(res.success){
-				showList(pageNum,pageSize);
+				showKeyWordList(pageNum,pageSize);
 			}
 		}
 	});

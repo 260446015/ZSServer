@@ -36,4 +36,11 @@ public interface CompanyService {
 	 */
 	boolean deleteCompanyInfo(String id);
 
+	/**
+	 * 保存用户信息
+	 * @param ent
+	 * @return
+	 */
+	boolean saveOrUpdateCompany(CompanyEntity ent);
+
 }
