@@ -1,0 +1,6 @@
+$(function(){
+	showPolicy();
+});
+function showPolicy(){
+	
+}

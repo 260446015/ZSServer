@@ -26,13 +26,13 @@ public class GardenDTO extends AbstractDTO {
 	private Long userId;
 	private String serarchName;
 	private String[] msg;
-	private Integer[] year;
+	private String year;
 
-	public Integer[] getYear() {
+	public String getYear() {
 		return year;
 	}
 
-	public void setYear(Integer[] year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 

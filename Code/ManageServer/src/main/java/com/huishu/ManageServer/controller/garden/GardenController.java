@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.huishu.ManageServer.common.AjaxResult;
+import com.huishu.ManageServer.common.conf.MsgConstant;
+import com.huishu.ManageServer.common.util.DateUtils;
+import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.GardenData;
+import com.huishu.ManageServer.entity.dbFirst.GardenMap;
 import com.huishu.ManageServer.entity.dto.GardenDTO;
 import com.huishu.ManageServer.entity.dto.GardenIndustry;
 import com.huishu.ManageServer.es.entity.AITInfo;
@@ -115,19 +119,24 @@ public class GardenController extends BaseController {
 	 *
 	 * @param dto
 	 * @return
-	 *//*
+	 */
 	@RequestMapping(value = "/findGardenGdp.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult findGardenGdp(@RequestBody GardenDTO dto) {
-		if (StringUtil.isEmpty(dto.getIndustry()))
-			return error(MsgConstant.ILLEGAL_PARAM);
-		if (dto.getYear() == null)
-			dto.setYear(new Integer[] { DateUtils.getNowYear() });
-		List<GardenMap> list = gardenService.findGardenGdp(dto);
+		return success(gardenService.findGardenGdp(dto));
+	}
+	
+	/**
+	 * 查询gdp地域
+	 */
+	@RequestMapping(value = "/findGardenGdpArea.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult findGardenGdpArea() {
+		List<Object[]> list = gardenService.findGdpArea();
 		return success(list);
 	}
 	
-	*//**
+	/*/**
 	 * 关注/取消关注园区
 	 *
 	 * @param gardenId

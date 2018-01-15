@@ -65,15 +65,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	}
 
 	@Override
-	public Page<UserBase> listParkUserBase(AccountDTO dto) {
-		PageRequest request = new PageRequest(dto.getPageNum(),dto.getPageSize());
-		List<UserBase> list = userRepository.findParkPage(dto.getPark(),dto.getPageNum() * dto.getPageSize(), dto.getPageSize());
-		long count = userRepository.countByUserPark(dto.getPark());
-		Page<UserBase> impl = new PageImpl<>(list, request, count);
-		return impl;
-	}
-
-	@Override
 	public Boolean saveUserBase(UserBaseDTO dto) {
 		UserBase userBase = new UserBase();
 		Calendar calendar = Calendar.getInstance();

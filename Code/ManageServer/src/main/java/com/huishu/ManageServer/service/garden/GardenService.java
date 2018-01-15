@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import com.huishu.ManageServer.entity.dbFirst.GardenData;
+import com.huishu.ManageServer.entity.dbFirst.GardenMap;
 import com.huishu.ManageServer.entity.dto.GardenDTO;
 import com.huishu.ManageServer.entity.dto.GardenIndustry;
 import com.huishu.ManageServer.es.entity.AITInfo;
@@ -77,4 +78,11 @@ public interface GardenService {
 	List<GardenIndustry> getGardenIndustry();
 
 	boolean saveGarden(GardenData data);
+	
+	/**
+	 * 获取园区产值
+	 */
+	Page<GardenMap> findGardenGdp(GardenDTO dto);
+
+	List<Object[]> findGdpArea();
 }

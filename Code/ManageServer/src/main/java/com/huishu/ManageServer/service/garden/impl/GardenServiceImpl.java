@@ -1,12 +1,9 @@
 package com.huishu.ManageServer.service.garden.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +16,12 @@ import org.springframework.stereotype.Service;
 
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.entity.dbFirst.GardenData;
+import com.huishu.ManageServer.entity.dbFirst.GardenMap;
 import com.huishu.ManageServer.entity.dto.GardenDTO;
 import com.huishu.ManageServer.entity.dto.GardenIndustry;
 import com.huishu.ManageServer.es.entity.AITInfo;
 import com.huishu.ManageServer.repository.first.GardenIndustryRepository;
+import com.huishu.ManageServer.repository.first.GardenMapRepositroy;
 import com.huishu.ManageServer.repository.first.GardenRepository;
 import com.huishu.ManageServer.service.AbstractService;
 import com.huishu.ManageServer.service.garden.GardenService;
@@ -38,6 +37,9 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	private GardenRepository gardenRepository;
 	@Autowired
 	private GardenIndustryRepository gardenIndustryRepository;
+	@Autowired
+	private GardenMapRepositroy gardenMapRepositroy;
+	
 
 	@Override
 	public PageImpl<AITInfo> findGardensCondition(GardenDTO dto) {
@@ -311,4 +313,31 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	public List<String> getGardenArea() {
 		return gardenRepository.findArea();
 	}
+	
+	@Override
+	public Page<GardenMap> findGardenGdp(GardenDTO dto) {
+		PageImpl<GardenMap> page = null;
+		List<GardenMap> findAll = (List<GardenMap>)gardenMapRepositroy.findAll();
+		List<GardenMap> returnList = new ArrayList<>(10);
+		if(!dto.getIndustry().equals("全部")){
+			findAll = findAll.stream().filter(obj -> obj.getIndustry().equals(dto.getIndustry())).collect(Collectors.toList());
+		}
+		if(!dto.getYear().equals("全部")){
+			findAll = findAll.stream().filter(obj -> obj.getYear().equals(Integer.parseInt(dto.getYear()))).collect(Collectors.toList());
+		}
+		if(!dto.getProvince().equals("全部")){
+			findAll = findAll.stream().filter(obj -> obj.getProvince().equals(dto.getProvince())).collect(Collectors.toList());
+		}
+		returnList = findAll.stream().skip(dto.getPageNum() * dto.getPageSize()).limit(dto.getPageSize()).collect(Collectors.toList());
+		PageRequest request = new PageRequest(dto.getPageNum(), dto.getPageSize());
+		page = new PageImpl<>(returnList, request, findAll.size());
+		return page;
+	}
+
+	@Override
+	public List<Object[]> findGdpArea() {
+		return gardenMapRepositroy.getArea();
+	}
+	
+	
 }

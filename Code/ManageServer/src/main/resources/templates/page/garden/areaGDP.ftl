@@ -71,6 +71,32 @@
 									</div>
 								</div>
 								<div class="panel-body">
+									<div class="search-box">
+										<div class="search-group">
+											<div class="search-item-title">产业类别</div>
+											<div class="search-item-content">
+												<a href="javascript:void(0);" class="search-item active">全部</a>
+												<a href="javascript:void(0);" class="search-item">第一产业</a> <a
+													href="javascript:void(0);" class="search-item">第二产业</a> <a
+													href="javascript:void(0);" class="search-item">第三产业</a> <a
+											</div>
+										</div>
+										<div class="search-group">
+											<div class="search-item-title">产业年份</div>
+											<div class="search-item-content">
+												<a href="javascript:void(0);" class="search-item active">全部</a>
+												<a href="javascript:void(0);" class="search-item">2015</a> 
+												<a href="javascript:void(0);" class="search-item">2016</a>
+												<a href="javascript:void(0);" class="search-item">2017</a>
+											</div>
+										</div>
+										<div class="search-group">
+											<div class="search-item-title">区域</div>
+											<div class="search-item-content" id="area">
+												<a href="javascript:void(0);" class="search-item active">全部</a>
+											</div>
+										</div>
+									</div>
 									<div class="row">
 										<div class="col-sm-6">
 											<div class="bk-margin-bottom-10">
@@ -80,14 +106,17 @@
 									</div>
 									<table class="table table-bordered table-striped mb-none" id="datatable-editable">
 										<thead>
-											<tr id="thead">
+											<tr>
+												<th>产业</th>
+												<th>地域</th>
+												<th>年份</th>
+												<th>gdp</th>
+												<th>操作</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr id="account"></tr>
+										<tbody id="gdp">
 										</tbody>
 									</table>
-									总计:<div id="total"></div>
 									<div class="page-box clearfix">
         								<ul class="page pull-right" id="page"></ul>
             						</div>
@@ -114,7 +143,7 @@
 		
 		<!-- Vendor JS-->				
 		<#include "/common/script.ftl">
-		<script src="/assets/js/user/userAccount.js"></script>
+		<script src="/assets/js/garden/areaGDP.js"></script>
 		<!-- end: JavaScript-->
 		
 	</body>
