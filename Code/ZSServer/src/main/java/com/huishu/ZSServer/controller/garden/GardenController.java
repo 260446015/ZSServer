@@ -59,9 +59,6 @@ public class GardenController extends BaseController {
 		// Long userId = getUserId();
 		Long userId = getUserId();
 		dto.setUserId(userId);
-		// dto.setPageNumber(pageNumber);
-		// dto.setPageSize(pageSize);
-		// dto.setProvince(area);
 		Page<AITInfo> page = null;
 		try {
 			page = gardenService.findGardensCondition(dto);

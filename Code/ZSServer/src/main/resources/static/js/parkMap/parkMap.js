@@ -2,22 +2,22 @@
  * Created by zhangxin on 2017/11/21.
  */
 $(function(){
-		$("#gardenMap").addClass("active");
-		$("#indus").removeClass("active");
-		$("#report").removeClass("active");
-		barCharts = echarts.init(document.getElementById('barCharts'),"customed");
-		barCharts.on('click',function(param){
-			province = param.name;
-			showGardenGdpPiechart(province);
-		});
-		scatter = echarts.init(document.getElementById("scatter"),"customed");
-		scatter.on('click',function(param){
-			industryType = param.name;
-			showGardenIndustryCount(industryType);
-		});
-		showGardenCondition("","condition");
-		showGardenIndustryCount(industryType);
+	$("#gardenMap").addClass("active");
+	$("#indus").removeClass("active");
+	$("#report").removeClass("active");
+	barCharts = echarts.init(document.getElementById('barCharts'),"customed");
+	barCharts.on('click',function(param){
+		province = param.name;
 		showGardenGdpPiechart(province);
+	});
+	scatter = echarts.init(document.getElementById("scatter"),"customed");
+	scatter.on('click',function(param){
+		industryType = param.name;
+		showGardenIndustryCount(industryType);
+	});
+	showGardenCondition("","condition");
+	showGardenIndustryCount(industryType);
+	showGardenGdpPiechart(province);
 });
 var data = [
     {name: '上海', value: 200},
@@ -537,7 +537,14 @@ var modalOption2 = {
 var date = new Date().getFullYear(); 
 var dates = [date-6,date-5,date-4,date-3,date-2,date-1,date];
 $("#myModal").on("shown.bs.modal",function () {
-	
+	modalCharts1 = echarts.init(document.getElementById("charts_1"),"customed");
+	modalCharts1.on('click',function(param){
+    	showGardenModelIndustry(area,param.name);
+    });
+	modalCharts2 = echarts.init(document.getElementById("charts_2"),"customed");
+    modalCharts2.on('click',function(param){
+    	showDifYearGdp(param.name,dates,area);
+    });
 	showGardenModelIndustry(area,year);
 	showDifYearGdp(industry,dates,area);
 	showFindMore(area);
@@ -631,6 +638,7 @@ function showGardenList(area){
 }
 var dateValue = new Array();//创建一个全局变量用来接收返回的gdp值
 var dateName = new Array();//创建一个全局变量用来接收返回的年份
+var modalCharts1;
 function showDifYearGdp(a,b,c){//model中展示不同年份某一产业的gdp  //model中展示折线图
 	var req = {"industry":a,"year":b,"province":area};
 	
@@ -649,18 +657,16 @@ function showDifYearGdp(a,b,c){//model中展示不同年份某一产业的gdp  /
 					dateValue.push(arr[i].gdp);
 					dateName.push(arr[i].year);
 				}
+				modalOption1.xAxis[0].data = dateName;
+				modalOption1.series[0].data = dateValue;
+			    
+			    modalCharts1.setOption(modalOption1,true);
 			}
 		}
 	});
-	modalOption1.xAxis[0].data = dateName;
-	modalOption1.series[0].data = dateValue;
-    var modalCharts1 = echarts.init(document.getElementById("charts_1"),"customed");
-    modalCharts1.on('click',function(param){
-    	showGardenModelIndustry(area,param.name);
-    });
-    modalCharts1.setOption(modalOption1);
 }
 var industry = '不限';//定义一个全局变量用来接收返回回来产值较多的产业
+var modalCharts2;
 function showGardenModelIndustry(area,year){
 	var seriesData = new Array();
 	$.ajax({
@@ -678,15 +684,12 @@ function showGardenModelIndustry(area,year){
 						industry = arr2[2];
 					}
 				}
+				modalOption2.series[0].data = seriesData;
+			    modalCharts2.setOption(modalOption2,true);
 			}
 		}
 	});
-	modalOption2.series[0].data = seriesData;
-	var modalCharts2 = echarts.init(document.getElementById("charts_2"),"customed");
-    modalCharts2.on('click',function(param){
-    	showDifYearGdp(param.name,dates,area);
-    });
-    modalCharts2.setOption(modalOption2);
+	
 }
 var industryType='新兴信息产业';
 var histogramName = new Array();
@@ -703,7 +706,6 @@ function showGardenIndustryCount(industryType){//查询不同省份某种产业�
 		success:function(res){
 			if(res.success){
 				var arr = res.data;
-				console.log(arr);
 				histogramName = [];
 				histogramValue = [];
 				for(var i=0;i<arr.length;i++){
@@ -733,14 +735,11 @@ function showGardenGdpPiechart(province){//获取某个省份哪种产业最多�
 		success:function(res){
 			if(res.success){
 				var arr = res.data;
-				console.log(arr);
 				pieChartName = [];
 				for(var i=0;i<arr.length;i++){
 					pieChartName.push(arr[i].industryType);
 				}
 				option.series[0].data = initEcharts(pieChartName);
-				
-				
 				scatter.setOption(option,true);
 			}
 		}
