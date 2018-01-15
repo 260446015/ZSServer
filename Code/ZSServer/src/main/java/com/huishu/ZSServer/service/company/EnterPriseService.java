@@ -38,4 +38,14 @@ public interface EnterPriseService {
 	 */
 	List<IndusCompany> getCompanyList(String industry, String[] moneys, String[] times, String area);
 
+	/**
+	 * 获取产业标签数据
+	 * @param industry
+	 * @param area
+	 * @param money
+	 * @param time
+	 * @return
+	 */
+	List<IndusCompany> findCompanyList(String industry, String area, String[] money, String[] time);
+
 }
