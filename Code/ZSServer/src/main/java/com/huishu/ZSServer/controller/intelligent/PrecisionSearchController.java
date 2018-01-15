@@ -64,17 +64,13 @@ public class PrecisionSearchController extends BaseController{
 			return success(list);
 		}else{
 			if(area.equals("全部")){
-				area = "%%";
-			}else{
-				area = "%"+area+"%";
+				area = "";
 			}
 			if(industry.equals("全部")){
-				industry = "%%";
-			}else{
-				industry="%"+industry+"%";
+				industry = "";
 			}
 			
-			List<IndusCompany> info = service.getCompanyList(industry,money,time,area);
+			List<IndusCompany> info = service.findCompanyList(industry,area,money,time);
 			if(info!=null && info.size() != 0){
 				return success(info);
 			}
