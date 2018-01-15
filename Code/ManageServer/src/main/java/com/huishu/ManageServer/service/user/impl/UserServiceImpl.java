@@ -1,5 +1,6 @@
 package com.huishu.ManageServer.service.user.impl;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,6 +52,15 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	}
 
 	@Override
+	public Page<UserBase> listParkUserBase(AccountDTO dto) {
+		PageRequest request = new PageRequest(dto.getPageNum(),dto.getPageSize());
+		List<UserBase> list = userRepository.findParkPage(dto.getPark(),dto.getPageNum() * dto.getPageSize(), dto.getPageSize());
+		long count = userRepository.countByUserPark(dto.getPark());
+		Page<UserBase> impl = new PageImpl<>(list, request, count);
+		return impl;
+	}
+
+	@Override
 	public Boolean saveUserBase(UserBaseDTO dto) {
 		UserBase userBase = new UserBase();
 		Calendar calendar = Calendar.getInstance();
@@ -92,7 +102,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
 		userBase.setUserEmail(dto.getUserEmail());
 		userBase.setUserJob(dto.getUserJob());
 		userBase.setUserLevel(dto.getUserLevel());
-		userBase.setUserPark(dto.getUserPark());
+		UserPark one = userParkRepository.findOne(Long.valueOf(dto.getUserPark()));
+		userBase.setUserPark(one.getName());
 		userBase.setUserType(dto.getUserType());
 		UserBase save = userRepository.save(userBase);
 		if(save==null){
@@ -115,157 +126,157 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	@Override
 	public List<AccountDTO> getAccountByUser(AccountDTO dto) {
 		List<UserBase> ids = userRepository.findByUserPark(dto.getPark());
-		double price = 0;
+		BigDecimal price = new BigDecimal(0);
 		List<AccountDTO> outList = new ArrayList<>();
 		for (UserBase user : ids) {
 			List<SearchCount> list = searchCountRepository.findByUserId(user.getId());
 			if(list.size() > 0){
 				AccountDTO out = new AccountDTO();
-				double totalPrice = 0;
+				BigDecimal totalPrice = new BigDecimal(0);
 				for (SearchCount sc : list) {
 					String spec = sc.getSpec();
 					try{
 						switch (spec) {
 						case KeyConstan.URL.SOUSUO:
-							price = 0.01; 
+							price = new BigDecimal(0.01); 
 							break;
 						case KeyConstan.URL.BASEINFO:
-							price = 0.1; 
+							price = new BigDecimal(0.1); 
 							break;
 						case KeyConstan.URL.STAFF:
-							price = 0.1; 
+							price = new BigDecimal(0.1); 
 							break;
 						case KeyConstan.URL.HOLDER:
-							price = 0.1; 
+							price = new BigDecimal(0.1); 
 							break;
 						case KeyConstan.URL.INVERST:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.CHANGEINFO:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.NIANBAO:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.BRANCH:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.HISTORYRONGZI:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.TEAMMEMBER:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.PRODUCTINFO:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.TZANLI:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.JINGPIN:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.LAWSUIT:
-							price = 0.05; 
+							price = new BigDecimal(0.05); 
 							break;
 						case KeyConstan.URL.COURTANNOUNCEMENT:
-							price = 0.05; 
+							price = new BigDecimal(0.05); 
 							break;
 						case KeyConstan.URL.SHIXINREN:
-							price = 0.05; 
+							price = new BigDecimal(0.05); 
 							break;
 						case KeyConstan.URL.ZHIXINGINFO:
-							price = 0.05; 
+							price = new BigDecimal(0.05); 
 							break;
 						case KeyConstan.URL.ABNORMAL:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.XINGZHENGCHUFA:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.YANZHONGWEIFA:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.QIANSHUIGONGGAO:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.BIDS:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.BOND:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.PURCHASELAND:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.EMPLOYMENTS:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.SHUIWU:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.CHECKINFO:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.APPBKINFO:
-							price = 0.05; 
+							price = new BigDecimal(0.05); 
 							break;
 						case KeyConstan.URL.CERTIFICATE:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.SHANGBIAO:
-							price = 0.05; 
+							price = new BigDecimal(0.05); 
 							break;
 						case KeyConstan.URL.PATENTS:
-							price = 0.05; 
+							price = new BigDecimal(0.05); 
 							break;
 						case KeyConstan.URL.COPYREG:
-							price = 0.15; 
+							price = new BigDecimal(0.15); 
 							break;
 						case KeyConstan.URL.ICP:
-							price = 0.05; 
+							price = new BigDecimal(0.05); 
 							break;
 						case KeyConstan.URL.VOLATILITY:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.COMPANYINFO:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.HOLDINGCOMPANY:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.SENIOREXECUTIVE:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.ANNOUNCEMENT:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.SHAREHOLDER:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.ISSUERELATED:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.SHARESTRUCTURE:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.EQUITYCHANGE:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.BONUSINFO:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.ALLOTMEN:
-							price = 0.07; 
+							price = new BigDecimal(0.07); 
 							break;
 						case KeyConstan.URL.QIYEFENGXIAN:
-							price = 0.1; 
+							price = new BigDecimal(0.1); 
 							break;
 						case KeyConstan.URL.FENGXIANXINXI:
-							price = 0.1; 
+							price = new BigDecimal(0.1); 
 							break;
 						case KeyConstan.URL.RENFENGXIAN:
-							price = 0.1; 
+							price = new BigDecimal(0.1); 
 							break;
 						default:
 							break;
@@ -273,10 +284,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
 					}catch(Exception e){
 						e.printStackTrace();
 					}
-					double d = sc.getTotal() * price;
-					totalPrice += d;
+					BigDecimal d = price.multiply(BigDecimal.valueOf(sc.getTotal()));
+					totalPrice = totalPrice.add(d);
 				}
-				out.setTotalPrice(totalPrice);
+				out.setTotalPrice(totalPrice.doubleValue());
 				out.setUserAccount(user.getUserAccount());
 				outList.add(out);
 			}
