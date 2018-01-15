@@ -44,13 +44,6 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-default bk-bg-white">
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="bk-margin-bottom-10">
-                                        <button class="btn btn-info my_add">添加用户园区<i class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
                             <table class="table table-bordered table-striped mb-none" id="datatable-editable">
                                 <thead>
                                 <tr>
