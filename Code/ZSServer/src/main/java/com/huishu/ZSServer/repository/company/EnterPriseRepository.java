@@ -1,5 +1,6 @@
 package com.huishu.ZSServer.repository.company;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -38,10 +39,62 @@ public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> ,
 	 * @param object2
 	 * @return
 	 */
-	List<Enterprise> findByIndustryLikeAndAreaLikeAndRegisterTimeBetween(String industry, String area, String startTime,String endTime);
+	List<Enterprise> findByIndustryAndAreaAndRegisterTimeBetween(String industry, String area, String startTime,String endTime);
 
 	List<Enterprise> findByIndustryLikeAndAreaLike(String industry, String area);
 	
 	@Query(value="select company from t_enterprise GROUP BY company" , nativeQuery = true)
 	List<String> findAllGroupByCompany();
+
+	/**
+	 * 根据注册时间查询数据
+	 * @param startTime
+	 * @param endTime
+	 */
+	List<Enterprise> findByRegisterTimeBetween(String startTime,String endTime);
+
+	/**
+	 * @param area
+	 * @return
+	 */
+	List<Enterprise> findByArea(String area);
+
+	/**
+	 * @param area
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	List<Enterprise> findByAreaAndRegisterTimeBetween(String area, String startTime,String endTime);
+
+	/**
+	 * @param industry
+	 * @return
+	 */
+	List<Enterprise> findByIndustry(String industry);
+
+	/**
+	 * @param industry
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	List<Enterprise> findByIndustryAndRegisterTimeBetween(String industry, String startTime,
+			String endTime);
+
+	/**
+	 * @param industry
+	 * @param area
+	 * @return
+	 */
+	List<Enterprise> findByIndustryAndArea(String industry, String area);
+
+	/**
+	 * @param industry
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 
+	List<Enterprise> findByIndustryAndAreaAndRegisterTimeBetween(String industry, String area,String startTime,
+			String endTime);*/
 }

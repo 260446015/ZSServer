@@ -73,7 +73,7 @@
                                     <div class="search-item-content">
                                         <a href="javascript:void(0);" id="2,全部" class="search-item">全部</a>
                                         <a href="javascript:void(0);" id="2,北京" class="search-item">北京</a>
-                                        <a href="javascript:void(0);" id="2,上海" class="search-item">上海</a>
+                                        <a href="javascript:void(0);" id="2,江苏" class="search-item">江苏</a>
                                         <a href="javascript:void(0);" id="2,广东" class="search-item">广东</a>
                                         <a href="javascript:void(0);" id="2,山东" class="search-item">山东</a>
                                     </div>

@@ -15,12 +15,10 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
 import com.huishu.ZSServer.common.conf.KeyConstan;
-import com.huishu.ZSServer.common.util.ConcersUtils.DateUtil;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.Enterprise;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
-import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
 import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
 import com.huishu.ZSServer.repository.openeyes.BaseInfoRepository;
@@ -43,8 +41,6 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 	private BaseInfoRepository repository;
 	@Autowired
 	private IndusCompanyRepository indrepository;
-	@Autowired
-	private CompanyRepository cpository;
 	@Override
 	public List<String> findCompanyName(String area, String industry) {
 		int count = rep.getCount(area, industry);
@@ -83,7 +79,6 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 					JSONObject obj1 = null;
 					try {
 						obj1 = getOpenEyesTarget(KeyConstan.URL.BASEINFO, map, KeyConstan.From.CUSTOM, null);
-						
 						JSONObject object = obj1.getJSONObject("result");
 						if(object.isEmpty()){
 							JSONObject object1 = obj1.getJSONObject("data");
@@ -135,7 +130,7 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 			for (String time : times) {
 				time = time.trim();
 				JSONObject obj = initTime(time);
-				list.addAll(rep.findByIndustryLikeAndAreaLikeAndRegisterTimeBetween(industry,area,obj.getString("startTime"),obj.getString("endTime")));
+				list.addAll(rep.findByIndustryAndAreaAndRegisterTimeBetween(industry,area,obj.getString("startTime"),obj.getString("endTime")));
 			}
 		}
 		List<IndusCompany> li = new ArrayList<IndusCompany>();
@@ -192,7 +187,6 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 						});
 					}else{
 						int size = companyName.size();
-						
 						 si = updateData(size);
 						List<JSONObject>  o= new ArrayList<JSONObject>() ;
 						for(int j = 0; j<=9 ; j++){
@@ -339,5 +333,110 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 		String action ="贵州块数大数据有限公司";
 		JSONObject json = Analysis.getInitCompanyAbbr(action);
 		System.out.println(json);
+	}
+
+	/**
+	 * 多选操作查询公司详情
+	 */
+	@Override
+	public List<IndusCompany> findCompanyList(String industry, String area, String[] money, String[] time) {
+		List<Enterprise> list = new ArrayList<Enterprise>();
+		List<IndusCompany> li = new ArrayList<IndusCompany>();
+		//第一步，根据筛选条件查询出数据
+		if(StringUtil.isEmpty(industry)&&StringUtil.isEmpty(area)){
+			//产业地域都为空
+			if(time[0].equals("全部")){
+				list = (List<Enterprise>) rep.findAll();
+			}else{
+				for(String tim:time){
+					tim = tim.trim();
+					JSONObject obj = initTime(tim);
+					list.addAll(rep.findByRegisterTimeBetween(obj.getString("startTime"),obj.getString("endTime")));
+				}
+			}
+		}else if(StringUtil.isEmpty(industry)&&StringUtil.isNotEmpty(area)){
+			//产业为空，地域不为空
+			if( time[0].equals("全部") ){
+				list = rep.findByArea(area);
+			}else{
+				for(String tim:time){
+					tim = tim.trim();
+					JSONObject obj = initTime(tim);
+					list.addAll(rep.findByAreaAndRegisterTimeBetween(area,obj.getString("startTime"),obj.getString("endTime")));
+				}
+			}
+		}else if(StringUtil.isEmpty(area)&&StringUtil.isNotEmpty(industry)){
+			//地域为空，产业不为空
+			if( time[0].equals("全部") ){
+				list = rep.findByIndustry(industry);
+			}else{
+				for(String tim:time){
+					tim = tim.trim();
+					JSONObject obj = initTime(tim);
+					list.addAll(rep.findByIndustryAndRegisterTimeBetween(industry,obj.getString("startTime"),obj.getString("endTime")));
+				}
+			}
+		}else{
+			//产业不为空,地域不为空
+			if( time[0].equals("全部") ){
+				list = rep.findByIndustryAndArea(industry,area);
+			}else{
+				for(String tim:time){
+					tim = tim.trim();
+					JSONObject obj = initTime(tim);
+					list.addAll(rep.findByIndustryAndAreaAndRegisterTimeBetween(industry,area,obj.getString("startTime"),obj.getString("endTime")));
+				}
+			}
+		}
+		//第二步,根据查询到的数据判断他的注册资本
+		if(money[0].equals("全部")){
+			//取到所得数据的前十条数据
+			if(list.size()<10){
+				return null;
+			}else{
+				if(list.size()<=20){
+					list.forEach(action->{
+						IndusCompany ent = indrepository.findByCompany(action.getCompany());
+						li.add(ent);
+					});
+				}else{
+					
+					while(li.size()<10){
+						int si = (int)(Math.random()*list.size()+1);
+						IndusCompany ent = indrepository.findByCompany(list.get(si).getCompany());
+						if(!li.contains(ent)){
+							li.add(ent);
+						}
+					}
+				}
+			}
+		}else{
+			for( String mon : money ){
+				mon = mon.trim();
+				List<Integer> ll = StringUtil.initMoney(mon);
+				List<JSONObject> name = getName(list, ll);
+				name.forEach(act->{
+					if(li.size()<=10){
+						IndusCompany ent = indrepository.findByCompany(act.getString("company"));
+						li.add(ent);
+					}else{
+						return;
+					}
+				});
+			}
+		}
+//		List<IndusCompany> ll = new ArrayList<IndusCompany>();
+		//第三步，判断最后结果的长度，确定返回值的数值
+		if(li.size()<9){
+			return null;
+		}else{
+			/*while(ll.size()<10){
+				int si = updateData(li.size());
+				ll.add(li.get(si));
+				
+			}*/
+			return li;
+		}
+		
 	}
 }

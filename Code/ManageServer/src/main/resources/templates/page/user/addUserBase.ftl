@@ -82,12 +82,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">所属园区</label>
-                                    <div class="col-md-9">
-                                        <input type="text" name="userPark" class="form-control" placeholder="请输入所属园区">
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="col-md-3 control-label">用户类型</label>
                                     <div class="col-md-9">
                                         <div class="radio-custom radio-inline">
@@ -139,6 +133,9 @@
 <!-- Vendor JS-->
 <#include "/common/script.ftl">
 <script src="/js/user/editUserBase.js"></script>
+<script>
+    addParkId(${id});
+</script>
 <!-- end: JavaScript-->
 </body>
 </html>

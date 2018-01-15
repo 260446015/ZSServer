@@ -155,7 +155,8 @@ $(function () {
     	async: false,
     	success:function(res){
     		if(res.data==null){
-    			new Alert({flag:false,text:res.message,timer:2000}).show();
+    			echarts.dispose(document.getElementById("charts"));
+           	   $("#charts").html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
     		}else{
     			var arr = res.data;
     			initDataList(option,arr);

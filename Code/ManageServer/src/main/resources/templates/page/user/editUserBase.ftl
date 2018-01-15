@@ -84,7 +84,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">所属园区</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="userPark" class="form-control" placeholder="请输入所属园区">
+                                        <input type="text" name="userPark" class="form-control" placeholder="" disabled="disabled">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -141,6 +141,7 @@
 <script src="/js/user/editUserBase.js"></script>
 <script>
         addData(${id});
+        addParkId(${parkId});
 </script>
 <!-- end: JavaScript-->
 </body>

@@ -478,7 +478,8 @@ function searchAjax(){
 		data:JSON.stringify(param),
 		success:function(res){
 			if(res.message!=null){
-            	new Alert({flag:false,text:res.message,timer:1500}).show();
+				echarts.dispose(document.getElementById("charts"));
+            	 $("#charts").html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
             }else{
             	var array = res.data;
 //            	var arr = initEchartData(array,datalist,dataListInfo);

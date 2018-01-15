@@ -1,8 +1,6 @@
 package com.huishu.ManageServer.entity.dto;
 
-import java.io.Serializable;
-
-public class AccountDTO implements Serializable {
+public class AccountDTO extends AbstractDTO {
 
 	/**
 	 * 

@@ -17,8 +17,13 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<UserBase, Long> {
 	@Query(value="select * from t_user_base limit ?,?",nativeQuery=true)
 	List<UserBase> findPage(int pageFrom , int pageSize);
-	
-	List<UserBase> findByUserPark(String park); 
+
+	@Query(value="select * from t_user_base where user_park = ? limit ?,?",nativeQuery=true)
+	List<UserBase> findParkPage(String park,int pageFrom , int pageSize);
+
+	List<UserBase> findByUserPark(String park);
+
+	Long countByUserPark(String userPark);
 	
 	@Query(value="select id from t_user_base where user_park=?",nativeQuery=true)
 	List<Long> findUserIds(String park);

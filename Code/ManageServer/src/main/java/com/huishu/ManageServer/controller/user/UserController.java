@@ -43,11 +43,35 @@ public class UserController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = { "{page}" }, method = RequestMethod.GET)
-	public String pageJump(@PathVariable String page,String id,Model model) {
-		if("editUserBase".equals(page)){
+	public String pageJump(@PathVariable String page,String id,String parkId,Model model) {
+		if("findParkInformation".equals(page)||"addUserBase".equals(page)){
 			model.addAttribute("id",id);
+		}else if("editUserBase".equals(page)){
+			model.addAttribute("id",id);
+			model.addAttribute("parkId",parkId);
 		}
 		return "/user/" + page;
+	}
+
+	/**
+	 * 分页查看园区用户列表
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "listParkUserBase.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult listParkUserBase(@RequestBody AccountDTO dto) {
+		try {
+			Page<UserBase> page = userService.listParkUserBase(dto);
+			for (UserBase userBase : page) {
+				userBase.setPassword(null);
+				userBase.setSalt(null);
+			}
+			return successPage(page,dto.getPageNum()+1);
+		}catch (Exception e){
+			LOGGER.error("分页查看园区用户列表失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
 	}
 
 	/**
@@ -232,7 +256,6 @@ public class UserController extends BaseController{
 	/**
 	 * 账号审核
 	 * @param id
-	 * @param isSingle
 	 * @return
 	 */
 	@RequestMapping(value = "modifyIsCheck.json", method = RequestMethod.GET)
