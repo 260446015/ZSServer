@@ -49,6 +49,7 @@ var pageSize = 10;
 var pageNum = 0;
 function showIndusCompany(_pageNum,_pageSize) {
     var req = {
+        "park":_park,
         "pageNum" : _pageNum,
         "pageSize" : _pageSize
     };
@@ -95,7 +96,7 @@ var options={
 function initPage(){
     $(".my_edit").on("click",function(){
         var _id = $(this).parents('.gradeX').find( 'input' ).val();
-        window.location.href="/apis/user/editUserBase.html?id="+_id;
+        window.location.href="/apis/user/editUserBase.html?id="+_id+"&parkId="+_park_id;
     })
     $(".my_add").on("click",function(i){
         window.location.href="/apis/user/addUserBase.html?id="+_park_id;

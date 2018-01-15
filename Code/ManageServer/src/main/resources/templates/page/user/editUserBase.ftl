@@ -141,6 +141,7 @@
 <script src="/js/user/editUserBase.js"></script>
 <script>
         addData(${id});
+        addParkId(${parkId});
 </script>
 <!-- end: JavaScript-->
 </body>

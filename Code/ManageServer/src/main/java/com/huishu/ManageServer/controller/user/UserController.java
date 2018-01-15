@@ -43,9 +43,12 @@ public class UserController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = { "{page}" }, method = RequestMethod.GET)
-	public String pageJump(@PathVariable String page,String id,Model model) {
-		if("editUserBase".equals(page)||"findParkInformation".equals(page)||"addUserBase".equals(page)){
+	public String pageJump(@PathVariable String page,String id,String parkId,Model model) {
+		if("findParkInformation".equals(page)||"addUserBase".equals(page)){
 			model.addAttribute("id",id);
+		}else if("editUserBase".equals(page)){
+			model.addAttribute("id",id);
+			model.addAttribute("parkId",parkId);
 		}
 		return "/user/" + page;
 	}
