@@ -73,7 +73,7 @@ function showPage(req) {
             }
         }
     });
-	$(".btn-success").on("click",function(){
+	$(".btn-labeled").on("click",function(){
 		var _id = $(this).parents('.gradeX').find( 'input' ).val();
         $.ajax({
             url: "/apis/user/modifyIsCheck.json",

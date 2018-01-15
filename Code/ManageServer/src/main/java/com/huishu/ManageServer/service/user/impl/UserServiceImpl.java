@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.huishu.ManageServer.entity.dbFirst.UserPark;
+import com.huishu.ManageServer.repository.first.UserParkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -40,12 +42,23 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private SearchCountRepository searchCountRepository;
+	@Autowired
+	private UserParkRepository userParkRepository;
 
 	@Override
 	public Page<UserBase> listUserBase(AbstractDTO dto) {
 		PageRequest request = new PageRequest(dto.getPageNum(),dto.getPageSize());
 		List<UserBase> list = userRepository.findPage(dto.getPageNum() * dto.getPageSize(), dto.getPageSize());
 		long count = userRepository.count();
+		Page<UserBase> impl = new PageImpl<>(list, request, count);
+		return impl;
+	}
+
+	@Override
+	public Page<UserBase> listParkUserBase(AccountDTO dto) {
+		PageRequest request = new PageRequest(dto.getPageNum(),dto.getPageSize());
+		List<UserBase> list = userRepository.findParkPage(dto.getPark(),dto.getPageNum() * dto.getPageSize(), dto.getPageSize());
+		long count = userRepository.countByUserPark(dto.getPark());
 		Page<UserBase> impl = new PageImpl<>(list, request, count);
 		return impl;
 	}
@@ -92,7 +105,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
 		userBase.setUserEmail(dto.getUserEmail());
 		userBase.setUserJob(dto.getUserJob());
 		userBase.setUserLevel(dto.getUserLevel());
-		userBase.setUserPark(dto.getUserPark());
+		UserPark one = userParkRepository.findOne(Long.valueOf(dto.getUserPark()));
+		userBase.setUserPark(one.getName());
 		userBase.setUserType(dto.getUserType());
 		UserBase save = userRepository.save(userBase);
 		if(save==null){

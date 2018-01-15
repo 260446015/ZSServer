@@ -23,6 +23,13 @@ public interface UserService {
 	 * @return
 	 */
 	Page<UserBase> listUserBase(AbstractDTO dto);
+
+	/**
+	 * 分页查看用户列表
+	 * @param dto
+	 * @return
+	 */
+	Page<UserBase> listParkUserBase(AccountDTO dto);
 	
 	/**
 	 * 获取待审核账号列表

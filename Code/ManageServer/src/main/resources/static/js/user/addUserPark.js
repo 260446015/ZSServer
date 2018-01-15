@@ -1,17 +1,11 @@
-$("#user_item").addClass("active nav-expanded ");
-$("#user_park_item").addClass("active");
 var _id;
-var _park_id;
-function addParkId(id) {
-    _park_id = id;
-}
 function addData(id) {
 	_id=id;
 	 $.ajax({
 	        type : "get",
 	        contentType : "application/json",
 	        async:false,
-	        url : "/apis/user/getUserBase.json",
+	        url : "/apis/user/hahahah.json",
 	        data : {id:id},
 	        success : function(res) {
 	            if(res.success){
@@ -54,46 +48,8 @@ $(":radio").click(function(){
     }
 });
 $(".btn-success").on("click",function(){
-    etitData();
+    addData();
 })
 $(".btn-danger").on("click",function(){
-    if(_id==null){
-        window.location.href="/apis/user/userManage.html";
-    }else{
-        layer.confirm('直接离开将会失去修改内容，确认离开？', {
-            btn: ['确认','取消'] //按钮
-        }, function(){
-            window.location.href="/apis/user/userManage.html";
-        });
-    }
+    window.location.href="/apis/user/userPark.html";
 })
-function etitData() {
-    var _userAccount = $("input[name='userAccount']").val();
-    var _realName = $("input[name='realName']").val();
-    var _telphone = $("input[name='telphone']").val();
-    var _userEmail =$("input[name='userEmail']").val();
-    var _userJob =$("input[name='userJob']").val();
-    var _userDepartment =$("input[name='userDepartment']").val();
-    var _imageUrl =$("input[name='imageUrl']").val();
-    var _userType = $('input:radio:checked').val();
-    var _userTime = $("#select option:selected").val();
-    var obj={
-            id:_id,userAccount:_userAccount,realName:_realName,telphone:_telphone,userEmail:_userEmail,userJob:_userJob,
-            userDepartment:_userDepartment,userPark:_park_id,userType:_userType,userTime:_userTime,mageUrl:_imageUrl
-        };
-    $.ajax({
-        type : "post",
-        contentType : "application/json",
-        async:false,
-        url : "/apis/user/saveUserBase.json",
-        data : JSON.stringify(obj),
-        success : function(res) {
-            if(res.success){
-                layer.msg('操作成功', {icon: 1});
-                window.location.href="/apis/user/findParkInformation.html?id="+_park_id;
-            }else{
-                layer.msg(res.message, {icon: 2});
-            }
-        }
-    });
-}

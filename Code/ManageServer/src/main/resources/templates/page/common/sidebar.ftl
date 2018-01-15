@@ -20,7 +20,7 @@
 							aria-hidden="true"></i><span>账户管理</span>
 					</a>
 						<ul class="nav nav-children">
-							<li id="usermanage_item"><a href="/apis/user/userManage.html"><span class="text">账户列表</span></a></li>
+                            <li id="user_park_item"><a href="/apis/user/userPark.html"><span class="text">账户园区</span></a></li>
 							<li id="examine_item"><a href="/apis/user/userExamine.html"><span class="text">账号审核</span></a></li>
                             <li id="login_item"><a href="/apis/user/userLogin.html"><span class="text">账号登录</span></a></li>
                             <li><a href="/apis/user/userAccount.html"><span class="text">接口金额</span></a></li>
