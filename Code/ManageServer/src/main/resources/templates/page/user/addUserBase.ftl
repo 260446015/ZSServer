@@ -106,12 +106,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="file-multiple-input">人物名片</label>
-                                    <div class="col-md-9">
-                                        <input type="file" name="imageUrl">
-                                    </div>
-                                </div>
                                 <p>
                                     <button class="bk-margin-5 btn btn-labeled btn-success" type="button">
                                         <span class="btn-label"><i class="fa fa-check"></i></span>保存</button>

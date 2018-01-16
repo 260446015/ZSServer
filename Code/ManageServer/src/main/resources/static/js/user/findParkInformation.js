@@ -60,7 +60,8 @@ function showIndusCompany(_pageNum,_pageSize) {
                     var arr = res.data.dataList;
                     var html = '';
                     for (var i = 0; i < arr.length; i++) {
-                        html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td>' + arr[i].userAccount + '</td><td>' + arr[i].realName + '</td><td>' + arr[i].telphone + '</td><td>' + arr[i].userEmail
+                        html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td><a href="/apis/user/userBase.html?id='+arr[i].id+'&parkId='+_park_id+'">'
+                            + arr[i].userAccount + '</a></td><td>' + arr[i].realName + '</td><td>' + arr[i].telphone + '</td><td>' + arr[i].userEmail
                             + '</td><td>' + arr[i].createTime + '</td><td class="actions">'
                             + '<a href="javascript:void(0);" class="on-default my_edit"><i class="fa fa-pencil"></i></a>'
                             + '<a href="javascript:void(0);" class="on-default my_remove modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>';
