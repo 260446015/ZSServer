@@ -122,14 +122,12 @@ function initPage(){
 			'<td><input class="form-control input-block" value="" type="text"></td>' +
 			'<td><input class="form-control input-block" value="" type="text"></td>' +
 			'<td><input class="form-control input-block" value="" type="text"></td>' +
-			'<td><input class="form-control input-block" value="" type="text"></td>' +
-			'<td><input class="form-control input-block" value="" type="text"></td>' +
 			'<td class="actions"><a href="#" class="on-editing save-row">' +
 				'<i class="fa fa-save"></i></a> <a href="#" class="on-editing cancel-row">' +
 				'<i class="fa fa-times"></i></a> <a href="#" class="on-default edit-row hidden">'+
 				'<i class="fa fa-pencil"></i></a> <a href="#" class="on-default remove-row hidden">'+
 				'<i class="fa fa-trash-o"></i></a></td></tr>';
-		$("#company").children().eq(0).before(html);
+		$("#gdp").children().eq(0).before(html);
 		$(".save-row").on("click",function(i){
 			var _input = $(this).parents('.adding').find( 'input' );
 			$(this).parents('.adding').find(".actions").find("a").each(function(){

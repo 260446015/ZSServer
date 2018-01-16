@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageImpl;
 
 import com.huishu.ManageServer.entity.dbFirst.GardenData;
 import com.huishu.ManageServer.entity.dbFirst.GardenMap;
+import com.huishu.ManageServer.entity.dbFirst.ScanGarden;
 import com.huishu.ManageServer.entity.dto.GardenDTO;
 import com.huishu.ManageServer.entity.dto.GardenIndustry;
 import com.huishu.ManageServer.es.entity.AITInfo;
@@ -84,5 +85,24 @@ public interface GardenService {
 	 */
 	Page<GardenMap> findGardenGdp(GardenDTO dto);
 
+	/**
+	 * 查询园区gdp地域区分
+	 * @return
+	 */
 	List<Object[]> findGdpArea();
+
+	/**
+	 * 查询扫描过的园区
+	 * @param dto
+	 * @return
+	 */
+	Page<ScanGarden> findScanGarden(GardenDTO dto);
+
+	/**
+	 * 更改是否扫描的状态
+	 * @param sg
+	 * @return
+	 */
+	boolean changeScanStatus(ScanGarden sg);
+
 }

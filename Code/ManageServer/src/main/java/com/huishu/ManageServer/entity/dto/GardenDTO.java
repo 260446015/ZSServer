@@ -27,6 +27,15 @@ public class GardenDTO extends AbstractDTO {
 	private String serarchName;
 	private String[] msg;
 	private String year;
+	private String dimension;
+
+	public String getDimension() {
+		return dimension;
+	}
+
+	public void setDimension(String dimension) {
+		this.dimension = dimension;
+	}
 
 	public String getYear() {
 		return year;
@@ -147,6 +156,5 @@ public class GardenDTO extends AbstractDTO {
 	public void setIndustry(String industry) {
 		this.industry = industry;
 	}
-	
 
 }

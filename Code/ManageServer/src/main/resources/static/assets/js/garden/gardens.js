@@ -127,7 +127,6 @@ function initPage(){
 			var $this = $( this );
 			indusArr.push($this.val());
 		});
-		console.log(indusArr);
 		var indus = {"id":indusArr[0],"address":indusArr[1],"gardenName":indusArr[2],"gardenSquare":indusArr[3],"province":indusArr[4],"industryType":indusArr[5],"gardenPicture":indusArr[6],"enterCount":indusArr[7]}
 		insertIndus(indus);
 	})

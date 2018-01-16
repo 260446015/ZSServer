@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,15 @@ import org.springframework.stereotype.Service;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.entity.dbFirst.GardenData;
 import com.huishu.ManageServer.entity.dbFirst.GardenMap;
+import com.huishu.ManageServer.entity.dbFirst.ScanGarden;
 import com.huishu.ManageServer.entity.dto.GardenDTO;
 import com.huishu.ManageServer.entity.dto.GardenIndustry;
 import com.huishu.ManageServer.es.entity.AITInfo;
+import com.huishu.ManageServer.es.repository.BaseElasticsearch;
 import com.huishu.ManageServer.repository.first.GardenIndustryRepository;
 import com.huishu.ManageServer.repository.first.GardenMapRepositroy;
 import com.huishu.ManageServer.repository.first.GardenRepository;
+import com.huishu.ManageServer.repository.first.ScanGardenRepository;
 import com.huishu.ManageServer.service.AbstractService;
 import com.huishu.ManageServer.service.garden.GardenService;
 
@@ -39,6 +44,8 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	private GardenIndustryRepository gardenIndustryRepository;
 	@Autowired
 	private GardenMapRepositroy gardenMapRepositroy;
+	@Autowired
+	private ScanGardenRepository scanGardenRepository;
 	
 
 	@Override
@@ -47,7 +54,7 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		PageImpl<AITInfo> pageimpl = null;
 		try {
 			PageRequest pageRequest = new PageRequest(dto.getPageNum(), dto.getPageSize(), new Sort(Direction.DESC, "publishDate"));
-			page = getGardenCondition(pageRequest,dto.getSerarchName());
+			page = getGardenCondition(pageRequest,dto);
 			pageimpl = new PageImpl<>(page.getContent(), pageRequest, page.getTotalElements());
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
@@ -338,6 +345,29 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	public List<Object[]> findGdpArea() {
 		return gardenMapRepositroy.getArea();
 	}
+
+	@Override
+	public Page<ScanGarden> findScanGarden(GardenDTO dto) {
+		PageRequest pageRequest = new PageRequest(dto.getPageNum(), dto.getPageSize(), new Sort(Direction.DESC, "scanDate"));
+		if(!StringUtil.isEmpty(dto.getSerarchName())){
+			return scanGardenRepository.findByGardenName(dto.getSerarchName(),pageRequest);
+		}
+		return scanGardenRepository.findAll(pageRequest);
+	}
+
+	@Override
+	public boolean changeScanStatus(ScanGarden sg) {
+		boolean flag = false;
+		try {
+			scanGardenRepository.save(sg);
+			flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	
 	
 	
 }

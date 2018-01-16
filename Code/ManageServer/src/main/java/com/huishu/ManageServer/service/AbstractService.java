@@ -43,6 +43,7 @@ import com.huishu.ManageServer.common.conf.DBConstant;
 import com.huishu.ManageServer.common.conf.KeyConstan;
 import com.huishu.ManageServer.common.util.DateUtils;
 import com.huishu.ManageServer.common.util.StringUtil;
+import com.huishu.ManageServer.entity.dto.GardenDTO;
 import com.huishu.ManageServer.es.entity.AITInfo;
 import com.huishu.ManageServer.es.repository.BaseElasticsearch;
 import com.huishu.ManageServer.security.Digests;
@@ -589,12 +590,12 @@ public class AbstractService<T> {
 			return null;
 	}
 	
-	protected Page<AITInfo> getGardenCondition(Pageable pageable,String serarchName){
+	protected Page<AITInfo> getGardenCondition(Pageable pageable,GardenDTO dto){
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
-		if(!StringUtil.isEmpty(serarchName)){
-			bq.must(QueryBuilders.termQuery("park", serarchName));
+		if(!StringUtil.isEmpty(dto.getSerarchName())){
+			bq.must(QueryBuilders.termQuery("park", dto.getSerarchName()));
 		}
-		bq.must(QueryBuilders.termQuery("dimension", KeyConstan.YUANQUDONGTAI));
+		bq.must(QueryBuilders.termQuery("dimension", dto.getDimension()));
 		Page<AITInfo> search = baseElasticsearch.search(bq, pageable);
 		return search;
 	}

@@ -1,8 +1,8 @@
 $(function(){
-	showCondition(pageNum,pageSize,serarchName);
+	showCondition(pageNum,pageSize,serarchName,dimension);
 	$(".btn-info").on("click",function(){
 		serarchName = $("#search").val();
-		showCondition(pageNum,pageSize,serarchName);
+		showCondition(pageNum,pageSize,serarchName,dimension);
 	});
 });
 var options={
@@ -15,11 +15,14 @@ var options={
 var pageSize = 20;
 var pageNum = 0;
 var serarchName = "";
-function showCondition(_pageNum,_pageSize,_serarchName){
+var dimension = "园区动态";
+function showCondition(_pageNum,_pageSize,_serarchName,_dimension){
 	var req = {
 			"pageNum" : _pageNum,
 			"pageSize" : _pageSize,
-			"serarchName":_serarchName
+			"serarchName":_serarchName,
+			"dimension":_dimension
+			
 		};
 	$.ajax({
 		type:'post',
@@ -47,19 +50,21 @@ function showCondition(_pageNum,_pageSize,_serarchName){
 					delIndus(ids);
 				})
 				$("#selectAll").on("click",function(){
-					$("#condition").find('input[type="checkbox"]').each(function(){
-						if(this.checked){
-							$(this).attr("checked",false);
-						}else{
+					if($(this).context.checked){
+						$("#condition").find('input[type="checkbox"]').each(function(){
 							$(this).attr("checked",true);
-						}
-					});
+						});
+					}else{
+						$("#condition").find('input[type="checkbox"]').each(function(){
+							$(this).attr("checked",false);
+						});
+					}
 				})
 				if(res.data.totalPages>1){
                     page.init(res.data.totalElements,res.data.number+1,options);
                     $("#"+page.pageId +">li[class='pageItem']").on("click",function(){
                     	pageNum = $(this).attr("page-data")-1;
-                    	showCondition($(this).attr("page-data")-1,pageSize,_serarchName);
+                    	showCondition($(this).attr("page-data")-1,pageSize,serarchName,dimension);
                     });
                 }else{
                     $('#page').html("");
@@ -74,7 +79,7 @@ function delIndus(_ids){
 		url : "/apis/area/deleteCondition.json?id="+_ids,
 		success : function(res) {
 			if(res.success){
-				showCondition(pageNum,pageSize,serarchName);
+				showCondition(pageNum,pageSize,serarchName,dimension);
 			}
 		}
 	});

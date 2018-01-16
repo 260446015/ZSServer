@@ -53,7 +53,7 @@ function showCompany(_pageNum,_pageSize){
                 page.init(res.data.totalElements,res.data.number+1,options);
                 $("#"+page.pageId +">li[class='pageItem']").on("click",function(){
                 	pageNum = $(this).attr("page-data")-1;
-                	showCondition($(this).attr("page-data")-1,pageSize,_serarchName);
+                	showCompany($(this).attr("page-data")-1,pageSize);
                 });
             }else{
                 $('#page').html("");

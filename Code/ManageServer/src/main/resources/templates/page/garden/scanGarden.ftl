@@ -52,7 +52,7 @@
 							<ol class="breadcrumb visible-sm visible-md visible-lg">								
 								<li><a href="index.html"><i class="icon fa fa-home"></i>Home</a></li>
 								<li><a href="#"><i class="fa fa-table"></i>Tables</a></li>
-								<li class="active"><i class="fa fa-pencil-square-o"></i>Company</li>
+								<li class="active"><i class="fa fa-pencil-square-o"></i>园区扫描</li>
 							</ol>						
 						</div>
 						<div class="pull-right">
@@ -70,42 +70,7 @@
 										<a href="#" class="btn-close"><i class="fa fa-times"></i></a>
 									</div>
 								</div>
-								<div class="search-box">
-										<div class="search-group">
-											<div class="search-item-title">产业类别</div>
-											<div class="search-item-content">
-												<a href="javascript:void(0);" class="search-item active">全部</a>
-												<a href="javascript:void(0);" class="search-item">第一产业</a> <a
-													href="javascript:void(0);" class="search-item">第二产业</a> <a
-													href="javascript:void(0);" class="search-item">第三产业</a> <a
-											</div>
-										</div>
-										<div class="search-group">
-											<div class="search-item-title">产业年份</div>
-											<div class="search-item-content">
-												<a href="javascript:void(0);" class="search-item active">全部</a>
-												<a href="javascript:void(0);" class="search-item">2015</a> 
-												<a href="javascript:void(0);" class="search-item">2016</a>
-												<a href="javascript:void(0);" class="search-item">2017</a>
-											</div>
-										</div>
-										<div class="search-group">
-											<div class="search-item-title">区域</div>
-											<div class="search-item-content" id="area">
-												<a href="javascript:void(0);" class="search-item active">全部</a>
-											</div>
-										</div>
-								</div>
 								<div class="panel-body">
-									<div class="row">
-										<div class="col-sm-6">
-											<div class="bk-margin-bottom-10">
-												<button id="addToTable" class="btn btn-info">
-													Add <i class="fa fa-plus"></i>
-												</button>
-											</div>
-										</div>
-									</div>
 									<div class="row">
 										<div class="col-sm-6">
 											<div class="bk-margin-bottom-10">
@@ -116,14 +81,13 @@
 									<table class="table table-bordered table-striped mb-none" id="datatable-editable">
 										<thead>
 											<tr>
-												<th>产业</th>
-												<th>地域</th>
-												<th>年份</th>
-												<th>gdp</th>
-												<th>操作</th>
+												<th>园区名称</th>
+												<th>园区id</th>
+												<th>扫描时间</th>
+												<th>是否启用扫描</th>
 											</tr>
 										</thead>
-										<tbody id="gdp">
+										<tbody id="scan">
 										</tbody>
 									</table>
 									<div class="page-box clearfix">
@@ -152,7 +116,7 @@
 		
 		<!-- Vendor JS-->				
 		<#include "/common/script.ftl">
-		<script src="/assets/js/garden/areaGDP.js"></script>
+		<script src="/assets/js/garden/scanGarden.js"></script>
 		<!-- end: JavaScript-->
 		
 	</body>

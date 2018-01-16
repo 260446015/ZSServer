@@ -22,6 +22,7 @@ import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.GardenData;
 import com.huishu.ManageServer.entity.dbFirst.GardenMap;
+import com.huishu.ManageServer.entity.dbFirst.ScanGarden;
 import com.huishu.ManageServer.entity.dto.GardenDTO;
 import com.huishu.ManageServer.entity.dto.GardenIndustry;
 import com.huishu.ManageServer.es.entity.AITInfo;
@@ -356,31 +357,40 @@ public class GardenController extends BaseController {
 			ids[i] = Long.parseLong(arrId[i]);
 		}
 		return success(gardenUserService.getGardenCompare(ids));
-	}
+	}*/
 	
-	*//**
+	/**
 	 * 扫描园区企业
 	 *
-	 * @param gardenId
-	 *            园区id
-	 * @param flag
-	 *            true关注，false取消关注
-	 * @return
-	 *//*
-	@RequestMapping(value = "/scanGarden.json", method = RequestMethod.GET)
+	 */
+	@RequestMapping(value = "/scanGarden.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult scanGarden(Long gardenId) {
-		GardenUser gardenUser = null;
-		if (null == gardenId) {
-			error(MsgConstant.ILLEGAL_PARAM);
-		}
+	public AjaxResult scanGarden(@RequestBody GardenDTO dto) {
+		Page<ScanGarden> page = null;
 		try {
-			gardenUserService.scanGarden(gardenId);
+			page = gardenService.findScanGarden(dto);
 		} catch (Exception e) {
 			LOGGER.error("扫描园区企业失败", e);
 			return error("扫描园区企业失败");
 		}
-		return success(gardenUser);
+		return success(page);
 
-	}*/
+	}
+	
+	/**
+	 * 修改扫描园区状态
+	 */
+	@RequestMapping(value = "/changeScanStatus.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult changeScanStatus(@RequestBody ScanGarden sg) {
+		boolean flag = false;
+		try {
+			flag = gardenService.changeScanStatus(sg);
+		} catch (Exception e) {
+			LOGGER.error("修改扫描园区企业状态失败", e);
+			return error("修改扫描园区企业状态失败");
+		}
+		return success(flag);
+
+	}
 }
