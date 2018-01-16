@@ -76,35 +76,20 @@
                                 </div>
                             </div>
                             <div class="panel-body bk-padding-off-top bk-padding-off-bottom bk-noradius">
-                                <div class="row">
-                                    <div class="col-xs-2 bk-vcenter bk-padding-top-10 bk-padding-bottom-10">
-                                        <a class="bk-round bk-border-off bk-bg-danger bk-bg-lighten bk-icon bk-icon-2x bk-icon-default">
-                                            <i class="fa fa-trophy fa-2x"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-xs-10 bk-vcenter">
-                                        <h6 class="bk-fg-danger bk-margin-off-bottom"><strong>ONE PAGE</strong></h6>
-                                        <p>
-                                            <small>Donec nisi velit, malesuada id dolor non, elementum auctor arcu. Cras consectetur sapien et purus posuere, ac amel hendrerit nunc luctus.</small>
-                                        </p>
-                                    </div>
-                                    <hr class="bk-margin-off">
-                                </div>
-                                <a href="javascript:" class="bk-fg-primary bk-fg-lighten"></a>
-                                <div class="row">
-                                    <a href="javascript:" class="bk-fg-primary bk-fg-lighten"><hr class="bk-margin-off"></a>
-                                    <div class="col-xs-2 bk-vcenter bk-padding-top-10 bk-padding-bottom-10">
-                                        <a href="javascript:" class="bk-fg-primary bk-fg-lighten"></a>
-                                        <a class="bk-round bk-border-off bk-bg-lighten bk-icon bk-icon-2x bk-icon-default bk-bg-info">
-                                            <i class="fa fa-picture-o fa-2x"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-xs-10 bk-vcenter">
-                                        <h6 class="bk-fg-info bk-margin-off-bottom"><strong>PORTFOLIO</strong></h6>
-                                        <p>
-                                            <small>Donec nisi velit, malesuada id dolor non, elementum auctor arcu. Cras consectetur sapien et purus posuere, ac amel hendrerit nunc luctus.</small>
-                                        </p>
-                                    </div>
+                                <table class="table table-bordered table-striped mb-none" id="amount_table">
+                                    <thead>
+                                    <tr>
+                                        <th>账户</th>
+                                        <th>消费金额</th>
+                                        <th>剩余金额</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="amount">
+                                    </tbody>
+                                </table>
+                                总计:<div id="total"></div>
+                                <div class="page-box clearfix">
+                                    <ul class="page pull-right" id="amount_page"></ul>
                                 </div>
                                 <a href="javascript:" class="bk-fg-primary bk-fg-lighten"></a>
                             </div>
@@ -122,7 +107,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="bk-margin-bottom-10">
-                                            <button class="btn btn-info my_add">Add <i class="fa fa-plus"></i></button>
+                                            <button class="btn btn-info my_add">添加账号 <i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>

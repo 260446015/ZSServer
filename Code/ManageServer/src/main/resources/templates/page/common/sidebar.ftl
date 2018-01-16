@@ -11,11 +11,6 @@
 		<div class="sidebar-menu">
 			<nav id="menu" class="nav-main" role="navigation">
 				<ul class="nav nav-sidebar">
-					<div class="panel-body text-center">
-						<div class="flag">
-							<img src="/assets/img/flags/USA.png" class="img-flags" alt="" />
-						</div>
-					</div>
 					<li id="user_item" class="nav-parent"><a> <i class="fa fa-user"
 							aria-hidden="true"></i><span>账户管理</span>
 					</a>
@@ -69,21 +64,6 @@
 	</div>
 	<!-- Sidebar Footer-->
 	<div class="sidebar-footer">
-		<div class="small-chart-visits">
-			<div class="small-chart" id="sparklineLineVisits"></div>
-			<div class="small-chart-info">
-				<label>New Visits</label> <strong>70,79%</strong>
-			</div>
-			<script type="text/javascript">
-				var sparklineLineVisitsData = [ 15, 16, 17, 19, 15, 25, 23, 35, 29, 15, 30, 45 ];
-			</script>
-		</div>
-		<ul class="sidebar-terms bk-margin-top-10">
-			<li><a href="#">Terms</a></li>
-			<li><a href="#">Privacy</a></li>
-			<li><a href="#">Help</a></li>
-			<li><a href="#">About</a></li>
-		</ul>
 	</div>
 	<!-- End Sidebar Footer-->
 </div>

@@ -77,10 +77,9 @@ function etitData() {
     var _imageUrl =$("input[name='imageUrl']").val();
     var _userType = $('input:radio:checked').val();
     var _userTime = $("#select option:selected").val();
-    var _userPark = $("input[name='userPark']").val();
     var obj={
             id:_id,userAccount:_userAccount,realName:_realName,telphone:_telphone,userEmail:_userEmail,userJob:_userJob,
-            userDepartment:_userDepartment,userPark:_userPark,userType:_userType,userTime:_userTime,mageUrl:_imageUrl
+            userDepartment:_userDepartment,userPark:_park_id,userType:_userType,userTime:_userTime,imageUrl:_imageUrl
         };
     $.ajax({
         type : "post",
