@@ -23,8 +23,8 @@ function addData(id) {
             	    $("input[name='userJob']").val(enter.userJob);
             	    $("input[name='userDepartment']").val(enter.userDepartment);
             	    $("input[name='userPark']").val(enter.userPark);
-            	    $("input[name='imageUrl']").val(enter.imageUrl);
             	    $("input[name='userType'][value='"+enter.userType+"']").attr('checked','true');
+                    $("#logo").html("<img alt=\"logo\" src=\""+enter.logo+"\">");
             	    if(enter.userType=='admin'){
             	        $("#select").attr("disabled","disabled");
             	        $("#select").html("<option value=\"-1\">无限制</option>")
@@ -53,9 +53,15 @@ $(":radio").click(function(){
         $("#select").html("<option value=\"1\">一个月</option>");
     }
 });
+function addDisabled() {
+    $("#select").attr("disabled","disabled");
+}
 $(".btn-success").on("click",function(){
     etitData();
-})
+});
+$(".btn-normal").on("click",function(){
+    window.location.href="/apis/user/findParkInformation.html?id="+_park_id;
+});
 $(".btn-danger").on("click",function(){
     if(_id==null){
         window.location.href="/apis/user/findParkInformation.html?id="+_park_id;
@@ -74,12 +80,11 @@ function etitData() {
     var _userEmail =$("input[name='userEmail']").val();
     var _userJob =$("input[name='userJob']").val();
     var _userDepartment =$("input[name='userDepartment']").val();
-    var _imageUrl =$("input[name='imageUrl']").val();
     var _userType = $('input:radio:checked').val();
     var _userTime = $("#select option:selected").val();
     var obj={
             id:_id,userAccount:_userAccount,realName:_realName,telphone:_telphone,userEmail:_userEmail,userJob:_userJob,
-            userDepartment:_userDepartment,userPark:_park_id,userType:_userType,userTime:_userTime,imageUrl:_imageUrl
+            userDepartment:_userDepartment,userPark:_park_id,userType:_userType,userTime:_userTime
         };
     $.ajax({
         type : "post",
