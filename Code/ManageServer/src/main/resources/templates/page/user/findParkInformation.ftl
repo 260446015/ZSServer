@@ -65,7 +65,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="panel-heading bk-bg-white text-center" style="margin-top: 20px">
+                            <div class="panel-heading bk-bg-white text-center" style="margin-top: 30px">
                                 <div class="row">
                                     <div class="col-xs-8 text-left bk-vcenter">
                                         <h2 class="bk-margin-off">消费监测</h2>
@@ -93,7 +93,7 @@
                                 </div>
                                 <a href="javascript:" class="bk-fg-primary bk-fg-lighten"></a>
                             </div>
-                            <div class="panel-heading bk-bg-white text-center" style="margin-top: 20px">
+                            <div class="panel-heading bk-bg-white text-center" style="margin-top: 30px">
                                 <div class="row">
                                     <div class="col-xs-8 text-left bk-vcenter">
                                         <h2 class="bk-margin-off">账号列表</h2>
