@@ -1,0 +1,1 @@
+$('#industry_info').addClass("active");

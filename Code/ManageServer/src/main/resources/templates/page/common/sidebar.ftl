@@ -50,14 +50,24 @@
 							<li><a href="/apis/area/scanGarden.html"><span class="text">园区扫描</span></a></li>
 						</ul></li>
 						<!-- 舆情 相关操作 -->
-						<li id="yq_info" class="nav-parent">
+					<li id="yq_info" class="nav-parent">
 						  <a> <i class="fa fa-archive"
 					 		aria-hidden="true"></i><span>舆情监管</span>
-					      </a>
+					 </a>
 					       <ul class="nav nav-children">
 							 <li><a href="/apis/yq/yqCompanyManage.html"><span class="text">舆情企业</span></a></li>
 							 <li><a href="/apis/keywordinfo/yqKeyWordManage.html"><span class="text">产业关键词管理</span></a></li>
 						   </ul></li>
+					<!-- 产业 相关操作 -->
+					<li id="industry_info" class="nav-parent">
+					   <a> <i class="fa  fa-anchor"aria-hidden="true"></i><span>产业信息监管</span>
+					   </a>
+					     <ul class="nav nav-children">
+							 <li><a href="/apis/industrymap/industryMapManage.html"><span class="text">产业地图</span></a></li>
+							 <li><a href="/apis/industryinfo/industryInfoManage.html"><span class="text">产业动态</span></a></li>
+							 <li><a href="/apis/industrysummit/industrySummitManage.html"><span class="text">产业峰会</span></a></li>
+						  </ul>
+					</li>
 				</ul>
 			</nav>
 		</div>

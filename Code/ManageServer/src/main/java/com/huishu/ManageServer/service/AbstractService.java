@@ -33,6 +33,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.alibaba.fastjson.JSONArray;
@@ -48,6 +49,8 @@ import com.huishu.ManageServer.es.entity.AITInfo;
 import com.huishu.ManageServer.es.repository.BaseElasticsearch;
 import com.huishu.ManageServer.security.Digests;
 import com.huishu.ManageServer.security.Encodes;
+import static com.huishu.ManageServer.common.conf.DBConstant.EsConfig.INDEX2;
+import static com.huishu.ManageServer.common.conf.DBConstant.EsConfig.TYPE2;
 
 public class AbstractService<T> {
 
@@ -653,5 +656,13 @@ public class AbstractService<T> {
 		}
 		String[] times = { time1, time2 };
 		return times;
+	}
+	/**
+	 * 查询es库，获取更多条件查询
+	 * 
+	 * @return
+	 */
+	protected NativeSearchQueryBuilder getSearchQueryBuilder() {
+		return new NativeSearchQueryBuilder().withIndices(INDEX2).withTypes(TYPE2);
 	}
 }
