@@ -133,11 +133,7 @@ public class IndustrySummitController extends BaseController{
 					action.setExhibitiontime("&nbsp;");
 				}
 			});;
-			/*JSONObject obj1 = new JSONObject();
-			obj1.put("content", page.getContent());
-			obj1.put("number", page.getNumber());
-			obj1.put("size", page.getSize());
-			obj1.put("totalPages", page.getTotalPages());*/
+			 
 			return successPage(page, page.getNumber()+1);
 		} catch (Exception e) {
 			LOGGER.error("获取产业峰会列表失败!", e);

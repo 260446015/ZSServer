@@ -67,5 +67,26 @@ public class KeyArticleServiceImpl implements KeyArticleService {
 			 return null;
 		 }
 	}
+
+	/**
+	 * 根据关键词id 删除数据
+	 */
+	@Override
+	public boolean deleteByKid(Long id) {
+		 List<KeywordArticle> list = rep.findBykid(id);
+		 try {
+			 if(list.size()>0){
+				 rep.delete(list);
+				 return true;
+			 }else{
+				 return false;
+			 }
+		} catch (Exception e) {
+			list.forEach( act ->{
+				rep.delete(act);
+			});
+			return true;
+		}
+	}
 	
 }

@@ -28,4 +28,11 @@ public interface KeyArticleService {
 	 */
 	JSONArray findArticleInfo(String time, String keyWord);
 
+	/**
+	 * 删除无用的列表
+	 * @param id
+	 * @return
+	 */
+	boolean deleteByKid(Long id);
+
 }

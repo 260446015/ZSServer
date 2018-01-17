@@ -99,6 +99,11 @@ public class KeyWordTask {
 			}else{
 				if(list.size() != 0){
 					boolean info = kservice.deleteData(list);
+					if(info){
+						list.forEach( act ->{
+							boolean flag = keyservice.deleteByKid(act.getId());
+						});
+					}
 				}
 			}
 			
