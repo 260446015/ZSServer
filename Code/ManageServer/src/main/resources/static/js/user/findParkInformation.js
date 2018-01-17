@@ -28,15 +28,19 @@ function showAccount(park){
         data:JSON.stringify({"park":park}),
         contentType:'application/json',
         success:function(res){
-            var html = '';
-            var arr = res.data;
-            var userPrice = 0;
-            for (var i = 0; i < arr.length; i++) {
-                userPrice += arr[i].totalPrice;
-                html += '<tr><td>'+arr[i].userAccount+'</td><td>'+arr[i].totalPrice+'</td><td>???</td></tr>';
+            if (res.success) {
+                var html = '';
+                var arr = res.data;
+                var userPrice = 0;
+                for (var i = 0; i < arr.length; i++) {
+                    userPrice += arr[i].totalPrice;
+                    html += '<tr><td>'+arr[i].userAccount+'</td><td>'+arr[i].totalPrice+'</td><td>???</td></tr>';
+                }
+                $("#amount").html(html);
+                $("#total").html(userPrice+"元");
+            }else{
+                layer.msg(res.message, {icon: 2});
             }
-            $("#amount").html(html);
-            $("#total").html(userPrice+"元");
         }
     })
 }

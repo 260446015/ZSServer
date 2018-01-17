@@ -32,11 +32,11 @@
                 <div class="pull-left">
                     <ol class="breadcrumb visible-sm visible-md visible-lg">
                         <li><a href="javascript:void(0)"><i class="icon fa fa-home"></i>Home</a></li>
-                        <li class="active"><i class="fa fa-pencil-square-o"></i>addUserPark</li>
+                        <li class="active"><i class="fa fa-pencil-square-o"></i>userParkInformation</li>
                     </ol>
                 </div>
                 <div class="pull-right">
-                    <h2>添加用户园区</h2>
+                    <h2>用户园区详情</h2>
                 </div>
             </div>
             <!-- End Page Header -->
