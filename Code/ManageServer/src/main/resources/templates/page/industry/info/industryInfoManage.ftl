@@ -100,21 +100,23 @@
                                 </div>
                                 <div class="panel-body bk-padding-off-top bk-padding-off-bottom bk-noradius">
                                     <div class="form-group">
-                                        <div class="radio-custom radio-inline">
-                                            <input name="time" value="0" type="radio" checked="true">
-                                            <label for="inline-radio1">近1周</label>
-                                        </div>
-                                        <div class="radio-custom radio-inline">
-                                            <input name="time" value="1" type="radio">
-                                            <label for="inline-radio2"> 近1个月</label>
-                                        </div>
-                                        <div class="radio-custom radio-inline">
-                                            <input name="time" value="6" type="radio">
-                                            <label for="inline-radio3">近6个月</label>
-                                        </div>
-                                        <div class="radio-custom radio-inline">
-                                            <input name="time" value="12" type="radio">
-                                            <label for="inline-radio4">近1年</label>
+                                        <div>
+                                            <div class="radio-custom radio-inline">
+                                                <input name="time" value="0" type="radio" checked="true">
+                                                <label for="inline-radio1">近1周</label>
+                                            </div>
+                                            <div class="radio-custom radio-inline">
+                                                <input name="time" value="1" type="radio">
+                                                <label for="inline-radio2"> 近1个月</label>
+                                            </div>
+                                            <div class="radio-custom radio-inline">
+                                                <input name="time" value="6" type="radio">
+                                                <label for="inline-radio3">近6个月</label>
+                                            </div>
+                                            <div class="radio-custom radio-inline">
+                                                <input name="time" value="12" type="radio">
+                                                <label for="inline-radio4">近1年</label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div style="width: 100%;height:500%;" id="scatter"></div>
