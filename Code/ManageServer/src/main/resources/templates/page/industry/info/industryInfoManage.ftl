@@ -51,7 +51,6 @@
 						<div class="pull-left">
 							<ol class="breadcrumb visible-sm visible-md visible-lg">								
 								<li><a href="index.html"><i class="icon fa fa-home"></i>主页</a></li>
-								<li><a href="#"><i class="fa fa-table"></i>表</a></li>
 								<li class="active"><i class="fa fa-pencil-square-o"></i>产业信息</li>
 							</ol>						
 						</div>
@@ -63,13 +62,6 @@
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="panel panel-default bk-bg-white">
-								<div class="panel-heading bk-bg-white">
-									<h6><i class="fa fa-table red"></i><span class="break"></span>Default</h6>							
-									<div class="panel-actions">
-										<a href="#" class="btn-minimize"><i class="fa fa-caret-up"></i></a>
-										<a href="#" class="btn-close"><i class="fa fa-times"></i></a>
-									</div>
-								</div>
 								<div class="panel-body">
 									<div class="row">
 										<div class="col-sm-6">
@@ -96,6 +88,37 @@
         								<ul class="page pull-right" id="page"></ul>
             						</div>
 								</div>
+                                <div class="panel-heading bk-bg-white text-center" style="margin-top: 30px">
+                                    <div class="row">
+                                        <div class="col-xs-8 text-left bk-vcenter">
+                                            <h2 class="bk-margin-off">关键词云</h2>
+                                        </div>
+                                        <div class="col-xs-4 bk-vcenter text-right">
+                                            <i class="fa fa-file-text-o"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body bk-padding-off-top bk-padding-off-bottom bk-noradius">
+                                    <div class="form-group">
+                                        <div class="radio-custom radio-inline">
+                                            <input name="time" value="0" type="radio" checked="true">
+                                            <label for="inline-radio1">近1周</label>
+                                        </div>
+                                        <div class="radio-custom radio-inline">
+                                            <input name="time" value="1" type="radio">
+                                            <label for="inline-radio2"> 近1个月</label>
+                                        </div>
+                                        <div class="radio-custom radio-inline">
+                                            <input name="time" value="6" type="radio">
+                                            <label for="inline-radio3">近6个月</label>
+                                        </div>
+                                        <div class="radio-custom radio-inline">
+                                            <input name="time" value="12" type="radio">
+                                            <label for="inline-radio4">近1年</label>
+                                        </div>
+                                    </div>
+                                    <div style="width: 100%;height:500%;" id="scatter"></div>
+                                </div>
 							</div>
 						</div>
 					</div>					   
@@ -120,6 +143,7 @@
 		<#include "/common/script.ftl">
 		<!--<script src="/assets/js/accurate/accurate.js"></script>-->
 		<!-- end: JavaScript-->
+        <script src="/js/industry/industryDynamics.js"></script>
 		
 	</body>
 	
