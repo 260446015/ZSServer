@@ -100,6 +100,8 @@ function showCompanyDetail(){
 				$("#regLocation").text(resData.regLocation);
 				$("#regInstitute").text(resData.regInstitute);
 				$("#businessScope").text(resData.businessScope);
+			}else{
+				new Alert({flag : true,text : res.message,timer : 2000}).show();
 			}
 		}
 	});
