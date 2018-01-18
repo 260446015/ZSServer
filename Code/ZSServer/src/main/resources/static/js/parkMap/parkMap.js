@@ -595,16 +595,28 @@ function showGardenPolicy(area){
 			if(res.success){
 				var html = '';
 				var arr = res.data.content;
-				for(var i=0;i<arr.length;i++){
-					html += '<div class="col-md-12 border-bottom">' +
-								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
-									'<span class="scatter-title">'+arr[i].title+'</span></a>' +
-									'<p class="scatter-content">'+arr[i].summary +'</p>' + 
-									'<p class="scatter-lib">' +
-										'<span>'+arr[i].area+'</span>' +
-                                		'<span>'+arr[i].publishTime+'</span></p></div>';
+				if(arr.length != 0){
+					for(var i=0;i<arr.length;i++){
+						html += '<div class="col-md-12 border-bottom">' +
+									'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
+										'<span class="scatter-title">'+arr[i].title+'</span></a>' +
+										'<p class="scatter-content">'+arr[i].summary +'</p>' + 
+										'<p class="scatter-lib">' +
+											'<span>'+arr[i].area+'</span>' +
+	                                		'<span>'+arr[i].publishTime+'</span></p></div>';
+					}
+					$("#condition2").html(html);
+					if($("#condition2").siblings().length == 0){
+						$("#condition2").after('<div class="modal-footer text-center"><a href="javascript:void(0);" class="btn btn-link" id="morePolicy">查看更多</a></div>')
+						$("#morePolicy").on('click',function(){
+							$(this).attr('href','/apis/area/garden/findMorePolicy.html?area='+area);
+						});
+					}
+				}else{
+					html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+					$("#condition2").html(html);
+					$("#condition2").siblings().remove();
 				}
-				$("#condition2").html(html);
 			}
 		}
 	});

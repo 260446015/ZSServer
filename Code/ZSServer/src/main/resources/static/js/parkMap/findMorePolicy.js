@@ -31,7 +31,7 @@ function showGardenPolicy(area,pn,ps){
 				for(var i=0;i<arr.length;i++){
 					html += '<div class="col-md-12 border-bottom">' +
 								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
-									'<span class="scatter-title">'+arr[i].title+'</span></a>' +
+									'<span class="scatter-title">'+arr[i].title+'</span>&nbsp;&nbsp;&nbsp;<span class="scatter-title">'+arr[i].park+'</span></a>' +
 									'<p class="scatter-content">'+arr[i].summary +'</p>' + 
 									'<p class="scatter-lib">' +
 										'<span>'+arr[i].area+'</span>' +
@@ -41,7 +41,7 @@ function showGardenPolicy(area,pn,ps){
 				if(res.data.totalPages>1){
 					page.init(res.data.totalElements,res.data.number+1,options);
 					$("#"+page.pageId +">li[class='pageItem']").on("click",function(){
-						showGardenCondition('',$(this).attr("page-data")-1,pageSize);
+						showGardenPolicy(area,$(this).attr("page-data")-1,pageSize);
 	                });
 				}else{
 					$('#page').html("");

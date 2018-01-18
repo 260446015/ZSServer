@@ -93,9 +93,6 @@
                     <div class="row" id="condition2">
                         
                     </div>
-                    <div class="modal-footer text-center">
-                		<a href="javascript:void(0);" class="btn btn-link" id="morePolicy">查看更多</a>
-            		</div>
                 </div>
                 <ul class="img-list-box" id="gardenList">
                     

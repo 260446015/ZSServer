@@ -171,10 +171,12 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 
 	@Override
 	public Page<AITInfo> findGardenPolicy(GardenDTO dto) {
+		List<String> findByProvince = gardenRepository.findByProvince(dto.getProvince());
 		String province = dto.getProvince();
 		Map<String, Object> params = new HashMap<>();
 		params.put("area", province);
-		params.put("dimension", KeyConstan.ZHENGCEJIDU);
+		params.put("dimension", KeyConstan.YUANQUZHENGCE);
+		params.put("park", findByProvince);
 		PageRequest pageRequest = new PageRequest(dto.getPageNumber(), dto.getPageSize(),
 				new Sort(Direction.DESC, "publishTime"));
 		Page<AITInfo> page = getAitinfo(params, pageRequest);

@@ -27,11 +27,13 @@ public interface GardenRepository extends CrudRepository<GardenData, Long>, JpaS
 	@Query(value = "select province from t_garden_data group by province", nativeQuery = true)
 	List<String> findArea();
 
-	Page<GardenData> findByProvinceLikeAndIndustryTypeLike(String province,String industry,Pageable page);
+	Page<GardenData> findByProvinceLikeAndIndustryTypeLike(String province, String industry, Pageable page);
 
 	List<GardenData> findByIndustryTypeLike(String string);
-	
+
 	GardenData findByGardenName(String gardenName);
-	
-	
+
+	@Query(value = "select garden_name from t_garden_data where province=?", nativeQuery = true)
+	List<String> findByProvince(String province);
+
 }

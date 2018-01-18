@@ -103,9 +103,10 @@ public class AbstractService<T> {
 	public Page<AITInfo> getAitinfo(Map<String, Object> params, PageRequest pageRequest) {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		params.forEach((k, v) -> {
-			if (v instanceof Collection)
-				bq.must(QueryBuilders.termsQuery(k, v));
-			else {
+			if (v instanceof Collection){
+				List<String> list = (List<String>) v;
+				bq.should(QueryBuilders.termsQuery("park", list.toArray()));
+			}else {
 				if (k.equals("area")) {
 					bq.must(QueryBuilders.wildcardQuery("area", "*" + v + "*"));
 				} else
