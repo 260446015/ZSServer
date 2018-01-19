@@ -92,6 +92,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 		userBase.setId(dto.getId());
 		userBase.setImageUrl(dto.getImageUrl());
 		userBase.setIsCheck(1);
+		userBase.setIsSingle(0);
 		userBase.setIsWarn(0);
 		byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
 		byte[] hashPassword = Digests.sha1(MsgConstant.USER_PASSWORD.getBytes(), Digests.hexStringToBytes(Encodes.encodeHex(salt)),
