@@ -15,6 +15,7 @@ import com.huishu.ManageServer.common.AjaxResult;
 import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
+import com.huishu.ManageServer.entity.dbFirst.IndustryRank;
 import com.huishu.ManageServer.entity.dto.AccurateDTO;
 import com.huishu.ManageServer.service.industry.map.IndustryMapService;
 
@@ -49,7 +50,7 @@ public class IndustryMapController extends BaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "findIndustryMapInfo.json", method = RequestMethod.GET ,params = "industry")
+	@RequestMapping(value = "/findIndustryMapInfo.json", method = RequestMethod.GET ,params = "industry")
 	public AjaxResult findIndustryMapInfo( String industry) {
 		if(StringUtil.isEmpty(industry)){
 			LOGGER.debug("产业资讯查询关键词云传参异常");
@@ -57,5 +58,47 @@ public class IndustryMapController extends BaseController{
 		}
 		JSONObject array = service.findMapInfoByIndustry(industry);
 		return success(array);
+	}
+	/**
+	 * 针对产业热度数据更新或新增
+	 * @param rank
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveOrUpdateRankInfo.json", method = RequestMethod.POST)
+	public AjaxResult saveOrUpdateRankInfo( @RequestBody IndustryRank rank){
+		if(rank.getArea()==null||rank.getCount()==null||rank.getIndustry()==null||rank.getId()==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		boolean info = service.saveOrUpdateRank(rank);
+		if(info){
+			return success("操作成功！");
+		}else{
+			return error("操作失败！");
+		}
+	}
+	
+	/**
+	 * 删除产业热度数据
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteRankInfoById.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult deleteRankInfoById(String id) {
+		if(id==null|| StringUtil.isEmpty(id)){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			Boolean flag = service.deleteRankInfoById(id);
+			if (flag) {
+				return success(MsgConstant.OPERATION_SUCCESS);
+			} else {
+				return error(MsgConstant.OPERATION_ERROR);
+			}
+		}catch (Exception e){
+			LOGGER.error("删除企业失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
 	}
 }

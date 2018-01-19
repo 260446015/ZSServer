@@ -1,3 +1,112 @@
+var time ="近1周";
+$(function () {
+	getKeyWordCloud(time);
+});
+function getKeyWordCloud(d){
+ 	var param={time:d};
+ 	$.ajax({
+ 		url:'/apis/industryinfo/findKeyWord.json',
+ 		type:'POST',
+		data:param,
+ 		success:function(res){
+ 			if(res.data.length==0){
+ 				echarts.dispose(document.getElementById("scatter"));
+ 				 $('#scatter').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
+ 				 $('#industryKeyWordArcitleList').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
+ 			}else{
+ 				var arr = res.data;
+ 				echarts.dispose(document.getElementById("scatter"));
+ 				var scatter = echarts.init(document.getElementById("scatter"));
+ 				echartDataInit(arr);
+ 				option.series[0].data=data1;
+ 				scatter.setOption(option, true);
+ 				scatter.on('click',function(param){
+ 					var d = $("input[type=radio]:checked").val();
+ 					getArticleByKeyWord(d,param.name);
+ 				});
+ 				getArticleByKeyWord(d,arr[0].name);
+ 			}
+		 }
+	
+	 });
+};
+
+function getArticleByKeyWord(a,b){
+	var param={time:a,keyWord:b};
+	$.ajax({
+		type: 'post',
+        url: "/apis/industryinfo/findArticleListByKeyWord.json",
+        data: param,
+        success:function(res){
+        	if(res.data==null){
+        		$('#industryKeyWordArcitleList').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
+        	}else{
+        		var arr = res.data;
+        		$('#industryKeyWordArcitleList').html(showList(arr));
+        	}
+        }
+	});
+};
+function showList(arr){
+	var array=[];
+	$.each(arr,function(index,item){
+		array.push(
+				'<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+item.id+'"/><td>' 
+				+item.aid+ '</td><td>'
+				+item.articleLink+ '</td><td>'
+				+item.industryLabel + '</td><td>' 
+				+item.title + '</td>'
+				+ '<td class="actions">'
+				+'<a href="javascript:void(0);" class="on-default editinfo"><i class="fa fa-pencil"></i></a>'
+				+'<a href="javascript:void(0);" class="on-default removeinfo modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>'
+	
+		)
+	});
+	var inner = array.join('');
+	return inner;
+};
+function echartDataInit(arr){
+	data1 = [
+		{
+			value: [50, 50], symbolSize: 140, name: arr[0].name, label:label
+		},
+		{
+			value: [25,60], symbolSize: 100, name: arr[1].name, label:label
+		},
+		{
+			value: [65,90], symbolSize: 85, name: arr[2].name, label:label
+		},
+		{
+			value: [32,20], symbolSize: 75, name: arr[3].name, label:label
+		},
+		{
+			value: [55,10], symbolSize: 70, name: arr[4].name, label:label
+		},
+		{
+			value: [70,50], symbolSize: 65, name: arr[5].name, label: label
+		},
+		{
+			value: [35,95], symbolSize: 60, name: arr[6].name, label: label
+		},
+		{
+			value: [50,100], symbolSize: 55, name: arr[7].name, label:label
+		},
+		{
+			value:  [82,90], symbolSize: 50, name: arr[8].name, label:label
+		},
+		{
+			value:  [15,80], symbolSize: 45, name: arr[9].name, label:label
+		},
+		{
+			value:  [15,10], symbolSize: 45, name: arr[10].name, label:label
+		},
+		{
+			value:  [82,15], symbolSize: 45, name: arr[11].name, label:label
+		}
+	];
+	
+	return data1;
+};
 var scatter = echarts.init(document.getElementById("scatter"));
 var label = {
     normal: {
@@ -104,8 +213,8 @@ var option = {
 };
 scatter.setOption(option);
 $(":radio").click(function(){
-    alert('改变data1')
-    option.series[0].data=data1;
-    scatter.setOption(option,true);
-});
+	console.log($(this).val());
+	time = $(this).val();
+	getKeyWordCloud(time);
+	});
 

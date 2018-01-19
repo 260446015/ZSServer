@@ -83,9 +83,9 @@ public class InsutryMapServiceImpl extends AbstractService implements IndustryMa
 		JSONObject obj1 = new JSONObject();
 		obj1.put("dimension", "高峰论坛");
 		if(industry.equals("生物技术")){
-			obj1.put("idustryZero", "生物产业");
+			obj1.put("industry", "生物产业");
 		}else{
-			obj1.put("idustryThree", industry);
+			obj1.put("industryLabel", industry);
 		}
 		BoolQueryBuilder bq = getBoolBuilder(obj1);
 		SearchQuery searchQuery = getSearchQueryBuilder().withQuery(bq)
@@ -113,6 +113,39 @@ public class InsutryMapServiceImpl extends AbstractService implements IndustryMa
 			return list;
 		});
 		obj.put("summit", info);
+	}
+
+	/**
+	 * 产业热度数据更新或保存
+	 */
+	@Override
+	public boolean saveOrUpdateRank(IndustryRank rank) {
+	try {
+		IndustryRank save = rankrep.save(rank);
+		if(save!= null){
+			return true;
+		}else{
+			return false;
+		}
+	} catch (Exception e) {
+		LOGGER.debug("进行产业热度数据更新时出错",e);
+		return false;
+		}
+	}
+
+	/**
+	 * 根据id删除产业热度数据
+	 */
+	@Override
+	public Boolean deleteRankInfoById(String id) {
+		try {
+			rankrep.delete(Long.valueOf(id));
+			return true;
+		} catch (Exception e) {
+			LOGGER.debug("删除产业热度数据时出错",e);
+			return false;
+		}
+		
 	}
 
 }

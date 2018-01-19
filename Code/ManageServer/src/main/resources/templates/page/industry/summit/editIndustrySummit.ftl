@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input"展会时间</label>
+                                   <label class="col-md-3 control-label" for="text-input">展会时间</label>
                                     <div class="col-md-9">
                                         <input type="text" name="exhibitiontime" class="form-control" placeholder="请输入展会时间">
                                     </div>
@@ -233,7 +233,7 @@
 <#include "/common/script.ftl">
 <script src="/assets/js/industry/editIndustrySummit.js"></script>
 <script>
-    <#if enterprise??>
+    <#if info??>
         addData(${info});
     </#if>
 </script>

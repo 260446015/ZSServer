@@ -51,6 +51,8 @@ import com.huishu.ManageServer.security.Digests;
 import com.huishu.ManageServer.security.Encodes;
 import static com.huishu.ManageServer.common.conf.DBConstant.EsConfig.INDEX2;
 import static com.huishu.ManageServer.common.conf.DBConstant.EsConfig.TYPE2;
+import static com.huishu.ManageServer.common.conf.DBConstant.EsConfig.INDEX;
+import static com.huishu.ManageServer.common.conf.DBConstant.EsConfig.TYPE;
 
 public class AbstractService<T> {
 
@@ -664,5 +666,13 @@ public class AbstractService<T> {
 	 */
 	protected NativeSearchQueryBuilder getSearchQueryBuilder() {
 		return new NativeSearchQueryBuilder().withIndices(INDEX2).withTypes(TYPE2);
+	}
+	/**
+	 * 查询es库，获取更多条件查询
+	 * 
+	 * @return
+	 */
+	protected NativeSearchQueryBuilder getBoolQueryBuilder() {
+		return new NativeSearchQueryBuilder().withIndices(INDEX).withTypes(TYPE);
 	}
 }

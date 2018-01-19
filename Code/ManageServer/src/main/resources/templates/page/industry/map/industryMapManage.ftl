@@ -87,7 +87,7 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<div class="bk-margin-bottom-10">
-												<button id="addToTable" class="btn btn-info">添加 <i class="fa fa-plus"></i></button>
+												<button id="addRankToTable" class="btn btn-info">添加 <i class="fa fa-plus"></i></button>
 											</div>
 										</div>
 									</div>
@@ -146,6 +146,13 @@
 									</div>
 								</div>
 								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="bk-margin-bottom-10">
+												<button id="addSummitToTable" class="btn btn-info">添加 <i class="fa fa-plus"></i></button>
+											</div>
+										</div>
+										</div>
 									<table class="table table-bordered table-striped mb-none" id="datatable-editable3">
 										<thead>
 											<tr>

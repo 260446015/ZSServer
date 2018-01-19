@@ -62,10 +62,10 @@ function SummitInfo(e){
 					$('#page').html("");
 				}
 			}
+			initPage();
 		 }
+			
 		});
-	
-	 initPage();
 };
 function show(data){
 	var arr=[];
@@ -82,22 +82,22 @@ function show(data){
 			+item.address + '</td><td>'
 			+item.exhibitiontime + '</td><td>'
 			+imgsrc + '</td><td class="actions">'
-            +'<a href="javascript:void(0);" class="on-default my_edit"><i class="fa fa-pencil"></i></a>'
-            +'<a href="javascript:void(0);" class="on-default my_remove modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>'
+            +'<a href="javascript:void(0);" class="on-default editinfo"><i class="fa fa-pencil"></i></a>'
+            +'<a href="javascript:void(0);" class="on-default removeinfo modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>'
 		);
 	});
 	var inner = arr.join('');
 	return inner;
 };
 function initPage(){
-    $(".my_edit").on("click",function(){
+    $(".editinfo").on("click",function(){
         var _id = $(this).parents('.gradeX').find( 'input' ).val();
         window.location.href="/apis/industrysummit/editIndustrySummit.html?id="+_id;
     })
     $("#addToTable").on("click",function(i){
         window.location.href="/apis/industrysummit/editIndustrySummit.html";
     })
-    $(".my_remove").on("click",function(i){
+    $(".removeinfo").on("click",function(i){
         var _id = $(this).parents('.gradeX').find( 'input' ).val();
         layer.confirm('确定要删除该数据？', {
             btn: ['确认','取消'] //按钮
@@ -108,7 +108,7 @@ function initPage(){
                 success : function(res) {
                     if(res.success){
                         layer.msg('成功删除', {icon: 1});
-                        showIndusCompany(pageNum,pageSize);
+                        getIndustry(0,0);
                     }else{
                         layer.msg(res.message, {icon: 2});
                     }
