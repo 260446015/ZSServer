@@ -87,7 +87,7 @@ function etitData() {
 	        contentType : "application/json",
 	        async:false,
 	        url : "/apis/industrysummit/saveIndustrysummit.json",
-	        data : JSON.stringify(obj),
+	        data : JSON.stringify(param),
 	        success : function(res) {
 	            if(res.success){
 	                layer.msg('操作成功', {icon: 1});

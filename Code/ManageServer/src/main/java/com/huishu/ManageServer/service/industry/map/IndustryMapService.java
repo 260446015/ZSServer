@@ -2,6 +2,7 @@ package com.huishu.ManageServer.service.industry.map;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ManageServer.entity.dbFirst.IndustryRank;
 
 /**
  * @author hhy
@@ -19,5 +20,17 @@ public interface IndustryMapService {
 	 * @return
 	 */
 	JSONObject findMapInfoByIndustry(String industry);
+
+	/**
+	 * @param rank
+	 * @return
+	 */
+	boolean saveOrUpdateRank(IndustryRank rank);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	Boolean deleteRankInfoById(String id);
 
 }
