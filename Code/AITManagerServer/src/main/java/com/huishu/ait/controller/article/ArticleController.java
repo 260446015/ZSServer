@@ -1,7 +1,12 @@
 package com.huishu.ait.controller.article;
 
-import java.util.Map;
-
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.util.StringUtil;
+import com.huishu.ait.common.conf.MsgConstant;
+import com.huishu.ait.controller.BaseController;
+import com.huishu.ait.entity.common.AjaxResult;
+import com.huishu.ait.es.entity.AITInfo;
+import com.huishu.ait.service.article.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.util.StringUtil;
-import com.huishu.ait.common.conf.MsgConstant;
-import com.huishu.ait.controller.BaseController;
-import com.huishu.ait.entity.common.AjaxResult;
-import com.huishu.ait.es.entity.AITInfo;
-import com.huishu.ait.service.article.ArticleService;
 
 /**
  * @author hhy
@@ -109,6 +106,30 @@ public class ArticleController extends BaseController {
 		model.addObject("detail", info);
 		model.setViewName("industry/detail");
 		return model;
+	}
+
+	/**
+	 * 根据id修改文章发布时间
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/modifyInfo.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult modifyInfo(String id,String time) {
+		if (StringUtil.isEmpty(id) ||StringUtil.isEmpty(time)) {
+			logger.debug(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			Boolean flag = service.modifyInfo(id,time);
+			if (flag) {
+				return success(MsgConstant.OPERATION_SUCCESS);
+			} else {
+				return error(MsgConstant.OPERATION_ERROR);
+			}
+		}catch (Exception e){
+			logger.error("添加/修改用户失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
 	}
 	
 	/**

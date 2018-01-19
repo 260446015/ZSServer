@@ -102,5 +102,12 @@ public class MsgConstant {
 	 * 用户不存在
 	 */
 	public static final String USER_ERROR = "该用户不存在";
-
+	/**
+	 * 操作成功
+	 **/
+	public static final String OPERATION_SUCCESS = "操作成功";
+	/**
+	 * 操作失败
+	 **/
+	public static final String OPERATION_ERROR = "操作失败，请稍后再试";
 }

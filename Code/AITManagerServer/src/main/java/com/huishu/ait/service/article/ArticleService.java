@@ -33,6 +33,14 @@ public interface ArticleService {
 	JSONObject findArticleInfoById(String id, Long userId);
 
 	/**
+	 * 根据id修改文章发布时间
+	 * @param id
+	 * @param time
+	 * @return
+	 */
+	Boolean modifyInfo(String id,String time);
+
+	/**
 	 * 保存新增的文章
 	 * @param ait
 	 * @return

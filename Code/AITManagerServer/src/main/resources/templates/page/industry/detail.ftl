@@ -31,6 +31,7 @@
 				<div class="sub-info">
 					<span id="bus"> 涉及公司： <a href="javascript:void(0)"></a>
 					</span> <span> 发布时间： ${detail.publishTime}</span>
+                    <button class="layui-btn layui-btn-xs" onclick="onChange('${detail.id}');">修改发布时间</button>
 				</div>
 				<div class="article-block">${detail.content}</div>
 				<div class="sub-info">
@@ -42,6 +43,29 @@
 	</div>
 </body>
 <script>
+    function onChange(_id){
+        layer.prompt({title: '输入发布时间，并确认'}, function(text, index){
+            layer.close(index);
+            var DATE_FORMAT = /^[0-9]{4}-[0-1]?[0-9]{1}-[0-3]?[0-9]{1}$/;
+            if(DATE_FORMAT.test(text)){
+                layer.alert(text);
+                $.ajax({
+                    url: "/art/modifyInfo.json",
+                    contentType: 'application/json',
+                    data: {id: _id,time:text},
+                    success: function (response) {
+                        if (response.success){
+                            window.location.reload();
+                        }else{
+                            layer.msg(response.message);
+                        }
+                    }
+                });
+            } else {
+                layer.alert("抱歉，您输入的日期格式有误，正确格式应为'yyyy-MM-dd'");
+            }
+        });
+    }
 			function onDel(id){
 		layer.confirm('确定删除该文章？', function(index){
             $.ajax({

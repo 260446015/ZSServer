@@ -1,8 +1,10 @@
 package com.huishu.ait.service.article.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.huishu.ait.entity.UserBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +92,28 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 			obj.put("isCollect", "取消收藏");
 		}
 		return obj;
+	}
+
+	@Override
+	public Boolean modifyInfo(String id,String time){
+		AITInfo one = search.findOne(id);
+		one.setPublishTime(time);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			String year = format1.format(format2.parse(time));
+			one.setPublishYear(year);
+			String data = format3.format(format2.parse(time));
+			one.setPublishDate(data);
+		}catch (Exception e){
+			logger.error("{}日期格式转化失败!",time,e);
+		}
+		AITInfo save = search.save(one);
+		if(save==null){
+			return false;
+		}
+		return true;
 	}
 	@Override
 	public boolean saveArt(AITInfo ait) {
