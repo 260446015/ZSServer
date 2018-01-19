@@ -56,42 +56,42 @@ public class TaskConfiguration {
 		for (AITInfo ait : pageList) {
 			String title1 = ait.getTitle();
 			if(title1.indexOf("2018")==-1){
+				String content = ait.getContent();
+				String substring = "";
 				int titleIndex = title1.indexOf("201");
+				String titleYear = title1.substring(titleIndex,titleIndex+4< title1.length() ? titleIndex + 4 : title1.length());
+				int k = content.indexOf(titleYear);
+				if(k==-1) {
+					LOGGER.info("对象{}时间{}替换成{}",ait.getId(),ait.getPublishYear(),titleYear);
+					ait.setPublishTime(titleYear+"-01-01");
+					ait.setPublishYear(titleYear);
+					ait.setPublishDate(titleYear+"-01-01 00:00:00");
+					baseElasticsearch.save(ait);
+					continue;
+				}
+				if(content.indexOf("日期")!=-1){
+					int indexOf = content.indexOf("日期");
+					substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
+				}
+				if(content.indexOf("日程")!=-1){
+					int indexOf = content.indexOf("日程");
+					substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
+				}
+				if(content.indexOf("时间")!=-1){
+					int indexOf = content.indexOf("时间");
+					substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
+				}
+				if(content.indexOf("展会已结束")!=-1){
+					int indexOf = content.indexOf("展会已结束");
+					String over= content.substring(indexOf, indexOf + 100 < content.length() ? indexOf + 100 : content.length());
+					int indexOf2 = over.indexOf("至");
+					substring+=over.substring(indexOf2,over.length());
+				}
+				if(substring.length()==0){
+					baseElasticsearch.delete(ait.getId());
+					continue;
+				}
 				if(titleIndex!=-1){
-					String titleYear = title1.substring(titleIndex,titleIndex+4< title1.length() ? titleIndex + 4 : title1.length());
-					String content = ait.getContent();
-					int k = content.indexOf(titleYear);
-					if(k==-1) {
-						LOGGER.info("对象{}时间{}替换成{}",ait.getId(),ait.getPublishYear(),titleYear);
-						ait.setPublishTime(titleYear+"-01-01");
-						ait.setPublishYear(titleYear);
-						ait.setPublishDate(titleYear+"-01-01 00:00:00");
-						baseElasticsearch.save(ait);
-						continue;
-					}
-					String substring = "";
-					if(content.indexOf("日期")!=-1){
-						int indexOf = content.indexOf("日期");
-						substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
-					}
-					if(content.indexOf("日程")!=-1){
-						int indexOf = content.indexOf("日程");
-						substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
-					}
-					if(content.indexOf("时间")!=-1){
-						int indexOf = content.indexOf("时间");
-						substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
-					}
-					if(content.indexOf("展会已结束")!=-1){
-						int indexOf = content.indexOf("展会已结束");
-						String over= content.substring(indexOf, indexOf + 100 < content.length() ? indexOf + 100 : content.length());
-						int indexOf2 = over.indexOf("至");
-						substring+=over.substring(indexOf2,over.length());
-					}
-					if(substring.length()==0){
-						baseElasticsearch.delete(ait.getId());
-						continue;
-					}
 					int i = substring.indexOf(titleYear);
 					if(i!=-1) {
 						String time = substring.substring(i, i + 10 < substring.length() ? i + 10 : substring.length());
