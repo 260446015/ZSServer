@@ -170,8 +170,16 @@ public class TaskConfiguration {
 			}
 		}else {
 			year =strArr[0].substring(0,4);
-			mouth=strArr[0].substring(4,6);
-			day=strArr[0].substring(6,8);
+			try{
+				mouth=strArr[0].substring(4,6);
+			}catch (Exception e){
+				mouth = "01";
+			}
+			try{
+				day=strArr[0].substring(6,8);
+			}catch (Exception e){
+				day = "01";
+			}
 		}
 		String[] result={year,mouth,day};
 		return result;
