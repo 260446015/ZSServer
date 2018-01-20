@@ -45,8 +45,7 @@ public class TaskConfiguration {
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("dimension", "高峰论坛"));
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		//bq.must(QueryBuilders.termQuery("publishTime", sdf.format(new Date())));
-		bq.must(QueryBuilders.termQuery("publishTime", "2018-01-09"));
+		bq.must(QueryBuilders.termQuery("publishTime", sdf.format(new Date())));
 		Sort sort = new Sort(Direction.DESC, "publishDate");
 		PageRequest pageRequest = new PageRequest(0,500, sort);
 		Page<AITInfo> pageList = baseElasticsearch.search(bq,pageRequest);
