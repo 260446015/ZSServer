@@ -72,7 +72,7 @@ function showGardenList(d,e,f){
                 var html = "";
                 if(arr.length != 0){
                     for (var i = 0; i < arr.length; i++) {
-                    	html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td>' + arr[i].address + '</td><td>' + arr[i].gardenName + '</td><td>' + arr[i].gardenSquare + '</td><td>' + arr[i].province
+                    	html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td>' + arr[i].address + '</td><td><a class="detail" href="/apis/area/gardenDetail.html?id='+arr[i].id+'&park='+arr[i].gardenName+'">' + arr[i].gardenName + '<a></td><td>' + arr[i].gardenSquare + '</td><td>' + arr[i].province
     					+ '<td>' + arr[i].industryType + '</td><td><img src="' + arr[i].gardenPicture + '"/></td><td>' + arr[i].enterCount + '</td></td></td><td class="actions"><a href="javascript:void(0);" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>'
 						+ '<a href="javascript:void(0);" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>' + '<a href="javascript:void(0);" class="on-default edit-row"><i class="fa fa-pencil"></i></a>'
 						+ '<a href="javascript:void(0);" class="on-default remove-row"><i class="fa fa-trash-o"></i></a></td></tr>';

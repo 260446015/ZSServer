@@ -5,6 +5,7 @@ $(function(){
         $(this).addClass("active").siblings().removeClass("active");
         showDifYearGdp(pageNum,pageSize);
 	 });
+	 initPage();
 });
 var industry;
 var year;
@@ -19,6 +20,7 @@ var options={
 	    "callBack":function(){}
 	};
 function showDifYearGdp(_pageNum,_pageSize){//model中展示不同年份某一产业的gdp  //model中展示折线图
+	$("#addToTable").attr("disabled",false);
 	var msg = new Array();
     var arr = $(".search-box").find(".active");
     arr.each(function(i){
@@ -66,7 +68,6 @@ function showDifYearGdp(_pageNum,_pageSize){//model中展示不同年份某一�
 			}
 		}
 	});
-	initPage();
 }
 function showGdpArea(){
 	$.ajax({
