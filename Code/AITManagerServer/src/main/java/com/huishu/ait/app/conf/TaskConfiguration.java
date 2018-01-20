@@ -129,8 +129,7 @@ public class TaskConfiguration {
 							}
 						}
 					}else{
-						LOGGER.info("对象{}截取碎片里面没有时间，删除",ait.getId());
-						baseElasticsearch.delete(ait.getId());
+						LOGGER.info("对象{}截取碎片里面没有时间",ait.getId());
 					}
 				}
 			}
@@ -202,8 +201,7 @@ public class TaskConfiguration {
 			baseElasticsearch.save(ait);
 			LOGGER.info("对象{}时间{}替换成{}",ait.getId(),ait.getPublishTime(),array[0]+"-"+array[1]+"-"+array[2]);
 		}else {
-			LOGGER.info("对象{}截取碎片里面没有计算到的年份，删除",ait.getId());
-			baseElasticsearch.delete(ait.getId());
+			LOGGER.info("对象{}截取碎片里面没有计算到的年份",ait.getId());
 		}
 	}
 }
