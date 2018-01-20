@@ -42,11 +42,8 @@
 							aria-hidden="true"></i><span>园区管理</span>
 					</a>
 						<ul class="nav nav-children">
-							<li><a href="/apis/area/condition.html"><span class="text">园区动态</span></a></li>
 							<li><a href="/apis/area/gardens.html"><span class="text">园区列表</span></a></li>
-							<li><a href="/apis/area/gardenCompany.html"><span class="text">园区内企业</span></a></li>
 							<li><a href="/apis/area/areaGDP.html"><span class="text">地域年产值</span></a></li>
-							<li><a href="/apis/area/policy.html"><span class="text">园区政策</span></a></li>
 							<li><a href="/apis/area/scanGarden.html"><span class="text">园区扫描</span></a></li>
 						</ul></li>
 						<!-- 舆情 相关操作 -->

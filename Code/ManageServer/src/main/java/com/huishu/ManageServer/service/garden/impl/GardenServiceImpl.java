@@ -46,6 +46,8 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 	private GardenMapRepositroy gardenMapRepositroy;
 	@Autowired
 	private ScanGardenRepository scanGardenRepository;
+	@Autowired
+	private BaseElasticsearch baseElasticsearch;
 	
 
 	@Override
@@ -367,7 +369,36 @@ public class GardenServiceImpl extends AbstractService<GardenData> implements Ga
 		return flag;
 	}
 
-	
+	@Override
+	public GardenData getGardenInfo(String id) {
+		return gardenRepository.findOne(Long.parseLong(id));
+	}
+
+	@Override
+	public AITInfo getDetailArt(String id) {
+		AITInfo findOne = baseElasticsearch.findOne(id);
+		if(null != findOne){
+			List<String> business = getBusiness(findOne.getTitle(), findOne.getContent());
+			findOne.setBus(business);
+		}
+		return findOne;
+		
+	}
+
+	@Override
+	public boolean saveData(AITInfo info) {
+		boolean flag = false;
+		try {
+			info.setHasWarn(false);
+			baseElasticsearch.save(info);
+			flag = true;
+		} catch (Exception e) {
+			LOGGER.info("保存es数据失败!",e.getMessage());
+		}
+		return flag;
+		
+	}
+
 	
 	
 }

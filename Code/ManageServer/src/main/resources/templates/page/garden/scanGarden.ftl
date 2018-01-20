@@ -84,6 +84,7 @@
 												<th>园区名称</th>
 												<th>园区id</th>
 												<th>扫描时间</th>
+												<th>扫描数量</th>
 												<th>是否启用扫描</th>
 											</tr>
 										</thead>

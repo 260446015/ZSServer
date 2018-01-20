@@ -391,6 +391,53 @@ public class GardenController extends BaseController {
 			return error("修改扫描园区企业状态失败");
 		}
 		return success(flag);
-
+	}
+	
+	/**
+	 * 按id查询园区
+	 */
+	@RequestMapping(value = "/getGardenInfo.json", method = RequestMethod.GET,params="id")
+	@ResponseBody
+	public AjaxResult getGardenInfo(String id) {
+		GardenData data;
+		try {
+			data = gardenService.getGardenInfo(id);
+		} catch (Exception e) {
+			LOGGER.error("按id查询园区失败", e);
+			return error("按id查询园区失败");
+		}
+		return success(data);
+	}
+	
+	/**
+	 * 查询文章详情
+	 */
+	@RequestMapping(value = "/getDetailArt.json", method = RequestMethod.GET,params="id")
+	@ResponseBody
+	public AjaxResult getDetailArt(String id) {
+		AITInfo data;
+		try {
+			data = gardenService.getDetailArt(id);
+		} catch (Exception e) {
+			LOGGER.error("按id查询文章详情失败", e);
+			return error("按id查询文章详情失败");
+		}
+		return success(data);
+	}
+	
+	/**
+	 * 保存es数据
+	 */
+	@RequestMapping(value = "/saveData.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult saveData(@RequestBody AITInfo info) {
+		boolean flag;
+		try {
+			flag = gardenService.saveData(info);
+		} catch (Exception e) {
+			LOGGER.error("保存es数据失败", e);
+			return error("保存es数据失败");
+		}
+		return success(flag);
 	}
 }

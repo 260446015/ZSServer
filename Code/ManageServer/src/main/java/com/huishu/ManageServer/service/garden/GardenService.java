@@ -105,4 +105,25 @@ public interface GardenService {
 	 */
 	boolean changeScanStatus(ScanGarden sg);
 
+	/**
+	 * 按id查询园区
+	 * @param id
+	 * @return
+	 */
+	GardenData getGardenInfo(String id);
+
+	/**
+	 * 按id查询文章详情
+	 * @param id
+	 * @return
+	 */
+	AITInfo getDetailArt(String id);
+
+	/**
+	 * 保存es数据
+	 * @param info
+	 * @return
+	 */
+	boolean saveData(AITInfo info);
+
 }
