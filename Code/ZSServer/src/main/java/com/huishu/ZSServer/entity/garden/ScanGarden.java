@@ -36,6 +36,15 @@ public class ScanGarden implements Serializable {
 	private String gardenName;
 	private int dr;
 	private String scanDate;
+	private int scanCount;
+
+	public int getScanCount() {
+		return scanCount;
+	}
+
+	public void setScanCount(int scanCount) {
+		this.scanCount = scanCount;
+	}
 
 	public Long getId() {
 		return id;
@@ -77,7 +86,6 @@ public class ScanGarden implements Serializable {
 		this.scanDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
 	}
 
-	
 	public ScanGarden() {
 		super();
 		setScanDate();

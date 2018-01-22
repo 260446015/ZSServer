@@ -168,13 +168,14 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 
 	@Override
 	public boolean scanGarden(Long gardenId) {
-		ScanGarden sg = scanGardenRepository.findByGardenIdAndDr(gardenId, 0);
+		ScanGarden sg = scanGardenRepository.findByGardenId(gardenId);
 		GardenData garden = gardenRepository.findOne(gardenId);
 		if (sg == null) {
 			sg = new ScanGarden();
 			sg.setDr(0);
 			sg.setGardenId(gardenId);
 			sg.setGardenName(garden.getGardenName());
+			sg.setScanCount(50);
 			try{
 				List<Company> cs = companyRepository.findByPark(garden.getGardenName());
 				List<Company> list2 = cs.stream().sorted((a, b) -> {
@@ -198,8 +199,37 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 			}catch(Exception e){
 				sg.setDr(2);
 			}
-			scanGardenRepository.save(sg);
+		}else{
+			if(sg.getDr() == 0){
+				return true;
+			}else{
+				try{
+					List<Company> cs = companyRepository.findByPark(garden.getGardenName());
+					List<Company> list2 = cs.stream().sorted((a, b) -> {
+						return b.getRc().compareTo(a.getRc());
+					}).limit(sg.getScanCount()).collect(Collectors.toList());
+					LOGGER.info("关注园区后开始搜索园区下按注册金额排名前50企业的名称");
+					int count = list2.size();
+					OpeneyesDTO dto = new OpeneyesDTO();
+					for(int i=0;i<list2.size();i++){
+						String name = list2.get(i).getCompanyName();
+						LOGGER.info("搜索接口触发，当前搜索企业名称为:" + name);
+						dto.setCname(name);
+						try {
+							openeyesService.getBaseInfo(dto);
+						} catch (Exception e) {
+							LOGGER.info("搜索接口获取天眼查基本信息报错:"+e.getMessage());
+							count --;
+						}
+					}
+					LOGGER.info("成功扫描"+count+"家企业,失败"+(list2.size()-count)+"家企业");
+					sg.setDr(0);
+				}catch(Exception e){
+					sg.setDr(2);
+				}
+			}
 		}
+		scanGardenRepository.save(sg);
 		return true;
 		
 	}

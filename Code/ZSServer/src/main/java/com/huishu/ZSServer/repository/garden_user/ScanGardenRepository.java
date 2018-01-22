@@ -6,6 +6,6 @@ import com.huishu.ZSServer.entity.garden.ScanGarden;
 
 public interface ScanGardenRepository extends CrudRepository<ScanGarden, Long> {
 
-	ScanGarden findByGardenIdAndDr(Long gardenId, int dr);
+	ScanGarden findByGardenId(Long gardenId);
 
 }
