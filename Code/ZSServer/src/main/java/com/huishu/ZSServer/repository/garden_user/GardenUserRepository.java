@@ -22,7 +22,7 @@ public interface GardenUserRepository extends CrudRepository<GardenUser, Long>, 
 
 	Page<GardenUser> findByProvinceLikeAndIndustryTypeLike(String province, String industry, Pageable page);
 
-	List<GardenUser> findByGardenIdIn(Long[] arrId);
+	List<GardenUser> findByUserIdAndGardenIdIn(Long userId, Long[] arrId);
 
 	GardenUser findByUserIdAndGardenId(Long userId, Long gardenId);
 

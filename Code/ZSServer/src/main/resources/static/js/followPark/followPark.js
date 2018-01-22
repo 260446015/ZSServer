@@ -263,6 +263,7 @@ var option = {
             }
         ]
     };
+var circleCharts1;
 function showCompareEcharts(ids){//园区对比展示echarts的功能
 	$.ajax({
 		type:'post',
@@ -281,7 +282,7 @@ function showCompareEcharts(ids){//园区对比展示echarts的功能
 					showDatas.push(showData);
 				}
 				option.series[0].data = showDatas;
-				var circleCharts1 = echarts.init(document.getElementById("charts"+i),"customed");
+				circleCharts1 = echarts.init(document.getElementById("charts"+i),"customed");
 	            circleCharts1.setOption(option,true);
 	            $(".charts-box").find(".enterCount").eq(i-1).html(arr[i-1].enterCount);
 	            $(".charts-box").find(".square").eq(i-1).html(arr[i-1].square+'平方千米');

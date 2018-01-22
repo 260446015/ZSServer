@@ -314,7 +314,7 @@ public class GardenController extends BaseController {
 		for(int i=0;i<arrId.length;i++){
 			ids[i] = Long.parseLong(arrId[i]);
 		}
-		return success(gardenUserService.getGardenCompare(ids));
+		return success(gardenUserService.getGardenCompare(getUserId(),ids));
 	}
 	
 	/**

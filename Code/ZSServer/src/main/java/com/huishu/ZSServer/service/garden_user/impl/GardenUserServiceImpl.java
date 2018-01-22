@@ -137,8 +137,8 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 	}
 
 	@Override
-	public List<GardenCompareDTO> getGardenCompare(Long[] arrId) {
-		List<GardenUser> list = gardenUserRepository.findByGardenIdIn(arrId);
+	public List<GardenCompareDTO> getGardenCompare(Long userId,Long[] arrId) {
+		List<GardenUser> list = gardenUserRepository.findByUserIdAndGardenIdIn(userId,arrId);
 		List<GardenCompareDTO> gcList = new ArrayList<>();
 		list.forEach((gu) -> {
 			GardenCompareDTO dto = new GardenCompareDTO();

@@ -36,7 +36,7 @@ public interface GardenUserService {
 	 * 园区对比
 	 * @return
 	 */
-	List<GardenCompareDTO> getGardenCompare(Long[] arrId);
+	List<GardenCompareDTO> getGardenCompare(Long userId,Long[] arrId);
 
 	/**
 	 * 扫描园区
