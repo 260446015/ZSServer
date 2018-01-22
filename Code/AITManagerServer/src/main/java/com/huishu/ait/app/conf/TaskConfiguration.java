@@ -44,8 +44,6 @@ public class TaskConfiguration {
 		LOGGER.info("定时任务触发");
 		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.termQuery("dimension", "高峰论坛"));
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		bq.must(QueryBuilders.termQuery("publishTime", sdf.format(new Date())));
 		Sort sort = new Sort(Direction.DESC, "publishDate");
 		PageRequest pageRequest = new PageRequest(0,500, sort);
 		Page<AITInfo> pageList = baseElasticsearch.search(bq,pageRequest);
