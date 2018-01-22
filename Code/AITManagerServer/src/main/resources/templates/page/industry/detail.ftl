@@ -48,7 +48,6 @@
             layer.close(index);
             var DATE_FORMAT = /^[0-9]{4}-[0-1]?[0-9]{1}-[0-3]?[0-9]{1}$/;
             if(DATE_FORMAT.test(text)){
-                layer.alert(text);
                 $.ajax({
                     url: "/art/modifyInfo.json",
                     contentType: 'application/json',
