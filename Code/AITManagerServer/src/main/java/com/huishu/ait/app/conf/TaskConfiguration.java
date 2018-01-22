@@ -51,86 +51,84 @@ public class TaskConfiguration {
 		Page<AITInfo> pageList = baseElasticsearch.search(bq,pageRequest);
 		for (AITInfo ait : pageList) {
 			String title1 = ait.getTitle();
-			if(title1.indexOf("2018")<0){
-				String content = ait.getContent();
-				String substring = "";
-				if(content.indexOf("日期")>=0){
-					int indexOf = content.indexOf("日期");
-					substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
-				}
-				if(content.indexOf("日程")>=0){
-					int indexOf = content.indexOf("日程");
-					substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
-				}
-				if(content.indexOf("时间")>=0){
-					int indexOf = content.indexOf("时间");
-					substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
-				}
-				if(content.indexOf("展会已结束")>=0){
-					int indexOf = content.indexOf("展会已结束");
-					String over= content.substring(indexOf, indexOf + 100 < content.length() ? indexOf + 100 : content.length());
-					int indexOf2 = over.indexOf("至");
-					substring+=over.substring(indexOf2,over.length());
-				}
-				if(substring.length()==0){
-					baseElasticsearch.delete(ait.getId());
-					LOGGER.info("对象{}没有找到在内容中找到时间相关，删除",ait.getId());
+			String content = ait.getContent();
+			String substring = "";
+			if(content.indexOf("日期")>=0){
+				int indexOf = content.indexOf("日期");
+				substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
+			}
+			if(content.indexOf("日程")>=0){
+				int indexOf = content.indexOf("日程");
+				substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
+			}
+			if(content.indexOf("时间")>=0){
+				int indexOf = content.indexOf("时间");
+				substring += content.substring(indexOf, indexOf + 1000 < content.length() ? indexOf + 1000 : content.length());
+			}
+			if(content.indexOf("展会已结束")>=0){
+				int indexOf = content.indexOf("展会已结束");
+				String over= content.substring(indexOf, indexOf + 100 < content.length() ? indexOf + 100 : content.length());
+				int indexOf2 = over.indexOf("至");
+				substring+=over.substring(indexOf2,over.length());
+			}
+			if(substring.length()==0){
+				baseElasticsearch.delete(ait.getId());
+				LOGGER.info("对象{}没有找到在内容中找到时间相关，删除",ait.getId());
+				continue;
+			}
+			int titleIndex = title1.indexOf("201");
+			if(titleIndex>=0){
+				String titleYear = title1.substring(titleIndex,titleIndex+4< title1.length() ? titleIndex + 4 : title1.length());
+				int k = content.indexOf(titleYear);
+				if(k<0) {
+					LOGGER.info("对象{}时间{}替换成{}",ait.getId(),ait.getPublishYear(),titleYear);
+					ait.setPublishTime(titleYear+"-01-01");
+					ait.setPublishYear(titleYear);
+					ait.setPublishDate(titleYear+"-01-01 00:00:00");
+					baseElasticsearch.save(ait);
 					continue;
 				}
-				int titleIndex = title1.indexOf("201");
-				if(titleIndex>=0){
-					String titleYear = title1.substring(titleIndex,titleIndex+4< title1.length() ? titleIndex + 4 : title1.length());
-					int k = content.indexOf(titleYear);
-					if(k<0) {
-						ait.setPublishTime(titleYear+"-01-01");
-						ait.setPublishYear(titleYear);
-						ait.setPublishDate(titleYear+"-01-01 00:00:00");
-						baseElasticsearch.save(ait);
-						LOGGER.info("对象{}时间{}替换成{}",ait.getId(),ait.getPublishYear(),titleYear);
-						continue;
+				getAndChange(substring,titleYear,ait);
+			}else {
+				int i = substring.indexOf("201");
+				if(i>=0) {
+					//获取所有年份，取年份出现次数最多的，时间最小的
+					List<String[]> list = new ArrayList<String[]>();
+					int n = 0;
+					for(;n<substring.length();){
+						n = substring.indexOf("201", n + 1);
+						if (n >= 0) {
+							String time = substring.substring(n, n + 10 < substring.length() ? n + 10 : substring.length());
+							String[] array = getTimeArray(time);
+							list.add(array);
+						}else {
+							break;
+						}
 					}
-					getAndChange(substring,titleYear,ait);
-				}else {
-					int i = substring.indexOf("201");
-					if(i>=0) {
-						//获取所有年份，取年份出现次数最多的，时间最小的
-						List<String[]> list = new ArrayList<String[]>();
-						int n = 0;
-						for(;n<substring.length();){
-							n = substring.indexOf("201", n + 1);
-							if (n >= 0) {
-								String time = substring.substring(n, n + 10 < substring.length() ? n + 10 : substring.length());
-								String[] array = getTimeArray(time);
-								list.add(array);
-							}else {
-								break;
-							}
+					Map<String, Integer> map = new HashMap<>();
+					for(String[] times : list){
+						Integer integer = map.get(times[0]);
+						if(integer==null){
+							map.put(times[0],1);
+						}else{
+							map.put(times[0],map.get(times[0])+1);
 						}
-						Map<String, Integer> map = new HashMap<>();
-						for(String[] times : list){
-							Integer integer = map.get(times[0]);
-							if(integer==null){
-								map.put(times[0],1);
-							}else{
-								map.put(times[0],map.get(times[0])+1);
-							}
-						}
-						Iterator ite=map.entrySet().iterator();
-						List listSort=new ArrayList();
-						while(ite.hasNext()){
-							Map.Entry entry =(Map.Entry)ite.next();
-							Integer value = Integer.parseInt(entry.getValue().toString());
-							listSort.add(entry.getValue());
-							Collections.sort(listSort);
-							if(value == Integer.parseInt(listSort.get(listSort.size()-1).toString())){
-								String maxYear = entry.getKey().toString();
-								getAndChange(substring,maxYear,ait);
-								break;
-							}
-						}
-					}else{
-						LOGGER.info("对象{}截取碎片里面没有时间",ait.getId());
 					}
+					Iterator ite=map.entrySet().iterator();
+					List listSort=new ArrayList();
+					while(ite.hasNext()){
+						Map.Entry entry =(Map.Entry)ite.next();
+						Integer value = Integer.parseInt(entry.getValue().toString());
+						listSort.add(entry.getValue());
+						Collections.sort(listSort);
+						if(value == Integer.parseInt(listSort.get(listSort.size()-1).toString())){
+							String maxYear = entry.getKey().toString();
+							getAndChange(substring,maxYear,ait);
+							break;
+						}
+					}
+				}else{
+					LOGGER.info("对象{}截取碎片里面没有时间",ait.getId());
 				}
 			}
 		}
