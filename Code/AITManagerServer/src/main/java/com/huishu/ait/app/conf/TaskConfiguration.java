@@ -72,8 +72,7 @@ public class TaskConfiguration {
 				substring+=over.substring(indexOf2,over.length());
 			}
 			if(substring.length()==0){
-				baseElasticsearch.delete(ait.getId());
-				LOGGER.info("对象{}没有找到在内容中找到时间相关，删除",ait.getId());
+				LOGGER.info("对象{}没有找到在内容中找到所定义的时间相关词",ait.getId());
 				continue;
 			}
 			int titleIndex = title1.indexOf("201");
