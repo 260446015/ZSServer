@@ -200,11 +200,11 @@ public class TaskConfiguration {
 				return;
 			}
 			date.get(Calendar.MONTH);
+			LOGGER.info("对象{}时间{}替换成{}",ait.getId(),ait.getPublishTime(),array[0]+"-"+array[1]+"-"+array[2]);
 			ait.setPublishTime(array[0]+"-"+array[1]+"-"+array[2]);
 			ait.setPublishYear(array[0]);
 			ait.setPublishDate(array[0]+"-"+array[1]+"-"+array[2]+" 00:00:00");
 			baseElasticsearch.save(ait);
-			LOGGER.info("对象{}时间{}替换成{}",ait.getId(),ait.getPublishTime(),array[0]+"-"+array[1]+"-"+array[2]);
 		}else {
 			LOGGER.info("对象{}截取碎片里面没有计算到的年份",ait.getId());
 		}
