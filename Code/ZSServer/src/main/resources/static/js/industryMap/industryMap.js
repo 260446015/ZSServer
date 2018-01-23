@@ -457,7 +457,6 @@ var EopaciData = function (a){
 	    return res;
 }
 var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
-console.log(industryMap)
 var chinaOption = {
 	    itemStyle : {
 	        normal: {
@@ -467,7 +466,6 @@ var chinaOption = {
 		tooltip: {
             show: true,
             formatter: function(data){
-                console.log(data)
                 if(isArray(data.data['value'])){
                 	return data.data["name"]+ data.data['value'][2];
                 }else{
@@ -557,7 +555,6 @@ var chinaOption = {
         label: {
             normal: {
             	formatter: function(data){
-                	console.log(data)
                 },
                 position: 'right',
                 show: false

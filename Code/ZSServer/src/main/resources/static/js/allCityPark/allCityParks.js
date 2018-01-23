@@ -90,7 +90,6 @@ function showGardenList(d,e,f){
         success:function(res){
             if(res.success){
                 var arr = res.data.content;
-                console.log(arr);
                 var html = "";
                 if(arr.length != 0){
                     for (var i = 0; i < arr.length; i++) {
@@ -159,7 +158,6 @@ function scanGarden(id){
 	$.ajax({
 		 url:'/apis/area/scanGarden.json?gardenId='+id,
 		 success:function(res){
-			 console.log(res.data)
 		 }
 	});
 }

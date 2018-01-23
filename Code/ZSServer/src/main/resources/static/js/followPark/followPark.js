@@ -271,7 +271,6 @@ function showCompareEcharts(ids){//园区对比展示echarts的功能
 		success:function(res){
 			var arr = res.data;
 			var showDatas = new Array();
-			console.log(arr);
 			for(var i=1;i<=arr.length;i++){
 				var arr2 = arr[i-1].industryType;
 				showDatas = [];

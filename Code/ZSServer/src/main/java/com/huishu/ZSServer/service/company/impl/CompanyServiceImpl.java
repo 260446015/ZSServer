@@ -51,11 +51,9 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 			Integer pageSize = dto.getPageSize();
 			PageRequest pageRequest = new PageRequest(pageNum, pageSize);
 			if (msg.length == 1) {
-				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("park", msg[0]);
-				return companyRepository.findAll(getSpec(params), pageRequest);
+				return companyRepository.findByParkAndAddressNotNull(msg[0], pageRequest);
 			}
-			List<Company> findAll = companyRepository.findByPark(msg[2]);
+			List<Company> findAll = companyRepository.findByParkAndAddressNotNull(msg[2]);
 			String time = msg[0];
 			String startTime = null;
 			String endTime = null;

@@ -25,7 +25,6 @@ function showGardenCondition(area,pn,ps){
 			if(res.success){
 				var html = "";
 				var arr = res.data.content;
-				console.log(res.data);
 				for(var i=0;i<arr.length;i++){
 					html += '<div class="col-md-12 border-bottom">' +
 								'<a class="scatter-blocks no-border" href="/summit/getEssayDetails.json?essayId='+arr[i].id+'">' +
