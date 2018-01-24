@@ -11,7 +11,7 @@ public class AbstractDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3470443730465187413L;
-	private Integer pageNum;
+	private Integer pageNumber;
 	private Integer pageSize;
 	public Integer getPageSize() {
 		if (null == pageSize)
@@ -26,21 +26,21 @@ public class AbstractDTO implements Serializable {
 	}
 
 	public Integer getPageNum() {
-		if (null == pageNum)
-			pageNum = ConcersUtils.ES_MIN_PAGENUMBER;
-		if (pageNum > ConcersUtils.ES_MAX_PAGENUMBER)
+		if (null == pageNumber)
+			pageNumber = ConcersUtils.ES_MIN_PAGENUMBER;
+		if (pageNumber > ConcersUtils.ES_MAX_PAGENUMBER)
 			setPageNum(ConcersUtils.ES_MAX_PAGENUMBER);
-		return pageNum;
+		return pageNumber;
 	}
 
-	public void setPageNum(Integer pageNum) {
-		if (null == pageNum)
-			pageNum = ConcersUtils.ES_MIN_PAGENUMBER;
-		if (pageNum > ConcersUtils.ES_MAX_PAGENUMBER)
+	public void setPageNum(Integer pageNumber) {
+		if (null == pageNumber)
+			pageNumber = ConcersUtils.ES_MIN_PAGENUMBER;
+		if (pageNumber > ConcersUtils.ES_MAX_PAGENUMBER)
 			setPageNum(ConcersUtils.ES_MAX_PAGENUMBER);
-		this.pageNum = pageNum;
+		this.pageNumber = pageNumber;
 	}
 	protected PageRequest getPageRequest(){
-		return new PageRequest(this.pageNum, this.pageSize);
+		return new PageRequest(this.pageNumber, this.pageSize);
 	}
 }

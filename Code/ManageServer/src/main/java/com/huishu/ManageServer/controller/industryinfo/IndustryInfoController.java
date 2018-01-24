@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.entity.dto.IndustryInfoDTO;
 import com.huishu.ManageServer.es.entity.AITInfo;
+import com.huishu.ManageServer.es.entity.SummitInfo;
 
 /**
  * @author hhy
@@ -45,6 +47,14 @@ public class IndustryInfoController extends BaseController {
 	@RequestMapping(value = { "{page}" }, method = RequestMethod.GET)
 	public String findAccurateCompany(@PathVariable String page) {
 		return "/industry/info/" + page;
+	}
+	@RequestMapping(value = "/editIndustryinfo.json", method = RequestMethod.GET)
+	public String editIndustryinfo(String id,Model model){
+		if(StringUtil.isEmpty(id)){
+			AITInfo info = service.findIndustryInfoById(id);
+			model.addAttribute("info", info);
+		}
+		return "/industry/info/editIndustryInfo.html";
 	}
 	/**
 	 * 获取科研成果的数据
@@ -191,5 +201,67 @@ public class IndustryInfoController extends BaseController {
 		}
 		JSONArray json = service.findArticleInfo(time,keyWord);
 		return success(json);
+	}
+	
+	/**
+	 * 产业资讯，删除产业资讯的内容
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/deleteIndustryInfoById.json",method=RequestMethod.GET,params="id")
+	public AjaxResult deleteIndustryInfoById(String id){
+		if(StringUtil.isEmpty(id)){
+			LOGGER.debug("产业资讯删除文章传参异常");
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		boolean info = service.deleteArticleInfoById(id);
+		if(info){
+			return success("删除成功！");
+		}else{
+			return error("删除失败！");
+		}
+	}
+	/**
+	 * 删除研究成果的数据
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/deleteInfoById.json",method=RequestMethod.GET,params="id")
+	public AjaxResult deleteInfoById(String id){
+		if(StringUtil.isEmpty(id)){
+			LOGGER.debug("研究成果删除文章传参异常");
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		boolean info = service.deleteInfoById(id);
+		if(info){
+			return success("删除成功！");
+		}else{
+			return error("删除失败！");
+		}
+	}
+	
+	/**
+	 * 保存或者修改产业资讯数据
+	 * @param enter
+	 * @return
+	 */
+	@RequestMapping(value = "/saveIndustryinfo.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult saveIndustryinfo(@RequestBody AITInfo enter){
+		try {
+			
+			boolean flag = service.saveIndudustryInfo(enter);
+			if(flag){
+				return success("保存成功！");
+			}else{
+				return error("操作失败！");
+			}
+			
+		} catch (Exception e) {
+			LOGGER.debug("保存或者修改峰会信息失败！",e);
+			return error("操作失败！");
+		}
 	}
 }
