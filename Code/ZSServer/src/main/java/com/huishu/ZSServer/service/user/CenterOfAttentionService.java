@@ -77,6 +77,14 @@ public interface CenterOfAttentionService {
 	 * @param name
 	 */
 	Boolean addCompnayGroup(Long userId,String name);
+
+	/**
+	 * 删除企业分组
+	 * @param userId
+	 * @param groupId
+	 * @return
+	 */
+	Boolean dropCompnayGroup(Long userId, Long groupId);
 	/**
 	 * 移动企业分组
 	 * @param id

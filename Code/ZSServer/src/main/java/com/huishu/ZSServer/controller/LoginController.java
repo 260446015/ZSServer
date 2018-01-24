@@ -9,8 +9,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +63,27 @@ public class LoginController extends BaseController {
 			return "login";
 		}
 		return "/indusMap/industryMap";
+	}
+
+	/**
+	 * 用户登出
+	 * @return
+	 */
+	@RequestMapping(value = "/logOut.do", method = RequestMethod.GET)
+	public String logOut(HttpServletResponse response) {
+		Subject subject = SecurityUtils.getSubject();
+		try {
+			if (subject.isAuthenticated()) {
+				if (LOGGER.isDebugEnabled()) {
+					LOGGER.debug("user {} to logout", subject.getPrincipal());
+				}
+				subject.logout();
+			}
+		} catch (Exception e) {
+			LOGGER.error("logout失败！", e);
+			ShiroUtil.writeResponse(response, MsgConstant.SYSTEM_ERROR);
+		}
+		return "login";
 	}
 	
 	/**

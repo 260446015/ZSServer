@@ -102,8 +102,9 @@
                             </div>
                             <div class="search-item-content" >
                                 <a href="javascript:void(0);" id="gardenGroup" class="search-item active">全部</a>
-                                <a href="javascript:void(0);"  data-toggle="modal" data-target=".bs-example-modal-sm" class="add-item active" style= "margin-left:5%;" >+添加企业分组</a>
-		                           <div class="modal fade bs-example-modal-sm in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"  aria-hidden="true" id="myModal">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target=".bs-example-modal-sm" class="add-item active" style= "margin-left:5%;" >+添加企业分组</a>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target=".ms-example-modal-sm" class="move-item active" style= "margin-left:5%;" >删除企业分组</a>
+		                           <div class="modal fade bs-example-modal-sm in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"  aria-hidden="true">
 									  <div class="modal-dialog modal-sm" role="document">
 									    <div class="modal-content tk" >
 									    <img class="lay lay-left-bottom" src="/images/left_bottom.png" alt="">
@@ -123,8 +124,32 @@
 									     </div>
 									    </div>
 									  </div>
-									</div>
-                           		 </div>
+                                   </div>
+                                    <div class="modal fade ms-example-modal-sm in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"  aria-hidden="true">
+                                        <div class="modal-dialog modal-sm" role="document">
+                                            <div class="modal-content tk" >
+                                                <img class="lay lay-left-bottom" src="/images/left_bottom.png" alt="">
+                                                <img class="lay lay-right-top" src="/images/right_top.png" alt="">
+                                                <img class="lay lay-left-top" src="/images/left_bottom.png" alt="">
+                                                <img class="lay lay-right-bottom" src="/images/right_top.png" alt="">
+                                                <div class='tk_content'>
+                                                    <div class='input_box'>
+                                                        <span style="color:#0EC3FF;">删除企业分组名：</span>
+                                                        <select class="form-control" style="display: inline-block;width: 200px" id="group_select">
+                                                            <option value="0">请选择分组</option>
+                                                        </select>
+                                                    </div>
+                                                    <span style="text-align:center;display:block; color:red;" id="move_message"></span>
+                                                    <div class="modal-footer text-center btn_box">
+                                                        <button class="btn btn-blue" id="LabelMove">删除标签</button>
+                                                        <button class="btn btn-fill btn-blue" data-dismiss="modal">取消</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="model-body">

@@ -161,7 +161,7 @@ public class CenterOfAttentionController extends BaseController{
 	
 	/**
 	 * 添加企业分组
-	 * @param id
+	 * @param name
 	 * @return
 	 */
 	@RequestMapping(value = "addCompnayGroup.json", method = RequestMethod.GET)
@@ -174,14 +174,37 @@ public class CenterOfAttentionController extends BaseController{
 			if(b){
 				return success(MsgConstant.OPERATION_SUCCESS);
 			}
-			return success("该分组已存在");
+			return error("该分组已存在");
 		} catch (Exception e) {
 			LOGGER.error("addCompnayGroup失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 
 	}
-	
+
+	/**
+	 * 删除企业分组
+	 * @param groupId
+	 * @return
+	 */
+	@RequestMapping(value = "dropCompnayGroup.json", method = RequestMethod.GET)
+	public AjaxResult dropCompnayGroup(Long groupId) {
+		if(groupId==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			Boolean b = centerOfAttentionService.dropCompnayGroup(getUserId(),groupId);
+			if(b){
+				return success(MsgConstant.OPERATION_SUCCESS);
+			}
+			return error(MsgConstant.OPERATION_ERROR);
+		} catch (Exception e) {
+			LOGGER.error("dropCompnayGroup失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
+
 	/**
 	 * 移动企业分组
 	 * @param id
@@ -227,7 +250,7 @@ public class CenterOfAttentionController extends BaseController{
 	
 	/**
 	 * 查看峰会列表
-	 * @param msg
+	 * @param dto
 	 * @return
 	 */
 	@ResponseBody

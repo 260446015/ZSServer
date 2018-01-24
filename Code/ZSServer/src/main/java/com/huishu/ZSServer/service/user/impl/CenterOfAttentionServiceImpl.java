@@ -241,6 +241,17 @@ public class CenterOfAttentionServiceImpl extends AbstractService<T> implements 
 		return true;
 	}
 
+	@Override
+	public Boolean dropCompnayGroup(Long userId, Long groupId) {
+		try {
+			compnayGroupRepository.delete(groupId);
+			companyAttaRepository.deleteByUserIdAndGroupId(userId, groupId);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
 	@Transactional
 	@Override
 	public Boolean moveCompnayGroup(Long id, Long userId,Long groupId, String name) {

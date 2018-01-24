@@ -40,9 +40,26 @@ $(function(){
 function injection(){
 	if(sum==3){
 		myAjax();
+        $("#LabelMove").on("click",function(){
+            if($("#group_select").val()==0){
+                $("#move_message").html("请选择您要删除的分组！");
+            }else {
+                $.ajax({
+                    type:'get',
+                    url:'/apis/follow/dropCompnayGroup.json?groupId='+$("#group_select").val(),
+                    success:function(res){
+                        if(res.success){
+                            window.location.reload();
+                        }else{
+                            new Alert({flag:false,text:res.message,timer:2000}).show();
+                        }
+                    }
+                });
+            }
+        });
 		$(".search-item").on("click",function(){
 			$(this).addClass("active").siblings().removeClass("active");
-			var type = $(this).parent().siblings().html();  
+			var type = $(this).parent().siblings().html();
 			if(type.trim()=='产业'){
 				industry=$(this).html();
 			}else if(type.trim()=='成立时间'){
@@ -106,9 +123,14 @@ function addGroupItem(){
             if(res.success){
                 var arr = res.data;
                 var html = '';
-                for(var i=0;i<arr.length;i++){
-                    html += '<a href="javascript:void(0);" class="search-item">'+arr[i].groupName+'</a>';
-                    dropdownHtml+='<li><a href="javascript:void(0);" onclick="myMove(\''+arr[i].id+'\',\''+arr[i].groupName+'\')" >'+arr[i].groupName+'</a></li>';
+                if(arr.length>0){
+                    for(var i=0;i<arr.length;i++){
+                        html += '<a href="javascript:void(0);" class="search-item">'+arr[i].groupName+'</a>';
+                        dropdownHtml+='<li><a href="javascript:void(0);" onclick="myMove(\''+arr[i].id+'\',\''+arr[i].groupName+'\')" >'+arr[i].groupName+'</a></li>';
+                        $("#group_select").append('<option value="'+arr[i].id+'">'+arr[i].groupName+'</option>');
+                    }
+                }else{
+                    dropdownHtml+='<li><a href="javascript:void(0);" disabled >请先添加分组</a></li>';
                 }
                 $("#gardenGroup").after(html);
             }else{
@@ -142,8 +164,7 @@ function myMove(id,name){
 	        data:{id:operationId,groupId:id,name:name},
 	        success: function (result) {  
 	        	if(result.success){
-	        		new Alert({flag:true,text:"操作成功"}).show();
-	    			setTimeout("window.location.reload()",2000);
+                    window.location.reload();
 	        	}else{
 	        		new Alert({flag:false,text:result.message,timer:2000}).show();
 	        	}
@@ -160,8 +181,7 @@ function quxiao(id){
         data:{id:id},
         success: function (result) {  
         	if(result.success){
-        		new Alert({flag:true,text:"操作成功"}).show();
-    			setTimeout("window.location.reload()",2000);
+                window.location.reload();
         	}else{
         		new Alert({flag:false,text:result.message,timer:2000}).show();
         	}
