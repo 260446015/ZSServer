@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.es.entity.AITInfo;
+import com.merchantKey.itemModel.KeywordModel;
 
 /**
  * @author hhy
@@ -42,6 +43,45 @@ public interface IndustryInfoService {
 	 * @return
 	 */
 	JSONArray findArticleInfo(String time, String keyWord);
+
+	/**
+	 * @param obj
+	 * @return
+	 */
+	List<KeywordModel> fiindKeyWordList(JSONObject obj);
+
+	/**
+	 * @param obj1
+	 * @return
+	 */
+	JSONArray getArticleListByKeyWord(JSONObject obj1);
+
+	/**
+	 * 根据id删除产业资讯文章信息
+	 * @param id
+	 * @return
+	 */
+	boolean deleteArticleInfoById(String id);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	AITInfo findIndustryInfoById(String id);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	boolean deleteInfoById(String id);
+
+	/**
+	 * @param enter
+	 * @return
+	 */
+	boolean saveIndudustryInfo(AITInfo enter);
+
+	
 
 	
 

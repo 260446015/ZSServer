@@ -20,61 +20,69 @@ import com.huishu.ManageServer.common.util.StringUtil;
 @Document(indexName = INDEX, type = TYPE)
 public class AITInfo {
 	private String id;
+	/** 存续（在营、开业、在册） */
+	private String engageState;
+	/** 总结 */
+	private String summary;
+	/** 身份 */
+	private String identity;
+	/** 注册资金 */
+	private String registerCapital;
+	/** 注册时间 */
+	private String registerData;
+	/** 详细地址 */
+	private String address;
+
 	/** 发布时间 yyyy-MM-dd HH:mm:ss */
-	private String publishYear;
-
-	/** 发布时间 yyyy-MM-dd */
-	private String publishTime;
-
-	/** 发布时间 yyyy-MM-dd HH:mm:ss  */
 	private String publishDate;
-
-//	private String ossLink;
+	
+	/** 发布时间  yyyy-MM-dd */
+	private String publishTime;
+	
+	/** 发布时间 年份 */
+	private String publishYear;
 
 	/** 文章地址 */
 	private String articleLink;
 
 	/** 文章标题 */
 	private String title;
-
 	/** 文章内容 */
 	private String content;
-
 	/** 作者 */
 	private String author;
-
 	/** 原文链接 */
 	private String sourceLink;
-
 	/** 来源 */
 	private String source;
-
-	/** 文章类型 */
-	private String articleType;
-
 	/** 地域 */
 	private String area;
-
 	/** 产业 */
 	private String industry;
-
 	/** 产业标签 网络游戏 */
 	private String industryLabel;
-
 	/** 载体 */
 	private String vector;
-
 	/** 产业类型 */
 	private String industryType;
-
-	/** 所属园区 中关村软件园 */
-
+	/** 所属园区 */
 	private String park;
+
+	/** 成立时间 */
+	private String establishTime;
+
+	/** 园区面积 */
+	private String acreage;
 
 	/** 企业名称 */
 	private String business;
+
+	/** 企业变更的属性 */
+	private String updateAttribute;
+
 	/** 企业法人 */
-	private String businessLegal;
+	private String boss;
+
 	/** 企业类型 */
 	private String businessType;
 
@@ -93,26 +101,18 @@ public class AITInfo {
 	/** 是否已经预警 */
 	private Boolean hasWarn;
 
+	/** 企业logo */
+	private String logo;
+	
+	private boolean istop;
 	/** 维度 */
 	private String dimension;
 
-	/** 摘要 */
-	private String summary;
-	
-	private Long hot;
 	
 	/** 公司名录集合 */
 	private List<String> bus;
-	private boolean istop;
 	
 
-	public Long getHot() {
-		return hot;
-	}
-
-	public void setHot(Long hot) {
-		this.hot = hot;
-	}
 
 	public boolean isIstop() {
 		return istop;
@@ -202,13 +202,6 @@ public class AITInfo {
 		this.source = source;
 	}
 
-	public String getArticleType() {
-		return articleType;
-	}
-
-	public void setArticleType(String articleType) {
-		this.articleType = articleType;
-	}
 
 	public String getIndustry() {
 		return industry;
@@ -332,13 +325,6 @@ public class AITInfo {
 		this.articleLink = articleLink;
 	}
 
-	public String getBusinessLegal() {
-		return businessLegal;
-	}
-
-	public void setBusinessLegal(String businessLegal) {
-		this.businessLegal = businessLegal;
-	}
 
 	public String getSummary() {
 		if(!StringUtil.isEmpty(this.summary))
@@ -349,6 +335,86 @@ public class AITInfo {
 
 	public void setSummary(String summary) {
 		this.summary = summary;
+	}
+	
+	public String getEngageState() {
+		return engageState;
+	}
+
+	public void setEngageState(String engageState) {
+		this.engageState = engageState;
+	}
+
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
+
+	public String getRegisterCapital() {
+		return registerCapital;
+	}
+
+	public void setRegisterCapital(String registerCapital) {
+		this.registerCapital = registerCapital;
+	}
+
+	public String getRegisterData() {
+		return registerData;
+	}
+
+	public void setRegisterData(String registerData) {
+		this.registerData = registerData;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getEstablishTime() {
+		return establishTime;
+	}
+
+	public void setEstablishTime(String establishTime) {
+		this.establishTime = establishTime;
+	}
+
+	public String getAcreage() {
+		return acreage;
+	}
+
+	public void setAcreage(String acreage) {
+		this.acreage = acreage;
+	}
+
+	public String getUpdateAttribute() {
+		return updateAttribute;
+	}
+
+	public void setUpdateAttribute(String updateAttribute) {
+		this.updateAttribute = updateAttribute;
+	}
+
+	public String getBoss() {
+		return boss;
+	}
+
+	public void setBoss(String boss) {
+		this.boss = boss;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	@Override

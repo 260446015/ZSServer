@@ -27,8 +27,11 @@ function getIndustryInfoList(){
 				var _data = res.data;
 				$('#industryListByNon').html(showInfoData(_data));
 			}
+			initPage2();
 		}
+	
 	});
+	
 };
 
 function getIndustry(a,b){
@@ -77,6 +80,7 @@ function AjaxPost(param){
 				}else{
 					$('#page').html("");
 				}
+				initPage();
 			}
 			
 		}
@@ -93,11 +97,13 @@ function ShowArticleList(arr){
 				+item.industryLabel + '</td><td>' 
 				+item.publishTime + '</td><td>'
 				+item.hitCount + '</td><td class="actions">'
-				+'<a href="javascript:void(0);" class="on-default editinfo"><i class="fa fa-pencil"></i></a>'
-				+'<a href="javascript:void(0);" class="on-default removeinfo modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>'
+				+'<a href="javascript:void(0);" class="on-default editindusinfo"><i class="fa fa-pencil"></i></a>'
+				+'<a href="javascript:void(0);" class="on-default removeindusinfo modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>'
 	
 		);
+	
 	});
+	
 	var inner = array.join('');
 	return inner;
 };
@@ -106,15 +112,66 @@ function showInfoData(array){
 	$.each(array,function(index,item){
 		arr.push(
 				'<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+item.id+'"/><td>' 
-				+item.title+ '</td><td>'
+				 +'<a href="'+item.articleLink+'" target="_blank">'+item.title+ '</a></td><td>'
 				+item.industryLabel+ '</td><td>'
 				+item.summary + '</td><td>' 
 				+item.publishTime + '</td><td>'
 				+item.bus + '</td><td class="actions">'
-				+'<a href="javascript:void(0);" class="on-default removeinfo modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>'
-			
+				+'<a href="javascript:void(0);" class="on-default remove-info modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>'
 		);
+		
 	});
 	var inner = arr.join('');
 	return inner;
+};
+function initPage(){
+	$('.editindusinfo').on("click",function(i){
+		var id = $(this).parents('.gradeX').find( 'input' ).val();
+		window.location.href="/apis/industryinfo/editIndustryinfo.json?id="+_id;
+	});
+	$('#addInfoToTable').on("click",function(){
+		window.location.href="/apis/industryinfo/editIndustryinfo.json";
+	});
+	//删除一条数据
+	$(".removeindusinfo").on("click",function(i){
+		var id = $(this).parents('.gradeX').find( 'input' ).val();
+		deleteIndustryInfoById(id);
+	});
+	
+};
+function initPage2(){
+	//删除一条研究成果的数据
+	$(".remove-info").on("click",function(i){
+		var id = $(this).parents('.gradeX').find( 'input' ).val();
+		$.ajax({
+			 async:false,
+	            url : "/apis/industryinfo/deleteInfoById.json?id="+id,
+	            success : function(res) {
+	                if(res.success){
+	                    layer.msg('成功删除', {icon: 1});
+	                    getIndustryInfoList();
+	                }else{
+	                    layer.msg(res.message, {icon: 2});
+	                }
+	            }
+		});
+	});
+};
+function deleteIndustryInfoById(id){
+	layer.confirm('确定要删除该数据？', {
+        btn: ['确认','取消'] //按钮
+    }, function(){
+        $.ajax({
+            async:false,
+            url : "/apis/industryinfo/deleteIndustryInfoById.json?id="+id,
+            success : function(res) {
+                if(res.success){
+                    layer.msg('成功删除', {icon: 1});
+                    getIndustry(0,0);
+                }else{
+                    layer.msg(res.message, {icon: 2});
+                }
+            }
+        });
+    });
 };
