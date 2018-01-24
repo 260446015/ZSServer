@@ -21,7 +21,7 @@ import com.huishu.ZSServer.es.repository.SummitElasticsearch;
  * @return 
  * 更新峰会数据
  */
-@Component
+//@Component
 public class UpdataTask {
 	private static final Logger log = LoggerFactory.getLogger(UpdataTask.class);
 	@Autowired
@@ -29,7 +29,7 @@ public class UpdataTask {
 	/*@Autowired
 	private Client client;*/
 	
-	@Scheduled(fixedDelay = 1000 * 60 * 60 * 12 )
+//	@Scheduled(fixedDelay = 1000 * 60 * 60 * 12 )
 	public void updataData(){
 		//查询所有，进行数据更新，删除，维护
 		log.info("==============高峰论坛数据更新开始======================");
