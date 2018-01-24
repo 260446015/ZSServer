@@ -382,7 +382,14 @@ public class IndustryInfoServiceImpl extends AbstractService implements Industry
 					
 					info.setTitle(title);
 					info.setId(hit.getId());
-					info.setPublishTime(hit.getSource().get("publishTime").toString());
+					try {
+						
+						String string = hit.getSource().get("publishTime").toString();
+						info.setPublishTime(string);
+						
+					} catch (Exception e) {
+						info.setPublishTime("");
+					}
 					String content = hit.getSource().get("content").toString();
 					List<String> business = null;
 					try {

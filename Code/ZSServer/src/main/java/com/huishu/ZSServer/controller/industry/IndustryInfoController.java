@@ -53,8 +53,8 @@ public class IndustryInfoController extends BaseController{
 	public String getIndustryInfo(Map<String,Object> map,@PathVariable String page){
 		JSONObject json = new JSONObject();
 		json.put("dimension", "科学研究");
-		json = StringUtil.getIndustry(json);
-		addData(json);
+	//	json = StringUtil.getIndustry(json);
+	    addData(json);
 //		Page<AITInfo> page1 = service.findResearchResultList(json);
 		List<AITInfo> list = service.findResearchList(json);
 //		map.put("content", page1.getContent());
