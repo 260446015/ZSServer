@@ -13,14 +13,14 @@ $(function(){
 	$.ajax({
         url: "/apis/report/getUserScreeningItem.json",
         success: function (response) {
-            if(response.message!=null){
-            	new Alert({flag:false,text:response.message,timer:1500}).show();
-            }else{
-            	if(response.data.length==0){
-            		new Alert({flag:'warning',text:"暂无数据！",timer:2000}).show();
-            	}else{
-            		$('#year_item').html(item(response.data));
-            	}
+            if(response.success){
+                if(response.data.length==0){
+                    new Alert({flag:'warning',text:"暂无数据！",timer:2000}).show();
+                }else{
+                    $('#year_item').html(item(response.data));
+                }
+            }else {
+                new Alert({flag:false,text:response.message,timer:1500}).show();
             }
             $(".search-item").on("click",function(){
 				$(this).addClass("active").siblings().removeClass("active");
