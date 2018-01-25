@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.ZSServer.common.AjaxResult;
@@ -55,8 +56,24 @@ public class IntelligentPushController extends BaseController{
 	@RequestMapping(value="/list.json",method=RequestMethod.GET)
 	public AjaxResult getInteList(){
 		List<IndusCompany> list = service.listCompany();
-		
-		return success(list);
+		JSONArray arr = new JSONArray();
+		list.forEach(action->{
+			JSONObject obj = new JSONObject();
+			if(!action.getCreateTime().equals(action.getUpdateTime())){
+				 obj.put("flag", true);
+			}else{
+				obj.put("flag", false);
+				
+			}
+			obj.put("company", action.getCompany());
+			obj.put("companyName", action.getCompanyName());
+			obj.put("id", action.getId());
+			obj.put("industry", action.getIndustry());
+			obj.put("industryLabel", action.getIndustryLabel());
+			obj.put("industryZero", action.getInduszero());
+			arr.add(obj);
+		});
+		return success(arr);
 	}
 	
 	/**
