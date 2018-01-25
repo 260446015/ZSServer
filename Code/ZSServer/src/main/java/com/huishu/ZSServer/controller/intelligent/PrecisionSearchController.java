@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.controller.BaseController;
@@ -72,7 +74,24 @@ public class PrecisionSearchController extends BaseController{
 			
 			List<IndusCompany> info = service.findCompanyList(industry,area,money,time);
 			if(info!=null && info.size() != 0){
-				return success(info);
+				JSONArray arr = new JSONArray();
+				info.forEach(action->{
+					JSONObject obj = new JSONObject();
+					if(!action.getCreateTime().equals(action.getUpdateTime())){
+						 obj.put("flag", true);
+					}else{
+						obj.put("flag", false);
+						
+					}
+					obj.put("company", action.getCompany());
+					obj.put("companyName", action.getCompanyName());
+					obj.put("id", action.getId());
+					obj.put("industry", action.getIndustry());
+					obj.put("industryLabel", action.getIndustryLabel());
+					obj.put("industryZero", action.getInduszero());
+					arr.add(obj);
+				});
+				return success(arr);
 			}
 			return error("暂无数据");
 		}
