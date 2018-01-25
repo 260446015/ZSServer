@@ -1,16 +1,24 @@
 package com.huishu.ManageServer.service.industry.info.impl;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.huishu.ManageServer.common.util.ExportExcel;
+import org.apache.poi.hssf.usermodel.*;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,6 +44,9 @@ import com.huishu.ManageServer.service.AbstractService;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.entity.dbFirst.KeyWordEntity;
 import com.huishu.ManageServer.entity.dbFirst.KeywordArticle;
+import scala.annotation.meta.field;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author hhy
@@ -367,6 +378,118 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 			}
 		} catch (Exception e) {
 			return false;
+		}
+	}
+
+	@Override
+	public void exportExcel(HttpServletResponse response) {
+		//获取一周内的数据
+		String[] date = analysisDate("近一周");
+		BoolQueryBuilder bq = new BoolQueryBuilder();
+		bq.must(QueryBuilders.rangeQuery("publishTime").from(date[0]).to(date[1]));
+		bq.must(QueryBuilders.termQuery("dimension","产业头条"));
+		SearchQuery query = getBoolQueryBuilder().withQuery(bq).build();
+		List<AITInfo> list = template.query(query, res -> {
+			List<AITInfo> listInfo = new ArrayList<AITInfo>();
+			SearchHits hits = res.getHits();
+			for (SearchHit hit : hits) {
+				AITInfo info = new AITInfo();
+				Map<String, Object> map = hit.getSource();
+				info.setId(hit.getId());
+				info.setIndustryLabel(map.get("industryLabel").toString());
+				info.setIndustry(map.get("industry").toString());
+				info.setContent(map.get("content").toString());
+				info.setPublishTime(map.get("publishTime").toString());
+				info.setArticleLink(map.get("articleLink").toString());
+				info.setSourceLink(map.get("sourceLink").toString());
+				info.setSummary(map.get("summary").toString());
+				info.setTitle(map.get("title").toString());
+				info.setArea(map.get("area").toString());
+				info.setAuthor(map.get("author").toString());
+				info.setVector(map.get("vector").toString());
+				info.setVector(map.get("source").toString());
+				listInfo.add(info);
+			}
+			return listInfo;
+		});
+		String fileName = date[0]+"~"+date[1]+"企业动态数据.xls";
+		try {
+			fileName = new String(fileName.getBytes("GBK"), "iso8859-1");
+			response.reset();
+			response.setHeader("Content-Disposition", "attachment;filename="+ fileName);// 指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			response.setHeader("Pragma", "no-cache");
+			response.setHeader("Cache-Control", "no-cache");
+			response.setDateHeader("Expires", 0);
+			OutputStream output = response.getOutputStream();
+			BufferedOutputStream bufferedOutPut = new BufferedOutputStream(output);
+
+			HSSFWorkbook wb = new HSSFWorkbook();
+
+			HSSFCellStyle cellStyle = wb.createCellStyle();
+			// 指定单元格居中对齐
+			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			// 指定单元格垂直居中对齐
+			cellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+
+			// 设置单元格字体
+			HSSFFont font = wb.createFont();
+			font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+			font.setFontName("宋体");
+			font.setFontHeight((short) 200);
+			cellStyle.setFont(font);
+
+			// 工作表名
+			List<String> cellList = new ArrayList<>();
+			cellList.add("id");
+			cellList.add("summary");
+			cellList.add("publishTime");
+			cellList.add("articleLink");
+			cellList.add("title");
+			cellList.add("content");
+			cellList.add("author");
+			cellList.add("sourceLink");
+			cellList.add("source");
+			cellList.add("area");
+			cellList.add("industry");
+			cellList.add("industryLabel");
+			cellList.add("vector");
+
+			HSSFSheet sheet = wb.createSheet();
+			// 定义第一行
+			HSSFRow row1 = sheet.createRow(1);
+			HSSFCell cell1 = row1.createCell(0);
+			for (int i = 0; i < cellList.size(); i++) {
+				cell1 = row1.createCell(i);
+				cell1.setCellStyle(cellStyle);
+				cell1.setCellValue(new HSSFRichTextString(cellList.get(i)));
+			}
+			//定义第二行
+			HSSFRow row = sheet.createRow(2);
+			HSSFCell cell = row.createCell(1);
+			for (int i = 0; i < list.size(); i++) {
+				AITInfo info = list.get(i);
+				row = sheet.createRow(i + 2);
+				for (int j = 0; j < cellList.size(); j++) {
+					try {
+						Field field = info.getClass().getDeclaredField(cellList.get(j));
+						//用以访问私有属性
+						field.setAccessible(true);
+						cell.setCellValue(new HSSFRichTextString(field.get(info).toString()));
+					} catch (Exception e) {
+						cell.setCellValue(new HSSFRichTextString(""));
+					}
+					cell = row.createCell(j);
+					cell.setCellStyle(cellStyle);
+				}
+			}
+			bufferedOutPut.flush();
+			wb.write(bufferedOutPut);
+			bufferedOutPut.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			list.clear();
 		}
 	}
 

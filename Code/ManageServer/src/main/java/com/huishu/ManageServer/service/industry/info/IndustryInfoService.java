@@ -9,6 +9,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.es.entity.AITInfo;
 import com.merchantKey.itemModel.KeywordModel;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author hhy
  * @date 2018年1月18日
@@ -81,8 +84,10 @@ public interface IndustryInfoService {
 	 */
 	boolean saveIndudustryInfo(AITInfo enter);
 
-	
-
-	
+	/**
+	 * 导出一周内产业动态数据到excel
+	 * @param response
+	 */
+	void exportExcel(HttpServletResponse response);
 
 }

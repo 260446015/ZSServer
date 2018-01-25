@@ -194,17 +194,14 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="panel panel-default bk-bg-white">
 								<div class="panel-heading bk-bg-white">
-									<h6><i class="fa fa-table red"></i><span class="break"></span>产业资讯</h6>							
-									<div class="panel-actions">
-										<a href="#" class="btn-minimize"><i class="fa fa-caret-up"></i></a>
-										<a href="#" class="btn-close"><i class="fa fa-times"></i></a>
-									</div>
+									<h6><i class="fa fa-table red"></i><span class="break"></span>产业资讯</h6>
 								</div>
 								<div class="panel-body">
 									<div class="row">
 										<div class="col-sm-6">
 											<div class="bk-margin-bottom-10">
 												<button id="addInfoToTable" class="btn btn-info">Add <i class="fa fa-plus"></i></button>
+                                                <a href="/apis/industryinfo/exportExcel.do" class="btn btn-info">导出近一周数据</a>
 											</div>
 										</div>
 									</div>
