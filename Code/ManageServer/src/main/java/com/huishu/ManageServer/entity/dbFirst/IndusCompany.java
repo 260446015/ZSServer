@@ -24,7 +24,7 @@ public class IndusCompany implements Serializable{
 
 	private static final long serialVersionUID = 270850549795604366L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	@Column(name="id")
 	private Long id;
 	
@@ -47,6 +47,12 @@ public class IndusCompany implements Serializable{
 	//行业标签
 	@Column(name = "t_industry_label")
 	private String industryLabel;
+
+	@Column(name = "t_create_time")
+	private String createTime;
+	
+	@Column(name = "t_update_time")
+	private String updateTime;
 	
 	public String getInduszero() {
 		return induszero;
@@ -94,6 +100,22 @@ public class IndusCompany implements Serializable{
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+	
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
 	}
 
 	@Override
