@@ -20,7 +20,7 @@
 </head>
 <body class="bg2">
 <#include "/common/header2.ftl"/>
-<div class="wrapper">
+<div class="wrapper markSure">
     <div class="page-content">
     <#include "/common/searchSidebar.ftl"/>
          <div class="right-content">
@@ -30,10 +30,10 @@
                 </div>
                 <div id="searchTag">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="charts" id="charts"></div>
+                <div class="Precisecircles">
+                    <ul class="uls">
+    
+                    </ul>
                 </div>
             </div>
             <div class="layer-person" id="horizontal-info">

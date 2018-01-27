@@ -27,8 +27,12 @@ $(".mark-box").on("click","li>a.mark-item",function () {
         /*获取峰会数据*/
         industrySummitInfo(industry);
     });
-	
 
+var ind=$('.timeline li').index();
+function auto(){
+	$('.timeline li').animate({marginTop:0}).eq(ind).appendTo($('.timeline'))
+}
+time=setInterval('auto()',2000)
 
 function industrySummitInfo(industry){
 	$.ajax({
@@ -38,6 +42,7 @@ function industrySummitInfo(industry){
 		success:function(res){
 			if(res.data != null){
 			$("#timeline li").remove();
+			console.log(res.data)
 				var aa = res.data;
 				for(var i=0;i<aa.length;i++){
 					$("#timeline").append('<li>'+'<a href="'+aa[i].articleLink+'"; target="_blank")><i class="timeline-circle"></i><span class="time">'+aa[i].publishTime+'</span><span class="line-title">'+aa[i].title+'</span></a></li>');
@@ -485,8 +490,9 @@ var chinaOption = {
              calculable : true,
              show: false,
              inRange: {
-                 color: ["#104E8B","#000080"]
-//        color: ["#6959CD","#4B0082"]
+                 color: 
+                	 ["#104E8B","#000080"],
+//        color: ["#6959CD","#4B0082"],
 //        color: ["#badcfe","#204f8e"]
              }
          },
@@ -507,8 +513,8 @@ var chinaOption = {
             itemStyle: {
                 emphasis: {
                     show: false,
-                    areaColor: '',
-                    borderColor: ''
+                    areaColor: '',//地图背景图
+                    borderColor: '#fff'//选中的边框颜色
                 }
             },
             roam: false,

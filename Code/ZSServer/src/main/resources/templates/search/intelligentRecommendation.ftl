@@ -19,11 +19,14 @@
 </head>
 <body class="bg2">
 <#include "/common/header2.ftl"/>
-<div class="wrapper">
+<div class="wrapper markSure">
     <div class="page-content">
-       <#include "/common/searchSidebar.ftl"/>
+         <#include "/common/searchSidebar.ftl"/>
          <div class="right-content">
-            <div class="charts" id="charts"></div>
+            <div class="circles">
+                <ul class="uls">
+                </ul>
+            </div>
             <div class="layer-person" id="layer-person-info">
              </div>
          </div>

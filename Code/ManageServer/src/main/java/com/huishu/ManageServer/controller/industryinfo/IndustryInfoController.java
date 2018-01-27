@@ -2,6 +2,7 @@ package com.huishu.ManageServer.controller.industryinfo;
 
 import java.util.List;
 
+import com.huishu.ManageServer.common.util.ShiroUtil;
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.entity.dto.IndustryInfoDTO;
 import com.huishu.ManageServer.es.entity.AITInfo;
 import com.huishu.ManageServer.es.entity.SummitInfo;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author hhy
@@ -264,4 +267,18 @@ public class IndustryInfoController extends BaseController {
 			return error("操作失败！");
 		}
 	}
+
+	/**
+	 * 导出一周内产业动态数据到excel
+	 * @param response
+	 */
+	@RequestMapping(value = "/exportExcel.do", method = RequestMethod.GET)
+	public void exportExcel(HttpServletResponse response) {
+		try {
+			service.exportExcel(response);
+		} catch (Exception e) {
+			LOGGER.debug("exportExcel失败！",e);
+		}
+	}
+
 }

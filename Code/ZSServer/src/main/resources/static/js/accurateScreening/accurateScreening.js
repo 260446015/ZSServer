@@ -72,7 +72,7 @@ function getTab(){
 				}
 				 $("#searchTag").html(TagList(arr));
 				   $("#horizontal-info").hide();
-				   searchAjax();
+				    searchAjax();
 			}
 		}
 	});
@@ -190,284 +190,44 @@ function TagList(arr){
 	var inner = array.join('');
 	return inner;
 };
-var dot = {
-        name: '强相关',
-        type: 'effectScatter',
-        showEffectOn: 'emphasis',
-        xAxisIndex: 0,
-        yAxisIndex: 0,
-        symbol: 'circle',
-        symbolSize: 40,
-        label: {
-            normal: {
-                show: true,
-                textStyle: {
-                    color: '#fff'
-                },
-                position: 'inside',
-                formatter: function(param) {
-                    return param.data[2];
-                },
-            },
-            
-        },
-        itemStyle: {
-        	
-            normal: {
-            	/* opacity:.5, */
-            	 color: new echarts.graphic.LinearGradient(
-                    0, 0, 0, 1,
-                    [
-                        {offset: 0, color: '#20c2fe'},
-                        {offset: 0.5, color: '#6e92fb'},
-                        {offset: 1, color: '#bd62f7'}
-                    ]
-                )
-            },
-            emphasis:{
-            	opacity:1
-            }
-        },
 
-        data: [],
-    };
+    $.ajax({
+        url:'/intelligent/list.json',
+        type:'GET',
+        async: false,
+        success:function(res){
+            var strHtml = "";
+            for(var i=0;i<res.data.length;i++){
+                    if(res.data[i].companyName!=null){
+                        strHtml += "<li>"
+                        strHtml += "<div>"
+                        strHtml += "<p>"+res.data[i].companyName+"</p>"
+                        strHtml += "</div>"
+                        if(res.data[i].industry!=null){
+                            strHtml += "<small class='sma smCircle'>"+"<i>"+res.data[i].industry+"</i></small>" ;    
+                        }
+                        if(res.data[i].industryLabel!=null){
+                            strHtml += "<small class='smb smCircle'><i>"+res.data[i].industryLabel+"</i></small>" ;  
+                        }
+                        if(res.data[i].industryZero!=null){
+                            strHtml += "<small class='smc smCircle'><i>"+res.data[i].industryZero+"</i></small></li>" ;       
+                        }    
+                    }
+                }
+            $('.Precisecircles ul').html(strHtml);
+            $(".Precisecircles ul>li").each(function(index,el){
+               if($(el).children("small").length==0){
+                 $(el).css('border','0')
+               }
+               $('.smCircle>i').hover(function(){
+                   $('.smCircle>i').addClass('spot')
+               },function(){
+                $('.smCircle>i').removeClass('spot')
+               })
+            })    
+        }   
+    }) 
 
-    var datalist = [
-        /**
-		 * x坐标 y坐标 name 标签名称 symbolSize 点大小 趋势，1:上升 0:下降
-		 */
-     
-       
-       [39, 10, '北京现代', 75, 1,.8],
-       [62, 50, '百度', 60, 1,.6],
-       [65, 17, '矿视科技', 40, 1,.8],
-       [63, 95, '长电科技', 70, 1,.8],
-       [52, 87, '腾讯', 60, 0,.5],
-       [28, 70, '神州数据', 44, 0,.8],
-       [56, 8, '华胜天成', 60, 0,.3],
-       [33, 36, '神州融讯', 50, 0,.3],
-    
-    ];
-   
-  
-   
-    var dataMap = datalist.map((item) => {
-            return Object.assign({}, dot, {
-                symbolSize: item[3],
-                itemStyle:{
-                	normal:{
-                		opacity:item[5],
-                		color: new echarts.graphic.LinearGradient( 
-                				0, 0, 0, 1,[
-                				 {offset: 0, color: '#20c2fe'},
-                				 {offset: 0.5, color: '#6e92fb'},
-                				 {offset: 1, color: '#bd62f7'}
-                				 ])},
-                				 emphasis:{
-                		            	opacity:1
-                		            }
-                },
-                data: [
-                    item
-                ]
-            })
-        });
-    var dataListInfo = [ // 浪潮
-                [33, 15, '大数据', 10, 1,.8,'left'],
-                [33, 2, '人工智能', 10, 1,.8,'left'],
-                [44, 10, '物联网', 10, 0,.8,'right'],
-                         
-                 // 华为
-                [62, 62, '华为', 10, 0,.6,'top'],
-                [59, 40, '华为', 10, 0,.6,'right'],
-                [67, 50, '华为', 10, 0,.6,'right'],
-                         
-                 // 亚信
-                [69, 17, '亚信', 10, 1,.8,'right'],
-                [65, 8, '亚信', 10, 1,.8,'right'],
-                [65, 26, '亚信', 10, 1,.8,'right'],
-                       
-                 // 小米
-                 [58, 93, '小米', 10, 1,.8,'top'],
-                 [68, 95, '小米', 10, 1,.8,'right'],
-                 [63, 80, '小米', 10, 1,.8,'bottom'],
-                         
-                 // 360
-                 [52, 99, '360', 10, 0,.5,'top'],
-                 [48, 82, '360', 10, 0,.5,'bottom'],
-                 [56, 82, '360', 10, 0,.5,'bottom'],
-                        
-                 // 微软
-                 [24, 70, '微软', 10, 0,.8,'left'], 
-                 [28, 81, '微软', 10, 0,.8,'top'],
-                 [32, 69, '微软', 10, 0,.8,'right'],
-                        
-                 // 网易
-                 [52, 3, '网易', 10, 0,.5,'left'],
-                 [61, 3, '网易', 10, 0,.5,'right'],
-                 [56, 21, '网易', 10, 0,.5,'top'],
-                         
-                 // 网易
-                 [29, 36, '网易', 10, 0,.5,'left'],
-                 [37, 36, '网易', 10, 0,.5,'top'],
-                 [33, 47, '网易', 10, 0,.5,'top'],
-                         
-                 // 中科点击
-                 [47, 64, '物联网', 10, 1,.5,'right'],
-                 [55, 41, '人工智能', 10, 1,.5,'bottom'],
-                 [44, 41, '大数据',10, 1,.5,'bottom']
-                         ];
-              var dataInfoMap = dataListInfo.map((item) => {
-                  return Object.assign({}, dot, {
-                    symbolSize: item[3],
-                     label: {
-                     normal: {
-                        show: true,
-                         textStyle: {
-                         color: '#fff'
-                         },
-                      position:item[6],
-                        formatter: function(param) {
-                           return param.data[2];
-                           },
-                        },
-                      },
-                     itemStyle:{
-                       normal:{
-                          opacity:item[5],
-                          color: new echarts.graphic.LinearGradient( 
-                          0, 0, 0, 1,[
-                           {offset: 0, color: '#20c2fe'},
-                           {offset: 0.5, color: '#6e92fb'},
-                           {offset: 1, color: '#bd62f7'}
-                           ])},
-                          emphasis:{
-                             opacity:1
-                           }
-                          },
-                         data: [
-                                    item
-                                ]
-                            })
-                        });
-
-    var option = {
-        title: {
-            text: '',
-            x: '35%',
-            y: 0
-        },
-        tooltip: {
-            trigger: 'item',
-            backgroundColor: '#fff',
-            textStyle: {
-                color: '#999'
-            },
-            formatter: (item) => {
-            if (item.data[2]) {
-            return `${item.data[2]}<br/>  坐标: x ${item.data[0]}  y ${item.data[1]}`;
-    }
-}
-},
-    xAxis: [{
-        gridIndex: 0,
-        type: 'value',
-        show: false,
-        min: 0,
-        max: 100,
-        nameLocation: 'middle',
-        nameGap: 30
-
-
-    }],
-        yAxis: [{
-        gridIndex: 0,
-        min: 0,
-        show: false,
-        max: 100,
-        nameLocation: 'middle',
-        nameGap: 30,
-    }],
-        series: [
-        ...dataMap, {
-        name: '弱相关',
-        type: 'effectScatter',
-        showEffectOn: 'emphasis',
-        xAxisIndex: 0,
-        yAxisIndex: 0,
-        symbol: 'circle',
-        symbolSize: 80,
-        label: {
-            normal: {
-                show: true,
-                textStyle: {
-                    color:"#fff",
-                    fontSize: '15'
-                },
-                formatter: function(param) {
-                    return param.data[2];
-                },
-            },
-
-        },
-        itemStyle: {
-            normal: {
-                color: new echarts.graphic.LinearGradient(
-                    0, 0, 0, 1,
-                    [
-                        {offset: 0, color: '#20c2fe'},
-                        {offset: 0.5, color: '#6e92fb'},
-                        {offset: 1, color: '#bd62f7'}
-                    ]
-                )
-            }
-        },
-        data: [
-            [50, 50, '中科点击', '#fff']
-        ]
-        }]
-//    },...dataInfoMap]
-};
-var charts = echarts.init(document.getElementById("charts"),"customed");
-charts.on("click",function (e) {
-	var name = e.data[2];
-	$.ajax({
-		url:'/intelligent/getCompanyInfoByName.json?name='+name,
-    	type:'GET',
-    	async: false,
-    	success:function(res){
-    		if(res.data==null){
-    			new Alert({flag:false,text:res.message,timer:2000}).show();
-    		}else{
-    			 $('#horizontal-info').html(
-       				  '<h3 class="layer-person-title text-center">'
-       				  +res.data.name+'<button type="button" class="close">×</button></h3>'
-       				  +'<div class="layer-body small-line-height"><div class="form-horizontal">'
-       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">法人代表</label>'
-       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.boss+'</p></div></div>'
-       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">状态</label>'
-       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.state+'</p></div></div>'
-       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册时间</label>'
-       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.time+'</p></div></div>'
-       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">行业</label>'
-       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.industry+'</p></div></div>'
-       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册资本</label>'
-       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.money+'</p></div></div>'
-       				  +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
-       				  +'<div class="col-md-7"><p class="form-control-static" >'+res.data.address+'</p></div></div>'
-       				  +'</div></div>' +'<div class="layer-footer text-center" >'
-       				  +'<a href="/apis/company/baseInfo.html?companyName='+res.data.name+'" class="like">查看更多</a></div>'
-       		  );
-    			 $(".layer-person").css({
-        	            display: "block",
-        	            top: e.event.offsetY,
-        	            left: e.event.offsetX+200
-        	        }); 
-    		}
-    	}
-	});
-    
-});   
 function searchAjax(){
 	var param = {'industry':industry,'area':area,'registerTime':registerTime,'register':register};
 	$.ajax({
@@ -477,27 +237,87 @@ function searchAjax(){
         contentType: 'application/json',
 		data:JSON.stringify(param),
 		success:function(res){
+			console.log(res)
 			if(res.message!=null){
-				echarts.dispose(document.getElementById("charts"));
-            	 $("#charts").html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
-            }else{
-            	var array = res.data;
-//            	var arr = initEchartData(array,datalist,dataListInfo);
-            	var arr = initEchartData(array,datalist);
-            	/** 根据返回结果构建echart图形 */
-            	 $("#charts").height($(window).height()-$(".navbar-trans").height()-$(".footer").height()-192-$(".mt50.mb20").height());
-            	     option.series.data=arr;
-            	    option.series[8].data.push(
-            	    		[50, 50, array[array.length-1].companyName, '#fff']
-            	    );
-            	    charts.setOption(option);
-            	   
-            	
+            	 $(".Precisecircles").html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
+            }else{	
+				var strHtml = "";
+				for(var i=0;i<res.data.length;i++){
+						if(res.data[i].companyName!=null){
+							strHtml += "<li>"
+							strHtml += "<div>"
+							strHtml += "<p>"+res.data[i].companyName+"</p>"
+							strHtml += "</div>"
+							if(res.data[i].industry!=null){
+								strHtml += "<small class='sma smCircle'>"+"<i>"+res.data[i].industry+"</i></small>" ;    
+							}
+							if(res.data[i].industryLabel!=null){
+								strHtml += "<small class='smb smCircle'><i>"+res.data[i].industryLabel+"</i></small>" ;  
+							}
+							if(res.data[i].industryZero!=null){
+								strHtml += "<small class='smc smCircle'><i>"+res.data[i].industryZero+"</i></small></li>" ;       
+							}    
+						}
+					}
+				$('.Precisecircles ul').html(strHtml);
+				$(".Precisecircles ul>li").each(function(index,el){
+					if($(el).children("small").length==0){
+						$(el).css('border','0')
+					}
+					$('.smCircle>i').hover(function(){
+						$('.smCircle>i').addClass('spot')
+					},function(){
+					$('.smCircle>i').removeClass('spot')
+					})
+				})    
+					  
             }
 		}
 	});
+	$('.uls li').on("click",function (e){  
+		var str = $(this).find('p').text();
+		$.ajax({
+				url:'/intelligent/getCompanyInfoByName.json?name='+str,
+				   type:'GET',
+				   async: false,
+				   success:function(base){
+					   console.log(base)
+					   if(base.data==null){
+						   new Alert({flag:false,text:base.message,timer:1000}).show();
+					   }else{
+						 $('#horizontal-info').html(
+								 '<h3 class="layer-person-title text-center">'
+								 +base.data.name+'<button type="button" class="close">×</button></h3>'
+								 +'<div class="layer-body small-line-height"><div class="form-horizontal">'
+								 +'<div class="form-group"><label class="col-md-4 text-right control-label">法人代表</label>'
+								 +'<div class="col-md-7"><p class="form-control-static" >'+base.data.boss+'</p></div></div>'
+								 +'<div class="form-group"><label class="col-md-4 text-right control-label">状态</label>'
+								 +'<div class="col-md-7"><p class="form-control-static" >'+base.data.state+'</p></div></div>'
+								 +'<div class="form-group"><label class="col-md-4 text-right control-label">注册时间</label>'
+								 +'<div class="col-md-7"><p class="form-control-static" >'+base.data.time+'</p></div></div>'
+								 +'<div class="form-group"><label class="col-md-4 text-right control-label">行业</label>'
+								 +'<div class="col-md-7"><p class="form-control-static" >'+base.data.industry+'</p></div></div>'
+								 +'<div class="form-group"><label class="col-md-4 text-right control-label">注册资本</label>'
+								 +'<div class="col-md-7"><p class="form-control-static" >'+base.data.money+'</p></div></div>'
+								 +'<div class="form-group"><label class="col-md-4 text-right control-label">注册地址</label>'
+								 +'<div class="col-md-7"><p class="form-control-static" >'+base.data.address+'</p></div></div>'
+								 +'</div></div>' +'<div class="layer-footer text-center" >'
+								 +'<a href="/apis/company/baseInfo.html?companyName='+base.data.name+'" class="like">查看更多</a></div>'
+						 );   
+						 $(".layer-person").css({
+							   display: "block",
+							   top: e.offsetY,
+							   left: e.offsetX+200
+						   });
+					   }
+					   }
+				});
+		  })
+		  $(".layer-person").on("click",".text-center .close",function () {
+				$(this).parents("#layer-person-info").hide();
+			})
 };
-/*function initEchartData(array,datalist,dataListInfo){
+function initEchartData(array,datalist,dataListInfo){
 	var data=[];
 	var b=[];
 	var c =[];
@@ -528,7 +348,7 @@ function searchAjax(){
 		data.push(d.push(a));
 	});
 	return data;
-};*/
+};
 function initEchartData(array,datalist,dataListInfo){
 	var data=[];
 	var b=[];
