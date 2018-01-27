@@ -5,6 +5,8 @@
  <link rel="stylesheet" href="/css/common.css" />
  <link rel="stylesheet" href="/css/page.css" />
  <link rel="stylesheet" href="/vendor/loading/css/loading.css" />
+ <link rel="stylesheet" href="/css/rightcontentcircles.css" />
+ <link rel="stylesheet" href="/css/rightcontent.css" />
   <!-- js 兼容低版本IE start -->
    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
    <!--[if lt IE 9]>
