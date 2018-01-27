@@ -339,6 +339,9 @@ public class Company implements Serializable {
 	}
 
 	public String getRegisterDate() {
+		if(StringUtil.isEmpty(this.registerDate)){
+			return "1700-01-01";
+		}
 		return registerDate;
 	}
 

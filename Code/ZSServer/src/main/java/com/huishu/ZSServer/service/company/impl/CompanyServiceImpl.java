@@ -104,7 +104,7 @@ public class CompanyServiceImpl extends AbstractService<Company> implements Comp
 								&& obj.getRegisterDate().compareTo(etime) < 0;
 					}).filter(obj -> {
 						return obj.getRc() >= sregist && obj.getRc() < eregist;
-					}).sorted((a, b) -> b.getRegisterCapital().compareTo(a.getRegisterCapital())).collect(Collectors.toList());
+					}).sorted((a, b) -> b.getRc().compareTo(a.getRc())).collect(Collectors.toList());
 			list2 = findAll.stream().skip(pageNum * pageSize).limit(pageSize).collect(Collectors.toList());
 			page = new PageImpl<>(list2, pageRequest, findAll.size());
 		} catch (Exception e) {
