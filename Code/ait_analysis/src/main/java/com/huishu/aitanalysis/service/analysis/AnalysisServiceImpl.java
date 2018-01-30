@@ -25,15 +25,13 @@ import com.huishu.aitanalysis.util.Util;
 public class AnalysisServiceImpl extends AbstractPostService  implements AnalysisService{
 	
 	private Logger log = Logger.getLogger("analysis");
-	@Autowired
-	private IIndexService indexService;
 	
 	/**
 	 * 分析入es库
 	 */
 	@SuppressWarnings("unused")
 	@Override
-	public void analysis(String dataJson) {
+	public void analysis(String dataJson,IIndexService indexService) {
 		Index index = null;
 		Index2 index2 = null;
 		Index3 index3 = null;
