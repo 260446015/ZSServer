@@ -56,9 +56,10 @@ function showPage(req) {
                     var arr = res.data.dataList;
                     var html = '';
                     for (var i = 0; i < arr.length; i++) {
-                        html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td>' + arr[i].userAccount + '</td><td>' + arr[i].realName + '</td><td>' + arr[i].telphone + '</td><td>' + arr[i].userEmail
-                            + '</td><td>' + arr[i].createTime + '</td><td class="actions">'+
-                            '<button class="bk-margin-5 btn btn-labeled btn-success" type="button"><span class="btn-label"><i class="fa fa-check"></i></span>通过</button></td></tr>';
+                        html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td>' + arr[i].financingDate + '</td><td>' + arr[i].financingCompany + '</td><td>' + arr[i].invest + '</td><td>' + arr[i].financingAmount
+                            + '</td><td>' + arr[i].investor + '</td><td class="actions">'+
+                            '<a href="javascript:void(0);" class="on-default my_edit">查看详情</a>' +
+                            '<a href="javascript:void(0);" class="on-default my_remove modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>';
 
                     }
                     $("#user_list").html(html);
@@ -67,8 +68,10 @@ function showPage(req) {
                         var req = {
                             "pageNum" : $(this).attr("page-data")-1,
                             "pageSize" : _pageSize,
-                            "type" : _type,
-                            "time" : _time
+                            "invest":_invest,
+                            "sort":_sort,
+                            "area":_area,
+                            "industry":_industry
                         };
                         showPage(req);
                     });
@@ -102,4 +105,23 @@ function showPage(req) {
             }
         });
     });
+    $(".my_remove").on("click",function(i){
+        var _id = $(this).parents('.gradeX').find( 'input' ).val();
+        layer.confirm('确定要删除该数据？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            $.ajax({
+                async:false,
+                url : "/apis/financing/drop.json?id="+_id,
+                success : function(res) {
+                    if(res.success){
+                        layer.msg('成功删除', {icon: 1});
+                        showIndusCompany(pageNum,pageSize);
+                    }else{
+                        layer.msg(res.message, {icon: 2});
+                    }
+                }
+            });
+        });
+    })
 }
