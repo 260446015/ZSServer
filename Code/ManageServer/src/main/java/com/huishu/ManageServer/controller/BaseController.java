@@ -32,7 +32,7 @@ public abstract class BaseController {
 	}
 	
 	/**
-	 * 获取shiro中用户信息
+	 * 获取 shiro 中用户信息
 	 * @return
 	 */
 //	public ShiroUser getCurrentShiroUser() {
