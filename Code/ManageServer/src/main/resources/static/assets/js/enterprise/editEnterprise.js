@@ -1,3 +1,4 @@
+$("#company_indus").addClass("active nav-expanded ");
 $("#enterprise_item").addClass("active");
 var _id;
 function addData(enter) {
