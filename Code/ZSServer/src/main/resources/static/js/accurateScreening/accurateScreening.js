@@ -191,42 +191,32 @@ function TagList(arr){
 	return inner;
 };
 
-    $.ajax({
-        url:'/intelligent/list.json',
-        type:'GET',
-        async: false,
-        success:function(res){
-            var strHtml = "";
-            for(var i=0;i<res.data.length;i++){
-                    if(res.data[i].companyName!=null){
-                        strHtml += "<li>"
-                        strHtml += "<div>"
-                        strHtml += "<p>"+res.data[i].companyName+"</p>"
-                        strHtml += "</div>"
-                        if(res.data[i].industry!=null){
-                            strHtml += "<small class='sma smCircle'>"+"<i>"+res.data[i].industry+"</i></small>" ;    
-                        }
-                        if(res.data[i].industryLabel!=null){
-                            strHtml += "<small class='smb smCircle'><i>"+res.data[i].industryLabel+"</i></small>" ;  
-                        }
-                        if(res.data[i].industryZero!=null){
-                            strHtml += "<small class='smc smCircle'><i>"+res.data[i].industryZero+"</i></small></li>" ;       
-                        }    
-                    }
-                }
-            $('.Precisecircles ul').html(strHtml);
-            $(".Precisecircles ul>li").each(function(index,el){
-               if($(el).children("small").length==0){
-                 $(el).css('border','0')
-               }
-               $('.smCircle>i').hover(function(){
-                   $('.smCircle>i').addClass('spot')
-               },function(){
-                $('.smCircle>i').removeClass('spot')
-               })
-            })    
-        }   
-    }) 
+$.ajax({
+	url:'/intelligent/list.json',
+	type:'GET',
+	async: false,
+	success:function(res){
+		var strHtml = "";
+		for(var i=0;i<res.data.length;i++){
+				if(res.data[i].companyName!=null){
+					strHtml += "<li>"
+					strHtml += "<div>"
+					strHtml += "<p>"+res.data[i].companyName+"</p>"
+					strHtml += "</div>"
+					if(res.data[i].industry!=null){
+						strHtml += "<small class='smaa smCircle'>"+"<i>"+res.data[i].industry+"</i></small>" ;    
+					}
+					if(res.data[i].industryLabel!=null){
+						strHtml += "<small class='smbb smCircle'><i>"+res.data[i].industryLabel+"</i></small>" ;  
+					}
+					if(res.data[i].industryZero!=null){
+						strHtml += "<small class='smcc smCircle'><i>"+res.data[i].industryZero+"</i></small></li>" ;       
+					}    
+				}
+			}
+		$('.Precisecircles ul').html(strHtml);
+	}   
+}) 
 
 function searchAjax(){
 	var param = {'industry':industry,'area':area,'registerTime':registerTime,'register':register};
@@ -249,26 +239,32 @@ function searchAjax(){
 							strHtml += "<p>"+res.data[i].companyName+"</p>"
 							strHtml += "</div>"
 							if(res.data[i].industry!=null){
-								strHtml += "<small class='sma smCircle'>"+"<i>"+res.data[i].industry+"</i></small>" ;    
+								strHtml += "<small class='smaa smCircle'>"+"<i>"+res.data[i].industry+"</i></small>" ;    
 							}
 							if(res.data[i].industryLabel!=null){
-								strHtml += "<small class='smb smCircle'><i>"+res.data[i].industryLabel+"</i></small>" ;  
+								strHtml += "<small class='smbb smCircle'><i>"+res.data[i].industryLabel+"</i></small>" ;  
 							}
 							if(res.data[i].industryZero!=null){
-								strHtml += "<small class='smc smCircle'><i>"+res.data[i].industryZero+"</i></small></li>" ;       
+								strHtml += "<small class='smcc smCircle'><i>"+res.data[i].industryZero+"</i></small></li>" ;       
 							}    
 						}
 					}
 				$('.Precisecircles ul').html(strHtml);
 				$(".Precisecircles ul>li").each(function(index,el){
-					if($(el).children("small").length==0){
-						$(el).css('border','0')
-					}
-					$('.smCircle>i').hover(function(){
-						$('.smCircle>i').addClass('spot')
+					$(el).hover(function(){
+						if($(el).children("small").length!=0){
+							$(el).css('border','1px solid #7a8798')
+							$(el).find('small').css('display','block')
+						  }
 					},function(){
-					$('.smCircle>i').removeClass('spot')
+						$(el).css('border','0')
+						$(el).find('small').css('display','none')
 					})
+				   $('.smCircle>i').hover(function(){
+					   $('.smCircle>i').addClass('spot')
+				   },function(){
+					$('.smCircle>i').removeClass('spot')
+				   })
 				})    
 					  
             }
@@ -306,8 +302,8 @@ function searchAjax(){
 						 );   
 						 $(".layer-person").css({
 							   display: "block",
-							   top: e.offsetY,
-							   left: e.offsetX+200
+							   top: e.clientY-200,
+							   left: e.clientX-200
 						   });
 					   }
 					   }

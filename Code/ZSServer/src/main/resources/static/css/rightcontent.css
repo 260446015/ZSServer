@@ -3,7 +3,6 @@
     height: 200px;
     border-radius: 100%;
     text-align: center;
-    border: 1px solid #3b83a9;
     color:#fff;
     font-size: 12px;
     position: absolute;
@@ -14,7 +13,7 @@
 .Precisecircles ul li:nth-child(1) div{
     width: 100px;
     height: 100px;
-    line-height: 100px;
+    /* line-height: 100px; */
     font-size: 12px;
     color: #fff;
     border-radius: 100%;
@@ -23,6 +22,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    cursor: pointer;
+}
+.Precisecircles ul li:nth-child(1) div p{
+    padding: 30px 10px;
 }
 .Precisecircles ul li:nth-child(1) span{
     position: absolute;
@@ -39,69 +42,47 @@
     font-size: 14px;
     color: #000c0b;
 } 
-.sma{
+.smaa{
     
     position: absolute;
     left: -5px;
     top: 50%;
     margin-top: -5px;
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    background-color: #55bbfb;
-    box-shadow: 1px 1px 2px #fff
-}
-.sma b{
-    position: absolute;
-    left: 26px;
-    top: 16px;
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 100%;
     background-color: #55bbfb;
     box-shadow: 1px 1px 2px #fff;
+    display: none;
 }
-.smb{
+
+.smbb{
     position: absolute;
     left: 50%;
     top: -5px;
     margin-left: -5px;
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 100%;
     background-color: #20c2fe;
     box-shadow: 1px 1px 2px #fff;
+    display: none;
 }
-.smb b{
-    position: absolute;
-    left: 2px;
-    top: 16px;
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    background-color: #20c2fe;
-    box-shadow: 1px 1px 2px #fff;
-}
-.smc{
+
+.smcc{
     position: absolute;
     right: -5px;
     top: 50%;
     margin-top: -5px;
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 100%;
     background-color: #20c2fe;
     box-shadow: 1px 1px 2px #fff;
+    display: none;
 }
-.smc b{
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    background-color: #20c2fe;
-    box-shadow: 1px 1px 2px #fff;
-}
-.sma>i,.smb>i,.smc>i{
+
+.smaa>i,.smbb>i,.smcc>i{
     position: absolute;
     width: 100px;
     top: 17px;
@@ -111,13 +92,13 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.sma .spot{
+.smaa .spot{
     overflow: visible;
 }
-.smb .spot{
+.smbb .spot{
     overflow: visible;
 }
-.smc .spot{
+.smcc .spot{
     overflow: visible;
 }
 .Precisecircles ul li:nth-child(2){
@@ -125,7 +106,6 @@
     height: 150px;
     border-radius: 100%;
     text-align: center;
-    border: 1px solid #3b83a9;
     color:#fff;
     font-size: 12px;
     position: absolute;
@@ -135,7 +115,7 @@
 .Precisecircles ul li:nth-child(2) div{
     width: 75px;
     height: 75px;
-    line-height: 75px;
+    /* line-height: 75px; */
     font-size: 12px;
     color: #fff;
     border-radius: 100%;
@@ -144,7 +124,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
+    cursor: pointer;
 }
+
+.Precisecircles ul li:nth-child(2) div p{
+    padding: 30px 10px;
+}
+
 .Precisecircles ul li:nth-child(2) span{
     position: absolute;
     top: -8px;
@@ -167,17 +153,16 @@
     height: 160px;
     border-radius: 100%;
     text-align: center;
-    border: 1px solid #3b83a9;
     color:#fff;
     font-size: 12px;
     position: absolute;
-    left: 18%;
-    top: 459%;
+    left: 24%;
+    top: 409%;
 }
 .Precisecircles ul li:nth-child(3) div{
     width: 80px;
     height: 80px;
-    line-height: 80px;
+    /* line-height: 80px; */
     font-size: 12px;
     color: #fff;
     border-radius: 100%;
@@ -186,7 +171,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
+    cursor: pointer;
 }
+
+.Precisecircles ul li:nth-child(3) div p{
+    padding: 30px 10px;
+}
+
 .Precisecircles ul li:nth-child(3) span{
     position: absolute;
     top: -8px;
@@ -210,7 +201,6 @@
     height: 160px;
     border-radius: 100%;
     text-align: center;
-    border: 1px solid #3b83a9;
     color:#fff;
     font-size: 16px;
     position: absolute;
@@ -220,7 +210,7 @@
 .Precisecircles ul li:nth-child(4) div{
     width: 80px;
     height: 80px;
-    line-height: 80px;
+    /* line-height: 80px; */
     font-size: 12px;
     color: #fff;
     border-radius: 100%;
@@ -229,7 +219,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
+    cursor: pointer;
 }
+
+.Precisecircles ul li:nth-child(4) div p{
+    padding: 30px 10px;
+}
+
 .Precisecircles ul li:nth-child(4) span{
     position: absolute;
     top: -8px;
@@ -248,11 +244,10 @@
 
 
 .Precisecircles ul li:nth-child(5){
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
     border-radius: 100%;
     text-align: center;
-    border: 1px solid #3b83a9;
     color:#fff;
     font-size: 12px;
     position: absolute;
@@ -260,9 +255,9 @@
     top: 393%;
 }
 .Precisecircles ul li:nth-child(5) div{
-    width: 70px;
-    height: 70px;
-    line-height: 70px;
+    width: 80px;
+    height: 80px;
+    /* line-height: 80px; */
     font-size: 12px;
     color: #fff;
     border-radius: 100%;
@@ -271,7 +266,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
+    cursor: pointer;
 }
+
+.Precisecircles ul li:nth-child(5) div p{
+    padding: 30px 10px;
+}
+
 .Precisecircles ul li:nth-child(5) span{
     position: absolute;
     top: -8px;
@@ -293,7 +294,6 @@
     height: 120px;
     border-radius: 100%;
     text-align: center;
-    border: 1px solid #3b83a9;
     color:#fff;
     font-size: 14px;
     position: absolute;
@@ -303,7 +303,7 @@
 .Precisecircles ul li:nth-child(6) div{
     width: 60px;
     height: 60px;
-    line-height: 60px;
+    /* line-height: 60px; */
     font-size: 12px;
     color: #fff;
     border-radius: 100%;
@@ -312,7 +312,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
+    cursor: pointer;
 }
+
+.Precisecircles ul li:nth-child(6) div p{
+    padding: 10px 10px;
+}
+
 .Precisecircles ul li:nth-child(6) span{
     position: absolute;
     top: -8px;
@@ -334,7 +340,6 @@
     height: 200px;
     border-radius: 100%;
     text-align: center;
-    border: 1px solid #3b83a9;
     color:#fff;
     font-size: 12px;
     position: absolute;
@@ -344,7 +349,7 @@
 .Precisecircles ul li:nth-child(7) div{
     width: 100px;
     height: 100px;
-    line-height: 100px;
+    /* line-height: 100px; */
     font-size: 12px;
     color: #fff;
     border-radius: 100%;
@@ -353,7 +358,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
+    cursor: pointer;
 }
+
+.Precisecircles ul li:nth-child(7) div p{
+    padding: 30px 10px;
+}
+
 .Precisecircles ul li:nth-child(7) span{
     position: absolute;
     top: -8px;
@@ -372,21 +383,20 @@
 
 
 .Precisecircles ul li:nth-child(8){
-    width: 120px;
-    height: 120px;
+    width: 160px;
+    height: 160px;
     border-radius: 100%;
     text-align: center;
-    border: 1px solid #3b83a9;
     color:#fff;
     font-size: 12px;
     position: absolute;
-    left: 23%;
-    top: 297%;
+    left: 18%;
+    top: 215%;
 }
 .Precisecircles ul li:nth-child(8) div{
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
+    width: 80px;
+    height: 80px;
+    /* line-height: 80px; */
     font-size: 12px;
     color: #fff;
     border-radius: 100%;
@@ -395,7 +405,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
+    cursor: pointer;
 }
+
+.Precisecircles ul li:nth-child(8) div p{
+    padding: 20px 10px;
+}
+
 .Precisecircles ul li:nth-child(8) span{
     position: absolute;
     top: -8px;
@@ -419,7 +435,6 @@
     height: 120px;
     border-radius: 100%;
     text-align: center;
-    border: 1px solid #3b83a9;
     color:#fff;
     font-size: 12px;
     position: absolute;
@@ -429,7 +444,7 @@
 .Precisecircles ul li:nth-child(9) div{
     width: 60px;
     height: 60px;
-    line-height: 60px;
+    /* line-height: 60px; */
     font-size: 12px;
     color: #fff;
     border-radius: 100%;
@@ -438,7 +453,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
+    cursor: pointer;
 }
+
+.Precisecircles ul li:nth-child(9) div p{
+    padding: 10px 10px;
+}
+
 .Precisecircles ul li:nth-child(9) span{
     position: absolute;
     top: -8px;
@@ -461,7 +482,6 @@
     height: 120px;
     border-radius: 100%;
     text-align: center;
-    border: 1px solid #3b83a9;
     color:#fff;
     font-size: 14px;
     position: absolute;
@@ -471,7 +491,7 @@
 .Precisecircles ul li:nth-child(10) div{
     width: 60px;
     height: 60px;
-    line-height: 60px;
+    /* line-height: 60px; */
     font-size: 12px;
     color: #fff;
     border-radius: 100%;
@@ -479,8 +499,14 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);  
+    transform: translate(-50%,-50%); 
+    cursor: pointer;
 } 
+
+.Precisecircles ul li:nth-child(10) div p{
+    padding: 10px 10px;
+}
+
  .Precisecircles ul li:nth-child(10) span{
     position: absolute;
     top: -8px;
@@ -496,6 +522,7 @@
     font-size: 12px;
     color: #000c0b;
 }
+
 #searchTag{
     float: left;
 }

@@ -28,11 +28,14 @@ $(".mark-box").on("click","li>a.mark-item",function () {
         industrySummitInfo(industry);
     });
 
-var ind=$('.timeline li').index();
-function auto(){
-	$('.timeline li').animate({marginTop:0}).eq(ind).appendTo($('.timeline'))
+	
+function autoScroll(obj){
+	$(obj).find('ul').animate({marginTop:'-30px'},2000,function(){
+		$(this).css({marginTop:'30px'}).find('li:first').appendTo(this)
+	})
 }
-time=setInterval('auto()',2000)
+
+setInterval('autoScroll(".timeline-box")',3000)
 
 function industrySummitInfo(industry){
 	$.ajax({
@@ -187,15 +190,13 @@ function industryHotRank(industry){
 					industryHotCity.series[1].data = array;
 					industryHotCity.series[0].data = arr;
 					industryHotCityCharts.setOption(industryHotCity);
-					findCompany(data[0].area,industry);
-					
+					findCompany(data[0].area,industry);	
 			 }
 			
 		 }
 	 });
  };
 function findCompany(a,b){
-	
 	$.ajax({
 		url :'/indusMap/getBusinessListByArea.json',
 		type : 'POST',
@@ -221,6 +222,7 @@ function industryMapData(a){
 		type:'GET',
 		data:{"industry":a},
 		success:function(res){
+			
 			if(res.message!=null){
 				new Loading({isfullscreen:true}).hide();
 				new Alert({flag:false,text:res.message,timer:2000}).show();
@@ -463,6 +465,7 @@ var EopaciData = function (a){
 }
 var industryMap = echarts.init(document.getElementById('industryMap'),"customed");
 var chinaOption = {
+	    
 	    itemStyle : {
 	        normal: {
 	            opacity: 0.6,
@@ -482,18 +485,15 @@ var chinaOption = {
 
 		 visualMap: {
              seriesIndex: 0,
-             min: 0,
-             max: 1000,
+             min: 132,
+             max: 3000,
              left: 'left',
              top: 'bottom',
              text:['高','低'],           // 文本，默认为数值文本
              calculable : true,
              show: false,
              inRange: {
-                 color: 
-                	 ["#104E8B","#000080"],
-//        color: ["#6959CD","#4B0082"],
-//        color: ["#badcfe","#204f8e"]
+                 color: ["#5eadfc","#000000"]
              }
          },
 		geo: {
@@ -501,7 +501,7 @@ var chinaOption = {
             zoom: 1.25,
             label: {
                 normal: {
-//                	opacity:.6,
+               	opacity:.6,
                     show: false,
                     color: '#fff'
                 },

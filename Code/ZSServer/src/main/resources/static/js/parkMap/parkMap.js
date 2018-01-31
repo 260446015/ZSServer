@@ -424,7 +424,7 @@ var option = {
 
     series: [{
         name: '热词',
-        type: 'effectScatter',
+        type: 'scatter',
         showEffectOn: 'emphasis',
         itemStyle: {
             normal: {
