@@ -63,8 +63,8 @@ import com.huishu.ZSServer.service.garden.GardenService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
-//@SpringBootTest(classes = Application.class)
-//@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = Application.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public class GardenTest {
 
 	@Autowired
@@ -676,5 +676,26 @@ public class GardenTest {
 			}
 		}
 		gardenRepository.save(list);
+	}
+	
+	@Test
+	public void testSaveBaseInfo() throws FileNotFoundException{
+		WpsUtilsTest util = new WpsUtilsTest();
+		FileInputStream is = new FileInputStream("C:\\Users\\yindawei\\Documents\\WeChat Files\\blade_260\\Files\\企业.xlsx");
+		Map<Integer, String> content = util.readExcelContentXlsx(is, "&");
+		OpeneyesDTO dto = new OpeneyesDTO();
+		int errorCount = 0;
+//		for (Map.Entry<Integer, String> entry : content.entrySet()) {
+//			String[] arr = entry.getValue().split("&");
+			dto.setCname("北京千乘探索科技有限公司");
+			try {
+				openeyesService.getBaseInfo(dto);
+			} catch (Exception e) {
+				errorCount ++;
+				log.info("失败名称为:"+dto.getCname());
+				e.printStackTrace();
+			}
+//		}
+		log.info("失败："+errorCount);
 	}
 }

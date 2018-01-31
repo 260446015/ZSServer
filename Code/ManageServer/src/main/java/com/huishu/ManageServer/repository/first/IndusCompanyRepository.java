@@ -25,4 +25,10 @@ public interface IndusCompanyRepository extends CrudRepository<IndusCompany, Lon
 	List<IndusCompany> findIndus(int currentCount ,int pageSize);
 	@Query(value = "select COUNT(*) FROM t_indus_company ", nativeQuery = true)
 	int getCount();
+	
+	List<IndusCompany> findByIndustry(String indus);
+	
+	List<IndusCompany> findByIndustryIsNull();
+	
+	IndusCompany findByCompany(String name);
 }

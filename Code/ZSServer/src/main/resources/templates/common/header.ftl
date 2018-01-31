@@ -32,7 +32,7 @@
                     <img width="20" height="22" src="/images/usericon.png">
                 </a>
             </li>
-            <a href="/logOut.do" class="pull-right" style="font-size:24px;margin-top:10px; ">退出</a>
+            <a href="/logOut.do" class="pull-right" style="font-size:16px;margin-top:16px; ">退出</a>
         </ul>
     </div>
 </div>

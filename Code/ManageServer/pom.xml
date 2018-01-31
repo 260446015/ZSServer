@@ -42,6 +42,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.44</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -236,4 +237,5 @@
         </plugins>
 
       </build>
+   <packaging>war</packaging>
 </project>

@@ -46,6 +46,7 @@ function ajsxPost(y,t,n){
         contentType: 'application/json',
         data: JSON.stringify({year:y,type:t,pageNumber:n}),
         success: function (response) {
+			console.log(response)
             if(response.message!=null){
             	new Alert({flag:false,text:response.message,timer:1500}).show();
             }else{
@@ -80,6 +81,7 @@ function item(d){
 	return inner;
 };
 function show(d){
+	console.log(d)
     var arr = []
     $.each(d, function(index, item){
       arr.push('<div class="col-md-3"><div class="report-list"><a href="/apis/report/reportDetails.html?fileId='+item.id+'" class="border-box"><img class="circle-img" src="/images/report.png" /></a>'+

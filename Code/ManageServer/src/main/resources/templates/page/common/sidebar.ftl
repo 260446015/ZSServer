@@ -25,17 +25,12 @@
                             <li id="logo_item"><a href="/apis/user/userLogo.html"><span class="text">登录日志</span></a></li>
                             <li id="search_item"><a href="/apis/user/userSearch.html"><span class="text">搜索历史</span></a></li>
                         </ul></li>
-                    <li id="enterprise_item">
-                        <a href="/apis/enterprise/enterpriseManage.html">
-                            <i class="fa fa-sitemap" aria-hidden="true"></i><span>企业库</span>
-                        </a>
-                    </li>
-                    <li id="company_indus" class="nav-parent"><a> <i class="fa fa-user"
+                    <li id="company_indus" class="nav-parent"><a> <i class="fa fa-sitemap"
 							aria-hidden="true"></i><span>企业管理</span>
 					</a>
 						<ul class="nav nav-children">
+							<li id="enterprise_item"><a href="/apis/enterprise/enterpriseManage.html"><span class="text">企业库</span></a></li>
 							<li><a href="/apis/accurate/accurateScreen.html"><span class="text">企业产业</span></a></li>
-							<li><a href="javascript:void(0)"><span class="text">？？？</span></a></li>
 							<li><a href="javascript:void(0)"><span class="text">？？？</span></a></li>
 						</ul></li>
 					<li id="garden" class="nav-parent"><a> <i class="fa fa-user"
@@ -65,6 +60,11 @@
 							 <li><a href="/apis/industrysummit/industrySummitManage.html"><span class="text">产业峰会</span></a></li>
 						  </ul>
 					</li>
+                    <li id="financing_item">
+                        <a href="/apis/financing/financingManage.html">
+                            <i class="fa fa-eject" aria-hidden="true"></i><span>融资数据</span>
+                        </a>
+                    </li>
 				</ul>
 			</nav>
 		</div>

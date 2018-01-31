@@ -143,7 +143,9 @@ public class TaskConfiguration {
 					day = strArr[2];
 					if (day.length() == 1) {
 						day = "0" + day;
-					}if(day.compareTo("29")>0){
+					}else if(day.length()>2){
+						day="29";
+					}else if(day.compareTo("29")>0){
 						day="29";
 					}
 				}
