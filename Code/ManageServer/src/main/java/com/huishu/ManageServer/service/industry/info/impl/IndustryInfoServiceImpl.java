@@ -258,9 +258,9 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 				bq.should(QueryBuilders.termQuery("industryLabel",str ));
 			}
 		}
-		
+	
 		PageRequest pageRequest = new PageRequest(0,500);
-		SearchQuery query = getSearchQueryBuilder().withQuery(bq).withPageable(pageRequest).build();
+		SearchQuery query = getBoolQueryBuilder().withQuery(bq).withPageable(pageRequest).build();
 		List<String> contentList = new ArrayList<String>();
 		template.query(query, res -> {
 			SearchHits hits = res.getHits();
@@ -308,7 +308,7 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 		TermsBuilder articleLinkBuilder = AggregationBuilders.terms("articleLink").field("articleLink")
 				.order(Order.count(false)).size(500);
 
-		SearchQuery authorQuery = getSearchQueryBuilder().withQuery(bq).addAggregation(articleLinkBuilder).build();
+		SearchQuery authorQuery = getBoolQueryBuilder().withQuery(bq).addAggregation(articleLinkBuilder).build();
 
 		JSONArray array = template.query(authorQuery, res -> {
 			JSONArray jsonArray = new JSONArray();

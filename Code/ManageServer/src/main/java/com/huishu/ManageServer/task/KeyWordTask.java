@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.merchantKey.itemModel.KeywordModel;
-import com.mysql.fabric.xmlrpc.base.Array;
 import com.huishu.ManageServer.common.util.DateUtils;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.entity.dbFirst.KeyWordEntity;
@@ -22,6 +20,7 @@ import com.huishu.ManageServer.entity.dbFirst.KeywordArticle;
 import com.huishu.ManageServer.service.industry.info.IndustryInfoService;
 import com.huishu.ManageServer.service.keyword.KeyArticleService;
 import com.huishu.ManageServer.service.keyword.KeyWordService;
+import com.merchantKey.itemModel.KeywordModel;
 
 /**
  * @author hhy
@@ -45,13 +44,14 @@ public class KeyWordTask {
 	/**
 	 * 关键词云
 	 */
-	@Scheduled(fixedDelay = 1000 * 60 * 60 * 6)
+	@Scheduled(fixedDelay = 1000 * 60 * 60 * 12)
 	public void getKeyWord() {
 		log.info("==========定时任务开启===========");
 		// 第一步 获取所有的关于关键词的条件
 		List<String> time1 = Arrays.asList(time.split(","));
 		List<String> asList = Arrays.asList(industry.split(","));
 		time1.forEach(str -> {
+			System.out.println(str);
 		
 			JSONObject obj = new JSONObject();
 			JSONArray array = new JSONArray();
@@ -148,21 +148,29 @@ public class KeyWordTask {
 					obj1.put("dimension","产业头条");
 				}
 				JSONArray json = service.getArticleListByKeyWord(obj1);
-				for(int i=0;i<json.size();i++){
-					KeywordArticle entry = new KeywordArticle();
-					JSONObject obj = json.getJSONObject(i);
-					entry.setAid(obj.getString("id"));
-					entry.setIndustryLabel(obj.getString("industryLabel"));
-					entry.setKid(id);
-					entry.setTitle(obj.getString("title"));
-					entry.setArticleLink(obj.getString("articleLink"));
-					info.add(entry);
-				}
-				boolean result = keyservice.saveInfo(info);
-				if(result){
-					log.info("当前保存成功");
-				}else{
-					log.info("保存当前文章列表失败");
+				if(json.size()>0){
+					try {
+						boolean flag = keyservice.deleteByKid(id);
+						log.info("删除的结果为:",flag);
+					} catch (Exception e) {
+						log.info("根据关键词id删除文章信息",e);
+					}
+					for(int i=0;i<json.size();i++){
+						KeywordArticle entry = new KeywordArticle();
+						JSONObject obj = json.getJSONObject(i);
+						entry.setAid(obj.getString("id"));
+						entry.setIndustryLabel(obj.getString("industryLabel"));
+						entry.setKid(id);
+						entry.setTitle(obj.getString("title"));
+						entry.setArticleLink(obj.getString("articleLink"));
+						info.add(entry);
+					}
+					boolean result = keyservice.saveInfo(info);
+					if(result){
+						log.info("当前保存成功");
+					}else{
+						log.info("保存当前文章列表失败");
+					}
 				}
 			});
 		}
