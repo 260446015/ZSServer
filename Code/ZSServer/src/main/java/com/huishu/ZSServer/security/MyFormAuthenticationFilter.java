@@ -1,12 +1,6 @@
 package com.huishu.ZSServer.security;
 
-import java.util.Collection;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.huishu.ZSServer.common.util.ShiroUtil;
 import com.huishu.ZSServer.entity.user.UserBase;
 import com.huishu.ZSServer.repository.user.UserBaseRepository;
 import org.apache.shiro.authc.AuthenticationException;
@@ -22,11 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.huishu.ZSServer.common.util.ShiroUtil;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 
 public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 
-	private static final Logger log = LoggerFactory.getLogger(MyFormAuthenticationFilter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MyFormAuthenticationFilter.class);
 
 	@Autowired
 	private DefaultWebSecurityManager securityManager;
@@ -53,10 +51,10 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 					}
 				}
 			}
-			subject.login(token);// 正常验证
+			subject.login(token);
 			return onLoginSuccess(token, subject, request, response);
 		} catch (AuthenticationException e) {
-			log.error("登录失败." + e);
+			LOGGER.error("登录失败." + e);
 			return onLoginFailure(token, e, request, response);
 		}
 	}
@@ -92,19 +90,19 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 			throws Exception {
 		 if (isLoginRequest(request, response)) {  
              if (isLoginSubmission(request, response)) {  
-                 if (log.isTraceEnabled()) {  
-                     log.trace("Login submission detected.  Attempting to execute login.");  
+                 if (LOGGER.isTraceEnabled()) {
+					 LOGGER.trace("Login submission detected.  Attempting to execute login.");
                  }  
                  return executeLogin(request, response);  
              } else {  
-                 if (log.isTraceEnabled()) {  
-                     log.trace("Login page view.");  
+                 if (LOGGER.isTraceEnabled()) {
+					 LOGGER.trace("Login page view.");
                  }  
                  return true;  
              }  
          } else {  
-             if (log.isTraceEnabled()) {  
-                 log.trace("Attempting to access a path which requires authentication.  Forwarding to the " +  
+             if (LOGGER.isTraceEnabled()) {
+				 LOGGER.trace("Attempting to access a path which requires authentication.  Forwarding to the " +
                          "Authentication url [" + getLoginUrl() + "]");  
              }  
              if(isAjax(request)){  

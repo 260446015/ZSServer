@@ -1,8 +1,7 @@
 package com.huishu.ZSServer.security;
 
-import java.security.interfaces.RSAPrivateKey;
-import java.util.concurrent.atomic.AtomicInteger;
-
+import com.huishu.ZSServer.entity.user.UserBase;
+import com.huishu.ZSServer.repository.user.UserBaseRepository;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -16,8 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.huishu.ZSServer.entity.user.UserBase;
-import com.huishu.ZSServer.repository.user.UserBaseRepository;
+import java.security.interfaces.RSAPrivateKey;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 自定义校验密码类

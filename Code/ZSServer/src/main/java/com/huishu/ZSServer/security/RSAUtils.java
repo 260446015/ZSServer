@@ -26,7 +26,7 @@ public class RSAUtils {
 			// ignore
 			e.printStackTrace();
 		}
-		keyPairGen.initialize(1024);
+		keyPairGen.initialize(128);
 		return keyPairGen.generateKeyPair();
 	}
 
