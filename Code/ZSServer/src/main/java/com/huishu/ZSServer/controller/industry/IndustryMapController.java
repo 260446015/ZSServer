@@ -111,7 +111,7 @@ public class IndustryMapController extends BaseController{
 		JSONObject obj = new JSONObject();
 		obj.put("dimension", "高峰论坛");
 		if(industry.equals("生物技术")){
-			obj.put("industry", "生物产业");
+			obj.put("industry", "生物医药");
 		}else{
 			obj.put("industryLabel", industry);
 		}

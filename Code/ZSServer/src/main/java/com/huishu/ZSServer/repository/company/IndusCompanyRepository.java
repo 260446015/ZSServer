@@ -40,6 +40,6 @@ public interface IndusCompanyRepository extends CrudRepository<IndusCompany,Long
 	 * @param i
 	 * @return
 	 */
-	@Query(value = "SELECT * FROM t_indus_company LIMIT ?1,10", nativeQuery = true)
+	@Query(value = "SELECT * FROM t_indus_company where LENGTH(t_company_name) < 30 LIMIT ?1,10", nativeQuery = true)
 	List<IndusCompany> getCompanyInfo(int i);
 }
