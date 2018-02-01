@@ -3,32 +3,41 @@ var _id;
 function addData(info){
 	_id=info.id;
 	  $("input[name='id']").val(info.id);
-	  $("input[name='title']").val(info.title);
-	  $("input[name='summary']").val(info.summary);
-	  $("input[name='content']").val(info.content);
-	  $("input[name='articleLink']").val(info.articleLink);
-	  $("input[name='logo']").val(info.logo);
+	  $("input[name='engageState']").val(info.engageState);
+	  $("textarea[name='summary']").val(info.summary);
+	  $("input[name='identity']").val(info.identity);
+	  $("input[name='registerCapital']").val(info.registerCapital);
+	  $("input[name='registerData']").val(info.registerData);
 	  $("input[name='address']").val(info.address);
-	  $("input[name='area']").val(info.area);
+	  $("input[name='publishDate']").val(info.publishDate);
 	  $("input[name='publishTime']").val(info.publishTime);
-	  $("input[name='exhibitiontime']").val(info.exhibitiontime);
-	  $("input[name='vector']").val(info.vector);
-	  $("input[name='source']").val(info.source);
+	  $("input[name='publishYear']").val(info.publishYear);
+	  $("input[name='articleLink']").val(info.articleLink);
+	  $("input[name='title']").val(info.title);
+	  $("textarea[name='content']").val(info.content);
 	  $("input[name='author']").val(info.author);
-	  $("input[name='emotion']").val(info.emotion);
+	  $("input[name='sourceLink']").val(info.sourceLink);
+	  $("input[name='source']").val(info.source);
+	  $("input[name='area']").val(info.area);
 	  $("input[name='industry']").val(info.industry);
 	  $("input[name='industryLabel']").val(info.industryLabel);
+	  $("input[name='vector']").val(info.vector);
 	  $("input[name='industryType']").val(info.industryType);
-	  $("input[name='bus']").val(info.bus);
+	  $("input[name='park']").val(info.park);
+	  $("input[name='establishTime']").val(info.establishTime);
+	  $("input[name='acreage']").val(info.acreage);
 	  $("input[name='business']").val(info.business);
-	  $("input[name='publishDate']").val(info.publishDate);
-	  $("input[name='publishYear']").val(info.publishYear);
+	  $("input[name='updateAttribute']").val(info.updateAttribute);
+	  $("input[name='boss']").val(info.boss);
+	  $("input[name='businessType']").val(info.businessType);
+	  $("input[name='emotion']").val(info.emotion);
 	  $("input[name='hitCount']").val(info.hitCount);
 	  $("input[name='supportCount']").val(info.supportCount);
 	  $("input[name='replyCount']").val(info.replyCount);
 	  $("input[name='hasWarn']").val(info.hasWarn);
-	  $("input[name='dimension']").val(info.dimension);
+	  $("input[name='logo']").val(info.logo);
 	  $("input[name='istop']").val(info.istop);
+	  $("input[name='dimension']").val(info.dimension);
 	 
 };
 $(".btn-success").on("click",function(){
@@ -47,40 +56,52 @@ $(".btn-danger").on("click",function(){
 });
 function etitData() {
 	 var _id = $("input[name='id']").val();
-	 var _title = $("input[name='title']").val();
-	 var _summary = $("input[name='summary']").val();
-	 var _content = $("input[name='content']").val();
-	 var _articleLink = $("input[name='articleLink']").val();
-	 var _logo = $("input[name='logo']").val();
+	 var _engageState = $("input[name='engageState']").val();
+	 var _summary = $("textarea[name='summary']").val();
+	 var _identity = $("input[name='identity']").val();
+	 var _registerCapital = $("input[name='registerCapital']").val();
+	 var _registerData = $("input[name='registerData']").val();
 	 var _address = $("input[name='address']").val();
-	 var _area = $("input[name='area']").val();
-	 var _publishTime = $("input[name='publishTime']").val();
-	 var _exhibitiontime = $("input[name='exhibitiontime']").val();
-	 var _vector = $("input[name='vector']").val();
-	 var _source = $("input[name='source']").val();
-	 var _author = $("input[name='author']").val();
-	 var _emotion = $("input[name='emotion']").val();
-	 var _idustryZero = $("input[name='idustryZero']").val();
-	 var _idustryTwice = $("input[name='idustryTwice']").val();
-	 var _idustryThree = $("input[name='idustryThree']").val();
-	 var _bus = $("input[name='bus']").val();
-	 var _business = $("input[name='business']").val();
 	 var _publishDate = $("input[name='publishDate']").val();
+	 var _publishTime = $("input[name='publishTime']").val();
 	 var _publishYear = $("input[name='publishYear']").val();
+	 var _articleLink = $("input[name='articleLink']").val();
+	 var _title = $("input[name='title']").val();
+	 var _content = $("textarea[name='content']").val();
+	 var _author = $("input[name='author']").val();
+	 var _sourceLink = $("input[name='sourceLink']").val();
+	 var _source = $("input[name='source']").val();
+	 var _area = $("input[name='area']").val();
+	 var _industry = $("input[name='industry']").val();
+	 var _industryLabel = $("input[name='industryLabel']").val();
+	 var _vector = $("input[name='vector']").val();
+	 var _industryType = $("input[name='industryType']").val();
+	 var _park = $("input[name='park']").val();
+	 var _establishTime = $("input[name='establishTime']").val();
+	 var _acreage = $("input[name='acreage']").val();
+	 var _business = $("input[name='business']").val();
+	 var _updateAttribute = $("input[name='updateAttribute']").val();
+	 var _boss = $("input[name='boss']").val();
+	 var _businessType = $("input[name='businessType']").val();
+	 var _emotion = $("input[name='emotion']").val();
 	 var _hitCount = $("input[name='hitCount']").val();
 	 var _supportCount = $("input[name='supportCount']").val();
 	 var _replyCount = $("input[name='replyCount']").val();
 	 var _hasWarn = $("input[name='hasWarn']").val();
-	 var _dimension = $("input[name='dimension']").val();
+	 var _logo = $("input[name='logo']").val();
 	 var _istop = $("input[name='istop']").val();
+	 var _istop = $("input[name='dimension']").val();
+	 var _istop = $("input[name='bus']").val();
 	var param ={
-		id:_id,	title:_title,summary:_summary,content:_content,articleLink:_articleLink,
-		logo:_logo,address:_address,area:_area,
-		publishTime:_publishTime,exhibitiontime:_exhibitiontime,vector:_vector,
-		source:_source,author:_author,emotion:_emotion,idustryZero:_idustryZero,idustryTwice:_idustryTwice,
-		idustryThree:_idustryThree,bus:_bus,business:_business,publishDate:_publishDate,
-		publishYear:_publishYear,hitCount:_hitCount,supportCount:_supportCount,replyCount:_replyCount,
-		hasWarn:_hasWarn,dimension:_dimension,istop:_istop
+		id:_id,	engageState:_engageState,summary:_summary,identity:_identity,registerCapital:_registerCapital,
+		registerData:_registerData,address:_address,publishDate:_publishDate,
+		publishTime:_publishTime,publishYear:_publishYear,articleLink:_articleLink,
+		title:_title,content:_content,author:_author,sourceLink:_sourceLink,source:_source,
+		area:_area,industry:_industry,industryLabel:_industryLabel,vector:_vector,
+		industryType:_industryType,park:_park,establishTime:_establishTime,acreage:_acreage,
+		business:_business,updateAttribute:_updateAttribute,boss:_boss,businessType:_businessType,emotion:_emotion,
+		hitCount:_hitCount,supportCount:_supportCount,replyCount:_replyCount,hasWarn:_hasWarn,
+		logo:_logo,istop:_istop,dimension:_dimension,bus:_bus
 	};
 	 $.ajax({
 	        type : "post",

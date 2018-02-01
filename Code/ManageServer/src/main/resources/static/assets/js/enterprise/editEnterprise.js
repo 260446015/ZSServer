@@ -5,6 +5,7 @@ function addData(enter) {
     _id=enter.id;
     $("input[name='industryType']").val(enter.industryType);
     $("input[name='company']").val(enter.company);
+    $("input[name='companyName']").val(enter.companyName);
     $("input[name='phone']").val(enter.phone);
     $("input[name='email']").val(enter.email);
     $("input[name='url']").val(enter.url);
@@ -14,6 +15,8 @@ function addData(enter) {
     $("input[name='engageState']").val(enter.engageState);
     $("input[name='registerTime']").val(enter.registerTime);
     $("input[name='industry']").val(enter.industry);
+    $("input[name='industryLabel']").val(enter.industryLabel);
+    $("input[name='industryZero']").val(enter.industryZero);
     $("input[name='icRegisterNo']").val(enter.icRegisterNo);
     $("input[name='companyType']").val(enter.companyType);
     $("input[name='orgMechanismNo']").val(enter.orgMechanismNo);
@@ -26,6 +29,8 @@ function addData(enter) {
     $("input[name='area']").val(enter.area);
     $("input[name='scoring']").val(enter.scoring);
     $("input[name='publicCompany']").val(enter.publicCompany);
+    $("input[name='createTime']").val(enter.createTime);
+    $("input[name='updateTime']").val(enter.updateTime);
 
 }
 $(".btn-success").on("click",function(){
@@ -45,6 +50,7 @@ $(".btn-danger").on("click",function(){
 function etitData() {
     var _industryType = $("input[name='industryType']").val();
     var _company = $("input[name='company']").val();
+    var _companyName = $("input[name='companyName']").val();
     var _phone = $("input[name='phone']").val();
     var _email = $("input[name='email']").val();
     var _url = $("input[name='url']").val();
@@ -54,6 +60,8 @@ function etitData() {
     var _engageState = $("input[name='engageState']").val();
     var _registerTime = $("input[name='registerTime']").val();
     var _industry = $("input[name='industry']").val();
+    var _industryLabel = $("input[name='industryLabel']").val();
+    var _industryZero = $("input[name='industryZero']").val();
     var _icRegisterNo = $("input[name='icRegisterNo']").val();
     var _companyType = $("input[name='companyType']").val();
     var _orgMechanismNo = $("input[name='orgMechanismNo']").val();
@@ -66,11 +74,13 @@ function etitData() {
     var _area = $("input[name='area']").val();
     var _scoring = $("input[name='scoring']").val();
     var _publicCompany = $("input[name='publicCompany']").val();
+    var _createTime = $("input[name='createTime']").val();
+    var _updateTime = $("input[name='updateTime']").val();
     var obj={
-            id:_id,industryType:_industryType,company:_company,phone:_phone,email:_email,url:_url,address:_address,boss:_boss,
-            registerCapital:_registerCapital,engageState:_engageState,registerTime:_registerTime,industry:_industry,icRegisterNo:_icRegisterNo,
-            companyType:_companyType,orgMechanismNo:_orgMechanismNo,businessDate:_businessDate,registerAgency:_registerAgency,examineTime:_examineTime,
-            registerAddress:_registerAddress,operateScope:_operateScope,park:_park,area:_area,scoring:_scoring,publicCompany:_publicCompany
+            id:_id,industryType:_industryType,company:_company,companyName:_companyName,phone:_phone,email:_email,url:_url,address:_address,boss:_boss,
+            registerCapital:_registerCapital,engageState:_engageState,registerTime:_registerTime,industry:_industry,industryLabel:_industryLabel,industryZero:_industryZero,
+            icRegisterNo:_icRegisterNo,companyType:_companyType,orgMechanismNo:_orgMechanismNo,businessDate:_businessDate,registerAgency:_registerAgency,examineTime:_examineTime,
+            registerAddress:_registerAddress,operateScope:_operateScope,park:_park,area:_area,scoring:_scoring,publicCompany:_publicCompany,createTime:_createTime,updateTime:_updateTime
         };
     $.ajax({
         type : "post",

@@ -22,8 +22,15 @@ function showIndusCompany(_pageNum,_pageSize) {
                     var arr = res.data.dataList;
                     var html = '';
                     for (var i = 0; i < arr.length; i++) {
-                        html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td>' + arr[i].industryType + '</td><td>' + arr[i].industry + '</td><td>' + arr[i].company + '</td><td>' + arr[i].address
-                            + '</td><td>' + arr[i].registerTime + '</td><td class="actions">'
+                        html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td>'
+                        		+ arr[i].industryType + '</td><td>' 
+                        		+ arr[i].industry + '</td><td>' 
+                        		+ arr[i].industryLabel + '</td><td>' 
+                        		+ arr[i].industryZero + '</td><td>' 
+                        		+ arr[i].company + '</td><td>'
+                        		+ arr[i].companyName + '</td><td>' 
+                        		+ arr[i].address+ '</td><td>' 
+                        		+ arr[i].registerTime + '</td><td class="actions">'
                             + '<a href="javascript:void(0);" class="on-default my_edit"><i class="fa fa-pencil"></i></a>'
                             + '<a href="javascript:void(0);" class="on-default my_remove modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>';
                     }

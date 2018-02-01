@@ -3,7 +3,7 @@
 <head>
     <!-- Basic -->
     <meta charset="UTF-8" />
-    <title>慧数招商—企业库管理</title>
+    <title>慧数招商—产业信息</title>
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!-- Favicon and touch icons -->
@@ -64,31 +64,37 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">摘要</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="summary" class="form-control" placeholder="请输入文章摘要">
+                                        <textarea rows="5" cols="50" name="summary" class="form-control" placeholder="请输入文章摘要"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">内容</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="content" class="form-control" placeholder="请输入文章内容">
+                                       <textarea rows="5" cols="50" name="content" class="form-control" placeholder="请输入文章内容"></textarea>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">原文地址</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="articleLink" class="form-control" placeholder="请输入原文地址">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">原文链接</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="articleLink" class="form-control" placeholder="请输入原文链接">
+                                        <input type="text" name="sourceLink" class="form-control" placeholder="请输入原文链接">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">logo</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="logo" class="form-control" placeholder="请输入峰会logo">
+                                        <input type="text" name="logo" class="form-control" placeholder="请输入logo">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">园区</label>
+                                    <label class="col-md-3 control-label" for="text-input">所属园区</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="park" class="form-control" placeholder="请输入峰会地址">
+                                        <input type="text" name="park" class="form-control" placeholder="请输入所属园区">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -134,21 +140,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">所属新兴产业</label>
+                                    <label class="col-md-3 control-label" for="text-input">产业类型</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="idustryZero" class="form-control" placeholder="请输入所属新兴产业">
+                                        <input type="text" name="industryType" class="form-control" placeholder="请输入产业类型">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">产业标签</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="idustryTwice" class="form-control" placeholder="请输入产业标签">
+                                        <input type="text" name="industryLabel" class="form-control" placeholder="请输入产业标签">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">产业</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="idustryThree" class="form-control" placeholder="请输入产业">
+                                        <input type="text" name="industry" class="form-control" placeholder="请输入产业">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -158,9 +164,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">涉及公司</label>
+                                    <label class="col-md-3 control-label" for="text-input">公司名录</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="business" class="form-control" placeholder="请输入涉及公司">
+                                        <input type="text" name="bus" class="form-control" placeholder="请输入公司名录">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -211,6 +217,66 @@
                                         <input type="text" name="istop" class="form-control" placeholder="请输入是否置顶">
                                     </div>
                                 </div>
+                               <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">存续（在营、开业、在册）</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="engageState" class="form-control" placeholder="请输入状态：存续（在营、开业、在册）">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">身份</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="identity" class="form-control" placeholder="请输入身份">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">注册资金</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="registerCapital" class="form-control" placeholder="请输入注册资金">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">注册时间 </label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="registerData" class="form-control" placeholder="请输入注册时间 ">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">成立时间 </label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="establishTime" class="form-control" placeholder="请输入成立时间(公司) ">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">园区面积 </label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="acreage" class="form-control" placeholder="请输入园区面积">
+                                    </div>
+                                </div> 
+                                 <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">企业名称</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="business" class="form-control" placeholder="请输入企业名称 ">
+                                    </div>
+                                </div> 
+                                 <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">企业变更的属性</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="updateAttribute" class="form-control" placeholder="请输入企业变更的属性">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">企业法人</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="boss" class="form-control" placeholder="请输入企业法人">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">企业类型</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="businessType" class="form-control" placeholder="请输入企业类型">
+                                    </div>
+                                </div> 
                                 <p>
                                     <button class="bk-margin-5 btn btn-labeled btn-success" type="button">
                                         <span class="btn-label"><i class="fa fa-check"></i></span>保存</button>

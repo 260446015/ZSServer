@@ -24,7 +24,6 @@ import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.entity.dto.IndustryInfoDTO;
 import com.huishu.ManageServer.es.entity.AITInfo;
-import com.huishu.ManageServer.es.entity.SummitInfo;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -48,17 +47,23 @@ public class IndustryInfoController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = { "{page}" }, method = RequestMethod.GET)
-	public String findAccurateCompany(@PathVariable String page) {
+	public String findAccurateCompany(@PathVariable String page,String id,Model model) {
+		if("editIndustryInfo".equals(page)){
+			if(StringUtil.isNotEmpty(id)){
+				AITInfo info = service.findIndustryInfoById(id);
+				model.addAttribute("info", info);
+			}
+		}
 		return "/industry/info/" + page;
 	}
-	@RequestMapping(value = "/editIndustryinfo.json", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/editIndustryinfo.json", method = RequestMethod.GET)
 	public String editIndustryinfo(String id,Model model){
-		if(StringUtil.isEmpty(id)){
+		if(StringUtil.isNotEmpty(id)){
 			AITInfo info = service.findIndustryInfoById(id);
 			model.addAttribute("info", info);
 		}
 		return "/industry/info/editIndustryInfo.html";
-	}
+	}*/
 	/**
 	 * 获取科研成果的数据
 	 * @return
@@ -147,6 +152,7 @@ public class IndustryInfoController extends BaseController {
 		}else{
 			result.put("totalNumber",page.getTotalElements());
 		}
+		
 		if(page.getTotalPages()>=1000){
 			result.put("totalPage",1000);
 		}else{

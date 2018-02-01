@@ -30,8 +30,8 @@ $(".mark-box").on("click","li>a.mark-item",function () {
 
 	
 function autoScroll(obj){
-	$(obj).find('ul').animate({marginTop:'-30px'},2000,function(){
-		$(this).css({marginTop:'30px'}).find('li:first').appendTo(this)
+	$(obj).find('ul').animate({marginTop:'-20px'},2000,function(){
+		$(this).css({marginTop:'20px'}).find('li:first').appendTo($(this))
 	})
 }
 
@@ -486,14 +486,14 @@ var chinaOption = {
 		 visualMap: {
              seriesIndex: 0,
              min: 132,
-             max: 3000,
+             max: 8000,
              left: 'left',
              top: 'bottom',
              text:['高','低'],           // 文本，默认为数值文本
              calculable : true,
              show: false,
              inRange: {
-                 color: ["#5eadfc","#000000"]
+                 color: ["#087bee","#1b7e27","#000000"]
              }
          },
 		geo: {

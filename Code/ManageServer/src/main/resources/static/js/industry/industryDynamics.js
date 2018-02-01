@@ -43,6 +43,7 @@ function getArticleByKeyWord(a,b){
         	}else{
         		var arr = res.data;
         		$('#industryKeyWordArcitleList').html(showList(arr));
+        		initPages();
         	}
         }
 	});
@@ -57,8 +58,8 @@ function showList(arr){
 				+item.industryLabel + '</td><td>' 
 				+item.title + '</td>'
 				+ '<td class="actions">'
-				+'<a href="javascript:void(0);" class="on-default editinfo"><i class="fa fa-pencil"></i></a>'
-				+'<a href="javascript:void(0);" class="on-default removeinfo modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>'
+				+'<a href="javascript:void(0);" class="on-default editindusinfo"><i class="fa fa-pencil"></i></a>'
+				+'<a href="javascript:void(0);" class="on-default removeindusinfo modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>'
 	
 		)
 	});
@@ -218,4 +219,33 @@ $(":radio").click(function(){
 	getKeyWordCloud(time);
 	});
 
-
+function initPages(){
+	$('.editindusinfo').on("click",function(i){
+		var _id =  $(this).parents('.gradeX').find('td').eq(0).text();
+		window.location.href="/apis/industryinfo/editIndustryInfo.html?id="+_id;
+	});
+	//删除一条数据
+	$(".removeindusinfo").on("click",function(i){
+		var id = $(this).parents('.gradeX').find('td').eq(0).text();
+		deleteIndustryInfoById(id);
+	});
+	
+};
+function deleteIndustryInfoById(id){
+	layer.confirm('确定要删除该数据？', {
+        btn: ['确认','取消'] //按钮
+    }, function(){
+        $.ajax({
+            async:false,
+            url : "/apis/industryinfo/deleteIndustryInfoById.json?id="+id,
+            success : function(res) {
+                if(res.success){
+                    layer.msg('成功删除', {icon: 1});
+                    getIndustry(0,0);
+                }else{
+                    layer.msg(res.message, {icon: 2});
+                }
+            }
+        });
+    });
+};

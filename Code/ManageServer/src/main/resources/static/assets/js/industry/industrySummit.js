@@ -31,7 +31,6 @@ $(".search-box").on("click",".search-item-content>a",function(){
 function getIndustry(a,b){
 	if(a==1){
 		industry = b;
-		getLabel(industry);
 	}else if(a==2){
 		area = b;
 	}else if(a==3){
