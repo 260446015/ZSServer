@@ -51,7 +51,8 @@ function ajsxPost(y,t,n){
             	new Alert({flag:false,text:response.message,timer:1500}).show();
             }else{
             	if(response.data.dataList.length==0){
-            		$('#biuuu_city_list').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
+
+            		$('#biuuu_city_list').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">去去去</p></div>');
                	 }else{
             		$('#biuuu_city_list').html(show(response.data.dataList));
             	}
@@ -67,7 +68,7 @@ function ajsxPost(y,t,n){
         }
     });
 }
-function item(d){
+function item(d){ // 年份
 	var inner="";
 	$.each(d, function (index, year) {
 		if(index==0){
@@ -80,8 +81,7 @@ function item(d){
     });
 	return inner;
 };
-function show(d){
-	console.log(d)
+function show(d){  // 按月份排列
     var arr = []
     $.each(d, function(index, item){
       arr.push('<div class="col-md-3"><div class="report-list"><a href="/apis/report/reportDetails.html?fileId='+item.id+'" class="border-box"><img class="circle-img" src="/images/report.png" /></a>'+
@@ -94,3 +94,17 @@ function show(d){
     var inner=arr.join('');
     return inner;
 }
+
+function quarter(){
+	$.ajax({
+		type:'get',
+		url:'/apis/report/getReportContent.json?id='+1,
+		async:false,
+		success:function(res){
+			console.log(res)
+
+		}
+	})
+}
+quarter()
+ 

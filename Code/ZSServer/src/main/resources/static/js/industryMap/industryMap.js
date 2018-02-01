@@ -30,8 +30,8 @@ $(".mark-box").on("click","li>a.mark-item",function () {
 
 	
 function autoScroll(obj){
-	$(obj).find('ul').animate({marginTop:'-30px'},2000,function(){
-		$(this).css({marginTop:'30px'}).find('li:first').appendTo(this)
+	$(obj).find('ul').animate({marginTop:'-20px'},2000,function(){
+		$(this).css({marginTop:'20px'}).find('li:first').appendTo($(this))
 	})
 }
 
