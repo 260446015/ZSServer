@@ -29,5 +29,7 @@ public interface GardenUserRepository extends CrudRepository<GardenUser, Long>, 
 	List<GardenUser> findByIndustryTypeLike(String string);
 
 	List<GardenUser> findByUserId(Long userId);
+	
+	List<GardenUser> findByGardenName(String name);
 
 }

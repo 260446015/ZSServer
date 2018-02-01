@@ -27,5 +27,4 @@ public interface CompanyRepository extends CrudRepository<Company, Long>, JpaSpe
 	List<Object[]> findEcharts(String gardenName);
 
 	Page<Company> findByParkAndAddressNotNull(String gardenName, Pageable pageRequest);
-
 }
