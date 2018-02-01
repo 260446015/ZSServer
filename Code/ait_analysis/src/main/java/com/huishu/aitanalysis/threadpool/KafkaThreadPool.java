@@ -10,13 +10,13 @@ public class KafkaThreadPool {
 
 	private static KafkaThreadPool pool = null;
 
-	private static BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(200);
+	private static BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(20000);
 
 	private static ThreadPoolExecutor executor;
 
 	private KafkaThreadPool() {
 		synchronized (this) {
-			executor = new ThreadPoolExecutor(5, 10, 60, TimeUnit.SECONDS, queue);
+			executor = new ThreadPoolExecutor(50, 200, 60, TimeUnit.SECONDS, queue);
 		}
 		System.out.println("创建线程池成功!!!!!!!!!!!!");
 	}

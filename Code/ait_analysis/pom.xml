@@ -46,16 +46,19 @@
 			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
 		<!-- ansj nlpcn -->
-		 <dependency>
-            <groupId>org.ansj</groupId>
-            <artifactId>ansj_seg</artifactId>
-            <version>3.7.5</version>
-        </dependency>
 		<dependency>
-			<groupId>org.nlpcn</groupId>
+			<groupId>ansj_seg</groupId>
+			<artifactId>ansj_seg</artifactId>
+			<version>3.7.5</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ansj_seg-3.7.5.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>nlp-lang</groupId>
 			<artifactId>nlp-lang</artifactId>
 			<version>1.5</version>
-			<scope>compile</scope>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/nlp-lang-1.5.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>

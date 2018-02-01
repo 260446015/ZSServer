@@ -15,7 +15,7 @@ import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
-import com.huishu.ZSServer.entity.FilePdf;
+import com.huishu.ZSServer.entity.report.FilePdf;
 import com.huishu.ZSServer.entity.dto.ReportSearchDTO;
 import com.huishu.ZSServer.service.report.ReportService;
 

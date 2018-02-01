@@ -28,4 +28,6 @@ import com.huishu.ManageServer.entity.dbFirst.Enterprise;
 public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> {
 	@Query(value="select * from t_enterprise limit ?,?",nativeQuery=true)
 	List<Enterprise> findPage(int pageFrom , int pageSize);
+	
+	Enterprise findByCompany(String company);
 }

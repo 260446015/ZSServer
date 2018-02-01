@@ -22,7 +22,7 @@ import com.huishu.ManageServer.config.DynamicDataSourceRegister;
 @EnableJpaRepositories(basePackages = "com.huishu.ManageServer.repository")
 @EnableElasticsearchRepositories(basePackages = "com.huishu.ManageServer.es.repository")
 @EnableAutoConfiguration
-@EnableScheduling
+//@EnableScheduling
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

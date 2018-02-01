@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ManageServer.entity.dbFirst.Company;
 
-
 public interface GardenCompanyRepository extends CrudRepository<Company, Long>, JpaSpecificationExecutor<Company> {
 
 	Company findByCompanyName(String cname);
@@ -20,5 +19,8 @@ public interface GardenCompanyRepository extends CrudRepository<Company, Long>, 
 
 	@Query(value = "select open_industry,count(open_industry) from t_company_data where park=?1 group by open_industry", nativeQuery = true)
 	List<Object[]> findEcharts(String gardenName);
+
+	@Query(value = "select company_name from t_company_data where park = ?", nativeQuery = true)
+	List<String> findCompanyNameByPark(String park);
 
 }

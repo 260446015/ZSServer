@@ -65,6 +65,11 @@
                             <i class="fa fa-eject" aria-hidden="true"></i><span>融资数据</span>
                         </a>
                     </li>
+                    <li id="report_item">
+                        <a href="/apis/report/reportManage.html">
+                            <i class="fa fa-repeat" aria-hidden="true"></i><span>报告管理</span>
+                        </a>
+                    </li>
 				</ul>
 			</nav>
 		</div>

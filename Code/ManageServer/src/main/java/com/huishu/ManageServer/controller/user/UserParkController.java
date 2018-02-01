@@ -5,18 +5,21 @@ import com.huishu.ManageServer.common.AjaxResult;
 import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
+import com.huishu.ManageServer.entity.dbFirst.GardenUser;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dbFirst.UserPark;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.AccurateDTO;
+import com.huishu.ManageServer.entity.dto.GardenDTO;
 import com.huishu.ManageServer.entity.vo.GardenDataVO;
+import com.huishu.ManageServer.service.garden.GardenUserService;
 import com.huishu.ManageServer.service.user.UserParkService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 用户园区管理
@@ -31,6 +34,8 @@ public class UserParkController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserParkController.class);
 	@Autowired
 	private UserParkService userParkService;
+	@Autowired
+	private GardenUserService gardenUserService;
 
 	/**
 	 * 查看园区分页列表
@@ -111,6 +116,44 @@ public class UserParkController extends BaseController {
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 
+	}
+	
+	/**
+	 * 获取关注园区列表
+	 *
+	 * @param dto
+	 *            [id,area,industryType]
+	 * @return
+	 */
+	@RequestMapping(value = "/getAttentionGardenList.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult getAttentionGardenList(@RequestBody GardenDTO dto) {
+		Long userId = dto.getUserId();
+		if (userId == null) {
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		Page<GardenUser> page = null;
+		dto.setUserId(userId);
+		try {
+			page = gardenUserService.getAttentionGardenList(dto);
+			return success(page);
+		} catch (Exception e) {
+			LOGGER.error("查询关注园区失败!", e);
+			return error(e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/deleteAttentionGarden.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult deleteAttentionGarden(String id) {
+		boolean flag = false;
+		try {
+			flag = gardenUserService.deleteAttentionGarden(id);
+		} catch (Exception e) {
+			LOGGER.error("查询关注园区失败!", e);
+			return error(e.getMessage());
+		}
+		return success(flag);
 	}
 
 }
