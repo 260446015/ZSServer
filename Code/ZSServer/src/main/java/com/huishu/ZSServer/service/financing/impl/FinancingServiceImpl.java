@@ -49,6 +49,7 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 		bq.must(QueryBuilders.wildcardQuery("area","*"+dto.getArea()+"*"));
 		bq.must(QueryBuilders.wildcardQuery("invest","*"+dto.getInvest()+"*"));
 		bq.mustNot(QueryBuilders.termQuery("vector", "投资界"));
+		bq.mustNot(QueryBuilders.termQuery("vector", "投融界"));
 		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3).setTypes(DBConstant.EsConfig.TYPE2);
 		srb.addSort(SortBuilders.fieldSort(sort).order(SortOrder.DESC));
 		SearchResponse searchResponse = srb.setQuery(bq).setSize(dto.getPageSize()).setFrom(dto.getPageNumber()*dto.getPageSize()).execute().actionGet();
