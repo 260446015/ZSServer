@@ -92,7 +92,7 @@ function ShowArticleList(arr){
 	$.each(arr,function(index,item){
 		array.push(
 				'<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+item.id+'"/><td>' 
-				+item.title+ '</td><td>'
+				+'<a href="'+item.articleLink+'" target="_blank">'+item.title+ '</a></td><td>'
 				+item.summary+ '</td><td>'
 				+item.industryLabel + '</td><td>' 
 				+item.publishTime + '</td><td>'
@@ -126,11 +126,11 @@ function showInfoData(array){
 };
 function initPage(){
 	$('.editindusinfo').on("click",function(i){
-		var id = $(this).parents('.gradeX').find( 'input' ).val();
-		window.location.href="/apis/industryinfo/editIndustryinfo.json?id="+_id;
+		var _id = $(this).parents('.gradeX').find( 'input' ).val();
+		window.location.href="/apis/industryinfo/editIndustryInfo.html?id="+_id;
 	});
 	$('#addInfoToTable').on("click",function(){
-		window.location.href="/apis/industryinfo/editIndustryinfo.json";
+		window.location.href="/apis/industryinfo/editIndustryInfo.html";
 	});
 	//删除一条数据
 	$(".removeindusinfo").on("click",function(i){
