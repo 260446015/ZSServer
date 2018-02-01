@@ -64,13 +64,13 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">摘要</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="summary" class="form-control" placeholder="请输入文章摘要">
+                                        <textarea rows="5" cols="50" name="summary" class="form-control" placeholder="请输入文章摘要"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">内容</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="content" class="form-control" placeholder="请输入文章内容">
+                                       <textarea rows="5" cols="50" name="content" class="form-control" placeholder="请输入文章内容"></textarea>
                                     </div>
                                 </div>
                                  <div class="form-group">

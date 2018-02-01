@@ -4,7 +4,7 @@ function addData(info){
 	_id=info.id;
 	  $("input[name='id']").val(info.id);
 	  $("input[name='engageState']").val(info.engageState);
-	  $("input[name='summary']").val(info.summary);
+	  $("textarea[name='summary']").val(info.summary);
 	  $("input[name='identity']").val(info.identity);
 	  $("input[name='registerCapital']").val(info.registerCapital);
 	  $("input[name='registerData']").val(info.registerData);
@@ -14,7 +14,7 @@ function addData(info){
 	  $("input[name='publishYear']").val(info.publishYear);
 	  $("input[name='articleLink']").val(info.articleLink);
 	  $("input[name='title']").val(info.title);
-	  $("input[name='content']").val(info.content);
+	  $("textarea[name='content']").val(info.content);
 	  $("input[name='author']").val(info.author);
 	  $("input[name='sourceLink']").val(info.sourceLink);
 	  $("input[name='source']").val(info.source);
@@ -57,7 +57,7 @@ $(".btn-danger").on("click",function(){
 function etitData() {
 	 var _id = $("input[name='id']").val();
 	 var _engageState = $("input[name='engageState']").val();
-	 var _summary = $("input[name='summary']").val();
+	 var _summary = $("textarea[name='summary']").val();
 	 var _identity = $("input[name='identity']").val();
 	 var _registerCapital = $("input[name='registerCapital']").val();
 	 var _registerData = $("input[name='registerData']").val();
@@ -67,7 +67,7 @@ function etitData() {
 	 var _publishYear = $("input[name='publishYear']").val();
 	 var _articleLink = $("input[name='articleLink']").val();
 	 var _title = $("input[name='title']").val();
-	 var _content = $("input[name='content']").val();
+	 var _content = $("textarea[name='content']").val();
 	 var _author = $("input[name='author']").val();
 	 var _sourceLink = $("input[name='sourceLink']").val();
 	 var _source = $("input[name='source']").val();
