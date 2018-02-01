@@ -62,6 +62,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">公司简称</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="companyName" class="form-control" placeholder="请输入公司名">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">公司联系方式</label>
                                     <div class="col-md-9">
                                         <input type="text" name="phone" class="form-control" placeholder="请输入公司联系方式">
@@ -107,6 +113,18 @@
                                     <label class="col-md-3 control-label" for="text-input">行业领域</label>
                                     <div class="col-md-9">
                                         <input type="text" name="industry" class="form-control" placeholder="请输入行业领域">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">行业标签</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="industryLabel" class="form-control" placeholder="请输入行业标签">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">所属新兴战略产业</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="industryZero" class="form-control" placeholder="所属新兴战略产业">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -179,6 +197,18 @@
                                     <label class="col-md-3 control-label" for="text-input">上市公司</label>
                                     <div class="col-md-9">
                                         <input type="text" name="publicCompany" class="form-control" placeholder="请输入上市公司">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">入库时间</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="createTime" class="form-control" placeholder="请输入入库时间">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">更新时间</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="updateTime" class="form-control" placeholder="请输入更新时间">
                                     </div>
                                 </div>
                                 <p>
