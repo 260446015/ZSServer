@@ -1571,8 +1571,8 @@ a.search-item:hover, a.search-item:active, a.search-item:focus, a.search-item:vi
 	animation: rotates 1s linear infinite;
 }
 
-@
-keyframes rotates { 0% {
+@keyframes rotates {
+	from {
 	transform-origin: center;
 	transform: rotate(0deg);
 }

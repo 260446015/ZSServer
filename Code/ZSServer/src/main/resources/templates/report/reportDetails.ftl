@@ -33,7 +33,7 @@
         	<div class="container">
             <div class="border-shadow-box mt30">
                 <div class="meeting-details-box" id="essay">
-					
+
                 </div>
             </div>
             </div>
@@ -52,8 +52,13 @@ $("#reportItem").addClass("active");
 		$.ajax({
        		url: "/apis/report/getReportContent.json?id="+'${fileId}',
         	success: function (response) {
-            	if(response.success){
-            		$('#essay').html(show(response.data));
+				console.log(response)
+				if(response.success){
+					if(response.data.imageUrl==''){
+						$('#essay').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
+					}else{
+						$('#essay').html(show(response.data));
+					}
             	}else{
            			new Alert({flag:false,text:result.message,timer:1500}).show();
 				}
@@ -65,9 +70,10 @@ $("#reportItem").addClass("active");
 		var before='<div class="meeting-details-box-header"><h4>'+data.name+follow+'</h4></div><div class="item"><div></div></div>';
 		var inner='';
 		var strs= new Array(); 
-		strs=data.imageUrl.split("、"); 
-		for (i=0;i<strs.length;i++ ){
-			inner+='<img src="'+strs[i]+'" style="width: 100%;height: 100%;">';
+		strs=data.imageUrl; 
+		
+		for (i=strs.length-1;i>=0;i-- ){
+			inner+='<img src="'+strs[i].imageUrl+'" style="width: 100%;height: 100%;">';
 		} 
         var after='<div>'+inner+'</div>';
        return before+after;

@@ -154,7 +154,7 @@ function showScan(_province,_address){
         rotates();
         setTimeout(function() {
             unrotates();
-        }, 4000);
+        }, 2000);
 
     });
 }
