@@ -1,6 +1,7 @@
 package com.huishu.ManageServer.service.financing;
 
 import com.huishu.ManageServer.entity.dto.CompanySearchDTO;
+import com.huishu.ManageServer.entity.dto.FinancingDTO;
 import com.huishu.ManageServer.es.entity.FinancingInfo;
 import org.springframework.data.domain.Page;
 
@@ -17,4 +18,26 @@ public interface FinancingService {
 	 * @return
 	 */
 	Page<FinancingInfo> getCompanyList(CompanySearchDTO dto);
+
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+	 */
+	Boolean dropCompany(String id);
+
+	/**
+	 * 详情
+	 * @param id
+	 * @return
+	 */
+	FinancingInfo getCompanyById(String id);
+
+	/**
+	 * 修改
+	 * @param dto
+	 * @return
+	 */
+	Boolean saveCompany(FinancingDTO dto);
+
 }

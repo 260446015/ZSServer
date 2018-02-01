@@ -1,3 +1,4 @@
+$("#financing_item").addClass("active");
 var _invest="全部";
 var _area="全部";
 var _industry="全部";
@@ -56,10 +57,12 @@ function showPage(req) {
                     var arr = res.data.dataList;
                     var html = '';
                     for (var i = 0; i < arr.length; i++) {
-                        html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td>' + arr[i].financingDate + '</td><td>' + arr[i].financingCompany + '</td><td>' + arr[i].invest + '</td><td>' + arr[i].financingAmount
+                        html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td><img src="'+arr[i].logo+'" style="width: 60px;"></td><td>'
+                            + arr[i].financingDate + '</td><td>' + arr[i].financingCompany + '</td><td>' + arr[i].invest + '</td><td>' + arr[i].financingAmount
                             + '</td><td>' + arr[i].investor + '</td><td class="actions">'+
-                            '<a href="javascript:void(0);" class="on-default my_edit">查看详情</a>' +
-                            '<a href="javascript:void(0);" class="on-default my_remove modal-basic"><i class="fa fa-trash-o"></i></a></td></tr>';
+                            '<a href="'+arr[i].articleLink+'" target="_blank" class="on-default ">详情</a>' +
+                            '<a href="javascript:void(0);" class="on-default my_remove modal-basic"><i class="fa fa-trash-o"></i></a>' +
+                            '<a href="javascript:void(0);" class="on-default my_edit modal-basic"><i class="fa fa-pencil"></i></a></td></tr>';
 
                     }
                     $("#user_list").html(html);
@@ -112,16 +115,20 @@ function showPage(req) {
         }, function(){
             $.ajax({
                 async:false,
-                url : "/apis/financing/drop.json?id="+_id,
+                url : "/apis/financing/dropCompany.json?id="+_id,
                 success : function(res) {
                     if(res.success){
                         layer.msg('成功删除', {icon: 1});
-                        showIndusCompany(pageNum,pageSize);
+                        window.location.reload();
                     }else{
                         layer.msg(res.message, {icon: 2});
                     }
                 }
             });
         });
-    })
+    });
+    $(".my_edit").on("click",function(i){
+        var _id = $(this).parents('.gradeX').find( 'input' ).val();
+        window.location.href="/apis/financing/financingEdit.html?id="+_id;
+    });
 }

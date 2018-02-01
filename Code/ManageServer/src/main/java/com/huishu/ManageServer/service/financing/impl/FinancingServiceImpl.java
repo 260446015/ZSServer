@@ -3,7 +3,9 @@ package com.huishu.ManageServer.service.financing.impl;
 import com.huishu.ManageServer.common.conf.DBConstant;
 import com.huishu.ManageServer.common.conf.KeyConstan;
 import com.huishu.ManageServer.entity.dto.CompanySearchDTO;
+import com.huishu.ManageServer.entity.dto.FinancingDTO;
 import com.huishu.ManageServer.es.entity.FinancingInfo;
+import com.huishu.ManageServer.es.repository.FinancingElasticsearch;
 import com.huishu.ManageServer.service.financing.FinancingService;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -33,6 +35,8 @@ import java.util.Map;
 public class FinancingServiceImpl implements FinancingService {
 	@Autowired
 	private Client client;
+	@Autowired
+	private FinancingElasticsearch financingElasticsearch;
 
 	@Override
 	public Page<FinancingInfo> getCompanyList(CompanySearchDTO dto) {
@@ -48,6 +52,7 @@ public class FinancingServiceImpl implements FinancingService {
 		bq.must(QueryBuilders.wildcardQuery("industry","*"+dto.getIndustry()+"*"));
 		bq.must(QueryBuilders.wildcardQuery("area","*"+dto.getArea()+"*"));
 		bq.must(QueryBuilders.wildcardQuery("invest","*"+dto.getInvest()+"*"));
+		bq.mustNot(QueryBuilders.termQuery("vector", "投融界"));
 		bq.mustNot(QueryBuilders.termQuery("vector", "投资界"));
 		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX3).setTypes(DBConstant.EsConfig.TYPE2);
 		srb.addSort(SortBuilders.fieldSort(sort).order(SortOrder.DESC));
@@ -74,5 +79,32 @@ public class FinancingServiceImpl implements FinancingService {
 		}
 		PageRequest request = new PageRequest(dto.getPageNum(), dto.getPageSize());
 		return new PageImpl<FinancingInfo>(list,request,totalHits);
+	}
+
+	@Override
+	public Boolean dropCompany(String id) {
+		financingElasticsearch.delete(id);
+		return true;
+	}
+
+	@Override
+	public FinancingInfo getCompanyById(String id) {
+		return financingElasticsearch.findOne(id);
+	}
+
+	@Override
+	public Boolean saveCompany(FinancingDTO dto) {
+		FinancingInfo one = financingElasticsearch.findOne(dto.getId());
+		one.setFinancingAmount(dto.getFinancingAmount());
+		one.setFinancingCompany(dto.getFinancingCompany());
+		one.setFinancingDate(dto.getFinancingDate());
+		one.setInvest(dto.getInvest());
+		one.setInvestor(dto.getInvestor());
+		one.setLogo(dto.getLogo());
+		FinancingInfo save = financingElasticsearch.save(one);
+		if(save==null){
+			return false;
+		}
+		return true;
 	}
 }

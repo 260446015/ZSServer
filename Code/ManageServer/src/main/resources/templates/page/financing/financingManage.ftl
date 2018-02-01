@@ -84,6 +84,7 @@
                             <table class="table table-bordered table-striped mb-none" id="datatable-editable">
                                 <thead>
                                 <tr>
+                                    <th>logo</th>
                                     <th>时间	</th>
                                     <th>公司</th>
                                     <th>轮次</th>
