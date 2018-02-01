@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.huishu.ZSServer.entity.FilePdfDownload;
+import com.huishu.ZSServer.entity.report.FilePdfDownload;
 
 /**
  * 下载的PDF文件

@@ -10,6 +10,9 @@ import java.util.TreeSet;
 
 import javax.transaction.Transactional;
 
+import com.huishu.ZSServer.entity.report.FilePdfImg;
+import com.huishu.ZSServer.entity.vo.PdfVO;
+import com.huishu.ZSServer.repository.report.FilePdfImgRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,8 +23,8 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.huishu.ZSServer.common.conf.PageConstant;
-import com.huishu.ZSServer.entity.FilePdf;
-import com.huishu.ZSServer.entity.FilePdfDownload;
+import com.huishu.ZSServer.entity.report.FilePdf;
+import com.huishu.ZSServer.entity.report.FilePdfDownload;
 import com.huishu.ZSServer.entity.dto.ReportSearchDTO;
 import com.huishu.ZSServer.repository.report.FileDownloadRepository;
 import com.huishu.ZSServer.repository.report.FilePdfRepository;
@@ -34,6 +37,8 @@ public class ReportServiceImpl implements ReportService {
 
 	@Autowired
 	private FilePdfRepository filePdfRepository;
+	@Autowired
+	private FilePdfImgRepository filePdfImgRepository;
 	@Autowired
 	private FileDownloadRepository fileDownloadRepository;
 	
@@ -101,8 +106,19 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public FilePdf getReportContent(Long id) {
-		return filePdfRepository.findOne(id);
+	public PdfVO getReportContent(Long id) {
+		FilePdf one = filePdfRepository.findOne(id);
+		List<FilePdfImg> imgs = filePdfImgRepository.findByPdfId(id);
+		PdfVO vo = new PdfVO();
+		vo.setCreateTime(one.getCreateTime());
+		vo.setData(one.getData());
+		vo.setDownloads(one.getDownloads());
+		vo.setImageUrl(imgs);
+		vo.setId(one.getId());
+		vo.setLabel(one.getLabel());
+		vo.setName(one.getName());
+		vo.setUrl(one.getUrl());
+		return vo;
 	}
 
 	@Transactional

@@ -2,9 +2,10 @@ package com.huishu.ZSServer.service.report;
 
 import java.util.Set;
 
+import com.huishu.ZSServer.entity.vo.PdfVO;
 import org.springframework.data.domain.Page;
 
-import com.huishu.ZSServer.entity.FilePdf;
+import com.huishu.ZSServer.entity.report.FilePdf;
 import com.huishu.ZSServer.entity.dto.ReportSearchDTO;
 
 /**
@@ -37,7 +38,7 @@ public interface ReportService {
 	
 	/**
 	 * 查询招商报告PDF列表
-	 * @param id
+	 * @param userId
 	 * @param dto
 	 * @return
 	 */
@@ -48,7 +49,7 @@ public interface ReportService {
 	 * @param id
 	 * @return
 	 */
-	FilePdf getReportContent(Long id);
+	PdfVO getReportContent(Long id);
 	
 	/**
 	 * PDF下载记录
