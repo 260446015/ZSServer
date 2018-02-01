@@ -17,8 +17,11 @@ public class DBConstant {
      * es相关配置
      */
     public static class EsConfig {
+    	//老版的数据
     	public static final String INDEX = "aitserver_2017-08-15";
-        public static final String INDEX1 = "aitserver_2017-10-27";
+        //峰会的相关数据
+    	public static final String INDEX1 = "aitserver_2017-10-27";
+        //融资的相关数据
         public static final String INDEX2 = "aitserver_financing";
         public static final String TYPE = "aitinfo";
         public static final String TYPE1 = "zsinfo";

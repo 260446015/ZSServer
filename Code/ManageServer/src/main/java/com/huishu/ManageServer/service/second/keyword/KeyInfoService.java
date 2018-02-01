@@ -55,5 +55,10 @@ public interface KeyInfoService {
 	 * @return
 	 */
 	boolean saveOrUpdateKeyWord(KeyInfoEntity ent);
+	
+	/**
+	 * 查询所有实体
+	 */
+	List<KeyInfoEntity> findAllEntity();
 
 }

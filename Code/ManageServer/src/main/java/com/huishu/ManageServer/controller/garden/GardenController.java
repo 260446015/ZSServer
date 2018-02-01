@@ -16,12 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.huishu.ManageServer.common.AjaxResult;
-import com.huishu.ManageServer.common.conf.MsgConstant;
-import com.huishu.ManageServer.common.util.DateUtils;
-import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.GardenData;
-import com.huishu.ManageServer.entity.dbFirst.GardenMap;
 import com.huishu.ManageServer.entity.dbFirst.ScanGarden;
 import com.huishu.ManageServer.entity.dto.GardenDTO;
 import com.huishu.ManageServer.entity.dto.GardenIndustry;

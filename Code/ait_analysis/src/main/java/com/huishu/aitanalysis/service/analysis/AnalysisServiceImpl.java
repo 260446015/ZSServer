@@ -1,5 +1,8 @@
 package com.huishu.aitanalysis.service.analysis;
 
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+
 import com.alibaba.fastjson.JSONObject;
 import com.forget.articleCategory.POMPArticleCategory;
 import com.github.pagehelper.util.StringUtil;
@@ -7,10 +10,10 @@ import com.huishu.aitanalysis.es.entity.Index;
 import com.huishu.aitanalysis.es.entity.Index2;
 import com.huishu.aitanalysis.es.entity.Index3;
 import com.huishu.aitanalysis.service.index.IIndexService;
+import com.huishu.aitanalysis.service.indus.IndustryInfoService;
+import com.huishu.aitanalysis.service.park.ParkAnalysisService;
 import com.huishu.aitanalysis.util.Util;
-import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -33,7 +36,7 @@ public class AnalysisServiceImpl extends AbstractPostService  implements Analysi
 	 */
 	@SuppressWarnings("unused")
 	@Override
-	public void analysis(String dataJson,IIndexService indexService) {
+	public void analysis(String dataJson,IIndexService indexService,IndustryInfoService indusService,ParkAnalysisService  service) {
 		Index index = null;
 		Index2 index2 = null;
 		Index3 index3 = null;
@@ -62,11 +65,11 @@ public class AnalysisServiceImpl extends AbstractPostService  implements Analysi
 					log.info("园区政策分析出来的数据为：》》》》"+index);
 				}else if(dimension.equals("高峰论坛")){
 						index = getIndex(jsonObject);
-						index2 = getIndex3(jsonObject);
+						index2 = getIndex3(jsonObject,indusService);
 						log.info("高峰论坛分析出的数据为：》》》》"+index);
 						log.info("高峰论坛分析出的数据为：》》》》"+index2);
 				} else if(dimension.equals("融资快讯")){
-					index3 = getIndex4(jsonObject);
+					index3 = getIndex4(jsonObject,indusService);
 					log.info("融资快讯分析出的数据为：》》》》"+index2);
 				}else
 				{	
@@ -76,7 +79,7 @@ public class AnalysisServiceImpl extends AbstractPostService  implements Analysi
 				
 			}else{
 				
-				index = getIndex1(jsonObject);
+				index = getIndex1(jsonObject,service);
 			}
 			
 			if(index==null){

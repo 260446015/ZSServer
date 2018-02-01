@@ -112,6 +112,12 @@ public class KeyInfoServiceImpl implements KeyInfoService {
 			return false;
 		}
 	}
-	
+
+	@Override
+	@TargetDataSource(name="second")
+	public List<KeyInfoEntity> findAllEntity() {
+		return (List<KeyInfoEntity>) kirep.findAll();
+		
+	}
 	
 }

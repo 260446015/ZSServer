@@ -37,10 +37,6 @@ public abstract class AbstractPostService {
 
 	private Logger log = Logger.getLogger("analysis");
 	private final String abstractkeyword = "网络游戏,智能硬件,移动阅读,网络视听,电子商务,节能环保,新材料,新能源,生物技术,生物医药,生物制药,大数据,人工智能";
-	@Autowired
-	private ParkAnalysisService  service;
-	@Autowired
-	private IndustryInfoService indusService;
 	/**
 	 * 全网采集，根据关键词查找文章内容
 	 * 
@@ -50,7 +46,7 @@ public abstract class AbstractPostService {
 	 * @return
 	 * 搜索设置分析程序
 	 */
-	public synchronized Index getIndex1(JSONObject jsonObject){
+	public synchronized Index getIndex1(JSONObject jsonObject,ParkAnalysisService service){
 		Index index = new Index();
 		try {
 			String url = null == jsonObject.get("id") ? "" : String.valueOf(jsonObject.get("id")); 
@@ -608,6 +604,9 @@ public abstract class AbstractPostService {
 			
 			//发布时间 (yyyy-mm-dd)
 			String publishTime = Util.getPublishTime(publishDate);
+			if(publishTime.compareTo("2016-12-31") <= 0){
+				return null;
+			}
 			
 			//发布时间  年份
 			String publishYear = Util.getPublishYear(publishDate);
@@ -700,7 +699,7 @@ public abstract class AbstractPostService {
 	 * @return
 	 * 
 	 */
-	public synchronized Index2 getIndex3(JSONObject jsonObject) {
+	public synchronized Index2 getIndex3(JSONObject jsonObject,IndustryInfoService indusService) {
 		Index2 index2 = new Index2();
 		try {
 			String url = null == jsonObject.get("id") ? "" : String.valueOf(jsonObject.get("id")); 
@@ -845,7 +844,7 @@ public abstract class AbstractPostService {
 		return index2;
 	}
 	@SuppressWarnings("unchecked")
-	public synchronized Index3 getIndex4(JSONObject jsonObject ) {
+	public synchronized Index3 getIndex4(JSONObject jsonObject,IndustryInfoService indusService) {
 		
 		Index3 index3 = new Index3();
 		//去重
