@@ -85,7 +85,7 @@ function pushImg(){
             dataType : "json",
             success: function(response){
                 if(res.success){
-                    layer.alert('上传成功，图片页面的形成可能需要一点时间，请耐心等待', {icon: 1});
+                    layer.alert('文件上传成功，图片页面的形成可能需要一点时间，请耐心等待', {icon: 1});
                     window.location.reload();
                 }else{
                     layer.msg(res.message, {icon: 2});
