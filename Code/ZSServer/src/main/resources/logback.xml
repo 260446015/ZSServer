@@ -42,7 +42,7 @@
     <logger name="org.springframework.scheduling" level="info"/>
 
     <!-- 日志输出级别 , 测试用DEBUG级别, 线上用INFO级别-->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>
