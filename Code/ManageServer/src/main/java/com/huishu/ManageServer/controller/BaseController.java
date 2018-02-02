@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.common.AjaxResult;
 
+import com.huishu.ManageServer.security.ShiroDbRealm.ShiroUser;
+
 /**
  * @author hhy
  * @date 2017年10月27日
@@ -35,18 +37,18 @@ public abstract class BaseController {
 	 * 获取 shiro 中用户信息
 	 * @return
 	 */
-//	public ShiroUser getCurrentShiroUser() {
-//		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-//		return user;
-//	}
-//	
-//	public Long getUserId() {
-//		return getCurrentShiroUser().getId();
-//	}
-//
-//	public String getUserAccount() {
-//		return getCurrentShiroUser().getLoginName();
-//	}
+	public ShiroUser getCurrentShiroUser() {
+		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		return user;
+	}
+
+	public Long getUserId() {
+		return getCurrentShiroUser().getId();
+	}
+
+	public String getUserAccount() {
+		return getCurrentShiroUser().getLoginName();
+	}
 
 	
 }
