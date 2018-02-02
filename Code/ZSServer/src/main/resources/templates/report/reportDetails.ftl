@@ -66,7 +66,8 @@ $("#reportItem").addClass("active");
     	});
 	})
 	function show(data){
-		var follow='<a href="http://58.16.181.24:9322/fileserver/file/downLoad.do?filePath='+data.url+'" onclick="aa()" class="pull-right">点击下载报告</a>';
+	    var url=data.url.split('/pdf/pdf/');
+		var follow='<a href="http://58.16.181.24:9322/fileserver/file/downLoad.do?filePath='+url[1]+'" onclick="aa()" class="pull-right">点击下载报告</a>';
 		var before='<div class="meeting-details-box-header"><h4>'+data.name+follow+'</h4></div><div class="item"><div></div></div>';
 		var inner='';
 		var strs= new Array(); 
