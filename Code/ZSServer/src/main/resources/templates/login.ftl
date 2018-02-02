@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <div class="input-icon">
                         <i class="glyphicon glyphicon-lock"></i>
-                        <input type="password" class="form-control" placeholder="请输入用户名" id="userPassword"/>
+                        <input type="password" class="form-control" placeholder="请输入密码" id="userPassword"/>
                     </div>
                 </div>
                 <div class="form-group">
