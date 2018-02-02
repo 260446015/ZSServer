@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.IndusCompany;
+import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 
 /**
  * @author hhy
@@ -36,7 +37,8 @@ public interface EnterPriseService {
 	 * @param area
 	 * @return
 	 */
-	List<IndusCompany> getCompanyList(String industry, String[] moneys, String[] times, String area);
+//	List<IndusCompany> getCompanyList(String industry, String[] moneys, String[] times, String area);
+	List<IndusCompanyDTO> getCompanyList(String industry, String[] moneys, String[] times, String area);
 
 	/**
 	 * 获取产业标签数据
@@ -46,6 +48,7 @@ public interface EnterPriseService {
 	 * @param time
 	 * @return
 	 */
-	List<IndusCompany> findCompanyList(String industry, String area, String[] money, String[] time);
+//	List<IndusCompany> findCompanyList(String industry, String area, String[] money, String[] time);
+	List<IndusCompanyDTO> findCompanyList(String industry, String area, String[] money, String[] time);
 
 }

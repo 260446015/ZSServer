@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 
-import com.huishu.ZSServer.entity.IndusCompany;
+import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 
 /**
  * @author hhy
@@ -16,30 +16,33 @@ import com.huishu.ZSServer.entity.IndusCompany;
  * @return 
  * 
  */
-public interface IndusCompanyRepository extends CrudRepository<IndusCompany,Long>,JpaSpecificationExecutor<IndusCompany> {
+public interface IndusCompanyRepository extends CrudRepository<IndusCompanyDTO,Long>,JpaSpecificationExecutor<IndusCompanyDTO> {
 	/**
 	 * 根据公司简称查看详细信息
 	 * @param companyName
 	 * @return
 	 */
-	IndusCompany findByCompanyName(String companyName);
+//	IndusCompany findByCompanyName(String companyName);
+	IndusCompanyDTO findByCompanyName(String companyName);
 	
 	/**
 	 * 根据公司全名查看公司信息
 	 * @param company
 	 * @return
 	 */
-	IndusCompany findByCompany(String company);
+//	IndusCompany findByCompany(String company);
+	IndusCompanyDTO findByCompany(String company);
 	
 	
 	
 	
-	@Query(value = "select COUNT(*) FROM t_indus_company ", nativeQuery = true)
+	@Query(value = "select COUNT(*) FROM t_enterprise ", nativeQuery = true)
 	int getCount();
 	/**
 	 * @param i
 	 * @return
 	 */
-	@Query(value = "SELECT * FROM t_indus_company where LENGTH(t_company_name) < 30 LIMIT ?1,10", nativeQuery = true)
-	List<IndusCompany> getCompanyInfo(int i);
+	@Query(value = "SELECT * FROM t_enterprise where LENGTH(t_company_name) < 30 LIMIT ?1,10", nativeQuery = true)
+	List<IndusCompanyDTO> getCompanyInfo(int i);
+//	List<IndusCompany> getCompanyInfo(int i);
 }

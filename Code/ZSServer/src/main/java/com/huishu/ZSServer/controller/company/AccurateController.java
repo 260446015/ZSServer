@@ -18,6 +18,7 @@ import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.IndusCompany;
+import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.entity.vo.CompanyVO;
@@ -75,7 +76,8 @@ public class AccurateController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/listCompanyInfo.json")
 	public AjaxResult listCompanyInfo(){
-		Iterable<IndusCompany> list = service.listCompany();
+//		Iterable<IndusCompany> list = service.listCompany();
+		Iterable<IndusCompanyDTO> list = service.listCompany();
 		return success(list);
 	}
 	
