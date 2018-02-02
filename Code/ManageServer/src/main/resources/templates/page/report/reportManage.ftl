@@ -81,6 +81,7 @@
 <!-- start: JavaScript-->
 <!-- Vendor JS-->
 <#include "/common/script.ftl">
+<script src="/js/ajaxfileupload.js"></script>
 <script src="/js/report/reportManage.js"></script>
 <!-- end: JavaScript-->
 </body>

@@ -66,7 +66,14 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">文件类型</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="fileType" class="form-control" placeholder="" >
+                                        <div class="radio-custom radio-inline">
+                                            <input type="radio" name="fileType" value="season">
+                                            <label for="inline-radio1">季报</label>
+                                        </div>
+                                        <div class="radio-custom radio-inline">
+                                            <input type="radio" name="fileType" value="month">
+                                            <label for="inline-radio2">月报</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">

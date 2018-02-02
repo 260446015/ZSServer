@@ -30,7 +30,7 @@ function showPage(req) {
                     for (var i = 0; i < arr.length; i++) {
                         html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td>'+arr[i].name+'</td><td>'
                             + arr[i].data + '</td><td>' + arr[i].label + '</td><td>' + arr[i].fileType + '</td><td>' + arr[i].downloads
-                            + '</td><td><a href="http://58.16.181.24:9322/fileserver/static/pdf/pdf/' + arr[i].url + '" target="_blank">http://58.16.181.24:9322/fileserver/static/pdf/pdf/' + arr[i].url + '</a></td><td class="actions">'+
+                            + '</td><td><a href="' + arr[i].url + '" target="_blank">' + arr[i].url + '</a></td><td class="actions">'+
                             '<a href="javascript:void(0);" class="on-default my_remove modal-basic"><i class="fa fa-trash-o"></i></a>' +
                             '<a href="javascript:void(0);" class="on-default my_edit modal-basic"><i class="fa fa-pencil"></i></a></td></tr>';
 
@@ -84,15 +84,14 @@ function pushImg(){
             fileElementId:'file',
             dataType : "json",
             success: function(response){
-                if(res.success){
-                    layer.alert('文件上传成功，图片页面的形成可能需要一点时间，请耐心等待', {icon: 1});
+                if(response.success){
                     window.location.reload();
                 }else{
-                    layer.msg(res.message, {icon: 2});
+                    layer.msg(response.message, {icon: 2});
                 }
             },
             error: function(response){
-                layer.msg(res.message, {icon: 2});
+                window.location.reload();
             }
         }
     );

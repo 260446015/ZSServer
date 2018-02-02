@@ -14,7 +14,7 @@ function addData(id) {
                 $("input[name='name']").val(enter.name);
                 $("input[name='data']").val(enter.data);
                 $("input[name='label']").val(enter.label);
-                $("input[name='fileType']").val(enter.fileType);
+                $("input[name='fileType'][value='"+enter.fileType+"']").attr('checked','true');
                 $("input[name='downloads']").val(enter.downloads);
                 $("input[name='url']").val(enter.url);
             }else{
@@ -37,7 +37,7 @@ function etitData() {
     var _logo = $("input[name='name']").val();
     var _financingCompany = $("input[name='data']").val();
     var _financingDate = $("input[name='label']").val();
-    var _invest = $("input[name='fileType']").val();
+    var _invest = $('input:radio:checked').val();
     var _financingAmount = $("input[name='downloads']").val();
     var _investor = $("input[name='url']").val();
     var obj = {
