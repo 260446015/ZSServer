@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ZSServer.entity.IndusCompany;
+import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 
 /**
@@ -26,7 +27,8 @@ public interface IndusCompanyService {
 	 * 智能推荐优质企业
 	 * @return
 	 */
-	List<IndusCompany> listCompany();
+	List<IndusCompanyDTO> listCompany();
+//	List<IndusCompany> listCompany();
 	/**
 	 * 根据上传名片获取相关公司关键字
 	 * @param imageBase64
@@ -38,5 +40,6 @@ public interface IndusCompanyService {
 	 * @param companyName
 	 * @return
 	 */
-	IndusCompany findCompanyInfoByCompanyName(String companyName);
+//	IndusCompany findCompanyInfoByCompanyName(String companyName);
+	IndusCompanyDTO findCompanyInfoByCompanyName(String companyName);
 }

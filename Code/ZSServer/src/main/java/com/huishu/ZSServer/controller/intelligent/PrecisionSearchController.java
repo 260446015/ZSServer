@@ -18,6 +18,7 @@ import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.IndusCompany;
+import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.entity.dto.LabelDTO;
 import com.huishu.ZSServer.service.company.EnterPriseService;
 import com.huishu.ZSServer.service.company.IndusCompanyService;
@@ -62,7 +63,8 @@ public class PrecisionSearchController extends BaseController{
 		String[] time = dto.getRegisterTime();
 		String area = dto.getArea();
 		if(area.equals("全部")&&industry.equals("全部")&&time[0].equals("全部")&&money[0].equals("全部")){
-			List<IndusCompany> list = iservice.listCompany();
+//			List<IndusCompany> list = iservice.listCompany();
+			List<IndusCompanyDTO> list = iservice.listCompany();
 			return success(list);
 		}else{
 			if(area.equals("全部")){
@@ -72,7 +74,8 @@ public class PrecisionSearchController extends BaseController{
 				industry = "";
 			}
 			
-			List<IndusCompany> info = service.findCompanyList(industry,area,money,time);
+//			List<IndusCompany> info = service.findCompanyList(industry,area,money,time);
+			List<IndusCompanyDTO> info = service.findCompanyList(industry,area,money,time);
 			if(info!=null && info.size() != 0){
 				JSONArray arr = new JSONArray();
 				info.forEach(action->{
@@ -85,7 +88,7 @@ public class PrecisionSearchController extends BaseController{
 					}
 					obj.put("company", action.getCompany());
 					obj.put("companyName", action.getCompanyName());
-					obj.put("id", action.getId());
+//					obj.put("id", action.getId());
 					obj.put("industry", action.getIndustry());
 					obj.put("industryLabel", action.getIndustryLabel());
 					obj.put("industryZero", action.getInduszero());

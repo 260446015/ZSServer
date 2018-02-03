@@ -19,6 +19,7 @@ import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.IndusCompany;
+import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
 import com.huishu.ZSServer.repository.openeyes.BaseInfoRepository;
@@ -45,7 +46,8 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 	@Override
 	public BaseInfo getCompanyInfo(String companyName) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		IndusCompany com = repository.findByCompanyName(companyName);
+//		IndusCompany com = repository.findByCompanyName(companyName);
+		IndusCompanyDTO com = repository.findByCompanyName(companyName);
 		if (com == null) {
 			LOGGER.debug(MsgConstant.SYSTEM_ERROR);
 			return null;
@@ -73,7 +75,8 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 	}
 
 	@Override
-	public List<IndusCompany> listCompany() {
+//	public List<IndusCompany> listCompany() {
+	public List<IndusCompanyDTO> listCompany() {
 		// 获取总数
 		int count = repository.getCount();
 		
@@ -81,7 +84,8 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 		while(i>(count-10)){
 			i = (int)(Math.random()*count+1);
 		}
-		List<IndusCompany> list =  repository.getCompanyInfo(i);
+		List<IndusCompanyDTO> list =  repository.getCompanyInfo(i);
+//		List<IndusCompany> list =  repository.getCompanyInfo(i);
 		return list;
 	}
 
@@ -104,7 +108,8 @@ public class IndusCompanyServiceImpl extends AbstractService implements IndusCom
 	}
 	/**根据别名查看具体的公司信息*/
 	@Override
-	public IndusCompany findCompanyInfoByCompanyName(String companyName) {
+//	public IndusCompany findCompanyInfoByCompanyName(String companyName) {
+	public IndusCompanyDTO findCompanyInfoByCompanyName(String companyName) {
 		
 		return repository.findByCompanyName(companyName);
 	}

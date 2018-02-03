@@ -199,8 +199,11 @@ $.ajax({
 		var strHtml = "";
 		for(var i=0;i<res.data.length;i++){
 				if(res.data[i].companyName!=null){
-					strHtml += "<li>"
-					strHtml += "<div>"
+					if(res.data[i].companyName.length>7){   
+						strHtml +="<li class='bigborder'><div class='bigdiv'>"
+					}else{
+						strHtml +="<li class='smallborder'><div class='smalldiv'>"
+					}  
 					strHtml += "<p>"+res.data[i].companyName+"</p>"
 					strHtml += "</div>"
 					if(res.data[i].industry!=null){
@@ -227,25 +230,29 @@ function searchAjax(){
         contentType: 'application/json',
 		data:JSON.stringify(param),
 		success:function(res){
-			console.log(res)
+			var res = res.data.slice(0,10);
 			if(res.message!=null){
             	 $(".Precisecircles").html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
             }else{	
+
 				var strHtml = "";
-				for(var i=0;i<res.data.length;i++){
-						if(res.data[i].companyName!=null){
-							strHtml += "<li>"
-							strHtml += "<div>"
-							strHtml += "<p>"+res.data[i].companyName+"</p>"
+				for(var i=0;i<res.length;i++){
+						if(res[i].companyName!=null){
+							if(res[i].companyName.length>7){   
+								strHtml +="<li class='bigborder'><div class='bigdiv'>"
+							}else{
+								strHtml +="<li class='smallborder'><div class='smalldiv'>"
+							}  
+							strHtml += "<p>"+res[i].companyName+"</p>"
 							strHtml += "</div>"
-							if(res.data[i].industry!=null){
-								strHtml += "<small class='smaa smCircle'>"+"<i>"+res.data[i].industry+"</i></small>" ;    
+							if(res[i].industry!=null){
+								strHtml += "<small class='smaa smCircle'>"+"<i>"+res[i].industry+"</i></small>" ;    
 							}
-							if(res.data[i].industryLabel!=null){
-								strHtml += "<small class='smbb smCircle'><i>"+res.data[i].industryLabel+"</i></small>" ;  
+							if(res[i].industryLabel!=null){
+								strHtml += "<small class='smbb smCircle'><i>"+res[i].industryLabel+"</i></small>" ;  
 							}
-							if(res.data[i].industryZero!=null){
-								strHtml += "<small class='smcc smCircle'><i>"+res.data[i].industryZero+"</i></small></li>" ;       
+							if(res[i].industryZero!=null){
+								strHtml += "<small class='smcc smCircle'><i>"+res[i].industryZero+"</i></small></li>" ;       
 							}    
 						}
 					}

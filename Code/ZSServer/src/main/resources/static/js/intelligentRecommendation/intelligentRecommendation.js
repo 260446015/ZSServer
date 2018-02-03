@@ -8,8 +8,11 @@ $(function(){
             var strHtml = "";
             for(var i=0;i<res.data.length;i++){
                     if(res.data[i].companyName!=null){
-                        strHtml += "<li>"
-                        strHtml += "<div>"
+                        if(res.data[i].companyName.length>7){   
+                            strHtml +="<li class='bigborder'><div class='bigdiv'>"
+                        }else{
+                            strHtml +="<li class='smallborder'><div class='smalldiv'>"
+                        }  
                         strHtml += "<p>"+res.data[i].companyName+"</p>"
                         if(res.data[i].flag!=false){
                             strHtml += "<span>new</span>"

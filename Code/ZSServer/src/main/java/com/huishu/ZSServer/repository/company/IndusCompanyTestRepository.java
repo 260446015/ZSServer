@@ -3,6 +3,7 @@ package com.huishu.ZSServer.repository.company;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ZSServer.entity.IndusCompany;
@@ -29,5 +30,11 @@ public interface IndusCompanyTestRepository extends CrudRepository<IndusCompany,
 	 * @return
 	 */
 	List<IndusCompany> findByCompany(String company);
+
+	/**
+	 * @return
+	 */
+	@Query(value="select * from t_indus_company where t_company_name is null" ,nativeQuery = true)
+	List<IndusCompany> getCompanyInfo();
 	
 }

@@ -18,6 +18,7 @@ import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.Enterprise;
 import com.huishu.ZSServer.entity.IndusCompany;
+import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
 import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
@@ -122,8 +123,10 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 
 	
 	@Override
-	public List<IndusCompany> getCompanyList(String industry, String[] moneys, String[] times, String area) {
+//	public List<IndusCompany> getCompanyList(String industry, String[] moneys, String[] times, String area) {
+	public List<IndusCompanyDTO> getCompanyList(String industry, String[] moneys, String[] times, String area) {
 		List<Enterprise> list = new ArrayList<>();
+		//如果时间为空
 		if(times[0].equals("全部")){
 			list = rep.findByIndustryLikeAndAreaLike(industry,area);
 		}else{
@@ -133,9 +136,11 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 				list.addAll(rep.findByIndustryAndAreaAndRegisterTimeBetween(industry,area,obj.getString("startTime"),obj.getString("endTime")));
 			}
 		}
-		List<IndusCompany> li = new ArrayList<IndusCompany>();
+		
+//		List<IndusCompany> li = new ArrayList<IndusCompany>();
+		List<IndusCompanyDTO> li = new ArrayList<IndusCompanyDTO>();
 		List<Enterprise> List = new ArrayList<Enterprise>();
-		if(list.size()>=10){
+		if(list.size()>=20){
 			int i = list.size();
 			int si = updateData(i);
 			for(int n = 0;i <= 9;i++){
@@ -144,46 +149,36 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 			}
 			if(moneys[0].equals("全部")){
 				 List.forEach(action->{
-					IndusCompany ind = indrepository.findByCompany(action.getCompany());
-					if(ind==null){
-						try {
-							JSONObject json = Analysis.getInitCompanyAbbr(action.getCompany());
-							if(json.getBoolean("status")){
-								Set<String> set = (Set<String>) json.get("result");
-								String ss = set.iterator().next();
-								IndusCompany indus = new IndusCompany();
-								indus.setCompany(action.getCompany());
-								indus.setCompanyName(ss);
-								indus.setIndustry(action.getIndustry());
-								IndusCompany save = indrepository.save(indus);
-								li.add(save);
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}else{
-						li.add(ind);
-					}
+					 //	IndusCompany ind = indrepository.findByCompany(action.getCompany());
+					 IndusCompanyDTO ind = new IndusCompanyDTO();
+					 ind.setCompany(action.getCompany());
+					 ind.setCompanyName(action.getCompanyName());
+					 ind.setCreateTime(action.getCreateTime());
+					 ind.setIndustry(action.getIndustry());
+					 ind.setIndustryLabel(action.getIndustryLabel());
+					 ind.setInduszero(action.getIndustryZero());
+					 ind.setUpdateTime(action.getUpdateTime());
+					 li.add(ind);
+					 
 				});
 				return li;
 			}else{
 				for (String money : moneys) {
 					money = money.trim();
-					List<IndusCompany> el = new ArrayList<>();
+					List<IndusCompanyDTO> el = new ArrayList<IndusCompanyDTO>();
 					List<Integer> ll = StringUtil.initMoney(money);
 					List<JSONObject>  companyName= getName( list,ll);
 					if(companyName.size()<10){
 						companyName.forEach(action->{
-							IndusCompany ind = indrepository.findByCompany(action.getString("company"));
-							if(ind==null){
-								try {
-									getCompanyName(el, action);
-								} catch (Exception e) {
-									e.printStackTrace();
-								}
-							}else{
-								el.add(ind);
-							}
+							IndusCompanyDTO dto = new IndusCompanyDTO();
+							dto.setCompany(action.getString("company"));
+							dto.setCompanyName(action.getString("companyName"));
+							dto.setCreateTime(action.getString("createTime"));
+							dto.setIndustry(action.getString("industry"));
+							dto.setIndustryLabel(action.getString("industryLabel"));
+							dto.setInduszero(action.getString("industryZero"));
+							dto.setUpdateTime(action.getString("updateTime"));
+							el.add(dto);
 						});
 					}else{
 						int size = companyName.size();
@@ -194,16 +189,15 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 							o.add(obj);
 						}
 						o.forEach(action->{
-							IndusCompany ind = indrepository.findByCompany(action.getString("company"));
-							if(ind==null){
-								try {
-									getCompanyName(el, action);
-								} catch (Exception e) {
-									e.printStackTrace();
-								}
-							}else{
-								el.add(ind);
-							}
+							IndusCompanyDTO dto = new IndusCompanyDTO();
+							dto.setCompany(action.getString("company"));
+							dto.setCompanyName(action.getString("companyName"));
+							dto.setCreateTime(action.getString("createTime"));
+							dto.setIndustry(action.getString("industry"));
+							dto.setIndustryLabel(action.getString("industryLabel"));
+							dto.setInduszero(action.getString("industryZero"));
+							dto.setUpdateTime(action.getString("updateTime"));
+							el.add(dto);
 						});
 					}
 					li.addAll(el);
@@ -216,7 +210,7 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 		
 	}
 
-	private void getCompanyName(List<IndusCompany> li, JSONObject action) throws Exception {
+	/*private void getCompanyName(List<IndusCompany> li, JSONObject action) throws Exception {
 		JSONObject json = Analysis.getInitCompanyAbbr(action.getString("company"));
 		if(json.getBoolean("status")){
 			Set<String> set = (Set<String>) json.get("result");
@@ -228,7 +222,7 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 			IndusCompany save = indrepository.save(indus);
 			li.add(save);
 		}
-	}
+	}*/
 
 	private int updateData(int size) {
 		int si = (int)(Math.random()*size);
@@ -258,6 +252,11 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 						JSONObject obj = new JSONObject();
 						obj.put("company", action.getCompany());
 						obj.put("industry", action.getIndustry());
+						obj.put("companyName", action.getCompanyName());
+						obj.put("industryLabel", action.getIndustryLabel());
+						obj.put("industryZero", action.getIndustryZero());
+						obj.put("createTime", action.getCreateTime());
+						obj.put("updateTime", action.getUpdateTime());
 						l1.add(obj);
 					}
 				}
@@ -277,6 +276,11 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 						JSONObject obj = new JSONObject();
 						obj.put("company", action.getCompany());
 						obj.put("industry", action.getIndustry());
+						obj.put("companyName", action.getCompanyName());
+						obj.put("industryLabel", action.getIndustryLabel());
+						obj.put("industryZero", action.getIndustryZero());
+						obj.put("createTime", action.getCreateTime());
+						obj.put("updateTime", action.getUpdateTime());
 						l1.add(obj);
 					}
 				}
@@ -339,9 +343,10 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 	 * 多选操作查询公司详情
 	 */
 	@Override
-	public List<IndusCompany> findCompanyList(String industry, String area, String[] money, String[] time) {
+//	public List<IndusCompany> findCompanyList(String industry, String area, String[] money, String[] time) {
+	public List<IndusCompanyDTO> findCompanyList(String industry, String area, String[] money, String[] time) {
 		List<Enterprise> list = new ArrayList<Enterprise>();
-		List<IndusCompany> li = new ArrayList<IndusCompany>();
+		List<IndusCompanyDTO> li = new ArrayList<IndusCompanyDTO>();
 		//第一步，根据筛选条件查询出数据
 		if(StringUtil.isEmpty(industry)&&StringUtil.isEmpty(area)){
 			//产业地域都为空
@@ -396,17 +401,30 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 			}else{
 				if(list.size()<=20){
 					list.forEach(action->{
-						IndusCompany ent = indrepository.findByCompany(action.getCompany());
-						li.add(ent);
+						IndusCompanyDTO dto = new IndusCompanyDTO();
+						dto.setCompany(action.getCompany());
+						dto.setCompanyName(action.getCompanyName());
+						dto.setCreateTime(action.getCreateTime());
+						dto.setIndustry(action.getIndustry());
+						dto.setIndustryLabel(action.getIndustryLabel());
+						dto.setInduszero(action.getIndustryZero());
+						dto.setUpdateTime(action.getUpdateTime());
+						li.add(dto);
 					});
 				}else{
 					
 					while(li.size()<10){
 						int si = (int)(Math.random()*list.size()+1);
-						IndusCompany ent = indrepository.findByCompany(list.get(si).getCompany());
-						if(!li.contains(ent)){
-							li.add(ent);
-						}
+						Enterprise action = list.get(si);
+						IndusCompanyDTO dto = new IndusCompanyDTO();
+						dto.setCompany(action.getCompany());
+						dto.setCompanyName(action.getCompanyName());
+						dto.setCreateTime(action.getCreateTime());
+						dto.setIndustry(action.getIndustry());
+						dto.setIndustryLabel(action.getIndustryLabel());
+						dto.setInduszero(action.getIndustryZero());
+						dto.setUpdateTime(action.getUpdateTime());
+						li.add(dto);
 					}
 				}
 			}
@@ -417,26 +435,23 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 				List<JSONObject> name = getName(list, ll);
 				name.forEach(act->{
 					if(li.size()<=10){
-						IndusCompany ent = indrepository.findByCompany(act.getString("company"));
-						li.add(ent);
+						IndusCompanyDTO dto = new IndusCompanyDTO();
+						dto.setCompany(act.getString("company"));
+						dto.setCompanyName(act.getString("companyName"));
+						dto.setCreateTime(act.getString("createTime"));
+						dto.setIndustry(act.getString("industry"));
+						dto.setIndustryLabel(act.getString("industryLabel"));
+						dto.setInduszero(act.getString("industryZero"));
+						dto.setUpdateTime(act.getString("updateTime"));
+						li.add(dto);
 					}else{
 						return;
 					}
 				});
 			}
 		}
-//		List<IndusCompany> ll = new ArrayList<IndusCompany>();
-		//第三步，判断最后结果的长度，确定返回值的数值
-		if(li.size()<9){
-			return null;
-		}else{
-			/*while(ll.size()<10){
-				int si = updateData(li.size());
-				ll.add(li.get(si));
-				
-			}*/
 			return li;
-		}
+		
 		
 	}
 }

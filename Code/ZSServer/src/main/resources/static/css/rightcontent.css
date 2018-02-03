@@ -1,22 +1,11 @@
 .Precisecircles ul li:nth-child(1){
-    width: 200px;
-    height: 200px;
-    border-radius: 100%;
-    text-align: center;
-    color:#fff;
-    font-size: 12px;
     position: absolute;
     left: 44%;
     top: 570%;
     transform: translateY(-50%);
 }
+
 .Precisecircles ul li:nth-child(1) div{
-    width: 100px;
-    height: 100px;
-    /* line-height: 100px; */
-    font-size: 12px;
-    color: #fff;
-    border-radius: 100%;
     background: -webkit-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
     position: absolute;
     top: 50%;
@@ -24,9 +13,7 @@
     transform: translate(-50%,-50%);
     cursor: pointer;
 }
-.Precisecircles ul li:nth-child(1) div p{
-    padding: 30px 10px;
-}
+
 .Precisecircles ul li:nth-child(1) span{
     position: absolute;
     top: -5px;
@@ -102,33 +89,17 @@
     overflow: visible;
 }
 .Precisecircles ul li:nth-child(2){
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    text-align: center;
-    color:#fff;
-    font-size: 12px;
     position: absolute;
     left: 36%;
     top: 244%;
 }
 .Precisecircles ul li:nth-child(2) div{
-    width: 75px;
-    height: 75px;
-    /* line-height: 75px; */
-    font-size: 12px;
-    color: #fff;
-    border-radius: 100%;
     background: -webkit-linear-gradient(Top,#3b6aa0,#40589e,#47499c);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
     cursor: pointer;
-}
-
-.Precisecircles ul li:nth-child(2) div p{
-    padding: 30px 10px;
 }
 
 .Precisecircles ul li:nth-child(2) span{
@@ -149,33 +120,17 @@
 
 
 .Precisecircles ul li:nth-child(3){
-    width: 160px;
-    height: 160px;
-    border-radius: 100%;
-    text-align: center;
-    color:#fff;
-    font-size: 12px;
     position: absolute;
     left: 24%;
     top: 409%;
 }
 .Precisecircles ul li:nth-child(3) div{
-    width: 80px;
-    height: 80px;
-    /* line-height: 80px; */
-    font-size: 12px;
-    color: #fff;
-    border-radius: 100%;
     background: -webkit-linear-gradient(Top,#2a5577,#2f4777,#37387b);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
     cursor: pointer;
-}
-
-.Precisecircles ul li:nth-child(3) div p{
-    padding: 30px 10px;
 }
 
 .Precisecircles ul li:nth-child(3) span{
@@ -197,33 +152,17 @@
 
 
 .Precisecircles ul li:nth-child(4){
-    width: 160px;
-    height: 160px;
-    border-radius: 100%;
-    text-align: center;
-    color:#fff;
-    font-size: 16px;
     position: absolute;
     left: 51%;
     top: 202%;
 }
 .Precisecircles ul li:nth-child(4) div{
-    width: 80px;
-    height: 80px;
-    /* line-height: 80px; */
-    font-size: 12px;
-    color: #fff;
-    border-radius: 100%;
     background: -webkit-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
     cursor: pointer;
-}
-
-.Precisecircles ul li:nth-child(4) div p{
-    padding: 30px 10px;
 }
 
 .Precisecircles ul li:nth-child(4) span{
@@ -244,33 +183,17 @@
 
 
 .Precisecircles ul li:nth-child(5){
-    width: 160px;
-    height: 160px;
-    border-radius: 100%;
-    text-align: center;
-    color:#fff;
-    font-size: 12px;
     position: absolute;
     left: 79%;
     top: 393%;
 }
 .Precisecircles ul li:nth-child(5) div{
-    width: 80px;
-    height: 80px;
-    /* line-height: 80px; */
-    font-size: 12px;
-    color: #fff;
-    border-radius: 100%;
     background: -webkit-linear-gradient(Top,#4e8fcf,#4d71c7,#565ec3);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
     cursor: pointer;
-}
-
-.Precisecircles ul li:nth-child(5) div p{
-    padding: 30px 10px;
 }
 
 .Precisecircles ul li:nth-child(5) span{
@@ -290,33 +213,17 @@
 } 
 
 .Precisecircles ul li:nth-child(6){
-    width: 120px;
-    height: 120px;
-    border-radius: 100%;
-    text-align: center;
-    color:#fff;
-    font-size: 14px;
     position: absolute;
     left: 64%;
     top: 367%;
 }
 .Precisecircles ul li:nth-child(6) div{
-    width: 60px;
-    height: 60px;
-    /* line-height: 60px; */
-    font-size: 12px;
-    color: #fff;
-    border-radius: 100%;
     background: -webkit-linear-gradient(Top,#4188b6,#4977b5,#5e66b1);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
     cursor: pointer;
-}
-
-.Precisecircles ul li:nth-child(6) div p{
-    padding: 10px 10px;
 }
 
 .Precisecircles ul li:nth-child(6) span{
@@ -336,33 +243,17 @@
 } 
 
 .Precisecircles ul li:nth-child(7){
-    width: 200px;
-    height: 200px;
-    border-radius: 100%;
-    text-align: center;
-    color:#fff;
-    font-size: 12px;
     position: absolute;
     left: 63%;
     top: 548%;
 }
 .Precisecircles ul li:nth-child(7) div{
-    width: 100px;
-    height: 100px;
-    /* line-height: 100px; */
-    font-size: 12px;
-    color: #fff;
-    border-radius: 100%;
     background: -webkit-linear-gradient(Top,#4691ca,#4d77c9,#488ecc);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
     cursor: pointer;
-}
-
-.Precisecircles ul li:nth-child(7) div p{
-    padding: 30px 10px;
 }
 
 .Precisecircles ul li:nth-child(7) span{
@@ -383,33 +274,17 @@
 
 
 .Precisecircles ul li:nth-child(8){
-    width: 160px;
-    height: 160px;
-    border-radius: 100%;
-    text-align: center;
-    color:#fff;
-    font-size: 12px;
     position: absolute;
     left: 18%;
     top: 215%;
 }
 .Precisecircles ul li:nth-child(8) div{
-    width: 80px;
-    height: 80px;
-    /* line-height: 80px; */
-    font-size: 12px;
-    color: #fff;
-    border-radius: 100%;
     background: -webkit-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
     cursor: pointer;
-}
-
-.Precisecircles ul li:nth-child(8) div p{
-    padding: 20px 10px;
 }
 
 .Precisecircles ul li:nth-child(8) span{
@@ -431,33 +306,17 @@
 
 
 .Precisecircles ul li:nth-child(9){
-    width: 120px;
-    height: 120px;
-    border-radius: 100%;
-    text-align: center;
-    color:#fff;
-    font-size: 12px;
     position: absolute;
     left: 46%;
     top: 710%;
 }
 .Precisecircles ul li:nth-child(9) div{
-    width: 60px;
-    height: 60px;
-    /* line-height: 60px; */
-    font-size: 12px;
-    color: #fff;
-    border-radius: 100%;
     background: -webkit-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);  
     cursor: pointer;
-}
-
-.Precisecircles ul li:nth-child(9) div p{
-    padding: 10px 10px;
 }
 
 .Precisecircles ul li:nth-child(9) span{
@@ -478,23 +337,11 @@
 
 
 .Precisecircles ul li:nth-child(10){
-    width: 120px;
-    height: 120px;
-    border-radius: 100%;
-    text-align: center;
-    color:#fff;
-    font-size: 14px;
     position: absolute;
     left: 30%;
     top: 649%;
 } 
 .Precisecircles ul li:nth-child(10) div{
-    width: 60px;
-    height: 60px;
-    /* line-height: 60px; */
-    font-size: 12px;
-    color: #fff;
-    border-radius: 100%;
     background: -webkit-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
     position: absolute;
     top: 50%;
@@ -502,10 +349,6 @@
     transform: translate(-50%,-50%); 
     cursor: pointer;
 } 
-
-.Precisecircles ul li:nth-child(10) div p{
-    padding: 10px 10px;
-}
 
  .Precisecircles ul li:nth-child(10) span{
     position: absolute;
@@ -521,6 +364,49 @@
     line-height: 30px;
     font-size: 12px;
     color: #000c0b;
+}
+
+
+.bigborder{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    text-align: center;
+    color:#fff;
+    font-size: 12px;
+}
+
+.smallborder{
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    text-align: center;
+    color:#fff;
+    font-size: 12px;   
+}
+
+.bigdiv{
+    width: 100px;
+    height: 100px;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 100%;
+}
+
+.smalldiv{
+    width: 75px;
+    height: 75px;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 100%;
+}
+
+.smalldiv p{
+    padding: 25px 10px;
+}
+
+.bigdiv p{
+    padding: 35px 10px;
 }
 
 #searchTag{

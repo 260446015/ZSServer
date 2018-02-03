@@ -85,6 +85,61 @@ public class Enterprise implements Serializable {
 	private String scoring;
 	/** 上市公司 */
 	private String publicCompany;
+	/**公司简称*/
+	@Column(name = "t_company_name")
+	private String companyName;
+	/**产业标签*/
+	@Column(name = "t_industry_label")
+	private String industryLabel;
+	/**所属新兴战略产业*/
+	@Column(name = "t_industry_zero")
+	private String industryZero;
+	/**入库时间*/
+	@Column(name = "t_create_time")
+	private String createTime;
+	/**更新时间*/
+	@Column(name = "t_update_time")
+	private String updateTime;
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getIndustryLabel() {
+		return industryLabel;
+	}
+
+	public void setIndustryLabel(String industryLabel) {
+		this.industryLabel = industryLabel;
+	}
+
+	public String getIndustryZero() {
+		return industryZero;
+	}
+
+	public void setIndustryZero(String industryZero) {
+		this.industryZero = industryZero;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
 
 	public String getPublicCompany() {
 		return publicCompany;
