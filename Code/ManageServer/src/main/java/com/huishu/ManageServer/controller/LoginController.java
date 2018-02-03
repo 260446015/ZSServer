@@ -54,7 +54,7 @@ public class LoginController extends BaseController {
 	/**
 	 * 未登录
 	 */
-	@RequestMapping(value = "apis/login.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/apis/login.do", method = RequestMethod.GET)
 	public String login(HttpServletResponse response) {
 		return "login";
 	}
@@ -66,7 +66,7 @@ public class LoginController extends BaseController {
 	 *            携带成功或失败的request
 	 * @return 返回响应
 	 */
-	@RequestMapping(value = "apis/login.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/apis/login.do", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult loginAjax(HttpServletRequest request, String username, String type, String password) {
 		if (request.getAttribute("success") != null && (boolean) request.getAttribute("success")) {
@@ -99,7 +99,7 @@ public class LoginController extends BaseController {
 	 *            http请求
 	 * @return 返回公钥
 	 */
-	@RequestMapping(value = "apis/security/generateKey.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/apis/generateKey.do", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult generateKeyAjax(HttpServletRequest request) {
 		AjaxResult result = new AjaxResult();
@@ -123,7 +123,7 @@ public class LoginController extends BaseController {
 	 *
 	 * @return
 	 */
-	@RequestMapping(value = "apis/logOut.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/apis/logOut.do", method = RequestMethod.GET)
 	public void logOut(HttpServletResponse response) {
 		Subject subject = SecurityUtils.getSubject();
 		try {

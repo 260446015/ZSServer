@@ -5,6 +5,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -38,7 +39,10 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 			// 单点登录
 			Collection<Session> sessions = sessionManager.getSessionDAO().getActiveSessions();
 			for (Session session : sessions) {
-				sessionManager.getSessionDAO().delete(session);
+				if (token.getUsername()
+						.equals(String.valueOf(session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY)))) {
+					sessionManager.getSessionDAO().delete(session);
+				}
 			}
 			subject.login(token);// 正常验证
 			return onLoginSuccess(token, subject, request, response);

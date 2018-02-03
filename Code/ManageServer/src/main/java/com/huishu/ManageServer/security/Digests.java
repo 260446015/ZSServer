@@ -1,12 +1,12 @@
 package com.huishu.ManageServer.security;
 
+import org.apache.commons.lang.Validate;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
-
-import org.apache.commons.lang.Validate;
 
 public class Digests {
 	private static final String SHA1 = "SHA-1";

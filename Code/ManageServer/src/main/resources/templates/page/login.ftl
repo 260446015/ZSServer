@@ -77,7 +77,7 @@
 <script type="text/javascript">
     function doLogin() {
         $.ajax({
-            url: "/apis/security/generateKey.do",
+            url: "/apis/generateKey.do",
             dataType: "json",
             success: function (response) {
                 if (response.success) {
@@ -91,16 +91,13 @@
                         type: 'post',
                         url: "/apis/login.do",
                         async: false,
-                        data: {username: $("#username").val(), password: encrypedPwd, type: 'admin'},
+                        data: {username: $("#username").val(), password: encrypedPwd},
                         success: function (response) {
-                            layui.use('layer', function(){
-                                var layer = layui.layer;
-                                if(response.success){
-                                    window.location.href="/apis/back/admin/globalManagement.json";
-                                }else{
-                                    layer.alert(response.message);
-                                }
-                            });
+                            if(response.success){
+                                window.location.href="/apis/user/userPark.html";
+                            }else{
+                                layer.alert(response.message);
+                            }
                         }
                     });
                 }

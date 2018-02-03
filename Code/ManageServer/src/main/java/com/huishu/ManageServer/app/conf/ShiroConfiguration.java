@@ -45,11 +45,9 @@ public class ShiroConfiguration {
 		 */
 		filterChainDefinitionMap.put("/apis/logout.do", "logout");
 
-		filterChainDefinitionMap.put("/apis/security/generateKey.do", "anon");
-		filterChainDefinitionMap.put("/apis/login.do", "anon");
+		filterChainDefinitionMap.put("/apis/generateKey.do", "anon");
 
 		filterChainDefinitionMap.put("/apis/**", "authc");
-		// filterChainDefinitionMap.put("/apis/**", "anon");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
@@ -76,7 +74,6 @@ public class ShiroConfiguration {
 		LOGGER.info("===============shiro已经加载================");
 		// 用户授权/认证信息Cache
 		securityManager.setCacheManager(getEhCacheManager());
-		// securityManager.setRememberMeManager(rememberMeManager);
 		return securityManager;
 	}
 
