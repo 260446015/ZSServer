@@ -90,6 +90,19 @@ public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> ,
 	List<Enterprise> findByIndustryAndArea(String industry, String area);
 
 	/**
+	 * @return
+	 * 获取产业为空的企业空
+	 */
+	List<Enterprise> findByIndustryIsNull();
+
+	/**
+	 * @param companyName
+	 * @return
+	 * 根据简称获取公司信息
+	 */
+	Enterprise findByCompanyName(String companyName);
+
+	/**
 	 * @param industry
 	 * @param startTime
 	 * @param endTime

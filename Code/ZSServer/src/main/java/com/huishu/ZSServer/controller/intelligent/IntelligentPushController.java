@@ -22,7 +22,8 @@ import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.service.company.EnterPriseService;
-import com.huishu.ZSServer.service.company.IndusCompanyService;
+import com.huishu.ZSServer.service.company.IndusCompanyDTOService;
+import com.huishu.ZSServer.service.company.IndustryCompanyService;
 
 /**
  * @author hhy
@@ -35,8 +36,9 @@ import com.huishu.ZSServer.service.company.IndusCompanyService;
 @RequestMapping("/intelligent")
 public class IntelligentPushController extends BaseController{
 	private Logger LOGGER = LoggerFactory.getLogger(IntelligentPushController.class);
+	
 	@Autowired
-	private  IndusCompanyService  service;
+	private  IndustryCompanyService  service;
 	
 	@Autowired
 	private EnterPriseService epservice;
@@ -56,8 +58,7 @@ public class IntelligentPushController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/list.json",method=RequestMethod.GET)
 	public AjaxResult getInteList(){
-//		List<IndusCompany> list = service.listCompany();
-		List<IndusCompanyDTO> list = service.listCompany();
+		List<IndusCompany> list = service.listCompany();
 		JSONArray arr = new JSONArray();
 		list.forEach(action->{
 			JSONObject obj = new JSONObject();
@@ -69,7 +70,7 @@ public class IntelligentPushController extends BaseController{
 			}
 			obj.put("company", action.getCompany());
 			obj.put("companyName", action.getCompanyName());
-//			obj.put("id", action.getId());
+			obj.put("id", action.getId());
 			obj.put("industry", action.getIndustry());
 			obj.put("industryLabel", action.getIndustryLabel());
 			obj.put("industryZero", action.getInduszero());
@@ -88,13 +89,9 @@ public class IntelligentPushController extends BaseController{
 		if(StringUtil.isEmpty(name)){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		IndusCompanyDTO company = service.findCompanyInfoByCompanyName(name);
-//		IndusCompany company = service.findCompanyInfoByCompanyName(name);
-		if(company==null){
-			return error("暂无数据");
-		}
+
 		//根据全称获取相应的信息
-		JSONObject obj = epservice.getCompanyInfoByCompany(company.getCompany());
+		JSONObject obj = epservice.getCompanyInfoByCompany(name);
 		if(obj==null){
 			return error(MsgConstant.SYSTEM_ERROR);
 		}

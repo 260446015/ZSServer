@@ -21,7 +21,7 @@ import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.entity.dto.LabelDTO;
 import com.huishu.ZSServer.service.company.EnterPriseService;
-import com.huishu.ZSServer.service.company.IndusCompanyService;
+import com.huishu.ZSServer.service.company.IndusCompanyDTOService;
 
 /**
  * @author hhy
@@ -37,7 +37,7 @@ public class PrecisionSearchController extends BaseController{
 	@Autowired
 	private EnterPriseService service;
 	@Autowired
-	private  IndusCompanyService  iservice;
+	private  IndusCompanyDTOService  iservice;
 	/**
 	 * 直接跳转页面
 	 * @param page

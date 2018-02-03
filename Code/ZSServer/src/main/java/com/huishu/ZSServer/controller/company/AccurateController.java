@@ -22,7 +22,7 @@ import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.entity.vo.CompanyVO;
-import com.huishu.ZSServer.service.company.IndusCompanyService;
+import com.huishu.ZSServer.service.company.IndusCompanyDTOService;
 import com.huishu.ZSServer.service.openeyes.impl.OpeneyesServiceImpl;
 
 /**
@@ -39,7 +39,7 @@ public class AccurateController extends BaseController{
 	private static final Logger LOGGER = Logger.getLogger(AccurateController.class);
 	
 	@Autowired
-	private IndusCompanyService service;
+	private IndusCompanyDTOService service;
 	@Autowired
 	private OpeneyesServiceImpl openeyesServiceImpl;
 	

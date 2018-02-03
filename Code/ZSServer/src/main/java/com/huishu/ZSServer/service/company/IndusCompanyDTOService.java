@@ -14,7 +14,7 @@ import com.huishu.ZSServer.entity.openeyes.BaseInfo;
  * @return 
  * 
  */
-public interface IndusCompanyService {
+public interface IndusCompanyDTOService {
 
 	/**
 	 * 根据别名查找公司信息

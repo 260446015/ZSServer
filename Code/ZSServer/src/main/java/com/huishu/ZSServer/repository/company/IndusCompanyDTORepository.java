@@ -16,7 +16,7 @@ import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
  * @return 
  * 
  */
-public interface IndusCompanyRepository extends CrudRepository<IndusCompanyDTO,Long>,JpaSpecificationExecutor<IndusCompanyDTO> {
+public interface IndusCompanyDTORepository extends CrudRepository<IndusCompanyDTO,Long>,JpaSpecificationExecutor<IndusCompanyDTO> {
 	/**
 	 * 根据公司简称查看详细信息
 	 * @param companyName

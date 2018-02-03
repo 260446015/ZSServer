@@ -21,7 +21,7 @@ import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
-import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
+import com.huishu.ZSServer.repository.company.IndusCompanyDTORepository;
 import com.huishu.ZSServer.repository.openeyes.BaseInfoRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.company.EnterPriseService;
@@ -41,7 +41,7 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 	@Autowired
 	private BaseInfoRepository repository;
 	@Autowired
-	private IndusCompanyRepository indrepository;
+	private IndusCompanyDTORepository indrepository;
 	@Override
 	public List<String> findCompanyName(String area, String industry) {
 		int count = rep.getCount(area, industry);
@@ -57,11 +57,11 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 	 * 查看公司全部信息
 	 */
 	@Override
-	public JSONObject getCompanyInfoByCompany(String company) {
+	public JSONObject getCompanyInfoByCompany(String companyName) {
 		Enterprise enter = null;
 		JSONObject obj = new JSONObject();
 		try {
-			enter = rep.findByCompany(company);
+			enter = rep.findByCompanyName(companyName);
 			if(enter != null){
 				obj.put("boss",enter.getBoss());
 				obj.put("name", enter.getCompany());
@@ -70,49 +70,6 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 				obj.put("time", enter.getRegisterTime());
 				obj.put("money", enter.getRegisterCapital());
 				obj.put("industry", enter.getIndustry());
-			}else{
-				BaseInfo list = repository.findByName(company);
-				if (list != null) {
-					BaseInfo baseInfo = list;
-				}else{
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("name", company);
-					JSONObject obj1 = null;
-					try {
-						obj1 = getOpenEyesTarget(KeyConstan.URL.BASEINFO, map, KeyConstan.From.CUSTOM, null);
-						JSONObject object = obj1.getJSONObject("result");
-						if(object.isEmpty()){
-							JSONObject object1 = obj1.getJSONObject("data");
-							if(object1.isEmpty()){
-								return null;
-							}else{
-								BaseInfo info = object.parseObject(object.toJSONString(), BaseInfo.class);
-								BaseInfo save = repository.save(info);
-								obj.put("boss",save.getLegalPersonName());
-								obj.put("name", save.getName());
-								obj.put("address", save.getRegLocation());
-								obj.put("state", save.getRegStatus());
-								obj.put("time", new SimpleDateFormat("yyyy-MM-dd").format(new Date(save.getEstiblishTime())));
-								obj.put("money",  save.getRegCapital());
-								obj.put("industry", save.getIndustry());
-							}
-						}else{
-							BaseInfo info = object.parseObject(object.toJSONString(), BaseInfo.class);
-							BaseInfo save = repository.save(info);
-							obj.put("boss",save.getLegalPersonName());
-							obj.put("name", save.getName());
-							obj.put("address", save.getRegLocation());
-							obj.put("state", save.getRegStatus());
-							obj.put("time", new SimpleDateFormat("yyyy-MM-dd").format(new Date(save.getEstiblishTime())));
-							obj.put("money",  save.getRegCapital());
-							obj.put("industry", save.getIndustry());
-						}
-					
-					} catch (Exception e) {
-						return null;
-					}
-				}
-				
 			}
 		} catch (Exception e) {
 			return null;

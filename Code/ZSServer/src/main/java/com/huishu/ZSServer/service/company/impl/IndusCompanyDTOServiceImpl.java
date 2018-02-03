@@ -21,10 +21,10 @@ import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.entity.openeyes.BaseInfo;
-import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
+import com.huishu.ZSServer.repository.company.IndusCompanyDTORepository;
 import com.huishu.ZSServer.repository.openeyes.BaseInfoRepository;
 import com.huishu.ZSServer.service.AbstractService;
-import com.huishu.ZSServer.service.company.IndusCompanyService;
+import com.huishu.ZSServer.service.company.IndusCompanyDTOService;
 
 /**
  * @author hhy
@@ -33,12 +33,12 @@ import com.huishu.ZSServer.service.company.IndusCompanyService;
  * @return 智能招商
  */
 @Service
-public class IndusCompanyServiceImpl extends AbstractService implements IndusCompanyService {
+public class IndusCompanyDTOServiceImpl extends AbstractService implements IndusCompanyDTOService {
 
-	private static final Logger LOGGER = Logger.getLogger(IndusCompanyServiceImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(IndusCompanyDTOServiceImpl.class);
 
 	@Autowired
-	private IndusCompanyRepository repository;
+	private IndusCompanyDTORepository repository;
 
 	@Autowired
 	private BaseInfoRepository rep;
