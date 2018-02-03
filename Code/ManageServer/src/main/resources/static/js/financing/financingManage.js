@@ -25,13 +25,13 @@ $(function() {
 });
 $(".btn").on("click",function(){
     $(this).addClass("btn-success").siblings().removeClass("btn-success");
-    if($(this).siblings().attr("value")==1){
+    if($(this).siblings().attr("value")==1||$(this).attr("value")==1){
         _industry = $(this).html();
-    }else if($(this).siblings().attr("value")==2){
+    }else if($(this).siblings().attr("value")==2||$(this).attr("value")==2){
         _area = $(this).html();
-    }else if($(this).siblings().attr("value")==3){
+    }else if($(this).siblings().attr("value")==3||$(this).attr("value")==3){
         _invest = $(this).html();
-    }else if($(this).siblings().attr("value")==4){
+    }else if($(this).siblings().attr("value")==4||$(this).attr("value")==4){
         _sort = $(this).html();
     }
     var req = {
