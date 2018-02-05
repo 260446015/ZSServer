@@ -90,13 +90,13 @@ public class AnalysisUtil {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static Set<String> getCompanyInfo(String company){
+	public static JSONObject getCompanyInfo(String company){
 		JSONObject obj = null;
 		try {
 			obj = Analysis.getInitCompanyAbbr(company);
 			if(obj.getBoolean("status")){
-				Set<String> set = (Set<String>)obj.get("result");
-				return set;
+				JSONObject json = (JSONObject) obj.get("result");
+				return json;
 			}else{
 				return null;
 			}

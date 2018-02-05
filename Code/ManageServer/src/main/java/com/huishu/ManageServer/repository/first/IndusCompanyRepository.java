@@ -21,8 +21,10 @@ import com.huishu.ManageServer.entity.dbFirst.IndusCompany;
  */
 @Repository
 public interface IndusCompanyRepository extends CrudRepository<IndusCompany, Long> {
+	
 	@Query(value="select * from t_indus_company limit ?,?",nativeQuery=true)
 	List<IndusCompany> findIndus(int currentCount ,int pageSize);
+	
 	@Query(value = "select COUNT(*) FROM t_indus_company ", nativeQuery = true)
 	int getCount();
 	
@@ -31,4 +33,6 @@ public interface IndusCompanyRepository extends CrudRepository<IndusCompany, Lon
 	List<IndusCompany> findByIndustryIsNull();
 	
 	IndusCompany findByCompany(String name);
+	
+	
 }

@@ -250,16 +250,17 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 			String endTime = json.getString("endTime");
 			bq.must(QueryBuilders.rangeQuery("publishTime").from(startTime).to(endTime));
 		}
+		BoolQueryBuilder or = new BoolQueryBuilder();
 		JSONArray arr = json.getJSONArray("industryLabel");
 		if(arr!= null){
 			for(int i=0;i<arr.size();i++){
 				JSONObject jso = arr.getJSONObject(i);
 				String str = jso.getString("value");
-				bq.should(QueryBuilders.termQuery("industryLabel",str ));
+				or.should(QueryBuilders.termQuery("industryLabel",str ));
 			}
 		}
-	
-		PageRequest pageRequest = new PageRequest(0,500);
+		bq.must(or);
+		PageRequest pageRequest = new PageRequest(0,1000);
 		SearchQuery query = getBoolQueryBuilder().withQuery(bq).withPageable(pageRequest).build();
 		List<String> contentList = new ArrayList<String>();
 		template.query(query, res -> {
@@ -268,13 +269,13 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 				SearchHit[] hitsList = hits.getHits();
 				for (SearchHit h : hitsList) {
 					if (h.getSource() != null) {
-						contentList.add(h.getSource().get("content") + "");
+						contentList.add(h.getSource().get("content") + ""+h.getSource().get("title")+"" );
 					}
 				}
 			}
 			return "";
 		});
-	 	JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, 50);
+	 	JSONObject keywordCloud = ArticleConToKeywordCloud.toKeywordCloud(contentList, 0, 10);
 	 	List<KeywordModel> list = null;
 	 	if (keywordCloud.getBooleanValue("status")) {
 		  list = (List<KeywordModel>) keywordCloud.get("result");

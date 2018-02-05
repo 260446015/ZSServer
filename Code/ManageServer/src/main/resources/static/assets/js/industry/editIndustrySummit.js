@@ -4,8 +4,8 @@ function addData(info){
 	_id=info.id;
 	  $("input[name='id']").val(info.id);
 	  $("input[name='title']").val(info.title);
-	  $("input[name='summary']").val(info.summary);
-	  $("input[name='content']").val(info.content);
+	  $("textarea[name='summary']").val(info.summary);
+	  $("textarea[name='content']").val(info.content);
 	  $("input[name='articleLink']").val(info.articleLink);
 	  $("input[name='logo']").val(info.logo);
 	  $("input[name='address']").val(info.address);
@@ -48,8 +48,8 @@ $(".btn-danger").on("click",function(){
 function etitData() {
 	 var _id = $("input[name='id']").val();
 	 var _title = $("input[name='title']").val();
-	 var _summary = $("input[name='summary']").val();
-	 var _content = $("input[name='content']").val();
+	 var _summary = $("textarea[name='summary']").val();
+	 var _content = $("textarea[name='content']").val();
 	 var _articleLink = $("input[name='articleLink']").val();
 	 var _logo = $("input[name='logo']").val();
 	 var _address = $("input[name='address']").val();

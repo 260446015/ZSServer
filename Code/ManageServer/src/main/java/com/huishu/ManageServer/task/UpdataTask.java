@@ -3,7 +3,6 @@ package com.huishu.ManageServer.task;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.elasticsearch.client.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,9 @@ public class UpdataTask {
 	private static final Logger log = LoggerFactory.getLogger(UpdataTask.class);
 	@Autowired
 	private SummitElasticsearch rep;
-	/*@Autowired
-	private Client client;*/
 	
-//	@Scheduled(fixedDelay = 1000 * 60 * 60 * 12 )
+	//每天晚上23点开启定时任务
+	@Scheduled(cron="0 0 23 * * ?" )
 	public void updataData(){
 		//查询所有，进行数据更新，删除，维护
 		log.info("==============高峰论坛数据更新开始======================");

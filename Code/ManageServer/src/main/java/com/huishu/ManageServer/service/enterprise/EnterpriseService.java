@@ -2,6 +2,9 @@ package com.huishu.ManageServer.service.enterprise;
 
 import com.huishu.ManageServer.entity.dbFirst.Enterprise;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
+
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 /**
@@ -38,5 +41,17 @@ public interface EnterpriseService {
 	 * @return
 	 */
 	Enterprise findById(Long id);
+
+	/**
+	 * 获取十家公司信息
+	 * @return
+	 */
+	List<Enterprise> findTop10Company();
+
+	/**
+	 * 获取公司信息
+	 * @return
+	 */
+	Enterprise findCompany();
 
 }
