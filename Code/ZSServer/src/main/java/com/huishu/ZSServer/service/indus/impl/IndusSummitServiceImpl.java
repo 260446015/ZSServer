@@ -12,6 +12,10 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
@@ -304,4 +308,26 @@ public class IndusSummitServiceImpl extends AbstractService implements IndusSumm
 		}
 	}
 
+	@Override
+	public List<String> findSummitArea() {
+		TermsBuilder aggBuilder = AggregationBuilders
+				.terms("area").field("area");
+		SearchQuery query = getSearchQueryBuilder()
+				.addAggregation(aggBuilder).withSort(SortBuilders.fieldSort("publishDate").order(SortOrder.DESC))
+				.build();
+		List<String> list = template.query(query, res -> {
+			List<String> sList = new ArrayList<>();
+			Terms t = res.getAggregations().get("area");
+			for (Bucket bucket : t.getBuckets()) {
+				if(StringUtil.isEmpty(bucket.getKeyAsString())){
+					continue;
+				}
+				String area = bucket.getKeyAsString().replaceAll("市", "").replaceAll("自治区", "").replaceAll("省", "");
+				sList.add(area);
+			}
+			return sList;
+		});
+		return list;
+	}
+	
 }

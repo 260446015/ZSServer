@@ -70,5 +70,10 @@ public interface IndusSummitService {
 	 * @return
 	 */
 	String saveSummitInfoById(String aid,Long uid);
+	
+	/**
+	 * 地域分组返回地域信息
+	 */
+	List<String> findSummitArea();
 
 }

@@ -11,7 +11,7 @@ import com.huishu.ZSServer.entity.Enterprise;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.Institutional;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
-import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
+//import com.huishu.ZSServer.repository.company.IndusCompanyRepository;
 import com.huishu.ZSServer.repository.instituton.InstitutionalRepostitory;
 import com.huishu.ZSServer.service.data.DataService;
 
@@ -28,8 +28,8 @@ import ch.qos.logback.core.joran.action.Action;
 public class DataServiceImpl implements DataService {
 	@Autowired
 	private InstitutionalRepostitory repository;
-	@Autowired
-	private IndusCompanyRepository rep;
+//	@Autowired
+//	private IndusCompanyRepository rep;
 	@Autowired
 	private EnterPriseRepository ep;
 
@@ -138,19 +138,19 @@ public class DataServiceImpl implements DataService {
 			ind.setCompany(name);// 全称
 			ind.setCompanyName(company);// 简称
 		}
-		IndusCompany indus = rep.findByCompanyName(company);
-		if (indus == null) {
-			indus = new IndusCompany();
-			String ss = ind.getCompany();
-			indus.setCompany(ss);
-			indus.setCompanyName(ind.getCompanyName());
-			indus.setIndustry(industry);
-			indus.setIndustryLabel(label);
-			indus.setInduszero(zero);
-		} else {
-			indus.setIndustryLabel(label);
-			indus.setInduszero(zero);
-		}
+//		IndusCompany indus = rep.findByCompanyName(company);
+//		if (indus == null) {
+//			indus = new IndusCompany();
+//			String ss = ind.getCompany();
+//			indus.setCompany(ss);
+//			indus.setCompanyName(ind.getCompanyName());
+//			indus.setIndustry(industry);
+//			indus.setIndustryLabel(label);
+//			indus.setInduszero(zero);
+//		} else {
+//			indus.setIndustryLabel(label);
+//			indus.setInduszero(zero);
+//		}
 		Enterprise save1=null;
 		Enterprise ent = ep.findByCompany(enter.getCompany());
 		if(ent==null){
@@ -165,12 +165,13 @@ public class DataServiceImpl implements DataService {
 			ent.setRegisterTime(time);
 			save1 = ep.save(ent);
 		}
-		IndusCompany save = rep.save(indus);
-		if(save!=null&&save1!=null){
-			return true;
-		}else{
-			return false;
-		}
+//		IndusCompany save = rep.save(indus);
+//		if(save!=null&&save1!=null){
+//			return true;
+//		}else{
+//			return false;
+//		}
+		return false;
 	}
 
 	/**

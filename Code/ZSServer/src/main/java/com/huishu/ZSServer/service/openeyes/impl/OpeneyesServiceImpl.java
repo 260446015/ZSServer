@@ -330,6 +330,15 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
 			info.setToTime(jsonObj.getLong("toTime"));
 			info.setType(jsonObj.getInteger("type"));
 			info.setUpdatetime(jsonObj.getLong("updatetime"));
+			info.setEmail(jsonObj.getString("email"));
+			info.setHistoryNames(jsonObj.getString("historyNames"));
+			info.setBondNum(jsonObj.getString("bondNum"));
+			info.setBondName(jsonObj.getString("bondName"));
+			info.setProperty3(jsonObj.getString("property3"));
+			info.setUsedBondName(jsonObj.getString("usedBondName"));
+			info.setSourceFlag(jsonObj.getString("sourceFlag"));
+			info.setTags(jsonObj.getString("tags"));
+			info.setBondType(jsonObj.getString("bondType"));
 			info.setUpdateTimes(jsonObj.getLong("updateTimes"));
 			info.setWebsiteList(jsonObj.getString("websiteList"));
 			info.setCreationTime(System.currentTimeMillis());

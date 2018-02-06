@@ -81,10 +81,9 @@
                             </div>
                             <div class="search-item-content">
                                 <a href="javascript:void(0);" id="2-全部" class="search-item active">全部</a>
-                                <a href="javascript:void(0);" id="2-北京" class="search-item">北京</a>
-                                <a href="javascript:void(0);" id="2-上海" class="search-item">上海</a>
-                                <a href="javascript:void(0);" id="2-广州" class="search-item">广州</a>
-                                <a href="javascript:void(0);" id="2-深圳"  class="search-item">深圳</a>
+                                <#list area as bb>
+                                	<a href="javascript:void(0);" id="2-${bb}" class="search-item">${bb}</a>
+                                </#list>
                             </div>
                         </div>
                         <div class="search-group">

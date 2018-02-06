@@ -88,6 +88,87 @@ public class BaseInfo implements Serializable {
 	/** 统一社会信用代码 */
 	private String creditCode;
 	private Long creationTime;
+	private String email;
+	private String historyNames;
+	private String bondNum;
+	private String bondName;
+	private String property3;
+	private String usedBondName;
+	private String sourceFlag;
+	private String tags;
+	private String bondType;
+
+	public String getUsedBondName() {
+		return usedBondName;
+	}
+
+	public void setUsedBondName(String usedBondName) {
+		this.usedBondName = usedBondName;
+	}
+
+	public String getSourceFlag() {
+		return sourceFlag;
+	}
+
+	public void setSourceFlag(String sourceFlag) {
+		this.sourceFlag = sourceFlag;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+	public String getBondType() {
+		return bondType;
+	}
+
+	public void setBondType(String bondType) {
+		this.bondType = bondType;
+	}
+
+	public String getBondName() {
+		return bondName;
+	}
+
+	public void setBondName(String bondName) {
+		this.bondName = bondName;
+	}
+
+	public String getProperty3() {
+		return property3;
+	}
+
+	public void setProperty3(String property3) {
+		this.property3 = property3;
+	}
+
+	public String getBondNum() {
+		return bondNum;
+	}
+
+	public void setBondNum(String bondNum) {
+		this.bondNum = bondNum;
+	}
+
+	public String getHistoryNames() {
+		return historyNames;
+	}
+
+	public void setHistoryNames(String historyNames) {
+		this.historyNames = historyNames;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public Long getCreationTime() {
 		return creationTime;

@@ -1,8 +1,7 @@
 package com.huishu.ZSServer.controller.industry;
 
+import java.util.List;
 import java.util.Map;
-
-import javax.swing.Action;
 
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
@@ -50,6 +49,7 @@ public class IndustrySummitController extends BaseController{
 	 */
 	@RequestMapping(value="/{page}",method=RequestMethod.GET)
 	public String getIndustrySummitInfo(Map<String,Object> map,@PathVariable String page){
+		map.put("area", service.findSummitArea());
 		return "/industry/"+page;
 	}
 	
