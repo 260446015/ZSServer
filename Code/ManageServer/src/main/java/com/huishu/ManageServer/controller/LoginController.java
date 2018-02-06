@@ -38,8 +38,6 @@ import java.util.Map;
 public class LoginController extends BaseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
-	@Autowired
-	private AdminService adminService;
 
 	/**
 	 * 直接跳转页面
@@ -124,7 +122,7 @@ public class LoginController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/apis/logOut.do", method = RequestMethod.GET)
-	public void logOut(HttpServletResponse response) {
+	public String logOut(HttpServletResponse response) {
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			if (subject.isAuthenticated()) {
@@ -137,7 +135,7 @@ public class LoginController extends BaseController {
 			LOGGER.error("logout失败！", e);
 			ShiroUtil.writeResponse(response, MsgConstant.SYSTEM_ERROR);
 		}
-		ShiroUtil.writeResponse(response, "注销成功");
+		return "login";
 	}
 
 }
