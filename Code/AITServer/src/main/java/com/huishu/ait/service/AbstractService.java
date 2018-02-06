@@ -106,18 +106,23 @@ public abstract class AbstractService {
 				for (Terms.Bucket e1 : articleLink.getBuckets()) {
 					Terms vector = e1.getAggregations().get("vector");
 					for (Bucket bucket : vector.getBuckets()) {
-						key = bucket.getKeyAsString();
-						count = bucket.getDocCount();
-						if (map.get(key) != null) {
-							map.put(key, (long) map.get(key) + count);
-						} else {
-							map.put(key, count);
-						}
+							key = bucket.getKeyAsString();
+							count = bucket.getDocCount();
+							
+								if (map.get(key) != null) {
+									map.put(key, (long) map.get(key) + count);
+								} else {
+									map.put(key, count);
+								}
+								
+						
 					}
 				}
 				for (Entry<String, Object> entry : map.entrySet()) {
 					SerieData<Long> data = new SerieData<>(entry.getKey(), (Long) entry.getValue());
-					json.add(data);
+					if((Long) entry.getValue()>=10){
+						json.add(data);
+					}
 				}
 			}
 			return json;
