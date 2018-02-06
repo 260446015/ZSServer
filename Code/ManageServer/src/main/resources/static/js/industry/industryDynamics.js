@@ -53,7 +53,7 @@ function showList(arr){
 	$.each(arr,function(index,item){
 		array.push(
 				'<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+item.id+'"/><td>' 
-				+item.aid+ '</td><td>'
+				+'<a href="'+item.articleLink+'" target="_blank">'+item.aid+ '</a></td><td>'
 				+item.articleLink+ '</td><td>'
 				+item.industryLabel + '</td><td>' 
 				+item.title + '</td>'

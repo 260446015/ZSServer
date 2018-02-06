@@ -43,8 +43,9 @@ public class KeyWordTask {
 	private KeyArticleService keyservice;
 	/**
 	 * 关键词云
+	 * 每天晚上十一点五十更新
 	 */
-	@Scheduled(fixedDelay = 1000 * 60 * 60 * 12)
+	@Scheduled(cron="0 50 23  * * ?")
 	public void getKeyWord() {
 		log.info("==========定时任务开启===========");
 		// 第一步 获取所有的关于关键词的条件

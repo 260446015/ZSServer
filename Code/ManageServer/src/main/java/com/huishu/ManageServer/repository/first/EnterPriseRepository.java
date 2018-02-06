@@ -30,4 +30,7 @@ public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> {
 	List<Enterprise> findPage(int pageFrom , int pageSize);
 	
 	Enterprise findByCompany(String company);
+	
+	@Query(value = "SELECT MAX(id) from t_enterprise", nativeQuery = true)
+	Long getMaxId();
 }
