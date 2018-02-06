@@ -5,6 +5,7 @@ import com.huishu.ZSServer.entity.user.UserBase;
 import com.huishu.ZSServer.repository.user.UserBaseRepository;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -40,6 +41,9 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 		try {
 			Subject subject = getSubject(request, response);
 			UserBase base = userBaseRepository.findByUserAccount(token.getUsername());
+			if(base==null){
+				throw new IncorrectCredentialsException();
+			}
 			if(base.getIsSingle()==0) {
 				DefaultWebSessionManager sessionManager = (DefaultWebSessionManager) securityManager.getSessionManager();
 				// 单点登录
