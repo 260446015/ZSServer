@@ -20,19 +20,19 @@ $(function () {
         var _array=new Array()
         for (var j=1;j<=i;j++){
             var _obj={
-                sort:$("input[name='sort"+i+"']").val(),
-                name:$("input[name='name"+i+"']").val(),
-                logoClass:$("input[name='logo"+i+"']").val()
+                sort:$("input[name='sort"+j+"']").val(),
+                name:$("input[name='name"+j+"']").val(),
+                logoClass:$("input[name='logo"+j+"']").val()
             };
             _array.push(_obj);
         }
         var _array2=new Array()
         for (var j=1;j<=i;j++){
             var _obj={
-                sort:$("input[name='sort2"+i+"']").val(),
-                name:$("input[name='name2"+i+"']").val(),
-                logoClass:$("input[name='logo2"+i+"']").val(),
-                parentId:$("input[name='parent2"+i+"']").val()
+                sort:$("input[name='sort2"+j+"']").val(),
+                name:$("input[name='name2"+j+"']").val(),
+                logoClass:$("input[name='logo2"+j+"']").val(),
+                parentId:$("input[name='parent2"+j+"']").val()
             };
             _array2.push(_obj);
         }
