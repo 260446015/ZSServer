@@ -98,12 +98,12 @@ function echartDataInit(arr){
 		{
 			value:  [15,80], symbolSize: 45, name: arr[9].name, label:label
 		},
-		{
+		/*{
 			value:  [15,10], symbolSize: 45, name: arr[10].name, label:label
 		},
 		{
 			value:  [82,15], symbolSize: 45, name: arr[11].name, label:label
-		}
+		}*/
 	];
 	
 	return data1;
@@ -153,12 +153,12 @@ var data1 = [
     {
         value:  [15,80], symbolSize: 50, name: '大数据', label:label
     },
-    {
+    /*{
         value:  [15,10], symbolSize: 50, name: '智能化', label:label
     },
     {
         value:  [82,15], symbolSize: 50, name: '变化', label:label
-    }
+    }*/
 ];
 var option = {
     xAxis: {

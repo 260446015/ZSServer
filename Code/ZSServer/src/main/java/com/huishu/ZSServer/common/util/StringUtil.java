@@ -108,7 +108,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isEmpty(String str) {
-		return str == null || "".equals(str.trim());
+		return str == null || "".equals(str.trim())||" ".equals(str.trim());
 	}
 	
 	public static boolean isNotEmpty(String str) {

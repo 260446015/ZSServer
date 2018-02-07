@@ -99,9 +99,7 @@ function getCountInfo(e){
 		 + array[0]+ '</td><td>' 
 		 + array[1] + '</td><td>' 
 		 + industry + '</td>'
-		 + '<td class="actions"><a href="javascript:void(0);" class="hidden on-editing save-info"><i class="fa fa-save"></i></a>'
-		 + '<a href="javascript:void(0);" class="hidden on-editing cancel-info"><i class="fa fa-times"></i></a>' + '<a href="javascript:void(0);" class="on-default edit-info"><i class="fa fa-pencil"></i></a>'
-		 + '<a href="javascript:void(0);" class="on-default remove-info"><i class="fa fa-trash-o"></i></a></td></tr>';
+		 '</tr>';
 		}
 		$("#industryinst").html(string);
 	}

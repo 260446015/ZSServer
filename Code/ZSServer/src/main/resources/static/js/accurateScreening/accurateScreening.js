@@ -370,3 +370,30 @@ function initEchartData(array,datalist,dataListInfo){
 $("#horizontal-info").on("click",".close",function () {
 	$(this).parents(".layer-person").hide();
 });
+$(".bq").on("click",function(){
+	var industry = $(this).text();
+	$.ajax({
+		url:'/accurateScreening/getLabelInfoByIndustry.json?industry='+industry,
+		type:'GET',
+		async: false,
+		success:function(res){
+			$('#getTabInfo').html(ShowLabel(res.data));
+		}
+	});
+});
+function ShowLabel(arr){
+	var array = [];
+	$.each(arr, function (index, item) {
+		
+				if(index==0){
+					array.push('<a href="javascript:void(0);" id="2,全部" class="search-item">全部</a>');
+				}else{
+					array.push(
+							'<a href="javascript:void(0);" id="2,'+item+'" class="search-item">'+item+'</a>'
+					);
+				}
+		
+	});
+	var inner = array.join('');
+	return inner;
+}

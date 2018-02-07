@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.util.StringUtil;
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
@@ -68,7 +68,7 @@ public class IntelligentPushController extends BaseController{
 				obj.put("flag", false);
 				
 			}
-			if(StringUtil.isEmpty(action.getIndustry())){
+			if(StringUtil.isEmpty(action.getIndustry().trim())){
 				obj.put("industry", null);
 			}else{
 				obj.put("industry", action.getIndustry());

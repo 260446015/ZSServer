@@ -103,11 +103,22 @@ public interface EnterPriseRepository extends CrudRepository<Enterprise, Long> ,
 	Enterprise findByCompanyName(String companyName);
 
 	/**
+	 * 获取地域信息
+	 * @param industry
+	 * @return
+	 */
+	@Query(value="select area from t_enterprise where industry=?1 GROUP BY area" , nativeQuery = true)
+	List<String> getAreaByIndustry(String industry);
+	
+	@Query(value="select area from t_enterprise  GROUP BY area" , nativeQuery = true)
+	List<String> getArea();
+	/**
 	 * @param industry
 	 * @param startTime
 	 * @param endTime
 	 * @return
-	 
+	
+
 	List<Enterprise> findByIndustryAndAreaAndRegisterTimeBetween(String industry, String area,String startTime,
 			String endTime);*/
 }

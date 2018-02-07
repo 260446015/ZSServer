@@ -32,7 +32,7 @@ public interface InstitutionalRepostitory extends CrudRepository<Institutional, 
 	 * 获取当前产业下实验室数量
 	 */
 	@Query(value="select area ,count(*) from t_institutional_repository where t_industry = ?1 group by area",nativeQuery = true)
-	List<Object[]> findByIndustry(String industry);
+	List<Object[]> getByIndustry(String industry);
 	
 	/**
 	 * 根据用户ID和产业查询机构
@@ -50,4 +50,6 @@ public interface InstitutionalRepostitory extends CrudRepository<Institutional, 
 	 */
 	@Query(value="select count(1) from t_user_institutional u LEFT JOIN t_institutional_repository i on u.t_ist_id = i.id where t_user_id=?1 and t_industry=?2",nativeQuery = true)
 	Integer findCountByIdAndIndustry(Long userId, String industry);
+	
+	List<Institutional> findByIndustry(String industry);
 }

@@ -371,8 +371,14 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 				}else{
 					
 					while(li.size()<10){
+						Enterprise action =null;
 						int si = (int)(Math.random()*list.size()+1);
-						Enterprise action = list.get(si);
+						if(si==list.size()){
+							
+							action = list.get(si-1);
+						}else{
+							action = list.get(si);
+						}
 						IndusCompanyDTO dto = new IndusCompanyDTO();
 						dto.setCompany(action.getCompany());
 						dto.setCompanyName(action.getCompanyName());
@@ -410,5 +416,25 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 			return li;
 		
 		
+	}
+
+	/**
+	 * 根据产业获取地域信息
+	 */
+	@Override
+	public List<String> getAareaByIndustry(String industry) {
+		List<String> list =null;
+		if(industry.equals("全部")){
+			list = rep.getArea();
+		}else{
+			list= rep.getAreaByIndustry(industry);
+		}
+		for(int i=0;i<list.size();i++){
+			String area = list.get(i);
+			if(StringUtil.isEmpty(area)){
+				list.remove(i);
+			}
+		}
+		return list;
 	}
 }

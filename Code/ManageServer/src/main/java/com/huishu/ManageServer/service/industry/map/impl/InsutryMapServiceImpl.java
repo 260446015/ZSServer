@@ -61,7 +61,7 @@ public class InsutryMapServiceImpl extends AbstractService implements IndustryMa
 		}
 		//重点实验室数据--获取当前产业下实验室的数量
 		try {
-			list2 = instrep.findByIndustry(industry);
+			list2 = instrep.getByIndustry(industry);
 			obj.put("count", list2);
 		} catch (Exception e) {
 			LOGGER.debug("获取重点实验室数据时报错："+e);

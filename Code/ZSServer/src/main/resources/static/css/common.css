@@ -1531,7 +1531,7 @@ a.search-item:hover, a.search-item:active, a.search-item:focus, a.search-item:vi
 }
 
 .gaodeMap {
-	height: 793px;
+	height: 500px;
 }
 
 .gaodeMap .amap-logo, .amap-copyright {
@@ -1586,7 +1586,7 @@ to {
 .panel-opacity {
 	position: absolute;
 	right: 50px;
-	top: 200px;
+	top: 86px;
 	width: 461px;
 	font-size: 16px;
 	font-weight: 400;

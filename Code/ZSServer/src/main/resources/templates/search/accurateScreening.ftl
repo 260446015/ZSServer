@@ -53,24 +53,24 @@
                         </div>
                         <div class="modal-body">
                             <div class="search-box">
-                                <div class="search-group">
+                                <div class="search-group" >
                                     <div class="search-item-title">
                                         产业
                                     </div>
                                     <div class="search-item-content">
-                                        <a href="javascript:void(0);" id="1,全部"  class="search-item">全部</a>
-                                        <a href="javascript:void(0);" id="1,人工智能"  class="search-item">人工智能</a>
-                                        <a href="javascript:void(0);" id="1,大数据"  class="search-item">大数据</a>
-                                        <a href="javascript:void(0);" id="1,物联网"  class="search-item">物联网</a>
-                                        <a href="javascript:void(0);" id="1,生物技术"  class="search-item">生物科技</a>
+                                        <a href="javascript:void(0);" id="1,全部"  class="search-item bq">全部</a>
+                                        <a href="javascript:void(0);" id="1,人工智能"  class="search-item bq">人工智能</a>
+                                        <a href="javascript:void(0);" id="1,大数据"  class="search-item bq">大数据</a>
+                                        <a href="javascript:void(0);" id="1,物联网"  class="search-item bq">物联网</a>
+                                        <a href="javascript:void(0);" id="1,生物技术"  class="search-item bq">生物科技</a>
                                     </div>
                                 </div>
                                
-                                <div class="search-group">
+                                <div class="search-group" >
                                     <div class="search-item-title">
                                         区域
                                     </div>
-                                    <div class="search-item-content">
+                                    <div class="search-item-content" id="getTabInfo">
                                         <a href="javascript:void(0);" id="2,全部" class="search-item">全部</a>
                                         <a href="javascript:void(0);" id="2,北京" class="search-item">北京</a>
                                         <a href="javascript:void(0);" id="2,江苏" class="search-item">江苏</a>
