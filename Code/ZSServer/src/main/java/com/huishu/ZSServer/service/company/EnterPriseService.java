@@ -51,4 +51,11 @@ public interface EnterPriseService {
 //	List<IndusCompany> findCompanyList(String industry, String area, String[] money, String[] time);
 	List<IndusCompanyDTO> findCompanyList(String industry, String area, String[] money, String[] time);
 
+	/**
+	 * @param industry
+	 * @return
+	 * 根据产业获取地域信息
+	 */
+	List<String> getAareaByIndustry(String industry);
+
 }

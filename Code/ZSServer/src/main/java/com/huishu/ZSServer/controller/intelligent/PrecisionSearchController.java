@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
+import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
 import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
@@ -47,6 +48,15 @@ public class PrecisionSearchController extends BaseController{
 	public String show(@PathVariable String page) {
 		return "/search/"+page;
 	}
+	@ResponseBody
+	@RequestMapping(value="/getLabelInfoByIndustry.json",method=RequestMethod.GET)
+	public AjaxResult getLabelInfoByIndustry(String industry){
+		if(StringUtil.isEmpty(industry)){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		List<String> list =service.getAareaByIndustry(industry);
+		return success(list);
+	}
 	/**
 	 * 精准筛选--搜企业
 	 * @param dto
@@ -63,7 +73,6 @@ public class PrecisionSearchController extends BaseController{
 		String[] time = dto.getRegisterTime();
 		String area = dto.getArea();
 		if(area.equals("全部")&&industry.equals("全部")&&time[0].equals("全部")&&money[0].equals("全部")){
-//			List<IndusCompany> list = iservice.listCompany();
 			List<IndusCompanyDTO> list = iservice.listCompany();
 			return success(list);
 		}else{
@@ -74,7 +83,6 @@ public class PrecisionSearchController extends BaseController{
 				industry = "";
 			}
 			
-//			List<IndusCompany> info = service.findCompanyList(industry,area,money,time);
 			List<IndusCompanyDTO> info = service.findCompanyList(industry,area,money,time);
 			if(info!=null && info.size() != 0){
 				JSONArray arr = new JSONArray();
@@ -88,7 +96,6 @@ public class PrecisionSearchController extends BaseController{
 					}
 					obj.put("company", action.getCompany());
 					obj.put("companyName", action.getCompanyName());
-//					obj.put("id", action.getId());
 					obj.put("industry", action.getIndustry());
 					obj.put("industryLabel", action.getIndustryLabel());
 					obj.put("industryZero", action.getInduszero());
@@ -99,4 +106,5 @@ public class PrecisionSearchController extends BaseController{
 			return error("暂无数据");
 		}
 	}
+	
 }
