@@ -120,14 +120,20 @@
 									</div>
 								</div>
 								<div class="panel-body">
-									
+									<div class="row">
+										<div class="col-xs-8 text-right bk-vcenter">
+											<div class="bk-margin-top-10">
+												<a href="/apis/institution/institutionalManage.html" class="btn btn-default pull-right">查看更多</a>
+											</div>
+										</div>
+										</div>
 									<table class="table table-bordered table-striped mb-none" id="datatable-editable2">
 										<thead>
 											<tr>
 												<th>地域</th>
 												<th>数量</th>
 												<th>产业</th>
-												<th>操作</th>
+												
 											</tr>
 										</thead>
 										<tbody id="industryinst">
