@@ -491,7 +491,7 @@ var chinaOption = {
 		calculable: true,
 		show: false,
 		inRange: {
-			color: ["#0a77ea", "#89bef6", "#9ad3ee","#000000"]
+			color: ["#088cd0", "#1886bf", "#97cbe6","#000000"]
 		}
 	},
 	geo: {

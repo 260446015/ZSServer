@@ -85,7 +85,7 @@ function showScan(_province,_address){
         var map = new AMap.Map('map', {
             // mapStyle: 'amap://styles/e15ea366314a2314abda4c7761ee02a6',
             resizeEnable : false,
-            zoom : 13,
+            zoom : 13
         });
         var geocoder = new AMap.Geocoder({
         	radius : 1000

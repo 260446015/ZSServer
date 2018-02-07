@@ -52,12 +52,25 @@ $("#reportItem").addClass("active");
 		$.ajax({
        		url: "/apis/report/getReportContent.json?id="+'${fileId}',
         	success: function (response) {
-				console.log(response)
 				if(response.success){
 					if(response.data.imageUrl==''){
 						$('#essay').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
 					}else{
 						$('#essay').html(show(response.data));
+						$(window).scroll(function(){
+							var windsc =$(window).scrollTop();
+							if(windsc > 200){
+								$('.scrollTop').css("display","block")
+							}else{
+								$('.scrollTop').css("display","none")
+							}
+						})
+						$(".scrollTop").on("click",function(){
+							$('body,html').animate({
+								scrollTop:0
+							},2000)
+							return false;
+						})
 					}
             	}else{
            			new Alert({flag:false,text:result.message,timer:1500}).show();
@@ -68,15 +81,15 @@ $("#reportItem").addClass("active");
 	function show(data){
 	    var url=data.url.split('/pdf/pdf/');
 		var follow='<a href="http://58.16.181.24:9322/fileserver/file/downLoad.do?filePath='+url[1]+'" onclick="aa()" class="pull-right">点击下载报告</a>';
-		var before='<div class="meeting-details-box-header"><h4>'+data.name+follow+'</h4></div><div class="item"><div></div></div>';
+		var before='<div class="meeting-details-box-header"><h4>'+data.name+follow+'</h4></div><div class="item">';
 		var inner='';
 		var strs= new Array(); 
 		strs=data.imageUrl; 
-		
-		for (i=strs.length-1;i>=0;i-- ){
+
+		for (var i= 0; i<strs.length;i++){
 			inner+='<img src="'+strs[i].imageUrl+'" style="width: 100%;height: 100%;">';
 		} 
-        var after='<div>'+inner+'</div>';
+        var after= inner+'<span class="scrollTop">返回顶部</span></div>';
        return before+after;
 	}
 	function aa(){

@@ -68,12 +68,28 @@ public class IntelligentPushController extends BaseController{
 				obj.put("flag", false);
 				
 			}
+			if(StringUtil.isEmpty(action.getIndustry())){
+				obj.put("industry", null);
+			}else{
+				obj.put("industry", action.getIndustry());
+			}
+			if(StringUtil.isEmpty( action.getInduszero())){
+				obj.put("industryZero", null);
+				
+			}else{
+				
+				obj.put("industryZero", action.getInduszero());
+			}
+			if(StringUtil.isEmpty(action.getIndustryLabel())){
+				obj.put("industryLabel", null);
+				
+			}else{
+				
+				obj.put("industryLabel", action.getIndustryLabel());
+			}
 			obj.put("company", action.getCompany());
 			obj.put("companyName", action.getCompanyName());
 			obj.put("id", action.getId());
-			obj.put("industry", action.getIndustry());
-			obj.put("industryLabel", action.getIndustryLabel());
-			obj.put("industryZero", action.getInduszero());
 			arr.add(obj);
 		});
 		return success(arr);
