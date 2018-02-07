@@ -7,6 +7,7 @@ import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.FilePdf;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.FinancingDTO;
+import com.huishu.ManageServer.entity.dto.HtmlAddDTO;
 import com.huishu.ManageServer.service.report.ReportService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,6 +130,51 @@ public class ReportController extends BaseController {
 			}
 		}catch (Exception e){
 			LOGGER.error("修改失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+
+	/**
+	 * 获取h5报告数据
+	 * @param type
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "getHtmlData.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getHtmlData(Long id,String type) {
+		if(StringUtil.isEmpty(type)){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(reportService.getHtmlData(id,type));
+		}catch (Exception e){
+			LOGGER.error("获取h5报告数据失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+
+	/**
+	 * 添加h5报告基本数据
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "addHtmlData.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult addHtmlData(@RequestBody HtmlAddDTO dto) {
+		if(dto==null||StringUtil.isEmpty(dto.getName())||StringUtil.isEmpty(dto.getTime())
+				||dto.getArr()==null||dto.getArr().length==0){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			Boolean flag = reportService.addHtmlData(dto);
+			if (flag) {
+				return success(MsgConstant.OPERATION_SUCCESS);
+			} else {
+				return error(MsgConstant.OPERATION_ERROR);
+			}
+		}catch (Exception e){
+			LOGGER.error("获取h5报告数据失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}

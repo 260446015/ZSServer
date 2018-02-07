@@ -1,3 +1,4 @@
+$("#report_info").addClass("active nav-expanded ");
 $("#report_item").addClass("active");
 var _pageNum = 0;
 var _pageSize = 10;

@@ -29,12 +29,6 @@
             <div class="main">
                 <!-- Page Header -->
                 <div class="page-header">
-                    <div class="pull-left">
-                        <ol class="breadcrumb visible-sm visible-md visible-lg">
-                            <li><a href="javascript:void(0)"><i class="icon fa fa-home"></i>Home</a></li>
-                            <li class="active"><i class="fa fa-pencil-square-o"></i>editUser</li>
-                        </ol>
-                    </div>
                     <div class="pull-right">
                         <h2>编辑用户信息</h2>
                     </div>

@@ -29,12 +29,6 @@
         <div class="main sidebar-minified">
             <!-- Page Header -->
             <div class="page-header">
-                <div class="pull-left">
-                    <ol class="breadcrumb visible-sm visible-md visible-lg">
-                        <li><a href="javascript:void(0)"><i class="icon fa fa-home"></i>Home</a></li>
-                        <li class="active"><i class="fa fa-pencil-square-o"></i>userLogin</li>
-                    </ol>
-                </div>
                 <div class="pull-right">
                     <h2>账号登录</h2>
                 </div>

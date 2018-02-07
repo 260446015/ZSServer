@@ -65,10 +65,13 @@
                             <i class="fa fa-eject" aria-hidden="true"></i><span>融资数据</span>
                         </a>
                     </li>
-                    <li id="report_item">
-                        <a href="/apis/report/reportManage.html">
-                            <i class="fa fa-repeat" aria-hidden="true"></i><span>报告管理</span>
+                    <li id="report_info" class="nav-parent">
+                        <a> <i class="fa  fa-repeat"aria-hidden="true"></i><span>报告管理</span>
                         </a>
+                        <ul class="nav nav-children">
+                            <li id="report_item"><a href="/apis/report/reportManage.html"><span class="text">后台报告</span></a></li>
+                            <li id="html_item"><a href="/apis/report/htmlReport.html"><span class="text">h5月报</span></a></li>
+                        </ul>
                     </li>
 				</ul>
 			</nav>

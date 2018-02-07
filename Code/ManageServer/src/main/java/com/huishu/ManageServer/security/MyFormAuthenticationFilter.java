@@ -1,5 +1,6 @@
 package com.huishu.ManageServer.security;
 
+import com.huishu.ManageServer.common.util.ShiroUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 
 import com.huishu.ManageServer.security.ShiroDbRealm.ShiroUser;
@@ -94,6 +96,47 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 			}
 		}
 		return super.isAccessAllowed(request, response, mappedValue);
+	}
+
+
+	/**
+	 * 未登录拦截处理
+	 */
+	@Override
+	protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue)
+			throws Exception {
+		if (isLoginRequest(request, response)) {
+			if (isLoginSubmission(request, response)) {
+				if (log.isTraceEnabled()) {
+					log.trace("Login submission detected.  Attempting to execute login.");
+				}
+				return executeLogin(request, response);
+			} else {
+				if (log.isTraceEnabled()) {
+					log.trace("Login page view.");
+				}
+				return true;
+			}
+		} else {
+			if (log.isTraceEnabled()) {
+				log.trace("Attempting to access a path which requires authentication.  Forwarding to the " +
+						"Authentication url [" + getLoginUrl() + "]");
+			}
+			if(isAjax(request)){
+				ShiroUtil.writeResponse((HttpServletResponse)response, "您的登录已失效，请重新登录本系统！");
+			}else{
+				this.saveRequestAndRedirectToLogin(request, response);
+			}
+			return false;
+		}
+	}
+
+	private static boolean isAjax(ServletRequest request){
+		String header = ((HttpServletRequest) request).getHeader("X-Requested-With");
+		if("XMLHttpRequest".equalsIgnoreCase(header)){
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
 	}
 
 }

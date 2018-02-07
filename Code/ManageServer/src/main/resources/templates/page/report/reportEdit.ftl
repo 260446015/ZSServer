@@ -3,7 +3,7 @@
 <head>
     <!-- Basic -->
     <meta charset="UTF-8" />
-    <title>慧数招商—融资数据</title>
+    <title>慧数招商—报告管理</title>
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!-- Favicon and touch icons -->
@@ -29,12 +29,6 @@
         <div class="main sidebar-minified">
             <!-- Page Header -->
             <div class="page-header">
-                <div class="pull-left">
-                    <ol class="breadcrumb visible-sm visible-md visible-lg">
-                        <li><a href="javascript:void(0)"><i class="icon fa fa-home"></i>Home</a></li>
-                        <li class="active"><i class="fa fa-pencil-square-o"></i>reportEdit</li>
-                    </ol>
-                </div>
                 <div class="pull-right">
                     <h2>修改报告数据</h2>
                 </div>

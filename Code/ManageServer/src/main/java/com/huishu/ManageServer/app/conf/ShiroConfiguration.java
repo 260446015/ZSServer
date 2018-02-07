@@ -43,19 +43,17 @@ public class ShiroConfiguration {
 		/*
 		 * 配置访问权限 anon：表示全部放权的资源路径，authc：表示需要认证才可以访问
 		 */
-		filterChainDefinitionMap.put("/apis/logout.do", "logout");
 
-		filterChainDefinitionMap.put("/apis/generateKey.do", "anon");
-
-		filterChainDefinitionMap.put("/apis/**", "authc");
+		filterChainDefinitionMap.put("/**/*.json", "authc");
+		filterChainDefinitionMap.put("/**/*.html", "authc");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
 		filters.put("ajaxSessionFilter", getMyUserFilter());
-
+		filters.put("authc", getMyFormAuthenticationFilter());
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
 		shiroFilterFactoryBean.setLoginUrl("/apis/login.do");
-		shiroFilterFactoryBean.setSuccessUrl("/");
+		shiroFilterFactoryBean.setSuccessUrl("/apis/user/userPark.html");
 		shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
 		shiroFilterFactoryBean.setFilters(filters);
 		return shiroFilterFactoryBean;

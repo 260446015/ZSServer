@@ -1,3 +1,4 @@
+$("#report_info").addClass("active nav-expanded ");
 $("#report_item").addClass("active");
 var _id;
 function addData(id) {

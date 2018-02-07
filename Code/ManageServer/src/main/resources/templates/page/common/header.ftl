@@ -14,12 +14,11 @@
 								<img src="/assets/img/avatar.jpg" class="img-circle" alt="logo" />
 							</figure>
 							<div class="profile-info">
-								<span class="name">testadmin</span>
-								<span class="role"><i class="fa fa-circle bk-fg-success"></i> Administrator</span>
+								<span class="role"><i class="fa fa-circle bk-fg-success"></i> Admin</span>
 							</div>
 							<i class="fa custom-caret"></i>
 						</a>
-						<div class="dropdown-menu">
+						<div class="dropdown-menu" style="margin-top: 25px;">
 							<ul class="list-unstyled">
 								<li>
 									<a href="javascript:void(0)"><i class="fa fa-user"></i>个人信息</a>

@@ -30,37 +30,20 @@
             <!-- Page Header -->
             <div class="page-header">
                 <div class="pull-right">
-                    <h2>招商报告</h2>
+                    <h2>h5月报</h2>
                 </div>
             </div>
             <!-- End Page Header -->
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="panel panel-default bk-bg-white">
+                    <div class="panel panel-default form-wizard" id="w4">
                         <div class="panel-body">
-                            <label class="col-md-3 control-label" for="file-input">上传PDF文件</label>
-                            <div class="col-md-12">
-                                <input type="file" id="file" name="file" onchange="pushImg();" />
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <table class="table table-bordered table-striped mb-none" id="datatable-editable">
-                                <thead>
-                                <tr>
-                                    <th>文件名</th>
-                                    <th>时间	</th>
-                                    <th>文件标签</th>
-                                    <th>文件类型</th>
-                                    <th>下载量</th>
-                                    <th>文件下载地址</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody id="user_list">
-                                </tbody>
-                            </table>
-                            <div class="page-box clearfix">
-                                <ul class="page pull-right" id="page"></ul>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="bk-margin-bottom-10">
+                                        <button class="btn btn-info my_add">添加报告 <i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -75,8 +58,7 @@
 <!-- start: JavaScript-->
 <!-- Vendor JS-->
 <#include "/common/script.ftl">
-<script src="/js/ajaxfileupload.js"></script>
-<script src="/js/report/reportManage.js"></script>
+<script src="/js/report/htmlReport.js"></script>
 <!-- end: JavaScript-->
 </body>
 </html>
