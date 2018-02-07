@@ -1,24 +1,25 @@
 package com.huishu.ManageServer.controller.financing;
 
-import com.huishu.ManageServer.common.AjaxResult;
-import com.huishu.ManageServer.common.conf.MsgConstant;
-import com.huishu.ManageServer.common.util.StringUtil;
-import com.huishu.ManageServer.controller.BaseController;
-import com.huishu.ManageServer.entity.dbFirst.UserBase;
-import com.huishu.ManageServer.entity.dto.CompanySearchDTO;
-import com.huishu.ManageServer.entity.dto.FinancingDTO;
-import com.huishu.ManageServer.entity.dto.UserBaseDTO;
-import com.huishu.ManageServer.es.entity.FinancingInfo;
-import com.huishu.ManageServer.service.financing.FinancingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Arrays;
+import com.huishu.ManageServer.common.AjaxResult;
+import com.huishu.ManageServer.common.conf.MsgConstant;
+import com.huishu.ManageServer.common.util.StringUtil;
+import com.huishu.ManageServer.controller.BaseController;
+import com.huishu.ManageServer.entity.dto.CompanySearchDTO;
+import com.huishu.ManageServer.entity.dto.FinancingDTO;
+import com.huishu.ManageServer.es.entity.FinancingInfo;
+import com.huishu.ManageServer.service.financing.FinancingService;
 
 /**
  * 融资数据

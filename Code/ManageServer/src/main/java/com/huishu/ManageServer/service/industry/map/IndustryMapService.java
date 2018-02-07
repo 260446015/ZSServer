@@ -1,6 +1,5 @@
 package com.huishu.ManageServer.service.industry.map;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.entity.dbFirst.IndustryRank;
 

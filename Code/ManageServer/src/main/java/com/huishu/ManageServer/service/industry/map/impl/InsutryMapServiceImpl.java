@@ -15,16 +15,14 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
-import com.huishu.ManageServer.controller.industryinfo.IndustryMapController;
 import com.huishu.ManageServer.entity.dbFirst.IndustryRank;
+import com.huishu.ManageServer.es.entity.SummitInfo;
 import com.huishu.ManageServer.repository.first.IndusRankRepository;
 import com.huishu.ManageServer.repository.first.InstitutionalRepostitory;
 import com.huishu.ManageServer.service.AbstractService;
 import com.huishu.ManageServer.service.industry.map.IndustryMapService;
-import com.huishu.ManageServer.es.entity.SummitInfo;
 
 /**
  * @author hhy

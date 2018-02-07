@@ -9,10 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ManageServer.common.conf.KeyConstan;
-import com.huishu.ManageServer.common.util.StringUtil;
 
 /**
  * 

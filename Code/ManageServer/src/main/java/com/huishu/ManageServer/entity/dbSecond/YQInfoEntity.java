@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ManageServer.config.TargetDataSource;
 
 /**
  * @author hhy

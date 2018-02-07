@@ -1,30 +1,36 @@
 package com.huishu.ManageServer.service.industry.info.impl;
 
 import java.io.BufferedOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.huishu.ManageServer.common.util.ExportExcel;
-import org.apache.poi.hssf.usermodel.*;
+import javax.servlet.http.HttpServletResponse;
+
+import com.huishu.ManageServer.common.conf.DBConstant;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -32,21 +38,17 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ManageServer.common.util.StringUtil;
+import com.huishu.ManageServer.entity.dbFirst.KeyWordEntity;
+import com.huishu.ManageServer.entity.dbFirst.KeywordArticle;
 import com.huishu.ManageServer.es.entity.AITInfo;
-import com.huishu.ManageServer.es.entity.SummitInfo;
-import com.huishu.ManageServer.service.industry.info.IndustryInfoService;
-import com.merchantKey.articleToKeywordCloud.ArticleConToKeywordCloud;
-import com.merchantKey.itemModel.KeywordModel;
 import com.huishu.ManageServer.es.repository.BaseElasticsearch;
 import com.huishu.ManageServer.repository.first.KeyArticleRepository;
 import com.huishu.ManageServer.repository.first.KeyWordRepository;
 import com.huishu.ManageServer.service.AbstractService;
-import com.huishu.ManageServer.common.util.StringUtil;
-import com.huishu.ManageServer.entity.dbFirst.KeyWordEntity;
-import com.huishu.ManageServer.entity.dbFirst.KeywordArticle;
-import scala.annotation.meta.field;
-
-import javax.servlet.http.HttpServletResponse;
+import com.huishu.ManageServer.service.industry.info.IndustryInfoService;
+import com.merchantKey.articleToKeywordCloud.ArticleConToKeywordCloud;
+import com.merchantKey.itemModel.KeywordModel;
 
 /**
  * @author hhy
@@ -59,7 +61,8 @@ import javax.servlet.http.HttpServletResponse;
 public class IndustryInfoServiceImpl extends AbstractService  implements IndustryInfoService {
 	@Autowired
 	protected ElasticsearchTemplate template;
-	
+	@Autowired
+	private Client client;
 	@Autowired
 	protected BaseElasticsearch rep;
 	
@@ -386,12 +389,15 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 	public void exportExcel(HttpServletResponse response) {
 		//获取一周内的数据
 		String[] date = analysisDate("近一周");
-		BoolQueryBuilder bq = new BoolQueryBuilder();
+		BoolQueryBuilder bq = QueryBuilders.boolQuery();
 		bq.must(QueryBuilders.rangeQuery("publishTime").from(date[0]).to(date[1]));
 		bq.must(QueryBuilders.termQuery("dimension","产业头条"));
-		SearchQuery query = getBoolQueryBuilder().withQuery(bq).build();
-		List<AITInfo> list = template.query(query, res -> {
-			List<AITInfo> listInfo = new ArrayList<AITInfo>();
+		SearchRequestBuilder srb = client.prepareSearch(DBConstant.EsConfig.INDEX).setTypes(DBConstant.EsConfig.TYPE);
+		srb.addSort(SortBuilders.fieldSort("publishTime").order(SortOrder.DESC));
+		SearchResponse res = srb.setQuery(bq).setSize(100).execute().actionGet();
+		long totalHits=0;
+		List<AITInfo> list = new ArrayList<AITInfo>();
+		if (null != res && null != res.getHits()) {
 			SearchHits hits = res.getHits();
 			for (SearchHit hit : hits) {
 				AITInfo info = new AITInfo();
@@ -409,10 +415,9 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 				info.setAuthor(map.get("author").toString());
 				info.setVector(map.get("vector").toString());
 				info.setVector(map.get("source").toString());
-				listInfo.add(info);
+				list.add(info);
 			}
-			return listInfo;
-		});
+		}
 		String fileName = date[0]+"~"+date[1]+"企业动态数据.xls";
 		try {
 			fileName = new String(fileName.getBytes("GBK"), "iso8859-1");
@@ -432,7 +437,6 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 			// 指定单元格垂直居中对齐
 			cellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
-
 			// 设置单元格字体
 			HSSFFont font = wb.createFont();
 			font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
@@ -458,20 +462,19 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 
 			HSSFSheet sheet = wb.createSheet();
 			// 定义第一行
-			HSSFRow row1 = sheet.createRow(1);
-			HSSFCell cell1 = row1.createCell(0);
+			HSSFRow row = sheet.createRow(0);
+			HSSFCell cell;
 			for (int i = 0; i < cellList.size(); i++) {
-				cell1 = row1.createCell(i);
-				cell1.setCellStyle(cellStyle);
-				cell1.setCellValue(new HSSFRichTextString(cellList.get(i)));
+				cell = row.createCell(i);
+				cell.setCellStyle(cellStyle);
+				cell.setCellValue(new HSSFRichTextString(cellList.get(i)));
 			}
 			//定义第二行
-			HSSFRow row = sheet.createRow(2);
-			HSSFCell cell = row.createCell(1);
 			for (int i = 0; i < list.size(); i++) {
 				AITInfo info = list.get(i);
-				row = sheet.createRow(i + 2);
+				row = sheet.createRow(i + 1);
 				for (int j = 0; j < cellList.size(); j++) {
+					cell = row.createCell(j);
 					try {
 						Field field = info.getClass().getDeclaredField(cellList.get(j));
 						//用以访问私有属性
@@ -480,8 +483,6 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 					} catch (Exception e) {
 						cell.setCellValue(new HSSFRichTextString(""));
 					}
-					cell = row.createCell(j);
-					cell.setCellStyle(cellStyle);
 				}
 			}
 			bufferedOutPut.flush();

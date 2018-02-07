@@ -7,12 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.transaction.Transactional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ManageServer.config.TargetDataSource;
 
 /**
  * @author hhy

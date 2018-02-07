@@ -1,11 +1,6 @@
 package com.huishu.ManageServer.es.entity;
 
-import static com.huishu.ManageServer.common.conf.DBConstant.EsConfig.INDEX;
-import static com.huishu.ManageServer.common.conf.DBConstant.EsConfig.TYPE2;
-
 import java.util.List;
-
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.alibaba.fastjson.JSONObject;
 

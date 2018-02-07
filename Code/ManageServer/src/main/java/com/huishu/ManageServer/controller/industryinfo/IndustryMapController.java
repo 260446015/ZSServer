@@ -9,14 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.common.AjaxResult;
 import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.IndustryRank;
-import com.huishu.ManageServer.entity.dto.AccurateDTO;
 import com.huishu.ManageServer.service.industry.map.IndustryMapService;
 
 /**
