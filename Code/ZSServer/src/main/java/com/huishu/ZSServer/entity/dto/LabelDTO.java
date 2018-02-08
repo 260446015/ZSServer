@@ -2,6 +2,8 @@ package com.huishu.ZSServer.entity.dto;
 
 import java.io.Serializable;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class LabelDTO implements Serializable {
 
 	/**
@@ -12,7 +14,7 @@ public class LabelDTO implements Serializable {
 	private String area;
 	private String[] registerTime;
 	private String[] register;
-
+	private String type;
 	public String getIndustry() {
 		return industry;
 	}
@@ -43,6 +45,19 @@ public class LabelDTO implements Serializable {
 
 	public void setRegister(String[] register) {
 		this.register = register;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
 	}
 
 }
