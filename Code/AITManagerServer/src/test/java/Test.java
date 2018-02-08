@@ -91,5 +91,8 @@ public class Test {
 		});
 		System.out.println(list.getSize());
 	}
-	
+	@org.junit.Test
+	public void aa(){
+		System.out.println("day.compareTo(\"29\")的值是：====" + "99".compareTo("29"));
+	}
 }
