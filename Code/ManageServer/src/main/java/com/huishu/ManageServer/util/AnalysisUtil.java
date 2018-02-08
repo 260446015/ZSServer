@@ -7,6 +7,7 @@ import java.util.Set;
 import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
 import com.forget.category.CategoryModel;
+import com.test.AbbrModel;
 
 /**
  * @author hhy
@@ -89,14 +90,16 @@ public class AnalysisUtil {
 	 * @param company 企业全称
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public static JSONObject getCompanyInfo(String company){
 		JSONObject obj = null;
+		
 		try {
 			obj = Analysis.getInitCompanyAbbr(company);
 			if(obj.getBoolean("status")){
-				JSONObject json = (JSONObject) obj.get("result");
-				return json;
+				AbbrModel json = (AbbrModel) obj.get("result");
+				obj = new JSONObject();
+				obj.put("resultAbbr",json.getResultAbbr());
+				return obj;
 			}else{
 				return null;
 			}
