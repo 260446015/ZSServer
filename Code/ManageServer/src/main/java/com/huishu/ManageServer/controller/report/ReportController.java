@@ -7,7 +7,6 @@ import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.FilePdf;
 import com.huishu.ManageServer.entity.dbFirst.h5.MonthlyReport;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
-import com.huishu.ManageServer.entity.dto.FinancingDTO;
 import com.huishu.ManageServer.entity.dto.HtmlAddDTO;
 import com.huishu.ManageServer.entity.dto.ParagraphAddDTO;
 import com.huishu.ManageServer.service.report.ReportService;
@@ -16,11 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
