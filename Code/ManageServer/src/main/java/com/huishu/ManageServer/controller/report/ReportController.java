@@ -5,9 +5,11 @@ import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.FilePdf;
+import com.huishu.ManageServer.entity.dbFirst.h5.MonthlyReport;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.FinancingDTO;
 import com.huishu.ManageServer.entity.dto.HtmlAddDTO;
+import com.huishu.ManageServer.entity.dto.ParagraphAddDTO;
 import com.huishu.ManageServer.service.report.ReportService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,7 @@ public class ReportController extends BaseController {
 	 */
 	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
 	public String show(@PathVariable String page,String id,Model model) {
-		if("reportEdit".equals(page)){
+		if("reportEdit".equals(page)||("addHtml2").equals(page)||("htmlInfo").equals(page)){
 			model.addAttribute("id",id);
 		}
 		return "/report/"+page;
@@ -140,10 +142,10 @@ public class ReportController extends BaseController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "getHtmlData.json", method = RequestMethod.GET)
+	@RequestMapping(value = "getHtmlData.do", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getHtmlData(Long id,String type) {
-		if(StringUtil.isEmpty(type)){
+		if(id==null||StringUtil.isEmpty(type)){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
@@ -155,7 +157,43 @@ public class ReportController extends BaseController {
 	}
 
 	/**
-	 * 添加h5报告基本数据
+	 * 获取h5报告全部数据
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "getHtmlData.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getHtmlData(Long id) {
+		if(id==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(reportService.getHtmlData(id));
+		}catch (Exception e){
+			LOGGER.error("获取h5报告数据失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+
+	/**
+	 * 获取h5报告列表
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getHtmlReport.json", method = RequestMethod.POST)
+	public AjaxResult getHtmlReport(@RequestBody AbstractDTO dto) {
+		try {
+			Page<MonthlyReport> page = reportService.getHtmlReport(dto);
+			return successPage(page,dto.getPageNum()+1);
+		} catch (Exception e) {
+			LOGGER.error("查询失败：", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+
+	/**
+	 * 添加h5报告基本数据与模块信息
 	 * @param dto
 	 * @return
 	 */
@@ -167,12 +205,55 @@ public class ReportController extends BaseController {
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			Boolean flag = reportService.addHtmlData(dto);
-			if (flag) {
+			Long l = reportService.addHtmlData(dto);
+			if (l==null) {
+				return error(MsgConstant.OPERATION_ERROR);
+			} else {
+				return success(l);
+			}
+		}catch (Exception e){
+			LOGGER.error("获取h5报告数据失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+
+	/**
+	 * 添加h5报告段落数据
+	 * @param dto
+	 * @return
+	 */
+	@RequestMapping(value = "addParagraphData.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult addParagraphData(@RequestBody ParagraphAddDTO dto) {
+		if(dto==null||dto.getObj().length==0){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			Boolean b = reportService.addParagraphData(dto);
+			if (b) {
 				return success(MsgConstant.OPERATION_SUCCESS);
 			} else {
 				return error(MsgConstant.OPERATION_ERROR);
 			}
+		}catch (Exception e){
+			LOGGER.error("添加h5报告段落数据失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+
+	/**
+	 * 获取h5报告模块信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "findHtmlHeadlines.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult findHtmlHeadlines(Long id) {
+		if(id==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(reportService.findHtmlHeadlines(id));
 		}catch (Exception e){
 			LOGGER.error("获取h5报告数据失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);

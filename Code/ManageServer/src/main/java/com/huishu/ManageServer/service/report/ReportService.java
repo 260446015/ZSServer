@@ -1,9 +1,15 @@
 package com.huishu.ManageServer.service.report;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.entity.dbFirst.FilePdf;
+import com.huishu.ManageServer.entity.dbFirst.h5.MonthlyReport;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.HtmlAddDTO;
+import com.huishu.ManageServer.entity.dto.ParagraphAddDTO;
+import com.huishu.ManageServer.entity.vo.HeadlinesVO;
 import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /**
  * 招商报告
@@ -50,9 +56,37 @@ public interface ReportService {
 	Object getHtmlData(Long id,String type);
 
 	/**
+	 * 获取h5报告全部数据
+	 * @param id
+	 * @return
+	 */
+	JSONObject getHtmlData(Long id);
+
+	/**
+	 * 获取h5报告列表
+	 * @param dto
+	 * @return
+	 */
+	Page<MonthlyReport> getHtmlReport(AbstractDTO dto);
+
+	/**
 	 * 添加h5报告基本数据
 	 * @param dto
 	 * @return
 	 */
-	Boolean addHtmlData(HtmlAddDTO dto);
+	Long addHtmlData(HtmlAddDTO dto);
+
+	/**
+	 * 添加h5报告段落数据
+	 * @param dto
+	 * @return
+	 */
+	Boolean addParagraphData(ParagraphAddDTO dto);
+
+	/**
+	 * 获取h5报告模块信息
+	 * @param id
+	 * @return
+	 */
+	List<HeadlinesVO> findHtmlHeadlines(Long id);
 }

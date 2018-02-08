@@ -64,7 +64,7 @@
                                             </thead>
                                             <tbody id="my_body">
                                             <tr>
-                                                <td><input type="text" name="sort1" class="form-control" placeholder=""></td>
+                                                <td><input type="text" name="sort1" class="form-control" value="1" disabled></td>
                                                 <td><input type="text" name="name1" class="form-control" placeholder=""></td>
                                                 <td><input type="text" name="logo1" class="form-control" placeholder=""></td>
                                             </tr>
@@ -89,7 +89,7 @@
                                             </thead>
                                             <tbody id="my_body2">
                                             <tr>
-                                                <td><input type="text" name="sort21" class="form-control" placeholder=""></td>
+                                                <td><input type="text" name="sort21" class="form-control" value="1" disabled></td>
                                                 <td><input type="text" name="name21" class="form-control" placeholder=""></td>
                                                 <td><input type="text" name="logo21" class="form-control" placeholder=""></td>
                                                 <td><input type="text" name="parent21" class="form-control" placeholder=""></td>

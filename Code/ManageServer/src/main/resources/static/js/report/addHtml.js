@@ -1,18 +1,20 @@
+$("#report_info").addClass("active nav-expanded ");
+$("#html_item").addClass("active");
 var i=1;
 var i2=1;
 $(function () {
     $(".my_add").on("click",function () {
         i=i+1;
-        $("#my_body").append('<tr><td><input type="text" name="sort'+i+'" class="form-control" placeholder=""></td>' +
+        $("#my_body").append('<tr><td><input type="text" name="sort'+i+'" class="form-control" value="'+i+'" disabled></td>' +
             '<td><input type="text" name="name'+i+'" class="form-control" placeholder=""></td>' +
             '<td><input type="text" name="logo'+i+'" class="form-control" placeholder=""></td></tr>');
     });
     $(".my_add2").on("click",function () {
         i2=i2+1;
-        $("#my_body2").append('<tr><td><input type="text" name="sort2'+i+'" class="form-control" placeholder=""></td>' +
-            '<td><input type="text" name="name2'+i+'" class="form-control" placeholder=""></td>' +
-            '<td><input type="text" name="logo2'+i+'" class="form-control" placeholder=""></td>' +
-            '<td><input type="text" name="parent2'+i+'" class="form-control" placeholder=""></td></tr>');
+        $("#my_body2").append('<tr><td><input type="text" name="sort2'+i2+'" class="form-control" value="'+i2+'" disabled></td>' +
+            '<td><input type="text" name="name2'+i2+'" class="form-control" placeholder=""></td>' +
+            '<td><input type="text" name="logo2'+i2+'" class="form-control" placeholder=""></td>' +
+            '<td><input type="text" name="parent2'+i2+'" class="form-control" placeholder=""></td></tr>');
     });
     $(".btn-success").on("click",function(){
         var _name = $("input[name='name']").val();
@@ -27,7 +29,7 @@ $(function () {
             _array.push(_obj);
         }
         var _array2=new Array()
-        for (var j=1;j<=i;j++){
+        for (var j=1;j<=i2;j++){
             var _obj={
                 sort:$("input[name='sort2"+j+"']").val(),
                 name:$("input[name='name2"+j+"']").val(),
@@ -50,7 +52,7 @@ $(function () {
             data: JSON.stringify(req),
             success: function (response) {
                 if(response.success){
-                    window.location.href="/apis/report/addHtml2.html";
+                    window.location.href="/apis/report/addHtml2.html?id="+response.data;
                 }else{
                     layer.alert(response.message);
                 }

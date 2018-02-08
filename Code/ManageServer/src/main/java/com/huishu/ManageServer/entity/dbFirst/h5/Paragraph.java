@@ -24,6 +24,7 @@ public class Paragraph implements Serializable {
 	/** 段落排序 */
 	private Integer sort;
 	/** 所属标题ID */
+	@Column(name="headlines_id")
 	private Long headlinesId;
 
 	public Integer getSort() {

@@ -30,7 +30,7 @@
             <!-- Page Header -->
             <div class="page-header">
                 <div class="pull-right">
-                    <h2>h5月报</h2>
+                    <h2>h5月报详情</h2>
                 </div>
             </div>
             <!-- End Page Header -->
@@ -38,15 +38,27 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-default bk-bg-white">
                         <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="bk-margin-bottom-10">
+                                        <a class="btn btn-info" href="javascript:history.go(-1)">返回上一页</a>
+                                    </div>
+                                </div>
+                            </div>
                             <form action="javascript:void(0)" method="post" class="form-horizontal ">
-
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">名称</label>
+                                    <div class="col-md-9">
+                                        <label class="control-label name"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">时段</label>
+                                    <div class="col-md-9">
+                                        <label class="control-label time"></label>
+                                    </div>
+                                </div>
                             </form>
-                            <p>
-                                <button class="bk-margin-5 btn btn-labeled btn-success" type="button">
-                                    <span class="btn-label"><i class="fa fa-check"></i></span>保存</button>
-                                <button class="bk-margin-5 btn btn-labeled btn-danger" type="button">
-                                    <span class="btn-label"><i class="fa fa-times"></i></span>取消</button>
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -60,8 +72,7 @@
 <!-- start: JavaScript-->
 <!-- Vendor JS-->
 <#include "/common/script.ftl">
-<script type="text/javascript" src="/assets/js/wangEditor.min.js"></script>
-<script src="/js/report/addHtml2.js"></script>
+<script src="/js/report/htmlInfo.js"></script>
 <script>
     addData(${id});
 </script>

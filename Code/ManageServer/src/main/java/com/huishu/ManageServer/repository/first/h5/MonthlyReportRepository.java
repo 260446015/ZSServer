@@ -1,6 +1,8 @@
 package com.huishu.ManageServer.repository.first.h5;
 
+import com.huishu.ManageServer.entity.dbFirst.FilePdf;
 import com.huishu.ManageServer.entity.dbFirst.h5.MonthlyReport;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +12,5 @@ import org.springframework.stereotype.Repository;
  * @date 2018/2/7
  */
 @Repository
-public interface MonthlyReportRepository extends CrudRepository<MonthlyReport, Long> {
+public interface MonthlyReportRepository extends CrudRepository<MonthlyReport, Long>,JpaSpecificationExecutor<MonthlyReport> {
 }

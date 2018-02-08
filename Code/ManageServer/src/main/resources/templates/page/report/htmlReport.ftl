@@ -45,6 +45,21 @@
                                     </div>
                                 </div>
                             </div>
+                            <table class="table table-bordered table-striped mb-none" id="datatable-editable">
+                                <thead>
+                                <tr>
+                                    <th>报告名</th>
+                                    <th>报告时段</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="report_list">
+                                </tbody>
+                            </table>
+                            <div class="page-box clearfix">
+                                <ul class="page pull-right" id="page"></ul>
+                            </div>
                         </div>
                     </div>
                 </div>

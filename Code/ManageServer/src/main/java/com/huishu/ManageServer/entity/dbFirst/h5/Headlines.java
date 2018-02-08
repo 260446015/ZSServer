@@ -22,10 +22,13 @@ public class Headlines implements Serializable {
 	/** 大标题排序 */
 	private Integer sort;
 	/** 大标题logo样式 */
+	@Column(name="logo_class")
 	private String logoClass;
 	/** 所属h5 */
+	@Column(name="report_id")
 	private Long reportId;
 	/** 标题父类ID */
+	@Column(name="parent_id")
 	private Long parentId;
 
 	public Long getId() {

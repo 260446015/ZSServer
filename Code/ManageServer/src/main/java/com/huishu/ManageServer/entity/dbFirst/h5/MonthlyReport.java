@@ -21,6 +21,18 @@ public class MonthlyReport implements Serializable {
 	private String name;
 	/** 报告时间段 */
 	private String time;
+	/** 创建时间 */
+	@Column(name="create_time")
+	private String createTime;
+
+	public String getCreateTime() {
+
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
 
 	public Long getId() {
 		return id;
