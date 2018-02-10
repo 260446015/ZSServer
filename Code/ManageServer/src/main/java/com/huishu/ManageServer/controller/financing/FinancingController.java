@@ -40,7 +40,7 @@ public class FinancingController extends BaseController {
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{page}.html", method = RequestMethod.GET)
 	public String show(@PathVariable String page,String id,Model model) {
 		if("financingEdit".equals(page)){
 			model.addAttribute("id",id);

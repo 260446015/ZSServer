@@ -58,7 +58,7 @@ public class AccurateController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = { "{page}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{page}.html" }, method = RequestMethod.GET)
 	public String findAccurateCompany(@PathVariable String page) {
 		return "/accurate/" + page;
 	}

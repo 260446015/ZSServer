@@ -43,7 +43,7 @@ public class LoginController extends BaseController {
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{page}.html", method = RequestMethod.GET)
 	public String show(@PathVariable String page) {
 		return page;
 	}

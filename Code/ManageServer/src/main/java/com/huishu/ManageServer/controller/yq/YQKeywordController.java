@@ -38,7 +38,7 @@ public class YQKeywordController extends BaseController{
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value = { "{page}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{page}.html" }, method = RequestMethod.GET)
 	public String findKeywordInfo(@PathVariable String page) {
 		return "/keyword/" + page;
 	}

@@ -38,7 +38,7 @@ public class ReportController extends BaseController {
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
+	@RequestMapping(value = {"/{page}.html","/{page}.htm"}, method = RequestMethod.GET)
 	public String show(@PathVariable String page,String id,Model model) {
 		if("reportEdit".equals(page)||("addHtml2").equals(page)||("htmlInfo").equals(page)){
 			model.addAttribute("id",id);

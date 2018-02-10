@@ -46,7 +46,7 @@ public class IndustryInfoController extends BaseController {
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value = { "{page}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{page}.html" }, method = RequestMethod.GET)
 	public String findAccurateCompany(@PathVariable String page,String id,Model model) {
 		if("editIndustryInfo".equals(page)){
 			if(StringUtil.isNotEmpty(id)){

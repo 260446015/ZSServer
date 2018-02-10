@@ -37,7 +37,7 @@ public class IndustryMapController extends BaseController{
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value = { "{page}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{page}.html" }, method = RequestMethod.GET)
 	public String findAccurateCompany(@PathVariable String page) {
 		return "/industry/map/" + page;
 	}

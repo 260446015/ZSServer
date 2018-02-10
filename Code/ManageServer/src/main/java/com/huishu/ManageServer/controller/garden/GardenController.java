@@ -41,7 +41,7 @@ public class GardenController extends BaseController {
 	private GardenService gardenService;
 
 	
-	@RequestMapping(value = { "{page}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{page}.html" }, method = RequestMethod.GET)
 	public String gardenMapping(@PathVariable String page) {
 		return "/garden/" + page;
 	}

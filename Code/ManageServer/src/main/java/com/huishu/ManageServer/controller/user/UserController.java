@@ -42,8 +42,9 @@ public class UserController extends BaseController{
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value = { "{page}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "{page}.html" }, method = RequestMethod.GET)
 	public String pageJump(@PathVariable String page,String id,String parkId,Model model) {
+		System.out.println("page的值是：---" + page);
 		if("findParkInformation".equals(page)||"addUserBase".equals(page)){
 			model.addAttribute("id",id);
 		}else if("editUserBase".equals(page)||"userBase".equals(page)){
