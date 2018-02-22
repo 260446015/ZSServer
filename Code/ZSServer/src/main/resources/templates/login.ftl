@@ -27,7 +27,7 @@
         <div class="panel-body">
             <form class="form-horizontal" onsubmit="return false;">
                 <div class="form-group">
-                    <div class="input-icon">
+                    <div class="inpu t-icon">
                         <i class="glyphicon glyphicon-user"></i>
                         <input type="text" class="form-control" placeholder="请输入用户名" id="username"/>
                     </div>
