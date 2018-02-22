@@ -1,0 +1,36 @@
+body{
+    background: url(../img/bgimg/bg2.png) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.company{
+    padding: 15px 10px;
+}
+
+.company div{
+    padding-bottom: 10px;
+}
+
+.company div h2{
+    color: #00ffde;
+    font-size: 1.4rem;
+}
+
+.company ul li {
+   display: flex;
+   margin-top: 8px;
+   padding-bottom: 8px;
+   border-bottom: 1px solid  #29294b;
+}
+
+.company ul li:nth-child(1) span{
+    color: #ccc;
+}
+
+.company ul li span:nth-child(1){
+    width: 55%
+}
+
+.company ul li span:nth-child(2){
+    width: 45%;
+}

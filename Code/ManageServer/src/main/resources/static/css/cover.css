@@ -1,0 +1,91 @@
+body{
+    background: url(../img/bgimg/bgimg.jpg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.bigbox{
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+header div{
+    display: flex;
+    align-self: flex-end;
+    margin-top: 4.1rem;
+    align-items: center;
+}
+
+header div span:nth-child(1){
+    width: 25px;
+    height: 25px;
+    display: block;
+    margin-right: .5rem;
+}
+
+header div span:nth-child(1) img{
+    width: 100%;
+    height:100%;
+}
+
+.container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container div:nth-child(1){
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.labour{
+    width: 100%;
+    display: flex;
+    align-self: flex-end;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.report{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 36px;
+}
+
+.container div:nth-child(2){
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+    margin-bottom: -3rem;
+}
+
+footer{
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-self: flex-end;
+}
+
+footer div{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 2rem;
+}
+
+footer div img{
+    width: 100%;
+    height: 100%;
+}
