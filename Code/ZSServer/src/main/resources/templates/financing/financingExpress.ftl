@@ -96,12 +96,7 @@
                         <div class="search-item-title">
                             区域
                         </div>
-                        <div class="search-item-content">
-                            <a href="javascript:void(0);" id="2全部" onclick="myClick(2,'全部')" class="search-item active">全部</a>
-                            <a href="javascript:void(0);" id="2北京" onclick="myClick(2,'北京')" class="search-item">北京</a>
-                            <a href="javascript:void(0);" id="2上海" onclick="myClick(2,'上海')" class="search-item">上海</a>
-                            <a href="javascript:void(0);" id="2广州" onclick="myClick(2,'广州')" class="search-item">广州</a>
-                            <a href="javascript:void(0);" id="2深圳" onclick="myClick(2,'深圳')" class="search-item">深圳</a>
+                        <div class="search-item-content area_list">
                         </div>
                     </div>
                     <div class="search-group">

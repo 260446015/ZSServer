@@ -91,7 +91,7 @@ public class FinancingServiceImpl extends AbstractService<T> implements Financin
 		SearchResponse searchResponse = srb.setQuery(bq).setSize(10).execute().actionGet();
 		if (null != searchResponse && null != searchResponse.getHits()) {
 			SearchHits hits = searchResponse.getHits();
-			hits.forEach((searchHit) -> {
+			hits.forEach( searchHit -> {
 				Map<String, Object> map = searchHit.getSource();
 				JSONObject obj = new JSONObject();
 				obj.put("id", searchHit.getId());

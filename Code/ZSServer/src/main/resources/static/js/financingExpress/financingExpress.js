@@ -34,13 +34,14 @@ $(function(){
 	$.ajax({
         url: "/apis/financing/getFinancingDynamic.json",
         success: function (response) {
-            if(response.message!=null){
-            	new Alert({flag:false,text:response.message,timer:1500}).show();
+            if(response.success){
+                showDynamic(response.data);
             }else{
-           		showDynamic(response.data);
+                new Alert({flag:false,text:response.message,timer:1500}).show();
             }
         }
     });
+	showArea('全部');
 	var datalist= new Array();
     datalist.push("人工智能");
 	myCheck(datalist);
@@ -107,6 +108,7 @@ function myClick(a,b){
 	$("#"+a+b+"").addClass("active");
     if(a==1){
     	industry=b;
+        showArea(industry);
     }else if(a==2){
     	area=b;
     }else if(a==3){
@@ -152,6 +154,31 @@ function showCheck(d){
 				  '<div class="col-title"><a href="javascript:void(0);" class="search-item">'+item.industry+'</a></div></div>');
 	});
 	$('#company').html(arr.join(''));
+}
+function showArea(ins){
+    $.ajax({
+        type: 'post',
+        url: "/apis/getlabel/getLabel.json",
+        async: false,
+        contentType: 'application/json',
+        data: JSON.stringify({
+            type:'two',
+            industry:ins
+        }),
+        success: function (response) {
+            if(response.success){
+                var d = response.data;
+                var arr = [];
+                arr.push('<a href="javascript:void(0);" id="2全部" onclick="myClick(2,\'全部\')" class="search-item active">全部</a>');
+                $.each(d, function(index, item){
+                    arr.push('<a href="javascript:void(0);" id="2'+item+'" onclick="myClick(2,\''+item+'\')" class="search-item">'+item+'</a>');
+                });
+                $(".area_list").html(arr.join(''));
+            }else{
+                new Alert({flag:false,text:response.message,timer:1500}).show();
+            }
+        }
+    });
 }
 function showDynamic(d){
 	var arr = [];
