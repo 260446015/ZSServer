@@ -68,7 +68,7 @@ public class IntelligentPushController extends BaseController{
 				obj.put("flag", false);
 				
 			}
-			if(StringUtil.isEmpty(action.getIndustry().trim())){
+			if(StringUtil.isEmpty(action.getIndustry())){
 				obj.put("industry", null);
 			}else{
 				obj.put("industry", action.getIndustry());
