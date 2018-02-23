@@ -9,27 +9,28 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>产业链高亮点</title>
-    <link rel="stylesheet" href="./libs/base.css">
-    <link rel="stylesheet" href="./libs/rem.js">
-    <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/industry.css">
+    <link rel="stylesheet" href="../../vendor/base.css">
+    <link rel="stylesheet" href="../../vendor/swiper-4.1.6.min.css">
+    <link rel="stylesheet" href="../../vendor/rem.js">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/industry.css">
 </head>
 <body>
     <div class="catalog">
         <header>
-            <div class="left">
+            <!-- <div class="left">
                 <
-            </div>
+            </div> -->
             <div class="center">
                 <h1>
                     产业链高亮点
                 </h1>
             </div>
         </header>
-        <div class="container">
-          <div class="industrytop">
-             <ul>
-                 <li>
+        <div class="container ">
+          <div class="industrytop  swiper-container">
+             <ul class="swiper-wrapper">
+                 <li class="swiper-slide"> 
                     <div class="lightspot1">
                         <span>
                             <i>自动无人技术</i>
@@ -73,17 +74,18 @@
                         </span>
                     </div>
                  </li>
-                 <!-- <li>
-                    <div>
+                 <li class="swiper-slide">
+                        slide2
+                    <!-- <div>
                         <span>
-                            <i></i>
+                            <i>sss</i>
                         </span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                        <span>sss</span>
+                        <span>ssfddf</span>
+                        <span>gfhgn</span>
+                        <span>ngnh</span>
+                        <span>nmhmnh</span>
+                        <span>nhn</span>
                     </div>
                     <div>
                         <span></span>
@@ -98,21 +100,14 @@
                         <span></span>
                         <span></span>
                         <span></span>
-                    </div>
+                    </div> -->
                  </li>
-                 <li>
-
-                 </li> -->
+                 <li class="swiper-slide">
+                        slide3
+                 </li>
              </ul>
-             <ol class="emptycircle">
-                 <li class="line smallcircle">
-                 </li>
-                 <li class="line">
-                 </li>
-                 <li class="line">
-                 </li>
-             </ol>
           </div>
+          <div class="swiper-pagination emptycircle"></div>
           <div class="industrybottom">
             <ul>
                 <li>
@@ -128,10 +123,13 @@
           </div>
         </div>
         <footer>
-         <div>
-             <img src="./img/icon/jiantou.png" alt="">
+         <div class="index">
+             <img src="../../img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
+    <script src="../../vendor/jquery-3.3.1.min.js"></script>
+    <script src="../../vendor/jquery.touchSwipe.min.js"></script>
+    <script src="../../vendor/swiper-4.1.6.min.js"></script>
 </body>
 </html>

@@ -2,3 +2,45 @@ body{
     background: url(../img/bgimg/bg2.png) no-repeat center;
     background-size: 100% 100%;
 }
+
+.sign tbody{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.sign tbody tr{
+    width: 100%;
+    display: flex;
+}
+
+.sign tbody tr th{
+    flex:1;
+    text-align: center;
+    margin: 10px 0;
+} 
+
+.on{
+ background-color: #00c0ff;
+ border-radius: 100%;
+}
+
+.calendarbgimg{
+    background: url(../img/bgimg/tan1.png) no-repeat center;
+    background-size: 100% 100%;
+    margin: 10px;
+}
+
+.calendarbgimg ul{
+    padding: 10px;
+
+}
+
+.calendarbgimg ul li{
+    border-bottom: 1px solid #1f1f40;
+    padding: 8px 0px;
+}
+
+.calendarbgimg ul li span{
+    color: #00c0ff;
+}

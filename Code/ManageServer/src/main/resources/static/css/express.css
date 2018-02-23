@@ -2,3 +2,18 @@ body{
     background: url(../img/bgimg/bg2.png) no-repeat center;
     background-size: 100% 100%;
 }
+
+.barbgimg{
+    background: url(../img/bgimg/tan1.png);
+    background-size: 100% 100%;
+    margin: 15px;
+}
+
+.barbgimg ul{
+    padding: 10px;
+}
+
+.barbgimg ul li{
+    border-bottom: 1px solid #1a1a38;
+    padding-top: 10px;
+}

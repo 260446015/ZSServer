@@ -3,7 +3,6 @@ body{
     background-size: 100% 100%;
 }
 
-
 .industrytop ul{
     height: 18rem;
     position: relative;
@@ -214,24 +213,6 @@ body{
     align-items: center;
 }
 
-.emptycircle li{
-    margin-left: 3px;
-}
-
-.line {
-    width: 8px;
-    height: 2px;
-    background-color: #7474af;
-}
-
-.emptycircle .smallcircle{
-    width: 5px;
-    height: 5px;
-    border-radius: 100%;
-    display: block;
-    border: 1px solid #7474af;
-    background-color: transparent;
-}
 
 .industrybottom {
     background: url(../img/bgimg/tan1.png);

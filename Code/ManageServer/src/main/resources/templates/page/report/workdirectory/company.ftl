@@ -9,8 +9,8 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>明星推荐-企业</title>
-    <link rel="stylesheet" href="/libs/base.css">
-    <link rel="stylesheet" href="/libs/rem.js">
+    <link rel="stylesheet" href="/vender/base.css">
+    <link rel="stylesheet" href="/vender/rem.js">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/company.css">
 </head>
@@ -32,7 +32,7 @@
                    <dl>
                        <dt>
                            <p>
-                               <img src="./img/icon/pohoto.png" alt="">
+                               <img src="/img/icon/pohoto.png" alt="">
                            </p>
                            <p>北京环球创意广告有限公司</p>
                        </dt>
@@ -45,7 +45,7 @@
                    <dl>
                        <dt>
                            <p>
-                               <img src="./img/icon/pohoto.png" alt="">
+                               <img src="/img/icon/pohoto.png" alt="">
                            </p>
                            <p>北京环球创意广告有限公司</p>
                        </dt>
@@ -58,7 +58,7 @@
                    <dl>
                        <dt>
                            <p>
-                               <img src="./img/icon/pohoto.png" alt="">
+                               <img src="/img/icon/pohoto.png" alt="">
                            </p>
                            <p>北京环球创意广告有限公司</p>
                        </dt>
@@ -71,7 +71,7 @@
                    <dl>
                        <dt>
                            <p>
-                               <img src="./img/icon/pohoto.png" alt="">
+                               <img src="/img/icon/pohoto.png" alt="">
                            </p>
                            <p>北京环球创意广告有限公司</p>
                        </dt>
@@ -84,7 +84,7 @@
         </div>
         <footer>
          <div>
-             <img src="./img/icon/jiantou.png" alt="">
+             <img src="/img/icon/jiantou.png" alt="">
          </div>
         </footer>
     </div>

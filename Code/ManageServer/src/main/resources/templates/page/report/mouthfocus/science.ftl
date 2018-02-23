@@ -9,10 +9,10 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>技术焦点</title>
-    <link rel="stylesheet" href="../../static/vendor/base.css">
-    <link rel="stylesheet" href="../../static/vendor/rem.js">
-    <link rel="stylesheet" href="../../static/css/common.css">
-    <link rel="stylesheet" href="../../static/css/science.css">
+    <link rel="stylesheet" href="/vendor/base.css">
+    <link rel="stylesheet" href="/vendor/rem.js">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/science.css">
 </head>
 <body>
     <div class="catalog">
@@ -31,7 +31,7 @@
         </div>
         <footer>
          <div>
-             <img src="./img/icon/jiantou.png" alt="">
+             <img src="/img/icon/jiantou.png" alt="">
          </div>
         </footer>
     </div>

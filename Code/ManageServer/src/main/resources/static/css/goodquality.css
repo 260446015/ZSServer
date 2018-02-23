@@ -1,12 +1,8 @@
-body{
-    background: url(../img/bgimg/bg4.png) no-repeat center;
-    background-size: 100% 100%;
-}
-
 .qrcodeimg{
     width: 100px;
     height: 100px;  
-    margin-top: 12rem; 
+    margin: 0 auto;
+    padding-top: 12rem; 
 }
 
 .qrcodeimg img{
@@ -14,13 +10,17 @@ body{
     height: 100%;
 }
 
-.container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.message{
+    margin-top: 3rem;
 }
 
-.text{
+.message p{
+    text-align: center;
+    color: #00c0ff;
+    margin-top: 1rem;
+    line-height: 1.5rem;
+}
+/* .text{
     width: 100%;
     margin-top: 3rem;
 }
@@ -30,4 +30,4 @@ body{
     color: #00ffde;
     font-size: 14px;
     margin-top: 1rem;
-}
+} */

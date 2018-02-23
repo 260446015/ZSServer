@@ -9,10 +9,10 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>明星推荐-人物</title>
-    <link rel="stylesheet" href="./libs/base.css">
-    <link rel="stylesheet" href="./libs/rem.js">
-    <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/starman.css">
+    <link rel="stylesheet" href="/vender/base.css">
+    <link rel="stylesheet" href="/vender/rem.js">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/starman.css">
 </head>
 <body>
     <div class="catalog">
@@ -30,7 +30,7 @@
            <div>
               <ul>
                   <li>
-                    <img src="./img/photo/renwu.png" alt="">
+                    <img src="/img/photo/renwu.png" alt="">
                   </li>
                   <li class="text">
                      刘强东
@@ -46,7 +46,7 @@
         </div>
         <footer>
          <div>
-             <img src="./img/icon/jiantou.png" alt="">
+             <img src="/img/icon/jiantou.png" alt="">
          </div>
         </footer>
     </div>

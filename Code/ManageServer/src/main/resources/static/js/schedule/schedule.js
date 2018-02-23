@@ -1,6 +1,6 @@
 var calUtil = {
     //当前日历显示的年份
-    showYear:2015,
+    showYear:2017,
     //当前日历显示的月份
     showMonth:1,
     //当前日历显示的天数
