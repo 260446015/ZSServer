@@ -20,10 +20,14 @@ $(function(){
 function Click(a,b){
 	if(a==1){
 		industry = b;
+		updateAreaInfo(industry);
 	}else if(a==2){
 		area= b;
 	}else if(a== 3){
 		sort = b;
+	}
+	if(industry=="全部"){
+		updateAreaInfo(industry);
 	}
 	var param={industry:industry,area:area,sort:sort,pageSize:pageSize,pageNumber:pageNumber}
 	SummitInfo(param);
@@ -102,4 +106,18 @@ $('#summit-list').on("click",".follow",function(){
 		}
 	});
 });
-
+function updateAreaInfo(e){
+	$.ajax({
+		type:'POST',
+		url:'/apis/getlabel/getLabel.json',
+		asynyc:false,
+		contentType:'application/json',
+		data:JSON.stringify({
+            type:'one',
+            industry:e
+        }),
+		success:function(res){
+			console.log(res);
+		}
+	});
+}

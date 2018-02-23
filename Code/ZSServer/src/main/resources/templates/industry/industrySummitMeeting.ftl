@@ -67,7 +67,7 @@
                             <div class="search-item-title">
                                 产业
                             </div>
-                            <div class="search-item-content">
+                            <div class="search-item-content" >
                                 <a href="javascript:void(0);" id="1-全部" class="search-item active">全部</a>
                                 <a href="javascript:void(0);" id="1-人工智能"  class="search-item">人工智能</a>
                                 <a href="javascript:void(0);" id="1-大数据" class="search-item">大数据</a>
@@ -79,7 +79,7 @@
                             <div class="search-item-title">
                                 区域
                             </div>
-                            <div class="search-item-content">
+                            <div class="search-item-content" id="">
                                 <a href="javascript:void(0);" id="2-全部" class="search-item active">全部</a>
                                 <#list area as bb>
                                 	<a href="javascript:void(0);" id="2-${bb}" class="search-item">${bb}</a>
