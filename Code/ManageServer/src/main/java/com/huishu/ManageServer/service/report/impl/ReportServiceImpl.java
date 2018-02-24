@@ -2,6 +2,7 @@ package com.huishu.ManageServer.service.report.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.entity.dbFirst.FilePdf;
 import com.huishu.ManageServer.entity.dbFirst.h5.Headlines;
 import com.huishu.ManageServer.entity.dbFirst.h5.MonthlyReport;
@@ -74,24 +75,21 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public Object getHtmlData(Long id,String type) {
-		if(type.equals("首页")){
+		if(StringUtil.isEmpty(type)){
 			return monthlyReportRepository.findOne(id);
-		}else if(type.equals("目录")){
-			return headlinesRepository.findByReportIdAndParentIdOrderBySort(id,0L);
+		}else if(type.equals("focus")||type.equals("dynamic")){
+			return headlinesRepository.findByReportIdAndParentNameOrderBySort(id,type);
+		}else if(type.equals("keyWord")||type.equals("chain")||type.equals("recommend")||type.equals("industry")){
+			Headlines headlines = headlinesRepository.findByReportIdAndName(0L, type);
+			return paragraphRepository.findByHeadlinesIdOrderBySort(headlines.getId());
 		}else{
-			Headlines headlines = headlinesRepository.findByReportIdAndName(id, type);
-			List<Headlines> list = headlinesRepository.findByReportIdAndParentIdOrderBySort(id, headlines.getId());
-			if(list.size()==0){
-				return paragraphRepository.findByHeadlinesIdOrderBySort(headlines.getId());
-			}else{
-				return list;
-			}
+			return null;
 		}
 	}
 
 	@Override
 	public JSONObject getHtmlData(Long id) {
-		JSONObject object = new JSONObject();
+		/*JSONObject object = new JSONObject();
 		object.put("info",monthlyReportRepository.findOne(id));
 		List<HeadlinesVO> list = findHtmlHeadlines(id);
 		JSONArray array = new JSONArray();
@@ -118,7 +116,8 @@ public class ReportServiceImpl implements ReportService {
 			array.add(obj);
 		}
 		object.put("arr",array);
-		return object;
+		return object;*/
+		return null;
 	}
 
 	@Override
@@ -129,7 +128,7 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public Long addHtmlData(HtmlAddDTO dto) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		MonthlyReport report = new MonthlyReport();
 		report.setName(dto.getName());
 		report.setTime(dto.getTime());
@@ -145,7 +144,6 @@ public class ReportServiceImpl implements ReportService {
 			headlines.setName(arr[i].getString("name"));
 			headlines.setReportId(save.getId());
 			headlines.setSort(arr[i].getInteger("sort"));
-			headlines.setParentId(0L);
 			headlinesRepository.save(headlines);
 		}
 		JSONObject[] arr2 = dto.getArr2();
@@ -157,11 +155,11 @@ public class ReportServiceImpl implements ReportService {
 				headlines.setName(arr[i].getString("name"));
 				headlines.setReportId(save.getId());
 				headlines.setSort(arr[i].getInteger("sort"));
-				headlines.setParentId(parent.getId());
 				headlinesRepository.save(headlines);
 			}
 		}
-		return save.getId();
+		return save.getId();*/
+		return null;
 	}
 
 	@Override
@@ -180,7 +178,7 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public List<HeadlinesVO> findHtmlHeadlines(Long id) {
-		List<HeadlinesVO> result = new ArrayList<>();
+		/*List<HeadlinesVO> result = new ArrayList<>();
 		List<Headlines> list = headlinesRepository.findByReportIdAndParentIdOrderBySort(id,0L);
 		for (Headlines headlines:list){
 			HeadlinesVO vo = new HeadlinesVO();
@@ -192,7 +190,8 @@ public class ReportServiceImpl implements ReportService {
 			List<Headlines> children = headlinesRepository.findByReportIdAndParentIdOrderBySort(id, vo.getId());
 			vo.setChildren(children);
 		}
-		return result;
+		return result;*/
+		return null;
 	}
 
 }

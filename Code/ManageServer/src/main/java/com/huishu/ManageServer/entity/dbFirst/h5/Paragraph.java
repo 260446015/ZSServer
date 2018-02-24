@@ -26,6 +26,17 @@ public class Paragraph implements Serializable {
 	/** 所属标题ID */
 	@Column(name="headlines_id")
 	private Long headlinesId;
+	/** 所属h5 */
+	@Column(name="report_id")
+	private Long reportId;
+
+	public Long getReportId() {
+		return reportId;
+	}
+
+	public void setReportId(Long reportId) {
+		this.reportId = reportId;
+	}
 
 	public Integer getSort() {
 		return sort;

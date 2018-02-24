@@ -27,9 +27,9 @@ public class Headlines implements Serializable {
 	/** 所属h5 */
 	@Column(name="report_id")
 	private Long reportId;
-	/** 标题父类ID */
-	@Column(name="parent_id")
-	private Long parentId;
+	/** 标题父类名字 */
+	@Column(name="parent_name")
+	private String parentName;
 
 	public Long getId() {
 		return id;
@@ -71,11 +71,11 @@ public class Headlines implements Serializable {
 		this.sort = sort;
 	}
 
-	public Long getParentId() {
-		return parentId;
+	public String getParentName() {
+		return parentName;
 	}
 
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 }
