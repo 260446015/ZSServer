@@ -115,9 +115,9 @@ public class ReportServiceImpl implements ReportService {
 			return object;
 		}else if(type.equals("industry")){
 			Headlines headlines = headlinesRepository.findByReportIdAndName(0L, type);
-			List<Paragraph> faucet = paragraphRepository.findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(headlines.getId(),id,"faucet");
-			List<Paragraph> growth = paragraphRepository.findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(headlines.getId(),id,"growth");
-			List<Paragraph> potential = paragraphRepository.findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(headlines.getId(),id,"potential");
+			List<Paragraph> faucet = paragraphRepository.findByHeadlinesIdAndReportIdAndKeyWordOrderBySort(headlines.getId(),id,"faucet");
+			List<Paragraph> growth = paragraphRepository.findByHeadlinesIdAndReportIdAndKeyWordOrderBySort(headlines.getId(),id,"growth");
+			List<Paragraph> potential = paragraphRepository.findByHeadlinesIdAndReportIdAndKeyWordOrderBySort(headlines.getId(),id,"potential");
 			JSONObject obj = new JSONObject();
 			obj.put("faucet",faucet);
 			obj.put("growth",growth);

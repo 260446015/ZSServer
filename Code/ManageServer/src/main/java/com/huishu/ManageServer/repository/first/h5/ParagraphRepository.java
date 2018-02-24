@@ -15,5 +15,5 @@ import java.util.List;
 @Repository
 public interface ParagraphRepository extends CrudRepository<Paragraph, Long> {
 	List<Paragraph> findByHeadlinesIdAndReportIdOrderBySort(Long headlinesId,Long reportId);
-	List<Paragraph> findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(Long headlinesId,Long reportId,String keyWord);
+	List<Paragraph> findByHeadlinesIdAndReportIdAndKeyWordOrderBySort(Long headlinesId,Long reportId,String keyWord);
 }

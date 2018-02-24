@@ -39,20 +39,12 @@ public class Paragraph implements Serializable {
 	@Column(name="report_id")
 	private Long reportId;
 
-	public String getMoney() {
-		return money;
+	public Long getId() {
+		return id;
 	}
 
-	public void setMoney(String money) {
-		this.money = money;
-	}
-
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getPeople() {
@@ -71,28 +63,20 @@ public class Paragraph implements Serializable {
 		this.company = company;
 	}
 
-	public Long getReportId() {
-		return reportId;
+	public String getMoney() {
+		return money;
 	}
 
-	public void setReportId(Long reportId) {
-		this.reportId = reportId;
+	public void setMoney(String money) {
+		this.money = money;
 	}
 
-	public Integer getSort() {
-		return sort;
+	public String getTime() {
+		return time;
 	}
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public String getText() {
@@ -111,11 +95,27 @@ public class Paragraph implements Serializable {
 		this.keyWord = keyWord;
 	}
 
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
 	public Long getHeadlinesId() {
 		return headlinesId;
 	}
 
 	public void setHeadlinesId(Long headlinesId) {
 		this.headlinesId = headlinesId;
+	}
+
+	public Long getReportId() {
+		return reportId;
+	}
+
+	public void setReportId(Long reportId) {
+		this.reportId = reportId;
 	}
 }
