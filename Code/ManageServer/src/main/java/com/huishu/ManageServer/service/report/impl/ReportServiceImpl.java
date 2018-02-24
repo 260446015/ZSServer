@@ -40,7 +40,7 @@ public class ReportServiceImpl implements ReportService {
 	private ParagraphRepository paragraphRepository;
 	@Autowired
 	private MonthlyReportRepository monthlyReportRepository;
-	
+
 	@Override
 	public Page<FilePdf> getExpertReport(AbstractDTO dto) {
 		Pageable pageable = new PageRequest(dto.getPageNum(), dto.getPageSize(), Sort.Direction.DESC, "createTime");
@@ -79,9 +79,56 @@ public class ReportServiceImpl implements ReportService {
 			return monthlyReportRepository.findOne(id);
 		}else if(type.equals("focus")||type.equals("dynamic")){
 			return headlinesRepository.findByReportIdAndParentNameOrderBySort(id,type);
-		}else if(type.equals("keyWord")||type.equals("chain")||type.equals("recommend")||type.equals("industry")){
+		}else if(type.equals("chain")||type.equals("keyWord")){
 			Headlines headlines = headlinesRepository.findByReportIdAndName(0L, type);
-			return paragraphRepository.findByHeadlinesIdOrderBySort(headlines.getId());
+			List<Paragraph> list = paragraphRepository.findByHeadlinesIdAndReportIdOrderBySort(headlines.getId(),id);
+			JSONArray array = new JSONArray();
+			list.forEach(paragraph -> {
+				JSONObject object = new JSONObject();
+				object.put("text",paragraph.getText());
+				String keyWord = paragraph.getKeyWord();
+				String[] split = keyWord.split("、");
+				object.put("keyWord",split);
+				array.add(object);
+			});
+			return array;
+		}else if(type.equals("recommend")){
+			Headlines headlines = headlinesRepository.findByReportIdAndName(0L, type);
+			List<Paragraph> list = paragraphRepository.findByHeadlinesIdAndReportIdOrderBySort(headlines.getId(),id);
+			JSONObject object = new JSONObject();
+			JSONArray array = new JSONArray();
+			list.forEach(paragraph -> {
+				if(paragraph.getKeyWord().equals("1")){
+					JSONObject obj = new JSONObject();
+					obj.put("name",paragraph.getCompany());
+					obj.put("reason",paragraph.getText());
+					array.add(obj);
+				}else{
+					JSONObject obj = new JSONObject();
+					obj.put("name", paragraph.getPeople());
+					obj.put("identity", paragraph.getCompany());
+					obj.put("reason", paragraph.getText());
+					object.put("people", obj);
+				}
+			});
+			object.put("company", array);
+			return object;
+		}else if(type.equals("industry")){
+			Headlines headlines = headlinesRepository.findByReportIdAndName(0L, type);
+			List<Paragraph> faucet = paragraphRepository.findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(headlines.getId(),id,"faucet");
+			List<Paragraph> growth = paragraphRepository.findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(headlines.getId(),id,"growth");
+			List<Paragraph> potential = paragraphRepository.findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(headlines.getId(),id,"potential");
+			JSONArray array = new JSONArray();
+			faucet.forEach(paragraph -> {
+
+			});
+			growth.forEach(paragraph -> {
+
+			});
+			potential.forEach(paragraph -> {
+
+			});
+			return array;
 		}else{
 			return null;
 		}

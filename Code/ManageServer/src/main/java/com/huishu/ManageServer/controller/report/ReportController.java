@@ -153,7 +153,7 @@ public class ReportController extends BaseController {
 	@RequestMapping(value = "getHtmlData.do", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getHtmlData(Long id,String type) {
-		if(id==null||StringUtil.isEmpty(type)){
+		if(id==null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
