@@ -34,8 +34,7 @@
                     <p class="labour">人工智能行业</p>
                     <p class="report">月度报告</p>
                 </div>
-                <div>
-                     <p>2017年12月11日-2018年1月14日</p>
+                <div class="time">
                 </div>
             </div>
             </div>
