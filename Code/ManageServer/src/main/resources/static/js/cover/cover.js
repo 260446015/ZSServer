@@ -1,0 +1,10 @@
+$(function(){
+    $.ajax({
+        url:'/apis/report/getHtmlData.do?id=5&type=首页',
+        type:'GET',
+        async:false,
+        success:function(data){
+            console.log(data)
+        }
+    })
+})

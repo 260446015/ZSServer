@@ -54,7 +54,7 @@
                        <div>
                            <ul>
                                <li>
-                                 <a href="/apis/report/workdirectory/keyword.ftl">
+                                 <a href="/apis/report/workdirectory/keyword.htm">
                                    <span class="mb10">
                                     <img src="/img/icon/icon1.png" alt="">
                                    </span>
@@ -62,7 +62,7 @@
                                 </a>
                                </li>
                                <li>
-                                    <a href="/workdirectory/industry.html">
+                                    <a href="/apis/report/workdirectory/industry.htm">
                                     <span class="mb10">
                                         <img src="/img/icon/icon2.png" alt="">
                                     </span>
@@ -72,7 +72,7 @@
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="/workdirectory/monthfocus.html">
+                                    <a href="/apis/report/workdirectory/monthfocus.htm">
                                     <span class="mb10">
                                         <img src="/img/icon/icon3.png" alt="">
                                     </span>
@@ -82,7 +82,7 @@
                                 </a>
                                 </li> 
                                 <li>
-                                    <a href="/workdirectory/Industrynews.html">
+                                    <a href="/apis/report/workdirectory/Industrynews.htm">
                                    <span class="mb10">
                                         <img src="/img/icon/icon4.png" alt="">
                                    </span>
@@ -92,7 +92,7 @@
                                 </a>
                                 </li> 
                                 <li>
-                                    <a href="/workdirectory/company.html">
+                                    <a href="/apis/report/workdirectory/company.htm">
                                     <span class="mb10">
                                         <img src="/img/icon/icon5.png" alt="">
                                     </span>
@@ -102,7 +102,7 @@
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="/enterprise/quality.html">
+                                    <a href="/apis/report/enterprise/quality.htm">
                                     <span class="mb10">
                                         <img src="/img/icon/icon6.png" alt="">
                                     </span>
@@ -373,36 +373,35 @@
                     <div>
                         <ul>
                             <li>
-                                <a href="/mouthfocus/policy.html">
+                                <a href="/apis/report/mouthfocus/policy.htm">
                                 <span class="mb10">
                                      <img src="/img/icon/icon7.png" alt="">
                                 </span>
                                 政策焦点</a>
                             </li>
                             <li>
-                                <a href="/mouthfocus/capital.html">
+                                <a href="/apis/report/mouthfocus/capital.htm">
                                  <span class="mb10">
                                      <img src="/img/icon/icon8.png" alt="">
                                  </span>
                                  资本焦点</a>
                              </li>
                              <li>
-                                 <a href="/mouthfocus/bazaar.html">
+                                 <a href="/apis/report/mouthfocus/bazaar.htm">
                                  <span class="mb10">
                                      <img src="/img/icon/icon9.png" alt="">
                                  </span>
                                  市场焦点</a>
                              </li> 
                              <li>
-                                <!-- <a href="/apis/report/mouthfocus/consensus.html">-->
-                                 <a href="/apis/report/consensus.html">
+                                 <a href="/apis/report/mouthfocus/consensus.htm">
                                 <span class="mb10">
                                      <img src="/img/icon/icon10.png" alt="">
                                 </span>
                                  舆论焦点</a>
                              </li> 
                              <li>
-                                  <a href="/apis/report/mouthfocus/science.html">
+                                  <a href="/apis/report/mouthfocus/science.htm">
                                  <span class="mb10">
                                      <img src="/img/icon/icon11.png" alt="">
                                  </span>
@@ -427,42 +426,42 @@
                     <div>
                         <ul>
                             <li>
-                                <a href="/apis/report/industrytrends/worldnews.html">
+                                <a href="/apis/report/industrytrends/worldnews.htm">
                                 <span class="mb10">
                                      <img src="/img/icon/icon13.png" alt="">
                                 </span>
                                 各地新闻</a>
                             </li>
                             <li>
-                                <a href="/apis/report/industrytrends/collaborate.html">
+                                <a href="/apis/report/industrytrends/collaborate.htm">
                                  <span class="mb10">
                                      <img src="/img/icon/icon14.png" alt="">
                                  </span>
                                  合作动向</a>
                              </li>
                              <li>
-                                  <a href="/apis/report/industrytrends/tendency.html">
+                                  <a href="/apis/report/industrytrends/tendency.htm">
                                  <span class="mb10">
                                      <img src="/img/icon/icon15.png" alt="">
                                  </span>
                                 企业动向</a>
                              </li> 
                              <li>
-                                 <a href="/apis/report/industrytrends/schedule.html">
+                                 <a href="/apis/report/industrytrends/schedule.htm">
                                 <span class="mb10">
                                      <img src="/img/icon/icon16.png" alt="">
                                 </span>
                                  会议日程</a>
                              </li> 
                              <li>
-                                 <a href="/apis/report/industrytrends/rankingreport.html">
+                                 <a href="/apis/report/industrytrends/rankingreport.htm">
                                  <span class="mb10">
                                      <img src="/img/icon/icon17.png" alt="">
                                  </span>
                                  排行报告</a>
                              </li>
                              <li>
-                                 <a href="/apis/report/industrytrends/express.html">
+                                 <a href="/apis/report/industrytrends/express.htm">
                                  <span class="mb10">
                                      <img src="/img/icon/icon18.png" alt="">
                                  </span>

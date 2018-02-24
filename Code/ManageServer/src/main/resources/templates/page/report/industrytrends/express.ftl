@@ -9,10 +9,10 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>投融速递</title>
-    <link rel="stylesheet" href="../../vendor/base.css">
-    <link rel="stylesheet" href="../../vendor/rem.js">
-    <link rel="stylesheet" href="../../css/common.css">
-    <link rel="stylesheet" href="../../css/express.css">
+    <link rel="stylesheet" href="/vendor/base.css">
+    <link rel="stylesheet" href="/vendor/rem.js">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/express.css">
 </head>
 <body>
     <div class="catalog">
@@ -40,12 +40,12 @@
         </div>
         <footer>
          <div>
-             <img src="../../img/icon/jiantou.png" alt=""  class="img">
+             <img src="/img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
-    <script src="../../vendor/echarts/echarts.min.js"></script>
-    <script src="../../js/express/express.js"></script>
-    <script src="../../vendor/jquery-3.3.1.min.js"></script>
+    <script src="/vendor/echarts/echarts.min.js"></script>
+    <script src="/js/express/express.js"></script>
+    <script src="/vendor/jquery-3.3.1.min.js"></script>
 </body>
 </html>

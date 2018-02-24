@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE htm>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,10 +9,10 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>本月焦点</title>
-    <link rel="stylesheet" href="../../vendor/base.css">
-    <link rel="stylesheet" href="../../vendor/rem.js">
-    <link rel="stylesheet" href="../../css/common.css">
-    <link rel="stylesheet" href="../../css/monthfocus.css">
+    <link rel="stylesheet" href="/vendor/base.css">
+    <link rel="stylesheet" href="/vendor/rem.js">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/monthfocus.css">
 </head>
 <body>
     <div class="catalog">
@@ -30,37 +30,37 @@
             <div>
                 <ul>
                     <li>
-                        <a href="../mouthfocus/policy.html">
+                        <a href="/apis/report/mouthfocus/policy.htm">
                         <span class="mb10">
-                             <img src="../../img/icon/icon7.png" alt="">
+                             <img src="/img/icon/icon7.png" alt="">
                         </span>
                         政策焦点</a>
                     </li>
                     <li>
-                        <a href="../mouthfocus/capital.html">
+                        <a href="/apis/report/mouthfocus/capital.htm">
                          <span class="mb10">
-                             <img src="../../img/icon/icon8.png" alt="">
+                             <img src="/img/icon/icon8.png" alt="">
                          </span>
                          资本焦点</a>
                      </li>
                      <li>
-                         <a href="../mouthfocus/bazaar.html">
+                         <a href="/apis/report/mouthfocus/bazaar.htm">
                          <span class="mb10">
-                             <img src="../../img/icon/icon9.png" alt="">
+                             <img src="/img/icon/icon9.png" alt="">
                          </span>
                          市场焦点</a>
                      </li> 
                      <li>
-                         <a href="../mouthfocus/consensus.html">
+                         <a href="/apis/report/mouthfocus/consensus.htm">
                         <span class="mb10">
-                             <img src="../../img/icon/icon10.png" alt="">
+                             <img src="/img/icon/icon10.png" alt="">
                         </span>
                          舆论焦点</a>
                      </li> 
                      <li>
-                          <a href="../mouthfocus/science.html">
+                          <a href="/apis/report/mouthfocus/science.htm">
                          <span class="mb10">
-                             <img src="../../img/icon/icon11.png" alt="">
+                             <img src="/img/icon/icon11.png" alt="">
                          </span>
                         技术焦点</a>
                      </li>
@@ -69,11 +69,11 @@
         </div>
         <footer>
          <div class="index">
-             <img src="../../img/icon/jiantou.png" alt=""  class="img">
+             <img src="/img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
 
-    <script src="../../vendor/jquery-3.3.1.min.js"></script>
+    <script src="/vendor/jquery-3.3.1.min.js"></script>
 </body>
 </html>

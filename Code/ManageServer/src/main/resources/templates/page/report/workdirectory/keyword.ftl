@@ -8,10 +8,10 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>月关键词</title>
-    <link rel="stylesheet" href="../../vendor/base.css">
-    <link rel="stylesheet" href="../../vendor/rem.js">
-    <link rel="stylesheet" href="../../css/common.css">
-    <link rel="stylesheet" href="../../css/keyword.css">
+    <link rel="stylesheet" href="/vendor/base.css">
+    <link rel="stylesheet" href="/vendor/rem.js">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/keyword.css">
 </head>
 <body>
     <div class="catalog">
@@ -154,10 +154,10 @@
         </div>
         <footer>
          <div class="index">
-             <img src="../../img/icon/jiantou.png" alt=""  class="img">
+             <img src="/img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
 </body>
-<script src="../../vendor/jquery-3.3.1.min.js"></script>
+<script src="/vendor/jquery-3.3.1.min.js"></script>
 </html>

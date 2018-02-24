@@ -9,10 +9,10 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>会议日程</title>
-    <link rel="stylesheet" href="../../vendor/base.css">
-    <link rel="stylesheet" href="../../vendor/rem.js">
-    <link rel="stylesheet" href="../../css/common.css">
-    <link rel="stylesheet" href="../../css/schedule.css">
+    <link rel="stylesheet" href="/vendor/base.css">
+    <link rel="stylesheet" href="/vendor/rem.js">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/schedule.css">
 </head>
 <body>
     <div class="catalog">
@@ -100,12 +100,12 @@
         </div>
         <footer>
          <div class="index">
-             <img src="../../img/icon/jiantou.png" alt=""  class="img">
+             <img src="/img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
-    <script src="../../vendor/jquery-3.3.1.min.js"></script>
-    <script src="../../js/schedule/schedule.js"></script>
+    <script src="/vendor/jquery-3.3.1.min.js"></script>
+    <script src="/js/schedule/schedule.js"></script>
     <script>
         $(function(){
   //ajax获取日历json数据
