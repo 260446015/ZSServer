@@ -120,7 +120,7 @@ public class ReportServiceImpl implements ReportService {
 			List<Paragraph> potential = paragraphRepository.findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(headlines.getId(),id,"potential");
 			JSONArray array = new JSONArray();
 			faucet.forEach(paragraph -> {
-
+				JSONObject obj = new JSONObject();
 			});
 			growth.forEach(paragraph -> {
 
