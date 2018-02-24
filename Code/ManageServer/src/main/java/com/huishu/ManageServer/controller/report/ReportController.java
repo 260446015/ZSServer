@@ -36,6 +36,8 @@ public class ReportController extends BaseController {
 	/**
 	 * 直接跳转页面
 	 * @param page
+	 * @param id
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = {"/{page}.html","/{page}.htm"}, method = RequestMethod.GET)
@@ -44,6 +46,17 @@ public class ReportController extends BaseController {
 			model.addAttribute("id",id);
 		}
 		return "/report/"+page;
+	}
+
+	/**
+	 * 直接跳转页面
+	 * @param page
+	 * @param pack
+	 * @return
+	 */
+	@RequestMapping(value = {"/{pack}/{page}.htm"}, method = RequestMethod.GET)
+	public String show(@PathVariable String page,@PathVariable String pack) {
+		return "/report/"+pack+"/"+page;
 	}
 	
 	/**
