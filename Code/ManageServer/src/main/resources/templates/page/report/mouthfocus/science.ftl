@@ -17,9 +17,9 @@
 <body>
     <div class="catalog">
         <header>
-            <div class="left">
+            <!-- <div class="left">
                 <
-            </div>
+            </div> -->
             <div class="center">
                 <h1>
                     技术焦点
@@ -30,10 +30,11 @@
            
         </div>
         <footer>
-         <div>
-             <img src="/img/icon/jiantou.png" alt="">
+         <div class="index">
+             <img src="/img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
+    <script src="/vendor/jquery-3.3.1.min.js"></script>
 </body>
 </html>

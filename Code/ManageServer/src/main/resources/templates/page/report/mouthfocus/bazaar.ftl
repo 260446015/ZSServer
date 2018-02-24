@@ -9,17 +9,17 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>市场焦点</title>
-    <link rel="stylesheet" href="/vender/base.css">
-    <link rel="stylesheet" href="/vender/rem.js">
+    <link rel="stylesheet" href="/vendor/base.css">
+    <link rel="stylesheet" href="/vendor/rem.js">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/bazaar.css">
 </head>
 <body>
     <div class="catalog">
         <header>
-            <div class="left">
+            <!-- <div class="left">
                 <
-            </div>
+            </div> -->
             <div class="center">
                 <h1>
                     市场焦点
@@ -47,10 +47,11 @@
            </div>
         </div>
         <footer>
-         <div>
-             <img src="/img/icon/jiantou.png" alt="">
+         <div class="index">
+             <img src="/img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
+    <script src="/vendor/jquery-3.3.1.min.js"></script>
 </body>
 </html>

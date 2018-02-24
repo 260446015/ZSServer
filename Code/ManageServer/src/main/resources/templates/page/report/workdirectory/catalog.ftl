@@ -17,9 +17,9 @@
 <body>
     <div class="catalog">
         <header>
-            <div class="left">
+            <!-- <div class="left">
                 <
-            </div>
+            </div> -->
             <div class="center">
                 <h1>
                     目录
@@ -30,49 +30,56 @@
            <div>
                <ul>
                    <li>
-                       <span>
+                        <a href="./keyword.html">
+                       <span class="mb10">
                             <img src="/img/icon/icon1.png" alt="">
                        </span>
-                       <a href="">月关键词</a>
+                      月关键词</a>
                    </li>
                    <li>
-                        <span>
+                        <a href="./industry.html">
+                        <span class="mb10">
                             <img src="/img/icon/icon2.png" alt="">
                         </span>
-                        <a href="">产业链高亮</a>
+                        产业链高亮</a>
                     </li>
                     <li>
-                        <span>
+                        <a href="./monthfocus.html">
+                        <span class="mb10">
                             <img src="/img/icon/icon3.png" alt="">
                         </span>
-                        <a href="">本月焦点</a>
+                        本月焦点</a>
                     </li> 
                     <li>
-                       <span>
+                        <a href="./Industrynews.html">
+                       <span class="mb10">
                             <img src="/img/icon/icon4.png" alt="">
                        </span>
-                        <a href="">行业动态</a>
+                        行业动态</a>
                     </li> 
                     <li>
-                        <span>
+                        <a href="./company.html">
+                        <span class="mb10">
                             <img src="/img/icon/icon5.png" alt="">
                         </span>
-                        <a href="">明星推荐</a>
+                       明星推荐</a>
                     </li>
                     <li>
-                        <span>
+                            <a href="../enterprise/quality.html">
+                        <span class="mb10">
                             <img src="/img/icon/icon6.png" alt="">
                         </span>
-                        <a href="">优质产业</a>
+                        优质产业</a>
                     </li>           
                </ul>
            </div>
         </div>
         <footer>
-         <div>
-             <img src="/img/icon/jiantou.png" alt="">
+         <div class="index">
+             <img src="/img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
+    <script src="/vendor/jquery-3.3.1.min.js"></script>
 </body>
 </html>
