@@ -40,7 +40,7 @@ public class ReportController extends BaseController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = {"/{page}.html","/{page}.html"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/{page}.html","/{page}.htm"}, method = RequestMethod.GET)
 	public String show(@PathVariable String page,String id,Model model) {
 		if("reportEdit".equals(page)||("addHtml2").equals(page)||("htmlInfo").equals(page)){
 			model.addAttribute("id",id);
@@ -147,13 +147,13 @@ public class ReportController extends BaseController {
 	/**
 	 * 获取h5报告数据
 	 * @param type
-	 * @param id
+	 * @param id 
 	 * @return
 	 */
 	@RequestMapping(value = "getHtmlData.do", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult getHtmlData(Long id,String type) {
-		if(id==null||StringUtil.isEmpty(type)){
+		if(id==null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {

@@ -17,10 +17,19 @@ public class Paragraph implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	/** 人物 */
+	private String people;
+	/** 公司 */
+	private String company;
+	/** 注册资金 */
+	private String money;
+	/** 成立时间 */
+	private String time;
 	/** 段落内文本数据 */
 	private String text;
 	/** 段落内图片数据 */
-	private String img;
+	@Column(name="key_word")
+	private String keyWord;
 	/** 段落排序 */
 	private Integer sort;
 	/** 所属标题ID */
@@ -29,6 +38,38 @@ public class Paragraph implements Serializable {
 	/** 所属h5 */
 	@Column(name="report_id")
 	private Long reportId;
+
+	public String getMoney() {
+		return money;
+	}
+
+	public void setMoney(String money) {
+		this.money = money;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getPeople() {
+		return people;
+	}
+
+	public void setPeople(String people) {
+		this.people = people;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
 
 	public Long getReportId() {
 		return reportId;
@@ -62,12 +103,12 @@ public class Paragraph implements Serializable {
 		this.text = text;
 	}
 
-	public String getImg() {
-		return img;
+	public String getKeyWord() {
+		return keyWord;
 	}
 
-	public void setImg(String img) {
-		this.img = img;
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
 	}
 
 	public Long getHeadlinesId() {
