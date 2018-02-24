@@ -70,7 +70,7 @@
                         </a>
                         <ul class="nav nav-children">
                             <li id="report_item"><a href="/apis/report/reportManage.html"><span class="text">后台报告</span></a></li>
-                            <li id="html_item"><a href="/apis/report/cover.html"><span class="text">h5月报</span></a></li>
+                            <li id="html_item"><a href="/apis/report/htmlReport.html"><span class="text">h5月报</span></a></li>
                         </ul>
                     </li>
 				</ul>

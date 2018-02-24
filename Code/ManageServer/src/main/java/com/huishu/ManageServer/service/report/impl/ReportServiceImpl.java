@@ -135,35 +135,15 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public JSONObject getHtmlData(Long id) {
-		/*JSONObject object = new JSONObject();
-		object.put("info",monthlyReportRepository.findOne(id));
-		List<HeadlinesVO> list = findHtmlHeadlines(id);
-		JSONArray array = new JSONArray();
-		for (HeadlinesVO vo:list){
-			JSONObject obj = new JSONObject();
-			obj.put("id",vo.getId());
-			obj.put("name",vo.getName());
-			if(vo.getChildren()==null||vo.getChildren().size()==0){
-				obj.put("level",1);
-				obj.put("content",paragraphRepository.findByHeadlinesIdOrderBySort(vo.getId()));
-			}else {
-				obj.put("level",2);
-				List<Headlines> headlinesList = headlinesRepository.findByReportIdAndParentIdOrderBySort(id, vo.getId());
-				JSONArray jsonArray = new JSONArray();
-				for (Headlines headlines:headlinesList){
-					JSONObject child = new JSONObject();
-					child.put("id",headlines.getId());
-					child.put("name",headlines.getName());
-					child.put("content",paragraphRepository.findByHeadlinesIdOrderBySort(headlines.getId()));
-					jsonArray.add(child);
-				}
-				obj.put("children",jsonArray);
-			}
-			array.add(obj);
-		}
-		object.put("arr",array);
-		return object;*/
-		return null;
+		JSONObject object = new JSONObject();
+		object.put("info",getHtmlData(id,null));
+		object.put("focus",getHtmlData(id,"focus"));
+		object.put("dynamic",getHtmlData(id,"dynamic"));
+		object.put("chain",getHtmlData(id,"chain"));
+		object.put("keyWord",getHtmlData(id,"keyWord"));
+		object.put("recommend",getHtmlData(id,"recommend"));
+		object.put("industry",getHtmlData(id,"industry"));
+		return object;
 	}
 
 	@Override
