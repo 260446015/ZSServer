@@ -13,6 +13,19 @@ import java.util.List;
  */
 @Repository
 public interface HeadlinesRepository extends CrudRepository<Headlines, Long> {
-	List<Headlines> findByReportIdAndParentIdOrderBySort(Long reportId,Long parentId);
+	/**
+	 * 查找报告二级标题
+	 * @param reportId
+	 * @param parentName
+	 * @return
+	 */
+	List<Headlines> findByReportIdAndParentNameOrderBySort(Long reportId,String parentName);
+
+	/**
+	 * 获取标题信息
+	 * @param reportId
+	 * @param name
+	 * @return
+	 */
 	Headlines findByReportIdAndName(Long reportId,String name);
 }
