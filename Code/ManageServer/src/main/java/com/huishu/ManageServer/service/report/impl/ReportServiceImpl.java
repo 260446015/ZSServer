@@ -102,6 +102,11 @@ public class ReportServiceImpl implements ReportService {
 					JSONObject obj = new JSONObject();
 					obj.put("name",paragraph.getCompany());
 					obj.put("reason",paragraph.getText());
+					if(StringUtil.isEmpty(paragraph.getPeople())){
+						obj.put("logo","http://58.16.181.24:9323/images/company.png");
+					}else{
+						obj.put("logo",paragraph.getPeople());
+					}
 					array.add(obj);
 				}else{
 					JSONObject obj = new JSONObject();
@@ -124,7 +129,7 @@ public class ReportServiceImpl implements ReportService {
 			obj.put("potential",potential);
 			return obj;
 		}else{
-			return null;
+			return paragraphRepository.findByHeadlinesIdOrderBySort(Long.valueOf(type));
 		}
 	}
 
