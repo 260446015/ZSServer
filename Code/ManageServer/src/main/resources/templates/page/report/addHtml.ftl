@@ -51,6 +51,17 @@
                                         <input type="text" name="time" class="form-control" placeholder="">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">月关键词</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="time" class="form-control" placeholder="">
+                                        关键词：<span></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
+                                        <input type="text" name="time" class="form-control" placeholder="">
+                                        关键词：<span></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
+                                        <input type="text" name="time" class="form-control" placeholder="">
+                                        关键词：<span></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
                                 <div>
                                     <label class="col-md-3 control-label" for="text-input">大模块</label>
                                     <div class="col-md-9">
@@ -72,32 +83,6 @@
                                         </table>
                                         <div class="bk-margin-bottom-10">
                                             <button class="btn btn-info my_add">添加模块数据 <i class="fa fa-plus"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="col-md-3 control-label" for="text-input">二级模块</label>
-                                    <div class="col-md-9">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th>排序</th>
-                                                <th>名字</th>
-                                                <th>logo样式</th>
-                                                <th>父菜单名字</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="my_body2">
-                                            <tr>
-                                                <td><input type="text" name="sort21" class="form-control" value="1" disabled></td>
-                                                <td><input type="text" name="name21" class="form-control" placeholder=""></td>
-                                                <td><input type="text" name="logo21" class="form-control" placeholder=""></td>
-                                                <td><input type="text" name="parent21" class="form-control" placeholder=""></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="bk-margin-bottom-10">
-                                            <button class="btn btn-info my_add2">添加模块数据 <i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>

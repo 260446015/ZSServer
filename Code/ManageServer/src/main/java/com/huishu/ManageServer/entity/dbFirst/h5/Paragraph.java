@@ -17,6 +17,8 @@ public class Paragraph implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	/** 图片 */
+	private String img;
 	/** 人物 */
 	private String people;
 	/** 公司 */
@@ -38,6 +40,14 @@ public class Paragraph implements Serializable {
 	/** 所属h5 */
 	@Column(name="report_id")
 	private Long reportId;
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 
 	public Long getId() {
 		return id;

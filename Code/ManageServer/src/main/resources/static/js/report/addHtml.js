@@ -1,7 +1,6 @@
 $("#report_info").addClass("active nav-expanded ");
 $("#html_item").addClass("active");
 var i=1;
-var i2=1;
 $(function () {
     $(".my_add").on("click",function () {
         i=i+1;
@@ -9,12 +8,17 @@ $(function () {
             '<td><input type="text" name="name'+i+'" class="form-control" placeholder=""></td>' +
             '<td><input type="text" name="logo'+i+'" class="form-control" placeholder=""></td></tr>');
     });
-    $(".my_add2").on("click",function () {
-        i2=i2+1;
-        $("#my_body2").append('<tr><td><input type="text" name="sort2'+i2+'" class="form-control" value="'+i2+'" disabled></td>' +
-            '<td><input type="text" name="name2'+i2+'" class="form-control" placeholder=""></td>' +
-            '<td><input type="text" name="logo2'+i2+'" class="form-control" placeholder=""></td>' +
-            '<td><input type="text" name="parent2'+i2+'" class="form-control" placeholder=""></td></tr>');
+    $(".add_word").on("click",function () {
+        var a=$(this);
+        layer.prompt({title: '输入关键字，并确认', formType: 0}, function(text, index){
+            layer.close(index);
+            var inner=a.prev().html();
+            if(inner==""){
+                a.prev().html(text);
+            }else{
+                a.prev().html(inner+'、'+text);
+            }
+        });
     });
     $(".btn-success").on("click",function(){
         var _name = $("input[name='name']").val();

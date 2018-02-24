@@ -47,49 +47,44 @@
                             </div>
                             <form action="javascript:void(0)" method="post" class="form-horizontal ">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">名称</label>
+                                    <label class="col-md-3 control-label" for="text-input"><b>名称</b></label>
                                     <div class="col-md-9">
                                         <label class="control-label name"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">时段</label>
+                                    <label class="col-md-3 control-label" for="text-input"><b>时段</b></label>
                                     <div class="col-md-9">
                                         <label class="control-label time"></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">月关键词</label>
-                                    <div class="col-md-9">
-                                        <label class="control-label keyWord"></label>
+                                    <label class="col-md-3 control-label" for="text-input"><b>月关键词</b></label>
+                                    <div class="col-md-9 keyWord">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">产业链高亮</label>
-                                    <div class="col-md-9">
-                                        <label class="control-label chain"></label>
+                                    <label class="col-md-3 control-label" for="text-input"><b>产业链高亮</b></label>
+                                    <div class="col-md-9 chain">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">本月焦点</label>
-                                    <div class="col-md-9">
-                                        <label class="control-label focus"></label>
+                                    <label class="col-md-3 control-label" for="text-input"><b>本月焦点</b></label>
+                                    <div class="col-md-9 focus">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">行业动态</label>
-                                    <div class="col-md-9">
-                                        <label class="control-label dynamic"></label>
+                                    <label class="col-md-3 control-label" for="text-input"><b>行业动态</b></label>
+                                    <div class="col-md-9 dynamic">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">明星推荐</label>
-                                    <div class="col-md-9">
-                                        <label class="control-label recommend"></label>
+                                    <label class="col-md-3 control-label" for="text-input"><b>明星推荐</b></label>
+                                    <div class="col-md-9 recommend">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">优质企业</label>
+                                    <label class="col-md-3 control-label" for="text-input"><b>优质企业</b></label>
                                     <div class="col-md-9 industry">
                                     </div>
                                 </div>

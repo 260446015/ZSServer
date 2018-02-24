@@ -102,10 +102,10 @@ public class ReportServiceImpl implements ReportService {
 					JSONObject obj = new JSONObject();
 					obj.put("name",paragraph.getCompany());
 					obj.put("reason",paragraph.getText());
-					if(StringUtil.isEmpty(paragraph.getPeople())){
+					if(StringUtil.isEmpty(paragraph.getImg())){
 						obj.put("logo","http://58.16.181.24:9323/images/company.png");
 					}else{
-						obj.put("logo",paragraph.getPeople());
+						obj.put("logo",paragraph.getImg());
 					}
 					array.add(obj);
 				}else{
@@ -113,6 +113,7 @@ public class ReportServiceImpl implements ReportService {
 					obj.put("name", paragraph.getPeople());
 					obj.put("identity", paragraph.getCompany());
 					obj.put("reason", paragraph.getText());
+					obj.put("logo",paragraph.getImg());
 					object.put("people", obj);
 				}
 			});
