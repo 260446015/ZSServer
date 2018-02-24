@@ -21,6 +21,10 @@ public class Paragraph implements Serializable {
 	private String people;
 	/** 公司 */
 	private String company;
+	/** 注册资金 */
+	private String money;
+	/** 成立时间 */
+	private String time;
 	/** 段落内文本数据 */
 	private String text;
 	/** 段落内图片数据 */
@@ -34,6 +38,22 @@ public class Paragraph implements Serializable {
 	/** 所属h5 */
 	@Column(name="report_id")
 	private Long reportId;
+
+	public String getMoney() {
+		return money;
+	}
+
+	public void setMoney(String money) {
+		this.money = money;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
 
 	public String getPeople() {
 		return people;

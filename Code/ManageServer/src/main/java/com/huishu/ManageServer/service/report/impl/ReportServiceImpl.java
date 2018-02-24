@@ -118,17 +118,11 @@ public class ReportServiceImpl implements ReportService {
 			List<Paragraph> faucet = paragraphRepository.findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(headlines.getId(),id,"faucet");
 			List<Paragraph> growth = paragraphRepository.findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(headlines.getId(),id,"growth");
 			List<Paragraph> potential = paragraphRepository.findByHeadlinesIdAndReportIdAAndKeyWordOrderBySort(headlines.getId(),id,"potential");
-			JSONArray array = new JSONArray();
-			faucet.forEach(paragraph -> {
-				JSONObject obj = new JSONObject();
-			});
-			growth.forEach(paragraph -> {
-
-			});
-			potential.forEach(paragraph -> {
-
-			});
-			return array;
+			JSONObject obj = new JSONObject();
+			obj.put("faucet",faucet);
+			obj.put("growth",growth);
+			obj.put("potential",potential);
+			return obj;
 		}else{
 			return null;
 		}
