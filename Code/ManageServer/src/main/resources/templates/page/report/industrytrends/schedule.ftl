@@ -9,17 +9,17 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>会议日程</title>
-    <link rel="stylesheet" href="/vender/base.css">
-    <link rel="stylesheet" href="/vender/rem.js">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/schedule.css">
+    <link rel="stylesheet" href="../../vendor/base.css">
+    <link rel="stylesheet" href="../../vendor/rem.js">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/schedule.css">
 </head>
 <body>
     <div class="catalog">
         <header>
-            <div class="left">
+            <!-- <div class="left">
                 <
-            </div>
+            </div> -->
             <div class="center">
                 <h1>
                     会议日程
@@ -27,24 +27,91 @@
             </div>
         </header>
         <div class="container">
-           <div  style="width:300px;height:300px;" class="calendar">
-
+           <div  class="calendar">
+            <div class="sign" id="sign_cal">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>日</th>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th>六</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th>六</th>
+                        </tr>
+                        <tr>
+                            <th>日</th>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th class="on">四 <span class="smalldot"></span></th>
+                            <th>五</th>
+                            <th>六</th>
+                        </tr>
+                        <tr>
+                            <th>日</th>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th>六</th>
+                        </tr>
+                        <tr>
+                            <th>日</th>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th>六</th>
+                        </tr>
+                        <tr>
+                            <th>日</th>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="calendarbgimg">
+                <ul>
+                    <li>本月一共 <span>3</span>场会议</li>
+                    <li>最多会议地点是<span>上海</span></li>
+                    <li>会议覆盖的行业是<span>无人机、人工智能</span></li>
+                    <li>推荐参加<span>无人机</span>交流大会 </li>
+                </ul>
+            </div>
            </div>
         </div>
         <footer>
-         <div>
-             <img src="/img/icon/jiantou.png" alt="">
+         <div class="index">
+             <img src="../../img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
-    <script src="./libs/jquery-3.3.1.min.js"></script>
-    <script src="./js/schedule.js"></script>
+    <script src="../../vendor/jquery-3.3.1.min.js"></script>
+    <script src="../../js/schedule/schedule.js"></script>
     <script>
         $(function(){
   //ajax获取日历json数据
-  var signList=[{"signDay":"09"},{"signDay":"11"},{"signDay":"12"},{"signDay":"13"}];
-   calUtil.init(signList);
-});
+        var signList=[{"signDay":"09"},{"signDay":"11"},{"signDay":"12"},{"signDay":"13"}];
+        calUtil.init(signList);
+        });
     </script>
 </body>
 </html>

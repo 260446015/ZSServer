@@ -9,17 +9,17 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>目录</title>
-    <link rel="stylesheet" href="/vendor/base.css">
-    <link rel="stylesheet" href="/vendor/rem.js">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/catalog.css">
+    <link rel="stylesheet" href="../../vendor/base.css">
+    <link rel="stylesheet" href="../../vendor/rem.js">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/catalog.css">
 </head>
 <body>
     <div class="catalog">
         <header>
-            <div class="left">
+            <!-- <div class="left">
                 <
-            </div>
+            </div> -->
             <div class="center">
                 <h1>
                     目录
@@ -30,49 +30,56 @@
            <div>
                <ul>
                    <li>
-                       <span>
-                            <img src="/img/icon/icon1.png" alt="">
+                        <a href="./keyword.html">
+                       <span class="mb10">
+                            <img src="../../img/icon/icon1.png" alt="">
                        </span>
-                       <a href="">月关键词</a>
+                      月关键词</a>
                    </li>
                    <li>
-                        <span>
-                            <img src="/img/icon/icon2.png" alt="">
+                        <a href="./industry.html">
+                        <span class="mb10">
+                            <img src="../../img/icon/icon2.png" alt="">
                         </span>
-                        <a href="">产业链高亮</a>
+                        产业链高亮</a>
                     </li>
                     <li>
-                        <span>
-                            <img src="/img/icon/icon3.png" alt="">
+                        <a href="./monthfocus.html">
+                        <span class="mb10">
+                            <img src="../../img/icon/icon3.png" alt="">
                         </span>
-                        <a href="">本月焦点</a>
+                        本月焦点</a>
                     </li> 
                     <li>
-                       <span>
-                            <img src="/img/icon/icon4.png" alt="">
+                        <a href="./Industrynews.html">
+                       <span class="mb10">
+                            <img src="../../img/icon/icon4.png" alt="">
                        </span>
-                        <a href="">行业动态</a>
+                        行业动态</a>
                     </li> 
                     <li>
-                        <span>
-                            <img src="/img/icon/icon5.png" alt="">
+                        <a href="./company.html">
+                        <span class="mb10">
+                            <img src="../../img/icon/icon5.png" alt="">
                         </span>
-                        <a href="">明星推荐</a>
+                       明星推荐</a>
                     </li>
                     <li>
-                        <span>
-                            <img src="/img/icon/icon6.png" alt="">
+                            <a href="../enterprise/quality.html">
+                        <span class="mb10">
+                            <img src="../../img/icon/icon6.png" alt="">
                         </span>
-                        <a href="">优质产业</a>
+                        优质产业</a>
                     </li>           
                </ul>
            </div>
         </div>
         <footer>
-         <div>
-             <img src="/img/icon/jiantou.png" alt="">
+         <div class="index">
+             <img src="../../img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
+    <script src="../../vendor/jquery-3.3.1.min.js"></script>
 </body>
 </html>

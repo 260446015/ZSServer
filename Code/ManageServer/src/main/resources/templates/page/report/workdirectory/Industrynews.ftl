@@ -9,17 +9,17 @@
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
     <title>行业动态</title>
-    <link rel="stylesheet" href="/vender/base.css">
-    <link rel="stylesheet" href="/vender/rem.js">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/Industrynews.css">
+    <link rel="stylesheet" href="../../vendor/base.css">
+    <link rel="stylesheet" href="../../vendor/rem.js">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/Industrynews.css">
 </head>
 <body>
     <div class="catalog">
         <header>
-            <div class="left">
+            <!-- <div class="left">
                 <
-            </div>
+            </div> -->
             <div class="center">
                 <h1>
                     行业动态
@@ -30,49 +30,56 @@
             <div>
                 <ul>
                     <li>
-                        <span>
-                             <img src="/img/icon/icon13.png" alt="">
+                        <a href="../industrytrends/worldnews.html">
+                        <span class="mb10">
+                             <img src="../../img/icon/icon13.png" alt="">
                         </span>
-                        <a href="">各地新闻</a>
+                        各地新闻</a>
                     </li>
                     <li>
-                         <span>
-                             <img src="/img/icon/icon14.png" alt="">
+                        <a href="../industrytrends/collaborate.html">
+                         <span class="mb10">
+                             <img src="../../img/icon/icon14.png" alt="">
                          </span>
-                         <a href="">合作动向</a>
+                         合作动向</a>
                      </li>
                      <li>
-                         <span>
-                             <img src="/img/icon/icon15.png" alt="">
+                          <a href="../industrytrends/tendency.html">
+                         <span class="mb10">
+                             <img src="../../img/icon/icon15.png" alt="">
                          </span>
-                         <a href="">企业动向</a>
+                        企业动向</a>
                      </li> 
                      <li>
-                        <span>
-                             <img src="/img/icon/icon16.png" alt="">
+                         <a href="../industrytrends/schedule.html">
+                        <span class="mb10">
+                             <img src="../../img/icon/icon16.png" alt="">
                         </span>
-                         <a href="">会议日程</a>
+                         会议日程</a>
                      </li> 
                      <li>
-                         <span>
-                             <img src="/img/icon/icon17.png" alt="">
+                         <a href="../industrytrends/rankingreport.html">
+                         <span class="mb10">
+                             <img src="../../img/icon/icon17.png" alt="">
                          </span>
-                         <a href="">排行报告</a>
+                         排行报告</a>
                      </li>
                      <li>
-                         <span>
-                             <img src="/img/icon/icon18.png" alt="">
+                         <a href="../industrytrends/express.html">
+                         <span class="mb10">
+                             <img src="../../img/icon/icon18.png" alt="">
                          </span>
-                         <a href="">投融速递</a>
+                         投融速递</a>
                      </li>           
                 </ul>
             </div>
         </div>
         <footer>
-         <div>
-             <img src="/img/icon/jiantou.png" alt="">
+         <div class="index">
+             <img src="../../img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
+    <script src="../../vendor/jquery-3.3.1.min.js"></script>
 </body>
 </html>

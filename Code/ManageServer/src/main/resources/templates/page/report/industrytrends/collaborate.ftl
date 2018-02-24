@@ -8,32 +8,58 @@
     <meta name="keywords" content="慧数招商人工智能行业月度报告">
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
-    <title>合作动态</title>
-    <link rel="stylesheet" href="/vender/base.css">
-    <link rel="stylesheet" href="/vender/rem.js">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/collaborate.css">
+    <title>合作动向</title>
+    <link rel="stylesheet" href="../../vendor/base.css">
+    <link rel="stylesheet" href="../../vendor/rem.js">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/collaborate.css">
+    <link rel="stylesheet" href="../../css/policy.css">
 </head>
 <body>
     <div class="catalog">
         <header>
-            <div class="left">
+            <!-- <div class="left">
                 <
-            </div>
+            </div> -->
             <div class="center">
                 <h1>
-                    合作动态
+                    合作动向
                 </h1>
             </div>
         </header>
         <div class="container">
-           
+           <div class="dottedline">
+                <div class="leftborder">
+                  <p >
+                      <span class="leftdot"></span>
+                      <small class="textcolor">
+                            金融
+                      </small>
+                    </p>
+                  <p>央行发布金融机构资管业务指导意见并公开征 求意见，统一同类资管产品监管标准，有效防 控金融风险，更好地服务实体经济 </p>
+                </div>
+                <div class="rightborder">
+                    <p class="ptext">
+                        <span class="rightdot"></span>
+                        <small class="textcolor">智能家居</small>
+                    </p>
+                    <p class="ptext">央行发布金融机构资管业务指导意见并公开征 求意见，统一同类资管产品监管标准，有效防 控金融风险，更好地服务实体经济</p>
+                </div>
+                <div class="leftborder">
+                    <p>
+                        <span class="leftdot"></span>
+                        <small class="textcolor">人工智能</small>
+                    </p>
+                    <p>央行发布金融机构资管业务指导意见并公开征 求意见，统一同类资管产品监管标准，有效防 控金融风险，更好地服务实体经济</p>
+                </div>
+            </div>
         </div>
         <footer>
-         <div>
-             <img src="/img/icon/jiantou.png" alt="">
+         <div class="index">
+             <img src="../../img/icon/jiantou.png" alt=""  class="img">
          </div>
         </footer>
     </div>
+    <script src="../../vendor/jquery-3.3.1.min.js"></script>
 </body>
 </html>
