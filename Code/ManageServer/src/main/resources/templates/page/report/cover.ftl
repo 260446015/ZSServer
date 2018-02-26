@@ -126,7 +126,8 @@
                     </div>
                 </header>
                 <div class="container">
-                    <div class="popup1">
+                <div id="keymonth">
+                    <#--  <div class="popup">
                          <div class="leftwire">
                              <div class="pointplot1">
                                  <span class="circle">
@@ -179,8 +180,8 @@
                          </div>
                          <div class="rightborder text">大军道具基本 啵啵啵宝宝不不扣除大军道具基本 啵啵啵宝宝不不扣除税款哈哈哈哈哈哈哈哈很好看酷酷酷酷酷酷酷酷酷酷看看看看大军道具基本 啵啵啵宝宝不不扣除税款哈哈哈哈哈哈哈
                          </div>
-                    </div>
-                     <div class="popup2">
+                    </div>   -->
+                      <#--  <div class="popup">
                          <div class="leftborder text">大军道具基本 啵啵啵宝宝不不扣除大军道具基本 啵啵啵宝宝不不扣除税款哈哈哈哈哈哈哈哈很好看酷酷酷酷酷酷酷酷酷酷看看看看大军道具基本 啵啵啵宝宝不不扣除税款哈哈哈哈哈哈哈
                          </div>
                          <div class="leftwire">
@@ -188,25 +189,25 @@
                                  <span class="circleblue">
                                      <b></b>
                                      <i>无人</i>
-                                 </span>
+                              </span>
                                  <span class="circleblue">
                                      <b></b>
                                      <i>乌镇</i>
-                                 </span>
+                                 </span> 
                                  <span class="circleblue circlehigh2">
                                      <b></b>
                                      <i>自动驾驶</i>
                                  </span>
                              </div>
                              <div class="pointplot5">
-                                 <span class="circleblue">
+                                   <span class="circleblue">
                                      <b></b>
                                      <i>驾驶</i>
                                  </span>
-                                 <span class="circleblue">
+                               <span class="circleblue">
                                      <b></b>
                                      <i>交通</i>
-                                 </span>
+                                 </span> 
                              </div>
                              <div class="pointplot6">
                                  <span class="circleblue">
@@ -215,8 +216,8 @@
                                  </span>
                              </div>
                          </div>
-                    </div> 
-                    <div class="popup3">
+                    </div>     -->
+                    <#--  <div class="popup">
                          <div class="leftwire">
                              <div class="pointplot7">
                                  <span class="circleyellow">
@@ -247,8 +248,9 @@
                          </div>
                          <div class="rightyellow text">大军道具基本 啵啵啵宝宝不不扣除大军道具基本 啵啵啵宝宝不不扣除税款哈哈哈哈哈哈哈哈很好看酷酷酷酷酷酷酷酷酷酷看看看看大军道具基本 啵啵啵宝宝不不扣除税款哈哈哈哈哈哈哈
                          </div>
-                    </div>
+                    </div>  -->
                  </div>
+                </div> 
             </div>
             <div class="page page4">
                 <header>
@@ -483,7 +485,7 @@
                 </header>
                 <div class="container">
                    <div class="allcontainer">
-                       <div>
+                       <#--  <div>
                            <dl>
                                <dt>
                                    <p>
@@ -534,7 +536,7 @@
                                     上榜理由：坚持走国际范，坚持品牌原则：不妥协！ 不弃擂！国际范综合品牌服务公司，集合中内外顶 尖创意及设计师精英团队.
                                </dd>
                            </dl>
-                       </div>
+                       </div>  -->
                    </div>
                 </div>
             </div>
@@ -551,7 +553,7 @@
                 </header>
                 <div class="container">
                    <div class="starmanimg">
-                      <ul>
+                      <#--  <ul>
                           <li>
                             <img src="/img/photo/renwu.png" alt="">
                           </li>
@@ -564,7 +566,7 @@
                           <li>
                               上榜理由：坚持走国际范，坚持品牌原则： 不妥协！不弃擂！国际范综合品牌服务公司， 集合中内外顶尖创意及设计师精英团队.
                           </li>
-                      </ul>
+                      </ul>  -->
                    </div>
                 </div>
             </div>
@@ -581,7 +583,7 @@
                 </header>
                 <div class="container">
                    <div class="company">
-                       <div>
+                       <#--  <div>
                            <h2>龙头企业</h2>
                            <ul>
                                <li>
@@ -601,8 +603,8 @@
                                    <span>人工智能应用层-硬件</span>
                                </li>
                            </ul>
-                       </div>
-                       <div>
+                       </div>  -->
+                       <#--  <div>
                         <h2>龙头企业</h2>
                         <ul>
                             <li>
@@ -643,7 +645,7 @@
                                 <span>人工智能应用层-硬件</span>
                             </li>
                         </ul>
-                       </div>
+                       </div>  -->
                    </div>
                 </div> 
             </div>
