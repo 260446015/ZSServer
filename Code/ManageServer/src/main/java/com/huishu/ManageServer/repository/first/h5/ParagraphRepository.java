@@ -2,6 +2,7 @@ package com.huishu.ManageServer.repository.first.h5;
 
 import com.huishu.ManageServer.entity.dbFirst.h5.Headlines;
 import com.huishu.ManageServer.entity.dbFirst.h5.Paragraph;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +15,12 @@ import java.util.List;
  */
 @Repository
 public interface ParagraphRepository extends CrudRepository<Paragraph, Long> {
-	List<Paragraph> findByHeadlinesIdOrderBySort(Long headlinesId);
-	List<Paragraph> findByHeadlinesIdAndReportIdOrderBySort(Long headlinesId,Long reportId);
-	List<Paragraph> findByHeadlinesIdAndReportIdAndKeyWordOrderBySort(Long headlinesId,Long reportId,String keyWord);
+	List<Paragraph> findByHeadlinesId(Long headlinesId);
+	List<Paragraph> findByHeadlinesIdAndReportId(Long headlinesId,Long reportId);
+	List<Paragraph> findByHeadlinesIdAndReportIdAndKeyWord(Long headlinesId,Long reportId,String keyWord);
+	@Query(value="select key_word,money,time from t_html_paragraph where headlines_id=?1 group by key_word",nativeQuery=true)
+	List<Object[]> findByHeadlinesIdGroupByKeyWord(Long headlinesId);
+	@Query(value="select text from t_html_paragraph where headlines_id=?1 and key_word = ?2",nativeQuery=true)
+	List<String> findByHeadlinesIdAndKeyWord(Long headlinesId,String keyWord);
 
 }

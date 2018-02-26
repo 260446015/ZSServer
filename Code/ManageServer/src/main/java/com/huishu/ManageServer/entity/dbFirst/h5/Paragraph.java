@@ -32,8 +32,6 @@ public class Paragraph implements Serializable {
 	/** 段落内图片数据 */
 	@Column(name="key_word")
 	private String keyWord;
-	/** 段落排序 */
-	private Integer sort;
 	/** 所属标题ID */
 	@Column(name="headlines_id")
 	private Long headlinesId;
@@ -103,14 +101,6 @@ public class Paragraph implements Serializable {
 
 	public void setKeyWord(String keyWord) {
 		this.keyWord = keyWord;
-	}
-
-	public Integer getSort() {
-		return sort;
-	}
-
-	public void setSort(Integer sort) {
-		this.sort = sort;
 	}
 
 	public Long getHeadlinesId() {

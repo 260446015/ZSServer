@@ -15,6 +15,7 @@ import com.huishu.ManageServer.repository.first.FilePdfRepository;
 import com.huishu.ManageServer.repository.first.h5.HeadlinesRepository;
 import com.huishu.ManageServer.repository.first.h5.MonthlyReportRepository;
 import com.huishu.ManageServer.repository.first.h5.ParagraphRepository;
+import com.huishu.ManageServer.repository.first.h5.ScheduleRepository;
 import com.huishu.ManageServer.service.report.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,10 +25,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -40,6 +38,8 @@ public class ReportServiceImpl implements ReportService {
 	private ParagraphRepository paragraphRepository;
 	@Autowired
 	private MonthlyReportRepository monthlyReportRepository;
+	@Autowired
+	private ScheduleRepository scheduleRepository;
 
 	@Override
 	public Page<FilePdf> getExpertReport(AbstractDTO dto) {
@@ -81,7 +81,7 @@ public class ReportServiceImpl implements ReportService {
 			return headlinesRepository.findByReportIdAndParentNameOrderBySort(id,type);
 		}else if(type.equals("chain")||type.equals("keyWord")){
 			Headlines headlines = headlinesRepository.findByReportIdAndName(0L, type);
-			List<Paragraph> list = paragraphRepository.findByHeadlinesIdAndReportIdOrderBySort(headlines.getId(),id);
+			List<Paragraph> list = paragraphRepository.findByHeadlinesIdAndReportId(headlines.getId(),id);
 			JSONArray array = new JSONArray();
 			list.forEach(paragraph -> {
 				JSONObject object = new JSONObject();
@@ -94,7 +94,7 @@ public class ReportServiceImpl implements ReportService {
 			return array;
 		}else if(type.equals("recommend")){
 			Headlines headlines = headlinesRepository.findByReportIdAndName(0L, type);
-			List<Paragraph> list = paragraphRepository.findByHeadlinesIdAndReportIdOrderBySort(headlines.getId(),id);
+			List<Paragraph> list = paragraphRepository.findByHeadlinesIdAndReportId(headlines.getId(),id);
 			JSONObject object = new JSONObject();
 			JSONArray array = new JSONArray();
 			list.forEach(paragraph -> {
@@ -103,7 +103,7 @@ public class ReportServiceImpl implements ReportService {
 					obj.put("name",paragraph.getCompany());
 					obj.put("reason",paragraph.getText());
 					if(StringUtil.isEmpty(paragraph.getImg())){
-						obj.put("logo","http://58.16.181.24:9323/images/company.png");
+						obj.put("logo","/images/company.png");
 					}else{
 						obj.put("logo",paragraph.getImg());
 					}
@@ -121,16 +121,52 @@ public class ReportServiceImpl implements ReportService {
 			return object;
 		}else if(type.equals("industry")){
 			Headlines headlines = headlinesRepository.findByReportIdAndName(0L, type);
-			List<Paragraph> faucet = paragraphRepository.findByHeadlinesIdAndReportIdAndKeyWordOrderBySort(headlines.getId(),id,"faucet");
-			List<Paragraph> growth = paragraphRepository.findByHeadlinesIdAndReportIdAndKeyWordOrderBySort(headlines.getId(),id,"growth");
-			List<Paragraph> potential = paragraphRepository.findByHeadlinesIdAndReportIdAndKeyWordOrderBySort(headlines.getId(),id,"potential");
+			List<Paragraph> faucet = paragraphRepository.findByHeadlinesIdAndReportIdAndKeyWord(headlines.getId(),id,"faucet");
+			List<Paragraph> growth = paragraphRepository.findByHeadlinesIdAndReportIdAndKeyWord(headlines.getId(),id,"growth");
+			List<Paragraph> potential = paragraphRepository.findByHeadlinesIdAndReportIdAndKeyWord(headlines.getId(),id,"potential");
 			JSONObject obj = new JSONObject();
 			obj.put("faucet",faucet);
 			obj.put("growth",growth);
 			obj.put("potential",potential);
 			return obj;
 		}else{
-			return paragraphRepository.findByHeadlinesIdOrderBySort(Long.valueOf(type));
+			Headlines one = headlinesRepository.findOne(Long.valueOf(type));
+			if("各地新闻".equals(one.getName())){
+				List<Object[]> area = paragraphRepository.findByHeadlinesIdGroupByKeyWord(Long.valueOf(type));
+				JSONArray array = new JSONArray();
+				area.forEach(city ->{
+					JSONObject object=new JSONObject();
+					object.put("area",city[0]);
+					Object[] myList = {city[1],city[2]};
+					object.put("coordinate",myList);
+					object.put("data",paragraphRepository.findByHeadlinesIdAndKeyWord(Long.valueOf(type),city[0].toString()));
+					array.add(object);
+				});
+				return array;
+			}else if("会议日程".equals(one.getName())){
+				Paragraph paragraph = paragraphRepository.findByHeadlinesId(Long.valueOf(type)).get(0);
+				JSONObject obj = new JSONObject();
+				obj.put("place",paragraph.getTime());
+				obj.put("total",paragraph.getMoney());
+				obj.put("industry",paragraph.getText());
+				obj.put("advise",paragraph.getKeyWord());
+				obj.put("schedule",scheduleRepository.findByParagraphId(paragraph.getId()));
+				return obj;
+			}else if("投融速递".equals(one.getName())){
+				List<Paragraph> paragraph = paragraphRepository.findByHeadlinesId(Long.valueOf(type));
+				JSONArray array = new JSONArray();
+				paragraph.forEach(para -> {
+					JSONObject obj = new JSONObject();
+					obj.put("industry",para.getKeyWord());
+					obj.put("money",para.getMoney());
+					String[] split = para.getText().split("、");
+					obj.put("array",split);
+					array.add(obj);
+				});
+				return array;
+			}else {
+				return paragraphRepository.findByHeadlinesId(Long.valueOf(type));
+			}
 		}
 	}
 
@@ -197,7 +233,6 @@ public class ReportServiceImpl implements ReportService {
 			Paragraph paragraph = new Paragraph();
 			paragraph.setHeadlinesId(Long.valueOf(map.get("id").toString()));
 			paragraph.setText(map.get("text").toString());
-			paragraph.setSort(1);
 			paragraphRepository.save(paragraph);
 		}
 		return true;
