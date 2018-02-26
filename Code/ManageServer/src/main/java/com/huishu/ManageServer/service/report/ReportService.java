@@ -1,5 +1,6 @@
 package com.huishu.ManageServer.service.report;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.entity.dbFirst.FilePdf;
 import com.huishu.ManageServer.entity.dbFirst.h5.MonthlyReport;
@@ -61,6 +62,13 @@ public interface ReportService {
 	 * @return
 	 */
 	JSONObject getHtmlData(Long id);
+
+	/**
+	 * 获取h5报告焦点/动态数据
+	 * @param id
+	 * @return
+	 */
+	JSONArray getInfoData(Long id, String type);
 
 	/**
 	 * 获取h5报告列表

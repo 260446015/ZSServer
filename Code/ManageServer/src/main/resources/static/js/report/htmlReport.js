@@ -1,5 +1,12 @@
 $("#report_info").addClass("active nav-expanded ");
 $("#html_item").addClass("active");
+var options={
+    "id":"page",//显示页码的元素
+    "data":null,//显示数据
+    "maxshowpageitem":5,//最多显示的页码个数
+    "pagelistcount":20,//每页显示数据个数
+    "callBack":function(){}
+};
 $(".my_add").on("click",function(){
     window.location.href="/apis/report/addHtml.html";
 });

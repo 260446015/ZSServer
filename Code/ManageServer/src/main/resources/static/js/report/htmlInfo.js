@@ -27,16 +27,8 @@ $(function () {
                         '<label class="control-label" for="text-input"><b>高亮词汇：</b>'+c.keyWord+'</label><br>';
                 });
                 $(".chain").html(chain);
-                var focus="";
-                $.each(data.focus, function (index, c) {
-                    focus+='<br><label class="col-md-2 control-label" for="text-input"><b>'+c.name+'</b></label><div class="col-md-9"><label class="control-label">点击查看详情</label></div>';
-                });
-                $(".focus").html(focus);
-                var dynamic="";
-                $.each(data.dynamic, function (index, c) {
-                    dynamic+='<br><label class="col-md-2 control-label" for="text-input"><b>'+c.name+'</b></label><div class="col-md-9"><label class="control-label">点击查看详情</label></div>';
-                });
-                $(".dynamic").html(dynamic);
+                $(".focus").html('<label class="control-label"><a href="/apis/report/focusInfo.html?id='+_id+'">点击查看详情</a></label>');
+                $(".dynamic").html('<label class="control-label"><a href="/apis/report/dynamicInfo.html?id='+_id+'">点击查看详情</a></label>');
                 var recommend="<br>";
                 recommend+='<label class="col-md-2 control-label" for="text-input"><b>企业</b></label><div class="col-md-9">';
                 $.each(data.recommend.company, function (index, c) {

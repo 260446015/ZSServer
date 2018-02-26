@@ -42,7 +42,7 @@ public class ReportController extends BaseController {
 	 */
 	@RequestMapping(value = {"/{page}.html","/{page}.htm"}, method = RequestMethod.GET)
 	public String show(@PathVariable String page,String id,Model model) {
-		if("reportEdit".equals(page)||("addHtml2").equals(page)||("htmlInfo").equals(page)){
+		if("reportEdit".equals(page)||("dynamicInfo").equals(page)||("htmlInfo").equals(page)||("focusInfo").equals(page)){
 			model.addAttribute("id",id);
 		}
 		return "/report/"+page;
@@ -184,6 +184,26 @@ public class ReportController extends BaseController {
 	}
 
 	/**
+	 * 获取h5报告焦点、动态数据
+	 * @param id
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping(value = "getInfoData.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getInfoData(Long id,String type) {
+		if(id==null||StringUtil.isEmpty(type)){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(reportService.getInfoData(id,type));
+		}catch (Exception e){
+			LOGGER.error("获取h5报告数据失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+
+	/**
 	 * 获取h5报告列表
 	 * @param dto
 	 * @return
@@ -209,7 +229,7 @@ public class ReportController extends BaseController {
 	@ResponseBody
 	public AjaxResult addHtmlData(@RequestBody HtmlAddDTO dto) {
 		if(dto==null||StringUtil.isEmpty(dto.getName())||StringUtil.isEmpty(dto.getTime())
-				||dto.getArr()==null||dto.getArr().length==0){
+				||dto.getChain().length==0||dto.getDynamic().size()==0){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {

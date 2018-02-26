@@ -54,35 +54,362 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">月关键词</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="time" class="form-control" placeholder="">
-                                        关键词：<span></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
-                                        <input type="text" name="time" class="form-control" placeholder="">
-                                        关键词：<span></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
-                                        <input type="text" name="time" class="form-control" placeholder="">
-                                        关键词：<span></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
+                                        <input type="text" name="key1" class="form-control" placeholder="">
+                                        关键词：<span id="key1"></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
+                                        <input type="text" name="key2" class="form-control" placeholder="">
+                                        关键词：<span id="key2"></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
+                                        <input type="text" name="key3" class="form-control" placeholder="">
+                                        关键词：<span id="key3"></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
                                     </div>
                                 </div>
-                                <div>
-                                    <label class="col-md-3 control-label" for="text-input">大模块</label>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">产业链高亮</label>
                                     <div class="col-md-9">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th>排序</th>
-                                                <th>名字</th>
-                                                <th>logo样式</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="my_body">
-                                            <tr>
-                                                <td><input type="text" name="sort1" class="form-control" value="1" disabled></td>
-                                                <td><input type="text" name="name1" class="form-control" placeholder=""></td>
-                                                <td><input type="text" name="logo1" class="form-control" placeholder=""></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="bk-margin-bottom-10">
-                                            <button class="btn btn-info my_add">添加模块数据 <i class="fa fa-plus"></i></button>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>自动无人技术</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="option2">
+                                            <label>语义识别与分析</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">
+                                            <label> 语音与声学识别</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 计算机视觉与图像</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label>AI平台</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label for="inline-checkbox6">其他</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label for="inline-checkbox7">技术层</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label>人工智能产业</label>
+                                        </div>
+                                        <input type="text" name="time" class="form-control" placeholder="">
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label> 软件</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="option2">
+                                            <label> 金融</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">
+                                            <label> 教育</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 客服</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 农业</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 网络安全</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 定制服务</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 营销和销售</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 医疗健康</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 交通</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 物流</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 家用机器人</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 工业机器人</label>
+                                        </div>
+                                        <input type="text" name="time" class="form-control" placeholder="">
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label> 大数据</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="option2">
+                                            <label> 云计算</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">
+                                            <label> 算法结构</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 软件</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 基础支撑层</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 硬件</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <label> 传感器</label>
+                                        </div>
+                                        <input type="text" name="time" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">本月焦点</label>
+                                    <div class="col-md-9">
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>政策焦点</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>资本焦点</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>市场焦点</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>舆论焦点</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>技术焦点</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>未来焦点</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">明星推荐</label>
+                                    <div class="col-md-9">
+                                        <label class="col-md-2 control-label" for="text-input">人物</label>
+                                        <div class="col-md-9">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>名字</th>
+                                                        <th>身份</th>
+                                                        <th>上榜理由</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <label class="col-md-2 control-label" for="text-input">企业</label>
+                                        <div class="col-md-9">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>企业名称</th>
+                                                        <th>logo</th>
+                                                        <th>上榜理由</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">行业动态</label>
+                                    <div class="col-md-9">
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>各地新闻</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>合作动向</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>企业动向</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>会议日程</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>排行报告</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <label>投融速递</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="text-input">优质企业</label>
+                                    <div class="col-md-9">
+                                        <label class="col-md-2 control-label" for="text-input">龙头企业</label>
+                                        <div class="col-md-9">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>企业名称</th>
+                                                        <th>产业</th>
+                                                        <th>注册资金</th>
+                                                        <th>成立时间</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <label class="col-md-2 control-label" for="text-input">成长企业</label>
+                                        <div class="col-md-9">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>企业名称</th>
+                                                        <th>产业</th>
+                                                        <th>注册资金</th>
+                                                        <th>成立时间</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <label class="col-md-2 control-label" for="text-input">潜力企业</label>
+                                        <div class="col-md-9">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>企业名称</th>
+                                                        <th>产业</th>
+                                                        <th>注册资金</th>
+                                                        <th>成立时间</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                        <td><input></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

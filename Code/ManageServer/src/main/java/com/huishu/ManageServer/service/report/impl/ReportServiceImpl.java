@@ -184,6 +184,19 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
+	public JSONArray getInfoData(Long id, String type) {
+		JSONArray array = new JSONArray();
+		List<Headlines> list = headlinesRepository.findByReportIdAndParentNameOrderBySort(id, type);
+		list.forEach(headlines -> {
+			JSONObject object = new JSONObject();
+			object.put("name",headlines.getName());
+			object.put("value",getHtmlData(id,headlines.getId().toString()));
+			array.add(object);
+		});
+		return array;
+	}
+
+	@Override
 	public Page<MonthlyReport> getHtmlReport(AbstractDTO dto) {
 		Pageable pageable = new PageRequest(dto.getPageNum(), dto.getPageSize(), Sort.Direction.DESC, "createTime");
 		return monthlyReportRepository.findAll(null,pageable);

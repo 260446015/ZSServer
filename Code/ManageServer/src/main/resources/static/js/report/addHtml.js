@@ -23,32 +23,20 @@ $(function () {
     $(".btn-success").on("click",function(){
         var _name = $("input[name='name']").val();
         var _time = $("input[name='time']").val();
-        var _array=new Array()
-        for (var j=1;j<=i;j++){
-            var _obj={
-                sort:$("input[name='sort"+j+"']").val(),
-                name:$("input[name='name"+j+"']").val(),
-                logoClass:$("input[name='logo"+j+"']").val()
-            };
-            _array.push(_obj);
-        }
-        var _array2=new Array()
-        for (var j=1;j<=i2;j++){
-            var _obj={
-                sort:$("input[name='sort2"+j+"']").val(),
-                name:$("input[name='name2"+j+"']").val(),
-                logoClass:$("input[name='logo2"+j+"']").val(),
-                parentId:$("input[name='parent2"+j+"']").val()
-            };
-            _array2.push(_obj);
+        var _keyWord = new Array();
+        for(var i=1;i<4;i++){
+            _keyWord.push({
+                text:$("input[name='key"+i+"']").val(),
+                key:$("#key"+i+"").html()
+            });
         }
         var req={
             name:_name,
             time:_time,
-            arr:_array,
-            arr2:_array2
+            keyWord:_keyWord
         }
-        $.ajax({
+        console.log(req)
+        /*$.ajax({
             type: 'post',
             url: "/apis/report/addHtmlData.json",
             async: false,
@@ -61,7 +49,7 @@ $(function () {
                     layer.alert(response.message);
                 }
             }
-        });
+        });*/
     });
     $(".btn-danger").on("click",function(){
         layer.confirm('直接离开将会失去修改内容，确认离开？', {

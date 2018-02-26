@@ -24,12 +24,21 @@ public class Headlines implements Serializable {
 	/** 大标题logo样式 */
 	@Column(name="logo_class")
 	private String logoClass;
+	private String url;
 	/** 所属h5 */
 	@Column(name="report_id")
 	private Long reportId;
 	/** 标题父类名字 */
 	@Column(name="parent_name")
 	private String parentName;
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	public Long getId() {
 		return id;
