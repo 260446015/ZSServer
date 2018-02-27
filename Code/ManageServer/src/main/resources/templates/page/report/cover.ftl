@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/vendor/swiper-4.1.6.min.css">
     <link rel="stylesheet" href="/vendor/rem.js">
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/goodquality.css">
 </head>
 
 <body onmousewheel="return false;">
