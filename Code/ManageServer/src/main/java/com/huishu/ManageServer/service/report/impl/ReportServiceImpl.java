@@ -220,6 +220,7 @@ public class ReportServiceImpl implements ReportService {
 		Headlines chainHeadlines = headlinesRepository.findByReportIdAndName(0L, "chain");
 		saveParagraph(chain,save.getId(),chainHeadlines.getId());
 		JSONObject recommend = dto.getRecommend();
+
 		Headlines recommendHeadlines = headlinesRepository.findByReportIdAndName(0L, "recommend");
 		JSONObject industry = dto.getIndustry();
 		Headlines industryHeadlines = headlinesRepository.findByReportIdAndName(0L, "industry");
