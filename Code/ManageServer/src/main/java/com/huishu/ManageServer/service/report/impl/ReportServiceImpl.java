@@ -204,7 +204,7 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public Long addHtmlData(HtmlAddDTO dto) {
-		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		MonthlyReport report = new MonthlyReport();
 		report.setName(dto.getName());
 		report.setTime(dto.getTime());
@@ -213,16 +213,17 @@ public class ReportServiceImpl implements ReportService {
 		if(save==null){
 			return null;
 		}
-		JSONObject[] arr = dto.getArr();
-		for (int i = 0; i < arr.length; i++) {
-			Headlines headlines = new Headlines();
-			headlines.setLogoClass(arr[i].getString("logoClass"));
-			headlines.setName(arr[i].getString("name"));
-			headlines.setReportId(save.getId());
-			headlines.setSort(arr[i].getInteger("sort"));
-			headlinesRepository.save(headlines);
-		}
-		JSONObject[] arr2 = dto.getArr2();
+		JSONObject[] keyWord = dto.getKeyWord();
+		Headlines keyHeadlines = headlinesRepository.findByReportIdAndName(0L, "keyWord");
+		saveParagraph(keyWord,save.getId(),keyHeadlines.getId());
+		JSONObject[] chain = dto.getChain();
+		Headlines chainHeadlines = headlinesRepository.findByReportIdAndName(0L, "chain");
+		saveParagraph(chain,save.getId(),chainHeadlines.getId());
+		JSONObject recommend = dto.getRecommend();
+		Headlines recommendHeadlines = headlinesRepository.findByReportIdAndName(0L, "recommend");
+		JSONObject industry = dto.getIndustry();
+		Headlines industryHeadlines = headlinesRepository.findByReportIdAndName(0L, "industry");
+		/*JSONObject[] arr2 = dto.getArr2();
 		for (int i = 0; i < arr2.length; i++) {
 			Headlines parent = headlinesRepository.findByReportIdAndName(save.getId(), arr2[i].getString("parentId"));
 			if (parent!=null){
@@ -233,9 +234,8 @@ public class ReportServiceImpl implements ReportService {
 				headlines.setSort(arr[i].getInteger("sort"));
 				headlinesRepository.save(headlines);
 			}
-		}
-		return save.getId();*/
-		return null;
+		}*/
+		return save.getId();
 	}
 
 	@Override
@@ -269,4 +269,14 @@ public class ReportServiceImpl implements ReportService {
 		return null;
 	}
 
+	private void saveParagraph(JSONObject[] objs,Long reportId,Long headlinesId){
+		for (int i = 0; i < objs.length; i++) {
+			Paragraph paragraph = new Paragraph();
+			paragraph.setKeyWord(objs[i].getString("key"));
+			paragraph.setText(objs[i].getString("text"));
+			paragraph.setReportId(reportId);
+			paragraph.setHeadlinesId(headlinesId);
+			paragraphRepository.save(paragraph);
+		}
+	}
 }

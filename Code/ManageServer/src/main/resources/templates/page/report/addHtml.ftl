@@ -66,147 +66,147 @@
                                     <label class="col-md-3 control-label" for="text-input">产业链高亮</label>
                                     <div class="col-md-9">
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="自动无人技术">
+                                            <input type="checkbox" name="inline-checkbox1" value="自动无人技术">
                                             <label>自动无人技术</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="语义识别与分析">
+                                            <input type="checkbox" name="inline-checkbox1" value="语义识别与分析">
                                             <label>语义识别与分析</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="语音与声学识别">
+                                            <input type="checkbox" name="inline-checkbox1" value="语音与声学识别">
                                             <label> 语音与声学识别</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="计算机视觉与图像">
+                                            <input type="checkbox" name="inline-checkbox1" value="计算机视觉与图像">
                                             <label> 计算机视觉与图像</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="AI平台">
+                                            <input type="checkbox" name="inline-checkbox1" value="AI平台">
                                             <label>AI平台</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="其他">
+                                            <input type="checkbox" name="inline-checkbox1" value="其他">
                                             <label for="inline-checkbox6">其他</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="技术层">
+                                            <input type="checkbox" name="inline-checkbox1" value="技术层">
                                             <label for="inline-checkbox7">技术层</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="人工智能产业">
+                                            <input type="checkbox" name="inline-checkbox1" value="人工智能产业">
                                             <label>人工智能产业</label>
                                         </div>
-                                        <input type="text" name="time" class="form-control" placeholder="">
+                                        <input type="text" name="chain1" class="form-control" placeholder="">
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="软件">
+                                            <input type="checkbox" name="inline-checkbox2" value="软件">
                                             <label> 软件</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="金融">
+                                            <input type="checkbox" name="inline-checkbox2" value="金融">
                                             <label> 金融</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="教育">
+                                            <input type="checkbox" name="inline-checkbox2" value="教育">
                                             <label> 教育</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="客服">
+                                            <input type="checkbox" name="inline-checkbox2" value="客服">
                                             <label> 客服</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="农业">
+                                            <input type="checkbox" name="inline-checkbox2" value="农业">
                                             <label> 农业</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="网络安全">
+                                            <input type="checkbox" name="inline-checkbox2" value="网络安全">
                                             <label> 网络安全</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="定制服务">
+                                            <input type="checkbox" name="inline-checkbox2" value="定制服务">
                                             <label> 定制服务</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="营销和销售">
+                                            <input type="checkbox" name="inline-checkbox2" value="营销和销售">
                                             <label> 营销和销售</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="医疗健康">
+                                            <input type="checkbox" name="inline-checkbox2" value="医疗健康">
                                             <label> 医疗健康</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="交通">
+                                            <input type="checkbox" name="inline-checkbox2" value="交通">
                                             <label> 交通</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="物流">
+                                            <input type="checkbox" name="inline-checkbox2" value="物流">
                                             <label> 物流</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="家用机器人">
+                                            <input type="checkbox" name="inline-checkbox2" value="家用机器人">
                                             <label> 家用机器人</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="工业机器人">
+                                            <input type="checkbox" name="inline-checkbox2" value="工业机器人">
                                             <label> 工业机器人</label>
                                         </div>
-                                        <input type="text" name="time" class="form-control" placeholder="">
+                                        <input type="text" name="chain2" class="form-control" placeholder="">
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox3" value="大数据">
                                             <label> 大数据</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="option2">
+                                            <input type="checkbox" name="inline-checkbox3" value="云计算">
                                             <label> 云计算</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">
+                                            <input type="checkbox" name="inline-checkbox3" value="算法结构">
                                             <label> 算法结构</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" name="inline-checkbox3" value="软件">
                                             <label> 软件</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" name="inline-checkbox3" value="基础支撑层">
                                             <label> 基础支撑层</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" name="inline-checkbox3" value="硬件">
                                             <label> 硬件</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" name="inline-checkbox3" value="传感器 ">
                                             <label> 传感器</label>
                                         </div>
-                                        <input type="text" name="time" class="form-control" placeholder="">
+                                        <input type="text" name="chain3" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">本月焦点</label>
                                     <div class="col-md-9">
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox4" value="政策焦点">
                                             <label>政策焦点</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox4" value="资本焦点">
                                             <label>资本焦点</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox4" value="市场焦点">
                                             <label>市场焦点</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox4" value="舆论焦点">
                                             <label>舆论焦点</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox4" value="技术焦点">
                                             <label>技术焦点</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox4" value="未来焦点">
                                             <label>未来焦点</label>
                                         </div>
                                     </div>
@@ -222,14 +222,16 @@
                                                     <tr>
                                                         <th>名字</th>
                                                         <th>身份</th>
+                                                        <th>logo</th>
                                                         <th>上榜理由</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="people_name"></td>
+                                                        <td><input name="people_identity"></td>
+                                                        <td><input name="people_logo"></td>
+                                                        <td><input name="people_reason"></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -248,24 +250,24 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="company_name1"></td>
+                                                        <td><input name="company_logo1"></td>
+                                                        <td><input name="company_reason1"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="company_name2"></td>
+                                                        <td><input name="company_logo2"></td>
+                                                        <td><input name="company_reason2"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="company_name3"></td>
+                                                        <td><input name="company_logo3"></td>
+                                                        <td><input name="company_reason3"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="company_name4"></td>
+                                                        <td><input name="company_logo4"></td>
+                                                        <td><input name="company_reason4"></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -278,27 +280,27 @@
                                     <label class="col-md-3 control-label" for="text-input">行业动态</label>
                                     <div class="col-md-9">
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox5" value="各地新闻">
                                             <label>各地新闻</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox5" value="合作动向">
                                             <label>合作动向</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox5" value="企业动向">
                                             <label>企业动向</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox5" value="会议日程">
                                             <label>会议日程</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox5" value="排行报告">
                                             <label>排行报告</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" name="inline-checkbox5" value="投融速递">
                                             <label>投融速递</label>
                                         </div>
                                     </div>
@@ -320,22 +322,22 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="industry_name1"></td>
+                                                        <td><input name="industry1"></td>
+                                                        <td><input name="industry_money1"></td>
+                                                        <td><input name="industry_time1"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="industry_name2"></td>
+                                                        <td><input name="industry2"></td>
+                                                        <td><input name="industry_money2"></td>
+                                                        <td><input name="industry_time2"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="industry_name3"></td>
+                                                        <td><input name="industry3"></td>
+                                                        <td><input name="industry_money3"></td>
+                                                        <td><input name="industry_time3"></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -355,22 +357,22 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="industry_name4"></td>
+                                                        <td><input name="industry4"></td>
+                                                        <td><input name="industry_money4"></td>
+                                                        <td><input name="industry_time4"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="industry_name5"></td>
+                                                        <td><input name="industry5"></td>
+                                                        <td><input name="industry_money5"></td>
+                                                        <td><input name="industry_time5"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="industry_name6"></td>
+                                                        <td><input name="industry6"></td>
+                                                        <td><input name="industry_money6"></td>
+                                                        <td><input name="industry_time6"></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -390,22 +392,22 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="industry_name7"></td>
+                                                        <td><input name="industry7"></td>
+                                                        <td><input name="industry_money7"></td>
+                                                        <td><input name="industry_time7"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="industry_name8"></td>
+                                                        <td><input name="industry8"></td>
+                                                        <td><input name="industry_money8"></td>
+                                                        <td><input name="industry_time8"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
-                                                        <td><input></td>
+                                                        <td><input name="industry_name9"></td>
+                                                        <td><input name="industry9"></td>
+                                                        <td><input name="industry_money9"></td>
+                                                        <td><input name="industry_time9"></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

@@ -42,24 +42,10 @@ public class ReportController extends BaseController {
 	 */
 	@RequestMapping(value = {"/{page}.html","/{page}.htm"}, method = RequestMethod.GET)
 	public String show(@PathVariable String page,String id,Model model) {
-		if("reportEdit".equals(page)||("dynamicInfo").equals(page)||("htmlInfo").equals(page)||("focusInfo").equals(page)){
-			model.addAttribute("id",id);
-		}
+		model.addAttribute("id",id);
 		return "/report/"+page;
 	}
 
-	/**
-	 * 直接跳转页面
-	 * @param page
-	 * @param pack
-	 * @return
-	 */
-	@RequestMapping(value = {"/{pack}/{page}.htm"}, method = RequestMethod.GET)
-	public String show(@PathVariable String page,@PathVariable String pack,Long id,String type,Model model) {
-		model.addAttribute("id",id);
-		model.addAttribute("type",type);
-		return "/report/"+pack+"/"+page;
-	}
 	
 	/**
 	 * 获取招商报告PDF列表
@@ -230,8 +216,7 @@ public class ReportController extends BaseController {
 	@RequestMapping(value = "addHtmlData.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult addHtmlData(@RequestBody HtmlAddDTO dto) {
-		if(dto==null||StringUtil.isEmpty(dto.getName())||StringUtil.isEmpty(dto.getTime())
-				||dto.getChain().length==0||dto.getDynamic().size()==0){
+		if(dto==null||StringUtil.isEmpty(dto.getName())||StringUtil.isEmpty(dto.getTime())){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {

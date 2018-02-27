@@ -17,6 +17,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.huishu.ManageServer.entity.dbFirst.h5.Paragraph;
+import com.huishu.ManageServer.repository.first.h5.ParagraphRepository;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
@@ -60,8 +62,6 @@ public class AbstractService<T> {
 
 	@Autowired
 	private BaseElasticsearch baseElasticsearch;
-//	@Autowired
-//	private SearchCountRepository searchCountRepository;
 	@Autowired
 	private Client client;
 	@Autowired
@@ -675,4 +675,5 @@ public class AbstractService<T> {
 	protected NativeSearchQueryBuilder getBoolQueryBuilder() {
 		return new NativeSearchQueryBuilder().withIndices(INDEX).withTypes(TYPE);
 	}
+
 }

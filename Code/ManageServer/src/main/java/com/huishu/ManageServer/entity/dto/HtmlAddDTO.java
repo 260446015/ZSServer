@@ -14,12 +14,12 @@ import java.util.List;
 public class HtmlAddDTO implements Serializable {
 	private String name;
 	private String time;
-	private List keyWord;
+	private JSONObject[] keyWord;
 	private JSONObject[] chain;
 	private JSONObject[] focus;
-	private List recommend;
-	private List dynamic;
-	private List industry;
+	private JSONObject recommend;
+	private JSONObject[] dynamic;
+	private JSONObject industry;
 
 	public String getName() {
 		return name;
@@ -37,11 +37,11 @@ public class HtmlAddDTO implements Serializable {
 		this.time = time;
 	}
 
-	public List getKeyWord() {
+	public JSONObject[] getKeyWord() {
 		return keyWord;
 	}
 
-	public void setKeyWord(List keyWord) {
+	public void setKeyWord(JSONObject[] keyWord) {
 		this.keyWord = keyWord;
 	}
 
@@ -61,27 +61,27 @@ public class HtmlAddDTO implements Serializable {
 		this.focus = focus;
 	}
 
-	public List getRecommend() {
+	public JSONObject getRecommend() {
 		return recommend;
 	}
 
-	public void setRecommend(List recommend) {
+	public void setRecommend(JSONObject recommend) {
 		this.recommend = recommend;
 	}
 
-	public List getDynamic() {
+	public JSONObject[] getDynamic() {
 		return dynamic;
 	}
 
-	public void setDynamic(List dynamic) {
+	public void setDynamic(JSONObject[] dynamic) {
 		this.dynamic = dynamic;
 	}
 
-	public List getIndustry() {
+	public JSONObject getIndustry() {
 		return industry;
 	}
 
-	public void setIndustry(List industry) {
+	public void setIndustry(JSONObject industry) {
 		this.industry = industry;
 	}
 
