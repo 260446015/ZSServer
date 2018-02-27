@@ -26,7 +26,7 @@ h1{
 }
 
 .container{
-    /* flex:1; */
+    flex:1;
     overflow: auto;
 }
 
@@ -272,7 +272,6 @@ html,body{
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
-    text-align: center;
 }
 
 .ptext{
@@ -286,4 +285,968 @@ html,body{
 @keyframes poiner {
     0% {opacity: 0;bottom: 0}
     100% {opacity: 1;bottom: 10px;}
+}
+
+/* 首页 */
+
+.bigbox{
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 54%;
+}
+
+.header span:nth-child(1){
+    width: 25px;
+    height: 25px;
+    display: block;
+    margin-right: .5rem;
+}
+ 
+.header span:nth-child(1) img{
+    width: 100%;
+    height:100%;
+}
+
+.containers{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.containers div:nth-child(1){
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.labour{
+    width: 100%;
+    display: flex;
+    align-self: flex-end;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.report{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 36px;
+}
+
+.containers div:nth-child(2){
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+    margin-top: 8rem;
+}
+
+footer{
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-self: flex-end;
+}
+
+footer div{
+    width: 30px;
+    height: 26px;
+    margin-bottom: 2rem;
+}
+
+footer div img{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.img{
+    animation: poiner 2s infinite;
+}
+
+@keyframes poiner {
+    0% {opacity: 0;bottom: 0}
+    100% {opacity: 1;bottom: 10px;}
+}
+
+/* 政策 */
+.bigbox .page11{
+    background: url(../img/bgimg/bg1.jpg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+
+.dottedline{
+    padding: 50px 10px;
+    position: relative;
+}
+
+.dottedline .leftline{
+    border-left: 1px solid #0077b3;
+    border-bottom: 1px solid #0077b3;
+    padding: 20px  10px;
+    margin: 0 auto;
+    width: 85%;
+    position: relative;
+}
+
+.dottedline .rightline{
+    border-right: 1px solid #0077b3;
+    border-bottom: 1px solid #0077b3;
+    padding: 20px 10px;
+    margin: 0 auto;
+    width: 85%;
+    position: relative;
+}
+
+.textcolor{
+    color: #00c0ff;
+    font-size: 1.4rem;
+}
+
+.leftdot{
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    background-color: #00fff0;
+    position: absolute;
+    left: -3px;
+    top: 28px;
+}
+
+.rightdot{
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    background-color: #00fff0;
+    position: absolute;
+    right: -3px;
+    top: 28px;
+}
+
+
+/* 月关键词 */
+
+
+.popup{
+    border-bottom: 1px solid #29294b;
+    display: flex;
+    justify-content: space-between;
+    height: 10rem;
+    padding: 1rem 1rem;
+    position: relative;
+}
+
+.leftwire{
+    width: 60%;
+    margin-left: 1rem;
+}
+
+.rightborder{
+    width: 60%;
+    background: url(../img/bgimg/tan3.png);
+    background-size: 100% 100%;
+    margin-left: 1rem;
+    font-size: 1.2rem;
+    padding: 1rem;
+   height: 67%;
+}
+
+
+
+.leftborder{
+    width: 60%;
+    background: url(../img/bgimg/tan2.png);
+    background-size: 100% 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    height: 67%;
+}
+
+
+
+.rightyellow{
+    background: url(../img/bgimg/tan3.png);
+    width: 60%;
+    background-size: 100% 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+}
+
+
+.pointplot1 span:nth-child(1){
+    position: absolute;
+    left: 14%;
+    top: 11%;
+}
+
+.pointplot1 span:nth-child(1) b{
+    height: 1rem;
+    border-right: 3px dotted  #067aa9;
+    transform:skew(72deg);
+    display: block;
+    position: absolute;
+    left: 2.4rem;
+    top: .5rem;
+    opacity: .8;
+}
+
+.pointplot1 span:nth-child(2){
+    position: absolute;
+    left: 30%;
+    top: 20%;
+}
+
+.pointplot1 span:nth-child(2) b{
+    display: block;
+    height: 2rem;
+    border-right: 2px dotted  #067aa9;
+    transform:skew(-35deg);
+    position: absolute;
+    left: -1rem;
+    top: .9rem;
+    opacity: .8;
+}
+
+.pointplot1 span:nth-child(3){
+    position: absolute;
+    left: 20%;
+    top: 40%;
+}
+
+.pointplot1 span:nth-child(3) b{
+    display: block;
+    height: 2rem;
+    border-left: 2px dotted #067aa9;
+    transform:skew(31deg);
+    position: absolute;
+    left: 1.5rem;
+    top: .9rem;
+    opacity: .8;
+}
+
+
+.pointplot2 span:nth-child(1){
+    position: absolute;
+    left: 29%;
+    top: 64%;
+}
+
+.pointplot2 span:nth-child(1) b{
+    display: block;
+    height: 2rem;
+    border-left: 2px dotted #067aa9;
+    transform: skew(-56deg);
+    position: absolute;
+    left: -1.9rem;
+    top: .5rem; 
+    opacity: .8;
+}
+
+.pointplot2 span:nth-child(2){
+    position: absolute;
+    left: 14%;
+    top: 82%;
+}
+
+.pointplot2 span:nth-child(2) b{
+    height: 4rem;
+    display: block;
+    border-left: 2px dotted #067aa9;
+    transform: skew(-20deg);
+    position: absolute;
+    left: 8px;
+    top: -55px; 
+    opacity: .8;
+}
+
+.pointplot3 span:nth-child(1){
+    position: absolute;
+    left: 6%;
+    top: 25%;
+}
+
+.pointplot3 span:nth-child(1) b{
+    height: 4rem;
+    display: block;
+    border-left: 2px dotted #067aa9;
+    transform: skew(1deg);
+    position: absolute;
+    left: 1px;
+    top: 9px;
+    opacity: .8;
+}
+
+.pointplot3 span:nth-child(2){
+    position: absolute;
+    left: 6%;
+    top: 57%;
+}
+
+.pointplot3 span:nth-child(2) b{
+    height: 2rem;
+    display: block;
+    border-left: 3px dotted #067aa9;
+    transform: skew(-65deg);
+    position: absolute; 
+    left: 2.4rem;
+    top: -2.1rem;
+    opacity: .8;
+}
+
+.pointplot4 span:nth-child(1){
+    position: absolute;
+    right: 31%;
+    top: 19%;
+}
+
+.pointplot4 span:nth-child(1) b{
+    display: block;
+    height: 2rem;
+    border-left: 2px dotted #067aa9;
+    transform:skew(63deg);
+    position: absolute;
+    left: 2.3rem;
+    top: .3rem;
+    opacity: .8;
+}
+
+.pointplot4 span:nth-child(2){
+    position: absolute;
+    right: 17%;
+    top: 33%;
+}
+
+.pointplot4 span:nth-child(2) b{
+    display: block;
+    height: 2rem;
+    border-left: 2px dotted #067aa9;
+    transform:skew(-49deg);
+    position: absolute;
+    left: -1.6rem;
+    top: .5rem;
+    opacity: .8;
+}
+
+.pointplot4 span:nth-child(3){
+    position: absolute;
+    right: 27%;
+    top: 51%;
+}
+
+.pointplot5 span:nth-child(1){
+    position: absolute;
+    right: 22%;
+    top: 80%;
+}
+
+.pointplot5 span:nth-child(1) b{
+    display: block;
+    width: 5rem;
+    height: 2rem;
+    border-top: 2px dotted #067aa9;
+    position: absolute;
+    left: -56px;
+    top: 2px;
+    opacity: .8;
+}
+
+
+.pointplot5 span:nth-child(2){
+    position: absolute;
+    right: 40%;
+    top: 80%;
+}
+
+.pointplot5 span:nth-child(2) b{
+    display: block;
+    height: 4rem;
+    border-left: 2px dotted #067aa9;
+    transform:skew(-40deg);
+    position: absolute;
+    left: 1.8rem;
+    top: -3.8rem;
+    opacity: .8;
+}
+
+.pointplot6 span:nth-child(1){
+    position: absolute;
+    right: 41%;
+    top: 41%;
+}
+
+.pointplot6 span:nth-child(1) b{
+    display: block;
+    height: 2rem;
+    border-left: 2px dotted #067aa9;
+    transform:skew(57deg);
+    position: absolute;
+    left: 2rem;
+    top: 0rem;
+    opacity: .8;
+}
+
+.pointplot7 span:nth-child(1){
+    position: absolute;
+    left: 30%;
+    top: 28%;
+}
+
+.pointplot7 span:nth-child(1) b{
+    display: block;
+    height: 2rem;
+    border-left: 2px dotted #067aa9;
+    transform:skew(-34deg);
+    position: absolute;
+    left: -1rem;
+    top: .6rem;
+    opacity: .8;
+}
+
+.pointplot7 span:nth-child(2){
+    position: absolute;
+    left: 22%;
+    top: 47%;
+}
+
+.pointplot7 span:nth-child(2) b{
+    display: block;
+    height: 3rem;
+    border-left: 2px dotted #067aa9;
+    transform:skew(133deg);
+    position: absolute;
+    left: -16px;
+    top: -5px;
+    opacity: .8;
+}
+
+.pointplot8 span:nth-child(1) b{
+    display: block;
+    height: 2rem;
+    border-left: 2px dotted #067aa9;
+    transform:skew(51deg);
+    position: absolute;
+    left: -.8rem;
+    top: -1.8rem;
+    opacity: .8; 
+}
+
+.pointplot8 span:nth-child(1){
+    position: absolute;
+    left: 34%;
+    top: 67%;
+}
+
+.pointplot9 span:nth-child(1){
+    position: absolute;
+    left: 11%;
+    top: 35%;
+}
+
+.pointplot9 span:nth-child(1) b{
+    display: block;
+    height: 2rem;
+    border-left: 2px dotted #067aa9;
+    transform:skew(-130deg);
+    position: absolute;
+    left: 19px;
+    top: 1px;
+    opacity: .8; 
+}
+
+.pointplot9 span:nth-child(2){
+    position: absolute;
+    left: 11%;
+    top: 67%;
+}
+
+.pointplot9 span:nth-child(2) b{
+    display: block;
+    height: 4rem;
+    border-left: 2px dotted #067aa9;
+    position: absolute;
+    left: 1px;
+    top: -47px;
+    opacity: .8; 
+}
+
+/* 产业高亮点 */
+
+body{
+    background: url(../img/bgimg/bg3.png) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.industrytop ul{
+    height: 18rem;
+    position: relative;
+}
+
+
+.lightspot1 span:nth-child(1){
+    position: absolute;
+    left: 8%;
+    top: 41%;
+}
+
+.lightspot1 span:nth-child(1) small{
+    width: 5px;
+    height: 5px;
+    display: block;
+    background-color: #063952;
+    border-radius: 100%;
+    position: absolute;
+    left: 88%;
+    top: 59%;
+}
+
+.lightspot1 span:nth-child(1) b{
+    width: 2rem;
+    height: 3rem;
+    display: block;
+    border-left: 2px dotted #063952;
+    position: absolute;
+    left: 144%;
+    top: 59%;
+    transform: skew(58deg);
+}
+
+.lightspot1 span:nth-child(2){
+    position: absolute;
+    left: 11%;
+    top: 16%;
+}
+
+.lightspot1 span:nth-child(2) b{
+   height: 7rem;
+   display: block;
+   border-left: 2px dotted #063952;
+   position: absolute;
+   transform: skew(27deg);
+   left: 147%;
+   top: 84%;
+}
+
+.lightspot1 span:nth-child(2) small{
+    width: 5px;
+    height: 5px;
+    display: block;
+    background-color: #063952;
+    border-radius: 100%;
+    position: absolute;
+    left: 97%;
+    top: 69%;
+}
+
+.lightspot1 span:nth-child(3) {
+    position: absolute;
+    left: 30%;
+    top: 9%;
+}
+
+.lightspot1 span:nth-child(3) b{
+    height: 7rem;
+    display: block;
+    border-left: 2px dotted #063952;
+    position: absolute;
+    left: 55%;
+    top: 111%;
+    transform: skew(8deg);
+}
+
+.lightspot1 span:nth-child(3) small{
+    width: 5px;
+    height: 5px;
+    display: block;
+    background-color: #063952;
+    border-radius: 100%;
+    position: absolute;
+    left: 39%;
+    top: 92%;
+}
+
+.lightspot1 span:nth-child(4) {
+    position: absolute;
+    left: 50%;
+    top: 19%;
+}
+
+.lightspot1 span:nth-child(4) b{
+    height: 5rem;
+    display: block;
+    border-left: 2px dotted #063952;
+    position: absolute;
+    left: -4%;
+    top: 115%;
+    transform: skew(-41deg); 
+}
+
+.lightspot1 span:nth-child(4) small{
+    width: 5px;
+    height: 5px;
+    display: block;
+    background-color: #063952;
+    border-radius: 100%;
+    position: absolute;
+    left: 49%;
+    top: 100%;
+}
+
+.lightspot1 span:nth-child(5) {
+    position: absolute;
+    left: 69%;
+    top: 33%;
+}
+
+.lightspot1 span:nth-child(5) b{
+    height: 4rem;
+    display: block;
+    border-left: 2px dotted #063952;
+    position: absolute;
+    left: -66%;
+    top: 114%;
+    transform: skew(-63deg); 
+}
+
+.lightspot1 span:nth-child(5) small{
+    width: 5px;
+    height: 5px;
+    display: block;
+    background-color: #063952;
+    border-radius: 100%;
+    position: absolute;
+    left: 28%;
+    top: 89%;
+}
+
+.lightspot1 span:nth-child(6) {
+    position: absolute;
+    left: 75%;
+    top: 46%;
+}
+
+.lightspot1 span:nth-child(6) b{
+    height: 3rem;
+    display: block;
+    border-left: 3px dotted #063952;
+    position: absolute;
+    left: -89%;
+    top: 62%;
+    transform: skew(-75deg); 
+}
+
+.lightspot1 span:nth-child(6) small{
+    width: 5px;
+    height: 5px;
+    display: block;
+    background-color: #063952;
+    border-radius: 100%;
+    position: absolute;
+    left: 28%;
+    top: 89%;
+}
+
+.lightspot1 span:nth-child(7) {
+    position: absolute;
+    left: 60%;
+    top: 84%;
+}
+
+.lightspot1 span:nth-child(8){
+    position: absolute;
+    left: 41%;
+    top: 63%;
+}
+
+.lightspot1 span:nth-child(8) small{
+    width: 5px;
+    height: 5px;
+    display: block;
+    background-color: #063952;
+    border-radius: 100%;
+    position: absolute;
+    left: -4%;
+    top: 45%;
+}
+
+.lightspot1 span:nth-child(8) b{
+    width: 2rem;
+    height: 3rem;
+    display: block;
+    border-left: 2px solid #11335b;
+    position: absolute;
+    left: 62%;
+    top: 72%;
+    transform: skew(57deg);
+}
+
+.emptycircle{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.industrybottom {
+    background: url(../img/bgimg/tan1.png);
+    background-size: 100% 100%;
+    margin: 20px;
+    margin-top: 4rem;
+    padding:1rem;
+}
+
+.industrybottom ul li{
+    padding: 10px;
+    border-bottom: 1px solid #1f1f40;
+}
+
+.industrybottom ul li:nth-child(3){
+    border-bottom: none;
+}
+
+.wide{
+    width: 7rem;
+}
+
+.bigcircle{
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    background-color: #00c0ff;
+    display: block;
+    position: absolute;
+    left: -2%;
+    top: 14%;
+}
+
+/* 明星推荐-企业 */
+
+.allcontainer {
+    padding: 10px;
+}
+
+.allcontainer div{
+    background: url(../img/bgimg/tan1.png);
+    background-size: 100% 100%;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.allcontainer dl dt {
+    display: flex;
+    align-items: center;
+}
+
+.allcontainer dl dt p:nth-child(1){
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.allcontainer dl dt p:nth-child(2){
+    color: #00c0ff;
+    font-size: 1.4rem;
+}
+
+.allcontainer dl dt p:nth-child(1) img{
+    width: 100%;
+    height: 100%;
+}
+.allcontainer dl dd{
+    margin-top: 10px;
+}
+
+
+/* 明星推荐-人物 */
+
+.container .starmanimg{
+    margin:20px;
+    height: 29rem;
+    background: url(../img/bgimg/kuang.png);
+    background-size: 100% 100%;
+}
+
+.container .starmanimg ul li{
+    margin: 10px;
+}
+
+.container .starmanimg ul li:nth-child(1){
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container .starmanimg ul li:nth-child(1) img{
+    width: 100%;
+    height: 100%;
+}
+
+.container .starmanimg ul li:nth-child(4){
+    padding: 10px;
+    font-size: 1.4rem;
+}
+
+.container .starmanimg ul li:nth-child(2){
+    color: #00c0ff;
+    font-size: 1.6rem;
+}
+
+/* 优质企业 */
+
+.company{
+    padding: 15px 10px;
+}
+
+.company div{
+    padding-bottom: 10px;
+}
+
+.company div h2{
+    color: #00ffde;
+    font-size: 1.4rem;
+}
+
+.company ul li {
+   display: flex;
+   margin-top: 8px;
+   padding-bottom: 8px;
+   border-bottom: 1px solid  #29294b;
+}
+
+.company ul li:nth-child(1) span{
+    color: #ccc;
+}
+
+.company ul li span:nth-child(1){
+    width: 55%
+}
+
+.company ul li span:nth-child(2){
+    width: 45%;
+}
+
+.qrcodeimg{
+    width: 100px;
+    height: 100px;  
+    margin: 0 auto;
+    padding-top: 12rem; 
+}
+
+.qrcodeimg img{
+    width: 100%;
+    height: 100%;
+}
+
+.message{
+    margin-top: 3rem;
+}
+
+.message p{
+    text-align: center;
+    color: #00c0ff;
+    margin-top: 1rem;
+    line-height: 1.5rem;
+}
+
+
+/* 资本焦点 */
+.bigbox .page12{
+    background: url(../img/bgimg/bg2.png) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.allcapital{
+    padding: 10px;
+}
+
+.allcapital div{
+    background: url(../img/bgimg/tan1.png);
+    background-size: 100% 100%;
+    height: 7rem;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+/* 市场焦点 */
+.bigbox .page14{
+    background: url(../img/bgimg/bg2.png) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.allbazzr{
+    padding: 10px;
+}
+
+.allbazzr div{
+    background: url(../img/icon/kuai.png);
+    background-size: 100% 100%;
+    height: 9rem;
+    margin-top: 15px;
+}
+
+.allbazzr div p:nth-child(1) {
+    text-align: center;
+    line-height: 2rem;
+}
+.allbazzr div p:nth-child(2){
+    padding: 10px;
+
+}
+
+/* 排行报告 */
+.bigbox .page21{
+    background: url(../img/bgimg/bg2.png) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.allreport div {
+    padding: 10px;
+    border-bottom: 1px solid #29294b;
+}
+
+.allreport div ul li:nth-child(1){
+    display: flex;
+    justify-content: space-between;
+}
+
+.allreport div ul li p:nth-child(1){
+    color: #00c0ff;
+    font-size: 1.4rem;
+}
+
+.allreport div ul li:nth-child(2){
+    margin: 10px 0px;
+}
+
+.allreport div ul li:nth-child(3){
+    color: #ccc;
+}
+
+.read{
+    text-align: center;
+    width: 50px;
+    height: 20px;
+    border: 1px solid #01b4f1;
+    border-radius: 17%;
+    color: #01b4f1;
+}
+
+.haveread{
+    color: #fff;
+    background: #01b4f1;
 }

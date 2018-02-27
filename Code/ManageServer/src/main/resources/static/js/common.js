@@ -1,5 +1,7 @@
 $(function(){
      var newpage = 0;
+    //  var num = $('.skippage .page');
+    //  console.log(num)
      $('.skippage').swipe({
          swipe:function(event, direction, distance, duration, fingerCount) {
              if(direction == 'up'){
@@ -7,8 +9,8 @@ $(function(){
              }else if(direction == 'down'){
                 newpage = newpage - 1;
              }
-             if(newpage > 9) {
-                 newpage = 9;
+             if(newpage > 19) {
+                 newpage = 19;
              }
              if( newpage < 0){
                  newpage = 0;
