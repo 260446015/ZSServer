@@ -66,88 +66,88 @@
                                     <label class="col-md-3 control-label" for="text-input">产业链高亮</label>
                                     <div class="col-md-9">
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="自动无人技术">
                                             <label>自动无人技术</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="option2">
+                                            <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="语义识别与分析">
                                             <label>语义识别与分析</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">
+                                            <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="语音与声学识别">
                                             <label> 语音与声学识别</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="计算机视觉与图像">
                                             <label> 计算机视觉与图像</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="AI平台">
                                             <label>AI平台</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="其他">
                                             <label for="inline-checkbox6">其他</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="技术层">
                                             <label for="inline-checkbox7">技术层</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="人工智能产业">
                                             <label>人工智能产业</label>
                                         </div>
                                         <input type="text" name="time" class="form-control" placeholder="">
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                                            <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="软件">
                                             <label> 软件</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="option2">
+                                            <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="金融">
                                             <label> 金融</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">
+                                            <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="教育">
                                             <label> 教育</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="客服">
                                             <label> 客服</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="农业">
                                             <label> 农业</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="网络安全">
                                             <label> 网络安全</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="定制服务">
                                             <label> 定制服务</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="营销和销售">
                                             <label> 营销和销售</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="医疗健康">
                                             <label> 医疗健康</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="交通">
                                             <label> 交通</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="物流">
                                             <label> 物流</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="家用机器人">
                                             <label> 家用机器人</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="option4">
+                                            <input type="checkbox" id="inline-checkbox4" name="inline-checkbox3" value="工业机器人">
                                             <label> 工业机器人</label>
                                         </div>
                                         <input type="text" name="time" class="form-control" placeholder="">

@@ -24,6 +24,7 @@ $(function () {
         var _name = $("input[name='name']").val();
         var _time = $("input[name='time']").val();
         var _keyWord = new Array();
+        $('input:checkbox:checked').val();
         for(var i=1;i<4;i++){
             _keyWord.push({
                 text:$("input[name='key"+i+"']").val(),
