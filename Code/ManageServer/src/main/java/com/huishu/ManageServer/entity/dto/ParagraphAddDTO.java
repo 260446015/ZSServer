@@ -2,16 +2,17 @@ package com.huishu.ManageServer.entity.dto;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * 报告段落添加DTO
  *
  * @author yindq
  * @date 2018/2/8
  */
-public class ParagraphAddDTO {
+public class ParagraphAddDTO implements Serializable {
 	private Long id;
-	private String text;
-	private Object[] obj;
+	private JSONObject[] obj;
 
 	public Long getId() {
 		return id;
@@ -21,19 +22,11 @@ public class ParagraphAddDTO {
 		this.id = id;
 	}
 
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public Object[] getObj() {
+	public JSONObject[] getObj() {
 		return obj;
 	}
 
-	public void setObj(Object[] obj) {
+	public void setObj(JSONObject[] obj) {
 		this.obj = obj;
 	}
 }

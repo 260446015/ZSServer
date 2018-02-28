@@ -8,6 +8,7 @@ import com.huishu.ManageServer.entity.dbFirst.FilePdf;
 import com.huishu.ManageServer.entity.dbFirst.h5.Headlines;
 import com.huishu.ManageServer.entity.dbFirst.h5.MonthlyReport;
 import com.huishu.ManageServer.entity.dbFirst.h5.Paragraph;
+import com.huishu.ManageServer.entity.dbFirst.h5.Schedule;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.HtmlAddDTO;
 import com.huishu.ManageServer.entity.dto.ParagraphAddDTO;
@@ -134,14 +135,12 @@ public class ReportServiceImpl implements ReportService {
 		}else{
 			Headlines one = headlinesRepository.findOne(Long.valueOf(type));
 			if("各地新闻".equals(one.getName())){
-				List<Object[]> area = paragraphRepository.findByHeadlinesIdGroupByKeyWord(Long.valueOf(type));
+				List<String> area = paragraphRepository.findByHeadlinesIdGroupByKeyWord(Long.valueOf(type));
 				JSONArray array = new JSONArray();
 				area.forEach(city ->{
 					JSONObject object=new JSONObject();
-					object.put("area",city[0]);
-					Object[] myList = {city[1],city[2]};
-					object.put("coordinate",myList);
-					object.put("data",paragraphRepository.findByHeadlinesIdAndKeyWord(Long.valueOf(type),city[0].toString()));
+					object.put("area",city);
+					object.put("data",paragraphRepository.findByHeadlinesIdAndKeyWord(Long.valueOf(type),city));
 					array.add(object);
 				});
 				return array;
@@ -328,14 +327,32 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
+	@Transactional
 	public Boolean addParagraphData(ParagraphAddDTO dto) {
-		Object[] obj = dto.getObj();
-		for (Object object:obj){
-			HashMap map=(HashMap)object;
+		JSONObject[] obj = dto.getObj();
+		for (JSONObject object:obj){
 			Paragraph paragraph = new Paragraph();
-			paragraph.setHeadlinesId(Long.valueOf(map.get("id").toString()));
-			paragraph.setText(map.get("text").toString());
-			paragraphRepository.save(paragraph);
+			paragraph.setHeadlinesId(object.getLong("headlinesId"));
+			paragraph.setText(object.getString("text"));
+			paragraph.setKeyWord(object.getString("keyWord"));
+			paragraph.setImg(object.getString("img"));
+			paragraph.setMoney(object.getString("money"));
+			paragraph.setTime(object.getString("time"));
+			paragraph.setPeople(object.getString("people"));
+			paragraph.setReportId(dto.getId());
+			Paragraph save = paragraphRepository.save(paragraph);
+			if(object.getJSONArray("schedule")!=null){
+				JSONArray array = object.getJSONArray("schedule");
+				array.forEach(sch->{
+					JSONObject s=(JSONObject)sch;
+					Schedule schedule = new Schedule();
+					schedule.setParagraphId(save.getId());
+					schedule.setDate(s.getInteger("date"));
+					schedule.setPlace(s.getString("place"));
+					schedule.setSponsor(s.getString("sponsor"));
+					scheduleRepository.save(schedule);
+				});
+			}
 		}
 		return true;
 	}

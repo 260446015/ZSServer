@@ -240,7 +240,7 @@ public class ReportController extends BaseController {
 	@RequestMapping(value = "addParagraphData.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult addParagraphData(@RequestBody ParagraphAddDTO dto) {
-		if(dto==null||dto.getObj().length==0){
+		if(dto==null||dto.getId()==null){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {

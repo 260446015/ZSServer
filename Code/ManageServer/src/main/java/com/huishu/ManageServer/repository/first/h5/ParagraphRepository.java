@@ -18,8 +18,8 @@ public interface ParagraphRepository extends CrudRepository<Paragraph, Long> {
 	List<Paragraph> findByHeadlinesId(Long headlinesId);
 	List<Paragraph> findByHeadlinesIdAndReportId(Long headlinesId,Long reportId);
 	List<Paragraph> findByHeadlinesIdAndReportIdAndKeyWord(Long headlinesId,Long reportId,String keyWord);
-	@Query(value="select key_word,money,time from t_html_paragraph where headlines_id=?1 group by key_word",nativeQuery=true)
-	List<Object[]> findByHeadlinesIdGroupByKeyWord(Long headlinesId);
+	@Query(value="select key_word from t_html_paragraph where headlines_id=?1 group by key_word",nativeQuery=true)
+	List<String> findByHeadlinesIdGroupByKeyWord(Long headlinesId);
 	@Query(value="select text from t_html_paragraph where headlines_id=?1 and key_word = ?2",nativeQuery=true)
 	List<String> findByHeadlinesIdAndKeyWord(Long headlinesId,String keyWord);
 

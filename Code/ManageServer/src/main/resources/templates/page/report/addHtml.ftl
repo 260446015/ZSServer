@@ -435,7 +435,6 @@
 <!-- start: JavaScript-->
 <!-- Vendor JS-->
 <#include "/common/script.ftl">
-<script type="text/javascript" src="/assets/js/wangEditor.min.js"></script>
 <script src="/js/report/addHtml.js"></script>
 <!-- end: JavaScript-->
 </body>

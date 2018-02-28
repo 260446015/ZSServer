@@ -43,7 +43,7 @@
                             </form>
                             <p>
                                 <button class="bk-margin-5 btn btn-labeled btn-success" type="button">
-                                    <span class="btn-label"><i class="fa fa-check"></i></span>下一步</button>
+                                    <span class="btn-label"><i class="fa fa-check"></i></span>保存</button>
                                 <button class="bk-margin-5 btn btn-labeled btn-danger" type="button">
                                     <span class="btn-label"><i class="fa fa-times"></i></span>取消</button>
                             </p>
@@ -60,7 +60,7 @@
 <!-- start: JavaScript-->
 <!-- Vendor JS-->
 <#include "/common/script.ftl">
-<script src="/js/report/addHtml2.js"></script>
+<script src="/js/report/addHtml3.js"></script>
 <script>
     addData(${id});
 </script>
