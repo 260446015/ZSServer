@@ -2,6 +2,7 @@ package com.huishu.ManageServer.service.report.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.huishu.ManageServer.common.conf.HtmlConstant;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.entity.dbFirst.FilePdf;
 import com.huishu.ManageServer.entity.dbFirst.h5.Headlines;
@@ -23,6 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -203,6 +205,7 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
+	@Transactional
 	public Long addHtmlData(HtmlAddDTO dto) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		MonthlyReport report = new MonthlyReport();
@@ -213,29 +216,114 @@ public class ReportServiceImpl implements ReportService {
 		if(save==null){
 			return null;
 		}
+		//月关键词
 		JSONObject[] keyWord = dto.getKeyWord();
 		Headlines keyHeadlines = headlinesRepository.findByReportIdAndName(0L, "keyWord");
-		saveParagraph(keyWord,save.getId(),keyHeadlines.getId());
+		saveTextParagraph(keyWord,save.getId(),keyHeadlines.getId());
+		//产业链高亮
 		JSONObject[] chain = dto.getChain();
 		Headlines chainHeadlines = headlinesRepository.findByReportIdAndName(0L, "chain");
-		saveParagraph(chain,save.getId(),chainHeadlines.getId());
+		saveTextParagraph(chain,save.getId(),chainHeadlines.getId());
+		//明星推荐
 		JSONObject recommend = dto.getRecommend();
-
 		Headlines recommendHeadlines = headlinesRepository.findByReportIdAndName(0L, "recommend");
+		JSONArray array = recommend.getJSONArray("company");
+		array.forEach(value ->{
+			JSONObject company =(JSONObject)value;
+			Paragraph paragraph = new Paragraph();
+			paragraph.setCompany(company.getString("name"));
+			paragraph.setText(company.getString("reason"));
+			paragraph.setImg(company.getString("logo"));
+			paragraph.setKeyWord("1");
+			paragraph.setReportId(save.getId());
+			paragraph.setHeadlinesId(recommendHeadlines.getId());
+			paragraphRepository.save(paragraph);
+		});
+		JSONObject people = recommend.getJSONObject("people");
+		Paragraph paragraph = new Paragraph();
+		paragraph.setPeople(people.getString("name"));
+		paragraph.setText(people.getString("reason"));
+		paragraph.setImg(people.getString("logo"));
+		paragraph.setCompany(people.getString("identity"));
+		paragraph.setKeyWord("2");
+		paragraph.setReportId(save.getId());
+		paragraph.setHeadlinesId(recommendHeadlines.getId());
+		paragraphRepository.save(paragraph);
+		//推荐企业
 		JSONObject industry = dto.getIndustry();
 		Headlines industryHeadlines = headlinesRepository.findByReportIdAndName(0L, "industry");
-		/*JSONObject[] arr2 = dto.getArr2();
-		for (int i = 0; i < arr2.length; i++) {
-			Headlines parent = headlinesRepository.findByReportIdAndName(save.getId(), arr2[i].getString("parentId"));
-			if (parent!=null){
-				Headlines headlines = new Headlines();
-				headlines.setLogoClass(arr[i].getString("logoClass"));
-				headlines.setName(arr[i].getString("name"));
-				headlines.setReportId(save.getId());
-				headlines.setSort(arr[i].getInteger("sort"));
-				headlinesRepository.save(headlines);
+		JSONArray faucet = industry.getJSONArray("faucet");
+		faucet.forEach(value ->
+			saveCompanyParagraph((JSONObject)value,"faucet",save.getId(),industryHeadlines.getId())
+		);
+		JSONArray growth = industry.getJSONArray("growth");
+		growth.forEach(value ->
+			saveCompanyParagraph((JSONObject)value,"growth",save.getId(),industryHeadlines.getId())
+		);
+		JSONArray potential = industry.getJSONArray("potential");
+		potential.forEach(value ->
+			saveCompanyParagraph((JSONObject)value,"potential",save.getId(),industryHeadlines.getId())
+		);
+		//本月焦点
+		String[] focus = dto.getFocus();
+		for (int i = 0; i < focus.length; i++) {
+			Headlines headlines = new Headlines();
+			headlines.setSort(i);
+			headlines.setReportId(save.getId());
+			if(focus[i].equals("1")){
+				headlines.setName(HtmlConstant.ZHENG_CE);
+				headlines.setLogoClass(HtmlConstant.ZHENG_CE_PNG);
+			}else if(focus[i].equals("2")){
+				headlines.setName(HtmlConstant.ZI_BEN);
+				headlines.setLogoClass(HtmlConstant.ZI_BEN_PNG);
+			}else if(focus[i].equals("3")){
+				headlines.setName(HtmlConstant.SHI_CHANG);
+				headlines.setLogoClass(HtmlConstant.SHI_CHANG_PNG);
+			}else if(focus[i].equals("4")){
+				headlines.setName(HtmlConstant.YU_LUN);
+				headlines.setLogoClass(HtmlConstant.YU_LUN_PNG);
+			}else if(focus[i].equals("5")){
+				headlines.setName(HtmlConstant.JI_SHU);
+				headlines.setLogoClass(HtmlConstant.JI_SHU_PNG);
+			}else if(focus[i].equals("6")){
+				headlines.setName(HtmlConstant.WEI_LAI);
+				headlines.setLogoClass(HtmlConstant.WEI_LAI_PNG);
+			}else{
+				continue;
 			}
-		}*/
+			headlines.setParentName(HtmlConstant.FOCUS);
+			headlinesRepository.save(headlines);
+		}
+		//行业动态
+		String[] dynamic = dto.getDynamic();
+		for (int i = 0; i < dynamic.length; i++) {
+			Headlines headlines = new Headlines();
+			headlines.setSort(i);
+			headlines.setReportId(save.getId());
+			if(dynamic[i].equals("1")){
+				headlines.setName(HtmlConstant.GE_DI);
+				headlines.setLogoClass(HtmlConstant.GE_DI_PNG);
+			}else if(dynamic[i].equals("2")){
+				headlines.setName(HtmlConstant.HE_ZUO);
+				headlines.setLogoClass(HtmlConstant.HE_ZUO_PNG);
+			}else if(dynamic[i].equals("3")){
+				headlines.setName(HtmlConstant.QI_YE);
+				headlines.setLogoClass(HtmlConstant.QI_YE_PNG);
+			}else if(dynamic[i].equals("4")){
+				headlines.setName(HtmlConstant.HUI_YI);
+				headlines.setLogoClass(HtmlConstant.HUI_YI_PNG);
+			}else if(dynamic[i].equals("5")){
+				headlines.setName(HtmlConstant.PAI_HANG);
+				headlines.setLogoClass(HtmlConstant.PAI_HANG_PNG);
+			}else if(dynamic[i].equals("6")){
+				headlines.setName(HtmlConstant.TOU_RONG);
+				headlines.setLogoClass(HtmlConstant.TOU_RONG_PNG);
+			}else{
+				continue;
+			}
+			headlines.setParentName(HtmlConstant.DYNAMIC);
+			headlinesRepository.save(headlines);
+		}
 		return save.getId();
 	}
 
@@ -270,7 +358,7 @@ public class ReportServiceImpl implements ReportService {
 		return null;
 	}
 
-	private void saveParagraph(JSONObject[] objs,Long reportId,Long headlinesId){
+	private void saveTextParagraph(JSONObject[] objs,Long reportId,Long headlinesId){
 		for (int i = 0; i < objs.length; i++) {
 			Paragraph paragraph = new Paragraph();
 			paragraph.setKeyWord(objs[i].getString("key"));
@@ -279,5 +367,17 @@ public class ReportServiceImpl implements ReportService {
 			paragraph.setHeadlinesId(headlinesId);
 			paragraphRepository.save(paragraph);
 		}
+	}
+
+	private void saveCompanyParagraph(JSONObject obj,String keyWord,Long reportId,Long headlinesId){
+		Paragraph paragraph = new Paragraph();
+		paragraph.setCompany(obj.getString("company"));
+		paragraph.setTime(obj.getString("time"));
+		paragraph.setMoney(obj.getString("money"));
+		paragraph.setText(obj.getString("text"));
+		paragraph.setKeyWord(keyWord);
+		paragraph.setReportId(reportId);
+		paragraph.setHeadlinesId(headlinesId);
+		paragraphRepository.save(paragraph);
 	}
 }

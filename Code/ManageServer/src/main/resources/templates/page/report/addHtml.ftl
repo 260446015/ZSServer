@@ -186,27 +186,27 @@
                                     <label class="col-md-3 control-label" for="text-input">本月焦点</label>
                                     <div class="col-md-9">
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="政策焦点">
+                                            <input type="checkbox" name="inline-checkbox4" value="1">
                                             <label>政策焦点</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="资本焦点">
+                                            <input type="checkbox" name="inline-checkbox4" value="2">
                                             <label>资本焦点</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="市场焦点">
+                                            <input type="checkbox" name="inline-checkbox4" value="3">
                                             <label>市场焦点</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="舆论焦点">
+                                            <input type="checkbox" name="inline-checkbox4" value="4">
                                             <label>舆论焦点</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="技术焦点">
+                                            <input type="checkbox" name="inline-checkbox4" value="5">
                                             <label>技术焦点</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="未来焦点">
+                                            <input type="checkbox" name="inline-checkbox4" value="6">
                                             <label>未来焦点</label>
                                         </div>
                                     </div>
@@ -280,27 +280,27 @@
                                     <label class="col-md-3 control-label" for="text-input">行业动态</label>
                                     <div class="col-md-9">
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="各地新闻">
+                                            <input type="checkbox" name="inline-checkbox5" value="1">
                                             <label>各地新闻</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="合作动向">
+                                            <input type="checkbox" name="inline-checkbox5" value="2">
                                             <label>合作动向</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="企业动向">
+                                            <input type="checkbox" name="inline-checkbox5" value="3">
                                             <label>企业动向</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="会议日程">
+                                            <input type="checkbox" name="inline-checkbox5" value="4">
                                             <label>会议日程</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="排行报告">
+                                            <input type="checkbox" name="inline-checkbox5" value="5">
                                             <label>排行报告</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="投融速递">
+                                            <input type="checkbox" name="inline-checkbox5" value="6">
                                             <label>投融速递</label>
                                         </div>
                                     </div>

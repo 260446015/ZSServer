@@ -16,9 +16,9 @@ public class HtmlAddDTO implements Serializable {
 	private String time;
 	private JSONObject[] keyWord;
 	private JSONObject[] chain;
-	private JSONObject[] focus;
+	private String[] focus;
 	private JSONObject recommend;
-	private JSONObject[] dynamic;
+	private String[] dynamic;
 	private JSONObject industry;
 
 	public String getName() {
@@ -53,11 +53,11 @@ public class HtmlAddDTO implements Serializable {
 		this.chain = chain;
 	}
 
-	public JSONObject[] getFocus() {
+	public String[] getFocus() {
 		return focus;
 	}
 
-	public void setFocus(JSONObject[] focus) {
+	public void setFocus(String[] focus) {
 		this.focus = focus;
 	}
 
@@ -69,11 +69,11 @@ public class HtmlAddDTO implements Serializable {
 		this.recommend = recommend;
 	}
 
-	public JSONObject[] getDynamic() {
+	public String[] getDynamic() {
 		return dynamic;
 	}
 
-	public void setDynamic(JSONObject[] dynamic) {
+	public void setDynamic(String[] dynamic) {
 		this.dynamic = dynamic;
 	}
 
