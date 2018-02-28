@@ -243,7 +243,7 @@ public class AbstractService<T> {
 		}
 		if (StringUtil.isNotEmpty(json.getString("industryLabel"))) {
 			String industryLabel = json.getString("industryLabel");
-			bq.must(QueryBuilders.termQuery("idustryTwice", industryLabel));
+			bq.must(QueryBuilders.termQuery("idustryThree", industryLabel));
 		}
 		if (StringUtil.isNotEmpty(json.getString("area"))) {
 			String area = json.getString("area");
