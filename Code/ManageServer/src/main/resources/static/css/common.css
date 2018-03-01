@@ -202,6 +202,32 @@ html,body{
     background-size: 100% 100%;
 }
 
+.bigbox .page13{
+    background: url(../img/bgimg/bg2.png);
+    background-size: 100% 100%;
+}
+
+.bigbox .page17{
+    background: url(../img/bgimg/bg3.png);
+    background-size: 100% 100%;
+}
+
+
+.bigbox .page18{
+    background: url(../img/bgimg/bg2.png);
+    background-size: 100% 100%;
+}
+
+.bigbox .page19{
+    background: url(../img/bgimg/bg2.png);
+    background-size: 100% 100%;
+}
+
+.page .page22{
+    background: url(../img/bgimg/bg2.png);
+    background-size: 100% 100%;
+}
+
 .page header{
     height: 4rem;
     display: flex;
@@ -257,7 +283,7 @@ html,body{
     height: 100%;
 }
 
-.swiper-pagination-clickable .swiper-pagination-bullet{
+.swiper-pagination-bullet{
     margin-left: 1rem;
 }
 
@@ -296,21 +322,21 @@ html,body{
     height: 100%;
 }
 
-.header{
+.head{
     display: flex;
     align-items: center;
     justify-content: center;
     padding-top: 54%;
 }
 
-.header span:nth-child(1){
+.head span:nth-child(1){
     width: 25px;
     height: 25px;
     display: block;
     margin-right: .5rem;
 }
  
-.header span:nth-child(1) img{
+.head span:nth-child(1) img{
     width: 100%;
     height:100%;
 }
@@ -363,7 +389,7 @@ footer{
 footer div{
     width: 30px;
     height: 26px;
-    margin-bottom: 2rem;
+    margin-bottom: 11rem;
 }
 
 footer div img{
@@ -423,7 +449,7 @@ footer div img{
     border-radius: 100%;
     background-color: #00fff0;
     position: absolute;
-    left: -3px;
+    right: -3px;
     top: 28px;
 }
 
@@ -433,7 +459,7 @@ footer div img{
     border-radius: 100%;
     background-color: #00fff0;
     position: absolute;
-    right: -3px;
+    left: -3px;
     top: 28px;
 }
 
@@ -785,12 +811,8 @@ footer div img{
 
 /* 产业高亮点 */
 
-body{
-    background: url(../img/bgimg/bg3.png) no-repeat center;
-    background-size: 100% 100%;
-}
 
-.industrytop ul{
+.industrytop>ul{
     height: 18rem;
     position: relative;
 }
@@ -1106,6 +1128,10 @@ body{
     font-size: 1.6rem;
 }
 
+.texts{
+    text-align: center;
+}
+
 /* 优质企业 */
 
 .company{
@@ -1219,6 +1245,10 @@ body{
     border-bottom: 1px solid #29294b;
 }
 
+.company ul li:nth-child(2){
+    position: relative;
+}
+
 .allreport div ul li:nth-child(1){
     display: flex;
     justify-content: space-between;
@@ -1249,4 +1279,187 @@ body{
 .haveread{
     color: #fff;
     background: #01b4f1;
+}
+
+.magimg{
+    position: absolute;
+    left: 82px;
+   width: 145px;
+   height: 32px;
+   border: 1px solid #22224c;
+   display: none;
+}
+
+/* 各地新闻 */
+
+.maptext{
+    background: url(../img/bgimg/tan1.png);
+    background-size: 100% 100%; 
+    margin: 20px 10px;
+ }
+ 
+ .maptext ul li{
+    padding: 10px;
+    border-bottom: 1px solid #1f1f40;
+ }
+
+ .maptexts{
+    background: url(../img/bgimg/tan1.png);
+    background-size: 100% 100%; 
+    margin: 20px 10px;
+ }
+ 
+ .maptexts ul li{
+    padding: 10px;
+    border-bottom: 1px solid #1f1f40;
+ }
+
+ /* 会议日程 */
+
+ .page .page20{
+    background: url(../img/bgimg/bg2.png);
+    background-size: 100% 100%;
+}
+
+ .jalendar .days .day:focus{
+    outline: none
+}
+.jalendar {
+    position: relative;
+    width: 100%;
+}
+.jalendar .left {
+    float: left;
+}
+
+.jalendar-pages {
+    width: 100% !important;
+}
+
+.jalendar-pages > .header {
+    text-align: center;
+    overflow: hidden;
+}
+.jalendar-pages > .header .day-names {
+    margin: 1%;
+    overflow: hidden;
+    text-align: center;
+    font-size: 0;
+}
+.jalendar-pages > .header h2 {
+    display: inline-block;
+    width: 14%;
+    padding: 7px 0 0 0;
+    text-indent: 1px;
+    text-align: center;
+    margin: 0;
+    height: 22px;
+    font: 13px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.jalendar .days {
+    margin: 10px 1%;
+    font-size: 0;
+    text-align: center;
+}
+.jalendar .days .day {
+    display: inline-block;
+    width: 14%;
+    height: 46px;
+    padding: 5px;
+    font: 14px "Roboto", "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    color: #fff;
+    position: relative;
+    vertical-align: middle;
+}
+.jalendar .days .day.have-event{
+    cursor: pointer;
+}
+.jalendar.mid .days .day {
+    height: 40px;
+    font-size: 18px;
+    padding-top: 7px;
+}
+
+.jalendar .days .day span{
+    display: inline-block;
+    width: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 100%;
+    margin-top: 5px
+}
+.jalendar .days .day.selected {
+    color: #fff;
+}
+
+.jalendar .days .day.today.selected {
+    color: #fff !important;
+}
+.jalendar .days .day > .event-single {
+    display: none;
+    position: absolute;
+    white-space: nowrap;
+    left: 50%;
+    top: 62px;
+    background: #2C1334;
+    transform: translateX(-50%);
+    border: 1px solid #343449;
+    z-index: 100;
+    text-align: left;
+    padding: 10px 15px;
+    box-shadow: 1px 1px 10px #343449;
+}
+.jalendar .days .day > .event-single p{
+    color: #fff
+}
+.jalendar .days .day > .event-single em{
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    background: #281545;
+    border: 1px solid #343449;
+    border-bottom: none;
+    border-right: none;
+}
+.jalendar .days .day.selected > i {
+    display: none;
+}
+.jalendar .days .day{
+    text-align: center
+}
+.jalendar .days .day > i {
+    position: absolute;
+    right: 50%;
+    bottom: -3px;
+    width: 5px;
+    height: 5px;
+    display: inline-block;
+    font-style: normal;
+    background: #A054E0;
+    border-radius: 100%;
+    transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    -moz-transform: translateX(50%);
+    -webkit-transform: translateX(50%);
+    -o-transform: translateX(50%);
+}
+
+.daytext{
+    background: url(../img/bgimg/tan1.png);
+    background-size: 100% 100%;
+    margin: 0 auto;
+    width: 90%;
+}
+.daytext ul li{
+    padding: 10px;
+    border-bottom: 1px solid #1f1f40;
+}
+.daytext ul li:last-child{
+    border-bottom: none;
 }

@@ -542,7 +542,7 @@ a:active {
 
 ul {
     clear: both;
-    overflow: hidden;
+    /* overflow: hidden; */
     width: 100%;
 }
 

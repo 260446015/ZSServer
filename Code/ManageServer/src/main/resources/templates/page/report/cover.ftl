@@ -20,7 +20,7 @@
     <div class="bigbox">
         <div class="skippage">
             <div class="page page1">
-                <div class="header">
+                <div class="head">
                     <span>
                         <img src="/img/icon/icon.png" alt="慧数招商">
                     </span>
@@ -183,38 +183,56 @@
                                         <small></small>
                                         <b></b>
                                     </span>
+                                </div> 
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="lightspot1">
+                                    <span>
+                                        <i>自动无人技术</i>
+                                        <small></small>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>语义识别与分析</i>
+                                        <small></small>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>语音与声学识别</i>
+                                        <small></small>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>计算机视觉与图像</i>
+                                        <small></small>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>AI平台</i>
+                                        <small></small>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>其他</i>
+                                        <small></small>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i class="wide">人工智能产业</i>
+                                        <small class="bigcircle"></small>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>技术层</i>
+                                        <small></small>
+                                        <b></b>
+                                    </span>
                                 </div>
                             </li>
                             <li class="swiper-slide">
-                                slide2
-                                <!-- <div>
-                                           <span>
-                                               <i>sss</i>
-                                           </span>
-                                           <span>sss</span>
-                                           <span>ssfddf</span>
-                                           <span>gfhgn</span>
-                                           <span>ngnh</span>
-                                           <span>nmhmnh</span>
-                                           <span>nhn</span>
-                                       </div>
-                                       <div>
-                                           <span></span>
-                                           <span></span>
-                                       </div>
-                                       <div>
-                                           <span></span>
-                                           <span></span>
-                                           <span></span>
-                                           <span></span>
-                                           <span></span>
-                                           <span></span>
-                                           <span></span>
-                                           <span></span>
-                                       </div> -->
-                            </li>
-                            <li class="swiper-slide">
-                                slide3
+                                <div class="lightspot3">
+                                    <span></span>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -253,7 +271,7 @@
                     </div>
                 </div>
             </div>
-           
+
             <div class="page page6">
                 <header>
                     <!-- <div class="left">
@@ -356,10 +374,18 @@
     </div>
     <script src="/vendor/jquery-3.3.1.min.js"></script>
     <script src="/vendor/echarts/echarts.min.js"></script>
+    <script src="/vendor/echarts/china.js"></script>
     <script src="/vendor/echarts/dataTool.min.js"></script>
     <script src="/vendor/jquery.touchSwipe.min.js"></script>
     <script src="/vendor/swiper-4.1.6.min.js"></script>
-    <script src="/js/common.js"></script>
     <script src="/js/cover/cover.js"></script>
+    <script src="/vendor/jalendar.js"></script>
+    <script>
+        $(function () {
+            addData(${ id });
+
+        });
+    </script>
 </body>
+
 </html>
