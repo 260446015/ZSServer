@@ -150,7 +150,7 @@ public class ShiroConfiguration {
 	public DefaultWebSessionManager getDefaultWebSessionManager() {
 		MySessionManager manager = new MySessionManager();
 		// 会话超时时间，单位：毫秒
-		manager.setGlobalSessionTimeout(1800000);
+		manager.setGlobalSessionTimeout(7200000);
 		// 定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话
 		manager.setSessionValidationInterval(600000);
 		manager.setSessionValidationSchedulerEnabled(true);

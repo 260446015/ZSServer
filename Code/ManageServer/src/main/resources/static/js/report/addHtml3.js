@@ -144,7 +144,7 @@ function savaFocus() {
             }),
             success: function (response) {
                 if(response.success){
-                    window.location.href="/apis/report/addHtml3.html?id="+_id;
+                    window.location.href="/apis/report/htmlReport.html";
                 }else{
                     layer.alert(response.message);
                 }

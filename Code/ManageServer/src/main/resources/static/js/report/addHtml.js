@@ -128,7 +128,7 @@ $(function () {
             data: JSON.stringify(req),
             success: function (response) {
                 if(response.success){
-
+                    window.location.href="/apis/report/addHtml2.html?id="+response.data;
                 }else{
                     layer.alert(response.message);
                 }
