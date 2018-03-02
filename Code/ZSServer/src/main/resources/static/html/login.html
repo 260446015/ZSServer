@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh_CN">
+
 <head>
     <meta charset="UTF-8">
     <title>慧数招商-登录页面</title>
@@ -23,6 +24,7 @@
     <![endif]-->
     <!-- js 兼容低版本IE end -->
 </head>
+
 <body class="login-bg">
     <div class="header navbar navbar-trans">
         <div class="navbar-header">
@@ -31,7 +33,7 @@
             </a>
         </div>
     </div>
-    <div class="panel-login">
+    <div class="panel-login" style="display:none">
         <div class="panel-heading">
             <h2 class="panel-title">登录</h2>
         </div>
@@ -53,17 +55,88 @@
                     <button class="btn btn-blue btn-login" type="button">立即登录</button>
                 </div>
                 <div class="form-group">
-                    <p class="form-control-static">没有账号？<a href="javascript:void(0);"> 申请试用</a></p>
+                    <p class="form-control-static">没有账号？
+                        <a href="javascript:void(0);"> 申请试用</a>
+                    </p>
                 </div>
+
             </form>
+        </div>
+    </div>
+    <div class="panel-use">
+        <div class="panel-heading">
+            <h2 class="panel-title">申请试用</h2>
+        </div>
+        <div class="form-group">
+            <label for="username" class="col-sm-4 textcolor">姓名</label>
+            <div class="col-sm-8 mt10">
+                <input type="text" class="form-control" placeholder="请输入你的姓名" id="username" name="username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-4 textcolor">所在城市</label>
+            <div class="col-sm-8 mt10">
+                <input type="text" class="form-control" placeholder="请输入你所在城市" id="address">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-sm-4 textcolor">联系方式</label>
+            <div class="col-sm-8 mt10">
+                <input type="text" class="form-control" placeholder="请输入你的联系方式" id="phone">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="verificationCode" class="col-sm-4 textcolor">验证码</label>
+            <div class="col-sm-4 mt10">
+                <input type="text" class="form-control" placeholder="请输入验证码">
+            </div>
+            <div style="display:inline">
+                    <a href="#" class="btn btn-blue mt10">获取验证码</a>
+              </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-4 textcolor">邮箱</label>
+            <div class="col-sm-8 mt10">
+                <input type="text" class="form-control" id="email" name="email" placeholder="请输入你的邮箱">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for=" position" class="col-sm-4 textcolor">职位</label>
+            <div class="col-sm-8 mt10">
+                <input type="text" class="form-control" id="position" name="position" placeholder="请输入你的职位">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="units" class="col-sm-4 textcolor">所在单位</label>
+            <div class="col-sm-8 mt10">
+                <input type="text" class="form-control" id="units" name="units" placeholder="请输入你的所在单位">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="garden" class="col-sm-4 textcolor">所在园区/地域</label>
+            <div class="col-sm-8 mt10">
+                <input type="text" class="form-control" id="garden" name="garden" placeholder="请输入你的所在园区/地域">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="develop" class="col-sm-4 textcolor">主要发展单位</label>
+            <div class="col-sm-8 mt10">
+                <input type="text" class="form-control" id="develop" name="develop" placeholder="请输入所在园区/地域">
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <button type="submit" class="btn btn-blue btn-ind mt10">申请试用</button>
+            </div>
         </div>
     </div>
     <div class="footer">
         <p>Copyright©2007-2016 中科点击（北京）科技有限公司-版权所有 京ICP备11012241-3号</p>
     </div>
-<script src="../vendor/jquery.min.js"></script>
-<script src="../vendor/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<script src="../vendor/alert/alert.js"></script>
-<script src="../vendor/loading/js/loading.min.js"></script>
+    <script src="../vendor/jquery.min.js"></script>
+    <script src="../vendor/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../vendor/alert/alert.js"></script>
+    <script src="../vendor/loading/js/loading.min.js"></script>
 </body>
+
 </html>
