@@ -34,7 +34,7 @@ function showIndusCompany(_pageNum,_pageSize) {
                     for (var i = 0; i < arr.length; i++) {
                         html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td><a href="/apis/report/htmlInfo.html?id='+arr[i].id+'">' + arr[i].name +
                             '</a></td><td>' + arr[i].time + '</td><td><a href="/apis/report/cover.htm?id='+arr[i].id+'" target="_blank">/apis/report/cover.htm?id=' + arr[i].id + '</a></td><td class="actions">' +
-                            '<a href="javascript:void(0);" class="on-default my_edit modal-basic"><i class="fa fa-pencil"></i></a></td></tr>';
+                            '<a href="javascript:void(0);" class="on-default my_edit modal-basic">修改</a><a href="javascript:void(0);" class="on-default my_drop modal-basic">删除</a></td></tr>';
 
                     }
                     $("#report_list").html(html);
@@ -56,6 +56,19 @@ function showIndusCompany(_pageNum,_pageSize) {
 function initPage(){
     $(".my_edit").on("click",function(){
         var _id = $(this).parents('.gradeX').find( 'input' ).val();
-        //window.location.href="/apis/user/editUserBase.html?id="+_id+"&parkId="+_park_id;
+        window.location.href="/apis/report/editHtml.html?id="+_id;
+    });
+    $(".my_drop").on("click",function(){
+        layer.confirm('确认删除该内容？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            $.get("/apis/report/dropHtmlData.json?id="+_id,function (response) {
+                if(response.success){
+                    window.location.href="/apis/report/htmlReport.html";
+                }else{
+                    layer.alert(response.message);
+                }
+            });
+        });
     });
 }

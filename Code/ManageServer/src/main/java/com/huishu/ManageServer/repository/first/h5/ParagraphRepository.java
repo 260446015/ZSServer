@@ -1,6 +1,5 @@
 package com.huishu.ManageServer.repository.first.h5;
 
-import com.huishu.ManageServer.entity.dbFirst.h5.Headlines;
 import com.huishu.ManageServer.entity.dbFirst.h5.Paragraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -22,5 +21,5 @@ public interface ParagraphRepository extends CrudRepository<Paragraph, Long> {
 	List<String> findByHeadlinesIdGroupByKeyWord(Long headlinesId);
 	@Query(value="select text from t_html_paragraph where headlines_id=?1 and key_word = ?2",nativeQuery=true)
 	List<String> findByHeadlinesIdAndKeyWord(Long headlinesId,String keyWord);
-
+	void deleteByReportId(Long reportId);
 }

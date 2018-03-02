@@ -28,4 +28,5 @@ public interface HeadlinesRepository extends CrudRepository<Headlines, Long> {
 	 * @return
 	 */
 	Headlines findByReportIdAndName(Long reportId,String name);
+	void deleteByReportId(Long reportId);
 }
