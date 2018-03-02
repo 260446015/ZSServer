@@ -231,7 +231,7 @@
                                                         <td><input name="people_name"></td>
                                                         <td><input name="people_identity"></td>
                                                         <td><input name="people_logo"></td>
-                                                        <td><input name="people_reason"></td>
+                                                        <td><textarea name="people_reason"></textarea></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -252,22 +252,22 @@
                                                     <tr>
                                                         <td><input name="company_name1"></td>
                                                         <td><input name="company_logo1"></td>
-                                                        <td><input name="company_reason1"></td>
+                                                        <td><textarea name="company_reason1"></textarea></td>
                                                     </tr>
                                                     <tr>
                                                         <td><input name="company_name2"></td>
                                                         <td><input name="company_logo2"></td>
-                                                        <td><input name="company_reason2"></td>
+                                                        <td><textarea name="company_reason2"></textarea></td>
                                                     </tr>
                                                     <tr>
                                                         <td><input name="company_name3"></td>
                                                         <td><input name="company_logo3"></td>
-                                                        <td><input name="company_reason3"></td>
+                                                        <td><textarea name="company_reason3"></textarea></td>
                                                     </tr>
                                                     <tr>
                                                         <td><input name="company_name4"></td>
                                                         <td><input name="company_logo4"></td>
-                                                        <td><input name="company_reason4"></td>
+                                                        <td><textarea name="company_reason4"></textarea></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

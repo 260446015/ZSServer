@@ -209,6 +209,30 @@ public class ReportController extends BaseController {
 	}
 
 	/**
+	 * 删除报告
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "dropHtmlData.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult dropHtmlData(Long id) {
+		if(id==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			Boolean flag = reportService.dropHtmlData(id);
+			if (flag) {
+				return success(MsgConstant.OPERATION_SUCCESS);
+			} else {
+				return error(MsgConstant.OPERATION_ERROR);
+			}
+		}catch (Exception e){
+			LOGGER.error("删除H5月报失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+
+	/**
 	 * 添加h5报告基本数据与模块信息
 	 * @param dto
 	 * @return
@@ -216,7 +240,8 @@ public class ReportController extends BaseController {
 	@RequestMapping(value = "addHtmlData.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult addHtmlData(@RequestBody HtmlAddDTO dto) {
-		if(dto==null||StringUtil.isEmpty(dto.getName())||StringUtil.isEmpty(dto.getTime())){
+		if(dto==null||StringUtil.isEmpty(dto.getName())||StringUtil.isEmpty(dto.getTime())
+				||dto.getFocus().length==0||dto.getDynamic().length==0){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {

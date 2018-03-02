@@ -50,7 +50,7 @@
                                 <tr>
                                     <th>报告名</th>
                                     <th>报告时段</th>
-                                    <th>创建时间</th>
+                                    <th>访问路径</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>

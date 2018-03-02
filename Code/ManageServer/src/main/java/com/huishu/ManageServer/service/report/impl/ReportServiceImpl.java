@@ -204,6 +204,12 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
+	public Boolean dropHtmlData(Long id) {
+		monthlyReportRepository.delete(id);
+		return true;
+	}
+
+	@Override
 	@Transactional
 	public Long addHtmlData(HtmlAddDTO dto) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

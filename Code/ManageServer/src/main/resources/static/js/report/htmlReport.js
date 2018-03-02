@@ -33,7 +33,7 @@ function showIndusCompany(_pageNum,_pageSize) {
                     var html = '';
                     for (var i = 0; i < arr.length; i++) {
                         html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].id+'"/><td><a href="/apis/report/htmlInfo.html?id='+arr[i].id+'">' + arr[i].name +
-                            '</a></td><td>' + arr[i].time + '</td><td>' + arr[i].createTime + '</td><td class="actions">' +
+                            '</a></td><td>' + arr[i].time + '</td><td><a href="/apis/report/cover.htm?id='+arr[i].id+'" target="_blank">/apis/report/cover.htm?id=' + arr[i].id + '</a></td><td class="actions">' +
                             '<a href="javascript:void(0);" class="on-default my_edit modal-basic"><i class="fa fa-pencil"></i></a></td></tr>';
 
                     }

@@ -13,10 +13,11 @@ function addData(id) {
                 $(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">'+value.name+'</label>' +
                     '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
                     '<thead><tr><th style="width: 50px;">关键词</th><th>文本</th></tr></thead>' +
-                    '<tbody id="table_'+index+'"><tr><td><input name="key_'+index+'_'+i+'"></td><td><input name="text_'+index+'_'+i+'" class="col-md-12"></td></tr></tbody></table>' +
+                    '<tbody id="table_'+index+'"><tr><td><input name="key_'+index+'_'+i+'"></td>' +
+                    '<td><textarea name="text_'+index+'_'+i+'" class="col-md-12"></textarea></td></tr></tbody></table>' +
                     '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_'+index+'">添加数据 <i class="fa fa-plus"></i></button></div></div>');
                 $(".add_"+index+"").on("click",function () {
-                    $("#table_"+index+"").append('<tr><td><input name="key_'+index+'_'+i+'"></td><td><input name="text_'+index+'_'+i+'" class="col-md-12"></td></tr>');
+                    $("#table_"+index+"").append('<tr><td><input name="key_'+index+'_'+i+'"></td><td><textarea name="text_'+index+'_'+i+'" class="col-md-12"></textarea></td></tr>');
                     i++;
                 });
                 $(".btn-success").on("click",function(){
@@ -40,6 +41,11 @@ $(".btn-danger").on("click",function(){
         window.location.href="/apis/report/htmlReport.html";
     });
 });
+function myDelete() {
+    $.get("/apis/report/dropHtmlData.json?id="+_id,function (response) {
+
+    });
+}
 function savaFocus() {
     var _data =new Array();
     if(result.length==_size){

@@ -2,12 +2,6 @@ $("#report_info").addClass("active nav-expanded ");
 $("#html_item").addClass("active");
 var i=1;
 $(function () {
-    $(".my_add").on("click",function () {
-        i=i+1;
-        $("#my_body").append('<tr><td><input type="text" name="sort'+i+'" class="form-control" value="'+i+'" disabled></td>' +
-            '<td><input type="text" name="name'+i+'" class="form-control" placeholder=""></td>' +
-            '<td><input type="text" name="logo'+i+'" class="form-control" placeholder=""></td></tr>');
-    });
     $(".add_word").on("click",function () {
         var a=$(this);
         layer.prompt({title: '输入关键字，并确认', formType: 0}, function(text, index){
@@ -57,14 +51,14 @@ $(function () {
         for(var i=1;i<5;i++){
             _company.push({
                 name:$("input[name='company_name"+i+"']").val(),
-                reason:$("input[name='company_reason"+i+"']").val(),
+                reason:$("textarea[name='company_reason"+i+"']").val(),
                 logo:$("input[name='company_logo"+i+"']").val()
             });
         }
         var _recommend={
             company:_company,
             people:{
-                reason:$("input[name='people_reason']").val(),
+                reason:$("textarea[name='people_reason']").val(),
                 identity:$("input[name='people_identity']").val(),
                 name:$("input[name='people_name']").val(),
                 logo:$("input[name='people_logo']").val()

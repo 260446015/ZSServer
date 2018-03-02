@@ -35,13 +35,13 @@ function addData(id) {
                         '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
                         '<thead><tr><th style="width: 50px;">标题</th><th>概要</th><th>原文链接</th><th>发布者</th></tr></thead>' +
                         '<tbody id="table_' + index + '"><tr><td><input name="key_' + index + '_' + i + '"></td>' +
-                        '<td><input name="text_' + index + '_' + i + '" class="col-md-9"></td>' +
+                        '<td><textarea name="text_' + index + '_' + i + '" class="col-md-9"></textarea></td>' +
                         '<td><input name="img_' + index + '_' + i + '"></td>' +
                         '<td><input name="people_' + index + '_' + i + '"></td>' +
                         '</tr></tbody></table>' +
                         '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button></div></div>');
                     $(".add_" + index + "").on("click", function () {
-                        $("#table_" + index + "").append('<tr><td><input name="key_' + index + '_' + i + '"></td><td><input name="text_' + index + '_' + i + '" class="col-md-9"></td>' +
+                        $("#table_" + index + "").append('<tr><td><input name="key_' + index + '_' + i + '"></td><td><textarea name="text_' + index + '_' + i + '" class="col-md-9"></textarea></td>' +
                             '<td><input name="img_' + index + '_' + i + '"></td><td><input name="people_' + index + '_' + i + '"></td></tr>');
                         i++;
                     });
@@ -52,14 +52,14 @@ function addData(id) {
                         '<tbody id="table_' + index + '"><tr>' +
                         '<td><input name="key_' + index + '_' + i + '"></td>' +
                         '<td><input name="money_' + index + '_' + i + '"></td>' +
-                        '<td><input name="text_' + index + '_' + i + '" class="col-md-9"></td>' +
+                        '<td><textarea name="text_' + index + '_' + i + '" class="col-md-9"></textarea></td>' +
                         '</tr></tbody></table>' +
                         '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button></div></div>');
                     $(".add_" + index + "").on("click", function () {
                         $("#table_" + index + "").append('<tr><tr>' +
                             '<td><input name="key_' + index + '_' + i + '"></td>'+
                             '<td><input name="money_' + index + '_' + i + '"></td>'+
-                            '<td><input name="text_' + index + '_' + i + '" class="col-md-9"></td>' +
+                            '<td><textarea name="text_' + index + '_' + i + '" class="col-md-9"></textarea></td>' +
                             '</tr></tr>');
                         i++;
                     });
@@ -75,10 +75,10 @@ function addData(id) {
                     $(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">' + value.name + '</label>' +
                         '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
                         '<thead><tr><th style="width: 50px;">'+td+'</th><th>文本</th></tr></thead>' +
-                        '<tbody id="table_' + index + '"><tr><td><input name="key_' + index + '_' + i + '"></td><td><input name="text_' + index + '_' + i + '" class="col-md-12"></td></tr></tbody></table>' +
+                        '<tbody id="table_' + index + '"><tr><td><input name="key_' + index + '_' + i + '"></td><td><textarea name="text_' + index + '_' + i + '" class="col-md-12"></textarea></td></tr></tbody></table>' +
                         '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button></div></div>');
                     $(".add_" + index + "").on("click", function () {
-                        $("#table_" + index + "").append('<tr><td><input name="key_' + index + '_' + i + '"></td><td><input name="text_' + index + '_' + i + '" class="col-md-12"></td></tr>');
+                        $("#table_" + index + "").append('<tr><td><input name="key_' + index + '_' + i + '"></td><td><textarea name="text_' + index + '_' + i + '" class="col-md-12"></textarea></td></tr>');
                         i++;
                     });
                 }

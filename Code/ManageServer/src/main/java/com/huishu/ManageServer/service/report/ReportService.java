@@ -78,6 +78,13 @@ public interface ReportService {
 	Page<MonthlyReport> getHtmlReport(AbstractDTO dto);
 
 	/**
+	 * 删除H5
+	 * @param id
+	 * @return
+	 */
+	Boolean dropHtmlData(Long id);
+
+	/**
 	 * 添加h5报告基本数据
 	 * @param dto
 	 * @return

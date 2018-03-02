@@ -38,8 +38,14 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-default bk-bg-white">
                         <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="bk-margin-bottom-10">
+                                        <a class="btn btn-info" href="javascript:history.go(-1)" onclick="myDelete()">返回上一页</a>
+                                    </div>
+                                </div>
+                            </div>
                             <form action="javascript:void(0)" method="post" class="form-horizontal ">
-
                             </form>
                             <p>
                                 <button class="bk-margin-5 btn btn-labeled btn-success" type="button">
