@@ -130,27 +130,15 @@ function industryChain() {
         type: 'GET',
         async: false,
         success: function (res) {
-            console.log(res)
-            
-             $('.aaa s').each(function(index,el){
-                 console.log($(el).text())
-                 for (var i = 0; i < res.data.length; i++) {
-                    /* $.each(res.data[i].keyWord, function (i, v) {
-                        console.log(keyWord1 + "==" + v + "+keyWord1 == v")
-                        if (keyWord1 == v) {
-    
-                            $('.aaa').css('color', '#0ec3ff')
-                        }
-                    }) */
-                    console.log(res.data[i].keyWord.indexOf($(el).text()))
-                    if(res.data[i].keyWord.indexOf($(el).text())>=0){
-                        console.log($(el)[0])
+            $('.aaa s').each(function (index, el) {
+                for (var i = 0; i < res.data.length; i++) {
+                    if (res.data[i].keyWord.indexOf($(el).text()) >= 0) {
                         $(el).addClass("redaa");
-                    }   
+                    }
                 }
-             })
-       
-            
+            })
+
+
             var strHtml = "";
             for (var i = 0; i < res.data.length; i++) {
                 strHtml += "<li>" + res.data[i].text + "</li>";
@@ -160,7 +148,7 @@ function industryChain() {
     })
     var swiper = new Swiper('.swiper-container', {
         pagination: {
-            el: '.swiper-pagination',
+            el: '.swiper-pagination'
         },
     });
 }
@@ -196,7 +184,7 @@ function apendHtml(_id, _name) {
         async: false,
         success: function (res) {
             if (_name == '政策焦点') {
-                var policyhtml = $("<div class='page page11'></div>");
+                var policyhtml = $("<div class='page page11 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
@@ -218,7 +206,7 @@ function apendHtml(_id, _name) {
                 policyhtml.append(boxdom)
                 $('.page5').after(policyhtml);
             } else if (_name == '资本焦点') {
-                var policyhtml = $("<div class='page page12'></div>");
+                var policyhtml = $("<div class='page page12 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
@@ -232,7 +220,7 @@ function apendHtml(_id, _name) {
                 policyhtml.append(boxdom)
                 $('.page5').after(policyhtml);
             } else if (_name == '市场焦点') {
-                var policyhtml = $("<div class='page page13'></div>");
+                var policyhtml = $("<div class='page page13 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
@@ -246,7 +234,7 @@ function apendHtml(_id, _name) {
                 policyhtml.append(boxdom)
                 $('.page5').after(policyhtml);
             } else if (_name == '舆论焦点') {
-                var policyhtml = $("<div class='page page14'></div>");
+                var policyhtml = $("<div class='page page14 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
@@ -268,7 +256,7 @@ function apendHtml(_id, _name) {
                 policyhtml.append(boxdom)
                 $('.page5').after(policyhtml);
             } else if (_name == '技术焦点') {
-                var policyhtml = $("<div class='page page12'></div>");
+                var policyhtml = $("<div class='page page12 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
@@ -282,7 +270,7 @@ function apendHtml(_id, _name) {
                 policyhtml.append(boxdom)
                 $('.page5').after(policyhtml);
             } else if (_name == '未来焦点') {
-                var policyhtml = $("<div class='page page13'></div>");
+                var policyhtml = $("<div class='page page13 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
@@ -319,7 +307,7 @@ function company() {
             var str = res.data.people;
             var manHtml = "";
             manHtml += "<ul>"
-            manHtml += "<li> <img src='/img/photo/renwu.png' alt=''></li>";
+            manHtml += "<li> <img src=" + str.logo + " alt=''></li>";
             manHtml += "<li class='texts'>" + str.name + "</li>";
             manHtml += "<li class='texts'>" + str.identity + "</li>";
             manHtml += "<li>上榜理由：" + str.reason + "</li>"
@@ -358,7 +346,7 @@ function adddynamic(id, name) {
         async: false,
         success: function (res) {
             if (name == '各地新闻') {
-                var policyhtml = $("<div class='page page17'></div>");
+                var policyhtml = $("<div class='page page17 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'><div id='map' style='height:16rem'></div><div class='maptext'><ul></ul></div></div>");
@@ -366,7 +354,7 @@ function adddynamic(id, name) {
                 $('.page6').after(policyhtml);
                 ajaxMap(id);
             } else if (name == '合作动向') {
-                var policyhtml = $("<div class='page page18'></div>");
+                var policyhtml = $("<div class='page page18 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
@@ -388,7 +376,7 @@ function adddynamic(id, name) {
                 policyhtml.append(boxdom)
                 $('.page6').after(policyhtml);
             } else if (name == '企业动向') {
-                var policyhtml = $("<div class='page page19'></div>");
+                var policyhtml = $("<div class='page page19 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
@@ -402,7 +390,7 @@ function adddynamic(id, name) {
                 policyhtml.append(boxdom)
                 $('.page6').after(policyhtml);
             } else if (name == '会议日程') {
-                var policyhtml = $("<div class='page page20'></div>");
+                var policyhtml = $("<div class='page page20 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 // var container = $("<div class='container'></div>");
@@ -412,7 +400,7 @@ function adddynamic(id, name) {
                 $('.page6').after(policyhtml);
                 dayMeeting(id)
             } else if (name == '排行报告') {
-                var policyhtml = $("<div class='page page21'></div>");
+                var policyhtml = $("<div class='page page21 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
@@ -427,7 +415,7 @@ function adddynamic(id, name) {
                 policyhtml.append(boxdom)
                 $('.page6').after(policyhtml)
             } else if (name == '投融速递') {
-                var policyhtml = $("<div class='page page22'></div>");
+                var policyhtml = $("<div class='page page22 section'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'><div id='bar' style='height:16rem'></div><div class='maptexts'><ul></ul></div></div>");
@@ -759,26 +747,12 @@ function getmege(faucet) {
 
 }
 
-//页面上下滑动
 
-setInterval(function () {
-    var newpage = 0;
-    var num = $('.skippage .page').length - 1;
-    $('.skippage').swipe({
-        swipe: function (event, direction, distance, duration, fingerCount) {
-            if (direction == 'up') {
-                newpage = newpage + 1;
-            } else if (direction == 'down') {
-                newpage = newpage - 1;
-            }
-            if (newpage > num) {
-                newpage = num;
-            }
-            if (newpage < 0) {
-                newpage = 0;
-            }
-            $('.skippage').animate({ "top": newpage * -100 + "%" })
-        }
-    })
+
+setTimeout(function () {
+    $(function () {
+        $('#dowebok').fullpage();
+    });
 }, 1000)
+
 

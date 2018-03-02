@@ -12,14 +12,15 @@
     <title>慧数招商人工智能行业月度报告</title>
     <link rel="stylesheet" href="/vendor/base.css">
     <link rel="stylesheet" href="/vendor/swiper-4.1.6.min.css">
+    <link rel="stylesheet" href="/vendor/jquery.fullPage.css">
     <link rel="stylesheet" href="/vendor/rem.js">
     <link rel="stylesheet" href="/css/common.css">
 </head>
 
 <body onmousewheel="return false;">
     <div class="bigbox">
-        <div class="skippage">
-            <div class="page page1">
+        <div class="skippage" id="dowebok">
+            <div class="page page1 section">
                 <div class="head">
                     <span>
                         <img src="/img/icon/icon.png" alt="慧数招商">
@@ -35,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="page page2">
+            <div class="page page2 section">
                 <header>
                     <!-- <div class="left">
                             <
@@ -50,7 +51,7 @@
                     <div>
                         <ul>
                             <li>
-                                <a href="/apis/report/workdirectory/keyword.htm">
+                                <a href="#">
                                     <span class="mb10">
                                         <img src="/img/icon/icon1.png" alt="">
                                     </span>
@@ -58,7 +59,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/apis/report/workdirectory/industry.htm">
+                                <a href="#">
                                     <span class="mb10">
                                         <img src="/img/icon/icon2.png" alt="">
                                     </span>
@@ -68,7 +69,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/apis/report/workdirectory/monthfocus.htm">
+                                <a href="#">
                                     <span class="mb10">
                                         <img src="/img/icon/icon3.png" alt="">
                                     </span>
@@ -78,7 +79,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/apis/report/workdirectory/Industrynews.htm">
+                                <a href="#">
                                     <span class="mb10">
                                         <img src="/img/icon/icon4.png" alt="">
                                     </span>
@@ -88,7 +89,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/apis/report/workdirectory/company.htm">
+                                <a href="#">
                                     <span class="mb10">
                                         <img src="/img/icon/icon5.png" alt="">
                                     </span>
@@ -98,7 +99,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/apis/report/enterprise/quality.htm">
+                                <a href="#">
                                     <span class="mb10">
                                         <img src="/img/icon/icon6.png" alt="">
                                     </span>
@@ -111,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            <div class="page page3">
+            <div class="page page3 section">
                 <header>
                     <!-- <div class="left">
                         <
@@ -127,7 +128,7 @@
                     </div>
                 </div>
             </div>
-            <div class="page page4">
+            <div class="page page4 section">
                 <header>
                     <!-- <div class="left">
                         <
@@ -160,41 +161,47 @@
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i class="aaa">语音与声学识别
+                                        <i class="aaa">
+                                            <s>语音与声学识别</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>计算机视觉与图像
-                                            <small></small>
-                                        </i>
-
-                                        <b></b>
-                                    </span>
-                                    <span>
-                                        <i>AI平台
+                                        <i class="aaa">
+                                            <s>计算机视觉与图像</s>
                                             <small></small>
                                         </i>
 
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>其他
+                                        <i class="aaa">
+                                            <s>AI平台</s>
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
+                                    <span> 
+                                        <i class="aaa">
+                                            <s>其他</s>
                                             <small></small>
                                         </i>
 
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i class="wide">人工智能产业
+                                        <i class="wide aaa">
+                                            <s>人工智能产业</s>
                                             <small class="bigcircle"></small>
                                         </i>
 
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>技术层
+                                        <i class="aaa">
+                                            <s>技术层</s>
                                             <small></small>
                                         </i>
 
@@ -205,109 +212,127 @@
                             <li class="swiper-slide">
                                 <div class="lightspot2 keyWord">
                                     <span>
-                                        <i class="highlight">交通
+                                        <i class="highlight aaa">
+                                            <s>交通</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>物流
+                                        <i class="aaa">
+                                            <s>物流</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>家用机器人
+                                        <i class="aaa">
+                                            <s>家用机器人</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>工业机器人
+                                        <i class="aaa">
+                                            <s>工业机器人</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>无人机
+                                        <i class="aaa">
+                                            <s>无人机</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>仓储物流
+                                        <i class="aaa">
+                                            <s>仓储物流</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>硬件
+                                        <i class="aaa">
+                                            <s>硬件</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>应用服务层
+                                        <i class="aaa">
+                                            <s>应用服务层</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>人工智能产业
+                                        <i class="aaa">
+                                            <s>人工智能产业</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>软件
+                                        <i class="aaa">
+                                            <s>软件</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>医疗健康
+                                        <i class="aaa">
+                                            <s>医疗健康</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>营销和销售
+                                        <i class="aaa">
+                                            <s>营销和销售</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>定制服务
+                                        <i class="aaa">
+                                            <s>定制服务</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>网络安全
+                                        <i class="aaa">
+                                            <s>网络安全</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>农业
+                                        <i class="aaa">
+                                            <s>农业</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>客服
+                                        <i class="aaa">
+                                            <s>客服</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>教育
+                                        <i class="aaa">
+                                            <s>教育</s>
                                             <small></small>
                                         </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>金融
+                                        <i class="aaa">
+                                            <s>金融</s>
                                             <small></small>
                                         </i>
                                         <b></b>
@@ -317,50 +342,48 @@
                             <li class="swiper-slide">
                                 <div class="lightspot3 keyWord">
                                     <span>
-                                        <i>芯片和量子计算机
+                                        <i class="aaa">
+                                            <s>芯片和量子计算机</s>
                                             <small></small>
                                         </i>
 
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>传感器
+                                        <i class="aaa">
+                                            <s>传感器</s>
                                             <small></small>
                                         </i>
 
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>硬件
+                                        <i class="aaa">
+                                            <s>硬件</s>
                                             <small></small>
                                         </i>
 
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>基础支撑层
+                                        <i class="aaa">
+                                            <s>基础支撑层</s>
                                             <small></small>
                                         </i>
 
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>人工智能产业
+                                        <i class="aaa">
+                                            <s>人工智能产业</s>
                                             <small></small>
                                         </i>
 
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>软件
-                                            <small></small>
-                                        </i>
-
-                                        <b></b>
-
-                                    </span>
-                                    <span>
-                                        <i>大数据
+                                        <i class="aaa">
+                                            <s>软件</s>
                                             <small></small>
                                         </i>
 
@@ -368,14 +391,25 @@
 
                                     </span>
                                     <span>
-                                        <i>云计算
+                                        <i class="aaa">
+                                            <s>大数据</s>
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+
+                                    </span>
+                                    <span>
+                                        <i class="aaa">
+                                            <s>云计算</s>
                                             <small></small>
                                         </i>
 
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>算法结构
+                                        <i class="aaa">
+                                            <s>算法结构</s>
                                             <small></small>
                                         </i>
 
@@ -401,7 +435,7 @@
                     </div>
                 </div>
             </div>
-            <div class="page page5">
+            <div class="page page5 section">
                 <header>
                     <!-- <div class="left">
                         <
@@ -421,7 +455,7 @@
                 </div>
             </div>
 
-            <div class="page page6">
+            <div class="page page6 section">
                 <header>
                     <!-- <div class="left">
                         <
@@ -440,7 +474,7 @@
                     </div>
                 </div>
             </div>
-            <div class="page page7">
+            <div class="page page7 section">
                 <header>
                     <!-- <div class="left">
                         <
@@ -457,7 +491,7 @@
                     </div>
                 </div>
             </div>
-            <div class="page page8">
+            <div class="page page8 section">
                 <header>
                     <!-- <div class="left">
                         <
@@ -475,7 +509,7 @@
                     </div>
                 </div>
             </div>
-            <div class="page page9">
+            <div class="page page9 section">
                 <header>
                     <!-- <div class="left">
                         <
@@ -491,7 +525,7 @@
                     </div>
                 </div>
             </div>
-            <div class="page page10">
+            <div class="page page10 section">
                 <header>
                     <!-- <div class="left">
                         <
@@ -514,7 +548,6 @@
                 </div>
             </div>
         </div>
-
         <footer>
             <div class="index">
                 <img src="/img/icon/jiantou.png" alt="" class="img">
@@ -525,14 +558,13 @@
     <script src="/vendor/echarts/echarts.min.js"></script>
     <script src="/vendor/echarts/china.js"></script>
     <script src="/vendor/echarts/dataTool.min.js"></script>
-    <script src="/vendor/jquery.touchSwipe.min.js"></script>
+    <script src="/vendor/jquery.fullPage.min.js"></script>
     <script src="/vendor/swiper-4.1.6.min.js"></script>
     <script src="/js/cover/cover.js"></script>
     <script src="/vendor/jalendar.js"></script>
     <script>
         $(function () {
             addData(${ id });
-
         });
     </script>
 </body>

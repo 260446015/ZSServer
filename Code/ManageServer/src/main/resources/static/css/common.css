@@ -1639,7 +1639,6 @@ footer div img{
 
 .container .starmanimg{
     margin:20px;
-    height: 29rem;
     background: url(../img/bgimg/kuang.png);
     background-size: 100% 100%;
 }
@@ -1830,6 +1829,7 @@ footer div img{
    height: 32px;
    border: 1px solid #22224c;
    display: none;
+   background: #101029;
 }
 
 /* 各地新闻 */
@@ -2004,4 +2004,11 @@ footer div img{
 }
 .daytext ul li:last-child{
     border-bottom: none;
+}
+
+.redaa{
+    color: #0bb2eb;
+}
+s{
+    text-decoration:none;
 }
