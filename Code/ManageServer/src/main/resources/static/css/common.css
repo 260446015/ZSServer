@@ -207,6 +207,14 @@ html,body{
     background-size: 100% 100%;
 }
 
+.bigbox .page15{
+    background: url(../img/bgimg/bg2.png);
+    background-size: 100% 100%;
+}
+.bigbox .page16{
+    background: url(../img/bgimg/bg2.png);
+    background-size: 100% 100%;
+}
 .bigbox .page17{
     background: url(../img/bgimg/bg3.png);
     background-size: 100% 100%;
@@ -223,7 +231,7 @@ html,body{
     background-size: 100% 100%;
 }
 
-.page .page22{
+.bigbox .page22{
     background: url(../img/bgimg/bg2.png);
     background-size: 100% 100%;
 }
@@ -813,15 +821,21 @@ footer div img{
 
 
 .industrytop>ul{
-    height: 18rem;
+    height: 20rem;
     position: relative;
 }
 
+.lightspot1{
+    width: 300px;
+    height: 300px;
+    position: relative;
+    margin: 0 auto;
+}
 
 .lightspot1 span:nth-child(1){
     position: absolute;
-    left: 8%;
-    top: 41%;
+    left: 5%;
+    top: 32%;
 }
 
 .lightspot1 span:nth-child(1) small{
@@ -848,8 +862,8 @@ footer div img{
 
 .lightspot1 span:nth-child(2){
     position: absolute;
-    left: 11%;
-    top: 16%;
+    left: 10%;
+    top: 14%;
 }
 
 .lightspot1 span:nth-child(2) b{
@@ -930,7 +944,7 @@ footer div img{
 .lightspot1 span:nth-child(5) {
     position: absolute;
     left: 69%;
-    top: 33%;
+    top: 28%;
 }
 
 .lightspot1 span:nth-child(5) b{
@@ -956,8 +970,8 @@ footer div img{
 
 .lightspot1 span:nth-child(6) {
     position: absolute;
-    left: 75%;
-    top: 46%;
+    left: 78%;
+    top: 36%;
 }
 
 .lightspot1 span:nth-child(6) b{
@@ -983,21 +997,21 @@ footer div img{
 
 .lightspot1 span:nth-child(7) {
     position: absolute;
-    left: 60%;
-    top: 84%;
+    left: 61%;
+    top: 63%;
 }
 
 .lightspot1 span:nth-child(8){
     position: absolute;
     left: 41%;
-    top: 63%;
+    top: 48%;
 }
 
 .lightspot1 span:nth-child(8) small{
     width: 5px;
     height: 5px;
     display: block;
-    background-color: #063952;
+    background-color: #0ec3ff;
     border-radius: 100%;
     position: absolute;
     left: -4%;
@@ -1014,6 +1028,534 @@ footer div img{
     top: 72%;
     transform: skew(57deg);
 }
+.lightspot2{
+    width: 310px;
+    height: 400px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.lightspot2 span{
+    position: absolute;
+}
+
+/* .lightspot2 span i{
+    width: 7rem;
+} */
+
+.lightspot2 span i small{
+    width: 5px;
+    height: 5px;
+    display: block;
+    background-color: #063952;
+    border-radius: 100%;
+    position: absolute;
+}
+
+.lightspot2 span:nth-child(1){
+    left: 17%;
+    top: 8%;
+}
+
+.lightspot2 span:nth-child(1) b{
+    width: 2rem;
+    height: 4rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 102%;
+    top: 120%;
+    transform: skew(242deg);
+}
+
+.lightspot2 span:nth-child(2){
+    left: 29%;
+    top: 5%;
+}
+
+.lightspot2 span:nth-child(2) b{
+    width: 2rem;
+    height: 4.8rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 61%;
+    top: 115%;
+    transform: skew(44deg);
+}
+
+.lightspot2 span:nth-child(3){
+    left: 41%;
+    top: 2%;
+}
+.lightspot2 span:nth-child(3) i{
+    width: 7rem;
+}
+
+.lightspot2 span:nth-child(3) small{
+    left: 40%;
+    top: 98%;
+}
+
+.lightspot2 span:nth-child(3) b{
+    width: 2rem;
+    height: 5.5rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 35%;
+    top: 129%;
+    transform: skew(-11deg);
+}
+
+.lightspot2 span:nth-child(4){
+    left: 62%;
+    top:4%;
+}
+
+.lightspot2 span:nth-child(4) i{
+    width: 7rem;
+}
+
+.lightspot2 span:nth-child(4) b{
+    width: 2rem;
+    height: 5.1rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: -22%;
+    top: 127%;
+    transform: skew(-37deg);
+}
+
+.lightspot2 span:nth-child(5){
+    left: 76%;
+    top:9%;
+}
+
+.lightspot2 span:nth-child(5) b{
+    width: 2rem;
+    height: 4.3rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: -69%;
+    top: 72%;
+    transform: skew(-63deg);
+}
+
+.lightspot2 span:nth-child(6){
+    left: 78%;
+    top: 15%;
+}
+
+.lightspot2 span:nth-child(6) b{
+    width: 2rem;
+    height: 1.7rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: -80%;
+    top: 113%;
+    transform: skew(-78deg);
+}
+.lightspot2 span:nth-child(8){
+    left: 54%;
+    top: 31%;
+}
+
+.lightspot2 span:nth-child(8) i{
+    width: 7rem;
+}
+
+.lightspot2 span:nth-child(8) small{
+    background: #0bb2eb;
+    width: 6px;
+    height: 6px;
+}
+
+.lightspot2 span:nth-child(8) b{
+    width: 2rem;
+    height: 2.5rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 42%;
+    top: 132%;
+    transform: skew(62deg);
+}
+.lightspot2 span:nth-child(7){
+    left: 47%;
+    top: 20%;
+}
+
+.lightspot2 span:nth-child(7) small{
+    background: #0ec3ff;
+}
+
+.lightspot2 span:nth-child(7) b{
+    width: 2rem;
+    height: 3.5rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 29%;
+    top: 111%;
+    transform: skew(25deg);
+}
+.lightspot2 span:nth-child(9){
+    left: 73%;
+    top: 39%;
+}
+
+.lightspot2 span:nth-child(9) i{
+    width: 7rem;
+}
+
+.lightspot2 span:nth-child(9) small{
+    background: #0bb2eb;
+    width: 7px;
+    height: 7px;
+}
+
+.lightspot2 span:nth-child(10){
+    left: 37%;
+    top: 34%;
+}
+
+.lightspot2 span:nth-child(10) small{
+    background: #0ec3ff;
+}
+
+.lightspot2 span:nth-child(10) b{
+    width: 2rem;
+    height: 1rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 61%;
+    top: 56%;
+    transform: skew(-259deg);
+}
+.lightspot2 span:nth-child(11){
+    left: 18%;
+    top: 23%;
+}
+.lightspot2 span:nth-child(11) b{
+    width: 2rem;
+    height: 3.5rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 70%;
+    top: 116%;
+    transform: skew(54deg);
+}
+.lightspot2 span:nth-child(12){
+    left: 9%;
+    top: 29%;
+}
+.lightspot2 span:nth-child(12) i{
+    width: 7rem;
+}
+
+.lightspot2 span:nth-child(12) b{
+    width: 2rem;
+    height: 2rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 56%;
+    top: 105%;
+    transform: skew(75deg);
+}
+.lightspot2 span:nth-child(13){
+    left: 9%;
+    top: 41%
+}
+
+.lightspot2 span:nth-child(13) b{
+    width: 2rem;
+    height: 2.5rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 95%;
+    top: -45%;
+    transform: skew(110deg);
+}
+.lightspot2 span:nth-child(14){
+    left:24%;
+    top: 46%;
+}
+
+.lightspot2 span:nth-child(14) b{
+    width: 2rem;
+    height: 2.5rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 58%;
+    top: -142%;
+    transform: skew(136deg);
+}
+.lightspot2 span:nth-child(15){
+    left: 31%;
+    top: 51%;
+}
+
+.lightspot2 span:nth-child(15) b{
+    width: 2rem;
+    height: 5.6rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 27%;
+    top: -262%;
+    transform: skew(-199deg);
+}
+.lightspot2 span:nth-child(16){
+    left: 47%;
+    top: 50%;
+}
+
+.lightspot2 span:nth-child(16) b{
+    width: 2rem;
+    height: 4.9rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: -23%;
+    top: -233%;
+    transform: skew(22deg);
+}
+.lightspot2 span:nth-child(17){
+    left: 59%;
+    top: 51%;
+}
+
+.lightspot2 span:nth-child(17) b{
+    width: 2rem;
+    height: 5.5rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: -58%;
+    top: -258%;
+    transform: skew(45deg);
+}
+.lightspot2 span:nth-child(18){
+    left: 76%;
+    top: 46%;
+}
+
+.lightspot2 span:nth-child(18) b{
+    width: 2rem;
+    height: 4rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: -113%;
+    top: -152%;
+    transform: skew(69deg);
+}
+
+.lightspot3 {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.lightspot3 span{
+    position: absolute;
+}
+
+.lightspot3 span i small{
+    width: 5px;
+    height: 5px;
+    display: block;
+    background-color: #063952;
+    border-radius: 100%;
+    position: absolute;
+}
+
+.lightspot3 span i{
+    width: 7rem;
+    text-align: left;
+}
+
+.lightspot3 span:nth-child(1){
+    left: 20%;
+    top: 3%;
+}
+
+
+.lightspot3 span:nth-child(1) b{
+    width: 2rem;
+    height: 2.5rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 38%;
+    top: 115%;
+    transform: skew(63deg);
+}
+
+.lightspot3 span:nth-child(2){
+    left: 50%;
+    top: 15%;
+}
+
+.lightspot3 span:nth-child(2) i small{
+    left: 20%;
+    top: -96%;
+}
+
+.lightspot3 span:nth-child(2) b{
+    width: 2rem;
+    height: 3rem;
+    display: block;
+    border-left: 2px solid #11335b;
+    position: absolute;
+    left: -5%;
+    top:-73%;
+    transform: skew(-50deg);
+}
+
+.lightspot3 span:nth-child(3){
+    left: 40%;
+    top: 15%;
+}
+
+.lightspot3 span:nth-child(3) small{
+    left: 2%;
+    top: 111%;
+    background: #0cbbf7;
+}
+
+.lightspot3 span:nth-child(3) b{
+    width: 2rem;
+    height: 3rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 10%;
+    top: 128%;
+    transform: skew(20deg);
+}
+
+.lightspot3 span:nth-child(4){
+    left: 46%;
+    top:28%;
+}
+.lightspot3 span:nth-child(4) small{
+    left: -4%;
+    top: 45%;
+    background: #0cbbf7;
+}
+
+.lightspot3 span:nth-child(4) b{
+    width: 2rem;
+    height: 3rem;
+    display: block;
+    border-left: 2px solid #11335b;
+    position: absolute;
+    left: 44%;
+    top: 64%;
+    transform: skew(64deg);
+}
+
+.lightspot3 span:nth-child(5){
+    left: 71%;
+    top: 35%;
+}
+
+.lightspot3 span:nth-child(5) small{
+    background: #0bb2eb;
+    width: 7px;
+    height: 7px;
+}
+
+.lightspot3 span:nth-child(6){
+    left: 30%;
+    top: 30%;
+
+}
+.lightspot3 span:nth-child(6) small{
+    left: 2%;
+    top:97%;
+    background: #0cbbf7;
+}
+
+.lightspot3 span:nth-child(6) b{
+     width: 2rem;
+    height: 1rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 31%;
+    top: 33%;
+    transform: skew(110deg);
+}
+
+.lightspot3 span:nth-child(7){
+   left: 21%;
+   top: 20%;
+}
+.lightspot3 span:nth-child(7) i small{
+    left:-14%;
+    top:115%;
+}
+
+.lightspot3 span:nth-child(7) b{
+    width: 2rem;
+    height: 3rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 10%;
+    top: 128%;
+    transform: skew(47deg);
+}
+
+.lightspot3 span:nth-child(8){
+    left: 11%;
+    top: 41%;
+}
+.lightspot3 span:nth-child(8) i small{
+    left: -7%;
+    top: 32%;
+}
+
+.lightspot3 span:nth-child(8) b{
+    width: 2rem;
+    height: 2.8rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 32%;
+    top: -130%;
+    transform: skew(118deg);
+}
+
+.lightspot3 span:nth-child(9){
+    left: 30%;
+    top: 41%;
+}
+
+.lightspot3 span:nth-child(9) b{
+    width: 2rem;
+    height: 3rem;
+    display: block;
+    border-left:1px solid #11335b;
+    position: absolute;
+    left: 5%;
+    top: -125%;
+    transform: skew(3deg);
+}
+
+
 
 .emptycircle{
     width: 100%;
@@ -1316,7 +1858,7 @@ footer div img{
 
  /* 会议日程 */
 
- .page .page20{
+ .bigbox .page20{
     background: url(../img/bgimg/bg2.png);
     background-size: 100% 100%;
 }

@@ -142,96 +142,245 @@
                     <div class="industrytop  swiper-container">
                         <ul class="swiper-wrapper">
                             <li class="swiper-slide">
-                                <div class="lightspot1">
+                                <div class="lightspot1 keyWord">
                                     <span>
-                                        <i>自动无人技术</i>
-                                        <small></small>
+                                        <i class="aaa">
+                                            <s>自动无人技术</s>
+
+                                            <small></small>
+                                        </i>
+
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>语义识别与分析</i>
-                                        <small></small>
+                                        <i class="aaa">
+                                            <s>语义识别与分析</s>
+                                            <small></small>
+                                        </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>语音与声学识别</i>
-                                        <small></small>
+                                        <i class="aaa">语音与声学识别
+                                            <small></small>
+                                        </i>
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>计算机视觉与图像</i>
-                                        <small></small>
+                                        <i>计算机视觉与图像
+                                            <small></small>
+                                        </i>
+
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>AI平台</i>
-                                        <small></small>
+                                        <i>AI平台
+                                            <small></small>
+                                        </i>
+
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>其他</i>
-                                        <small></small>
+                                        <i>其他
+                                            <small></small>
+                                        </i>
+
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i class="wide">人工智能产业</i>
-                                        <small class="bigcircle"></small>
+                                        <i class="wide">人工智能产业
+                                            <small class="bigcircle"></small>
+                                        </i>
+
                                         <b></b>
                                     </span>
                                     <span>
-                                        <i>技术层</i>
-                                        <small></small>
-                                        <b></b>
-                                    </span>
-                                </div> 
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="lightspot1">
-                                    <span>
-                                        <i>自动无人技术</i>
-                                        <small></small>
-                                        <b></b>
-                                    </span>
-                                    <span>
-                                        <i>语义识别与分析</i>
-                                        <small></small>
-                                        <b></b>
-                                    </span>
-                                    <span>
-                                        <i>语音与声学识别</i>
-                                        <small></small>
-                                        <b></b>
-                                    </span>
-                                    <span>
-                                        <i>计算机视觉与图像</i>
-                                        <small></small>
-                                        <b></b>
-                                    </span>
-                                    <span>
-                                        <i>AI平台</i>
-                                        <small></small>
-                                        <b></b>
-                                    </span>
-                                    <span>
-                                        <i>其他</i>
-                                        <small></small>
-                                        <b></b>
-                                    </span>
-                                    <span>
-                                        <i class="wide">人工智能产业</i>
-                                        <small class="bigcircle"></small>
-                                        <b></b>
-                                    </span>
-                                    <span>
-                                        <i>技术层</i>
-                                        <small></small>
+                                        <i>技术层
+                                            <small></small>
+                                        </i>
+
                                         <b></b>
                                     </span>
                                 </div>
                             </li>
                             <li class="swiper-slide">
-                                <div class="lightspot3">
-                                    <span></span>
+                                <div class="lightspot2 keyWord">
+                                    <span>
+                                        <i class="highlight">交通
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>物流
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>家用机器人
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>工业机器人
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>无人机
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>仓储物流
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>硬件
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>应用服务层
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>人工智能产业
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>软件
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>医疗健康
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>营销和销售
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>定制服务
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>网络安全
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>农业
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>客服
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>教育
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>金融
+                                            <small></small>
+                                        </i>
+                                        <b></b>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="lightspot3 keyWord">
+                                    <span>
+                                        <i>芯片和量子计算机
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>传感器
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>硬件
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>基础支撑层
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>人工智能产业
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>软件
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+
+                                    </span>
+                                    <span>
+                                        <i>大数据
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+
+                                    </span>
+                                    <span>
+                                        <i>云计算
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i>算法结构
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
                                 </div>
                             </li>
                         </ul>

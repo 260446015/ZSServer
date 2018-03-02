@@ -13,7 +13,7 @@ function addData(id) {
 //获取时间
 function coverTime() {
     $.ajax({
-        url: '/apis/report/getHtmlData.do?id=5',
+        url: '/apis/report/getHtmlData.do?id=' + reportId,
         type: 'GET',
         async: false,
         success: function (data) {
@@ -120,11 +120,37 @@ function getKey(_id, _data) {
 
 //产业高亮点
 function industryChain() {
+
+    function removeAllSpace(str) {
+        return str.replace(/\s+/g, "");
+    }
+
     $.ajax({
         url: '/apis/report/getHtmlData.do?id=' + reportId + '&type=chain',
         type: 'GET',
         async: false,
         success: function (res) {
+            console.log(res)
+            
+             $('.aaa s').each(function(index,el){
+                 console.log($(el).text())
+                 for (var i = 0; i < res.data.length; i++) {
+                    /* $.each(res.data[i].keyWord, function (i, v) {
+                        console.log(keyWord1 + "==" + v + "+keyWord1 == v")
+                        if (keyWord1 == v) {
+    
+                            $('.aaa').css('color', '#0ec3ff')
+                        }
+                    }) */
+                    console.log(res.data[i].keyWord.indexOf($(el).text()))
+                    if(res.data[i].keyWord.indexOf($(el).text())>=0){
+                        console.log($(el)[0])
+                        $(el).addClass("redaa");
+                    }   
+                }
+             })
+       
+            
             var strHtml = "";
             for (var i = 0; i < res.data.length; i++) {
                 strHtml += "<li>" + res.data[i].text + "</li>";
@@ -242,45 +268,32 @@ function apendHtml(_id, _name) {
                 policyhtml.append(boxdom)
                 $('.page5').after(policyhtml);
             } else if (_name == '技术焦点') {
-                var policyhtml = $("<div class='page page15'></div>");
+                var policyhtml = $("<div class='page page12'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
+                var boxdom = $("<div class='allcapital'></div>");
+                boxdom.append(container);
                 var strHtml = "";
                 for (var i = 0; i < res.data.length; i++) {
-                    if (i % 2) {
-                        strHtml += "<div class='rightborder'><p class='ptext'><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                            + "</small></p>";
-                        strHtml += "<p class='ptext'>" + res.data[i].text + "</p></div>"
-                    } else {
-                        strHtml += "<div class='leftborder'><p><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                            + "</small></p>";
-                        strHtml += "<p>" + res.data[i].text + "</p></div>"
-                    }
+                    strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
                 }
-                container.html(strHtml)
-                policyhtml.append(container)
+                boxdom.html(strHtml)
+                policyhtml.append(boxdom)
                 $('.page5').after(policyhtml);
             } else if (_name == '未来焦点') {
-
-                var policyhtml = $("<div class='page page16'></div>");
+                var policyhtml = $("<div class='page page13'></div>");
                 var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
                 policyhtml.append(appendHeader);
                 var container = $("<div class='container'></div>");
+                var boxdom = $("<div class='allbazzr'></div>");
+                boxdom.append(container);
                 var strHtml = "";
                 for (var i = 0; i < res.data.length; i++) {
-                    if (i % 2) {
-                        strHtml += "<div class='rightborder'><p class='ptext'><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                            + "</small></p>";
-                        strHtml += "<p class='ptext'>" + res.data[i].text + "</p></div>"
-                    } else {
-                        strHtml += "<div class='leftborder'><p><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                            + "</small></p>";
-                        strHtml += "<p>" + res.data[i].text + "</p></div>"
-                    }
+                    strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
                 }
-                container.html(strHtml)
-                policyhtml.append(container)
+                boxdom.html(strHtml)
+                policyhtml.append(boxdom)
                 $('.page5').after(policyhtml);
             }
         }
@@ -407,8 +420,7 @@ function adddynamic(id, name) {
                 boxdom.append(container);
                 var strHtml = "";
                 for (var i = 0; i < res.data.length; i++) {
-                    console.log(res.data)
-                    strHtml += "<div><ul><a href="+res.data[i].img+"><li><p>" + res.data[i].keyWord + "</p><p class='read'>阅读</p></li></a>"
+                    strHtml += "<div><ul><a href=" + res.data[i].img + "><li><p>" + res.data[i].keyWord + "</p><p class='read'>阅读</p></li></a>"
                     strHtml += "<li>" + res.data[i].text + "</li><li>报告发布:" + res.data[i].people + "</li></a></ul></div>"
                 }
                 boxdom.html(strHtml);
@@ -710,8 +722,8 @@ function superiorCompany() {
             strHtml = strHtml1 + strHtml2 + strHtml3;
             $('.company').html(strHtml)
             $('.mege').on("click", function () {
-                $(".magimg").attr('style',"display:none")
-                $(this).next().attr('style',"display:block")
+                $(".magimg").attr('style', "display:none")
+                $(this).next().attr('style', "display:block")
             })
         }
 
