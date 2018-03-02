@@ -138,7 +138,6 @@ function industryChain() {
                 }
             })
 
-
             var strHtml = "";
             for (var i = 0; i < res.data.length; i++) {
                 strHtml += "<li>" + res.data[i].text + "</li>";
