@@ -205,6 +205,8 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public Boolean dropHtmlData(Long id) {
+		paragraphRepository.deleteByReportId(id);
+		headlinesRepository.deleteByReportId(id);
 		monthlyReportRepository.delete(id);
 		return true;
 	}

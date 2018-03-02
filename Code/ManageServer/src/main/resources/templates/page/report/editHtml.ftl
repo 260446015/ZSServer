@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -216,6 +217,7 @@
                                             <input type="checkbox" name="inline-checkbox4" value="6">
                                             <label>未来焦点</label>
                                         </div>
+                                        <button class="btn btn-info btn-xs">修改焦点内容</button>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -310,6 +312,7 @@
                                             <input type="checkbox" name="inline-checkbox5" value="6">
                                             <label>投融速递</label>
                                         </div>
+                                        <button class="btn btn-info btn-xs">修改动态内容</button>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -442,7 +445,10 @@
 <!-- start: JavaScript-->
 <!-- Vendor JS-->
 <#include "/common/script.ftl">
-<script src="/js/report/addHtml.js"></script>
+<script src="/js/report/editHtml.js"></script>
+<script>
+    addData(${id});
+</script>
 <!-- end: JavaScript-->
 </body>
 </html>

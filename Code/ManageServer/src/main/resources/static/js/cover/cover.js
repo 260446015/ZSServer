@@ -319,7 +319,7 @@ function company() {
             var str = res.data.people;
             var manHtml = "";
             manHtml += "<ul>"
-            manHtml += "<li> <img src='/img/photo/renwu.png' alt=''></li>";
+            manHtml += "<li> <img src=" + str.logo + " alt=''></li>";
             manHtml += "<li class='texts'>" + str.name + "</li>";
             manHtml += "<li class='texts'>" + str.identity + "</li>";
             manHtml += "<li>上榜理由：" + str.reason + "</li>"
