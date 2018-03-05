@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="bk-margin-bottom-10">
-                                        <a class="btn btn-info" href="javascript:history.go(-1)" onclick="myDelete()">返回上一页</a>
+                                        <a class="btn btn-info" href="javascript:history.go(-1)">返回上一页</a>
                                     </div>
                                 </div>
                             </div>
@@ -62,10 +62,13 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">月关键词</label>
                                     <div class="col-md-9">
+                                        <input type="hidden" name="h_key1">
                                         <input type="text" name="key1" class="form-control" placeholder="">
                                         关键词：<span id="key1"></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
+                                        <input type="hidden" name="h_key2">
                                         <input type="text" name="key2" class="form-control" placeholder="">
                                         关键词：<span id="key2"></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
+                                        <input type="hidden" name="h_key3">
                                         <input type="text" name="key3" class="form-control" placeholder="">
                                         关键词：<span id="key3"></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
                                     </div>
@@ -105,6 +108,7 @@
                                             <input type="checkbox" name="inline-checkbox1" value="人工智能产业">
                                             <label>人工智能产业</label>
                                         </div>
+                                        <input type="hidden" name="h_chain1">
                                         <input type="text" name="chain1" class="form-control" placeholder="">
                                         <div class="checkbox-custom checkbox-inline">
                                             <input type="checkbox" name="inline-checkbox2" value="软件">
@@ -158,6 +162,7 @@
                                             <input type="checkbox" name="inline-checkbox2" value="工业机器人">
                                             <label> 工业机器人</label>
                                         </div>
+                                        <input type="hidden" name="h_chain2">
                                         <input type="text" name="chain2" class="form-control" placeholder="">
                                         <div class="checkbox-custom checkbox-inline">
                                             <input type="checkbox" name="inline-checkbox3" value="大数据">
@@ -187,37 +192,14 @@
                                             <input type="checkbox" name="inline-checkbox3" value="传感器 ">
                                             <label> 传感器</label>
                                         </div>
+                                        <input type="hidden" name="h_chain3">
                                         <input type="text" name="chain3" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">本月焦点</label>
                                     <div class="col-md-9">
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="1">
-                                            <label>政策焦点</label>
-                                        </div>
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="2">
-                                            <label>资本焦点</label>
-                                        </div>
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="3">
-                                            <label>市场焦点</label>
-                                        </div>
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="4">
-                                            <label>舆论焦点</label>
-                                        </div>
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="5">
-                                            <label>技术焦点</label>
-                                        </div>
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox4" value="6">
-                                            <label>未来焦点</label>
-                                        </div>
-                                        <button class="btn btn-info btn-xs">修改焦点内容</button>
+                                        <button class="btn btn-info btn-xs btn_focus">修改焦点内容</button>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -237,7 +219,7 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input name="people_name"></td>
+                                                        <td><input type="hidden" name="h_people_name"><input name="people_name"></td>
                                                         <td><input name="people_identity"></td>
                                                         <td><input name="people_logo"></td>
                                                         <td><textarea name="people_reason"></textarea></td>
@@ -259,22 +241,22 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input name="company_name1"></td>
+                                                        <td><input type="hidden" name="h_company_name1"><input name="company_name1"></td>
                                                         <td><input name="company_logo1"></td>
                                                         <td><textarea name="company_reason1"></textarea></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="company_name2"></td>
+                                                        <td><input type="hidden" name="h_company_name2"><input name="company_name2"></td>
                                                         <td><input name="company_logo2"></td>
                                                         <td><textarea name="company_reason2"></textarea></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="company_name3"></td>
+                                                        <td><input type="hidden" name="h_company_name3"><input name="company_name3"></td>
                                                         <td><input name="company_logo3"></td>
                                                         <td><textarea name="company_reason3"></textarea></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="company_name4"></td>
+                                                        <td><input type="hidden" name="h_company_name4"><input name="company_name4"></td>
                                                         <td><input name="company_logo4"></td>
                                                         <td><textarea name="company_reason4"></textarea></td>
                                                     </tr>
@@ -288,31 +270,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">行业动态</label>
                                     <div class="col-md-9">
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="1">
-                                            <label>各地新闻</label>
-                                        </div>
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="2">
-                                            <label>合作动向</label>
-                                        </div>
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="3">
-                                            <label>企业动向</label>
-                                        </div>
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="4">
-                                            <label>会议日程</label>
-                                        </div>
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="5">
-                                            <label>排行报告</label>
-                                        </div>
-                                        <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox5" value="6">
-                                            <label>投融速递</label>
-                                        </div>
-                                        <button class="btn btn-info btn-xs">修改动态内容</button>
+                                        <button class="btn btn-info btn-xs btn_dy">修改动态内容</button>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -332,19 +290,19 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input name="industry_name1"></td>
+                                                        <td><input type="hidden" name="h_industry_name1"><input name="industry_name1"></td>
                                                         <td><input name="industry1"></td>
                                                         <td><input name="industry_money1"></td>
                                                         <td><input name="industry_time1"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="industry_name2"></td>
+                                                        <td><input type="hidden" name="h_industry_name2"><input name="industry_name2"></td>
                                                         <td><input name="industry2"></td>
                                                         <td><input name="industry_money2"></td>
                                                         <td><input name="industry_time2"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="industry_name3"></td>
+                                                        <td><input type="hidden" name="h_industry_name3"><input name="industry_name3"></td>
                                                         <td><input name="industry3"></td>
                                                         <td><input name="industry_money3"></td>
                                                         <td><input name="industry_time3"></td>
@@ -367,19 +325,19 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input name="industry_name4"></td>
+                                                        <td><input type="hidden" name="h_industry_name4"><input name="industry_name4"></td>
                                                         <td><input name="industry4"></td>
                                                         <td><input name="industry_money4"></td>
                                                         <td><input name="industry_time4"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="industry_name5"></td>
+                                                        <td><input type="hidden" name="h_industry_name5"><input name="industry_name5"></td>
                                                         <td><input name="industry5"></td>
                                                         <td><input name="industry_money5"></td>
                                                         <td><input name="industry_time5"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="industry_name6"></td>
+                                                        <td><input type="hidden" name="h_industry_name6"><input name="industry_name6"></td>
                                                         <td><input name="industry6"></td>
                                                         <td><input name="industry_money6"></td>
                                                         <td><input name="industry_time6"></td>
@@ -402,19 +360,19 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input name="industry_name7"></td>
+                                                        <td><input type="hidden" name="h_industry_name7"><input name="industry_name7"></td>
                                                         <td><input name="industry7"></td>
                                                         <td><input name="industry_money7"></td>
                                                         <td><input name="industry_time7"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="industry_name8"></td>
+                                                        <td><input type="hidden" name="h_industry_name8"><input name="industry_name8"></td>
                                                         <td><input name="industry8"></td>
                                                         <td><input name="industry_money8"></td>
                                                         <td><input name="industry_time8"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="industry_name9"></td>
+                                                        <td><input type="hidden" name="h_industry_name9"><input name="industry_name9"></td>
                                                         <td><input name="industry9"></td>
                                                         <td><input name="industry_money9"></td>
                                                         <td><input name="industry_time9"></td>
@@ -428,7 +386,7 @@
                             </form>
                             <p>
                                 <button class="bk-margin-5 btn btn-labeled btn-success" type="button">
-                                    <span class="btn-label"><i class="fa fa-check"></i></span>下一步</button>
+                                    <span class="btn-label"><i class="fa fa-check"></i></span>保存</button>
                                 <button class="bk-margin-5 btn btn-labeled btn-danger" type="button">
                                     <span class="btn-label"><i class="fa fa-times"></i></span>取消</button>
                             </p>

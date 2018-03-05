@@ -27,11 +27,15 @@ $(function () {
         var _chain = new Array();
         for(var i=1;i<4;i++){
             var groupCheckbox=$("input[name='inline-checkbox"+i+"']");
-            var _val = new Array();
+            var _val = "";
             for(var j=0;j<groupCheckbox.length;j++){
                 if(groupCheckbox[j].checked){
                     var val =groupCheckbox[j].value;
-                    _val.push(val);
+                    if(_val==""){
+                        _val+=val;
+                    }else{
+                        _val+="、"+val;
+                    }
                 }
             }
             _chain.push({
@@ -114,6 +118,7 @@ $(function () {
             dynamic:_dynamic,
             industry:_industry
         }
+        console.log(req)
         $.ajax({
             type: 'post',
             url: "/apis/report/addHtmlData.json",

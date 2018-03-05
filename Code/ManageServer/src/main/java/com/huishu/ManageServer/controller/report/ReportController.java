@@ -240,8 +240,7 @@ public class ReportController extends BaseController {
 	@RequestMapping(value = "addHtmlData.json", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult addHtmlData(@RequestBody HtmlAddDTO dto) {
-		if(dto==null||StringUtil.isEmpty(dto.getName())||StringUtil.isEmpty(dto.getTime())
-				||dto.getFocus().length==0||dto.getDynamic().length==0){
+		if(dto==null||StringUtil.isEmpty(dto.getName())||StringUtil.isEmpty(dto.getTime())){
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {

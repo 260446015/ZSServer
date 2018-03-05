@@ -16,19 +16,26 @@ function addData(id) {
                         '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
                         '<thead><tr><th colspan="3">本月一共<input name="money_' + index + '_1">场会议</th></tr></thead>' +
                         '<thead><tr><th colspan="3">最多会议地点是<input name="time_' + index + '_1"></th></tr></thead>' +
-                        '<thead><tr><th colspan="3">会议覆盖的行业是<input name="text_' + index + '_1"></th></tr></thead>' +
+                        '<thead><tr><th colspan="3">会议覆盖的行业是<textarea name="text_' + index + '_1"></textarea></th></tr></thead>' +
                         '<thead><tr><th colspan="3">推荐参加<input name="key_' + index + '_1">交流大会</th></tr></thead>' +
                         '<thead><tr><th>日期(<span style="color: red">只输入日，必须为数字</span>)</th><th>地点</th><th>主办方</th></tr></thead>' +
                         '<tbody id="table_' + index + '"><tr><td><input name="hui_ri_' + index + '_' + k + '"></td>' +
                         '<td><input name="hui_di_' + index + '_' + k + '"></td>' +
                         '<td><input name="hui_zhu_' + index + '_' + k + '"></td>' +
                         '</tr></tbody></table>' +
-                        '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button></div></div>');
+                        '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button>' +
+                        '    <button class="btn btn-info btn-xs drop_'+index+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
                     $(".add_" + index + "").on("click", function () {
                         k=k+1;
-                        $("#table_" + index + "").append('<tr><td><input name="hui_ri_' + index + '_' + k + '"></td>' +
+                        $("#table_" + index + "").append('<tr id="tr_'+index+'_'+k+'"><td><input name="hui_ri_' + index + '_' + k + '"></td>' +
                             '<td><input name="hui_di_' + index + '_' + k + '"></td>' +
                             '<td><input name="hui_zhu_' + index + '_' + k + '"></td></tr>');
+                    });
+                    $(".drop_"+index+"").on("click",function () {
+                        if(k>1){
+                            $("#tr_"+index+"_"+k+"").remove();
+                            k--;
+                        }
                     });
                 }else if(value.name=="排行报告") {
                     $(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">' + value.name + '</label>' +
@@ -39,11 +46,18 @@ function addData(id) {
                         '<td><input name="img_' + index + '_' + i + '"></td>' +
                         '<td><input name="people_' + index + '_' + i + '"></td>' +
                         '</tr></tbody></table>' +
-                        '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button></div></div>');
+                        '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button>' +
+                        '    <button class="btn btn-info btn-xs drop_'+index+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
                     $(".add_" + index + "").on("click", function () {
-                        $("#table_" + index + "").append('<tr><td><input name="key_' + index + '_' + i + '"></td><td><textarea name="text_' + index + '_' + i + '" class="col-md-9"></textarea></td>' +
+                        $("#table_" + index + "").append('<tr id="tr_'+index+'_'+i+'"><td><input name="key_' + index + '_' + i + '"></td><td><textarea name="text_' + index + '_' + i + '" class="col-md-9"></textarea></td>' +
                             '<td><input name="img_' + index + '_' + i + '"></td><td><input name="people_' + index + '_' + i + '"></td></tr>');
                         i++;
+                    });
+                    $(".drop_"+index+"").on("click",function () {
+                        if(i>2){
+                            i--;
+                            $("#tr_"+index+"_"+i+"").remove();
+                        }
                     });
                 }else if(value.name=="投融速递") {
                     $(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">' + value.name + '</label>' +
@@ -54,14 +68,21 @@ function addData(id) {
                         '<td><input name="money_' + index + '_' + i + '"></td>' +
                         '<td><textarea name="text_' + index + '_' + i + '" class="col-md-9"></textarea></td>' +
                         '</tr></tbody></table>' +
-                        '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button></div></div>');
+                        '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button>' +
+                        '    <button class="btn btn-info btn-xs drop_'+index+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
                     $(".add_" + index + "").on("click", function () {
-                        $("#table_" + index + "").append('<tr><tr>' +
+                        $("#table_" + index + "").append('<tr id="tr_'+index+'_'+i+'">' +
                             '<td><input name="key_' + index + '_' + i + '"></td>'+
                             '<td><input name="money_' + index + '_' + i + '"></td>'+
                             '<td><textarea name="text_' + index + '_' + i + '" class="col-md-9"></textarea></td>' +
-                            '</tr></tr>');
+                            '</tr>');
                         i++;
+                    });
+                    $(".drop_"+index+"").on("click",function () {
+                        if(i>2){
+                            i--;
+                            $("#tr_"+index+"_"+i+"").remove();
+                        }
                     });
                 }else {
                     var td="";
@@ -76,10 +97,17 @@ function addData(id) {
                         '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
                         '<thead><tr><th style="width: 50px;">'+td+'</th><th>文本</th></tr></thead>' +
                         '<tbody id="table_' + index + '"><tr><td><input name="key_' + index + '_' + i + '"></td><td><textarea name="text_' + index + '_' + i + '" class="col-md-12"></textarea></td></tr></tbody></table>' +
-                        '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button></div></div>');
+                        '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + index + '">添加数据 <i class="fa fa-plus"></i></button>' +
+                        '    <button class="btn btn-info btn-xs drop_'+index+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
                     $(".add_" + index + "").on("click", function () {
-                        $("#table_" + index + "").append('<tr><td><input name="key_' + index + '_' + i + '"></td><td><textarea name="text_' + index + '_' + i + '" class="col-md-12"></textarea></td></tr>');
+                        $("#table_" + index + "").append('<tr id="tr_'+index+'_'+i+'"><td><input name="key_' + index + '_' + i + '"></td><td><textarea name="text_' + index + '_' + i + '" class="col-md-12"></textarea></td></tr>');
                         i++;
+                    });
+                    $(".drop_"+index+"").on("click",function () {
+                        if(i>2){
+                            i--;
+                            $("#tr_"+index+"_"+i+"").remove();
+                        }
                     });
                 }
                 $(".btn-success").on("click",function(){
@@ -123,7 +151,7 @@ function savaFocus() {
                 _data.push({
                     headlinesId:result[j].name,
                     keyWord:$("input[name='key_"+j+"_"+i+"']").val(),
-                    text:$("input[name='text_"+j+"_"+i+"']").val(),
+                    text:$("textarea[name='text_"+j+"_"+i+"']").val(),
                     img:$("input[name='img_"+j+"_"+i+"']").val(),
                     money:$("input[name='money_"+j+"_"+i+"']").val(),
                     time:$("input[name='time_"+j+"_"+i+"']").val(),

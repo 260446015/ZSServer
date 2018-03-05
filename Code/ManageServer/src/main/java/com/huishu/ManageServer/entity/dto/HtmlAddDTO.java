@@ -12,6 +12,7 @@ import java.util.List;
  * @date 2018/2/7
  */
 public class HtmlAddDTO implements Serializable {
+	private Long id;
 	private String name;
 	private String time;
 	private JSONObject[] keyWord;
@@ -20,6 +21,14 @@ public class HtmlAddDTO implements Serializable {
 	private JSONObject recommend;
 	private String[] dynamic;
 	private JSONObject industry;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;

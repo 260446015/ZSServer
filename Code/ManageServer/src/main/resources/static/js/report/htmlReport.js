@@ -59,6 +59,7 @@ function initPage(){
         window.location.href="/apis/report/editHtml.html?id="+_id;
     });
     $(".my_drop").on("click",function(){
+        var _id = $(this).parents('.gradeX').find( 'input' ).val();
         layer.confirm('确认删除该内容？', {
             btn: ['确认','取消'] //按钮
         }, function(){

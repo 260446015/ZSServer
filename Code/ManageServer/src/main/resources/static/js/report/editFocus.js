@@ -47,6 +47,11 @@ $(".btn-danger").on("click",function(){
         window.location.href="/apis/report/htmlReport.html";
     });
 });
+function myDelete() {
+    $.get("/apis/report/dropHtmlData.json?id="+_id,function (response) {
+
+    });
+}
 function savaFocus() {
     var _data =new Array();
     if(result.length==_size){
@@ -55,13 +60,12 @@ function savaFocus() {
                 _data.push({
                     headlinesId:result[j].name,
                     keyWord:$("input[name='key_"+j+"_"+i+"']").val(),
-                    text:$("textarea[name='text_"+j+"_"+i+"']").val()
+                    text:$("input[textarea='text_"+j+"_"+i+"']").val()
                 });
             }
         };
         result=new Array();
-        console.log(_data)
-        /*$.ajax({
+        $.ajax({
             type: 'post',
             url: "/apis/report/addParagraphData.json",
             async: false,
@@ -77,7 +81,7 @@ function savaFocus() {
                     layer.alert(response.message);
                 }
             }
-        });*/
+        });
     }
 }
 

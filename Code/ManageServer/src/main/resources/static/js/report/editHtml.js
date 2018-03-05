@@ -26,52 +26,67 @@ $(function () {
         success: function (response) {
             if(response.success){
                 var data=response.data;
-                $(".name").html(data.info.name);
-                $(".time").html(data.info.time);
-                var keyWord="";
-                $.each(data.keyWord, function (index, c) {
-                    keyWord+='<label style="font-weight:normal;margin-top:7px">'+c.text+'</label><br>' +
-                        '<label class="control-label" for="text-input"><b>关键词：</b>'+c.keyWord+'</label><br>';
-                });
-                $(".keyWord").html(keyWord);
-                var chain="";
-                $.each(data.chain, function (index, c) {
-                    chain+='<label style="font-weight:normal;margin-top:7px">'+c.text+'</label><br>' +
-                        '<label class="control-label" for="text-input"><b>高亮词汇：</b>'+c.keyWord+'</label><br>';
-                });
-                $(".chain").html(chain);
-                $(".focus").html('<label class="control-label"><a href="/apis/report/focusInfo.html?id='+_id+'">点击查看详情</a></label>');
-                $(".dynamic").html('<label class="control-label"><a href="/apis/report/dynamicInfo.html?id='+_id+'">点击查看详情</a></label>');
-                var recommend="<br>";
-                recommend+='<label class="col-md-2 control-label" for="text-input"><b>企业</b></label><div class="col-md-9">';
-                $.each(data.recommend.company, function (index, c) {
-                    recommend+='<label class="control-label">'+c.name+'</label>&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">'+c.reason+'</label><br>';
-                });
-                recommend+='</div><br><label class="col-md-2 control-label" for="text-input"><b>人物</b></label><div class="col-md-9">';
-                var c=data.recommend.people;
-                recommend+='<label class="control-label">'+c.name+'</label><br><label class="control-label">'+c.identity+
-                    '</label><br><label class="control-label">'+c.reason+'</label><br>';
-                recommend+='</div>';
-                $(".recommend").html(recommend);
-                var obj =data.industry;
-                var industry="<br>";
-                industry+='<label class="col-md-2 control-label" for="text-input"><b>龙头企业</b></label><div class="col-md-9">';
-                $.each(obj.faucet, function (index, c) {
-                    industry+='<label class="control-label">'+c.company+'</label>&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">'+c.money+'</label>' +
-                        '&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">'+c.time+'</label>&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">'+c.text+'</label><br>';
-                });
-                industry+='</div><br><label class="col-md-2 control-label" for="text-input"><b>成长企业</b></label><div class="col-md-9">';
-                $.each(obj.growth, function (index, c) {
-                    industry+='<label class="control-label">'+c.company+'</label>&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">'+c.money+'</label>' +
-                        '&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">'+c.time+'</label>&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">'+c.text+'</label><br>';
-                });
-                industry+='</div><label class="col-md-2 control-label" for="text-input"><b>潜力企业</b></label><div class="col-md-9">';
-                $.each(obj.potential, function (index, c) {
-                    industry+='<label class="control-label">'+c.company+'</label>&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">'+c.money+'</label>' +
-                        '&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">'+c.time+'</label>&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">'+c.text+'</label><br>';
-                });
-                industry+='</div>';
-                $(".industry").html(industry);
+                $("input[name='name']").val(data.info.name);
+                $("input[name='time']").val(data.info.time);
+                for(var i=1;i<4;i++){
+                    $("input[name='key"+i+"']").val(data.keyWord[i-1].text);
+                    $("input[name='h_key"+i+"']").val(data.keyWord[i-1].id);
+                    var _val=""
+                    $.each(data.keyWord[i-1].keyWord, function (index, c) {
+                        if (index == 0) {
+                            _val += c;
+                        } else {
+                            _val += "、" + c;
+                        }
+                    });
+                    $("#key"+i+"").html(_val);
+                }
+                for(var i=1;i<4;i++){
+                    $("input[name='h_chain"+i+"']").val(data.chain[i-1].id);
+                    $("input[name='chain"+i+"']").val(data.chain[i-1].text);
+                    var groupCheckbox=$("input[name='inline-checkbox"+i+"']");
+                    for(var j=0;j<groupCheckbox.length;j++){
+                        var val =groupCheckbox[j].value;
+                        $.each(data.chain[i-1].keyWord, function (index, c) {
+                            if (c == val) {
+                                groupCheckbox[j].checked =true;
+                            }
+                        });
+                    }
+                }
+                $("textarea[name='people_reason']").val(data.recommend.people.reason);
+                $("input[name='people_identity']").val(data.recommend.people.identity);
+                $("input[name='people_name']").val(data.recommend.people.name);
+                $("input[name='h_people_name']").val(data.recommend.people.id);
+                $("input[name='people_logo']").val(data.recommend.people.logo);
+                for(var i=1;i<5;i++){
+                    $("input[name='h_company_name"+i+"']").val(data.recommend.company[i-1].id);
+                    $("input[name='company_name"+i+"']").val(data.recommend.company[i-1].name);
+                    $("input[name='h_company_name"+i+"']").val(data.recommend.company[i-1].id);
+                    $("textarea[name='company_reason"+i+"']").val(data.recommend.company[i-1].reason);
+                    $("input[name='company_logo"+i+"']").val(data.recommend.company[i-1].logo);
+                }
+                for(var i=1;i<4;i++){
+                    $("input[name='h_industry_name"+i+"']").val(data.industry.faucet[i-1].id);
+                    $("input[name='industry_name"+i+"']").val(data.industry.faucet[i-1].company);
+                    $("input[name='industry_money"+i+"']").val(data.industry.faucet[i-1].money);
+                    $("input[name='industry_time"+i+"']").val(data.industry.faucet[i-1].time);
+                    $("input[name='industry"+i+"']").val(data.industry.faucet[i-1].text);
+                }
+                for(var i=4;i<7;i++){
+                    $("input[name='h_industry_name"+i+"']").val(data.industry.growth[i-4].id);
+                    $("input[name='industry_name"+i+"']").val(data.industry.growth[i-4].company);
+                    $("input[name='industry_money"+i+"']").val(data.industry.growth[i-4].money);
+                    $("input[name='industry_time"+i+"']").val(data.industry.growth[i-4].time);
+                    $("input[name='industry"+i+"']").val(data.industry.growth[i-4].text);
+                }
+                for(var i=7;i<10;i++){
+                    $("input[name='h_industry_name"+i+"']").val(data.industry.potential[i-7].id);
+                    $("input[name='industry_name"+i+"']").val(data.industry.potential[i-7].company);
+                    $("input[name='industry_money"+i+"']").val(data.industry.potential[i-7].money);
+                    $("input[name='industry_time"+i+"']").val(data.industry.potential[i-7].time);
+                    $("input[name='industry"+i+"']").val(data.industry.potential[i-7].text);
+                }
             }else{
                 layer.alert(response.message);
             }
@@ -83,6 +98,7 @@ $(function () {
         var _keyWord = new Array();
         for(var i=1;i<4;i++){
             _keyWord.push({
+                id:$("input[name='h_key"+i+"']").val(),
                 text:$("input[name='key"+i+"']").val(),
                 key:$("#key"+i+"").html()
             });
@@ -90,30 +106,28 @@ $(function () {
         var _chain = new Array();
         for(var i=1;i<4;i++){
             var groupCheckbox=$("input[name='inline-checkbox"+i+"']");
-            var _val = new Array();
+            var _val = "";
             for(var j=0;j<groupCheckbox.length;j++){
                 if(groupCheckbox[j].checked){
                     var val =groupCheckbox[j].value;
-                    _val.push(val);
+                    if(_val==""){
+                        _val+=val;
+                    }else{
+                        _val+="、"+val;
+                    }
                 }
             }
             _chain.push({
+                id:$("input[name='h_chain"+i+"']").val(),
                 text:$("input[name='chain"+i+"']").val(),
                 key:_val
             });
         }
-        var _focus = new Array();
-        var groupCheckbox=$("input[name='inline-checkbox4']");
-        for(var j=0;j<groupCheckbox.length;j++){
-            if(groupCheckbox[j].checked){
-                var val =groupCheckbox[j].value;
-                _focus.push(val);
-            }
-        };
         var _company =new Array();
         for(var i=1;i<5;i++){
             _company.push({
                 name:$("input[name='company_name"+i+"']").val(),
+                id:$("input[name='h_company_name"+i+"']").val(),
                 reason:$("textarea[name='company_reason"+i+"']").val(),
                 logo:$("input[name='company_logo"+i+"']").val()
             });
@@ -124,21 +138,15 @@ $(function () {
                 reason:$("textarea[name='people_reason']").val(),
                 identity:$("input[name='people_identity']").val(),
                 name:$("input[name='people_name']").val(),
+                id:$("input[name='h_people_name']").val(),
                 logo:$("input[name='people_logo']").val()
-            }
-        };
-        var _dynamic = new Array();
-        var groupCheckbox=$("input[name='inline-checkbox5']");
-        for(var j=0;j<groupCheckbox.length;j++){
-            if(groupCheckbox[j].checked){
-                var val =groupCheckbox[j].value;
-                _dynamic.push(val);
             }
         };
         var _faucet =new Array();
         for(var i=1;i<4;i++){
             _faucet.push({
                 company:$("input[name='industry_name"+i+"']").val(),
+                id:$("input[name='h_industry_name"+i+"']").val(),
                 money:$("input[name='industry_money"+i+"']").val(),
                 time:$("input[name='industry_time"+i+"']").val(),
                 text:$("input[name='industry"+i+"']").val()
@@ -148,6 +156,7 @@ $(function () {
         for(var i=4;i<7;i++){
             _growth.push({
                 company:$("input[name='industry_name"+i+"']").val(),
+                id:$("input[name='h_industry_name"+i+"']").val(),
                 money:$("input[name='industry_money"+i+"']").val(),
                 time:$("input[name='industry_time"+i+"']").val(),
                 text:$("input[name='industry"+i+"']").val()
@@ -157,6 +166,7 @@ $(function () {
         for(var i=7;i<10;i++){
             _potential.push({
                 company:$("input[name='industry_name"+i+"']").val(),
+                id:$("input[name='h_industry_name"+i+"']").val(),
                 money:$("input[name='industry_money"+i+"']").val(),
                 time:$("input[name='industry_time"+i+"']").val(),
                 text:$("input[name='industry"+i+"']").val()
@@ -168,13 +178,12 @@ $(function () {
             potential:_potential
         };
         var req={
+            id:_id,
             name:_name,
             time:_time,
             keyWord:_keyWord,
             chain:_chain,
-            focus:_focus,
             recommend:_recommend,
-            dynamic:_dynamic,
             industry:_industry
         }
         $.ajax({
@@ -185,19 +194,19 @@ $(function () {
             data: JSON.stringify(req),
             success: function (response) {
                 if(response.success){
-                    window.location.href="/apis/report/addHtml2.html?id="+response.data;
+                    layer.alert("操作成功");
+                    window.location.href="/apis/report/htmlReport.html";
                 }else{
                     layer.alert(response.message);
                 }
             }
         });
     });
-    $(".btn-danger").on("click",function(){
-        layer.confirm('直接离开将会失去修改内容，确认离开？', {
-            btn: ['确认','取消'] //按钮
-        }, function(){
-            window.location.href="/apis/report/htmlReport.html";
-        });
+    $(".btn_focus").on("click",function (){
+        window.location.href="/apis/report/editFocus.html?id="+_id;
+    });
+    $(".btn_dy").on("click",function (){
+        window.location.href="/apis/report/editDynamic.html?id="+_id;
     });
 });
 
