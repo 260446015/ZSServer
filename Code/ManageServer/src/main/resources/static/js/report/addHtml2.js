@@ -19,6 +19,7 @@ function addData(id) {
                 $(".add_"+index+"").on("click",function () {
                     $("#table_"+index+"").append('<tr id="tr_'+index+'_'+i+'"><td><input name="key_'+index+'_'+i+'"></td><td><textarea name="text_'+index+'_'+i+'" class="col-md-12"></textarea></td></tr>');
                     i++;
+
                 });
                 $(".drop_"+index+"").on("click",function () {
                     if(i>2){
