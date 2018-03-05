@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control" content="no-cache" />
     <meta name="description" content="中科点击·慧数招商">
     <meta name="keywords" content="慧数招商人工智能行业月度报告">
     <meta name="author" content="慧数科技，中科点击">
@@ -17,7 +18,7 @@
     <link rel="stylesheet" href="/css/common.css">
 </head>
 
-<body onmousewheel="return false;">
+<body onmousewheel="return false;" >
     <div class="bigbox">
         <div class="skippage" id="dowebok">
             <div class="page page1 section">
@@ -38,9 +39,6 @@
             </div>
             <div class="page page2 section">
                 <header>
-                    <!-- <div class="left">
-                            <
-                        </div> -->
                     <div class="center">
                         <h1>
                             目录
@@ -49,61 +47,61 @@
                 </header>
                 <div class="page-container page-catalog">
                     <div>
-                        <ul>
-                            <li>
-                                <a href="#">
+                        <ul class="cd-list">
+                            <li data-menuanchor="page3">
+                                <a href="#page3">
                                     <span class="mb10">
                                         <img src="/img/icon/icon1.png" alt="">
                                     </span>
-                                    <span> 月关键词</span>
+                                    <span class="ticolor"> 月关键词</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">
+                            <li data-menuanchor="page4">
+                                <a href="#page4">
                                     <span class="mb10">
                                         <img src="/img/icon/icon2.png" alt="">
                                     </span>
-                                    <span>
+                                    <span class="ticolor"> 
                                         产业链高亮
                                     </span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="javascript:void(0);">
                                     <span class="mb10">
                                         <img src="/img/icon/icon3.png" alt="">
                                     </span>
-                                    <span>
+                                    <span class="ticolor">
                                         本月焦点
                                     </span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="javascript:void(0);">
                                     <span class="mb10">
                                         <img src="/img/icon/icon4.png" alt="">
                                     </span>
-                                    <span>
+                                    <span class="ticolor">
                                         行业动态
                                     </span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="javascript:void(0);">
                                     <span class="mb10">
                                         <img src="/img/icon/icon5.png" alt="">
                                     </span>
-                                    <span>
+                                    <span class="ticolor">
                                         明星推荐
                                     </span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="javascript:void(0);">
                                     <span class="mb10">
                                         <img src="/img/icon/icon6.png" alt="">
                                     </span>
-                                    <span>
+                                    <span class="ticolor">
                                         优质产业
                                     </span>
                                 </a>
@@ -114,9 +112,6 @@
             </div>
             <div class="page page3 section">
                 <header>
-                    <!-- <div class="left">
-                        <
-                    </div> -->
                     <div class="center">
                         <h1>
                             月关键词
@@ -130,9 +125,6 @@
             </div>
             <div class="page page4 section">
                 <header>
-                    <!-- <div class="left">
-                        <
-                    </div> -->
                     <div class="center">
                         <h1>
                             产业链高亮点
@@ -290,7 +282,7 @@
                                     </span>
                                     <span>
                                         <i class="aaa">
-                                            <s>营销和销售</s>
+                                            <s class="sale">营销和销售</s>
                                             <small></small>
                                         </i>
                                         <b></b>
@@ -304,7 +296,7 @@
                                     </span>
                                     <span>
                                         <i class="aaa">
-                                            <s>网络安全</s>
+                                            <s class="safe">网络安全</s>
                                             <small></small>
                                         </i>
                                         <b></b>
@@ -351,7 +343,7 @@
                                     </span>
                                     <span>
                                         <i class="aaa">
-                                            <s>传感器</s>
+                                            <s class="post">传感器</s>
                                             <small></small>
                                         </i>
 
@@ -392,7 +384,7 @@
                                     </span>
                                     <span>
                                         <i class="aaa">
-                                            <s>大数据</s>
+                                            <s class="bigshu">大数据</s>
                                             <small></small>
                                         </i>
 
@@ -437,9 +429,6 @@
             </div>
             <div class="page page5 section">
                 <header>
-                    <!-- <div class="left">
-                        <
-                    </div> -->
                     <div class="center">
                         <h1>
                             本月焦点
@@ -457,9 +446,6 @@
 
             <div class="page page6 section">
                 <header>
-                    <!-- <div class="left">
-                        <
-                    </div> -->
                     <div class="center">
                         <h1>
                             行业动态
@@ -467,7 +453,7 @@
                     </div>
                 </header>
                 <div class="page-container page-dynamic">
-                    <div>
+                    <div class="industry">
                         <ul>
 
                         </ul>
@@ -476,9 +462,6 @@
             </div>
             <div class="page page7 section">
                 <header>
-                    <!-- <div class="left">
-                        <
-                    </div> -->
                     <div class="center">
                         <h1>
                             明星推荐-企业
@@ -493,9 +476,6 @@
             </div>
             <div class="page page8 section">
                 <header>
-                    <!-- <div class="left">
-                        <
-                    </div> -->
                     <div class="center">
                         <h1>
                             明星推荐-人物
@@ -511,9 +491,6 @@
             </div>
             <div class="page page9 section">
                 <header>
-                    <!-- <div class="left">
-                        <
-                    </div> -->
                     <div class="center">
                         <h1>
                             优质企业
@@ -527,9 +504,6 @@
             </div>
             <div class="page page10 section">
                 <header>
-                    <!-- <div class="left">
-                        <
-                    </div> -->
                     <div class="center">
                         <h1>
                             优质企业
@@ -553,6 +527,9 @@
                 <img src="/img/icon/jiantou.png" alt="" class="img">
             </div>
         </footer>
+        <div id="detil" class='detail'>
+                
+            </div>
     </div>
     <script src="/vendor/jquery-3.3.1.min.js"></script>
     <script src="/vendor/echarts/echarts.min.js"></script>

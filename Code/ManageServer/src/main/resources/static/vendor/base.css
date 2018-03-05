@@ -532,7 +532,7 @@ a:visited {
 a:hover,
 a:active {
     text-decoration: underline;
-    color: #BD0A01;
+    color: #1F376D;
     border: none;
 }
 
@@ -570,7 +570,7 @@ li {
 .holder {
     width: 740px;
     height: 300px;
-    border: 1px solid #777;
+    /* border: 1px solid #777; */
     text-align: center;
     display: table-cell;
     vertical-align: middle;

@@ -1,4 +1,13 @@
- .catalog{
+* { touch-action: none; } 
+
+html,body{
+    height: 100%;
+    background: #101029;
+    overflow: auto;
+   -webkit-overflow-scrolling: touch;
+    
+}
+.catalog{
     width: 100%;
     height: 100%;
     display: flex;
@@ -7,8 +16,8 @@
 }
 
 header{
+    height: 6rem;
     display: flex;
-    height: 4rem;
     justify-content: center;
     align-items: center;
     border-bottom: 3px solid #151536;
@@ -17,8 +26,8 @@ header{
 .left{
     position: absolute;
     left: .8rem;
-    top: .8rem;
-    font-size: 2rem;
+    top: 1.2rem;
+    font-size: 3rem;
 }
 
 h1{
@@ -27,7 +36,6 @@ h1{
 
 .container{
     flex:1;
-    overflow: auto;
 }
 
 .containerul ul{
@@ -63,16 +71,23 @@ h1{
       height: 100%;
   }
 
+
+.time p{
+    font-size: 2rem;
+}
+
 footer{
-    display: flex;
-    height: 7rem;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: 2rem;
+    position: fixed;
+    left: 45%;
+    bottom: 2rem;
 }
 
 footer div{
     width: 30px;
     height: 26px;
+    margin-bottom: 15rem;
 }
 
 footer div img{
@@ -202,7 +217,7 @@ html,body{
     background-size: 100% 100%;
 }
 
-.bigbox .page13{
+/* .bigbox .page13{
     background: url(../img/bgimg/bg2.png);
     background-size: 100% 100%;
 }
@@ -234,31 +249,24 @@ html,body{
 .bigbox .page22{
     background: url(../img/bgimg/bg2.png);
     background-size: 100% 100%;
-}
+} */
 
 .page header{
-    height: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #151536;
 }
 
-.left{
-    position: absolute;
-    left: .8rem;
-    top: .8rem;
-    font-size: 2rem;
-}
-
 .center h1{
-    font-size: 1.4rem;
+    font-size: 2.4rem;
     color: #ffffff;
     letter-spacing: 2px;
 }
 
 .page-container {
-    margin-top: 3rem;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .page-container div ul{
@@ -271,7 +279,8 @@ html,body{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    flex-direction: column;
+    margin-top: 2rem;
 }
 
 .page-container ul li a{
@@ -281,8 +290,8 @@ html,body{
 }
 
 .page-container ul li a span:nth-child(1){
-    width: 65px;
-    height: 65px;
+    width: 6.5rem;
+    height: 6.5rem;
     display: block;
 }
 
@@ -334,7 +343,7 @@ html,body{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 54%;
+    padding-top: 44%;
 }
 
 .head span:nth-child(1){
@@ -349,11 +358,15 @@ html,body{
     height:100%;
 }
 
+.head span:nth-child(2){
+    font-size: 1.4rem;
+}
+
 .containers{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    margin-top: 2rem;
+    margin-top: 2.4rem;
 }
 
 .containers div:nth-child(1){
@@ -383,37 +396,7 @@ html,body{
     display: flex;
     justify-content: center;
     align-self: flex-end;
-    margin-top: 8rem;
-}
-
-footer{
-    width: 100%;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    align-self: flex-end;
-}
-
-footer div{
-    width: 30px;
-    height: 26px;
-    margin-bottom: 11rem;
-}
-
-footer div img{
-    width: 100%;
-    height: 100%;
-}
-
-
-
-.img{
-    animation: poiner 2s infinite;
-}
-
-@keyframes poiner {
-    0% {opacity: 0;bottom: 0}
-    100% {opacity: 1;bottom: 10px;}
+    margin-top: 12rem;
 }
 
 /* 政策 */
@@ -424,31 +407,37 @@ footer div img{
 
 
 .dottedline{
-    padding: 50px 10px;
-    position: relative;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  background: url(../img/bgimg/bg2.png) no-repeat center;
+  background-size: 100% 100%;  
 }
 
-.dottedline .leftline{
+ .leftline{
     border-left: 1px solid #0077b3;
     border-bottom: 1px solid #0077b3;
     padding: 20px  10px;
     margin: 0 auto;
     width: 85%;
     position: relative;
+    border-bottom-left-radius:1rem;
+    border-top-left-radius:1rem;
 }
 
-.dottedline .rightline{
+.rightline{
     border-right: 1px solid #0077b3;
     border-bottom: 1px solid #0077b3;
     padding: 20px 10px;
     margin: 0 auto;
     width: 85%;
     position: relative;
+    border-top-right-radius:1rem;
+    border-bottom-right-radius:1rem;
 }
 
 .textcolor{
     color: #00c0ff;
-    font-size: 1.4rem;
+    font-size: 2rem;
 }
 
 .leftdot{
@@ -507,7 +496,7 @@ footer div img{
     background-size: 100% 100%;
     padding: 1rem;
     font-size: 1.2rem;
-    height: 67%;
+    /* height: 67%; */
 }
 
 
@@ -529,7 +518,7 @@ footer div img{
 
 .pointplot1 span:nth-child(1) b{
     height: 1rem;
-    border-right: 3px dotted  #067aa9;
+    border-right: 3px solid #067aa9;
     transform:skew(72deg);
     display: block;
     position: absolute;
@@ -547,7 +536,7 @@ footer div img{
 .pointplot1 span:nth-child(2) b{
     display: block;
     height: 2rem;
-    border-right: 2px dotted  #067aa9;
+    border-right: 2px solid  #067aa9;
     transform:skew(-35deg);
     position: absolute;
     left: -1rem;
@@ -564,7 +553,7 @@ footer div img{
 .pointplot1 span:nth-child(3) b{
     display: block;
     height: 2rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform:skew(31deg);
     position: absolute;
     left: 1.5rem;
@@ -582,7 +571,7 @@ footer div img{
 .pointplot2 span:nth-child(1) b{
     display: block;
     height: 2rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform: skew(-56deg);
     position: absolute;
     left: -1.9rem;
@@ -599,7 +588,7 @@ footer div img{
 .pointplot2 span:nth-child(2) b{
     height: 4rem;
     display: block;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform: skew(-20deg);
     position: absolute;
     left: 8px;
@@ -616,7 +605,7 @@ footer div img{
 .pointplot3 span:nth-child(1) b{
     height: 4rem;
     display: block;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform: skew(1deg);
     position: absolute;
     left: 1px;
@@ -633,7 +622,7 @@ footer div img{
 .pointplot3 span:nth-child(2) b{
     height: 2rem;
     display: block;
-    border-left: 3px dotted #067aa9;
+    border-left: 3px solid #067aa9;
     transform: skew(-65deg);
     position: absolute; 
     left: 2.4rem;
@@ -650,7 +639,7 @@ footer div img{
 .pointplot4 span:nth-child(1) b{
     display: block;
     height: 2rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform:skew(63deg);
     position: absolute;
     left: 2.3rem;
@@ -667,7 +656,7 @@ footer div img{
 .pointplot4 span:nth-child(2) b{
     display: block;
     height: 2rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform:skew(-49deg);
     position: absolute;
     left: -1.6rem;
@@ -691,7 +680,7 @@ footer div img{
     display: block;
     width: 5rem;
     height: 2rem;
-    border-top: 2px dotted #067aa9;
+    border-top: 2px solid #067aa9;
     position: absolute;
     left: -56px;
     top: 2px;
@@ -708,7 +697,7 @@ footer div img{
 .pointplot5 span:nth-child(2) b{
     display: block;
     height: 4rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform:skew(-40deg);
     position: absolute;
     left: 1.8rem;
@@ -725,7 +714,7 @@ footer div img{
 .pointplot6 span:nth-child(1) b{
     display: block;
     height: 2rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform:skew(57deg);
     position: absolute;
     left: 2rem;
@@ -742,7 +731,7 @@ footer div img{
 .pointplot7 span:nth-child(1) b{
     display: block;
     height: 2rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform:skew(-34deg);
     position: absolute;
     left: -1rem;
@@ -759,7 +748,7 @@ footer div img{
 .pointplot7 span:nth-child(2) b{
     display: block;
     height: 3rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform:skew(133deg);
     position: absolute;
     left: -16px;
@@ -770,7 +759,7 @@ footer div img{
 .pointplot8 span:nth-child(1) b{
     display: block;
     height: 2rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform:skew(51deg);
     position: absolute;
     left: -.8rem;
@@ -793,7 +782,7 @@ footer div img{
 .pointplot9 span:nth-child(1) b{
     display: block;
     height: 2rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     transform:skew(-130deg);
     position: absolute;
     left: 19px;
@@ -810,7 +799,7 @@ footer div img{
 .pointplot9 span:nth-child(2) b{
     display: block;
     height: 4rem;
-    border-left: 2px dotted #067aa9;
+    border-left: 2px solid #067aa9;
     position: absolute;
     left: 1px;
     top: -47px;
@@ -820,22 +809,22 @@ footer div img{
 /* 产业高亮点 */
 
 
+
 .industrytop>ul{
-    height: 20rem;
     position: relative;
 }
 
 .lightspot1{
-    width: 300px;
-    height: 300px;
+    width: 30rem;
+    height: 22rem;
     position: relative;
     margin: 0 auto;
 }
 
 .lightspot1 span:nth-child(1){
     position: absolute;
-    left: 5%;
-    top: 32%;
+    left: 4.4rem;
+    top: 8.1rem;
 }
 
 .lightspot1 span:nth-child(1) small{
@@ -853,7 +842,7 @@ footer div img{
     width: 2rem;
     height: 3rem;
     display: block;
-    border-left: 2px dotted #063952;
+    border-left: 2px solid #063952;
     position: absolute;
     left: 144%;
     top: 59%;
@@ -862,14 +851,14 @@ footer div img{
 
 .lightspot1 span:nth-child(2){
     position: absolute;
-    left: 10%;
-    top: 14%;
+    left: 4.9rem;
+    top: 3.1rem;
 }
 
 .lightspot1 span:nth-child(2) b{
    height: 7rem;
    display: block;
-   border-left: 2px dotted #063952;
+   border-left: 2px solid #063952;
    position: absolute;
    transform: skew(27deg);
    left: 147%;
@@ -889,14 +878,14 @@ footer div img{
 
 .lightspot1 span:nth-child(3) {
     position: absolute;
-    left: 30%;
-    top: 9%;
+    left: 10rem;
+    top: 1.8rem;
 }
 
 .lightspot1 span:nth-child(3) b{
     height: 7rem;
     display: block;
-    border-left: 2px dotted #063952;
+    border-left: 2px solid #063952;
     position: absolute;
     left: 55%;
     top: 111%;
@@ -916,14 +905,14 @@ footer div img{
 
 .lightspot1 span:nth-child(4) {
     position: absolute;
-    left: 50%;
-    top: 19%;
+    left:15rem;
+    top: 4rem;
 }
 
 .lightspot1 span:nth-child(4) b{
     height: 5rem;
     display: block;
-    border-left: 2px dotted #063952;
+    border-left: 2px solid #063952;
     position: absolute;
     left: -4%;
     top: 115%;
@@ -943,14 +932,14 @@ footer div img{
 
 .lightspot1 span:nth-child(5) {
     position: absolute;
-    left: 69%;
-    top: 28%;
+    left: 19.9rem;
+    top:7.1rem;
 }
 
 .lightspot1 span:nth-child(5) b{
     height: 4rem;
     display: block;
-    border-left: 2px dotted #063952;
+    border-left: 2px solid #063952;
     position: absolute;
     left: -66%;
     top: 114%;
@@ -970,14 +959,14 @@ footer div img{
 
 .lightspot1 span:nth-child(6) {
     position: absolute;
-    left: 78%;
-    top: 36%;
+    left: 22rem;
+    top: 9rem;
 }
 
 .lightspot1 span:nth-child(6) b{
     height: 3rem;
     display: block;
-    border-left: 3px dotted #063952;
+    border-left: 3px solid #063952;
     position: absolute;
     left: -89%;
     top: 62%;
@@ -997,14 +986,14 @@ footer div img{
 
 .lightspot1 span:nth-child(7) {
     position: absolute;
-    left: 61%;
-    top: 63%;
+    left: 18rem;
+    top: 15.6rem;
 }
 
 .lightspot1 span:nth-child(8){
     position: absolute;
-    left: 41%;
-    top: 48%;
+    left: 12.9rem;
+    top: 12rem;
 }
 
 .lightspot1 span:nth-child(8) small{
@@ -1029,8 +1018,8 @@ footer div img{
     transform: skew(57deg);
 }
 .lightspot2{
-    width: 310px;
-    height: 400px;
+    width: 31rem;
+    height: 22rem;
     position: relative;
     margin: 0 auto;
 }
@@ -1053,8 +1042,8 @@ footer div img{
 }
 
 .lightspot2 span:nth-child(1){
-    left: 17%;
-    top: 8%;
+    left: 6rem;
+    top:3rem;
 }
 
 .lightspot2 span:nth-child(1) b{
@@ -1069,8 +1058,8 @@ footer div img{
 }
 
 .lightspot2 span:nth-child(2){
-    left: 29%;
-    top: 5%;
+    left: 9rem;
+    top: 2.1rem;
 }
 
 .lightspot2 span:nth-child(2) b{
@@ -1085,8 +1074,8 @@ footer div img{
 }
 
 .lightspot2 span:nth-child(3){
-    left: 41%;
-    top: 2%;
+    left: 12.1rem;
+    top: 1.1rem;
 }
 .lightspot2 span:nth-child(3) i{
     width: 7rem;
@@ -1109,8 +1098,8 @@ footer div img{
 }
 
 .lightspot2 span:nth-child(4){
-    left: 62%;
-    top:4%;
+    left: 17.7rem;
+    top:1.9rem;
 }
 
 .lightspot2 span:nth-child(4) i{
@@ -1129,8 +1118,8 @@ footer div img{
 }
 
 .lightspot2 span:nth-child(5){
-    left: 76%;
-    top:9%;
+    left: 21rem;
+    top:3.5rem;
 }
 
 .lightspot2 span:nth-child(5) b{
@@ -1145,8 +1134,8 @@ footer div img{
 }
 
 .lightspot2 span:nth-child(6){
-    left: 78%;
-    top: 15%;
+    left: 21rem;
+    top: 5rem;
 }
 
 .lightspot2 span:nth-child(6) b{
@@ -1160,8 +1149,8 @@ footer div img{
     transform: skew(-78deg);
 }
 .lightspot2 span:nth-child(8){
-    left: 54%;
-    top: 31%;
+    left: 16rem;
+    top: 10.6rem;
 }
 
 .lightspot2 span:nth-child(8) i{
@@ -1176,17 +1165,17 @@ footer div img{
 
 .lightspot2 span:nth-child(8) b{
     width: 2rem;
-    height: 2.5rem;
+    height: 1.5rem;
     display: block;
     border-left:1px solid #11335b;
     position: absolute;
-    left: 42%;
-    top: 132%;
+    left: 26%;
+    top: 123%;
     transform: skew(62deg);
 }
 .lightspot2 span:nth-child(7){
-    left: 47%;
-    top: 20%;
+    left: 14rem;
+    top: 7rem;
 }
 
 .lightspot2 span:nth-child(7) small{
@@ -1204,8 +1193,8 @@ footer div img{
     transform: skew(25deg);
 }
 .lightspot2 span:nth-child(9){
-    left: 73%;
-    top: 39%;
+    left: 19rem;
+    top: 12rem;
 }
 
 .lightspot2 span:nth-child(9) i{
@@ -1219,8 +1208,8 @@ footer div img{
 }
 
 .lightspot2 span:nth-child(10){
-    left: 37%;
-    top: 34%;
+    left: 11rem;
+    top: 11.6rem;
 }
 
 .lightspot2 span:nth-child(10) small{
@@ -1238,8 +1227,8 @@ footer div img{
     transform: skew(-259deg);
 }
 .lightspot2 span:nth-child(11){
-    left: 18%;
-    top: 23%;
+    left: 6rem;
+    top: 8rem;
 }
 .lightspot2 span:nth-child(11) b{
     width: 2rem;
@@ -1252,8 +1241,8 @@ footer div img{
     transform: skew(54deg);
 }
 .lightspot2 span:nth-child(12){
-    left: 9%;
-    top: 29%;
+    left: 4rem;
+    top: 10rem;
 }
 .lightspot2 span:nth-child(12) i{
     width: 7rem;
@@ -1270,8 +1259,8 @@ footer div img{
     transform: skew(75deg);
 }
 .lightspot2 span:nth-child(13){
-    left: 9%;
-    top: 41%
+    left: 4rem;
+    top: 14rem;
 }
 
 .lightspot2 span:nth-child(13) b{
@@ -1285,23 +1274,23 @@ footer div img{
     transform: skew(110deg);
 }
 .lightspot2 span:nth-child(14){
-    left:24%;
-    top: 46%;
+    left:7.6rem;
+    top: 15.6rem;
 }
 
 .lightspot2 span:nth-child(14) b{
     width: 2rem;
-    height: 2.5rem;
+    height: 3.5rem;
     display: block;
     border-left:1px solid #11335b;
     position: absolute;
     left: 58%;
-    top: -142%;
+    top: -161%;
     transform: skew(136deg);
 }
 .lightspot2 span:nth-child(15){
-    left: 31%;
-    top: 51%;
+    left: 9.4rem;
+    top: 17rem;
 }
 
 .lightspot2 span:nth-child(15) b{
@@ -1315,8 +1304,8 @@ footer div img{
     transform: skew(-199deg);
 }
 .lightspot2 span:nth-child(16){
-    left: 47%;
-    top: 50%;
+    left: 13.5rem;
+    top: 17.2rem;
 }
 
 .lightspot2 span:nth-child(16) b{
@@ -1330,8 +1319,8 @@ footer div img{
     transform: skew(22deg);
 }
 .lightspot2 span:nth-child(17){
-    left: 59%;
-    top: 51%;
+    left: 16.5rem;
+    top: 17rem;
 }
 
 .lightspot2 span:nth-child(17) b{
@@ -1345,8 +1334,8 @@ footer div img{
     transform: skew(45deg);
 }
 .lightspot2 span:nth-child(18){
-    left: 76%;
-    top: 46%;
+    left: 21rem;
+    top: 15.6rem;
 }
 
 .lightspot2 span:nth-child(18) b{
@@ -1361,8 +1350,8 @@ footer div img{
 }
 
 .lightspot3 {
-    width: 300px;
-    height: 400px;
+    width: 30rem;
+    height: 22rem;
     position: relative;
     margin: 0 auto;
 }
@@ -1386,8 +1375,8 @@ footer div img{
 }
 
 .lightspot3 span:nth-child(1){
-    left: 20%;
-    top: 3%;
+    left: 8rem;
+    top: 1.3rem;
 }
 
 
@@ -1403,8 +1392,8 @@ footer div img{
 }
 
 .lightspot3 span:nth-child(2){
-    left: 50%;
-    top: 15%;
+    left: 15.3rem;
+    top: 4.7rem;
 }
 
 .lightspot3 span:nth-child(2) i small{
@@ -1424,8 +1413,8 @@ footer div img{
 }
 
 .lightspot3 span:nth-child(3){
-    left: 40%;
-    top: 15%;
+    left: 12.7rem;
+    top: 5rem;
 }
 
 .lightspot3 span:nth-child(3) small{
@@ -1446,8 +1435,8 @@ footer div img{
 }
 
 .lightspot3 span:nth-child(4){
-    left: 46%;
-    top:28%;
+    left: 14rem;
+    top:9rem;
 }
 .lightspot3 span:nth-child(4) small{
     left: -4%;
@@ -1467,8 +1456,8 @@ footer div img{
 }
 
 .lightspot3 span:nth-child(5){
-    left: 71%;
-    top: 35%;
+    left: 20rem;
+    top: 11rem;
 }
 
 .lightspot3 span:nth-child(5) small{
@@ -1478,8 +1467,8 @@ footer div img{
 }
 
 .lightspot3 span:nth-child(6){
-    left: 30%;
-    top: 30%;
+    left: 9.9rem;
+    top: 9.4rem;
 
 }
 .lightspot3 span:nth-child(6) small{
@@ -1500,8 +1489,8 @@ footer div img{
 }
 
 .lightspot3 span:nth-child(7){
-   left: 21%;
-   top: 20%;
+   left: 8rem;
+   top: 6rem;
 }
 .lightspot3 span:nth-child(7) i small{
     left:-14%;
@@ -1520,8 +1509,8 @@ footer div img{
 }
 
 .lightspot3 span:nth-child(8){
-    left: 11%;
-    top: 41%;
+    left: 5rem;
+    top: 13rem;
 }
 .lightspot3 span:nth-child(8) i small{
     left: -7%;
@@ -1540,8 +1529,8 @@ footer div img{
 }
 
 .lightspot3 span:nth-child(9){
-    left: 30%;
-    top: 41%;
+    left: 10rem;
+    top: 13rem;
 }
 
 .lightspot3 span:nth-child(9) b{
@@ -1569,13 +1558,13 @@ footer div img{
     background: url(../img/bgimg/tan1.png);
     background-size: 100% 100%;
     margin: 20px;
-    margin-top: 4rem;
     padding:1rem;
 }
 
 .industrybottom ul li{
     padding: 10px;
     border-bottom: 1px solid #1f1f40;
+    font-size: 1.4rem;
 }
 
 .industrybottom ul li:nth-child(3){
@@ -1738,13 +1727,14 @@ footer div img{
 }
 
 .allcapital{
-    padding: 10px;
+    padding: 3rem;
+    background: url(../img/bgimg/bg2.png) no-repeat center;
+    background-size: 100% 100%;
 }
 
 .allcapital div{
     background: url(../img/bgimg/tan1.png);
     background-size: 100% 100%;
-    height: 7rem;
     margin-top: 15px;
     padding: 10px;
 }
@@ -1768,10 +1758,13 @@ footer div img{
 
 .allbazzr div p:nth-child(1) {
     text-align: center;
-    line-height: 2rem;
+    line-height: 2.5rem;
+    font-size: 1.6rem;
+    color: #00c0ff;
 }
 .allbazzr div p:nth-child(2){
     padding: 10px;
+    font-size: 1.4rem;
 
 }
 
@@ -1825,11 +1818,12 @@ footer div img{
 .magimg{
     position: absolute;
     left: 82px;
-   width: 145px;
+   width: 158px;
    height: 32px;
    border: 1px solid #22224c;
    display: none;
    background: #101029;
+   padding: .4rem;
 }
 
 /* 各地新闻 */
@@ -1843,6 +1837,8 @@ footer div img{
  .maptext ul li{
     padding: 10px;
     border-bottom: 1px solid #1f1f40;
+    color: #fff;
+    font-size: 1.4rem;
  }
 
  .maptexts{
@@ -1854,6 +1850,8 @@ footer div img{
  .maptexts ul li{
     padding: 10px;
     border-bottom: 1px solid #1f1f40;
+    color: #fff;
+    font-size: 1.4rem;
  }
 
  /* 会议日程 */
@@ -2001,6 +1999,7 @@ footer div img{
 .daytext ul li{
     padding: 10px;
     border-bottom: 1px solid #1f1f40;
+    font-size: 1.4rem;
 }
 .daytext ul li:last-child{
     border-bottom: none;
@@ -2011,4 +2010,83 @@ footer div img{
 }
 s{
     text-decoration:none;
+}
+
+.ticolor{
+    color: #fff;
+    font-size: 2rem;
+}
+
+.detail {                            
+    display: none;
+    position: fixed;
+    left: 0; 
+    top:0;
+    bottom: 0;
+    right: 0;
+}
+
+.swiper-button-prev{
+    display: none;
+}
+
+a{
+    -webkit-tap-highlight-color:rgba(0,0,0,0); 
+}
+.post{
+    position: absolute;
+    left: 2rem;
+    top: -3rem;
+}
+
+.bigshu{
+    position: absolute;
+    left: -4rem;
+    top: 2rem;
+}
+
+
+.safe{
+    position: absolute;
+    left: -4rem;
+    top: 1rem;
+}
+
+.sale{
+    position: absolute;
+    left: -3rem;
+    top: 2rem;
+}
+
+.allcapital div p:nth-child(1){
+    color: #00c0ff;
+    font-size: 1.6rem;
+}
+
+.allcapital div p:nth-child(2){
+    font-size: 1.4rem;
+}
+
+
+.bigtext{
+    font-size: 1.4rem;
+}
+
+.hover{
+    color: #00c0ff;
+}
+
+.alldynamic span:nth-child(1){
+    width: 6.5rem;
+    height: 6.5rem;
+    display: block;
+}
+
+.alldynamic span  img{
+    width: 100%;
+    height: 100%;
+}
+
+.point{
+    color: #00c0ff;
 }
