@@ -41,8 +41,9 @@ public class ReportController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = {"/{page}.html","/{page}.htm"}, method = RequestMethod.GET)
-	public String show(@PathVariable String page,String id,Model model) {
+	public String show(@PathVariable String page,String id,String type,Model model) {
 		model.addAttribute("id",id);
+		model.addAttribute("type",type);
 		return "/report/"+page;
 	}
 

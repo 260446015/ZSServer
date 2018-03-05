@@ -1,5 +1,3 @@
-
-
 $(function () {    
     (function ($) {
         $.fn.jalendar = function (options) {

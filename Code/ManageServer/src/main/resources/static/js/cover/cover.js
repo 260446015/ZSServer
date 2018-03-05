@@ -1,13 +1,14 @@
+var arr = [coverTime, keyWord, industryChain, allFoucs, dynamic, company, superiorCompany]
 var reportId;
 function addData(id) {
     reportId = id;
     coverTime();
-    keyWord();
-    industryChain();
-    allFoucs();
-    company();
-    dynamic();
-    superiorCompany();
+    keyWord;
+    industryChain;
+    allFoucs;
+    company;
+    dynamic;
+    superiorCompany;
 }
 
 //获取时间
@@ -120,37 +121,19 @@ function getKey(_id, _data) {
 
 //产业高亮点
 function industryChain() {
-
-    function removeAllSpace(str) {
-        return str.replace(/\s+/g, "");
-    }
-
     $.ajax({
         url: '/apis/report/getHtmlData.do?id=' + reportId + '&type=chain',
         type: 'GET',
         async: false,
         success: function (res) {
-            console.log(res)
-            
-             $('.aaa s').each(function(index,el){
-                 console.log($(el).text())
-                 for (var i = 0; i < res.data.length; i++) {
-                    /* $.each(res.data[i].keyWord, function (i, v) {
-                        console.log(keyWord1 + "==" + v + "+keyWord1 == v")
-                        if (keyWord1 == v) {
-    
-                            $('.aaa').css('color', '#0ec3ff')
-                        }
-                    }) */
-                    console.log(res.data[i].keyWord.indexOf($(el).text()))
-                    if(res.data[i].keyWord.indexOf($(el).text())>=0){
-                        console.log($(el)[0])
+            $('.aaa s').each(function (index, el) {
+                for (var i = 0; i < res.data.length; i++) {
+                    if (res.data[i].keyWord.indexOf($(el).text()) >= 0) {
                         $(el).addClass("redaa");
-                    }   
+                    }
                 }
-             })
-       
-            
+            })
+
             var strHtml = "";
             for (var i = 0; i < res.data.length; i++) {
                 strHtml += "<li>" + res.data[i].text + "</li>";
@@ -159,9 +142,16 @@ function industryChain() {
         }
     })
     var swiper = new Swiper('.swiper-container', {
+        spaceBetween: 50,
+        centeredSlides: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
         pagination: {
             el: '.swiper-pagination',
-        },
+            clickable: true,
+        }
     });
 }
 
@@ -175,12 +165,9 @@ function allFoucs() {
         success: function (res) {
             var strHtml = "";
             for (var i = 0; i < res.data.length; i++) {
-                strHtml += "<li><a href=" + res.data[i].url + "?id='+reportId+'&type=" + res.data[i].id + ">"
+                strHtml += "<li data-id=" + res.data[i].id + " data-name=" + res.data[i].name + " class='allfoucs'><a href='javascript:void(0);'>"
                 strHtml += "<span class='mb10'> <img src=" + res.data[i].logoClass + ">"
-                strHtml += "</span>" + res.data[i].name + "</a></li>";
-            }
-            for (var i = res.data.length - 1; i > -1; i--) {
-                apendHtml(res.data[i].id, res.data[i].name);
+                strHtml += "</span><span class='ticolor'>" + res.data[i].name + "</span></a></li>";
             }
             $('.each ul').html(strHtml)
 
@@ -188,117 +175,40 @@ function allFoucs() {
     })
 }
 
+$('.each ul').on('click', 'li', function () {
+    var name = $(this).attr('data-name');
+    var _id= $(this).attr('data-id');
+    switch (name) {
+        case '政策焦点':
+            window.location.href = "/apis/report/policy.htm?id="+ reportId+'&type=' + _id
+            break;
+        case '资本焦点':
+            window.location.href = "/apis/report/capital.htm?id="+ reportId+'&type=' + _id
+            break;
+        case '市场焦点':
+            window.location.href = "/apis/report/bazaar.htm?id="+ reportId+'&type=' + _id
+            break;
+        case '舆论焦点':
+            window.location.href = "/apis/report/consensus.htm?id="+ reportId+'&type=' + _id
+            break;
+        case '技术焦点':
+            window.location.href = "/apis/report/science.htm?id="+ reportId+'&type=' + _id
+            break;
+        case '未来焦点':
+            window.location.href = "/apis/report/future.htm?id="+ reportId+'&type=' + _id
+            break;
+    }
+});
 
-function apendHtml(_id, _name) {
-    $.ajax({
-        url: '/apis/report/getHtmlData.do?id=' + reportId + '&type=' + _id,
-        type: 'GET',
-        async: false,
-        success: function (res) {
-            if (_name == '政策焦点') {
-                var policyhtml = $("<div class='page page11'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'></div>");
-                var boxdom = $("<div class='dottedline'></div>");
-                boxdom.append(container);
-                var strHtml = "";
-                for (var i = 0; i < res.data.length; i++) {
-                    if (i % 2) {
-                        strHtml += "<div class='rightline'><p class='ptext'><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                            + "</small></p>";
-                        strHtml += "<p class='ptext'>" + res.data[i].text + "</p></div>"
-                    } else {
-                        strHtml += "<div class='leftline'><p><span class='rightdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                            + "</small></p>";
-                        strHtml += "<p>" + res.data[i].text + "</p></div>"
-                    }
-                }
-                boxdom.html(strHtml)
-                policyhtml.append(boxdom)
-                $('.page5').after(policyhtml);
-            } else if (_name == '资本焦点') {
-                var policyhtml = $("<div class='page page12'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'></div>");
-                var boxdom = $("<div class='allcapital'></div>");
-                boxdom.append(container);
-                var strHtml = "";
-                for (var i = 0; i < res.data.length; i++) {
-                    strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
-                }
-                boxdom.html(strHtml)
-                policyhtml.append(boxdom)
-                $('.page5').after(policyhtml);
-            } else if (_name == '市场焦点') {
-                var policyhtml = $("<div class='page page13'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'></div>");
-                var boxdom = $("<div class='allbazzr'></div>");
-                boxdom.append(container);
-                var strHtml = "";
-                for (var i = 0; i < res.data.length; i++) {
-                    strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
-                }
-                boxdom.html(strHtml)
-                policyhtml.append(boxdom)
-                $('.page5').after(policyhtml);
-            } else if (_name == '舆论焦点') {
-                var policyhtml = $("<div class='page page14'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'></div>");
-                var boxdom = $("<div class='dottedline'></div>");
-                boxdom.append(container);
-                var strHtml = "";
-                for (var i = 0; i < res.data.length; i++) {
-                    if (i % 2) {
-                        strHtml += "<div class='rightline'><p class='ptext'><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                            + "</small></p>";
-                        strHtml += "<p class='ptext'>" + res.data[i].text + "</p></div>"
-                    } else {
-                        strHtml += "<div class='leftline'><p><span class='rightdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                            + "</small></p>";
-                        strHtml += "<p>" + res.data[i].text + "</p></div>"
-                    }
-                }
-                boxdom.html(strHtml)
-                policyhtml.append(boxdom)
-                $('.page5').after(policyhtml);
-            } else if (_name == '技术焦点') {
-                var policyhtml = $("<div class='page page12'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'></div>");
-                var boxdom = $("<div class='allcapital'></div>");
-                boxdom.append(container);
-                var strHtml = "";
-                for (var i = 0; i < res.data.length; i++) {
-                    strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
-                }
-                boxdom.html(strHtml)
-                policyhtml.append(boxdom)
-                $('.page5').after(policyhtml);
-            } else if (_name == '未来焦点') {
-                var policyhtml = $("<div class='page page13'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + _name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'></div>");
-                var boxdom = $("<div class='allbazzr'></div>");
-                boxdom.append(container);
-                var strHtml = "";
-                for (var i = 0; i < res.data.length; i++) {
-                    strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
-                }
-                boxdom.html(strHtml)
-                policyhtml.append(boxdom)
-                $('.page5').after(policyhtml);
-            }
-        }
-    })
-}
+
+
+
+
+
+
+
+
+
 
 
 //明星推荐
@@ -339,194 +249,256 @@ function dynamic() {
         success: function (res) {
             var strHtml = "";
             for (var i = 0; i < res.data.length; i++) {
-                strHtml += "<li><a>"
-                strHtml += "<span class='mb10'> <img src=" + res.data[i].logoClass + ">"
-                strHtml += "</span>" + res.data[i].name + "</a></li>"
+                strHtml += "<li data-id=" + res.data[i].id + " data-name=" + res.data[i].name + " class='alldynamic'>"
+                strHtml += "<a href='javascript:void();'><span class='mb10'> <img src=" + res.data[i].logoClass + ">"
+                strHtml += "</span><span class='ticolor'>" + res.data[i].name + "</span></a></li>"
             }
-            for (var i = res.data.length - 1; i > -1; i--) {
-                adddynamic(res.data[i].id, res.data[i].name);
-            }
-            $('.page-dynamic div>ul').html(strHtml)
+            $('.industry ul').html(strHtml)
         }
     })
 }
 
-function adddynamic(id, name) {
-    $.ajax({
-        url: '/apis/report/getHtmlData.do?id=' + reportId + '&type=' + id,
-        type: 'GET',
-        async: false,
-        success: function (res) {
-            if (name == '各地新闻') {
-                var policyhtml = $("<div class='page page17'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'><div id='map' style='height:16rem'></div><div class='maptext'><ul></ul></div></div>");
-                policyhtml.append(container)
-                $('.page6').after(policyhtml);
-                ajaxMap(id);
-            } else if (name == '合作动向') {
-                var policyhtml = $("<div class='page page18'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'></div>");
-                var boxdom = $("<div class='dottedline'></div>");
-                boxdom.append(container);
-                var strHtml = "";
-                for (var i = 0; i < res.data.length; i++) {
-                    if (i % 2) {
-                        strHtml += "<div class='rightline'><p class='ptext'><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                            + "</small></p>";
-                        strHtml += "<p class='ptext'>" + res.data[i].text + "</p></div>"
-                    } else {
-                        strHtml += "<div class='leftline'><p><span class='rightdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                            + "</small></p>";
-                        strHtml += "<p>" + res.data[i].text + "</p></div>"
-                    }
-                }
-                boxdom.html(strHtml)
-                policyhtml.append(boxdom)
-                $('.page6').after(policyhtml);
-            } else if (name == '企业动向') {
-                var policyhtml = $("<div class='page page19'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'></div>");
-                var boxdom = $("<div class='allcapital'></div>");
-                boxdom.append(container);
-                var strHtml = "";
-                for (var i = 0; i < res.data.length; i++) {
-                    strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
-                }
-                boxdom.html(strHtml)
-                policyhtml.append(boxdom)
-                $('.page6').after(policyhtml);
-            } else if (name == '会议日程') {
-                var policyhtml = $("<div class='page page20'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                // var container = $("<div class='container'></div>");
-                var boxdom = $("<div id='myId' class='jalendar'></div><div class='daytext'><ul></ul></div>");
-                boxdom.append(container);
-                policyhtml.append(boxdom)
-                $('.page6').after(policyhtml);
-                dayMeeting(id)
-            } else if (name == '排行报告') {
-                var policyhtml = $("<div class='page page21'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'></div>");
-                var boxdom = $("<div class='allreport'></div>");
-                boxdom.append(container);
-                var strHtml = "";
-                for (var i = 0; i < res.data.length; i++) {
-                    strHtml += "<div><ul><a href=" + res.data[i].img + "><li><p>" + res.data[i].keyWord + "</p><p class='read'>阅读</p></li></a>"
-                    strHtml += "<li>" + res.data[i].text + "</li><li>报告发布:" + res.data[i].people + "</li></a></ul></div>"
-                }
-                boxdom.html(strHtml);
-                policyhtml.append(boxdom)
-                $('.page6').after(policyhtml)
-            } else if (name == '投融速递') {
-                var policyhtml = $("<div class='page page22'></div>");
-                var appendHeader = $("<header><div class='center'><h1>" + name + "</h1></div></header>")
-                policyhtml.append(appendHeader);
-                var container = $("<div class='container'><div id='bar' style='height:16rem'></div><div class='maptexts'><ul></ul></div></div>");
-                policyhtml.append(container)
-                $('.page6').after(policyhtml);
-                melting(id)
-            }
-        }
-    })
-}
+$(".industry ul").on("click","li",function(){
+    var name = $(this).attr('data-name');
+    var _id= $(this).attr('data-id');
+    switch (name) {
+        case '各地新闻':
+            window.location.href = "/apis/report/worldnews.htm?id="+ reportId+'&type=' + _id
+            break;
+        case '合作动向':
+            window.location.href = "/apis/report/collaborate.htm?id="+ reportId+'&type=' + _id
+            break;
+        case '企业动向':
+            window.location.href = "/apis/report/tendency.htm?id="+ reportId+'&type=' + _id
+            break;
+        case '会议日程':
+            window.location.href = "/apis/report/schedule.htm?id="+ reportId+'&type=' + _id
+            break;
+        case '排行报告':
+            window.location.href = "/apis/report/rankingreport.htm?id="+ reportId+'&type=' + _id
+            break;
+        case '投融速递':
+            window.location.href = "/apis/report/express.htm?id="+ reportId+'&type=' + _id
+            break;
+    }
+})
+
+
+
+// 行业动态渲染
+// function adddynamic(id, name) {
+//     $.ajax({
+//         url: '/apis/report/getHtmlData.do?id=' + reportId + '&type=' + id,
+//         type: 'GET',
+//         async: false,
+//         success: function (res) {
+//             if (name == '各地新闻') {
+//                 var policyhtml = $("<div class='page page17 section'></div>");
+//                 var appendHeader = $("<header><div class='left'><</div><div><h1>" + name + "</h1></div></header>")
+//                 policyhtml.append(appendHeader);
+//                 console.log('po')
+//                 var container = $("<div class='container'><div id='map' style='height:16rem'></div><div class='maptext'><ul></ul></div></div>");
+//                 policyhtml.append(container)
+//                 $('#detil').html(policyhtml);
+//                 console.log('html完成')
+//                 ajaxMap(id);
+//                 console.log($('.left'))
+//                 $('.left').on('click', function () {
+//                     $('.detail').css('display', 'none')
+//                     $('#dowebok').css('display', 'block')
+//                 })
+//             } else if (name == '合作动向') {
+//                 var policyhtml = $("<div class='page page18 section'></div>");
+//                 var appendHeader = $("<header><div class='left'><</div><div><h1>" + name + "</h1></div></header>")
+//                 policyhtml.append(appendHeader);
+//                 var boxdom = $("<div class='dottedline'></div>");
+//                 boxdom.append(container);
+//                 var strHtml = "";
+//                 for (var i = 0; i < res.data.length; i++) {
+//                     if (i % 2) {
+//                         strHtml += "<div class='rightline'><p class='ptext'><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord
+//                             + "</small></p>";
+//                         strHtml += "<p class='ptext'>" + res.data[i].text + "</p></div>"
+//                     } else {
+//                         strHtml += "<div class='leftline'><p><span class='rightdot'></span><small class='textcolor'>" + res.data[i].keyWord
+//                             + "</small></p>";
+//                         strHtml += "<p>" + res.data[i].text + "</p></div>"
+//                     }
+//                 }
+//                 boxdom.html(strHtml)
+//                 policyhtml.append(boxdom)
+//                 $('#detil').html(policyhtml);
+//                 $('.left').on('click', function () {
+//                     $('.detail').css('display', 'none')
+//                     $('#dowebok').css('display', 'block')
+//                 })
+//             } else if (name == '企业动向') {
+//                 var policyhtml = $("<div class='page page19 section'></div>");
+//                 var appendHeader = $("<header><div class='left'><</div><div><h1>" + name + "</h1></div></header>")
+//                 policyhtml.append(appendHeader);
+//                 var boxdom = $("<div class='allcapital'></div>");
+//                 boxdom.append(container);
+//                 var strHtml = "";
+//                 for (var i = 0; i < res.data.length; i++) {
+//                     strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
+//                 }
+//                 boxdom.html(strHtml)
+//                 policyhtml.append(boxdom)
+//                 $('#detil').html(policyhtml);
+//                 $('.left').on('click', function () {
+//                     $('.detail').css('display', 'none')
+//                     $('#dowebok').css('display', 'block')
+//                 })
+//             } else if (name == '会议日程') {
+//                 var policyhtml = $("<div class='page page20 section'></div>");
+//                 var appendHeader = $("<header><div class='left'><</div><div><h1>" + name + "</h1></div></header>")
+//                 policyhtml.append(appendHeader);
+//                 var boxdom = $("<div id='myId' class='jalendar'></div><div class='daytext'><ul></ul></div>");
+//                 boxdom.append(container);
+//                 policyhtml.append(boxdom)
+//                 $('#detil').html(policyhtml);
+//                 dayMeeting(id)
+//                 $('.left').on('click', function () {
+//                     $('.detail').css('display', 'none')
+//                     $('#dowebok').css('display', 'block')
+//                 })
+//             } else if (name == '排行报告') {
+//                 var policyhtml = $("<div class='page page21 section'></div>");
+//                 var appendHeader = $("<header><div class='left'><</div><div><h1>" + name + "</h1></div></header>")
+//                 policyhtml.append(appendHeader);
+//                 var boxdom = $("<div class='allreport'></div>");
+//                 boxdom.append(container);
+//                 var strHtml = "";
+//                 for (var i = 0; i < res.data.length; i++) {
+//                     strHtml += "<div><ul><a href=" + res.data[i].img + "><li><p>" + res.data[i].keyWord + "</p><p class='read'>阅读</p></li></a>"
+//                     strHtml += "<li>" + res.data[i].text + "</li><li>报告发布:" + res.data[i].people + "</li></a></ul></div>"
+//                 }
+//                 boxdom.html(strHtml);
+//                 policyhtml.append(boxdom)
+//                 $('#detil').html(policyhtml);
+//                 $('.left').on('click', function () {
+//                     $('.detail').css('display', 'none')
+//                     $('#dowebok').css('display', 'block')
+//                 })
+//             } else if (name == '投融速递') {
+//                 var policyhtml = $("<div class='page page22 section'></div>");
+//                 var appendHeader = $("<header><div class='center'><div class='left'><</div><div><h1>" + name + "</h1></div></div></header>")
+//                 policyhtml.append(appendHeader);
+//                 var container = $("<div class='container'><div id='bar' style='height:16rem'></div><div class='maptexts'><ul></ul></div></div>");
+//                 policyhtml.append(container)
+//                 $('#detil').html(policyhtml);
+//                 melting(id)
+//                 $('.left').on('click', function () {
+//                     $('.detail').css('display', 'none')
+//                     $('#dowebok').css('display', 'block')
+//                 })
+//             }
+//         }
+//     })
+// }
+
+// $('.industry ul').on('click', '.alldynamic', function (e) {
+//     $('#dowebok').css('display', 'none')
+//     adddynamic($(this).attr('data-id'), $(this).attr('data-name'))
+//     $('.detail').css('display', 'block')
+// })
+
 
 //各地新闻
 
-function ajaxMap(id) {
-    $.ajax({
-        url: '/apis/report/getHtmlData.do?id=' + reportId + '&type=' + id,
-        type: 'GET',
-        async: false,
-        success: function (res) {
-            var mapname = new Array();
-            var maptext = new Array();
-            for (var i = 0; i < res.data.length; i++) {
-                //地名
-                mapname.push(res.data[i].area)
-                var textobj = new Object();
-                textobj.name = res.data[i].area;
-                textobj.text = res.data[i].data;
-                maptext.push(textobj)
-                if (i == 0) {
-                    var strHtml = "";
-                    for (var j = 0; j < maptext[0].text.length; j++) {
-                        strHtml += "<li>" + maptext[0].text[j] + "</li>"
-                    }
-                    $('.maptext ul').html(strHtml)
-                }
-            }
-            allMap(mapname, maptext)
-        }
-    })
-}
-function allMap(index, text) {
-    var _map = new Array();
-    $.each(index, function (i, v) {
-        _map.push({
-            name: v,
-            selected: true
-        });
-    })
-    var dom = document.getElementById("map");
-    var app = {};
-    var mapOption = null;
-    mapOption = {
-        tooltip: {
-            trigger: 'item',
-            formatter: '{b}'
-        },
-        series: [
-            {
-                name: '中国',
-                type: 'map',
-                mapType: 'china',
-                selectedMode: 'multiple',
-                label: {
-                    normal: {
-                        show: false
-                    },
-                    emphasis: {
-                        show: false,
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        areaColor: '#101029',
-                        borderColor: '#00c0ff'
-                    },
-                    emphasis: {
-                        areaColor: '#00c0ff'
-                    }
-                },
-                data: _map
+// function ajaxMap(id) {
+//     console.log(2222)
+//     $.ajax({
+//         url: '/apis/report/getHtmlData.do?id=' + reportId + '&type=' + id,
+//         type: 'GET',
+//         async: false,
+//         success: function (res) {
+//             console.log(res)
+//             var mapname = new Array();
+//             var maptext = new Array();
+//             for (var i = 0; i < res.data.length; i++) {
+//                 //地名
+//                 mapname.push(res.data[i].area)
+//                 var textobj = new Object();
+//                 textobj.name = res.data[i].area;
+//                 textobj.text = res.data[i].data;
+//                 maptext.push(textobj)
+//                 if (i == 0) {
+//                     var strHtml = "";
+//                     for (var j = 0; j < maptext[0].text.length; j++) {
+//                         strHtml += "<li>" + maptext[0].text[j] + "</li>"
+//                     }
+//                     $('.maptext ul').html(strHtml)
+//                 }
+//             }
+//             allMap(mapname, maptext)
+//         }
+//     })
+// }
 
-            }
-        ]
-    };
-    var myChart1 = echarts.init(dom);
-    myChart1.setOption(mapOption, true);
-    myChart1.on('click', function (e) {
-        $.each(text, function (ind, val) {
-            if (val.name == e.name) {
-                var strHtml = "";
-                for (var i = 0; i < val.text.length; i++) {
-                    strHtml += "<li>" + val.text[i] + "</li>"
-                }
-                $('.maptext ul').html(strHtml)
-            }
-        })
-    })
+// map渲染
+// function allMap(index, text) {
+//     console.log(index,text)
+//     var _map = new Array();
+//     $.each(index, function (i, v) {
+//         _map.push({
+//             name: v,
+//             selected: true
+//         });
+//     })
+//     var dom = document.getElementById("map");
+//     var app = {};
+//     var mapOption = null;
+//     mapOption = {
+//         tooltip: {
+//             trigger: 'item',
+//             formatter: '{b}'
+//         },
+//         series: [
+//             {
+//                 name: '中国',
+//                 type: 'map',
+//                 mapType: 'china',
+//                 selectedMode: 'multiple',
+//                 label: {
+//                     normal: {
+//                         show: false
+//                     },
+//                     emphasis: {
+//                         show: false,
+//                     }
+//                 },
+//                 itemStyle: {
+//                     normal: {
+//                         areaColor: '#101029',
+//                         borderColor: '#00c0ff'
+//                     },
+//                     emphasis: {
+//                         areaColor: '#00c0ff'
+//                     }
+//                 },
+//                 data: _map
 
-}
+//             }
+//         ]
+//     };
+//     var myChart1 = echarts.init(dom);
+//     console.log(myChart1)
+//     myChart1.setOption(mapOption, true);
+//     console.log(1111)
+//     myChart1.on('click', function (e) {
+//         $.each(text, function (ind, val) {
+//             if (val.name == e.name) {
+//                 var strHtml = "";
+//                 for (var i = 0; i < val.text.length; i++) {
+//                     strHtml += "<li>" + val.text[i] + "</li>"
+//                 }
+//                 $('.maptext ul').html(strHtml)
+//             }
+//         })
+//     })
+
+// }
 
 
 // 日程
@@ -559,10 +531,10 @@ function dayMeeting(id) {
                 customDay: nextDate(),  // Format: Year/Month/Day
             });
             var strHtml = "";
-            strHtml += "<li>本月一共" + res.data.total + "场会议</li>";
-            strHtml += "<li>最多会议地点是" + res.data.place + "</li>";
-            strHtml += "<li>会议覆盖的行业是" + res.data.industry + "</li>";
-            strHtml += "<li>推荐参加" + res.data.advise + "交流大会</li>";
+            strHtml += "<li>本月一共<span class='point'>" + res.data.total + "</span>场会议</li>";
+            strHtml += "<li>最多会议地点是<span class='point'>" + res.data.place + "</span></li>";
+            strHtml += "<li>会议覆盖的行业是<span class='point'>" + res.data.industry + "</span></li>";
+            strHtml += "<li>推荐参加<span class='point'>" + res.data.advise + "交流大会</span></li>";
             $('.daytext ul').html(strHtml);
 
         }
@@ -572,122 +544,11 @@ function dayMeeting(id) {
 
 
 
-// 投融速递
-
-function melting(id) {
-
-    $.ajax({
-        url: '/apis/report/getHtmlData.do?id=' + reportId + '&type=' + id,
-        type: 'GET',
-        async: false,
-        success: function (res) {
-            var strHtml = "";
-            var _index = new Array();
-            var _data = new Array();
-            var _objs = new Array();
-            for (var i = 0; i < res.data.length; i++) {
-                _index.push(res.data[i].industry);
-                _data.push(res.data[i].money);
-                var _obj = new Object();
-                _obj.name = res.data[i].industry;
-                _obj.value = res.data[i].array;
-                _objs.push(_obj);
-                if (i == 0) {
-                    var strHtml = "";
-                    for (var j = 0; j < _objs[0].value.length; j++) {
-                        strHtml += "<li>" + _objs[0].value[j] + "</li>";
-                    }
-                    $('.maptexts ul').html(strHtml)
-                }
-            }
-            meltingPar(_index, _data, _objs)
-        }
-    })
-}
 
 
-function meltingPar(a, b, c) {
-    var bardom = document.getElementById("bar");
-    var myChart2 = echarts.init(bardom);
-    var baroption = {
-        color: ['#3398DB'],
-        legendHoverLink: false,
-        tooltip: {
-            trigger: 'axis'
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: [
-            {
-                type: 'category',
-                data: a,
-                axisTick: {
-                    alignWithLabel: true
-                },
-                show: true,
-                splitLine: {
-                    show: false
-                },
-                axisLabel: {
-                    interval: 0,
-                    rotate: -90
-                }
-            }
-        ],
-        yAxis: [
-            {
-                axisLine: {
-                    show: false
-                },
-                show: false,
-                splitLine: {
-                    show: false
-                }
-            }
-        ],
-        series: [
-            {
-                name: '',
-                type: 'bar',
-                barWidth: '15%',
-                data: b,
-                itemStyle: {
-                    emphasis: {
-                        barBorderRadius: 30
-                    },
-                    normal: {
-                        barBorderRadius: [20, 20],
-                        label: {
-                            show: true,
-                            textStyle: {
-                                ontWeight: 'bolder',
-                                fontSize: '12',
-                                fontFamily: '微软雅黑',
-                            }
-                        }
-                    }
-                }
-            }
-        ]
-    };
-    myChart2.setOption(baroption);
-    myChart2.on('click', function (e) {
-        $.each(c, function (index, value) {
-            if (value.name == e.name) {
-                var strHtml = "";
-                for (var i = 0; i < value.value.length; i++) {
-                    strHtml += "<li>" + value.value[i] + "</li>";
-                }
-                $('.maptexts ul').html(strHtml)
-            }
-        })
-    })
-}
 
+
+// 优质企业
 function superiorCompany() {
     $.ajax({
         url: '/apis/report/getHtmlData.do?id=' + reportId + '&type=industry',
@@ -725,6 +586,7 @@ function superiorCompany() {
                 $(".magimg").attr('style', "display:none")
                 $(this).next().attr('style', "display:block")
             })
+
         }
 
     })
@@ -732,53 +594,29 @@ function superiorCompany() {
 }
 
 
-function getmege(faucet) {
-    console.log(faucet)
-    $.ajax({
-        url: '/apis/report/getHtmlData.do?id=' + reportId + '&type=industry',
-        type: 'GET',
-        async: false,
-        success: function (res) {
-            $('.mege').on("click", function () {
-                console.log($(this))
-                console.log(1)
-                var megeval = $('.mege').html();
-                console.log(megeval)
-                for (var i = 0; i < res.data.faucet.length; i++) {
-                    // console.log(faucet == res.data.faucet[i].company)
-                    if (megeval == res.data.faucet[i].company) {
-                        $('.magimg').show()
-                    } else {
-                        $('.magimg').hide()
-                    }
+// 获取页面
+
+$(function () {
+    $('#dowebok').fullpage({
+        anchors: ['page1', 'page2', 'page3', 'page4', 'page5', 'page6', 'page7', 'page8', 'page9', 'page10'],
+        scrollOverflow: true,
+        onLeave: function (index, nextIndex, direction) {
+            if (index <= arr.length - 1) {
+                switch (true) {
+                    case index < 7:
+                        return arr[index]();
+                    default:
                 }
-
-            })
+            }
         }
-    })
+    });
+});
 
-}
 
-//页面上下滑动
+$(document).on('click', '.cd-list>li>a', function () {
+    var name = $(this).attr("href");
+    name = name.split('#')[1];
+    $.fn.fullpage.moveTo(name, 1);
+});
 
-setInterval(function () {
-    var newpage = 0;
-    var num = $('.skippage .page').length - 1;
-    $('.skippage').swipe({
-        swipe: function (event, direction, distance, duration, fingerCount) {
-            if (direction == 'up') {
-                newpage = newpage + 1;
-            } else if (direction == 'down') {
-                newpage = newpage - 1;
-            }
-            if (newpage > num) {
-                newpage = num;
-            }
-            if (newpage < 0) {
-                newpage = 0;
-            }
-            $('.skippage').animate({ "top": newpage * -100 + "%" })
-        }
-    })
-}, 1000)
 
