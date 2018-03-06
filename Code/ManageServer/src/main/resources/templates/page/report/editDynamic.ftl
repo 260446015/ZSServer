@@ -60,7 +60,7 @@
 <!-- start: JavaScript-->
 <!-- Vendor JS-->
 <#include "/common/script.ftl">
-<script src="/js/report/addHtml3.js"></script>
+<script src="/js/report/editDynamic.js"></script>
 <script>
     addData(${id});
 </script>
