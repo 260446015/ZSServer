@@ -118,7 +118,6 @@ function addData(id) {
                     });
                     savaFocus();
                 });
-                i++;
             });
         }else{
             layer.alert(response.message);

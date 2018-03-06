@@ -356,7 +356,11 @@ public class ReportServiceImpl implements ReportService {
 	public Boolean addParagraphData(ParagraphAddDTO dto) {
 		JSONObject[] obj = dto.getObj();
 		for (JSONObject object:obj){
+			paragraphRepository.deleteByReportIdAndHeadlinesId(dto.getId(), object.getLong("headlinesId"));
+		}
+		for (JSONObject object:obj){
 			Paragraph paragraph = new Paragraph();
+			paragraph.setId(object.getLong("id"));
 			paragraph.setHeadlinesId(object.getLong("headlinesId"));
 			paragraph.setText(object.getString("text"));
 			paragraph.setKeyWord(object.getString("keyWord"));

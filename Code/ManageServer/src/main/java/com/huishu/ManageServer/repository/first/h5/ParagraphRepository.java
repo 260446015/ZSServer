@@ -22,4 +22,5 @@ public interface ParagraphRepository extends CrudRepository<Paragraph, Long> {
 	@Query(value="select text from t_html_paragraph where headlines_id=?1 and key_word = ?2",nativeQuery=true)
 	List<String> findByHeadlinesIdAndKeyWord(Long headlinesId,String keyWord);
 	void deleteByReportId(Long reportId);
+	void deleteByReportIdAndHeadlinesId(Long reportId,Long headlinesId);
 }

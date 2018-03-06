@@ -93,6 +93,7 @@ $(function () {
         }
     });
     $(".btn-success").on("click",function(){
+    	var index = layer.load();
         var _name = $("input[name='name']").val();
         var _time = $("input[name='time']").val();
         var _keyWord = new Array();
@@ -194,7 +195,7 @@ $(function () {
             data: JSON.stringify(req),
             success: function (response) {
                 if(response.success){
-                    layer.alert("操作成功");
+                	layer.close(index); 
                     window.location.href="/apis/report/htmlReport.html";
                 }else{
                     layer.alert(response.message);

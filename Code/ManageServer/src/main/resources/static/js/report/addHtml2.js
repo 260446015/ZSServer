@@ -61,8 +61,7 @@ function savaFocus() {
             }
         };
         result=new Array();
-        console.log(_data)
-        /*$.ajax({
+        $.ajax({
             type: 'post',
             url: "/apis/report/addParagraphData.json",
             async: false,
@@ -78,7 +77,7 @@ function savaFocus() {
                     layer.alert(response.message);
                 }
             }
-        });*/
+        });
     }
 }
 
