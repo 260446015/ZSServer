@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div class='container'>
+    <div class='express'>
         <div id='bar' style='height:16rem'>
 
         </div>
@@ -103,7 +103,10 @@
                     show: false,
                     splitLine: {
                         show: false
-                    }
+                    },
+                    type:'value',
+                    min:0,
+                    max:15
                 }
             ],
             series: [
@@ -120,6 +123,7 @@
                             barBorderRadius: [20, 20],
                             label: {
                                 show: true,
+                                position:'top',
                                 textStyle: {
                                     ontWeight: 'bolder',
                                     fontSize: '12',

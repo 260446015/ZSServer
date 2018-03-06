@@ -34,11 +34,11 @@
                 if (i % 2) {
                     strHtml += "<div class='rightline'><p class='ptext'><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord
                         + "</small></p>";
-                    strHtml += "<p class='ptext'>" + res.data[i].text + "</p></div>"
+                    strHtml += "<p class='ptext bigtext'>" + res.data[i].text + "</p></div>"
                 } else {
                     strHtml += "<div class='leftline'><p><span class='rightdot'></span><small class='textcolor'>" + res.data[i].keyWord
                         + "</small></p>";
-                    strHtml += "<p>" + res.data[i].text + "</p></div>"
+                    strHtml += "<p class='bigtext'>" + res.data[i].text + "</p></div>"
                 }
             }
             $(".dottedline").html(strHtml)

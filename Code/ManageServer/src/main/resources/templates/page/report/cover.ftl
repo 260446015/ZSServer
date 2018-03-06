@@ -67,7 +67,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);">
+                                <a href="#page5">
                                     <span class="mb10">
                                         <img src="/img/icon/icon3.png" alt="">
                                     </span>
@@ -77,7 +77,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);">
+                                <a href="#page6">
                                     <span class="mb10">
                                         <img src="/img/icon/icon4.png" alt="">
                                     </span>
@@ -87,7 +87,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);">
+                                <a href="#page7">
                                     <span class="mb10">
                                         <img src="/img/icon/icon5.png" alt="">
                                     </span>
@@ -97,7 +97,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);">
+                                <a href="#page9">
                                     <span class="mb10">
                                         <img src="/img/icon/icon6.png" alt="">
                                     </span>
@@ -443,7 +443,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="page page6 section">
                 <header>
                     <div class="center">
@@ -524,12 +523,9 @@
         </div>
         <footer>
             <div class="index">
-                <img src="/img/icon/jiantou.png" alt="" class="img">
+                <img src="/img/icon/jiantou.png"  class="img">
             </div>
         </footer>
-        <div id="detil" class='detail'>
-                
-            </div>
     </div>
     <script src="/vendor/jquery-3.3.1.min.js"></script>
     <script src="/vendor/echarts/echarts.min.js"></script>

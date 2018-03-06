@@ -43,33 +43,35 @@ h1{
     margin: 20px 0px;
     flex-wrap: wrap;
   }
-  .containerul ul li{
+
+  
+.containerul ul li{
       width: 50%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 25px 0px;
-  }
+}
   
-  .containerul ul li span{
+.containerul ul li span{
       width: 50px;
       height: 50px;
       display: block;
-  }
+}
   
   
-  .containerul ul li a{
+.containerul ul li a{
       font-size: 14px;
       color: #fff;
       margin-top: 10px;
-  }
+}
   
   
-  .containerul ul li span img{
+.containerul ul li span img{
       width: 100%;
       height: 100%;
-  }
+}
 
 
 .time p{
@@ -217,40 +219,6 @@ html,body{
     background-size: 100% 100%;
 }
 
-/* .bigbox .page13{
-    background: url(../img/bgimg/bg2.png);
-    background-size: 100% 100%;
-}
-
-.bigbox .page15{
-    background: url(../img/bgimg/bg2.png);
-    background-size: 100% 100%;
-}
-.bigbox .page16{
-    background: url(../img/bgimg/bg2.png);
-    background-size: 100% 100%;
-}
-.bigbox .page17{
-    background: url(../img/bgimg/bg3.png);
-    background-size: 100% 100%;
-}
-
-
-.bigbox .page18{
-    background: url(../img/bgimg/bg2.png);
-    background-size: 100% 100%;
-}
-
-.bigbox .page19{
-    background: url(../img/bgimg/bg2.png);
-    background-size: 100% 100%;
-}
-
-.bigbox .page22{
-    background: url(../img/bgimg/bg2.png);
-    background-size: 100% 100%;
-} */
-
 .page header{
     display: flex;
     justify-content: center;
@@ -315,6 +283,7 @@ html,body{
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
+    color: #fff;
 }
 
 .ptext{
@@ -411,6 +380,8 @@ html,body{
   padding-bottom: 3rem;
   background: url(../img/bgimg/bg2.png) no-repeat center;
   background-size: 100% 100%;  
+  overflow-y: auto;
+  height: 90%;
 }
 
  .leftline{
@@ -1727,9 +1698,11 @@ html,body{
 }
 
 .allcapital{
-    padding: 3rem;
+    padding: 2rem;
     background: url(../img/bgimg/bg2.png) no-repeat center;
     background-size: 100% 100%;
+    overflow-y: auto;
+    height: 90%;
 }
 
 .allcapital div{
@@ -1752,7 +1725,6 @@ html,body{
 .allbazzr div{
     background: url(../img/icon/kuai.png);
     background-size: 100% 100%;
-    height: 9rem;
     margin-top: 15px;
 }
 
@@ -1774,6 +1746,11 @@ html,body{
     background-size: 100% 100%;
 }
 
+.allreport{
+    overflow-y: auto;
+    height: 100%;
+}
+
 .allreport div {
     padding: 10px;
     border-bottom: 1px solid #29294b;
@@ -1790,11 +1767,13 @@ html,body{
 
 .allreport div ul li p:nth-child(1){
     color: #00c0ff;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 
 .allreport div ul li:nth-child(2){
     margin: 10px 0px;
+    color: #fff;
+    font-size: 1.4rem;
 }
 
 .allreport div ul li:nth-child(3){
@@ -2000,6 +1979,7 @@ html,body{
     padding: 10px;
     border-bottom: 1px solid #1f1f40;
     font-size: 1.4rem;
+    color: #fff;
 }
 .daytext ul li:last-child{
     border-bottom: none;
@@ -2014,7 +1994,7 @@ s{
 
 .ticolor{
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 .detail {                            
@@ -2070,6 +2050,7 @@ a{
 
 .bigtext{
     font-size: 1.4rem;
+    color: #fff;
 }
 
 .hover{
@@ -2089,4 +2070,13 @@ a{
 
 .point{
     color: #00c0ff;
+}
+
+.jalendar-pages > .header h2{
+    color: #fff;
+    font-size: 1.4rem;
+}
+
+.express{
+    padding-top: 3rem;
 }

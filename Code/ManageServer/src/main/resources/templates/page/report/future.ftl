@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
-    <div class="dottedline">
+    <div class="allbazzr">
        
     </div>
     <script src="/vendor/jquery-3.3.1.min.js"></script>
@@ -30,7 +30,7 @@
                 for (var i = 0; i < res.data.length; i++) {
                     strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
                 } 
-            $(".dottedline").html(strHtml)
+            $(".allbazzr").html(strHtml)
 
         }
       })
