@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,11 +11,10 @@
     <meta name="application-name" content="慧数招商">
     <title>企业动向</title>
     <link rel="stylesheet" href="/vendor/base.css">
-    <link rel="stylesheet" href="/vendor/swiper-4.1.6.min.css">
-    <link rel="stylesheet" href="/vendor/jquery.fullPage.css">
     <link rel="stylesheet" href="/vendor/rem.js">
     <link rel="stylesheet" href="/css/common.css">
 </head>
+
 <body>
     <div class="allcapital">
 
@@ -24,17 +24,22 @@
 <script src="/vendor/jquery-3.3.1.min.js"></script>
 <script>
     $.ajax({
-        url: '/apis/report/getHtmlData.do?id=' + ${ id } + '&type=' + ${ type },
+        url: '/apis/report/getHtmlData.do?id=' + $ {
+            id
+        } + '&type=' + $ {
+            type
+        },
         type: 'GET',
         async: false,
-        success: function (res) {
+        success: function(res) {
             var strHtml = "";
-                 for (var i = 0; i < res.data.length; i++) {
-                     strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
-                 }
+            for (var i = 0; i < res.data.length; i++) {
+                strHtml += "<div><p>" + res.data[i].keyWord + "</p><p class='text'>" + res.data[i].text + "</p></div>";
+            }
             $(".allcapital").html(strHtml)
 
         }
-      })
+    })
 </script>
+
 </html>

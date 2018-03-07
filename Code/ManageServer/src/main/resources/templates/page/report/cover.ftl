@@ -12,13 +12,14 @@
     <meta name="application-name" content="慧数招商">
     <title>慧数招商人工智能行业月度报告</title>
     <link rel="stylesheet" href="/vendor/base.css">
-    <link rel="stylesheet" href="/vendor/swiper-4.1.6.min.css">
-    <link rel="stylesheet" href="/vendor/jquery.fullPage.css">
+    <link rel="stylesheet" href="/vendor/swiper/swiper-4.1.6.min.css">
+    <link rel="stylesheet" href="/vendor/fullPage/jquery.fullPage.css">
     <link rel="stylesheet" href="/vendor/rem.js">
+    <link rel="stylesheet" href="/vendor/animate.css">
     <link rel="stylesheet" href="/css/common.css">
 </head>
 
-<body onmousewheel="return false;" >
+<body onmousewheel="return false;">
     <div class="bigbox">
         <div class="skippage" id="dowebok">
             <div class="page page1 section">
@@ -523,7 +524,7 @@
         </div>
         <footer>
             <div class="index">
-                <img src="/img/icon/jiantou.png"  class="img">
+                <img src="/img/icon/jiantou.png" class="img">
             </div>
         </footer>
     </div>
@@ -531,13 +532,13 @@
     <script src="/vendor/echarts/echarts.min.js"></script>
     <script src="/vendor/echarts/china.js"></script>
     <script src="/vendor/echarts/dataTool.min.js"></script>
-    <script src="/vendor/jquery.fullPage.min.js"></script>
-    <script src="/vendor/swiper-4.1.6.min.js"></script>
+    <script src="/vendor/fullPage/jquery.fullPage.min.js"></script>
+    <script src="/vendor/swiper/swiper-4.1.6.min.js"></script>
     <script src="/js/cover/cover.js"></script>
     <script src="/vendor/jalendar.js"></script>
     <script>
-        $(function () {
-            addData(${ id });
+        $(function() {
+            addData(${id} );
         });
     </script>
 </body>

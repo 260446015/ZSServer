@@ -1,13 +1,16 @@
-* { touch-action: none; } 
+* {
+    touch-action: none;
+}
 
-html,body{
+html,
+body {
     height: 100%;
     background: #101029;
     overflow: auto;
-   -webkit-overflow-scrolling: touch;
-    
+    -webkit-overflow-scrolling: touch;
 }
-.catalog{
+
+.catalog {
     width: 100%;
     height: 100%;
     display: flex;
@@ -15,7 +18,7 @@ html,body{
     color: #fff;
 }
 
-header{
+header {
     height: 6rem;
     display: flex;
     justify-content: center;
@@ -23,62 +26,58 @@ header{
     border-bottom: 3px solid #151536;
 }
 
-.left{
+.left {
     position: absolute;
     left: .8rem;
     top: 1.2rem;
     font-size: 3rem;
 }
 
-h1{
+h1 {
     font-size: 1.8rem;
 }
 
-.container{
-    flex:1;
+.container {
+    flex: 1;
 }
 
-.containerul ul{
+.containerul ul {
     display: flex;
     margin: 20px 0px;
     flex-wrap: wrap;
-  }
-
-  
-.containerul ul li{
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 25px 0px;
-}
-  
-.containerul ul li span{
-      width: 50px;
-      height: 50px;
-      display: block;
-}
-  
-  
-.containerul ul li a{
-      font-size: 14px;
-      color: #fff;
-      margin-top: 10px;
-}
-  
-  
-.containerul ul li span img{
-      width: 100%;
-      height: 100%;
 }
 
+.containerul ul li {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 0px;
+}
 
-.time p{
+.containerul ul li span {
+    width: 50px;
+    height: 50px;
+    display: block;
+}
+
+.containerul ul li a {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.containerul ul li span img {
+    width: 100%;
+    height: 100%;
+}
+
+.time p {
     font-size: 2rem;
 }
 
-footer{
+footer {
     width: 100%;
     height: 2rem;
     position: fixed;
@@ -86,18 +85,18 @@ footer{
     bottom: 2rem;
 }
 
-footer div{
+footer div {
     width: 30px;
     height: 26px;
     margin-bottom: 15rem;
 }
 
-footer div img{
+footer div img {
     width: 100%;
     height: 100%;
 }
 
-.circle{
+.circle {
     width: 4px;
     height: 4px;
     display: block;
@@ -105,7 +104,7 @@ footer div img{
     background-color: #00c0ff;
 }
 
-.circleblue{
+.circleblue {
     width: 4px;
     height: 4px;
     display: block;
@@ -113,15 +112,15 @@ footer div img{
     background-color: #00ffde;
 }
 
-.circleyellow{
+.circleyellow {
     width: 4px;
     height: 4px;
     display: block;
     border-radius: 100%;
     background-color: #fffc00;
 }
- 
-i{
+
+i {
     font-style: normal;
     margin-left: .2rem;
     width: 4rem;
@@ -129,34 +128,35 @@ i{
     display: inline-block;
 }
 
-.circlehigh{
+.circlehigh {
     border: 4px solid #0b456a;
     color: #00c0ff;
     width: 6px;
     height: 6px;
 }
 
-.circlehigh2{
+.circlehigh2 {
     border: 4px solid #0b5860;
     color: #00c0ff;
     width: 6px;
     height: 6px;
 }
 
-.circlehigh3{
+.circlehigh3 {
     border: 4px solid #58571d;
     color: #fffc00;
     width: 6px;
     height: 6px;
 }
 
-html,body{
+html,
+body {
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
 
-.bigbox .skippage{
+.bigbox .skippage {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -164,69 +164,68 @@ html,body{
     top: 0;
 }
 
-.bigbox .page{
-    height: 100%;
+.bigbox .page {
     position: relative;
 }
 
-.bigbox .page1{
+.bigbox .page1 {
     background: url(../img/bgimg/bgimg.jpg) no-repeat center;
     background-size: 100% 100%;
 }
 
-.bigbox .page2{
+.bigbox .page2 {
     background: url(../img/bgimg/bg1.jpg) no-repeat center;
     background-size: 100% 100%;
 }
 
-.bigbox .page3{
+.bigbox .page3 {
     background: url(../img/bgimg/bg2.png) no-repeat center;
     background-size: 100% 100%;
 }
 
-.bigbox .page4{
+.bigbox .page4 {
     background: url(../img/bgimg/bg3.png) no-repeat center;
     background-size: 100% 100%;
 }
 
-.bigbox .page5{
+.bigbox .page5 {
     background: url(../img/bgimg/bg1.jpg) no-repeat center;
     background-size: 100% 100%;
 }
 
-.bigbox .page6{
+.bigbox .page6 {
     background: url(../img/bgimg/bg1.jpg) no-repeat center;
     background-size: 100% 100%;
 }
 
-.bigbox .page7{
+.bigbox .page7 {
     background: url(../img/bgimg/bg2.png) no-repeat center;
     background-size: 100% 100%;
 }
 
-.bigbox .page8{
+.bigbox .page8 {
     background: url(../img/bgimg/bg1.jpg) no-repeat center;
     background-size: 100% 100%;
 }
 
-.bigbox .page9{
+.bigbox .page9 {
     background: url(../img/bgimg/bg2.png) no-repeat center;
     background-size: 100% 100%;
 }
 
-.bigbox .page10{
+.bigbox .page10 {
     background: url(../img/bgimg/bg4.png) no-repeat center;
     background-size: 100% 100%;
 }
 
-.page header{
+.page header {
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #151536;
 }
 
-.center h1{
+.center h1 {
     font-size: 2.4rem;
     color: #ffffff;
     letter-spacing: 2px;
@@ -237,12 +236,12 @@ html,body{
     padding-bottom: 30px;
 }
 
-.page-container div ul{
-   display: flex;
-   flex-wrap: wrap;
+.page-container div ul {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.page-container div ul li{
+.page-container div ul li {
     width: 50%;
     display: flex;
     justify-content: center;
@@ -251,34 +250,32 @@ html,body{
     margin-top: 2rem;
 }
 
-.page-container ul li a{
+.page-container ul li a {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.page-container ul li a span:nth-child(1){
+.page-container ul li a span:nth-child(1) {
     width: 6.5rem;
     height: 6.5rem;
     display: block;
 }
 
-.page-container ul li a span:nth-child(1) img{
+.page-container ul li a span:nth-child(1) img {
     width: 100%;
     height: 100%;
 }
 
-.swiper-pagination-bullet{
+.swiper-pagination-bullet {
     margin-left: 1rem;
 }
 
-.swiper-pagination-bullet .swiper-pagination-bullet-active{
+.swiper-pagination-bullet .swiper-pagination-bullet-active {
     background: #007aff;
 }
 
-
-
-.text{
+.text {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 5;
@@ -286,65 +283,72 @@ html,body{
     color: #fff;
 }
 
-.ptext{
+.ptext {
     text-align: right;
 }
 
-.img{
+.img {
     animation: poiner 2s infinite;
 }
 
 @keyframes poiner {
-    0% {opacity: 0;bottom: 0}
-    100% {opacity: 1;bottom: 10px;}
+    0% {
+        opacity: 0;
+        bottom: 0
+    }
+    100% {
+        opacity: 1;
+        bottom: 10px;
+    }
 }
+
 
 /* 首页 */
 
-.bigbox{
+.bigbox {
     color: #fff;
     display: flex;
     flex-wrap: wrap;
     height: 100%;
 }
 
-.head{
+.head {
     display: flex;
     align-items: center;
     justify-content: center;
     padding-top: 44%;
 }
 
-.head span:nth-child(1){
+.head span:nth-child(1) {
     width: 25px;
     height: 25px;
     display: block;
     margin-right: .5rem;
 }
- 
-.head span:nth-child(1) img{
+
+.head span:nth-child(1) img {
     width: 100%;
-    height:100%;
+    height: 100%;
 }
 
-.head span:nth-child(2){
+.head span:nth-child(2) {
     font-size: 1.4rem;
 }
 
-.containers{
+.containers {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     margin-top: 2.4rem;
 }
 
-.containers div:nth-child(1){
+.containers div:nth-child(1) {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
 }
 
-.labour{
+.labour {
     width: 100%;
     display: flex;
     align-self: flex-end;
@@ -353,14 +357,14 @@ html,body{
     font-weight: bolder;
 }
 
-.report{
+.report {
     width: 100%;
     display: flex;
     justify-content: center;
     font-size: 36px;
 }
 
-.containers div:nth-child(2){
+.containers div:nth-child(2) {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -368,50 +372,51 @@ html,body{
     margin-top: 12rem;
 }
 
+
 /* 政策 */
-.bigbox .page11{
+
+.bigbox .page11 {
     background: url(../img/bgimg/bg1.jpg) no-repeat center;
     background-size: 100% 100%;
 }
 
-
-.dottedline{
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  background: url(../img/bgimg/bg2.png) no-repeat center;
-  background-size: 100% 100%;  
-  overflow-y: auto;
-  height: 90%;
+.dottedline {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background: url(../img/bgimg/bg2.png) no-repeat center;
+    background-size: 100% 100%;
+    overflow-y: auto;
+    height: 90%;
 }
 
- .leftline{
+.leftline {
     border-left: 1px solid #0077b3;
     border-bottom: 1px solid #0077b3;
-    padding: 20px  10px;
+    padding: 20px 10px;
     margin: 0 auto;
     width: 85%;
     position: relative;
-    border-bottom-left-radius:1rem;
-    border-top-left-radius:1rem;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
 }
 
-.rightline{
+.rightline {
     border-right: 1px solid #0077b3;
     border-bottom: 1px solid #0077b3;
     padding: 20px 10px;
     margin: 0 auto;
     width: 85%;
     position: relative;
-    border-top-right-radius:1rem;
-    border-bottom-right-radius:1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
-.textcolor{
+.textcolor {
     color: #00c0ff;
     font-size: 2rem;
 }
 
-.leftdot{
+.leftdot {
     width: 5px;
     height: 5px;
     border-radius: 100%;
@@ -421,7 +426,7 @@ html,body{
     top: 28px;
 }
 
-.rightdot{
+.rightdot {
     width: 5px;
     height: 5px;
     border-radius: 100%;
@@ -434,8 +439,7 @@ html,body{
 
 /* 月关键词 */
 
-
-.popup{
+.popup {
     border-bottom: 1px solid #29294b;
     display: flex;
     justify-content: space-between;
@@ -444,24 +448,22 @@ html,body{
     position: relative;
 }
 
-.leftwire{
+.leftwire {
     width: 60%;
     margin-left: 1rem;
 }
 
-.rightborder{
+.rightborder {
     width: 60%;
     background: url(../img/bgimg/tan3.png);
     background-size: 100% 100%;
     margin-left: 1rem;
     font-size: 1.2rem;
     padding: 1rem;
-   height: 67%;
+    height: 67%;
 }
 
-
-
-.leftborder{
+.leftborder {
     width: 60%;
     background: url(../img/bgimg/tan2.png);
     background-size: 100% 100%;
@@ -470,9 +472,7 @@ html,body{
     /* height: 67%; */
 }
 
-
-
-.rightyellow{
+.rightyellow {
     background: url(../img/bgimg/tan3.png);
     width: 60%;
     background-size: 100% 100%;
@@ -480,17 +480,16 @@ html,body{
     font-size: 1.2rem;
 }
 
-
-.pointplot1 span:nth-child(1){
+.pointplot1 span:nth-child(1) {
     position: absolute;
     left: 14%;
     top: 11%;
 }
 
-.pointplot1 span:nth-child(1) b{
+.pointplot1 span:nth-child(1) b {
     height: 1rem;
     border-right: 3px solid #067aa9;
-    transform:skew(72deg);
+    transform: skew(72deg);
     display: block;
     position: absolute;
     left: 2.4rem;
@@ -498,82 +497,81 @@ html,body{
     opacity: .8;
 }
 
-.pointplot1 span:nth-child(2){
+.pointplot1 span:nth-child(2) {
     position: absolute;
     left: 30%;
     top: 20%;
 }
 
-.pointplot1 span:nth-child(2) b{
+.pointplot1 span:nth-child(2) b {
     display: block;
     height: 2rem;
-    border-right: 2px solid  #067aa9;
-    transform:skew(-35deg);
+    border-right: 2px solid #067aa9;
+    transform: skew(-35deg);
     position: absolute;
     left: -1rem;
     top: .9rem;
     opacity: .8;
 }
 
-.pointplot1 span:nth-child(3){
+.pointplot1 span:nth-child(3) {
     position: absolute;
     left: 20%;
     top: 40%;
 }
 
-.pointplot1 span:nth-child(3) b{
+.pointplot1 span:nth-child(3) b {
     display: block;
     height: 2rem;
     border-left: 2px solid #067aa9;
-    transform:skew(31deg);
+    transform: skew(31deg);
     position: absolute;
     left: 1.5rem;
     top: .9rem;
     opacity: .8;
 }
 
-
-.pointplot2 span:nth-child(1){
+.pointplot2 span:nth-child(1) {
     position: absolute;
     left: 29%;
     top: 64%;
 }
 
-.pointplot2 span:nth-child(1) b{
+.pointplot2 span:nth-child(1) b {
     display: block;
     height: 2rem;
     border-left: 2px solid #067aa9;
     transform: skew(-56deg);
     position: absolute;
     left: -1.9rem;
-    top: .5rem; 
+    top: .5rem;
     opacity: .8;
 }
 
-.pointplot2 span:nth-child(2){
+.pointplot2 span:nth-child(2) {
     position: absolute;
     left: 14%;
     top: 82%;
 }
 
-.pointplot2 span:nth-child(2) b{
+.pointplot2 span:nth-child(2) b {
     height: 4rem;
     display: block;
     border-left: 2px solid #067aa9;
     transform: skew(-20deg);
     position: absolute;
     left: 8px;
-    top: -55px; 
+    top: -55px;
     opacity: .8;
 }
 
-.pointplot3 span:nth-child(1){
+.pointplot3 span:nth-child(1) {
     position: absolute;
     left: 6%;
     top: 25%;
 }
 
-.pointplot3 span:nth-child(1) b{
+.pointplot3 span:nth-child(1) b {
     height: 4rem;
     display: block;
     border-left: 2px solid #067aa9;
@@ -584,70 +582,70 @@ html,body{
     opacity: .8;
 }
 
-.pointplot3 span:nth-child(2){
+.pointplot3 span:nth-child(2) {
     position: absolute;
     left: 6%;
     top: 57%;
 }
 
-.pointplot3 span:nth-child(2) b{
+.pointplot3 span:nth-child(2) b {
     height: 2rem;
     display: block;
     border-left: 3px solid #067aa9;
     transform: skew(-65deg);
-    position: absolute; 
+    position: absolute;
     left: 2.4rem;
     top: -2.1rem;
     opacity: .8;
 }
 
-.pointplot4 span:nth-child(1){
+.pointplot4 span:nth-child(1) {
     position: absolute;
     right: 31%;
     top: 19%;
 }
 
-.pointplot4 span:nth-child(1) b{
+.pointplot4 span:nth-child(1) b {
     display: block;
     height: 2rem;
     border-left: 2px solid #067aa9;
-    transform:skew(63deg);
+    transform: skew(63deg);
     position: absolute;
     left: 2.3rem;
     top: .3rem;
     opacity: .8;
 }
 
-.pointplot4 span:nth-child(2){
+.pointplot4 span:nth-child(2) {
     position: absolute;
     right: 17%;
     top: 33%;
 }
 
-.pointplot4 span:nth-child(2) b{
+.pointplot4 span:nth-child(2) b {
     display: block;
     height: 2rem;
     border-left: 2px solid #067aa9;
-    transform:skew(-49deg);
+    transform: skew(-49deg);
     position: absolute;
     left: -1.6rem;
     top: .5rem;
     opacity: .8;
 }
 
-.pointplot4 span:nth-child(3){
+.pointplot4 span:nth-child(3) {
     position: absolute;
     right: 27%;
     top: 51%;
 }
 
-.pointplot5 span:nth-child(1){
+.pointplot5 span:nth-child(1) {
     position: absolute;
     right: 22%;
     top: 80%;
 }
 
-.pointplot5 span:nth-child(1) b{
+.pointplot5 span:nth-child(1) b {
     display: block;
     width: 5rem;
     height: 2rem;
@@ -658,147 +656,145 @@ html,body{
     opacity: .8;
 }
 
-
-.pointplot5 span:nth-child(2){
+.pointplot5 span:nth-child(2) {
     position: absolute;
     right: 40%;
     top: 80%;
 }
 
-.pointplot5 span:nth-child(2) b{
+.pointplot5 span:nth-child(2) b {
     display: block;
     height: 4rem;
     border-left: 2px solid #067aa9;
-    transform:skew(-40deg);
+    transform: skew(-40deg);
     position: absolute;
     left: 1.8rem;
     top: -3.8rem;
     opacity: .8;
 }
 
-.pointplot6 span:nth-child(1){
+.pointplot6 span:nth-child(1) {
     position: absolute;
     right: 41%;
     top: 41%;
 }
 
-.pointplot6 span:nth-child(1) b{
+.pointplot6 span:nth-child(1) b {
     display: block;
     height: 2rem;
     border-left: 2px solid #067aa9;
-    transform:skew(57deg);
+    transform: skew(57deg);
     position: absolute;
     left: 2rem;
     top: 0rem;
     opacity: .8;
 }
 
-.pointplot7 span:nth-child(1){
+.pointplot7 span:nth-child(1) {
     position: absolute;
     left: 30%;
     top: 28%;
 }
 
-.pointplot7 span:nth-child(1) b{
+.pointplot7 span:nth-child(1) b {
     display: block;
     height: 2rem;
     border-left: 2px solid #067aa9;
-    transform:skew(-34deg);
+    transform: skew(-34deg);
     position: absolute;
     left: -1rem;
     top: .6rem;
     opacity: .8;
 }
 
-.pointplot7 span:nth-child(2){
+.pointplot7 span:nth-child(2) {
     position: absolute;
     left: 22%;
     top: 47%;
 }
 
-.pointplot7 span:nth-child(2) b{
+.pointplot7 span:nth-child(2) b {
     display: block;
     height: 3rem;
     border-left: 2px solid #067aa9;
-    transform:skew(133deg);
+    transform: skew(133deg);
     position: absolute;
     left: -16px;
     top: -5px;
     opacity: .8;
 }
 
-.pointplot8 span:nth-child(1) b{
+.pointplot8 span:nth-child(1) b {
     display: block;
     height: 2rem;
     border-left: 2px solid #067aa9;
-    transform:skew(51deg);
+    transform: skew(51deg);
     position: absolute;
     left: -.8rem;
     top: -1.8rem;
-    opacity: .8; 
+    opacity: .8;
 }
 
-.pointplot8 span:nth-child(1){
+.pointplot8 span:nth-child(1) {
     position: absolute;
     left: 34%;
     top: 67%;
 }
 
-.pointplot9 span:nth-child(1){
+.pointplot9 span:nth-child(1) {
     position: absolute;
     left: 11%;
     top: 35%;
 }
 
-.pointplot9 span:nth-child(1) b{
+.pointplot9 span:nth-child(1) b {
     display: block;
     height: 2rem;
     border-left: 2px solid #067aa9;
-    transform:skew(-130deg);
+    transform: skew(-130deg);
     position: absolute;
     left: 19px;
     top: 1px;
-    opacity: .8; 
+    opacity: .8;
 }
 
-.pointplot9 span:nth-child(2){
+.pointplot9 span:nth-child(2) {
     position: absolute;
     left: 11%;
     top: 67%;
 }
 
-.pointplot9 span:nth-child(2) b{
+.pointplot9 span:nth-child(2) b {
     display: block;
     height: 4rem;
     border-left: 2px solid #067aa9;
     position: absolute;
     left: 1px;
     top: -47px;
-    opacity: .8; 
+    opacity: .8;
 }
+
 
 /* 产业高亮点 */
 
-
-
-.industrytop>ul{
+.industrytop>ul {
     position: relative;
 }
 
-.lightspot1{
+.lightspot1 {
     width: 30rem;
     height: 22rem;
     position: relative;
     margin: 0 auto;
 }
 
-.lightspot1 span:nth-child(1){
+.lightspot1 span:nth-child(1) {
     position: absolute;
     left: 4.4rem;
     top: 8.1rem;
 }
 
-.lightspot1 span:nth-child(1) small{
+.lightspot1 span:nth-child(1) small {
     width: 5px;
     height: 5px;
     display: block;
@@ -809,7 +805,7 @@ html,body{
     top: 59%;
 }
 
-.lightspot1 span:nth-child(1) b{
+.lightspot1 span:nth-child(1) b {
     width: 2rem;
     height: 3rem;
     display: block;
@@ -820,23 +816,23 @@ html,body{
     transform: skew(58deg);
 }
 
-.lightspot1 span:nth-child(2){
+.lightspot1 span:nth-child(2) {
     position: absolute;
     left: 4.9rem;
     top: 3.1rem;
 }
 
-.lightspot1 span:nth-child(2) b{
-   height: 7rem;
-   display: block;
-   border-left: 2px solid #063952;
-   position: absolute;
-   transform: skew(27deg);
-   left: 147%;
-   top: 84%;
+.lightspot1 span:nth-child(2) b {
+    height: 7rem;
+    display: block;
+    border-left: 2px solid #063952;
+    position: absolute;
+    transform: skew(27deg);
+    left: 147%;
+    top: 84%;
 }
 
-.lightspot1 span:nth-child(2) small{
+.lightspot1 span:nth-child(2) small {
     width: 5px;
     height: 5px;
     display: block;
@@ -853,7 +849,7 @@ html,body{
     top: 1.8rem;
 }
 
-.lightspot1 span:nth-child(3) b{
+.lightspot1 span:nth-child(3) b {
     height: 7rem;
     display: block;
     border-left: 2px solid #063952;
@@ -863,7 +859,7 @@ html,body{
     transform: skew(8deg);
 }
 
-.lightspot1 span:nth-child(3) small{
+.lightspot1 span:nth-child(3) small {
     width: 5px;
     height: 5px;
     display: block;
@@ -876,21 +872,21 @@ html,body{
 
 .lightspot1 span:nth-child(4) {
     position: absolute;
-    left:15rem;
+    left: 15rem;
     top: 4rem;
 }
 
-.lightspot1 span:nth-child(4) b{
+.lightspot1 span:nth-child(4) b {
     height: 5rem;
     display: block;
     border-left: 2px solid #063952;
     position: absolute;
     left: -4%;
     top: 115%;
-    transform: skew(-41deg); 
+    transform: skew(-41deg);
 }
 
-.lightspot1 span:nth-child(4) small{
+.lightspot1 span:nth-child(4) small {
     width: 5px;
     height: 5px;
     display: block;
@@ -904,20 +900,20 @@ html,body{
 .lightspot1 span:nth-child(5) {
     position: absolute;
     left: 19.9rem;
-    top:7.1rem;
+    top: 7.1rem;
 }
 
-.lightspot1 span:nth-child(5) b{
+.lightspot1 span:nth-child(5) b {
     height: 4rem;
     display: block;
     border-left: 2px solid #063952;
     position: absolute;
     left: -66%;
     top: 114%;
-    transform: skew(-63deg); 
+    transform: skew(-63deg);
 }
 
-.lightspot1 span:nth-child(5) small{
+.lightspot1 span:nth-child(5) small {
     width: 5px;
     height: 5px;
     display: block;
@@ -934,17 +930,17 @@ html,body{
     top: 9rem;
 }
 
-.lightspot1 span:nth-child(6) b{
+.lightspot1 span:nth-child(6) b {
     height: 3rem;
     display: block;
     border-left: 3px solid #063952;
     position: absolute;
     left: -89%;
     top: 62%;
-    transform: skew(-75deg); 
+    transform: skew(-75deg);
 }
 
-.lightspot1 span:nth-child(6) small{
+.lightspot1 span:nth-child(6) small {
     width: 5px;
     height: 5px;
     display: block;
@@ -961,13 +957,13 @@ html,body{
     top: 15.6rem;
 }
 
-.lightspot1 span:nth-child(8){
+.lightspot1 span:nth-child(8) {
     position: absolute;
     left: 12.9rem;
     top: 12rem;
 }
 
-.lightspot1 span:nth-child(8) small{
+.lightspot1 span:nth-child(8) small {
     width: 5px;
     height: 5px;
     display: block;
@@ -978,7 +974,7 @@ html,body{
     top: 45%;
 }
 
-.lightspot1 span:nth-child(8) b{
+.lightspot1 span:nth-child(8) b {
     width: 2rem;
     height: 3rem;
     display: block;
@@ -988,22 +984,24 @@ html,body{
     top: 72%;
     transform: skew(57deg);
 }
-.lightspot2{
+
+.lightspot2 {
     width: 31rem;
     height: 22rem;
     position: relative;
     margin: 0 auto;
 }
 
-.lightspot2 span{
+.lightspot2 span {
     position: absolute;
 }
+
 
 /* .lightspot2 span i{
     width: 7rem;
 } */
 
-.lightspot2 span i small{
+.lightspot2 span i small {
     width: 5px;
     height: 5px;
     display: block;
@@ -1012,308 +1010,322 @@ html,body{
     position: absolute;
 }
 
-.lightspot2 span:nth-child(1){
+.lightspot2 span:nth-child(1) {
     left: 6rem;
-    top:3rem;
+    top: 3rem;
 }
 
-.lightspot2 span:nth-child(1) b{
+.lightspot2 span:nth-child(1) b {
     width: 2rem;
     height: 4rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 102%;
     top: 120%;
     transform: skew(242deg);
 }
 
-.lightspot2 span:nth-child(2){
+.lightspot2 span:nth-child(2) {
     left: 9rem;
     top: 2.1rem;
 }
 
-.lightspot2 span:nth-child(2) b{
+.lightspot2 span:nth-child(2) b {
     width: 2rem;
     height: 4.8rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 61%;
     top: 115%;
     transform: skew(44deg);
 }
 
-.lightspot2 span:nth-child(3){
+.lightspot2 span:nth-child(3) {
     left: 12.1rem;
     top: 1.1rem;
 }
-.lightspot2 span:nth-child(3) i{
+
+.lightspot2 span:nth-child(3) i {
     width: 7rem;
 }
 
-.lightspot2 span:nth-child(3) small{
+.lightspot2 span:nth-child(3) small {
     left: 40%;
     top: 98%;
 }
 
-.lightspot2 span:nth-child(3) b{
+.lightspot2 span:nth-child(3) b {
     width: 2rem;
     height: 5.5rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 35%;
     top: 129%;
     transform: skew(-11deg);
 }
 
-.lightspot2 span:nth-child(4){
+.lightspot2 span:nth-child(4) {
     left: 17.7rem;
-    top:1.9rem;
+    top: 1.9rem;
 }
 
-.lightspot2 span:nth-child(4) i{
+.lightspot2 span:nth-child(4) i {
     width: 7rem;
 }
 
-.lightspot2 span:nth-child(4) b{
+.lightspot2 span:nth-child(4) b {
     width: 2rem;
     height: 5.1rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: -22%;
     top: 127%;
     transform: skew(-37deg);
 }
 
-.lightspot2 span:nth-child(5){
+.lightspot2 span:nth-child(5) {
     left: 21rem;
-    top:3.5rem;
+    top: 3.5rem;
 }
 
-.lightspot2 span:nth-child(5) b{
+.lightspot2 span:nth-child(5) b {
     width: 2rem;
     height: 4.3rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: -69%;
     top: 72%;
     transform: skew(-63deg);
 }
 
-.lightspot2 span:nth-child(6){
+.lightspot2 span:nth-child(6) {
     left: 21rem;
     top: 5rem;
 }
 
-.lightspot2 span:nth-child(6) b{
+.lightspot2 span:nth-child(6) b {
     width: 2rem;
     height: 1.7rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: -80%;
     top: 113%;
     transform: skew(-78deg);
 }
-.lightspot2 span:nth-child(8){
+
+.lightspot2 span:nth-child(8) {
     left: 16rem;
     top: 10.6rem;
 }
 
-.lightspot2 span:nth-child(8) i{
+.lightspot2 span:nth-child(8) i {
     width: 7rem;
 }
 
-.lightspot2 span:nth-child(8) small{
+.lightspot2 span:nth-child(8) small {
     background: #0bb2eb;
     width: 6px;
     height: 6px;
 }
 
-.lightspot2 span:nth-child(8) b{
+.lightspot2 span:nth-child(8) b {
     width: 2rem;
     height: 1.5rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 26%;
     top: 123%;
     transform: skew(62deg);
 }
-.lightspot2 span:nth-child(7){
+
+.lightspot2 span:nth-child(7) {
     left: 14rem;
     top: 7rem;
 }
 
-.lightspot2 span:nth-child(7) small{
+.lightspot2 span:nth-child(7) small {
     background: #0ec3ff;
 }
 
-.lightspot2 span:nth-child(7) b{
+.lightspot2 span:nth-child(7) b {
     width: 2rem;
     height: 3.5rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 29%;
     top: 111%;
     transform: skew(25deg);
 }
-.lightspot2 span:nth-child(9){
+
+.lightspot2 span:nth-child(9) {
     left: 19rem;
     top: 12rem;
 }
 
-.lightspot2 span:nth-child(9) i{
+.lightspot2 span:nth-child(9) i {
     width: 7rem;
 }
 
-.lightspot2 span:nth-child(9) small{
+.lightspot2 span:nth-child(9) small {
     background: #0bb2eb;
     width: 7px;
     height: 7px;
 }
 
-.lightspot2 span:nth-child(10){
+.lightspot2 span:nth-child(10) {
     left: 11rem;
     top: 11.6rem;
 }
 
-.lightspot2 span:nth-child(10) small{
+.lightspot2 span:nth-child(10) small {
     background: #0ec3ff;
 }
 
-.lightspot2 span:nth-child(10) b{
+.lightspot2 span:nth-child(10) b {
     width: 2rem;
     height: 1rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 61%;
     top: 56%;
     transform: skew(-259deg);
 }
-.lightspot2 span:nth-child(11){
+
+.lightspot2 span:nth-child(11) {
     left: 6rem;
     top: 8rem;
 }
-.lightspot2 span:nth-child(11) b{
+
+.lightspot2 span:nth-child(11) b {
     width: 2rem;
     height: 3.5rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 70%;
     top: 116%;
     transform: skew(54deg);
 }
-.lightspot2 span:nth-child(12){
+
+.lightspot2 span:nth-child(12) {
     left: 4rem;
     top: 10rem;
 }
-.lightspot2 span:nth-child(12) i{
+
+.lightspot2 span:nth-child(12) i {
     width: 7rem;
 }
 
-.lightspot2 span:nth-child(12) b{
+.lightspot2 span:nth-child(12) b {
     width: 2rem;
     height: 2rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 56%;
     top: 105%;
     transform: skew(75deg);
 }
-.lightspot2 span:nth-child(13){
+
+.lightspot2 span:nth-child(13) {
     left: 4rem;
     top: 14rem;
 }
 
-.lightspot2 span:nth-child(13) b{
+.lightspot2 span:nth-child(13) b {
     width: 2rem;
     height: 2.5rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 95%;
     top: -45%;
     transform: skew(110deg);
 }
-.lightspot2 span:nth-child(14){
-    left:7.6rem;
+
+.lightspot2 span:nth-child(14) {
+    left: 7.6rem;
     top: 15.6rem;
 }
 
-.lightspot2 span:nth-child(14) b{
+.lightspot2 span:nth-child(14) b {
     width: 2rem;
     height: 3.5rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 58%;
     top: -161%;
     transform: skew(136deg);
 }
-.lightspot2 span:nth-child(15){
+
+.lightspot2 span:nth-child(15) {
     left: 9.4rem;
     top: 17rem;
 }
 
-.lightspot2 span:nth-child(15) b{
+.lightspot2 span:nth-child(15) b {
     width: 2rem;
     height: 5.6rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 27%;
     top: -262%;
     transform: skew(-199deg);
 }
-.lightspot2 span:nth-child(16){
+
+.lightspot2 span:nth-child(16) {
     left: 13.5rem;
     top: 17.2rem;
 }
 
-.lightspot2 span:nth-child(16) b{
+.lightspot2 span:nth-child(16) b {
     width: 2rem;
     height: 4.9rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: -23%;
     top: -233%;
     transform: skew(22deg);
 }
-.lightspot2 span:nth-child(17){
+
+.lightspot2 span:nth-child(17) {
     left: 16.5rem;
     top: 17rem;
 }
 
-.lightspot2 span:nth-child(17) b{
+.lightspot2 span:nth-child(17) b {
     width: 2rem;
     height: 5.5rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: -58%;
     top: -258%;
     transform: skew(45deg);
 }
-.lightspot2 span:nth-child(18){
+
+.lightspot2 span:nth-child(18) {
     left: 21rem;
     top: 15.6rem;
 }
 
-.lightspot2 span:nth-child(18) b{
+.lightspot2 span:nth-child(18) b {
     width: 2rem;
     height: 4rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: -113%;
     top: -152%;
@@ -1327,11 +1339,11 @@ html,body{
     margin: 0 auto;
 }
 
-.lightspot3 span{
+.lightspot3 span {
     position: absolute;
 }
 
-.lightspot3 span i small{
+.lightspot3 span i small {
     width: 5px;
     height: 5px;
     display: block;
@@ -1340,82 +1352,82 @@ html,body{
     position: absolute;
 }
 
-.lightspot3 span i{
+.lightspot3 span i {
     width: 7rem;
     text-align: left;
 }
 
-.lightspot3 span:nth-child(1){
+.lightspot3 span:nth-child(1) {
     left: 8rem;
     top: 1.3rem;
 }
 
-
-.lightspot3 span:nth-child(1) b{
+.lightspot3 span:nth-child(1) b {
     width: 2rem;
     height: 2.5rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 38%;
     top: 115%;
     transform: skew(63deg);
 }
 
-.lightspot3 span:nth-child(2){
+.lightspot3 span:nth-child(2) {
     left: 15.3rem;
     top: 4.7rem;
 }
 
-.lightspot3 span:nth-child(2) i small{
+.lightspot3 span:nth-child(2) i small {
     left: 20%;
     top: -96%;
 }
 
-.lightspot3 span:nth-child(2) b{
+.lightspot3 span:nth-child(2) b {
     width: 2rem;
     height: 3rem;
     display: block;
     border-left: 2px solid #11335b;
     position: absolute;
     left: -5%;
-    top:-73%;
+    top: -73%;
     transform: skew(-50deg);
 }
 
-.lightspot3 span:nth-child(3){
+.lightspot3 span:nth-child(3) {
     left: 12.7rem;
     top: 5rem;
 }
 
-.lightspot3 span:nth-child(3) small{
+.lightspot3 span:nth-child(3) small {
     left: 2%;
     top: 111%;
     background: #0cbbf7;
 }
 
-.lightspot3 span:nth-child(3) b{
+.lightspot3 span:nth-child(3) b {
     width: 2rem;
     height: 3rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 10%;
     top: 128%;
     transform: skew(20deg);
 }
 
-.lightspot3 span:nth-child(4){
+.lightspot3 span:nth-child(4) {
     left: 14rem;
-    top:9rem;
+    top: 9rem;
 }
-.lightspot3 span:nth-child(4) small{
+
+.lightspot3 span:nth-child(4) small {
     left: -4%;
     top: 45%;
     background: #0cbbf7;
 }
 
-.lightspot3 span:nth-child(4) b{
+.lightspot3 span:nth-child(4) b {
     width: 2rem;
     height: 3rem;
     display: block;
@@ -1426,127 +1438,125 @@ html,body{
     transform: skew(64deg);
 }
 
-.lightspot3 span:nth-child(5){
+.lightspot3 span:nth-child(5) {
     left: 20rem;
     top: 11rem;
 }
 
-.lightspot3 span:nth-child(5) small{
+.lightspot3 span:nth-child(5) small {
     background: #0bb2eb;
     width: 7px;
     height: 7px;
 }
 
-.lightspot3 span:nth-child(6){
+.lightspot3 span:nth-child(6) {
     left: 9.9rem;
     top: 9.4rem;
-
 }
-.lightspot3 span:nth-child(6) small{
+
+.lightspot3 span:nth-child(6) small {
     left: 2%;
-    top:97%;
+    top: 97%;
     background: #0cbbf7;
 }
 
-.lightspot3 span:nth-child(6) b{
-     width: 2rem;
+.lightspot3 span:nth-child(6) b {
+    width: 2rem;
     height: 1rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 31%;
     top: 33%;
     transform: skew(110deg);
 }
 
-.lightspot3 span:nth-child(7){
-   left: 8rem;
-   top: 6rem;
-}
-.lightspot3 span:nth-child(7) i small{
-    left:-14%;
-    top:115%;
+.lightspot3 span:nth-child(7) {
+    left: 8rem;
+    top: 6rem;
 }
 
-.lightspot3 span:nth-child(7) b{
+.lightspot3 span:nth-child(7) i small {
+    left: -14%;
+    top: 115%;
+}
+
+.lightspot3 span:nth-child(7) b {
     width: 2rem;
     height: 3rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 10%;
     top: 128%;
     transform: skew(47deg);
 }
 
-.lightspot3 span:nth-child(8){
+.lightspot3 span:nth-child(8) {
     left: 5rem;
     top: 13rem;
 }
-.lightspot3 span:nth-child(8) i small{
+
+.lightspot3 span:nth-child(8) i small {
     left: -7%;
     top: 32%;
 }
 
-.lightspot3 span:nth-child(8) b{
+.lightspot3 span:nth-child(8) b {
     width: 2rem;
     height: 2.8rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 32%;
     top: -130%;
     transform: skew(118deg);
 }
 
-.lightspot3 span:nth-child(9){
+.lightspot3 span:nth-child(9) {
     left: 10rem;
     top: 13rem;
 }
 
-.lightspot3 span:nth-child(9) b{
+.lightspot3 span:nth-child(9) b {
     width: 2rem;
     height: 3rem;
     display: block;
-    border-left:1px solid #11335b;
+    border-left: 1px solid #11335b;
     position: absolute;
     left: 5%;
     top: -125%;
     transform: skew(3deg);
 }
 
-
-
-.emptycircle{
+.emptycircle {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-
 .industrybottom {
     background: url(../img/bgimg/tan1.png);
     background-size: 100% 100%;
     margin: 20px;
-    padding:1rem;
 }
 
-.industrybottom ul li{
+.industrybottom ul li {
     padding: 10px;
     border-bottom: 1px solid #1f1f40;
     font-size: 1.4rem;
 }
 
-.industrybottom ul li:nth-child(3){
+.industrybottom ul li:nth-child(3) {
     border-bottom: none;
 }
 
-.wide{
+.wide {
     width: 7rem;
 }
 
-.bigcircle{
+.bigcircle {
     width: 7px;
     height: 7px;
     border-radius: 100%;
@@ -1557,13 +1567,14 @@ html,body{
     top: 14%;
 }
 
+
 /* 明星推荐-企业 */
 
 .allcontainer {
     padding: 10px;
 }
 
-.allcontainer div{
+.allcontainer div {
     background: url(../img/bgimg/tan1.png);
     background-size: 100% 100%;
     margin-top: 15px;
@@ -1575,115 +1586,117 @@ html,body{
     align-items: center;
 }
 
-.allcontainer dl dt p:nth-child(1){
+.allcontainer dl dt p:nth-child(1) {
     width: 20px;
     height: 20px;
     margin-right: 10px;
 }
 
-.allcontainer dl dt p:nth-child(2){
+.allcontainer dl dt p:nth-child(2) {
     color: #00c0ff;
     font-size: 1.4rem;
 }
 
-.allcontainer dl dt p:nth-child(1) img{
+.allcontainer dl dt p:nth-child(1) img {
     width: 100%;
     height: 100%;
 }
-.allcontainer dl dd{
+
+.allcontainer dl dd {
     margin-top: 10px;
 }
 
 
 /* 明星推荐-人物 */
 
-.container .starmanimg{
-    margin:20px;
+.container .starmanimg {
+    margin: 20px;
     background: url(../img/bgimg/kuang.png);
     background-size: 100% 100%;
 }
 
-.container .starmanimg ul li{
+.container .starmanimg ul li {
     margin: 10px;
 }
 
-.container .starmanimg ul li:nth-child(1){
+.container .starmanimg ul li:nth-child(1) {
     width: 120px;
     height: 120px;
     margin: 0 auto;
     padding: 20px;
 }
 
-.container .starmanimg ul li:nth-child(1) img{
+.container .starmanimg ul li:nth-child(1) img {
     width: 100%;
     height: 100%;
 }
 
-.container .starmanimg ul li:nth-child(4){
+.container .starmanimg ul li:nth-child(4) {
     padding: 10px;
     font-size: 1.4rem;
 }
 
-.container .starmanimg ul li:nth-child(2){
+.container .starmanimg ul li:nth-child(2) {
     color: #00c0ff;
     font-size: 1.6rem;
 }
 
-.texts{
+.texts {
     text-align: center;
 }
 
+
 /* 优质企业 */
 
-.company{
+.company {
     padding: 15px 10px;
 }
 
-.company div{
+.company div {
     padding-bottom: 10px;
 }
 
-.company div h2{
+.company div h2 {
     color: #00ffde;
     font-size: 1.4rem;
 }
 
 .company ul li {
-   display: flex;
-   margin-top: 8px;
-   padding-bottom: 8px;
-   border-bottom: 1px solid  #29294b;
+    display: flex;
+    margin-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #29294b;
 }
 
-.company ul li:nth-child(1) span{
+.company ul li:nth-child(1) span {
     color: #ccc;
 }
 
-.company ul li span:nth-child(1){
+.company ul li span:nth-child(1) {
     width: 55%
 }
 
-.company ul li span:nth-child(2){
+.company ul li span:nth-child(2) {
     width: 45%;
 }
 
-.qrcodeimg{
+.qrcodeimg {
     width: 100px;
-    height: 100px;  
+    height: 100px;
     margin: 0 auto;
-    padding-top: 12rem; 
+    padding-top: 12rem;
 }
 
-.qrcodeimg img{
+.qrcodeimg img {
     width: 100%;
     height: 100%;
 }
 
-.message{
+.message {
     margin-top: 3rem;
 }
 
-.message p{
+.message p {
     text-align: center;
     color: #00c0ff;
     margin-top: 1rem;
@@ -1692,12 +1705,13 @@ html,body{
 
 
 /* 资本焦点 */
-.bigbox .page12{
+
+.bigbox .page12 {
     background: url(../img/bgimg/bg2.png) no-repeat center;
     background-size: 100% 100%;
 }
 
-.allcapital{
+.allcapital {
     padding: 2rem;
     background: url(../img/bgimg/bg2.png) no-repeat center;
     background-size: 100% 100%;
@@ -1705,24 +1719,26 @@ html,body{
     height: 90%;
 }
 
-.allcapital div{
+.allcapital div {
     background: url(../img/bgimg/tan1.png);
     background-size: 100% 100%;
     margin-top: 15px;
     padding: 10px;
 }
 
+
 /* 市场焦点 */
-.bigbox .page14{
+
+.bigbox .page14 {
     background: url(../img/bgimg/bg2.png) no-repeat center;
     background-size: 100% 100%;
 }
 
-.allbazzr{
+.allbazzr {
     padding: 10px;
 }
 
-.allbazzr div{
+.allbazzr div {
     background: url(../img/icon/kuai.png);
     background-size: 100% 100%;
     margin-top: 15px;
@@ -1734,19 +1750,21 @@ html,body{
     font-size: 1.6rem;
     color: #00c0ff;
 }
-.allbazzr div p:nth-child(2){
+
+.allbazzr div p:nth-child(2) {
     padding: 10px;
     font-size: 1.4rem;
-
 }
 
+
 /* 排行报告 */
-.bigbox .page21{
+
+.bigbox .page21 {
     background: url(../img/bgimg/bg2.png) no-repeat center;
     background-size: 100% 100%;
 }
 
-.allreport{
+.allreport {
     overflow-y: auto;
     height: 100%;
 }
@@ -1756,31 +1774,31 @@ html,body{
     border-bottom: 1px solid #29294b;
 }
 
-.company ul li:nth-child(2){
+.company ul li:nth-child(2) {
     position: relative;
 }
 
-.allreport div ul li:nth-child(1){
+.allreport div ul li:nth-child(1) {
     display: flex;
     justify-content: space-between;
 }
 
-.allreport div ul li p:nth-child(1){
+.allreport div ul li p:nth-child(1) {
     color: #00c0ff;
     font-size: 1.6rem;
 }
 
-.allreport div ul li:nth-child(2){
+.allreport div ul li:nth-child(2) {
     margin: 10px 0px;
     color: #fff;
     font-size: 1.4rem;
 }
 
-.allreport div ul li:nth-child(3){
+.allreport div ul li:nth-child(3) {
     color: #ccc;
 }
 
-.read{
+.read {
     text-align: center;
     width: 50px;
     height: 20px;
@@ -1789,64 +1807,68 @@ html,body{
     color: #01b4f1;
 }
 
-.haveread{
+.haveread {
     color: #fff;
     background: #01b4f1;
 }
 
-.magimg{
+.magimg {
     position: absolute;
     left: 82px;
-   width: 158px;
-   height: 32px;
-   border: 1px solid #22224c;
-   display: none;
-   background: #101029;
-   padding: .4rem;
+    width: 158px;
+    height: 32px;
+    border: 1px solid #22224c;
+    display: none;
+    background: #101029;
+    padding: .4rem;
 }
+
 
 /* 各地新闻 */
 
-.maptext{
+.maptext {
     background: url(../img/bgimg/tan1.png);
-    background-size: 100% 100%; 
+    background-size: 100% 100%;
     margin: 20px 10px;
- }
- 
- .maptext ul li{
+}
+
+.maptext ul li {
     padding: 10px;
     border-bottom: 1px solid #1f1f40;
     color: #fff;
     font-size: 1.4rem;
- }
+}
 
- .maptexts{
+.maptexts {
     background: url(../img/bgimg/tan1.png);
-    background-size: 100% 100%; 
+    background-size: 100% 100%;
     margin: 20px 10px;
- }
- 
- .maptexts ul li{
+}
+
+.maptexts ul li {
     padding: 10px;
     border-bottom: 1px solid #1f1f40;
     color: #fff;
     font-size: 1.4rem;
- }
+}
 
- /* 会议日程 */
 
- .bigbox .page20{
+/* 会议日程 */
+
+.bigbox .page20 {
     background: url(../img/bgimg/bg2.png);
     background-size: 100% 100%;
 }
 
- .jalendar .days .day:focus{
+.jalendar .days .day:focus {
     outline: none
 }
+
 .jalendar {
     position: relative;
     width: 100%;
 }
+
 .jalendar .left {
     float: left;
 }
@@ -1855,17 +1877,19 @@ html,body{
     width: 100% !important;
 }
 
-.jalendar-pages > .header {
+.jalendar-pages>.header {
     text-align: center;
     overflow: hidden;
 }
-.jalendar-pages > .header .day-names {
+
+.jalendar-pages>.header .day-names {
     margin: 1%;
     overflow: hidden;
     text-align: center;
     font-size: 0;
 }
-.jalendar-pages > .header h2 {
+
+.jalendar-pages>.header h2 {
     display: inline-block;
     width: 14%;
     padding: 7px 0 0 0;
@@ -1881,6 +1905,7 @@ html,body{
     font-size: 0;
     text-align: center;
 }
+
 .jalendar .days .day {
     display: inline-block;
     width: 14%;
@@ -1893,16 +1918,18 @@ html,body{
     position: relative;
     vertical-align: middle;
 }
-.jalendar .days .day.have-event{
+
+.jalendar .days .day.have-event {
     cursor: pointer;
 }
+
 .jalendar.mid .days .day {
     height: 40px;
     font-size: 18px;
     padding-top: 7px;
 }
 
-.jalendar .days .day span{
+.jalendar .days .day span {
     display: inline-block;
     width: 28px;
     line-height: 28px;
@@ -1910,6 +1937,7 @@ html,body{
     border-radius: 100%;
     margin-top: 5px
 }
+
 .jalendar .days .day.selected {
     color: #fff;
 }
@@ -1917,7 +1945,8 @@ html,body{
 .jalendar .days .day.today.selected {
     color: #fff !important;
 }
-.jalendar .days .day > .event-single {
+
+.jalendar .days .day>.event-single {
     display: none;
     position: absolute;
     white-space: nowrap;
@@ -1931,10 +1960,12 @@ html,body{
     padding: 10px 15px;
     box-shadow: 1px 1px 10px #343449;
 }
-.jalendar .days .day > .event-single p{
+
+.jalendar .days .day>.event-single p {
     color: #fff
 }
-.jalendar .days .day > .event-single em{
+
+.jalendar .days .day>.event-single em {
     position: absolute;
     width: 11px;
     height: 11px;
@@ -1946,13 +1977,16 @@ html,body{
     border-bottom: none;
     border-right: none;
 }
-.jalendar .days .day.selected > i {
+
+.jalendar .days .day.selected>i {
     display: none;
 }
-.jalendar .days .day{
+
+.jalendar .days .day {
     text-align: center
 }
-.jalendar .days .day > i {
+
+.jalendar .days .day>i {
     position: absolute;
     right: 50%;
     bottom: -3px;
@@ -1969,114 +2003,116 @@ html,body{
     -o-transform: translateX(50%);
 }
 
-.daytext{
+.daytext {
     background: url(../img/bgimg/tan1.png);
     background-size: 100% 100%;
     margin: 0 auto;
     width: 90%;
 }
-.daytext ul li{
+
+.daytext ul li {
     padding: 10px;
     border-bottom: 1px solid #1f1f40;
     font-size: 1.4rem;
     color: #fff;
 }
-.daytext ul li:last-child{
+
+.daytext ul li:last-child {
     border-bottom: none;
 }
 
-.redaa{
+.redaa {
     color: #0bb2eb;
 }
-s{
-    text-decoration:none;
+
+s {
+    text-decoration: none;
 }
 
-.ticolor{
+.ticolor {
     color: #fff;
     font-size: 1.8rem;
 }
 
-.detail {                            
+.detail {
     display: none;
     position: fixed;
-    left: 0; 
-    top:0;
+    left: 0;
+    top: 0;
     bottom: 0;
     right: 0;
 }
 
-.swiper-button-prev{
+.swiper-button-prev {
     display: none;
 }
 
-a{
-    -webkit-tap-highlight-color:rgba(0,0,0,0); 
+a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-.post{
+
+.post {
     position: absolute;
     left: 2rem;
     top: -3rem;
 }
 
-.bigshu{
+.bigshu {
     position: absolute;
     left: -4rem;
     top: 2rem;
 }
 
-
-.safe{
+.safe {
     position: absolute;
     left: -4rem;
     top: 1rem;
 }
 
-.sale{
+.sale {
     position: absolute;
     left: -3rem;
     top: 2rem;
 }
 
-.allcapital div p:nth-child(1){
+.allcapital div p:nth-child(1) {
     color: #00c0ff;
     font-size: 1.6rem;
 }
 
-.allcapital div p:nth-child(2){
+.allcapital div p:nth-child(2) {
     font-size: 1.4rem;
 }
 
-
-.bigtext{
+.bigtext {
     font-size: 1.4rem;
     color: #fff;
 }
 
-.hover{
+.hover {
     color: #00c0ff;
 }
 
-.alldynamic span:nth-child(1){
+.alldynamic span:nth-child(1) {
     width: 6.5rem;
     height: 6.5rem;
     display: block;
 }
 
-.alldynamic span  img{
+.alldynamic span img {
     width: 100%;
     height: 100%;
 }
 
-.point{
+.point {
     color: #00c0ff;
 }
 
-.jalendar-pages > .header h2{
+.jalendar-pages>.header h2 {
     color: #fff;
     font-size: 1.4rem;
 }
 
-.express{
+.express {
     padding-top: 3rem;
 }

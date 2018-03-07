@@ -11,8 +11,6 @@
     <meta name="application-name" content="慧数招商">
     <title>舆论焦点</title>
     <link rel="stylesheet" href="/vendor/base.css">
-    <link rel="stylesheet" href="/vendor/swiper-4.1.6.min.css">
-    <link rel="stylesheet" href="/vendor/jquery.fullPage.css">
     <link rel="stylesheet" href="/vendor/rem.js">
     <link rel="stylesheet" href="/css/common.css">
 </head>
@@ -25,28 +23,30 @@
 <script src="/vendor/jquery-3.3.1.min.js"></script>
 <script>
     $.ajax({
-        url: '/apis/report/getHtmlData.do?id=' + ${ id } + '&type=' + ${ type },
+        url: '/apis/report/getHtmlData.do?id=' + $ {
+            id
+        } + '&type=' + $ {
+            type
+        },
         type: 'GET',
         async: false,
-        success: function (res) {
+        success: function(res) {
             var strHtml = "";
             for (var i = 0; i < res.data.length; i++) {
                 if (i % 2) {
-                    strHtml += "<div class='rightline'><p class='ptext'><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                        + "</small></p>";
+                    strHtml += "<div class='rightline'><p class='ptext'><span class='leftdot'></span><small class='textcolor'>" + res.data[i].keyWord +
+                        "</small></p>";
                     strHtml += "<p class='ptext bigtext'>" + res.data[i].text + "</p></div>"
                 } else {
-                    strHtml += "<div class='leftline'><p><span class='rightdot'></span><small class='textcolor'>" + res.data[i].keyWord
-                        + "</small></p>";
+                    strHtml += "<div class='leftline'><p><span class='rightdot'></span><small class='textcolor'>" + res.data[i].keyWord +
+                        "</small></p>";
                     strHtml += "<p class='bigtext'>" + res.data[i].text + "</p></div>"
                 }
             }
             $(".dottedline").html(strHtml)
 
         }
-      })
-
-
+    })
 </script>
 
 </html>

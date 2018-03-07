@@ -64,6 +64,9 @@
         var bardom = document.getElementById("bar");
         var myChart2 = echarts.init(bardom);
         var baroption = {
+            title:{
+                subtext:'单位:亿元'
+            },
             color: ['#3398DB'],
             legendHoverLink: false,
             tooltip: {
