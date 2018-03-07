@@ -150,6 +150,7 @@ public class ReportServiceImpl implements ReportService {
 			}else if("会议日程".equals(one.getName())){
 				Paragraph paragraph = paragraphRepository.findByHeadlinesId(Long.valueOf(type)).get(0);
 				JSONObject obj = new JSONObject();
+				obj.put("id", paragraph.getId());
 				obj.put("place",paragraph.getTime());
 				obj.put("total",paragraph.getMoney());
 				obj.put("industry",paragraph.getText());
@@ -161,6 +162,7 @@ public class ReportServiceImpl implements ReportService {
 				JSONArray array = new JSONArray();
 				paragraph.forEach(para -> {
 					JSONObject obj = new JSONObject();
+					obj.put("id", para.getId());
 					obj.put("industry",para.getKeyWord());
 					obj.put("money",para.getMoney());
 					String[] split = para.getText().split("、");
@@ -196,6 +198,20 @@ public class ReportServiceImpl implements ReportService {
 			object.put("name",headlines.getName());
 			object.put("value",getHtmlData(id,headlines.getId().toString()));
 			array.add(object);
+		});
+		return array;
+	}
+
+	@Override
+	public JSONArray getLocalNews(Long headlinesId) {
+		List<Paragraph> list = paragraphRepository.findByHeadlinesId(headlinesId);
+		JSONArray array = new JSONArray();
+		list.forEach(para -> {
+			JSONObject obj = new JSONObject();
+			obj.put("id", para.getId());
+			obj.put("keyWord",para.getKeyWord());
+			obj.put("text",para.getText());
+			array.add(obj);
 		});
 		return array;
 	}

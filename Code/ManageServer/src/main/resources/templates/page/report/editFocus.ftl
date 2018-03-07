@@ -41,7 +41,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="bk-margin-bottom-10">
-                                        <a class="btn btn-info" href="javascript:history.go(-1)" onclick="myDelete()">返回上一页</a>
+                                        <a class="btn btn-info" href="javascript:history.go(-1)">返回上一页</a>
                                     </div>
                                 </div>
                             </div>

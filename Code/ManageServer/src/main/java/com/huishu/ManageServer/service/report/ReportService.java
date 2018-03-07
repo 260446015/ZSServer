@@ -71,6 +71,13 @@ public interface ReportService {
 	JSONArray getInfoData(Long id, String type);
 
 	/**
+	 * 获取h5报告各地新闻数据
+	 * @param headlinesId
+	 * @return
+	 */
+	JSONArray getLocalNews(Long headlinesId);
+
+	/**
 	 * 获取h5报告列表
 	 * @param dto
 	 * @return

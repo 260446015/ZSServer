@@ -2,25 +2,25 @@ $("#report_info").addClass("active nav-expanded ");
 $("#html_item").addClass("active");
 var _id;
 var _size;
-var k=1;
 var result= new Array();
+
 function addData(id) {
     _id = id;
     $.get("/apis/report/getHtmlData.do?id="+_id+"&type=dynamic",function (response) {
         if(response.success){
             _size = response.data.length;
             $.each(response.data,function (index,value) {
-                var i=1;
+                var _data_length=1;
                 if(value.name=="会议日程") {
                 	$.get("/apis/report/getHtmlData.do?id="+ _id+"&type="+ value.id,function (response) {
                 		var _inner="";
+                        _data_length=response.data.schedule.length;
 	            		$.each(response.data.schedule,function (_i,v) {
 	            			var j= 1+_i;
-	            			_inner+='<tr id="tr_'+value.id+'_'+k+'"><td><input name="hui_ri_' + value.id + '_' + k + '" value="'+v.date+'"></td>' +
-                            '<td><input name="hui_di_' + value.id + '_' + k + '" value="'+v.place+'"></td>' +
-                            '<td><input name="hui_zhu_' + value.id + '_' + k + '" value="'+v.sponsor+'"></td>' +
+	            			_inner+='<tr id="tr_'+value.id+'_'+j+'"><td><input name="hui_ri_' + value.id + '_' + j + '" value="'+v.date+'"></td>' +
+                            '<td><input name="hui_di_' + value.id + '_' + j + '" value="'+v.place+'"></td>' +
+                            '<td><input name="hui_zhu_' + value.id + '_' + j + '" value="'+v.sponsor+'"></td>' +
                             '</tr>';
-	            			k++;
 	            		});
                 		$(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">' + value.name + '</label>' +
                                 '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
@@ -33,28 +33,30 @@ function addData(id) {
                                 '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + value.id + '">添加数据 <i class="fa fa-plus"></i></button>' +
                                 '    <button class="btn btn-info btn-xs drop_'+value.id+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
                         $(".add_" + value.id + "").on("click", function () {
-                            $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+k+'"><td><input name="hui_ri_' + value.id + '_' + k + '"></td>' +
-                                '<td><input name="hui_di_' + value.id + '_' + k + '"></td>' +
-                                '<td><input name="hui_zhu_' + value.id + '_' + k + '"></td></tr>');
+                            _data_length++;
+                            $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+ _data_length +'">' +
+                                '<td><input name="hui_ri_' + value.id + '_' + _data_length + '"></td>' +
+                                '<td><input name="hui_di_' + value.id + '_' + _data_length + '"></td>' +
+                                '<td><input name="hui_zhu_' + value.id + '_' + _data_length + '"></td></tr>');
                         });
                         $(".drop_"+value.id+"").on("click",function () {
-                            if(k>1){
-                                $("#tr_"+value.id+"_"+k+"").remove();
-                                k--;
+                            if(_data_length>1){
+                                $("#tr_"+value.id+"_"+_data_length+"").remove();
+                                _data_length--;
                             }
                         });
                 	});
                 }else if(value.name=="排行报告") {
                 	$.get("/apis/report/getHtmlData.do?id="+ _id+"&type="+ value.id,function (response) {
                 		var _inner="";
+                        _data_length=response.data.length;
 	            		$.each(response.data,function (_i,v) {
 	            			var j= 1+_i;
-	            			_inner+='<tr id="tr_'+value.id+'_'+i+'"><td><input name="key_' + value.id + '_' + i + '" value="'+v.keyWord+'"></td>' +
-                            '<td><textarea name="text_' + value.id + '_' + i + '" class="col-md-9" >'+v.text+'</textarea></td>' +
-                            '<td><input name="img_' + value.id + '_' + i + '" value="'+v.img+'"></td>' +
-                            '<td><input name="people_' + value.id + '_' + i + '" value="'+v.people+'"></td>' +
+	            			_inner+='<tr id="tr_'+value.id+'_'+j+'"><td><input name="key_' + value.id + '_' + j + '" value="'+v.keyWord+'"></td>' +
+                            '<td><textarea name="text_' + value.id + '_' + j + '" class="col-md-9" >'+v.text+'</textarea></td>' +
+                            '<td><input name="img_' + value.id + '_' + j + '" value="'+v.img+'"></td>' +
+                            '<td><input name="people_' + value.id + '_' + j + '" value="'+v.people+'"></td>' +
                             '</tr>';
-	            			k++;
 	            		});
 	            		$(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">' + value.name + '</label>' +
 	                            '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
@@ -63,20 +65,24 @@ function addData(id) {
 	                            '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + value.id + '">添加数据 <i class="fa fa-plus"></i></button>' +
 	                            '    <button class="btn btn-info btn-xs drop_'+value.id+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
                         $(".add_" + value.id + "").on("click", function () {
-                            $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+i+'"><td><input name="key_' + value.id + '_' + i + '"></td><td><textarea name="text_' + value.id + '_' + i + '" class="col-md-9"></textarea></td>' +
-                                '<td><input name="img_' + value.id + '_' + i + '"></td><td><input name="people_' + value.id + '_' + i + '"></td></tr>');
-                            i++;
+                            _data_length++;
+                            $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+_data_length+'">' +
+                                '<td><input name="key_' + value.id + '_' + _data_length + '"></td>' +
+                                '<td><textarea name="text_' + value.id + '_' + _data_length + '" class="col-md-9"></textarea></td>' +
+                                '<td><input name="img_' + value.id + '_' + _data_length + '"></td>' +
+                                '<td><input name="people_' + value.id + '_' + _data_length + '"></td></tr>');
                         });
                         $(".drop_"+value.id+"").on("click",function () {
-                            if(i>2){
-                                i--;
-                                $("#tr_"+value.id+"_"+i+"").remove();
+                            if(_data_length>1){
+                                $("#tr_"+value.id+"_"+_data_length+"").remove();
+                                _data_length--;
                             }
                         });
                 	});
                 }else if(value.name=="投融速递") {
                 	$.get("/apis/report/getHtmlData.do?id="+ _id+"&type="+ value.id,function (response) {
                 		var _inner="";
+                        _data_length=response.data.length;
 	            		$.each(response.data,function (_i,v) {
 	            			var j= 1+_i;
 	            			var _array=""
@@ -87,12 +93,11 @@ function addData(id) {
 		                        	_array+="、"+vv;
 		                        }
 	            			});
-	            			_inner+='<tr id="tr_'+value.id+'_'+i+'">' +
-	                        '<td><input name="key_' + value.id + '_' + i + '" value="'+v.industry+'"></td>' +
-	                        '<td><input name="money_' + value.id + '_' + i + '" value="'+v.money+'"></td>' +
-	                        '<td><textarea name="text_' + value.id + '_' + i + '" class="col-md-9">'+_array+'</textarea></td>' +
+	            			_inner+='<tr id="tr_'+value.id+'_'+j+'">' +
+	                        '<td><input name="key_' + value.id + '_' + j + '" value="'+v.industry+'"></td>' +
+	                        '<td><input name="money_' + value.id + '_' + j + '" value="'+v.money+'"></td>' +
+	                        '<td><textarea name="text_' + value.id + '_' + j + '" class="col-md-9">'+_array+'</textarea></td>' +
 	                        '</tr>';
-	            			k++;
 	            		});
 	                    $(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">' + value.name + '</label>' +
 	                        '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
@@ -101,66 +106,121 @@ function addData(id) {
 	                        '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + value.id + '">添加数据 <i class="fa fa-plus"></i></button>' +
 	                        '    <button class="btn btn-info btn-xs drop_'+value.id+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
 	                    $(".add_" + value.id + "").on("click", function () {
-	                        $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+i+'">' +
-	                            '<td><input name="key_' + value.id + '_' + i + '"></td>'+
-	                            '<td><input name="money_' + value.id + '_' + i + '"></td>'+
-	                            '<td><textarea name="text_' + value.id + '_' + i + '" class="col-md-9"></textarea></td>' +
+                            _data_length++;
+	                        $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+_data_length+'">' +
+	                            '<td><input name="key_' + value.id + '_' + _data_length + '"></td>'+
+	                            '<td><input name="money_' + value.id + '_' + _data_length + '"></td>'+
+	                            '<td><textarea name="text_' + value.id + '_' + _data_length + '" class="col-md-9"></textarea></td>' +
 	                            '</tr>');
-	                        i++;
 	                    });
 	                    $(".drop_"+value.id+"").on("click",function () {
-	                        if(i>2){
-	                            i--;
-	                            $("#tr_"+value.id+"_"+i+"").remove();
+	                        if(_data_length>1){
+	                            $("#tr_"+value.id+"_"+_data_length+"").remove();
+                                _data_length--;
 	                        }
 	                    });
                 	});
                 }else {
-                	$.get("/apis/report/getHtmlData.do?id="+ _id+"&type="+ value.id,function (response) {
-                		console.log(value.name,response.data)
-	                    var td="";
-	                    if(value.name=="各地新闻") {
-	                        td="地域"
-	                    }else if(value.name=="合作动向") {
-	                        td="关键词"
-	                    }else if(value.name=="企业动向") {
-	                        td="企业"
-	                    }
-	                    var _inner="";
-	            		$.each(response.data,function (_i,v) {
-	            			var j= 1+_i;
-	            			_inner+='<tr id="tr_'+value.id+'_'+i+'">'+
-	            				'<td><input name="key_' + value.id + '_' + i + '" value="'+v.keyWord+'"></td>'+
-	            				'<td><textarea name="text_' + value.id + '_' + i + '" class="col-md-12">'+v.text+'</textarea></td></tr>';
-	            			k++;
-	            		});
-	                    $(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">' + value.name + '</label>' +
-	                        '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
-	                        '<thead><tr><th style="width: 50px;">'+td+'</th><th>文本</th></tr></thead>' +
-	                        '<tbody id="table_' + value.id + '">'+_inner+'</tbody></table>' +
-	                        '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + value.id + '">添加数据 <i class="fa fa-plus"></i></button>' +
-	                        '    <button class="btn btn-info btn-xs drop_'+value.id+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
-	                    $(".add_" + value.id + "").on("click", function () {
-	                        $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+i+'"><td><input name="key_' + value.id + '_' + i + '"></td><td><textarea name="text_' + value.id + '_' + i + '" class="col-md-12"></textarea></td></tr>');
-	                        i++;
-	                    });
-	                    $(".drop_"+value.id+"").on("click",function () {
-	                        if(i>2){
-	                            i--;
-	                            $("#tr_"+value.id+"_"+i+"").remove();
-	                        }
-	                    });
-                	});
+                    if(value.name=="各地新闻") {
+                        $.get("/apis/report/getLocalNews.json?headlinesId="+ value.id,function (_response) {
+                            _data_length=_response.data.length;
+                            var td = "地域";
+                            var _inner="";
+                            $.each(_response.data,function (_i,v) {
+                                var j= 1+_i;
+                                _inner+='<tr id="tr_'+value.id+'_'+j+'">'+
+                                    '<td><input name="key_' + value.id + '_' + j + '" value="'+v.keyWord+'"></td>'+
+                                    '<td><textarea name="text_' + value.id + '_' + j + '" class="col-md-12">'+v.text+'</textarea></td></tr>';
+                            });
+                            $(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">' + value.name + '</label>' +
+                                '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
+                                '<thead><tr><th style="width: 50px;">'+td+'</th><th>文本</th></tr></thead>' +
+                                '<tbody id="table_' + value.id + '">'+_inner+'</tbody></table>' +
+                                '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + value.id + '">添加数据 <i class="fa fa-plus"></i></button>' +
+                                '    <button class="btn btn-info btn-xs drop_'+value.id+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
+                            $(".add_" + value.id + "").on("click", function () {
+                                _data_length++;
+                                $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+_data_length+'">' +
+                                    '<td><input name="key_' + value.id + '_' + _data_length + '"></td>' +
+                                    '<td><textarea name="text_' + value.id + '_' + _data_length + '" class="col-md-12"></textarea></td></tr>');
+                            });
+                            $(".drop_"+value.id+"").on("click",function () {
+                                if(_data_length>1){
+                                    $("#tr_"+value.id+"_"+_data_length+"").remove();
+                                    _data_length--;
+                                }
+                            });
+                        });
+                    }else if(value.name=="合作动向") {
+                        $.get("/apis/report/getHtmlData.do?id="+ _id+"&type="+ value.id,function (_response) {
+                            _data_length=_response.data.length;
+                            var td= "关键词";
+                            var _inner="";
+                            $.each(_response.data,function (_i,v) {
+                                var j= 1+_i;
+                                _inner+='<tr id="tr_'+value.id+'_'+j+'">'+
+                                    '<td><input name="key_' + value.id + '_' + j + '" value="'+v.keyWord+'"></td>'+
+                                    '<td><textarea name="text_' + value.id + '_' + j + '" class="col-md-12">'+v.text+'</textarea></td></tr>';
+                            });
+                            $(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">' + value.name + '</label>' +
+                                '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
+                                '<thead><tr><th style="width: 50px;">'+td+'</th><th>文本</th></tr></thead>' +
+                                '<tbody id="table_' + value.id + '">'+_inner+'</tbody></table>' +
+                                '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + value.id + '">添加数据 <i class="fa fa-plus"></i></button>' +
+                                '    <button class="btn btn-info btn-xs drop_'+value.id+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
+                            $(".add_" + value.id + "").on("click", function () {
+                                _data_length++;
+                                $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+_data_length+'">' +
+                                    '<td><input name="key_' + value.id + '_' + _data_length + '"></td>' +
+                                    '<td><textarea name="text_' + value.id + '_' + _data_length + '" class="col-md-12"></textarea></td></tr>');
+                            });
+                            $(".drop_"+value.id+"").on("click",function () {
+                                if(_data_length>1){
+                                    $("#tr_"+value.id+"_"+_data_length+"").remove();
+                                    _data_length--;
+                                }
+                            });
+                        });
+                    }else if(value.name=="企业动向") {
+                        $.get("/apis/report/getHtmlData.do?id="+ _id+"&type="+ value.id,function (_response) {
+                            _data_length=_response.data.length;
+                            var td="企业";
+                            var _inner="";
+                            $.each(_response.data,function (_i,v) {
+                                var j= 1+_i;
+                                _inner+='<tr id="tr_'+value.id+'_'+j+'">'+
+                                    '<td><input name="key_' + value.id + '_' + j + '" value="'+v.keyWord+'"></td>'+
+                                    '<td><textarea name="text_' + value.id + '_' + j + '" class="col-md-12">'+v.text+'</textarea></td></tr>';
+                            });
+                            $(".form-horizontal").append('<div class="form-group"><label class="col-md-3 control-label" for="text-input">' + value.name + '</label>' +
+                                '<div class="col-md-9"><div class="table-responsive"><table class="table table-striped table-bordered bootstrap-datatable datatable">' +
+                                '<thead><tr><th style="width: 50px;">'+td+'</th><th>文本</th></tr></thead>' +
+                                '<tbody id="table_' + value.id + '">'+_inner+'</tbody></table>' +
+                                '<div class="bk-margin-bottom-10"><button class="btn btn-info btn-xs add_' + value.id + '">添加数据 <i class="fa fa-plus"></i></button>' +
+                                '    <button class="btn btn-info btn-xs drop_'+value.id+'">删除数据 <i class="fa fa-minus"></i></button></div></div>');
+                            $(".add_" + value.id + "").on("click", function () {
+                                _data_length++;
+                                $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+_data_length+'">' +
+                                    '<td><input name="key_' + value.id + '_' + _data_length + '"></td>' +
+                                    '<td><textarea name="text_' + value.id + '_' + _data_length + '" class="col-md-12"></textarea></td></tr>');
+                            });
+                            $(".drop_"+value.id+"").on("click",function () {
+                                if(_data_length>1){
+                                    $("#tr_"+value.id+"_"+_data_length+"").remove();
+                                    _data_length--;
+                                }
+                            });
+                        });
+                    }
                 }
                 $(".btn-success").on("click",function(){
                     result.push({
                         title:value.name,
                         name:value.id,
-                        value:i-1
+                        value:_data_length
                     });
                     savaFocus();
                 });
-                i++;
             });
         }else{
             layer.alert(response.message);
@@ -177,29 +237,38 @@ $(".btn-danger").on("click",function(){
 function savaFocus() {
     var _data =new Array();
     if(result.length==_size){
+        var index = layer.load();
         for(var j=0;j<result.length;j++){
-            for(var i=1;i<=result[j].value;i++){
-                var _schedule=null;
-                if(result[j].title=="会议日程"){
-                    _schedule=new Array();
-                    for(var n=1;n<=k;n++){
-                        _schedule.push({
-                            date:$("input[name='hui_ri_"+result[j].name+"_"+n+"']").val(),
-                            place:$("input[name='hui_di_"+result[j].name+"_"+n+"']").val(),
-                            sponsor:$("input[name='hui_zhu_"+result[j].name+"_"+n+"']").val()
-                        });
-                    }
+            var _schedule=null;
+            if(result[j].title=="会议日程"){
+                _schedule=new Array();
+                for(var n=1;n<=result[j].value;n++){
+                    _schedule.push({
+                        date:$("input[name='hui_ri_"+result[j].name+"_"+n+"']").val(),
+                        place:$("input[name='hui_di_"+result[j].name+"_"+n+"']").val(),
+                        sponsor:$("input[name='hui_zhu_"+result[j].name+"_"+n+"']").val()
+                    });
                 }
                 _data.push({
                     headlinesId:result[j].name,
+                    money:$("input[name='money_"+result[j].name+"_1']").val(),
+                    time:$("input[name='time_"+result[j].name+"_1']").val(),
+                    text:$("textarea[name='text_"+result[j].name+"_1']").val(),
                     keyWord:$("input[name='key_"+result[j].name+"_"+i+"']").val(),
-                    text:$("textarea[name='text_"+result[j].name+"_"+i+"']").val(),
-                    img:$("input[name='img_"+result[j].name+"_"+i+"']").val(),
-                    money:$("input[name='money_"+result[j].name+"_"+i+"']").val(),
-                    time:$("input[name='time_"+result[j].name+"_"+i+"']").val(),
-                    people:$("input[name='people_"+result[j].name+"_"+i+"']").val(),
                     schedule:_schedule
                 });
+            }else{
+                for(var i=1;i<=result[j].value;i++){
+                    _data.push({
+                        headlinesId:result[j].name,
+                        keyWord:$("input[name='key_"+result[j].name+"_"+i+"']").val(),
+                        text:$("textarea[name='text_"+result[j].name+"_"+i+"']").val(),
+                        img:$("input[name='img_"+result[j].name+"_"+i+"']").val(),
+                        money:$("input[name='money_"+result[j].name+"_"+i+"']").val(),
+                        time:$("input[name='time_"+result[j].name+"_"+i+"']").val(),
+                        people:$("input[name='people_"+result[j].name+"_"+i+"']").val()
+                    });
+                }
             }
         };
         result=new Array();
@@ -214,6 +283,7 @@ function savaFocus() {
             }),
             success: function (response) {
                 if(response.success){
+                    layer.close(index);
                     window.location.href="/apis/report/htmlReport.html";
                 }else{
                     layer.alert(response.message);
@@ -222,4 +292,5 @@ function savaFocus() {
         });
     }
 }
+
 

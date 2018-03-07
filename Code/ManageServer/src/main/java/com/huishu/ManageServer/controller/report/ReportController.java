@@ -60,7 +60,7 @@ public class ReportController extends BaseController {
 			Page<FilePdf> page = reportService.getExpertReport(dto);
 			return successPage(page,dto.getPageNum()+1);
 		} catch (Exception e) {
-			LOGGER.error("查询失败：", e);
+			LOGGER.error("获取招商报告PDF列表失败：", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
@@ -84,7 +84,7 @@ public class ReportController extends BaseController {
 				return error(MsgConstant.OPERATION_ERROR);
 			}
 		}catch (Exception e){
-			LOGGER.error("删除用户失败!", e);
+			LOGGER.error("删除报告失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
@@ -167,7 +167,7 @@ public class ReportController extends BaseController {
 		try {
 			return success(reportService.getHtmlData(id));
 		}catch (Exception e){
-			LOGGER.error("获取h5报告数据失败!", e);
+			LOGGER.error("获取h5报告全部数据失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
@@ -187,7 +187,26 @@ public class ReportController extends BaseController {
 		try {
 			return success(reportService.getInfoData(id,type));
 		}catch (Exception e){
-			LOGGER.error("获取h5报告数据失败!", e);
+			LOGGER.error("获取h5报告焦点、动态数据失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+
+	/**
+	 * 获取h5报告各地新闻数据
+	 * @param headlinesId
+	 * @return
+	 */
+	@RequestMapping(value = "getLocalNews.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getLocalNews(Long headlinesId) {
+		if(headlinesId==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(reportService.getLocalNews(headlinesId));
+		}catch (Exception e){
+			LOGGER.error("获取h5报告各地新闻数据失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
@@ -204,7 +223,7 @@ public class ReportController extends BaseController {
 			Page<MonthlyReport> page = reportService.getHtmlReport(dto);
 			return successPage(page,dto.getPageNum()+1);
 		} catch (Exception e) {
-			LOGGER.error("查询失败：", e);
+			LOGGER.error("获取h5报告列表失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
@@ -252,7 +271,7 @@ public class ReportController extends BaseController {
 				return success(l);
 			}
 		}catch (Exception e){
-			LOGGER.error("获取h5报告数据失败!", e);
+			LOGGER.error("获取h5报告基本数据与模块信息失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
@@ -295,7 +314,7 @@ public class ReportController extends BaseController {
 		try {
 			return success(reportService.findHtmlHeadlines(id));
 		}catch (Exception e){
-			LOGGER.error("获取h5报告数据失败!", e);
+			LOGGER.error("获取h5报告模块信息失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
