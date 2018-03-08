@@ -46,7 +46,6 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/logout", "logout");
 
 		filterChainDefinitionMap.put("/login.html", "anon");
-
 		filterChainDefinitionMap.put("/apis/openeyes/*.json", "authc,perms[search]");
 		
 		filterChainDefinitionMap.put("/**/*.html", "authc");
@@ -58,7 +57,8 @@ public class ShiroConfiguration {
 		filters.put("authc", getMyFormAuthenticationFilter());
 		
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
-		shiroFilterFactoryBean.setLoginUrl("/login.do");
+		shiroFilterFactoryBean.setLoginUrl("/login.do");//测试使用
+	//	shiroFilterFactoryBean.setLoginUrl("http://zhaoshang.huishu.com.cn:9323/login.do");//线上使用
 		shiroFilterFactoryBean.setSuccessUrl("/");
 		shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized.do");
 		shiroFilterFactoryBean.setFilters(filters);

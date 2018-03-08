@@ -5,7 +5,7 @@
 	<groupId>com.huishu</groupId>
 	<artifactId>ZSServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>ZSServer Maven Plugin</name>
 
 	<!-- FIXME change it to the project's website -->

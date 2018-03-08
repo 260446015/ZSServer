@@ -77,5 +77,15 @@ public class MsgConstant {
 	 * 用户不存在
 	 */
 	public static final String USER_ERROR = "该用户不存在";
+	/**
+	 * 注册成功
+	 **/
+	public static final String REGISTER_SUCCESS = "申请成功，请等待管理员审批";
+	/**
+	 * 注册失败
+	 **/
+	public static final String REGISTER_ERROR = "申请失败，请稍后再试";
+	/**用户类型*/
+	public static final String USER_TYPE = "user";
 
 }

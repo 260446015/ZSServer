@@ -1,6 +1,8 @@
 package com.huishu.ZSServer.service.user;
 
+import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.entity.UserLabel;
+import com.huishu.ZSServer.entity.dto.RegisterDTO;
 import com.huishu.ZSServer.entity.dto.UserDTO;
 import com.huishu.ZSServer.entity.user.UserBase;
 
@@ -46,5 +48,17 @@ public interface UserBaseService {
 	 * @return
 	 */
 	boolean updateLabel(UserLabel user);
+
+	/**
+	 * @param telphone
+	 * @return
+	 */
+	UserBase findUserByTelphoneAndRealName(String telphone,String realName);
+
+	/**
+	 * @param dto
+	 * @return
+	 */
+	AjaxResult addRegisterUser(RegisterDTO dto);
 	
 }

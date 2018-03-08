@@ -70,7 +70,8 @@ function show(b){
 	var arr=[];
 	$.each(b,function(index,item){
 		var imgsrc='/images/list_img.jpg';
-		if(item.logo.length != 0){
+		console.log(item.logo);
+		if(item.logo != null&&item.logo.length !=0){
 			imgsrc=item.logo;
 		}
 		arr.push('<div class="col-md-3"><div class="img-list">'

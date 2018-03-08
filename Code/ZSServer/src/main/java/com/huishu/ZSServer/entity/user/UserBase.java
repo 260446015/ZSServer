@@ -102,7 +102,11 @@ public class UserBase implements Serializable {
 	/** 是否单点登录(0:单点,1:多点) */
 	@Column(name = "is_single")
 	private Integer isSingle;
-
+	/**所在城市*/
+	private String area;
+	/**主要发展单位*/
+	@Column(name = "user_comp")
+	private String userComp;
 	/** 用户权限，不存数据库 */
 	@Transient
 	private List<Long> permissions;
@@ -265,6 +269,22 @@ public class UserBase implements Serializable {
 
 	public void setUserLevel(Integer userLevel) {
 		this.userLevel = userLevel;
+	}
+	
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getUserComp() {
+		return userComp;
+	}
+
+	public void setUserComp(String userComp) {
+		this.userComp = userComp;
 	}
 
 	@Override

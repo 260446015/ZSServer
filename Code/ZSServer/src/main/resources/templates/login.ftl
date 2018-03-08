@@ -16,7 +16,7 @@
     <div class="header navbar navbar-trans">
         <div class="navbar-header">
             <a class="navbar-brand hidden-sm" href="javascript:void(0)">
-                <img height="32" width="159" src="../images/logo.png" />
+                <img height="32" width="159" src="/images/logo.png" />
             </a>
         </div>
     </div>
@@ -32,7 +32,7 @@
                         <input type="text" class="form-control" placeholder="请输入用户名" id="username"/>
                     </div>
                 </div>
-                <div class="form-group">
+               <div class="form-group">
                     <div class="input-icon">
                         <i class="glyphicon glyphicon-lock"></i>
                         <input type="password" class="form-control" placeholder="请输入密码" id="userPassword"/>
@@ -42,7 +42,7 @@
                     <button class="btn btn-blue btn-login" type="submit" onclick="doLogin()">立即登录</button>
                 </div>
                 <div class="form-group">
-                    <p class="form-control-static">没有账号？<a href="javascript:void(0);"> 申请试用</a></p>
+                    <p class="form-control-static">没有账号？<a href="/apis/reg/register.htm"> 申请试用</a></p>
                 </div>
             </form>
         </div>

@@ -13,4 +13,7 @@ public class ConfConstant {
 	
 	/** 上传图片的默认位置*/
 	public  final static String DEFAULT_IMAGE = "e:/file/image/";
+
+	/**用户的初始密码*/
+	public static final String DEFAULT_PASSWORD = "123456";
 }
