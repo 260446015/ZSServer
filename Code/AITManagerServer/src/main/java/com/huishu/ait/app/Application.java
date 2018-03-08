@@ -18,7 +18,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableJpaRepositories(basePackages = "com.huishu.ait.repository")
 @EnableElasticsearchRepositories(basePackages = "com.huishu.ait.es.repository")
 @EnableAutoConfiguration
-@EnableScheduling
+//@EnableScheduling
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
