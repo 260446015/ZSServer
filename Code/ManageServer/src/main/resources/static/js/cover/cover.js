@@ -39,13 +39,13 @@ function keyWord() {
                 var strHtml = "";
                 strHtml += "<div class='popup'>"
                 if (i % 2) {
-                    strHtml += "<div class='leftborder text'>" + res.data[i].text + "</div>"
+                    strHtml += "<div class='leftborder'>" + res.data[i].text + "</div>"
                     strHtml += "<div class='leftwire' id='line" + i + "'></div>"
                     $("#keymonth").append(strHtml)
                     getKey('line' + i, res.data[i].keyWord)
                 } else {
                     strHtml += "<div class='leftwire' id='line" + i + "'></div>"
-                    strHtml += "<div class='rightborder text'>" + res.data[i].text + "</div>"
+                    strHtml += "<div class='rightborder'>" + res.data[i].text + "</div>"
                     $("#keymonth").append(strHtml)
                     getKey('line' + i, res.data[i].keyWord)
                 }
@@ -81,7 +81,6 @@ function getKey(_id, _data) {
             node.value = node.symbolSize;
             node.category = node.attributes.modularity_class;
             node.x = node.y = null;
-            // node.draggable = true;
         });
         var graphOption = {
             color: ["#3385ff"],
@@ -100,7 +99,7 @@ function getKey(_id, _data) {
                 categories: categories,
                 symbolSize: 5,
                 roam: false,
-                animation: 'true',
+                animation: true,
                 label: {
                     normal: {
                         position: 'right',
@@ -135,23 +134,35 @@ function industryChain() {
             })
 
             var strHtml = "";
+            var strHtml1 = "";
+            var strHtml2 = "";
             for (var i = 0; i < res.data.length; i++) {
-                strHtml += "<li>" + res.data[i].text + "</li>";
+                if (i == 0) {
+                    strHtml = "<li>" + res.data[i].text + "</li>";
+                }
+                if (i == 1) {
+                    strHtml1 = "<li>" + res.data[i].text + "</li>";
+                }
+                if (i == 2) {
+                    strHtml2 = "<li>" + res.data[i].text + "</li>";
+                }
             }
-            $('.industrybottom ul').html(strHtml)
+            $('.box1 ul').html(strHtml)
+            $('.box2 ul').html(strHtml1)
+            $(".box3 ul").html(strHtml2)
         }
     })
     var swiper = new Swiper('.swiper-container', {
         spaceBetween: 50,
+        clickable: true,
         centeredSlides: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
-        }
+            renderBullet: function(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + '</span>';
+            }
+        },
     });
 }
 
@@ -166,7 +177,7 @@ function allFoucs() {
             var strHtml = "";
             for (var i = 0; i < res.data.length; i++) {
                 strHtml += "<li data-id=" + res.data[i].id + " data-name=" + res.data[i].name + " class='allfoucs'><a href='javascript:void(0);'>"
-                strHtml += "<span class='mb10'> <img src=" + res.data[i].logoClass + ">"
+                strHtml += "<span class='mb10 foucs'> <img src=" + res.data[i].logoClass + ">"
                 strHtml += "</span><span class='ticolor'>" + res.data[i].name + "</span></a></li>";
             }
             $('.each ul').html(strHtml)
@@ -239,7 +250,7 @@ function dynamic() {
             var strHtml = "";
             for (var i = 0; i < res.data.length; i++) {
                 strHtml += "<li data-id=" + res.data[i].id + " data-name=" + res.data[i].name + " class='alldynamic'>"
-                strHtml += "<a href='javascript:void();'><span class='mb10'> <img src=" + res.data[i].logoClass + ">"
+                strHtml += "<a href='javascript:void();'><span class='mb10 namic'> <img src=" + res.data[i].logoClass + ">"
                 strHtml += "</span><span class='ticolor'>" + res.data[i].name + "</span></a></li>"
             }
             $('.industry ul').html(strHtml)
@@ -310,13 +321,15 @@ function superiorCompany() {
             strHtml3 += "</ul></div>"
             strHtml = strHtml1 + strHtml2 + strHtml3;
             $('.company').html(strHtml)
-            $('.mege').on("click", function() {
+            $('.mege').on("click", function(e) {
                 $(".magimg").attr('style', "display:none")
                 $(this).next().attr('style', "display:block")
+                $(document).on('click', function() {
+                    $('.magimg').hide()
+                })
+                e.stopPropagation();
             })
-
         }
-
     })
 
 }
@@ -330,13 +343,32 @@ $(function() {
         scrollOverflow: true,
         afterLoad: function(anchorLink, index) {
             if (index == 2) {
-                $('.mb10').delay(100).delay(100).removeClass('fadeOutUp').addClass('animated fadeInUp')
-                console.log(1)
+                $('.menu').delay(1000).removeClass('fadeOutUp').addClass('animated fadeInUp')
+            }
+            if (index == 5) {
+                allFoucs()
+                $('.foucs').delay(1000).removeClass('fadeOutUp').addClass('animated fadeInUp')
+            }
+            if (index == 6) {
+                dynamic()
+                $('.namic').delay(1000).removeClass('fadeOutUp').addClass('animated fadeInUp')
+            }
+            if (index == 7) {
+                company()
+            }
+            if (index == 9) {
+                superiorCompany()
             }
         },
         onLeave: function(index, nextIndex, direction) {
             if (index == '2') {
-                $('.mb10').delay(100).addClass('fadeOutUp')
+                $('.menu').delay(100).addClass('fadeOutUp')
+            }
+            if (index == 5) {
+                $('.foucs').delay(100).addClass('fadeOutUp')
+            }
+            if (index == 6) {
+                $('.namic').delay(100).addClass('fadeOutUp')
             }
             if (index <= arr.length - 1) {
                 switch (true) {

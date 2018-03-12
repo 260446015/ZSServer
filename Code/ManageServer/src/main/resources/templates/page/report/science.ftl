@@ -23,11 +23,7 @@
 <script src="/vendor/jquery-3.3.1.min.js"></script>
 <script>
     $.ajax({
-        url: '/apis/report/getHtmlData.do?id=' + $ {
-            id
-        } + '&type=' + $ {
-            type
-        },
+        url: '/apis/report/getHtmlData.do?id=' + ${id} + '&type=' + ${type},
         type: 'GET',
         async: false,
         success: function(res) {

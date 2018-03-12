@@ -10,8 +10,6 @@
     <meta name="application-name" content="慧数招商">
     <title>未来焦点</title>
      <link rel="stylesheet" href="/vendor/base.css">
-    <link rel="stylesheet" href="/vendor/swiper-4.1.6.min.css">
-    <link rel="stylesheet" href="/vendor/jquery.fullPage.css">
     <link rel="stylesheet" href="/vendor/rem.js">
     <link rel="stylesheet" href="/css/common.css">
 </head>

@@ -11,8 +11,6 @@
     <meta name="application-name" content="慧数招商">
     <title>投融速递</title>
     <link rel="stylesheet" href="/vendor/base.css">
-    <link rel="stylesheet" href="/vendor/swiper-4.1.6.min.css">
-    <link rel="stylesheet" href="/vendor/jquery.fullPage.css">
     <link rel="stylesheet" href="/vendor/rem.js">
     <link rel="stylesheet" href="/css/common.css">
 </head>
@@ -65,7 +63,7 @@
         var myChart2 = echarts.init(bardom);
         var baroption = {
             title:{
-                subtext:'单位:亿元'
+                subtext:'单位:亿人民币'
             },
             color: ['#3398DB'],
             legendHoverLink: false,
@@ -108,7 +106,7 @@
                         show: false
                     },
                     type:'value',
-                    min:0,
+                    min:-20,
                     max:15
                 }
             ],

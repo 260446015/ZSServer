@@ -51,7 +51,7 @@
                         <ul class="cd-list">
                             <li data-menuanchor="page3">
                                 <a href="#page3">
-                                    <span class="mb10">
+                                    <span class="mb10 menu">
                                         <img src="/img/icon/icon1.png" alt="">
                                     </span>
                                     <span class="ticolor"> 月关键词</span>
@@ -59,7 +59,7 @@
                             </li>
                             <li data-menuanchor="page4">
                                 <a href="#page4">
-                                    <span class="mb10">
+                                    <span class="mb10 menu">
                                         <img src="/img/icon/icon2.png" alt="">
                                     </span>
                                     <span class="ticolor"> 
@@ -69,7 +69,7 @@
                             </li>
                             <li>
                                 <a href="#page5">
-                                    <span class="mb10">
+                                    <span class="mb10 menu">
                                         <img src="/img/icon/icon3.png" alt="">
                                     </span>
                                     <span class="ticolor">
@@ -79,7 +79,7 @@
                             </li>
                             <li>
                                 <a href="#page6">
-                                    <span class="mb10">
+                                    <span class="mb10 menu">
                                         <img src="/img/icon/icon4.png" alt="">
                                     </span>
                                     <span class="ticolor">
@@ -89,7 +89,7 @@
                             </li>
                             <li>
                                 <a href="#page7">
-                                    <span class="mb10">
+                                    <span class="mb10 menu">
                                         <img src="/img/icon/icon5.png" alt="">
                                     </span>
                                     <span class="ticolor">
@@ -99,7 +99,7 @@
                             </li>
                             <li>
                                 <a href="#page9">
-                                    <span class="mb10">
+                                    <span class="mb10 menu">
                                         <img src="/img/icon/icon6.png" alt="">
                                     </span>
                                     <span class="ticolor">
@@ -107,6 +107,7 @@
                                     </span>
                                 </a>
                             </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -201,6 +202,11 @@
                                         <b></b>
                                     </span>
                                 </div>
+                                <div class="industrybottom box1">
+                                <ul>
+                                    
+                                </ul>
+                            </div>
                             </li>
                             <li class="swiper-slide">
                                 <div class="lightspot2 keyWord">
@@ -265,7 +271,6 @@
                                             <s>人工智能产业</s>
                                             <small></small>
                                         </i>
-                                        <b></b>
                                     </span>
                                     <span>
                                         <i class="aaa">
@@ -331,6 +336,11 @@
                                         <b></b>
                                     </span>
                                 </div>
+                                 <div class="industrybottom box2">
+                                 <ul>
+                            
+                                </ul>
+                               </div>
                             </li>
                             <li class="swiper-slide">
                                 <div class="lightspot3 keyWord">
@@ -371,8 +381,6 @@
                                             <s>人工智能产业</s>
                                             <small></small>
                                         </i>
-
-                                        <b></b>
                                     </span>
                                     <span>
                                         <i class="aaa">
@@ -409,28 +417,19 @@
                                         <b></b>
                                     </span>
                                 </div>
+                                 <div class="industrybottom box3">
+                                <ul>
+                                    
+                                </ul>              
+                             </div>
                             </li>
-                        </ul>
-                    </div>
-                    <div class="swiper-pagination emptycircle"></div>
-                    <div class="industrybottom">
-                        <ul>
-                            <li>
-                                本月自动驾驶融资**亿。chachacha企业获得自动 驾驶行业领域奖
-                            </li>
-                            <li>
-                                本月自动驾驶融资**亿。chachacha企业获得自动 驾驶行业领域奖
-                            </li>
-                            <li>
-                                本月自动驾驶融资**亿。chachacha企业获得自动 驾驶行业领域奖
-                            </li>
-                        </ul>
-                    </div>
+                         </div>
+                      <div class="swiper-pagination emptycircle"></div>
                 </div>
             </div>
             <div class="page page5 section">
                 <header>
-                    <div class="center">
+                    <div class="center"> 
                         <h1>
                             本月焦点
                         </h1>

@@ -28,11 +28,7 @@
             return year + '/' + month + '/' + day
         }
         $.ajax({
-            url: '/apis/report/getHtmlData.do?id=' + $ {
-                id
-            } + '&type=' + $ {
-                type
-            },
+            url: '/apis/report/getHtmlData.do?id=' + ${id} + '&type=' + ${type},
             type: 'GET',
             async: false,
             success: function(res) {

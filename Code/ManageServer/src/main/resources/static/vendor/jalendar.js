@@ -140,7 +140,7 @@ $(function() {
 
 
 
-            $this.on('click', '.have-event', function() {
+            $this.on('click', '.have-event', function(e) {
                 var eventSingle = $(this).find('.event-single')
                 $this.find('.events .event-single').remove();
                 prevAddEvent();
@@ -157,7 +157,10 @@ $(function() {
                 $(this).find('span').addClass('selected').css({ 'background-color': '#00C0FF', 'color': '#fff' });
                 $this.find('.event-single').hide();
                 $(this).find('.event-single').show();
-
+                $(document).on('click', function() {
+                    $('.event-single').hide()
+                })
+                e.stopPropagation();
             });
 
 

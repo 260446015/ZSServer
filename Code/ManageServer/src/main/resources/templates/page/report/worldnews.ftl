@@ -28,11 +28,7 @@
     <script src="/vendor/jquery-3.3.1.min.js"></script>
     <script>
         $.ajax({
-                url: '/apis/report/getHtmlData.do?id=' + $ {
-                    id
-                } + '&type=' + $ {
-                    type
-                },
+                url: '/apis/report/getHtmlData.do?id=' + ${id} + '&type=' + ${type},
                 type: 'GET',
                 async: false,
                 success: function(res) {
@@ -40,26 +36,21 @@
                     var maptext = new Array();
                     for (var i = 0; i < res.data.length; i++) {
                         // 地名
-                        mapname.push(res.data[i].area)
-                        var textobj = new Object();
-                        textobj.name = res.data[i].area;
-                        textobj.text = res.data[i].data;
-                        maptext.push(textobj)
+                        mapname.push(res.data[i].area);
+                        maptext.push(res.data[i].data);
                         if (i == 0) {
                             var strHtml = "";
-                            for (var j = 0; j < maptext[0].text.length; j++) {
-                                strHtml += "<li>" + maptext[0].text[j] + "</li>"
+                            for (var j = 0; j < maptext[0].length; j++) {
+                                strHtml += "<li>" + maptext[0][j] + "</li>"
                             }
                             $('.maptext ul').html(strHtml)
                         }
                     }
                     allMap(mapname, maptext)
-
                 }
             })
             //  map渲染
         function allMap(index, text) {
-            console.log(index, text)
             var _map = new Array();
             $.each(index, function(i, v) {
                 _map.push({
@@ -67,25 +58,30 @@
                     selected: true
                 });
             })
+            var _text = new Array();
+            $.each(text, function(i, v) {
+                _text.push({
+                     text:v
+                });
+            })
             var dom = document.getElementById("map");
-            var app = {};
-            var mapOption = null;
             mapOption = {
                 tooltip: {
                     trigger: 'item',
                     formatter: '{b}'
                 },
-                series: [{
+                series: [
+                  {
                     name: '中国',
                     type: 'map',
                     mapType: 'china',
-                    selectedMode: 'multiple',
+                    selectedMode : 'multiple',
                     label: {
                         normal: {
                             show: false
                         },
                         emphasis: {
-                            show: false,
+                            show: false
                         }
                     },
                     itemStyle: {
@@ -96,26 +92,45 @@
                         emphasis: {
                             areaColor: '#00c0ff'
                         }
-                    },
-                    data: _map
-
-                }]
+                    }
+                    }
+                ]
             };
             var myChart1 = echarts.init(dom);
-            console.log(myChart1)
+            var currentLoc = 0;
             myChart1.setOption(mapOption, true);
-            myChart1.on('click', function(e) {
-                $.each(text, function(ind, val) {
-                    if (val.name == e.name) {
-                        var strHtml = "";
-                        for (var i = 0; i < val.text.length; i++) {
-                            strHtml += "<li>" + val.text[i] + "</li>"
+            myChart1.setOption({
+                series:[{
+                    data:[_map[currentLoc]],
+                     label:{
+                            emphasis:{
+                                show: true,
+                                color:'#fff'
+                            }
                         }
-                        $('.maptext ul').html(strHtml)
-                    }
-                })
+                }]
             })
-
+            setInterval(function () {
+                myChart1.setOption({
+                    series: [{
+                        data: [_map[currentLoc]],
+                        animationDurationUpdate: 1000,
+                        animationEasingUpdate: 'cubicInOut',
+                        label:{
+                            emphasis:{
+                                show: true,
+                                color:'#fff'
+                            }
+                        }
+                    }]
+                });
+                var strHtml = "";
+                for (var i = 0; i < _text[currentLoc].text.length; i++) {
+                    strHtml += "<li>" + _text[currentLoc].text[i] + "</li>";
+                }
+                $('.maptext ul').html(strHtml);
+                currentLoc = (currentLoc + 1) % _map.length;
+            }, 3000);
         }
     </script>
 
