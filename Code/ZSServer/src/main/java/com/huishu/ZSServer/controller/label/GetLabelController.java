@@ -57,6 +57,9 @@ public class GetLabelController extends BaseController {
 			jec.put("industry", "大数据");
 			arr.add(jec);
 			jec = new  JSONObject();
+			jec.put("industry", "生物技术");
+			arr.add(jec);
+			jec = new  JSONObject();
 			jec.put("industry", "生物医药");
 			arr.add(jec);
 		}else{
