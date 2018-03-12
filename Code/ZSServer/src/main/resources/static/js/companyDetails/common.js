@@ -37,6 +37,13 @@ $(function(){
 	$("#jzzs").addClass("active");
 	$(".left-nav").find("ul>li").removeClass("active");
 	companyName = GetQueryString("companyName");
+	$(".btn-primary").on('click',function () {
+        if($(this).text() == '下载PDF'){
+            downLoad('pdf');
+        }else{
+            downLoad('word');
+        }
+    })
 	showCompanyDetail();
 });
 function GetQueryString(key) {// 获取地址栏中的name
@@ -55,53 +62,55 @@ function showCompanyDetail(){
 		url:'/apis/openeyes/getBaseInfo.json?name='+companyName,
 		success:function(res){
 			if(res.success){
-				resData = res.data.result;
-				var value;
-				var flag;
-				if(resData.isAttation){
-					value = "取消关注";
-					flag = false;
-				}else{
-					value = "添加关注";
-					flag = true;
-				}
-				$("#attationCompany").html(value);
-				$("#attationCompany").on("click",function(){
-					attationCompany(resData.companyId,flag);
-				});
-				if(resData.phoneNumber == null){
-					resData.phoneNumber = '---';
-				}
-				if(resData.websiteList == null){
-					resData.websiteList = '---';
-				}
-				if(resData.percentileScore == null){
-					resData.percentileScore = '82';
-				}else{
-					resData.percentileScore = Math.round(resData.percentileScore/100)
-				}
-				$("#baseName").text(resData.name);
-				$("#baseScore").text("企业匹配值："+resData.percentileScore+"分");
-				$("#baseTel").text(resData.phoneNumber);
+                resData = res.data.result;
+                if(resData.error_code == 0 || resData.error_code == null){
+                    var value;
+                    var flag;
+                    if(resData.isAttation){
+                        value = "取消关注";
+                        flag = false;
+                    }else{
+                        value = "添加关注";
+                        flag = true;
+                    }
+                    $("#attationCompany").html(value);
+                    $("#attationCompany").on("click",function(){
+                        attationCompany(resData.companyId,flag);
+                    });
+                    if(resData.phoneNumber == null){
+                        resData.phoneNumber = '---';
+                    }
+                    if(resData.websiteList == null){
+                        resData.websiteList = '---';
+                    }
+                    if(resData.percentileScore == null){
+                        resData.percentileScore = '82';
+                    }else{
+                        resData.percentileScore = Math.round(resData.percentileScore/100)
+                    }
+                    $("#baseName").text(resData.name);
+                    $("#baseScore").text("企业匹配值："+resData.percentileScore+"分");
+                    $("#baseTel").text(resData.phoneNumber);
 //				$(".inline-lyt").find(".lyt-rt").eq(2).text(resData.phoneNumber);
-				$("#baseWeb").text(resData.websiteList);
-				$("#baseAddr").text(resData.regLocation);
-				$("#legalPerson").text(resData.legalPersonName);
-				$("#regCapital").text(resData.regCapital);
-				$("#estiblishTime").text(getFormatDate(new Date(resData.estiblishTime)));
-				$("#regStatus").text(resData.regStatus);
-				$("#regNumber").text(resData.regNumber);
-				$("#industry").text(resData.industry);
-				$("#orgNumber").text(resData.orgNumber);
-				$("#toTime").text(getFormatDate(new Date(resData.toTime)));
-				$("#creditCode").text(resData.creditCode);
-				$("#approvedTime").text(getFormatDate(new Date(resData.approvedTime)));
-				$("#companyOrgType").text(resData.companyOrgType);
-				$("#regLocation").text(resData.regLocation);
-				$("#regInstitute").text(resData.regInstitute);
-				$("#businessScope").text(resData.businessScope);
-			}else{
-				new Alert({flag : true,text : res.message,timer : 2000}).show();
+                    $("#baseWeb").text(resData.websiteList);
+                    $("#baseAddr").text(resData.regLocation);
+                    $("#legalPerson").text(resData.legalPersonName);
+                    $("#regCapital").text(resData.regCapital);
+                    $("#estiblishTime").text(getFormatDate(new Date(resData.estiblishTime)));
+                    $("#regStatus").text(resData.regStatus);
+                    $("#regNumber").text(resData.regNumber);
+                    $("#industry").text(resData.industry);
+                    $("#orgNumber").text(resData.orgNumber);
+                    $("#toTime").text(getFormatDate(new Date(resData.toTime)));
+                    $("#creditCode").text(resData.creditCode);
+                    $("#approvedTime").text(getFormatDate(new Date(resData.approvedTime)));
+                    $("#companyOrgType").text(resData.companyOrgType);
+                    $("#regLocation").text(resData.regLocation);
+                    $("#regInstitute").text(resData.regInstitute);
+                    $("#businessScope").text(resData.businessScope);
+				}else{
+                    new Alert({flag : true,text : res.message,timer : 2000}).show();
+				}
 			}
 		}
 	});
@@ -127,4 +136,23 @@ function goBack(){
 }
 var arr;
 var count = 1;
+function downLoad(type) {
+    var methods = new Array();
+    $(".method").each(function () {
+        if($(this)[0].checked)
+            methods.push($(this).val());
+    })
+    var req = {"methods":methods,"cname":companyName,"exportType":type};
+    $.ajax({
+        type:'post',
+        url:'/apis/openeyes/downLoad.json',
+        contentType:'application/json',
+        data:JSON.stringify(req),
+        success:function (res) {
+
+        }
+    })
+}
+
+
 

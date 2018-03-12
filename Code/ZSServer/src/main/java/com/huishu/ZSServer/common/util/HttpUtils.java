@@ -105,7 +105,7 @@ public class HttpUtils {
 		}
 	}
 	
-	public static String sendHttpGet(String spec, Map<String, Object> params) throws IOException {
+	public static String sendHttpGet(String spec, Map<String, Object> params) {
 		spec = spec + "?" + assembling(params);
 		HttpClient client = HttpClients.createDefault();
 		HttpGet get = new HttpGet(spec);
@@ -125,7 +125,11 @@ public class HttpUtils {
 			logger.error(e.getMessage());
 		} finally {
 			if (in != null) {
-				in.close();
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return null;

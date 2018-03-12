@@ -22,26 +22,28 @@ function showStaff(){//展示主要人员的功能
 		async:false,
 		success:function(res){
 			if(res.success){
-				var html = '';
-				arr  = res.data.data.result;
-				$(".tableShow").eq(1).css("display","none");
-				$(".tableShow").eq(0).css("display","inline");
-				for(var i=0;i<arr.length;i++){
-					html += '<div class="item"><div class="slider-header">'+arr[i].name+'('+arr[i].typeJoin[0]+')</div><div class="row">' +
-							'<div class="col-md-3 col-md-offset-1"><label class="control-label col-md-5">联系方式</label>' +
-							'<div class="col-md-7"><input class="input phone masks" readonly value="" /></div></div>' +
-							'<div class="col-md-3 col-md-offset-1"><label class="control-label col-md-5">邮箱</label>' +
-							'<div class="col-md-7"><input class="input email masks" readonly value="" /></div></div>' +
-							'<div class="col-md-3 col-md-offset-1"><button class="btn btn-blue" onclick="telContact(this)">我要联系</button></div></div></div>';
+                if(res.data.error_code == 0 || res.data.error_code == null) {
+                    var html = '';
+                    arr = res.data.result.items;
+                    $(".tableShow").eq(1).css("display", "none");
+                    $(".tableShow").eq(0).css("display", "inline");
+                    for (var i = 0; i < arr.length; i++) {
+                        html += '<div class="item"><div class="slider-header">' + arr[i].name + '(' + arr[i].typeJoin[0] + ')</div><div class="row">' +
+                            '<div class="col-md-3 col-md-offset-1"><label class="control-label col-md-5">联系方式</label>' +
+                            '<div class="col-md-7"><input class="input phone masks" readonly value="" /></div></div>' +
+                            '<div class="col-md-3 col-md-offset-1"><label class="control-label col-md-5">邮箱</label>' +
+                            '<div class="col-md-7"><input class="input email masks" readonly value="" /></div></div>' +
+                            '<div class="col-md-3 col-md-offset-1"><button class="btn btn-blue" onclick="telContact(this)">我要联系</button></div></div></div>';
+                    }
+                    $("#staff").html(html);
+                    $(".item").eq(0).addClass("active");
+                }else{
+                    $(".tableShow").eq(1).css("display","none");
+                    $(".tableShow").eq(0).css("display","inline");
+                    var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+                    $("#staff").html(html);
+                    $(".item").eq(0).addClass("active");
 				}
-				$("#staff").html(html);
-				$(".item").eq(0).addClass("active");
-			}else{
-				$(".tableShow").eq(1).css("display","none");
-				$(".tableShow").eq(0).css("display","inline");
-				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
-				$("#staff").html(html);
-				$(".item").eq(0).addClass("active");
 			}
 		}
 	});
@@ -56,23 +58,25 @@ function showHolder(){//展示股东的功能
 		type:'post',
 		success:function(res){
 			if(res.success){
-				var html = '';
-				arr = res.data.data.result;
-				var thead = '<tr class="tabTitle"><th class="text-left">股东</th><th class="text-left">出资比例</th><th class="text-left">认缴出资</th></tr>';
-				$("#holder").prev().html(thead);
-				$(".tableShow").eq(0).css("display","none");
-				$(".tableShow").eq(1).css("display","inline");
-				for(var i=0;i<arr.length;i++){
-					html += '<tr><td>'+arr[i].name+'</td>' +
-							'<td>'+arr[i].capital[0].percent+'</td><td>'+arr[i].capital[0].amomon+'</td></tr>'
-				}
-				$("#holder").html(html);
-			}else{
-				$(".tableShow").eq(0).css("display","none");
-				$(".tableShow").eq(1).css("display","inline");
-				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
-				$("#holder").html(html);
-				window.setTimeout(goBack, 2000); 
+                if(res.data.error_code == 0 || res.data.error_code == null) {
+                    var html = '';
+                    arr = res.data.result.items;
+                    var thead = '<tr class="tabTitle"><th class="text-left">股东</th><th class="text-left">出资比例</th><th class="text-left">认缴出资</th></tr>';
+                    $("#holder").prev().html(thead);
+                    $(".tableShow").eq(0).css("display", "none");
+                    $(".tableShow").eq(1).css("display", "inline");
+                    for (var i = 0; i < arr.length; i++) {
+                        html += '<tr><td>' + arr[i].name + '</td>' +
+                            '<td>' + arr[i].capital[0].percent + '</td><td>' + arr[i].capital[0].amomon + '</td></tr>'
+                    }
+                    $("#holder").html(html);
+                }else{
+                    $(".tableShow").eq(0).css("display","none");
+                    $(".tableShow").eq(1).css("display","inline");
+                    var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+                    $("#holder").html(html);
+                    window.setTimeout(goBack, 2000);
+                }
 			}
 		}
 	});

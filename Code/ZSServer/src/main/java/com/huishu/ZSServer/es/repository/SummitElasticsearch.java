@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.es.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,5 +26,7 @@ public interface SummitElasticsearch extends ElasticsearchRepository<SummitInfo,
 	 * @return
 	 */
 	Page<SummitInfo> findByAddressLikeAndIdustryTwiceLike(String address, String idustryTwice, Pageable page);
+	
+	List<SummitInfo> findByAddressLike(String address);
 
 }

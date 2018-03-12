@@ -37,7 +37,7 @@
                      <table class="table table-striped">
                         <thead>
                         </thead>
-                        <tbody>
+                        <tbody id="body">
                         	<tr>
                         		<td>英文名称:</td>
                         		<td colspan="3" id="engName"></td>

@@ -2457,7 +2457,7 @@ to {
 	-ms-box-shadow: 0 0 7px rgba(0, 172, 235, .35);
 	-o-box-shadow: 0 0 7px rgba(0, 172, 235, .35);
 	box-shadow: 0 0 7px rgba(0, 172, 235, .35);
-	
+
 }
 
 .mt10{
@@ -2585,4 +2585,63 @@ to {
 	color: #0ec3ff;
 	text-align: right;
 	margin-top: 18px;
+}
+
+.modal-title{
+	color:#000;
+}
+
+.checkbox-custom input[type="checkbox"] {
+	position: absolute;
+	cursor: pointer;
+	z-index: 2;
+	margin: -6px 0 0 0;
+	top: 14%;
+	left: 0px;
+	width: 20px;
+	height: 30px;
+}
+
+.checkbox-custom label:before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: -9px;
+	width: 19px;
+	height: 18px;
+	display: inline-block;
+	border-radius: 2px;
+	border: 1px solid #bbb;
+	background: #fff;
+}
+.checkbox-custom input[type="checkbox"]:checked +label:after {
+	position: absolute;
+	display: inline-block;
+	font-family: 'FontAwesome';
+	content: '\F00C';
+	top: 50%;
+	left: 4px;
+	margin-top: -5px;
+	font-size: 11px;
+	line-height: 1;
+	width: 16px;
+	height: 16px;
+	color: #333;
+}
+.checkbox-custom label {
+	cursor: pointer;
+	line-height: 1.2;
+	font-weight: normal;/*改变了rememberme的字体*/
+	margin-bottom: 0;
+	text-align: left;
+	font-size: 20px;
+	color: #333;
+}
+
+.checkbox-custom {
+	position: relative;
+	padding: 0 0 0 25px;
+	margin-bottom: 7px;
+	margin-top: 0;
 }

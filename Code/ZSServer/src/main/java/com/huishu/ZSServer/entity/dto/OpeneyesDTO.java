@@ -8,7 +8,7 @@ import com.huishu.ZSServer.common.util.StringUtil;
 public class OpeneyesDTO extends AbstractDTO {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 7595780555781721642L;
 
@@ -32,6 +32,26 @@ public class OpeneyesDTO extends AbstractDTO {
 	private String type;
 	/** 用户id */
 	private Long userId;
+	/**接口方法*/
+	private String[] methods;
+	/**导出方式*/
+	private String exportType;
+
+	public String getExportType() {
+		return exportType;
+	}
+
+	public void setExportType(String exportType) {
+		this.exportType = exportType;
+	}
+
+	public String[] getMethods() {
+		return methods;
+	}
+
+	public void setMethods(String[] methods) {
+		this.methods = methods;
+	}
 
 	public Long getUserId() {
 		return userId;

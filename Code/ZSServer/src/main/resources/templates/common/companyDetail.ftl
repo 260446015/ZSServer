@@ -1,6 +1,8 @@
 <h2 class="datails-title">
     	<span id="baseName"></span>
     <a href="javascript:void(0);" class="follow pull-right" id="attationCompany">添加关注</a>
+    <button type="button" style="float: right" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">下载</button>
+    <#--<a href="javascript:void(0);" class="follow pull-right" id="downLoad">下载</a>-->
 </h2>
 <div class="border-shadow-box content-padding-20">
     <h4 class="score-title" id="baseScore"></h4>
@@ -169,3 +171,138 @@
         </ul>
     </li>
 </ul>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">请选择你想下载的内容</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-8 ">
+                    <div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="baseinfo" value="baseinfo">
+                        <label for="baseinfo">基本信息</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="staff" value="staff">
+                        <label for="staff">主要人员</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="inverst" value="inverst">
+                        <label for="inverst">对外投资</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="changeinfo" value="changeinfo">
+                        <label for="changeinfo">变更记录</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="branch" value="branch">
+                        <label for="branch">分支机构</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="findHistoryRongzi" value="findHistoryRongzi">
+                        <label for="findHistoryRongzi">融资历史</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="findTeamMember" value="findTeamMember">
+                        <label for="findTeamMember">核心团队</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="getProductInfo" value="getProductInfo">
+                        <label for="getProductInfo">企业业务</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="findTzanli" value="findTzanli">
+                        <label for="findTzanli">投资事件</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="findJingpin" value="findJingpin">
+                        <label for="findJingpin">竞品信息</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="bids" value="bids">
+                        <label for="bids">招投标</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="bond" value="bond">
+                        <label for="bond">债券信息</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="purchaseLand" value="purchaseLand">
+                        <label for="purchaseLand">购地信息</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="employments" value="employments">
+                        <label for="employments">招聘</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="taxCredit" value="taxCredit">
+                        <label for="taxCredit">税务评级</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="checkInfo" value="checkInfo">
+                        <label for="checkInfo">抽查检查</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="appbkInfo" value="appbkInfo">
+                        <label for="appbkInfo">产品信息</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="certificate" value="certificate">
+                        <label for="certificate">资质证书</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="lawSuit" value="lawSuit">
+                        <label for="lawSuit">法律诉讼</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="courtAnnouncement" value="courtAnnouncement">
+                        <label for="courtAnnouncement">法院公告</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="dishonest" value="dishonest">
+                        <label for="dishonest">失信人</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="zhixinginfo" value="zhixinginfo">
+                        <label for="zhixinginfo">被执行人</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="tm" value="tm">
+                        <label for="tm">商标信息</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="patents" value="patents">
+                        <label for="patents">专利</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="copyReg" value="copyReg">
+                        <label for="copyReg">著作权</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="icp" value="icp">
+                        <label for="icp">网站备案</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="volatility" value="volatility">
+                        <label for="volatility">股票行情</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="companyInfo" value="companyInfo">
+                        <label for="companyInfo">企业简介</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="seniorExecutive" value="seniorExecutive">
+                        <label for="seniorExecutive">高管信息</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="holdingCompany" value="holdingCompany">
+                        <label for="holdingCompany">参股控股</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="announcement" value="announcement">
+                        <label for="announcement">上市公告</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="shareholder" value="shareholder">
+                        <label for="shareholder">十大股东（十大流通股东）</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="issueRelated" value="issueRelated">
+                        <label for="issueRelated">发行相关</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="shareStructure" value="shareStructure">
+                        <label for="shareStructure">股本结构</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="equityChange" value="equityChange">
+                        <label for="equityChange">股本变动</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="bonusInfo" value="bonusInfo">
+                        <label for="bonusInfo">分红情况</label>
+                    </div><div class="checkbox-custom checkbox-default">
+                        <input class="method" type="checkbox" id="allotmen" value="allotmen">
+                        <label for="allotmen">配股情况</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">下载PDF</button>
+                <button type="button" class="btn btn-primary">下载WORD</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -40,7 +40,7 @@ function showEquityChange(){
 		url:'/apis/openeyes/getEquityChange.json',
 		success:function(res){
 			if(res.success){
-				arr = res.data.data.dataList;
+				arr = res.data.result.items;
 				var thead = '<tr><th class="text-left">时间</th><th class="text-left">变动原因</th><th class="text-left">变动后A股总股本</th>'+
                             '<th class="text-left">变动后流通A股</th><th class="text-left">变动后限售A股</th></tr>';
 				$("#equityChange").prev().html(thead);

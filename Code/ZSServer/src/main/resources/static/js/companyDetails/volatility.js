@@ -11,26 +11,28 @@ function showBond(){
 		url:'/apis/openeyes/getVolatility.json',
 		success:function(res){
 			if(res.success){
-				var arr = res.data.data;
-				$("#cname").html(arr.stockname);
-				$("#tmaxprice").html(arr.tmaxprice);
-				$("#tminprice").html(arr.tminprice);
-				$("#topenprice").html(arr.topenprice);
-				$("#pprice").html(arr.pprice);
-				$("#thighprice").html(arr.thighprice);
-				$("#tlowprice").html(arr.tlowprice);
-				$("#tvalue").html(arr.tvalue);
-				$("#flowvalue").html(arr.flowvalue);
-				$("#tamount").html(arr.tamount);
-				$("#tamounttotal").html(arr.tamounttotal);
-				$("#tvaluep").html(arr.tvaluep);
-				$("#fvaluep").html(arr.fvaluep);
-				$("#trange").html(arr.trange);
-				$("#tchange").html(arr.tchange);
-			}else{
-				var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
-				$("#volatility").html(html);
-				window.setTimeout(goBack, 2000); 
+                if(res.data.error_code == 0 || res.data.error_code == null) {
+                    var arr = res.data.result;
+                    $("#cname").html(arr.stockname);
+                    $("#tmaxprice").html(arr.tmaxprice);
+                    $("#tminprice").html(arr.tminprice);
+                    $("#topenprice").html(arr.topenprice);
+                    $("#pprice").html(arr.pprice);
+                    $("#thighprice").html(arr.thighprice);
+                    $("#tlowprice").html(arr.tlowprice);
+                    $("#tvalue").html(arr.tvalue);
+                    $("#flowvalue").html(arr.flowvalue);
+                    $("#tamount").html(arr.tamount);
+                    $("#tamounttotal").html(arr.tamounttotal);
+                    $("#tvaluep").html(arr.tvaluep);
+                    $("#fvaluep").html(arr.fvaluep);
+                    $("#trange").html(arr.trange);
+                    $("#tchange").html(arr.tchange);
+                }else{
+                    var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+                    $("#volatility").html(html);
+                    window.setTimeout(goBack, 2000);
+                }
 			}
 		}
 	});

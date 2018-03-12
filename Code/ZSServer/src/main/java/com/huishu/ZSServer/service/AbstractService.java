@@ -3,9 +3,7 @@ package com.huishu.ZSServer.service;
 import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.INDEX;
 import static com.huishu.ZSServer.common.conf.DBConstant.EsConfig.TYPE;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -45,12 +43,10 @@ import com.forget.analysis.Analysis;
 import com.forget.category.CategoryModel;
 import com.huishu.ZSServer.common.conf.DBConstant;
 import com.huishu.ZSServer.common.conf.KeyConstan;
-import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.openeyes.SearchCount;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
-import com.huishu.ZSServer.repository.openeyes.SearchCountRepository;
 import com.huishu.ZSServer.security.Digests;
 import com.huishu.ZSServer.security.Encodes;
 
@@ -58,14 +54,12 @@ public class AbstractService<T> {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(AbstractService.class);
 
-	@Autowired
-	private BaseElasticsearch baseElasticsearch;
-	@Autowired
-	private SearchCountRepository searchCountRepository;
-	@Autowired
-	private Client client;
-	@Autowired
-	protected ElasticsearchTemplate template;
+    @Autowired
+    private BaseElasticsearch baseElasticsearch;
+    @Autowired
+    private Client client;
+    @Autowired
+    protected ElasticsearchTemplate template;
 
 	/**
 	 * @param title
@@ -129,7 +123,7 @@ public class AbstractService<T> {
 
 	/**
 	 * 封装动态查询数据库的功能
-	 * 
+	 *
 	 * @param params
 	 *            相当于where条件
 	 * @return 需要repository继承JpaSpecificationExecutor
@@ -154,43 +148,23 @@ public class AbstractService<T> {
 		};
 	}
 
-	protected JSONObject getOpenEyesTarget(String spec, Map<String, Object> params, String from, Long userId) {
-		JSONObject parseObj = null;
-		try {
-			parseObj = JSONObject.parseObject(HttpUtils.sendHttpGet(spec, params));
-			if(!parseObj.toJSONString().contains("无数据")){
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				Date date = new Date();
-				String today = format.format(date);
-				String id = getGeneratedId(from + today +spec+userId);
-				SearchCount search = searchCountRepository.findOne(id);
-				search = assemblySearchCount(date, today, id, from, search, spec, userId);
-				searchCountRepository.save(search);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		LOGGER.info("查询到的天眼查接口信息:" + parseObj);
-		return parseObj;
-	}
-
-	private SearchCount assemblySearchCount(Date date, String today, String id, String from, SearchCount search, String spec, Long userId) {
-		if (null == search) {
-			search = new SearchCount();
-			search.setId(id);
-			search.setToday(today);
-			search.setStartTime(date.getTime());
-			search.setLastTime(date.getTime());
-			search.setTotal(1);
-			search.setUserId(userId);
-			search.setFromType(from);
-			search.setSpec(spec);
-		} else {
-			search.setLastTime(date.getTime());
-			search.setTotal(search.getTotal() + 1);
-		}
-		return search;
-	}
+    private SearchCount assemblySearchCount(Date date, String today, String id, String from, SearchCount search, String spec, Long userId) {
+        if (null == search) {
+            search = new SearchCount();
+            search.setId(id);
+            search.setToday(today);
+            search.setStartTime(date.getTime());
+            search.setLastTime(date.getTime());
+            search.setTotal(1);
+            search.setUserId(userId);
+            search.setFromType(from);
+            search.setSpec(spec);
+        } else {
+            search.setLastTime(date.getTime());
+            search.setTotal(search.getTotal() + 1);
+        }
+        return search;
+    }
 
 	protected String getGeneratedId(Object info) {
 		byte[] hashPassword = Digests.sha1(info.toString().getBytes(), null, Encodes.HASH_INTERATIONS);
@@ -267,7 +241,7 @@ public class AbstractService<T> {
 
 	/**
 	 * 得到点击数最多的文章id
-	 * 
+	 *
 	 * @return
 	 */
 	public List<String> getMaxHitCountArticle(BoolQueryBuilder bq) {
@@ -279,7 +253,7 @@ public class AbstractService<T> {
 
 	/**
 	 * 查询es库，获取更多条件查询
-	 * 
+	 *
 	 * @return
 	 */
 	protected NativeSearchQueryBuilder getSearchQueryBuilder() {
@@ -288,7 +262,7 @@ public class AbstractService<T> {
 
 	/**
 	 * 产业融资柱状分布图——按周
-	 * 
+	 *
 	 * @param industry
 	 * @return
 	 */
@@ -298,7 +272,7 @@ public class AbstractService<T> {
 
 	/**
 	 * 产业融资柱状分布图——按月
-	 * 
+	 *
 	 * @param industry
 	 * @return
 	 */
@@ -308,7 +282,7 @@ public class AbstractService<T> {
 
 	/**
 	 * 产业融资柱状分布图——按季度
-	 * 
+	 *
 	 * @param industry
 	 * @return
 	 */
@@ -368,7 +342,7 @@ public class AbstractService<T> {
 						Map<String, Object> map = searchHit.getSource();
 						String value = map.get("financingAmount").toString();
 						if(!StringUtil.isEmpty(value)){
-							if (value.indexOf("未") == -1 && value.indexOf("数") == -1 && value.indexOf("近") == -1 
+							if (value.indexOf("未") == -1 && value.indexOf("数") == -1 && value.indexOf("近") == -1
 									&& value.indexOf("及") == -1 && value.indexOf("过") == -1) {
 								String dataString = map.get("financingAmount").toString();
 								if (dataString.indexOf("RMB") != -1 || dataString.indexOf("¥") != -1 || dataString.indexOf("￥") != -1
@@ -389,8 +363,8 @@ public class AbstractService<T> {
 					}
 				}
 				// RMB某亿
-				BigDecimal bd=new BigDecimal(esdata); 
-			    bd=bd.setScale(4, BigDecimal.ROUND_HALF_UP); 
+				BigDecimal bd=new BigDecimal(esdata);
+			    bd=bd.setScale(4, BigDecimal.ROUND_HALF_UP);
 				list.add(bd.doubleValue());
 				c.add(Calendar.MONTH, -3);
 			}
@@ -408,7 +382,7 @@ public class AbstractService<T> {
 
 	/**
 	 * 产业融资柱状分布图——按年
-	 * 
+	 *
 	 * @param industry
 	 * @return
 	 */
@@ -418,7 +392,7 @@ public class AbstractService<T> {
 
 	/**
 	 * 将字符串转成数字（单位：亿）
-	 * 
+	 *
 	 * @param money
 	 * @return
 	 */
@@ -445,7 +419,7 @@ public class AbstractService<T> {
 		}
 		return myMoney;
 	}
-	
+
 	/**
 	 * 将拼音简写地域转化成汉字
 	 * @param list
@@ -471,77 +445,77 @@ public class AbstractService<T> {
 	            	return "黑龙江";
 	            case "sh":
 	            	return "上海";
-	                
+
 	            case "js":
 	            	return "江苏";
-	                
+
 	            case "zj":
 	            	return "浙江";
-	                
+
 	            case "ah":
 	            	return "安徽";
-	                
+
 	            case "fj":
 	            	return "福建";
-	                
+
 	            case "jx":
 	            	return "江西";
-	                
+
 	            case "sd":
 	            	return "山东";
-	                
+
 	            case "gd":
 	            	return "广东";
-	                
+
 	            case "gx":
 	            	return "广西";
-	                
+
 	            case "han":
 	            	return "海南";
-	                
+
 	            case "hen":
 	            	return "河南";
-	                
+
 	            case "hub":
 	            	return "湖北";
-	                
+
 	            case "hun":
 	            	return "湖南";
-	                
+
 	            case "cq":
 	            	return "重庆";
-	                
+
 	            case "sc":
 	            	return "四川";
-	                
+
 	            case "gz":
 	            	return "贵州";
-	                
+
 	            case "yn":
 	            	return "云南";
-	                
+
 	            case "xz":
 	            	return "西藏";
-	                
+
 	            case "snx":
 	            	return "陕西";
-	                
+
 	            case "gs":
 	            	return "甘肃";
-	                
+
 	            case "qh":
 	            	return "青海";
-	                
+
 	            case "nx":
 	            	return "宁夏";
-	                
+
 	            case "xj":
 	            	return "新疆";
-	                
+
 			 }
 			return null;
 	}
-	
+
 	/**
 	 * 将汉字地域转化成拼音简写
 	 * @param list

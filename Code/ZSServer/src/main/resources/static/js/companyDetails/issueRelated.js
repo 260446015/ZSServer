@@ -11,26 +11,25 @@ function showIssueRelated(){
 		url:'/apis/openeyes/getIssueRelated.json',
 		success:function(res){
 			if(res.success){
-				var data = res.data.data;
-				$("#issueDate").html(data.issueDate);
-				$("#listingDate").html(data.listingDate);
-				$("#issueNumber").html(data.issueNumber);
-				$("#issuePrice").html(data.issuePrice);
-				$("#ipoRatio").html(data.ipoRatio);
-				$("#expectedToRaise").html(data.expectedToRaise);
-				$("#openingPrice").html(data.openingPrice);
-				$("#rate").html(data.rate);
-				$("#actualRaised").html(data.actualRaised);
-				$("#mainUnderwriter").html(data.mainUnderwriter.name);
-				$("#listingSponsor").html(data.listingSponsor.name);
-				$("#history").html(data.history);
-			}else{
-				new Alert({
-	                flag : true,
-	                text : '暂无数据',
-	                timer : 2000
-	            }).show();
-				window.setTimeout(goBack, 2000); 
+                if(res.data.error_code == 0 || res.data.error_code == null) {
+                    var data = res.data.result;
+                    $("#issueDate").html(data.issueDate);
+                    $("#listingDate").html(data.listingDate);
+                    $("#issueNumber").html(data.issueNumber);
+                    $("#issuePrice").html(data.issuePrice);
+                    $("#ipoRatio").html(data.ipoRatio);
+                    $("#expectedToRaise").html(data.expectedToRaise);
+                    $("#openingPrice").html(data.openingPrice);
+                    $("#rate").html(data.rate);
+                    $("#actualRaised").html(data.actualRaised);
+                    $("#mainUnderwriter").html(data.mainUnderwriter.name);
+                    $("#listingSponsor").html(data.listingSponsor.name);
+                    $("#history").html(data.history);
+                }else{
+                    var html = '<div class="not-data" style="text-align:center"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>';
+                    $("#issueRelated").html(html);
+                    window.setTimeout(goBack, 2000);
+				}
 			}
 		}
 	});
