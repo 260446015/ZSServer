@@ -170,52 +170,52 @@ body {
 
 .bigbox .page1 {
     background: url(../img/bgimg/bgimg.jpg) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .bigbox .page2 {
     background: url(../img/bgimg/bg1.jpg) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .bigbox .page3 {
     background: url(../img/bgimg/bg2.png) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .bigbox .page4 {
     background: url(../img/bgimg/bg3.png) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .bigbox .page5 {
     background: url(../img/bgimg/bg1.jpg) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .bigbox .page6 {
     background: url(../img/bgimg/bg1.jpg) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .bigbox .page7 {
     background: url(../img/bgimg/bg2.png) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .bigbox .page8 {
     background: url(../img/bgimg/bg1.jpg) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .bigbox .page9 {
     background: url(../img/bgimg/bg2.png) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .bigbox .page10 {
     background: url(../img/bgimg/bg4.png) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .page header {
@@ -354,7 +354,6 @@ body {
     align-self: flex-end;
     justify-content: center;
     font-size: 24px;
-    font-weight: bolder;
 }
 
 .report {
@@ -362,6 +361,7 @@ body {
     display: flex;
     justify-content: center;
     font-size: 36px;
+    font-weight: bolder;
 }
 
 .containers div:nth-child(2) {
@@ -374,11 +374,6 @@ body {
 
 
 /* 政策 */
-
-.bigbox .page11 {
-    background: url(../img/bgimg/bg1.jpg) no-repeat center;
-    background-size: 100% 100%;
-}
 
 .dottedline {
     padding-top: 3rem;
@@ -443,7 +438,6 @@ body {
     border-bottom: 1px solid #29294b;
     display: flex;
     justify-content: space-between;
-    height: 10rem;
     padding: 1rem 1rem;
     position: relative;
 }
@@ -460,7 +454,6 @@ body {
     margin-left: 1rem;
     font-size: 1.2rem;
     padding: 1rem;
-    height: 67%;
 }
 
 .leftborder {
@@ -469,7 +462,6 @@ body {
     background-size: 100% 100%;
     padding: 1rem;
     font-size: 1.2rem;
-    /* height: 67%; */
 }
 
 .rightyellow {
@@ -783,7 +775,7 @@ body {
 
 .lightspot1 {
     width: 30rem;
-    height: 22rem;
+    height: 20rem;
     position: relative;
     margin: 0 auto;
 }
@@ -881,8 +873,8 @@ body {
     display: block;
     border-left: 2px solid #063952;
     position: absolute;
-    left: -4%;
-    top: 115%;
+    left: 0%;
+    top: 123%;
     transform: skew(-41deg);
 }
 
@@ -987,7 +979,7 @@ body {
 
 .lightspot2 {
     width: 31rem;
-    height: 22rem;
+    height: 20rem;
     position: relative;
     margin: 0 auto;
 }
@@ -995,11 +987,6 @@ body {
 .lightspot2 span {
     position: absolute;
 }
-
-
-/* .lightspot2 span i{
-    width: 7rem;
-} */
 
 .lightspot2 span i small {
     width: 5px;
@@ -1110,13 +1097,13 @@ body {
 
 .lightspot2 span:nth-child(6) b {
     width: 2rem;
-    height: 1.7rem;
+    height: 1.8rem;
     display: block;
     border-left: 1px solid #11335b;
     position: absolute;
     left: -80%;
     top: 113%;
-    transform: skew(-78deg);
+    transform: skew(-76deg);
 }
 
 .lightspot2 span:nth-child(8) {
@@ -1136,7 +1123,7 @@ body {
 
 .lightspot2 span:nth-child(8) b {
     width: 2rem;
-    height: 1.5rem;
+    height: 1.3rem;
     display: block;
     border-left: 1px solid #11335b;
     position: absolute;
@@ -1152,17 +1139,20 @@ body {
 
 .lightspot2 span:nth-child(7) small {
     background: #0ec3ff;
+    position: absolute;
+    left: 0rem;
+    top: 1.3rem;
 }
 
 .lightspot2 span:nth-child(7) b {
     width: 2rem;
-    height: 3.5rem;
+    height: 3.7rem;
     display: block;
     border-left: 1px solid #11335b;
     position: absolute;
-    left: 29%;
-    top: 111%;
-    transform: skew(25deg);
+    left: 35%;
+    top: 121%;
+    transform: skew(33deg);
 }
 
 .lightspot2 span:nth-child(9) {
@@ -1187,6 +1177,10 @@ body {
 
 .lightspot2 span:nth-child(10) small {
     background: #0ec3ff;
+    position: absolute;
+    left: .3rem;
+    top: 1.5rem;
+    z-index: 1;
 }
 
 .lightspot2 span:nth-child(10) b {
@@ -1211,7 +1205,7 @@ body {
     display: block;
     border-left: 1px solid #11335b;
     position: absolute;
-    left: 70%;
+    left: 66%;
     top: 116%;
     transform: skew(54deg);
 }
@@ -1247,7 +1241,7 @@ body {
     display: block;
     border-left: 1px solid #11335b;
     position: absolute;
-    left: 95%;
+    left: 88%;
     top: -45%;
     transform: skew(110deg);
 }
@@ -1334,7 +1328,7 @@ body {
 
 .lightspot3 {
     width: 30rem;
-    height: 22rem;
+    height: 20rem;
     position: relative;
     margin: 0 auto;
 }
@@ -1534,6 +1528,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 2rem;
+}
+
+.swiper-pagination-bullet {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
 }
 
 .industrybottom {
@@ -1587,14 +1589,14 @@ body {
 }
 
 .allcontainer dl dt p:nth-child(1) {
-    width: 20px;
+    width: 40px;
     height: 20px;
     margin-right: 10px;
 }
 
 .allcontainer dl dt p:nth-child(2) {
     color: #00c0ff;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 
 .allcontainer dl dt p:nth-child(1) img {
@@ -1604,6 +1606,7 @@ body {
 
 .allcontainer dl dd {
     margin-top: 10px;
+    font-size: 1.4rem;
 }
 
 
@@ -1684,7 +1687,7 @@ body {
     width: 100px;
     height: 100px;
     margin: 0 auto;
-    padding-top: 12rem;
+    margin-top: 11rem;
 }
 
 .qrcodeimg img {
@@ -1729,40 +1732,30 @@ body {
 
 /* 市场焦点 */
 
-.bigbox .page14 {
-    background: url(../img/bgimg/bg2.png) no-repeat center;
-    background-size: 100% 100%;
-}
-
-.allbazzr {
-    padding: 10px;
-}
-
 .allbazzr div {
-    background: url(../img/icon/kuai.png);
-    background-size: 100% 100%;
-    margin-top: 15px;
+    border: 1px solid #0d3354;
+    margin-top: 3rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 .allbazzr div p:nth-child(1) {
-    text-align: center;
+    background: url(../img/icon/icon19.png) no-repeat center;
+    background-size: contain;
     line-height: 2.5rem;
+    text-align: center;
+    margin-top: -1rem;
     font-size: 1.6rem;
-    color: #00c0ff;
+    color: #07b4f6;
 }
 
 .allbazzr div p:nth-child(2) {
-    padding: 10px;
+    padding: 1rem;
     font-size: 1.4rem;
 }
 
 
 /* 排行报告 */
-
-.bigbox .page21 {
-    background: url(../img/bgimg/bg2.png) no-repeat center;
-    background-size: 100% 100%;
-}
 
 .allreport {
     overflow-y: auto;
@@ -1801,7 +1794,7 @@ body {
 .read {
     text-align: center;
     width: 50px;
-    height: 20px;
+    line-height: 22px;
     border: 1px solid #01b4f1;
     border-radius: 17%;
     color: #01b4f1;
@@ -1855,11 +1848,6 @@ body {
 
 /* 会议日程 */
 
-.bigbox .page20 {
-    background: url(../img/bgimg/bg2.png);
-    background-size: 100% 100%;
-}
-
 .jalendar .days .day:focus {
     outline: none
 }
@@ -1897,7 +1885,8 @@ body {
     text-align: center;
     margin: 0;
     height: 22px;
-    font: 13px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    color: #00c0ff;
+    font-size: 1.8rem;
 }
 
 .jalendar .days {
@@ -2023,6 +2012,7 @@ body {
 
 .redaa {
     color: #0bb2eb;
+    text-shadow: 0px 0px 1px #0bb2eb;
 }
 
 s {
@@ -2106,11 +2096,6 @@ a {
 
 .point {
     color: #00c0ff;
-}
-
-.jalendar-pages>.header h2 {
-    color: #fff;
-    font-size: 1.4rem;
 }
 
 .express {
