@@ -59,7 +59,8 @@ public class GetLabelServiceImpl implements GetLabelService {
 		if(type.equals("two")){
 			bq.must(QueryBuilders.termQuery("dimension", KeyConstan.RONGZIKUAIXUN));
 			industryBuilder = AggregationBuilders.terms("industry").field("industry");
-			
+			bq.mustNot(QueryBuilders.termQuery("vector", "投资界"));
+			bq.mustNot(QueryBuilders.termQuery("vector", "投融界"));
 		}else{
 			industryBuilder = AggregationBuilders.terms("idustryThree").field("idustryThree");
 		}
