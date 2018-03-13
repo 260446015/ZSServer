@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.huishu.ZSServer.repository.openeyes.BaseInfoRepository;
+import com.huishu.ZSServer.entity.dto.BaseInfoCustom;
+import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
+import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
@@ -17,7 +19,6 @@ import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
-import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.repository.company.IndusCompanyDTORepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.company.IndusCompanyDTOService;
@@ -37,10 +38,10 @@ public class IndusCompanyDTOServiceImpl extends AbstractService implements Indus
     private IndusCompanyDTORepository repository;
 
     @Autowired
-    private BaseInfoRepository rep;
+    private OpeneyesService openeyesService;
 
     @Override
-    public BaseInfo getCompanyInfo(String companyName) {
+    public BaseInfoCustom getCompanyInfo(String companyName,Long userId) {
         Map<String, Object> map = new HashMap<String, Object>();
 //		IndusCompany com = repository.findByCompanyName(companyName);
         IndusCompanyDTO com = repository.findByCompanyName(companyName);
@@ -48,11 +49,13 @@ public class IndusCompanyDTOServiceImpl extends AbstractService implements Indus
             LOGGER.debug(MsgConstant.SYSTEM_ERROR);
             return null;
         }
-        BaseInfo baseInfo = rep.findByName(com.getCompany());
+        OpeneyesDTO dto = new OpeneyesDTO();
+        dto.setUserId(userId);
+        dto.setCname(com.getCompany());
+        JSONObject baseInfo1 = openeyesService.getBaseInfo(dto);
+        BaseInfoCustom baseInfo = JSONObject.parseObject(baseInfo1.toJSONString(),BaseInfoCustom.class);
         if (baseInfo != null) {
             com.setIndustry(baseInfo.getIndustry());
-
-            repository.save(com);
             return baseInfo;
         } else {
             map.put("name", com.getCompany());
@@ -61,15 +64,10 @@ public class IndusCompanyDTOServiceImpl extends AbstractService implements Indus
             String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", map);
             JSONObject obj = JSONObject.parseObject(sendHttpGet);
             JSONObject object = obj.getJSONObject("result");
-            BaseInfo info = object.parseObject(object.toJSONString(), BaseInfo.class);
-            BaseInfo save = rep.save(info);
-            if (save == null) {
-                LOGGER.debug("智能招商查看公司详情,调取天眼查接口返回数据保存数据库失败！");
-                return null;
-            }
+            BaseInfoCustom info = object.parseObject(object.toJSONString(), BaseInfoCustom.class);
             com.setIndustry(info.getIndustry());
             repository.save(com);
-            return save;
+            return info;
         }
     }
 

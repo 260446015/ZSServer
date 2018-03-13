@@ -2,6 +2,7 @@ package com.huishu.ZSServer.controller.company;
 
 import java.util.List;
 
+import com.huishu.ZSServer.entity.dto.BaseInfoCustom;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +18,8 @@ import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.controller.BaseController;
-import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
-import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.entity.vo.CompanyVO;
 import com.huishu.ZSServer.service.company.IndusCompanyDTOService;
 import com.huishu.ZSServer.service.openeyes.impl.OpeneyesServiceImpl;
@@ -65,7 +64,7 @@ public class AccurateController extends BaseController{
 			LOGGER.debug(MsgConstant.ILLEGAL_PARAM);
 			return error(MsgConstant.ILLEGAL_PARAM);
 		}
-		BaseInfo info = service.getCompanyInfo(companyName);
+		BaseInfoCustom info = service.getCompanyInfo(companyName,getUserId());
 		return success(info);
 	}
 	

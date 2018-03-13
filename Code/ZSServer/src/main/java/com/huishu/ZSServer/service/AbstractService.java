@@ -44,7 +44,6 @@ import com.forget.category.CategoryModel;
 import com.huishu.ZSServer.common.conf.DBConstant;
 import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
-import com.huishu.ZSServer.entity.openeyes.SearchCount;
 import com.huishu.ZSServer.es.entity.AITInfo;
 import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.security.Digests;
@@ -148,23 +147,6 @@ public class AbstractService<T> {
 		};
 	}
 
-    private SearchCount assemblySearchCount(Date date, String today, String id, String from, SearchCount search, String spec, Long userId) {
-        if (null == search) {
-            search = new SearchCount();
-            search.setId(id);
-            search.setToday(today);
-            search.setStartTime(date.getTime());
-            search.setLastTime(date.getTime());
-            search.setTotal(1);
-            search.setUserId(userId);
-            search.setFromType(from);
-            search.setSpec(spec);
-        } else {
-            search.setLastTime(date.getTime());
-            search.setTotal(search.getTotal() + 1);
-        }
-        return search;
-    }
 
 	protected String getGeneratedId(Object info) {
 		byte[] hashPassword = Digests.sha1(info.toString().getBytes(), null, Encodes.HASH_INTERATIONS);

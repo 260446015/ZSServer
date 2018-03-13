@@ -2,10 +2,8 @@ package com.huishu.ZSServer.service.company;
 
 import java.util.List;
 
-import com.alibaba.fastjson.JSONArray;
-import com.huishu.ZSServer.entity.IndusCompany;
+import com.huishu.ZSServer.entity.dto.BaseInfoCustom;
 import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
-import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 
 /**
  * @author hhy
@@ -21,7 +19,7 @@ public interface IndusCompanyDTOService {
 	 * @param companyName
 	 * @return
 	 */
-	BaseInfo getCompanyInfo(String companyName);
+	BaseInfoCustom getCompanyInfo(String companyName,Long userId);
 
 	/**
 	 * 智能推荐优质企业

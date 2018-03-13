@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.rtf.RtfWriter2;
 import org.slf4j.Logger;
@@ -27,7 +28,6 @@ import com.huishu.ZSServer.common.util.HttpUtils;
 import com.huishu.ZSServer.entity.Company;
 import com.huishu.ZSServer.entity.CompanyAttation;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
-import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.repository.company.CompanyAttaRepository;
 import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.service.AbstractService;
@@ -51,7 +51,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "staff");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -61,7 +61,8 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("method", "baseInfo");
         params.put("tag", dto.getUserId());
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+    
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         JSONObject openEyesTarget = JSONObject.parseObject(sendHttpGet);
         if (openEyesTarget.size() == 1 || openEyesTarget.getInteger("error_code") != 0) {
             return openEyesTarget;
@@ -116,7 +117,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "branch");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -128,7 +129,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "historyRongZi");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -140,7 +141,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "teamMember");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -152,7 +153,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "productInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -164,7 +165,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "findTzanli");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -176,7 +177,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "jingPin");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -188,7 +189,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "tm");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -200,7 +201,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Patents");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -212,7 +213,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "CopyReg");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -224,7 +225,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Icp");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -237,7 +238,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Abnormal");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -249,7 +250,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "PunishmentInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -261,7 +262,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Illegalinfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -273,7 +274,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "OwnTax");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -283,7 +284,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "News");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -295,7 +296,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Dishonest");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -306,7 +307,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         dto.setSpec(KeyConstan.URL.QIYEFENGXIAN);
         params.put("tag", dto.getUserId());
         params.put("method", "RiskInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -320,7 +321,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "HumanRiskInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -332,7 +333,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "RiskDetail");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -344,7 +345,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "TaxCredit");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -355,7 +356,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageNum", dto.getPageNumber());
         params.put("tag", dto.getUserId());
         params.put("method", "sousuo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -367,7 +368,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Holder");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -379,7 +380,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "ChangeInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -391,7 +392,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Inverst");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -403,7 +404,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Bids");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -415,7 +416,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Bond");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -427,7 +428,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Purchaseland");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -439,7 +440,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Employment");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -451,7 +452,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "CheckInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -463,7 +464,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "AppbkInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -475,7 +476,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Lawsuit");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -487,7 +488,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "CourtAnnouncement");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -499,7 +500,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "ZhixingInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -509,7 +510,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "Volatility");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -520,7 +521,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("tag", dto.getUserId());
         params.put("method", "CompanyInfo");
         params.put("id", dto.getId());
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -532,7 +533,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "SeniorExecutive");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -544,7 +545,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "HoldingCompany");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -557,7 +558,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Certificate");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -569,7 +570,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Announcement");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -580,7 +581,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("type", dto.getPageNumber());
         params.put("tag", dto.getUserId());
         params.put("method", "Shareholder");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -590,7 +591,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "IssueRelated");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -600,7 +601,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "ShareStructure");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -610,7 +611,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "EquityChange");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -620,7 +621,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "BonusInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -632,7 +633,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("method", "allotmen");
         params.put("pageNum", dto.getPageNumber());
         params.put("pageSize", dto.getPageSize());
-        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -650,7 +651,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
             params.put("tag", dto.getUserId());
             params.put("method", m);
             finishParam(params);
-            String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
+            String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
             JSONObject parse = JSONObject.parseObject(sendHttpGet);
             data.put(m, parse);
         }
@@ -1470,5 +1471,13 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         } catch (DocumentException e) {
             e.printStackTrace();
         }
+    }
+
+    private void createTable() throws Exception {
+        Table table = new Table(5,5);
+        Cell cell = new Cell();
+//        cell.
+//        table.add
+
     }
 }

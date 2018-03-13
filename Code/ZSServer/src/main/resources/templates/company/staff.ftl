@@ -49,8 +49,7 @@
 									class="carousel slide">
 									<!-- 轮播（Carousel）项目 -->
 									<div class="carousel-inner" id="staff">
-										
-										
+
 									</div>
 									<!-- 轮播（Carousel）导航 -->
 									<a class="carousel-control left" href="#myCarousel"

@@ -35,6 +35,7 @@ function showStaff(){//展示主要人员的功能
                             '<div class="col-md-7"><input class="input email masks" readonly value="" /></div></div>' +
                             '<div class="col-md-3 col-md-offset-1"><button class="btn btn-blue" onclick="telContact(this)">我要联系</button></div></div></div>';
                     }
+
                     $("#staff").html(html);
                     $(".item").eq(0).addClass("active");
                 }else{

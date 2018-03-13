@@ -184,116 +184,116 @@
             <div class="modal-body">
                 <div class="col-sm-8 ">
                     <div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="baseinfo" value="baseinfo">
-                        <label for="baseinfo">基本信息</label>
+                        <input class="method" type="checkbox" id="baseinfo2" value="baseinfo">
+                        <label for="baseinfo2">基本信息</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="staff" value="staff">
-                        <label for="staff">主要人员</label>
+                        <input class="method" type="checkbox" id="staff2" value="staff">
+                        <label for="staff2">主要人员</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="inverst" value="inverst">
-                        <label for="inverst">对外投资</label>
+                        <input class="method" type="checkbox" id="inverst2" value="inverst">
+                        <label for="inverst2">对外投资</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="changeinfo" value="changeinfo">
-                        <label for="changeinfo">变更记录</label>
+                        <input class="method" type="checkbox" id="changeinfo2" value="changeinfo">
+                        <label for="changeinfo2">变更记录</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="branch" value="branch">
-                        <label for="branch">分支机构</label>
+                        <input class="method" type="checkbox" id="branch2" value="branch">
+                        <label for="branch2">分支机构</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="findHistoryRongzi" value="findHistoryRongzi">
-                        <label for="findHistoryRongzi">融资历史</label>
+                        <input class="method" type="checkbox" id="findHistoryRongzi2" value="findHistoryRongzi">
+                        <label for="findHistoryRongzi2">融资历史</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="findTeamMember" value="findTeamMember">
-                        <label for="findTeamMember">核心团队</label>
+                        <input class="method" type="checkbox" id="findTeamMember2" value="findTeamMember">
+                        <label for="findTeamMember2">核心团队</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="getProductInfo" value="getProductInfo">
-                        <label for="getProductInfo">企业业务</label>
+                        <input class="method" type="checkbox" id="getProductInfo2" value="getProductInfo">
+                        <label for="getProductInfo2">企业业务</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="findTzanli" value="findTzanli">
-                        <label for="findTzanli">投资事件</label>
+                        <input class="method" type="checkbox" id="findTzanli2" value="findTzanli">
+                        <label for="findTzanli2">投资事件</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="findJingpin" value="findJingpin">
-                        <label for="findJingpin">竞品信息</label>
+                        <input class="method" type="checkbox" id="findJingpin2" value="findJingpin">
+                        <label for="findJingpin2">竞品信息</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="bids" value="bids">
-                        <label for="bids">招投标</label>
+                        <input class="method" type="checkbox" id="bids2" value="bids">
+                        <label for="bids2">招投标</label>
                     </div><div class="checkbox-custom checkbox-default">
                         <input class="method" type="checkbox" id="bond" value="bond">
                         <label for="bond">债券信息</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="purchaseLand" value="purchaseLand">
-                        <label for="purchaseLand">购地信息</label>
+                        <input class="method" type="checkbox" id="purchaseLand2" value="purchaseLand">
+                        <label for="purchaseLand2">购地信息</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="employments" value="employments">
-                        <label for="employments">招聘</label>
+                        <input class="method" type="checkbox" id="employments2" value="employments">
+                        <label for="employments2">招聘</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="taxCredit" value="taxCredit">
-                        <label for="taxCredit">税务评级</label>
+                        <input class="method" type="checkbox" id="taxCredit2" value="taxCredit">
+                        <label for="taxCredit2">税务评级</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="checkInfo" value="checkInfo">
-                        <label for="checkInfo">抽查检查</label>
+                        <input class="method" type="checkbox" id="checkInfo2" value="checkInfo">
+                        <label for="checkInfo2">抽查检查</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="appbkInfo" value="appbkInfo">
-                        <label for="appbkInfo">产品信息</label>
+                        <input class="method" type="checkbox" id="appbkInfo2" value="appbkInfo">
+                        <label for="appbkInfo2">产品信息</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="certificate" value="certificate">
-                        <label for="certificate">资质证书</label>
+                        <input class="method" type="checkbox" id="certificate2" value="certificate">
+                        <label for="certificate2">资质证书</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="lawSuit" value="lawSuit">
-                        <label for="lawSuit">法律诉讼</label>
+                        <input class="method" type="checkbox" id="lawSuit2" value="lawSuit">
+                        <label for="lawSuit2">法律诉讼</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="courtAnnouncement" value="courtAnnouncement">
-                        <label for="courtAnnouncement">法院公告</label>
+                        <input class="method" type="checkbox" id="courtAnnouncement2" value="courtAnnouncement">
+                        <label for="courtAnnouncement2">法院公告</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="dishonest" value="dishonest">
-                        <label for="dishonest">失信人</label>
+                        <input class="method" type="checkbox" id="dishonest2" value="dishonest">
+                        <label for="dishonest2">失信人</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="zhixinginfo" value="zhixinginfo">
-                        <label for="zhixinginfo">被执行人</label>
+                        <input class="method" type="checkbox" id="zhixinginfo2" value="zhixinginfo">
+                        <label for="zhixinginfo2">被执行人</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="tm" value="tm">
-                        <label for="tm">商标信息</label>
+                        <input class="method" type="checkbox" id="tm" value="tm2">
+                        <label for="tm2">商标信息</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="patents" value="patents">
-                        <label for="patents">专利</label>
+                        <input class="method" type="checkbox" id="patents2" value="patents">
+                        <label for="patents2">专利</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="copyReg" value="copyReg">
-                        <label for="copyReg">著作权</label>
+                        <input class="method" type="checkbox" id="copyReg2" value="copyReg">
+                        <label for="copyReg2">著作权</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="icp" value="icp">
-                        <label for="icp">网站备案</label>
+                        <input class="method" type="checkbox" id="icp2" value="icp">
+                        <label for="icp2">网站备案</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="volatility" value="volatility">
-                        <label for="volatility">股票行情</label>
+                        <input class="method" type="checkbox" id="volatility2" value="volatility">
+                        <label for="volatility2">股票行情</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="companyInfo" value="companyInfo">
-                        <label for="companyInfo">企业简介</label>
+                        <input class="method" type="checkbox" id="companyInfo2" value="companyInfo">
+                        <label for="companyInfo2">企业简介</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="seniorExecutive" value="seniorExecutive">
-                        <label for="seniorExecutive">高管信息</label>
+                        <input class="method" type="checkbox" id="seniorExecutive2" value="seniorExecutive">
+                        <label for="seniorExecutive2">高管信息</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="holdingCompany" value="holdingCompany">
-                        <label for="holdingCompany">参股控股</label>
+                        <input class="method" type="checkbox" id="holdingCompany2" value="holdingCompany">
+                        <label for="holdingCompany2">参股控股</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="announcement" value="announcement">
-                        <label for="announcement">上市公告</label>
+                        <input class="method" type="checkbox" id="announcement2" value="announcement">
+                        <label for="announcement2">上市公告</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="shareholder" value="shareholder">
-                        <label for="shareholder">十大股东（十大流通股东）</label>
+                        <input class="method" type="checkbox" id="shareholder2" value="shareholder">
+                        <label for="shareholder2">十大股东（十大流通股东）</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="issueRelated" value="issueRelated">
-                        <label for="issueRelated">发行相关</label>
+                        <input class="method" type="checkbox" id="issueRelated2" value="issueRelated">
+                        <label for="issueRelated2">发行相关</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="shareStructure" value="shareStructure">
-                        <label for="shareStructure">股本结构</label>
+                        <input class="method" type="checkbox" id="shareStructure2" value="shareStructure">
+                        <label for="shareStructure2">股本结构</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="equityChange" value="equityChange">
-                        <label for="equityChange">股本变动</label>
+                        <input class="method" type="checkbox" id="equityChange2" value="equityChange">
+                        <label for="equityChange2">股本变动</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="bonusInfo" value="bonusInfo">
-                        <label for="bonusInfo">分红情况</label>
+                        <input class="method" type="checkbox" id="bonusInfo2" value="bonusInfo">
+                        <label for="bonusInfo2">分红情况</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="allotmen" value="allotmen">
-                        <label for="allotmen">配股情况</label>
+                        <input class="method" type="checkbox" id="allotmen2" value="allotmen">
+                        <label for="allotmen2">配股情况</label>
                     </div>
                 </div>
             </div>

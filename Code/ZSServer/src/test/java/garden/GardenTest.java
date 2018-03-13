@@ -45,19 +45,12 @@ import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.entity.garden.GardenData;
 import com.huishu.ZSServer.entity.garden.GardenMap;
 import com.huishu.ZSServer.entity.garden.GardenUser;
-import com.huishu.ZSServer.entity.openeyes.BaseInfo;
-import com.huishu.ZSServer.entity.openeyes.Patents;
-import com.huishu.ZSServer.entity.openeyes.TouZi;
 import com.huishu.ZSServer.es.entity.AITInfo;
-import com.huishu.ZSServer.es.repository.BaseElasticsearch;
 import com.huishu.ZSServer.exception.OpeneyesException;
 import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
 import com.huishu.ZSServer.repository.company.IndusRankRepository;
 import com.huishu.ZSServer.repository.garden.GardenRepository;
-import com.huishu.ZSServer.repository.openeyes.PatentsRepository;
-import com.huishu.ZSServer.repository.openeyes.ShangBiaoRepository;
-import com.huishu.ZSServer.repository.openeyes.TouZiRepository;
 import com.huishu.ZSServer.service.company.CompanyService;
 import com.huishu.ZSServer.service.garden.GardenService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
@@ -75,14 +68,6 @@ public class GardenTest {
 	private GardenUserService gardenUserService;
 	@Autowired
 	private OpeneyesService openeyesService;
-	@Autowired
-	private TouZiRepository repository;
-	@Autowired
-	private ShangBiaoRepository shangBiaoRepository;
-	@Autowired
-	private PatentsRepository patentsRepository;
-	@Autowired
-	private BaseElasticsearch baseElasticsearch;
 	@Autowired
 	private EnterPriseRepository enterPriseRepository;
 	private static Logger log = LoggerFactory.getLogger(GardenTest.class);

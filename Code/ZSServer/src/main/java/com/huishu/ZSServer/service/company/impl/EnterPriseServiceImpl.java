@@ -4,25 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
-import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.huishu.ZSServer.entity.Enterprise;
-import com.huishu.ZSServer.entity.IndusCompany;
 import com.huishu.ZSServer.entity.dto.IndusCompanyDTO;
-import com.huishu.ZSServer.entity.openeyes.BaseInfo;
 import com.huishu.ZSServer.repository.company.EnterPriseRepository;
 import com.huishu.ZSServer.repository.company.IndusCompanyDTORepository;
-import com.huishu.ZSServer.repository.openeyes.BaseInfoRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.company.EnterPriseService;
 
@@ -38,8 +31,6 @@ public class EnterPriseServiceImpl extends AbstractService implements EnterPrise
 	
 	@Autowired
 	private EnterPriseRepository rep;
-	@Autowired
-	private BaseInfoRepository repository;
 	@Autowired
 	private IndusCompanyDTORepository indrepository;
 	@Override
