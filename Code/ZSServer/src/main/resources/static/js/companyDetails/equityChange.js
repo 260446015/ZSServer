@@ -47,7 +47,7 @@ function showEquityChange(){
 				var html = '';
 				if(arr.length > 10){
 					for(var i=0;i<10;i++){
-						var changeDate = getFormatDate(new Date(arr[i].changeDate));
+						var changeDate = getFormatDate(new Date(parseFloat(arr[i].changeDate+"")));
 						if(arr[i].afterAll == null){
 							arr[i].afterAll = '---';
 						}
@@ -63,7 +63,7 @@ function showEquityChange(){
 					}
 				}else{
 					for(var i=0;i<arr.length;i++){
-						var changeDate = getFormatDate(new Date(arr[i].changeDate));
+						var changeDate = getFormatDate(parseFloat(arr[i].changeDate+""));
 						if(arr[i].afterAll == null){
 							arr[i].afterAll = '---';
 						}
