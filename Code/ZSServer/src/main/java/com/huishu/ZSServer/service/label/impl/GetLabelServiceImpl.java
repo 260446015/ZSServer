@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
+import com.huishu.ZSServer.common.conf.KeyConstan;
 import com.huishu.ZSServer.service.label.GetLabelService;
 
 /**
@@ -51,14 +52,15 @@ public class GetLabelServiceImpl implements GetLabelService {
 			if(type.equals("one")){
 				or.should(QueryBuilders.termQuery("idustryThree", ject.getString("industry")));
 			}else{
-				or.should(QueryBuilders.termQuery("industry", ject.getString("industry")));
+				or.should(QueryBuilders.wildcardQuery("industry", "*"+ject.getString("industry")+"*"));
 			}
 		}
 		bq.must(or);
 		if(type.equals("two")){
-			bq.must(QueryBuilders.termQuery("dimension", "融资快讯"));
+			bq.must(QueryBuilders.termQuery("dimension", KeyConstan.RONGZIKUAIXUN));
 			industryBuilder = AggregationBuilders.terms("industry").field("industry");
-			
+			bq.mustNot(QueryBuilders.termQuery("vector", "投资界"));
+			bq.mustNot(QueryBuilders.termQuery("vector", "投融界"));
 		}else{
 			industryBuilder = AggregationBuilders.terms("idustryThree").field("idustryThree");
 		}
@@ -76,7 +78,7 @@ public class GetLabelServiceImpl implements GetLabelService {
 			}
 			for (Bucket bucket : t.getBuckets()) {
 				String industry = bucket.getKeyAsString();
-				if(industry.equals("物联网")||industry.equals("生物医药")||industry.equals("人工智能")||industry.equals("大数据")){
+				if(industry.equals("物联网")||industry.equals("生物医药")||industry.contains("生物技术")||industry.equals("人工智能")||industry.equals("大数据")){
 					Terms te = bucket.getAggregations().get("area");
 					for(Bucket buc : te.getBuckets()){
 						if(StringUtil.isEmpty(buc.getKeyAsString())){

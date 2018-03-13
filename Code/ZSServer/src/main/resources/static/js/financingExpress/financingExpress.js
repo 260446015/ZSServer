@@ -167,6 +167,7 @@ function showArea(ins){
         }),
         success: function (response) {
             if(response.success){
+                area="全部";
                 var d = response.data;
                 var arr = [];
                 arr.push('<a href="javascript:void(0);" id="2全部" onclick="myClick(2,\'全部\')" class="search-item active">全部</a>');
