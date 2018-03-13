@@ -48,7 +48,7 @@
                 <input type="text" id="captcha" class="form-control" placeholder="请输入验证码">
             </div>
             <div style="display:inline">
-                <button type='button' class="btn btn-blue mt10" onclick="getPhone(this)">获取验证码</button>   
+                <button type='button' class="btn btn-blue mt10  btns" onclick="getPhone(this)">获取验证码</button>   
               </div>
         </div>
         <div class="form-group">
