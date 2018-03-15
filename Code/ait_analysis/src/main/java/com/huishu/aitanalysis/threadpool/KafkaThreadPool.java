@@ -16,7 +16,8 @@ public class KafkaThreadPool {
 
 	private KafkaThreadPool() {
 		synchronized (this) {
-			executor = new ThreadPoolExecutor(50, 200, 60, TimeUnit.SECONDS, queue);
+//			executor = new ThreadPoolExecutor(50, 200, 60, TimeUnit.SECONDS, queue);
+			executor = new ThreadPoolExecutor(10, 20, 60, TimeUnit.SECONDS, queue);
 		}
 		System.out.println("创建线程池成功!!!!!!!!!!!!");
 	}

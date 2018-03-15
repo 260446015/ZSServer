@@ -312,7 +312,7 @@ public class IndexService implements IIndexService {
 			return false;
 		}
 	}
-
+	//删除融资数据
 	private Boolean updateData(String title, SearchResponse res) {
 		SearchHits hits = res.getHits();
 		if (hits != null) {

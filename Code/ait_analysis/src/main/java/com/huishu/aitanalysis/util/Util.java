@@ -12,6 +12,7 @@ import com.forget.analysis.Analysis;
 import com.forget.category.CategoryModel;
 import com.forget.findAddress.FindAddress;
 import com.github.pagehelper.util.StringUtil;
+import com.huishu.aitanalysis.common.AcquisitionConstant;
 import com.huishu.aitanalysis.common.Constants.Info;
 
 /**
@@ -22,7 +23,26 @@ import com.huishu.aitanalysis.common.Constants.Info;
  */
 
 public abstract class Util {
-
+	public static final String Industry_info="$产业资讯";//$产业资讯
+	public static final String Industry_policy="$产业政策";//$产业政策
+	public static final String Agency_Policy="$招商政策";//$招商政策
+	public static final String Industry_summit="$行业峰会";//$行业峰会
+	public static final String scientific_research="$科学研究";//$科学研究
+	public static final String Enterprise_rank="$企业排行";//$企业排行
+	public static final String ENTERPRISE_RANKINGS="$专家观点";//$专家观点
+	public static final String PARK_POLICY="$园区政策";//$园区政策
+	public static final String Xiongan_POLICY="$雄安政策";//$雄安政策
+	public static final String AREA="$地域";//$地域
+	public static final String Financial_news="$融资快讯";//$融资快讯
+	
+	/*public static final String Industry_info="";//
+	public static final String Industry_info="";//
+	public static final String Industry_info="";//
+	public static final String Industry_info="";//
+	public static final String Industry_info="";//
+	public static final String Industry_info="";//
+*/	
+	
 	public static String getIndustry(JSONObject json, String industryInfo) {
 		JSONArray jrr = json.getJSONArray(industryInfo);
 		if (jrr != null && !jrr.isEmpty()) {
@@ -109,29 +129,29 @@ public abstract class Util {
 	//
 	public static String getDimension (JSONObject json){
 		if(json.getString("$产业资讯")!= null){
-			return "产业头条";
+			return AcquisitionConstant.INDUSTRIAL_HEADLINE;
 		}else if(json.getString("$产业政策")!= null){
-			return "政策解读";
+			return AcquisitionConstant.POLICY_INTERPRETATION;
 		}else if(json.getString("$招商政策")!=null){
-			return "政策解读";
+			return AcquisitionConstant.POLICY_INTERPRETATION;
 		}else if(json.getString("$行业峰会")!= null){
-			return "高峰论坛";
+			return AcquisitionConstant.SUMMIT;
 		}else if(json.getString("$科学研究")!= null){
-			return "科学研究";
+			return AcquisitionConstant.SCIENTIFIC_RESEARCH;
 		}else if(json.getString("$企业排行")!= null){
-			return "企业排行";
+			return AcquisitionConstant.ENTERPRISE_RANKINGS;
 		}else if(json.getString("$专家观点")!= null){
-			return  "百家论";
+			return  AcquisitionConstant.EXPERTS_SAY ;
 		} 
 		else if(json.getString("$园区政策")!= null){
-			return  "园区政策";
+			return  AcquisitionConstant.PARK_POLICY;
 		} else if(json.getString("$园区动态")!= null){
-			return "园区动态";
+			return AcquisitionConstant.PARK_DYNAMICS;
 		}
 		else if(json.getString("$雄安政策")!= null){
 			return  "$雄安政策";
 		} else if(json.getString("$融资快讯")!= null){
-			return "融资快讯";
+			return AcquisitionConstant.FINAACIAL_NEWS;
 		} else {
 			return "";
 		}

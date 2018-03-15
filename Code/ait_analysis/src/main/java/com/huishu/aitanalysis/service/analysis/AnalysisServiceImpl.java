@@ -46,42 +46,28 @@ public class AnalysisServiceImpl extends AbstractPostService  implements Analysi
 		String dimension2 = Util.getDimension(jsonObject);
 		//去重
 		boolean info = indexService.filterByDimensionAndJSON(dimension2,jsonObject);
-		
-		
 		log.info("去重的结果为:》》》》"+info);
 		if(!info){
 			log.info("数据存在重复的可能====="+info);
-			
 		}else{
-			
 			//关键词
 			String keyWord = Util.getKeyWord(jsonObject);
-			
 			if(StringUtil.isEmpty(keyWord)){
 				String dimension = Util.getDimension(jsonObject);
-				if(dimension.equals("园区政策")||dimension.equals("园区动态")){
-					
-					index = getIndex2(jsonObject);
-					log.info("园区政策分析出来的数据为：》》》》"+index);
-				}else if(dimension.equals("高峰论坛")){
+				if(dimension.equals("高峰论坛")){
 						index = getIndex(jsonObject);
 						index2 = getIndex3(jsonObject,indusService);
-						log.info("高峰论坛分析出的数据为：》》》》"+index);
-						log.info("高峰论坛分析出的数据为：》》》》"+index2);
+						log.info("1.0高峰论坛es库分析出的数据为：》》》》"+index);
+						log.info("2.0高峰论坛es库分析出的数据为：》》》》"+index2);
 				} else if(dimension.equals("融资快讯")){
 					index3 = getIndex4(jsonObject,indusService);
 					log.info("融资快讯分析出的数据为：》》》》"+index2);
-				}else
-				{	
-					
+				}else{	
 					index = getIndex(jsonObject);			
 				}
-				
 			}else{
-				
 				index = getIndex1(jsonObject,service);
 			}
-			
 			if(index==null){
 				log.info("index索引信息为空，不能入库");
 			}else{
@@ -124,7 +110,7 @@ public class AnalysisServiceImpl extends AbstractPostService  implements Analysi
 				
 				//保存数据
 				long s = System.currentTimeMillis();
-				indexService.indexInfo(index2, log);
+//				indexService.indexInfo(index2, log);
 				long e = System.currentTimeMillis();
 				long ecs = e - s;
 				log.info("中文索引到es用时[" + ecs + "ms]");
@@ -136,7 +122,7 @@ public class AnalysisServiceImpl extends AbstractPostService  implements Analysi
 				//分析情感
 				//保存数据
 				long s = System.currentTimeMillis();
-				indexService.savaIndex3(index3,log);
+//				indexService.savaIndex3(index3,log);
 				long e = System.currentTimeMillis();
 				long ecs = e - s;
 				log.info("中文索引到es用时[" + ecs + "ms]");

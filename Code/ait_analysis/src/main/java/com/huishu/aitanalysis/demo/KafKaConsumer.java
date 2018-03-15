@@ -1,6 +1,7 @@
 package com.huishu.aitanalysis.demo;
 
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ import com.huishu.aitanalysis.threadpool.KafkaThreadPool;
  */
 @Component
 public class KafKaConsumer {
-
+	protected static final Logger log = Logger.getRootLogger();
 	@Autowired
 	private AnalysisService analysisService;
 	@Autowired
@@ -34,6 +35,7 @@ public class KafKaConsumer {
 	
 	@KafkaListener(topics = { "pomp" })
 	public void receive(String message) {
+//		log.info("data:>>>>>>"+message);
 		KafkaThreadPool.getInstance();
 		KafkaThreadPool.getExecutorService().execute(new KafkaRunner(message));
 	}
@@ -50,11 +52,11 @@ public class KafKaConsumer {
 		
 		@Override
 		public void run() {
-			System.out.println("+++++++++++测试消费端开始++++++++++++++++");
-			System.out.println("----当前线程为:" + Thread.currentThread().getName() + "-------");
-			System.out.println("pomp--消费消息:" + message);
+			log.info("+++++++++++测试消费端开始++++++++++++++++");
+			log.info("----当前线程为:" + Thread.currentThread().getName() + "-------");
+//			log.info("pomp--消费消息:" + message);
 			analysisService.analysis(message,indexService,indusService,service);
-			System.out.println("+++++++++++测试结束+++++++++++++++");
+			log.info("+++++++++++测试结束+++++++++++++++");
 		}
 		
 	}
