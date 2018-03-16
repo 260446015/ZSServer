@@ -79,21 +79,31 @@ function showPage(req) {
     });
 }
 function pushImg(){
-    var picpath="";
-    $.ajaxFileUpload({
-            url : "http://58.16.181.24:9322/fileserver/file/PDFUpload.do",
-            fileElementId:'file',
-            dataType : "json",
-            success: function(response){
-                if(response.success){
-                    window.location.reload();
-                }else{
-                    layer.msg(response.message, {icon: 2});
+    if (pdf_check()) {
+        $.ajaxFileUpload({
+                url : "/apis/file/pdfUpload.json",
+                fileElementId:'file',
+                success: function(response){
+                    var data =jQuery.parseJSON(jQuery(response).text());
+                    if(data.success){
+                        window.location.reload();
+                    }else{
+                        layer.msg(data.message, {icon: 2});
+                    }
+                },
+                error:function(data,status,e){
+                    layer.msg(e, {icon: 2});
                 }
-            },
-            error: function(response){
-                window.location.reload();
             }
-        }
-    );
+        );
+    }else{
+        layer.msg("文件超过上传大小");
+    }
+}
+function pdf_check(feid) { //自己添加的文件后缀名的验证
+    var img = document.getElementById("file");
+    if(img.files[0].size<1024*1024){
+        return true;
+    }
+    return false;
 }

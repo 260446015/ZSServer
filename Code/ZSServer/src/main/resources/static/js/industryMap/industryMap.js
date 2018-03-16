@@ -466,7 +466,7 @@ var chinaOption = {
 
 	itemStyle: {
 		normal: {
-			opacity: 0.6,
+			opacity: .9,
 		}
 	},
 	tooltip: {
@@ -484,14 +484,14 @@ var chinaOption = {
 	visualMap: {
 		seriesIndex: 0,
 		min: 132,
-		max: 8000,
+		max: 51000,
 		left: 'left',
 		top: 'bottom',
 		text: ['高', '低'],           // 文本，默认为数值文本
 		calculable: true,
 		show: false,
 		inRange: {
-			color: ["#088cd0", "#1886bf", "#97cbe6","#000000"]
+			color: ['#fff','#00BFFF','#81ddfc']
 		}
 	},
 	geo: {

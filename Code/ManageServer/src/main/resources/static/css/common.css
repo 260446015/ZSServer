@@ -267,8 +267,14 @@ body {
     height: 100%;
 }
 
+
 .swiper-pagination-bullet {
     margin-left: 1rem;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    display: block;
+    text-align: center;
 }
 
 .swiper-pagination-bullet .swiper-pagination-bullet-active {
