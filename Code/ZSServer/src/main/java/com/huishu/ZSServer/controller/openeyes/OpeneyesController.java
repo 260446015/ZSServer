@@ -665,9 +665,17 @@ public class OpeneyesController extends BaseController {
 	}
 
 	@RequestMapping(value = "downLoad.json")
-	public void downLoad(@RequestBody OpeneyesDTO dto, HttpServletRequest request, HttpServletResponse response){
-		dto.setUserId(getUserId());
-		openeyesService.downLoad(dto);
+	public void downLoad(HttpServletRequest request, HttpServletResponse response){
+        OpeneyesDTO dto = new OpeneyesDTO();
+        String methods = request.getParameter("methods");
+        String cname = request.getParameter("cname");
+        String exportType = request.getParameter("exportType");
+        dto.setUserId(getUserId());
+        dto.setMethods(methods.split(","));
+        dto.setCname(cname);
+        dto.setExportType(exportType);
+		openeyesService.downLoad(dto,request,response);
+		return;
 	}
 
 }

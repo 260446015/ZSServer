@@ -40,7 +40,7 @@ $(function(){
 	$(".btn-primary").on('click',function () {
         if($(this).text() == '下载PDF'){
             downLoad('pdf');
-        }else{
+        }else if($(this).text() == '下载WORD'){
             downLoad('word');
         }
     })
@@ -142,16 +142,30 @@ function downLoad(type) {
         if($(this)[0].checked)
             methods.push($(this).val());
     })
-    var req = {"methods":methods,"cname":companyName,"exportType":type};
-    $.ajax({
-        type:'post',
-        url:'/apis/openeyes/downLoad.json',
-        contentType:'application/json',
-        data:JSON.stringify(req),
-        success:function (res) {
+    var form = $("<form>");   //定义一个form表单
+    form.attr('style', 'display:none');   //在form表单中添加查询参数
+    form.attr('target', '');
+    form.attr('method', 'post');
+    form.attr('action', '/apis/openeyes/downLoad.json');
+    var input1 = $('<input>');
+    input1.attr('type', 'hidden');
+    input1.attr('name', 'methods');
+    input1.attr('value', methods);
+    var input2 = $('<input>');
+    input2.attr('type', 'hidden');
+    input2.attr('name', 'cname');
+    input2.attr('value', companyName);
+    var input3 = $('<input>');
+    input3.attr('type', 'hidden');
+    input3.attr('name', 'exportType');
+    input3.attr('value', type);
+    $('body').append(form);
+    form.append(input1);
+    form.append(input2);
+    form.append(input3);
+    form.submit();
+    form.remove();
 
-        }
-    })
 }
 
 

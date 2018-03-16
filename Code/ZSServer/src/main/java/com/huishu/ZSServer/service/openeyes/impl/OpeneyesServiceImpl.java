@@ -3,14 +3,16 @@ package com.huishu.ZSServer.service.openeyes.impl;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.alibaba.fastjson.JSONArray;
+import com.huishu.ZSServer.common.util.StringUtil;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.pdf.BaseFont;
@@ -33,6 +35,10 @@ import com.huishu.ZSServer.repository.company.CompanyRepository;
 import com.huishu.ZSServer.service.AbstractService;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Service
 public class OpeneyesServiceImpl<T> extends AbstractService<T> implements OpeneyesService {
 
@@ -51,7 +57,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "staff");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -62,7 +68,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("method", "baseInfo");
         params.put("tag", dto.getUserId());
     
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         JSONObject openEyesTarget = JSONObject.parseObject(sendHttpGet);
         if (openEyesTarget.size() == 1 || openEyesTarget.getInteger("error_code") != 0) {
             return openEyesTarget;
@@ -117,7 +123,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "branch");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -129,7 +135,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "historyRongZi");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -141,7 +147,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "teamMember");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -153,7 +159,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "productInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -165,7 +171,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "findTzanli");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -177,7 +183,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "jingPin");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -189,7 +195,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "tm");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -201,7 +207,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Patents");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -213,7 +219,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "CopyReg");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -225,7 +231,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Icp");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -238,7 +244,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Abnormal");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -250,7 +256,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "PunishmentInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -262,7 +268,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Illegalinfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -274,7 +280,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "OwnTax");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -284,7 +290,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "News");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -296,7 +302,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Dishonest");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -307,7 +313,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         dto.setSpec(KeyConstan.URL.QIYEFENGXIAN);
         params.put("tag", dto.getUserId());
         params.put("method", "RiskInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -321,7 +327,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "HumanRiskInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -333,7 +339,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "RiskDetail");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -345,7 +351,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "TaxCredit");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -356,7 +362,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageNum", dto.getPageNumber());
         params.put("tag", dto.getUserId());
         params.put("method", "sousuo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -368,7 +374,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Holder");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -380,7 +386,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "ChangeInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -392,7 +398,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Inverst");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -404,7 +410,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Bids");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -416,7 +422,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Bond");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -428,7 +434,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Purchaseland");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -440,7 +446,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Employment");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -452,7 +458,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "CheckInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -464,7 +470,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "AppbkInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -476,7 +482,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Lawsuit");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -488,7 +494,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "CourtAnnouncement");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -500,7 +506,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "ZhixingInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -510,7 +516,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "Volatility");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -521,7 +527,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("tag", dto.getUserId());
         params.put("method", "CompanyInfo");
         params.put("id", dto.getId());
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -533,7 +539,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "SeniorExecutive");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -545,7 +551,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "HoldingCompany");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -558,7 +564,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Certificate");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -570,7 +576,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("pageSize", dto.getPageSize());
         params.put("tag", dto.getUserId());
         params.put("method", "Announcement");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -581,7 +587,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("type", dto.getPageNumber());
         params.put("tag", dto.getUserId());
         params.put("method", "Shareholder");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -591,7 +597,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "IssueRelated");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -601,7 +607,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "ShareStructure");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -611,7 +617,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "EquityChange");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -621,7 +627,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("name", dto.getCname());
         params.put("tag", dto.getUserId());
         params.put("method", "BonusInfo");
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
@@ -633,13 +639,13 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         params.put("method", "allotmen");
         params.put("pageNum", dto.getPageNumber());
         params.put("pageSize", dto.getPageSize());
-        String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+        String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
         return JSONObject.parseObject(sendHttpGet);
     }
 
     @Override
-    public void downLoad(OpeneyesDTO dto) {
-        Map<String, JSONObject> data = new HashMap<>();
+    public void downLoad(OpeneyesDTO dto, HttpServletRequest request, HttpServletResponse response) {
+        Map<String, JSONObject> data = new LinkedHashMap<>();
         //得到想要调用的接口数据
         String[] methods = dto.getMethods();
         for (String m :
@@ -651,132 +657,141 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
             params.put("tag", dto.getUserId());
             params.put("method", m);
             finishParam(params);
-            String sendHttpGet = HttpUtils.sendHttpGet("http://58.16.181.24:10002/openeyes/search.json", params);
+            String sendHttpGet = HttpUtils.sendHttpGet("http://localhost:8096/openeyes/search.json", params);
             JSONObject parse = JSONObject.parseObject(sendHttpGet);
             data.put(m, parse);
         }
         //进行导出功能
+        ServletOutputStream outputStream = null;
         try {
-            export(data,dto.getCname(),dto.getExportType());
+            outputStream = response.getOutputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            export(data,dto.getCname(),dto.getExportType(),request,response,outputStream);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void export(Map<String, JSONObject> data,String name,String exportType) throws Exception {
+    private void export(Map<String, JSONObject> data, String name, String exportType,HttpServletRequest request, HttpServletResponse response, OutputStream os) throws Exception {
         Document document = new Document(PageSize.A4,37, 30, 50, 40);
+
         if(exportType.equalsIgnoreCase("pdf")) {
             PdfWriter writer = PdfWriter.getInstance(document,
-                    new FileOutputStream("d:\\new.pdf"));
+                    os);
         }else{
-            RtfWriter2 writer = RtfWriter2.getInstance(document,new FileOutputStream("d:\\new.doc"));
+            RtfWriter2 writer = RtfWriter2.getInstance(document,os);
         }
-        document.open();
+        try {
+            document.open();
 //        BaseFont bfChinese = BaseFont.createFont("SIMYOU.TTF",BaseFont.IDENTITY_H,BaseFont.NOT_EMBEDDED);
 //        Font FontChinese = new Font(bfChinese, 12, Font.NORMAL);
 //        Font font1=FontFactory.getFont(FontFactory.COURIER,8, Font.BOLD, Color.BLACK);
-        // 设置中文字体
-        BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
-        // 标题字体风格
-        Font titleFont = new Font(bfChinese, 36, Font.BOLD);
-        titleFont.setColor(Color.BLUE);
-        //设置空行
-        Font blankFont = new Font(bfChinese, 18, Font.BOLD);
-        //名称字体
-        Font nameFont = new Font(bfChinese, 22, Font.BOLD);
-        //目录字体
-        Font directoryFont = new Font(bfChinese, 36, Font.BOLD);
-        directoryFont.setColor(Color.BLUE);
-        //方法名录字体
-        Font methodFont = new Font(bfChinese, 14, Font.BOLD);
-        methodFont.setColor(Color.BLUE);
-        //具体方法中的字体
-        Font methodDetailFont = new Font(bfChinese, 9, Font.BOLD);
-        Font methodDetailFontV = new Font(bfChinese, 9, Font.COURIER);
-        Paragraph title = new Paragraph("专业版企业信用报告",titleFont);
-        title.setAlignment(Element.ALIGN_CENTER);
-        document.add(title);
-        Paragraph blankRow1 = new Paragraph(18f, " ", blankFont);
-        document.add(blankRow1);
-        document.add(blankRow1);
-        document.add(blankRow1);
-        //定义名称
-        Paragraph companyName = new Paragraph(name,nameFont);
-        companyName.setAlignment(Element.ALIGN_CENTER);
-        document.add(companyName);
-        //开启新的一页
-        document.newPage();
-        Paragraph directory = new Paragraph("目录",directoryFont);
-        document.add(directory);
-        document.add(blankRow1);
-        document.add(blankRow1);
-        //定义起始方法
-        int i = 0;
-        for (Map.Entry<String, JSONObject> entry :
-                data.entrySet()) {
-            String index = getIndex(++i);
-            String methodName = getMethodName(entry.getKey());
-            Paragraph method = new Paragraph(index + methodName, methodFont);
-            method.setIndentationLeft(30);
-            document.add(method);
-        }
-        document.newPage();
-        //书写获取到的所有方法
-        nameFont.setColor(Color.BLUE);
-        methodDetailFont.setColor(Color.BLACK);
-        for (Map.Entry<String,JSONObject> entry:
-             data.entrySet()) {
-            String k = entry.getKey();
-            JSONObject v = entry.getValue().getJSONObject("result");
-            String methodName = getMethodName(k);
-            Paragraph method = new Paragraph(methodName,nameFont);
-            document.add(method);
+            // 设置中文字体
+            BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+            // 标题字体风格
+            Font titleFont = new Font(bfChinese, 36, Font.BOLD);
+            titleFont.setColor(Color.BLUE);
+            //设置空行
+            Font blankFont = new Font(bfChinese, 18, Font.BOLD);
+            //名称字体
+            Font nameFont = new Font(bfChinese, 22, Font.BOLD);
+            //目录字体
+            Font directoryFont = new Font(bfChinese, 36, Font.BOLD);
+            directoryFont.setColor(Color.BLUE);
+            //方法名录字体
+            Font methodFont = new Font(bfChinese, 14, Font.BOLD);
+            methodFont.setColor(Color.BLUE);
+            //具体方法中的字体
+            Font methodDetailFont = new Font(bfChinese, 9, Font.BOLD);
+            Font methodDetailFontV = new Font(bfChinese, 9, Font.COURIER);
+            Paragraph title = new Paragraph("专业版企业信用报告", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            Paragraph blankRow1 = new Paragraph(18f, " ", blankFont);
             document.add(blankRow1);
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            if(v.getLong("error_code") != null && v.getLong("error_code") == 300000){
-                Paragraph noMessage = new Paragraph("暂无数据",methodDetailFont);
-                document.add(noMessage);
-                continue;
+            document.add(blankRow1);
+            document.add(blankRow1);
+            //定义名称
+            Paragraph companyName = new Paragraph(name, nameFont);
+            companyName.setAlignment(Element.ALIGN_CENTER);
+            document.add(companyName);
+            //开启新的一页
+            document.newPage();
+            Paragraph directory = new Paragraph("目录", directoryFont);
+            document.add(directory);
+            document.add(blankRow1);
+            document.add(blankRow1);
+            //定义起始方法
+            int i = 0;
+            for (Map.Entry<String, JSONObject> entry :
+                    data.entrySet()) {
+                String index = getIndex(++i);
+                String methodName = getMethodName(entry.getKey());
+                Paragraph method = new Paragraph(index + methodName, methodFont);
+                method.setIndentationLeft(30);
+                document.add(method);
             }
-            if(k.equalsIgnoreCase("baseinfo")){
-                addKeyAndValue("公司名称",v.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("工商注册号",v.getString("regNumber"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("统一信用代码",v.getString("creditCode"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("法定代表人",v.getString("legalPersonName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("组织机构代码",v.getString("orgNumber"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("企业类型",v.getString("companyOrgType"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("所属行业",v.getString("industry"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("经营状态",v.getString("regStatus"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("注册资本",v.getString("regCapital"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("注册时间",format.format(v.getLong("estiblishTime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("注册地址",v.getString("estiblishTime"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("经营范围",v.getString("businessScope"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("登记机关",v.getString("regInstitute"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("核准日期",format.format(v.getLong("approvedTime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-            }else if(k.equalsIgnoreCase("staff")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                     arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("姓名",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("职位",item.getString("typeJoin"),methodDetailFont,methodDetailFontV,blankRow1,document);
+            document.newPage();
+            //书写获取到的所有方法
+            nameFont.setColor(Color.BLUE);
+            methodDetailFont.setColor(Color.BLACK);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            for (Map.Entry<String, JSONObject> entry :
+                    data.entrySet()) {
+                String k = entry.getKey();
+                JSONObject v = entry.getValue().getJSONObject("result");
+                String methodName = getMethodName(k);
+                Paragraph method = new Paragraph(methodName, nameFont);
+                document.add(method);
+                document.add(blankRow1);
+                if (v == null || (v.getLong("error_code") != null && v.getLong("error_code") == 300000)) {
+                    Paragraph noMessage = new Paragraph("暂无数据", methodDetailFont);
+                    document.add(noMessage);
+                    continue;
                 }
-            }else if(k.equalsIgnoreCase("holder")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("金额",item.getString("amount"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("股东名",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("认缴金额",item.getJSONObject("capital").getString("amomon"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("占比",item.getJSONObject("capital").getString("percent"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("inverst")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("被投资企业名称",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
+                if (k.equalsIgnoreCase("baseinfo")) {
+                    addKeyAndValue("公司名称", v.getString("name"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("工商注册号", v.getString("regNumber"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("统一信用代码", v.getString("creditCode"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("法定代表人", v.getString("legalPersonName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("组织机构代码", v.getString("orgNumber"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("企业类型", v.getString("companyOrgType"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("所属行业", v.getString("industry"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("经营状态", v.getString("regStatus"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("注册资本", v.getString("regCapital"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("注册时间", format.format(v.getLong("estiblishTime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("注册地址", v.getString("estiblishTime"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("经营范围", v.getString("businessScope"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("登记机关", v.getString("regInstitute"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("核准日期", format.format(v.getLong("approvedTime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                } else if (k.equalsIgnoreCase("staff")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("姓名,职位", "name,typeJoin", arr, document, methodDetailFont);
+                    /*for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("姓名", item.getString("name"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("职位", item.getString("typeJoin"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }*/
+                } else if (k.equalsIgnoreCase("holder")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("金额", item.getString("amount"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("股东名", item.getString("name"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("认缴金额", item.getJSONObject("capital").getString("amomon"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("占比", item.getJSONObject("capital").getString("percent"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("inverst")) {
+                    JSONArray arr = v.getJSONArray("items");
+//                for (Object obj:
+//                        arr) {
+//                    JSONObject item = JSONObject.parseObject(obj.toString());
+                    /*addKeyAndValue("被投资企业名称",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("被投资法定代表人",item.getString("legalPersonName"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("注册资本",item.getString("regCapital"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("投资数额",item.getString("amount"),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -786,21 +801,23 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                         addKeyAndValue("注册时间", format.format(item.getLong("estiblishTime")), methodDetailFont,methodDetailFontV,blankRow1,document);
                     }catch (Exception e){
                         addKeyAndValue("注册时间", "", methodDetailFont,methodDetailFontV,blankRow1,document);
+                    }*/
+                    createTable("被投资企业名称,被投资法定代表人,注册资本,投资数额,投资占比,注册时间,状态", "name,legalPersonName,regCapital,amount,percent,estiblishTime,regStatus", arr, document, methodDetailFont);
+//                }
+                } else if (k.equalsIgnoreCase("changeinfo")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("变更项目", item.getString("changeItem"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("变更前", item.getString("contentBefore"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("变更后", item.getString("contentAfter"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("变更时间", item.getString("changeTime"), methodDetailFont, methodDetailFontV, blankRow1, document);
                     }
-                }
-            }else if (k.equalsIgnoreCase("changeinfo")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("变更项目",item.getString("changeItem"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("变更前",item.getString("contentBefore"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("变更后",item.getString("contentAfter"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("变更时间",item.getString("changeTime"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if (k.equalsIgnoreCase("branch")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                } else if (k.equalsIgnoreCase("branch")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("企业名称,法定代表人,状态,注册时间", "name,legalPersonName,regStatus,estiblishTime", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("行业code",item.getString("category"),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -808,10 +825,11 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                     addKeyAndValue("分支名称",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("经营状态",item.getString("regStatus"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("法人",item.getString("legalPersonName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if (k.equalsIgnoreCase("findHistoryRongzi")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("HistoryRongzi")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("投资方,金额,轮次,时间,比例,估值", "investorName,money,round,date,share,value", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("融资时间",format.format(item.getLong("date")),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -823,117 +841,119 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                     addKeyAndValue("轮次",item.getString("round"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("投资比例",item.getString("share"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("轮次",item.getString("round"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if (k.equalsIgnoreCase("findTeamMember")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("TeamMember")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("描述", item.getString("desc"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("姓名", item.getString("name"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("标签", item.getString("title"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("ProductInfo")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("行业", item.getString("hangye"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("产品名", item.getString("product"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("业务范围", item.getString("yewu"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("上线时间", format.format(item.getLong("setupDate")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("Tzanli")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("时间,轮次,金额,投资方,产品,地区,行业,业务", "tzdate,lunci,money,organization_name,product,location,hangye1,yewu", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("描述",item.getString("desc"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("姓名",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("标签",item.getString("title"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("getProductInfo")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("行业",item.getString("hangye"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("产品名",item.getString("product"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("业务范围",item.getString("yewu"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("上线时间",format.format(item.getLong("setupDate")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("findTzanli")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("产品名",item.getString("产品名"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("地区",item.getString("location"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("行业",item.getString("hangye1"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("业务范围",item.getString("yewu"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("金额",item.getString("money"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("轮次",item.getString("lunci"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("投资时间",format.format(item.getLong("tzdate")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("findJingpin")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("公司名",item.getString("companyName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("行业",item.getString("hangye"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("竞品名",item.getString("jingpinProduct"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("地区",item.getString("location"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("产品",item.getString("product"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("轮次",item.getString("round"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("业务范围",format.format(item.getLong("yewu")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("bids")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("标题",item.getString("title"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("摘要信息",item.getString("abs"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("采购人",item.getString("purchaser"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("发布日期",format.format(item.getLong("publishTime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("更新时间",item.getString("updateTime"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("代理机构",item.getString("proxy"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("来源链接",item.getString("link"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("bond")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("债券名称",item.getString("bondName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("债券号",item.getString("bondNum"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("债劵摘牌日",format.format(item.getString("bondStopTime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("债劵期限",item.getString("bondTimeLimit"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("债券类型",item.getString("bondType"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("计息方式",item.getString("calInterestType"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("信用评级机构",item.getString("creditRatingGov"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("债项评级",item.getString("debtRating"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("托管机构",item.getString("escrowAgent"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("行权类型",item.getString("exeRightType"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("票面利率(%)",item.getString("faceInterestRate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("面值",item.getString("faceValue"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("流通范围",item.getString("flowRange"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("发行价格(元)",item.getString("issuedPrice"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("付息频率",item.getString("payInterestHZ"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("计划发行量(亿)",item.getString("planIssuedQuantity"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("债劵到期日",item.getString("publishExpireTime"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("债劵发行日",item.getString("publishTime"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("发行人",item.getString("publisherName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("实际发行量(亿)",item.getString("realIssuedQuantity"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("参考利率",item.getString("refInterestRate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("备注",item.getString("remark"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("债券起息日",format.format(item.getString("startCalInterestTime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("purchaseLand")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("行政区",item.getString("adminRegion"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("受让人",item.getString("assignee"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("创建时间",format.format(item.getString("createTime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("成交价款（万元）",item.getString("dealPrice"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("约定竣工时间",format.format(item.getLong("endTime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("宗地位置",item.getString("location"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("最大容积率",item.getString("maxVolume"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("最小容积率",item.getString("minVolume"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("上级公司",item.getString("parentCompany"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("土地用途",item.getString("purpose"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("签订日期",format.format(item.getString("signedDate")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("约定动工时间",format.format(item.getString("startTime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("供应方式",item.getString("supplyWay"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("供地总面积(公顷)",item.getString("totalArea"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("employments")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("Jingpin")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("公司名", item.getString("companyName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("行业", item.getString("hangye"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("竞品名", item.getString("jingpinProduct"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("地区", item.getString("location"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("产品", item.getString("product"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("轮次", item.getString("round"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("业务范围", format.format(item.getLong("yewu")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("bids")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("标题", item.getString("title"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("摘要信息", item.getString("abs"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("采购人", item.getString("purchaser"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("发布日期", format.format(item.getLong("publishTime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("更新时间", item.getString("updateTime"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("代理机构", item.getString("proxy"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("来源链接", item.getString("link"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("bond")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("债券名称", item.getString("bondName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("债券号", item.getString("bondNum"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("债劵摘牌日", format.format(item.getString("bondStopTime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("债劵期限", item.getString("bondTimeLimit"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("债券类型", item.getString("bondType"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("计息方式", item.getString("calInterestType"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("信用评级机构", item.getString("creditRatingGov"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("债项评级", item.getString("debtRating"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("托管机构", item.getString("escrowAgent"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("行权类型", item.getString("exeRightType"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("票面利率(%)", item.getString("faceInterestRate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("面值", item.getString("faceValue"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("流通范围", item.getString("flowRange"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("发行价格(元)", item.getString("issuedPrice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("付息频率", item.getString("payInterestHZ"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("计划发行量(亿)", item.getString("planIssuedQuantity"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("债劵到期日", item.getString("publishExpireTime"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("债劵发行日", item.getString("publishTime"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("发行人", item.getString("publisherName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("实际发行量(亿)", item.getString("realIssuedQuantity"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("参考利率", item.getString("refInterestRate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("备注", item.getString("remark"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("债券起息日", format.format(item.getString("startCalInterestTime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("purchaseLand")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("行政区", item.getString("adminRegion"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("受让人", item.getString("assignee"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("创建时间", format.format(item.getString("createTime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("成交价款（万元）", item.getString("dealPrice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("约定竣工时间", format.format(item.getLong("endTime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("宗地位置", item.getString("location"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("最大容积率", item.getString("maxVolume"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("最小容积率", item.getString("minVolume"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("上级公司", item.getString("parentCompany"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("土地用途", item.getString("purpose"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("签订日期", format.format(item.getString("signedDate")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("约定动工时间", format.format(item.getString("startTime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("供应方式", item.getString("supplyWay"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("供地总面积(公顷)", item.getString("totalArea"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("employment")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("发布时间,招聘职位,薪资,工作经验,招聘人数,所在城市", "startdate,title,oriSalary,experience,employerNumber,district", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("职位描述",item.getString("description"),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -946,66 +966,68 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                     addKeyAndValue("薪水",item.getString("oriSalary"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("来源",item.getString("source"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("招聘职称,题目",item.getString("title"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("taxCredit")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("纳税等级",item.getString("grade"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("年份",item.getString("year"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("评价单位",item.getString("evalDepartment"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("类型",item.getString("type"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("纳税人识别号",item.getString("idNumber"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("纳税人名称",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("checkInfo")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("日期",item.getString("checkDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("检查实施机关",item.getString("checkOrg"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("类型",item.getString("checkType"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("appbkInfo")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("领域",item.getString("classes"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("产品简称",item.getString("filterName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("产品分类",item.getString("type"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("描述",item.getString("brief"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("产品名",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("certificate")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("taxCredit")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("纳税等级", item.getString("grade"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("年份", item.getString("year"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("评价单位", item.getString("evalDepartment"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("类型", item.getString("type"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("纳税人识别号", item.getString("idNumber"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("纳税人名称", item.getString("name"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("checkInfo")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("日期", item.getString("checkDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("检查实施机关", item.getString("checkOrg"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("类型", item.getString("checkType"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("appbkInfo")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("领域", item.getString("classes"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("产品简称", item.getString("filterName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("产品分类", item.getString("type"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("描述", item.getString("brief"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("产品名", item.getString("name"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("certificate")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("证书类型,许可编号,发证日期,截止日期", "certificateName,certNo,startDate,endDate", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("证书编号",item.getString("certNo"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("证书类型",item.getString("certificateName"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("发证日期",item.getString("startDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("截止日期",item.getString("endDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("lawSuit")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("标题",item.getString("title"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("摘要",item.getString("abstracts"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("提交时间",format.format(item.getLong("submittime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("法院",item.getString("court"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("案件类型",item.getString("casetype"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("案由",item.getString("casereason"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("文书类型",item.getString("doctype"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("案件号",item.getString("caseno"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("courtAnnouncement")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("lawSuit")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("标题", item.getString("title"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("摘要", item.getString("abstracts"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("提交时间", format.format(item.getLong("submittime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("法院", item.getString("court"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("案件类型", item.getString("casetype"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("案由", item.getString("casereason"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("文书类型", item.getString("doctype"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("案件号", item.getString("caseno"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("courtAnnouncement")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("公告时间,上诉方,被诉方,公告类型,法院", "publishdate,party1,party2,bltntype,courtcode", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("公告号",item.getString("bltnno"),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -1022,40 +1044,41 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                     addKeyAndValue("省份",item.getString("province"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("刊登日期",item.getString("publishdate"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("刊登版面",item.getString("publishpage"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("zhixinginfo")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("被执行人名称",item.getString("pname"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("执行法院",item.getString("execCourtName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("身份证号／组织机构代码",item.getString("partyCardNum"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("案号",item.getString("caseCode"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("立案时间",format.format(item.getString("caseCreateTime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("执行标的",item.getString("execMoney"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("dishonest")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("失信人名",item.getString("iname"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("案号",item.getString("casecode"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("身份证号／组织机构代码",item.getString("cardnum"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("法定代表人",item.getString("businessentity"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("省份",item.getString("areaname"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("执行法院",item.getString("courtname"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("执行依据文号",item.getString("gistid"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("立案时间",item.getString("regdate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("做出执行依据单位",item.getString("gistunit"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("法律生效文书确定的义务",item.getString("duty"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("被执行人的履行情况",item.getString("performance"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("发布时间",item.getString("publishdate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("tm")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("zhixinginfo")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("被执行人名称", item.getString("pname"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("执行法院", item.getString("execCourtName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("身份证号／组织机构代码", item.getString("partyCardNum"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("案号", item.getString("caseCode"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("立案时间", format.format(item.getString("caseCreateTime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("执行标的", item.getString("execMoney"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("dishonest")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("失信人名", item.getString("iname"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("案号", item.getString("casecode"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("身份证号／组织机构代码", item.getString("cardnum"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("法定代表人", item.getString("businessentity"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("省份", item.getString("areaname"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("执行法院", item.getString("courtname"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("执行依据文号", item.getString("gistid"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("立案时间", item.getString("regdate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("做出执行依据单位", item.getString("gistunit"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("法律生效文书确定的义务", item.getString("duty"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("被执行人的履行情况", item.getString("performance"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("发布时间", item.getString("publishdate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("tm")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("申请日期,商标名称,注册号,类别,状态", "appDate,tmName,regNo,intCls,status", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("类别",item.getString("intCls"),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -1064,100 +1087,101 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                     addKeyAndValue("注册号",item.getString("regNo"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("申请日期",format.format(item.getLong("appDate")),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("申请人",item.getString("applicantCn"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("patents")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("主分类号",item.getString("mainCatNum"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("申请公布号",item.getString("applicationPublishNum"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("代理机构",item.getString("agency"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("代理人",item.getString("agent"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("发明人",item.getString("inventor"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("申请公布日",item.getString("applicationPublishTime"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("申请号/专利号",item.getString("patentNum"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("全部分类号",item.getString("allCatNum"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("专利名称",item.getString("patentName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("摘要",item.getString("abstracts"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("地址",item.getString("address"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("申请日",item.getString("applicationTime"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("专利类型",item.getString("patentType"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("申请人",item.getString("applicantName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("copyReg")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("登记日期",format.format(item.getLong("regtime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("首次发表日期",format.format(item.getLong("publishtime")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("著作权人",item.getString("authorNationality"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("简称",item.getString("simplename"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("登记号",item.getString("regnum"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("分类号",item.getString("catnum"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("全称",item.getString("fullname"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("版本号",item.getString("version"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("icp")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("网站",item.getString("webSite").replace("[\"","").replace("\"",""),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("检查时间",item.getString("examineDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("公司类型",item.getString("companyType"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("网站名称",item.getString("webName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("域名",item.getString("ym"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("许可证",item.getString("liscense"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("公司名称",item.getString("companyName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("volatility")){
-                addKeyAndValue("股票号",v.getString("stockcode"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("股票名",v.getString("stockname"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("股票类型",v.getString("stockType"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("更新时间",v.getString("timeshow"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("市盈率（动）",v.getString("fvaluep"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("总市值",v.getString("tvalue"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("流通市值",v.getString("flowvalue"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("市净率",v.getString("tvaluep"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("今开",v.getString("topenprice"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("成交量",v.getString("tamount"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("振幅",v.getString("trange"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("最高",v.getString("thighprice"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("成交额",v.getString("tamounttotal"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("换手",v.getString("tchange"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("最低",v.getString("tlowprice"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("昨收",v.getString("pprice"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("涨停",v.getString("tmaxprice"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("跌停",v.getString("tminprice"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("当前价格",v.getString("hexm_curPrice"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("浮动价格",v.getString("hexm_float_price"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("浮动率",v.getString("hexm_float_rate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-            }else if(k.equalsIgnoreCase("companyInfo")){
-                addKeyAndValue("邮编",v.getString("postalcode"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("控股股东",v.getString("controllingShareholder"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("实际控股",v.getString("actualController"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("最终控股",v.getString("finalController"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("传真",v.getString("fax"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("网址",v.getString("website"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("员工数量",v.getString("employeesNum"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("主营业务",v.getString("mainBusiness"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("股票编号",v.getString("code"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("公司名",v.getString("companyName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("注册资金",v.getString("registeredCapital"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("曾用名",v.getString("usedName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("省份",v.getString("area"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("地址",v.getString("address"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("股票名",v.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("行业",v.getString("industry"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("业务",v.getString("productName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("英文名",v.getString("engName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("介绍",v.getString("introduction"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                addKeyAndValue("电话",v.getString("mobile"),methodDetailFont,methodDetailFontV,blankRow1,document);
-            }else if(k.equalsIgnoreCase("seniorExecutive")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("patents")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("主分类号", item.getString("mainCatNum"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("申请公布号", item.getString("applicationPublishNum"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("代理机构", item.getString("agency"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("代理人", item.getString("agent"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("发明人", item.getString("inventor"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("申请公布日", item.getString("applicationPublishTime"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("申请号/专利号", item.getString("patentNum"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("全部分类号", item.getString("allCatNum"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("专利名称", item.getString("patentName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("摘要", item.getString("abstracts"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("地址", item.getString("address"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("申请日", item.getString("applicationTime"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("专利类型", item.getString("patentType"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("申请人", item.getString("applicantName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("copyReg")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("登记日期", format.format(item.getLong("regtime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("首次发表日期", format.format(item.getLong("publishtime")), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("著作权人", item.getString("authorNationality"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("简称", item.getString("simplename"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("登记号", item.getString("regnum"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("分类号", item.getString("catnum"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("全称", item.getString("fullname"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("版本号", item.getString("version"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("icp")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("网站", item.getString("webSite").replace("[\"", "").replace("\"", ""), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("检查时间", item.getString("examineDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("公司类型", item.getString("companyType"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("网站名称", item.getString("webName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("域名", item.getString("ym"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("许可证", item.getString("liscense"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("公司名称", item.getString("companyName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("volatility")) {
+                    addKeyAndValue("股票号", v.getString("stockcode"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("股票名", v.getString("stockname"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("股票类型", v.getString("stockType"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("更新时间", v.getString("timeshow"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("市盈率（动）", v.getString("fvaluep"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("总市值", v.getString("tvalue"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("流通市值", v.getString("flowvalue"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("市净率", v.getString("tvaluep"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("今开", v.getString("topenprice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("成交量", v.getString("tamount"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("振幅", v.getString("trange"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("最高", v.getString("thighprice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("成交额", v.getString("tamounttotal"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("换手", v.getString("tchange"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("最低", v.getString("tlowprice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("昨收", v.getString("pprice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("涨停", v.getString("tmaxprice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("跌停", v.getString("tminprice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("当前价格", v.getString("hexm_curPrice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("浮动价格", v.getString("hexm_float_price"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("浮动率", v.getString("hexm_float_rate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                } else if (k.equalsIgnoreCase("companyInfo")) {
+                    addKeyAndValue("邮编", v.getString("postalcode"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("控股股东", v.getString("controllingShareholder"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("实际控股", v.getString("actualController"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("最终控股", v.getString("finalController"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("传真", v.getString("fax"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("网址", v.getString("website"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("员工数量", v.getString("employeesNum"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("主营业务", v.getString("mainBusiness"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("股票编号", v.getString("code"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("公司名", v.getString("companyName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("注册资金", v.getString("registeredCapital"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("曾用名", v.getString("usedName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("省份", v.getString("area"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("地址", v.getString("address"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("股票名", v.getString("name"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("行业", v.getString("industry"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("业务", v.getString("productName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("英文名", v.getString("engName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("介绍", v.getString("introduction"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("电话", v.getString("mobile"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                } else if (k.equalsIgnoreCase("seniorExecutive")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("姓名,职务,持股数,年龄", "name,position,numberOfShares,age", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("职位",item.getString("position"),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -1171,33 +1195,34 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                     addKeyAndValue("公告日期",item.getString("reportDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("薪资",item.getString("salary"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("持股数",item.getString("numberOfShares"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("holdingCompany")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("参股关系",item.getString("relationship"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("是否报表合并",item.getString("reportMerge"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("被参股公司 净利润(元)",item.getString("profit"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("公司名",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("参股比例（%）",item.getString("participationRatio"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("投资金额（万元）",item.getString("investmentAmount"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("announcement")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("发布日期",item.getString("time"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("标题",item.getString("title"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("股票号",item.getString("code"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("公司",item.getString("companyName"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("股票名",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("shareholder")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("holdingCompany")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("参股关系", item.getString("relationship"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("是否报表合并", item.getString("reportMerge"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("被参股公司 净利润(元)", item.getString("profit"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("公司名", item.getString("name"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("参股比例（%）", item.getString("participationRatio"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("投资金额（万元）", item.getString("investmentAmount"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("announcement")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("发布日期", item.getString("time"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("标题", item.getString("title"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("股票号", item.getString("code"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("公司", item.getString("companyName"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("股票名", item.getString("name"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else if (k.equalsIgnoreCase("shareholder")) {
+                    JSONArray arr = v.getJSONArray("holderList");
+                    createTable("机构或基金,持有数量,持股变化(万股),占股本比例(%),实际增减持(%),股份类型", "name,holdingNum,holdingChange,proportion,actual,shareType", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("占股本比例（%）",item.getString("proportion"),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -1210,10 +1235,22 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                     addKeyAndValue("股票类型",item.getString("shareType"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("持股变化",item.getString("compareChange"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("发布日期",format.format(item.getLong("publishDate")),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("issueRelated")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("issueRelated")) {
+                    addKeyAndValue("预计募资", v.getString("expectedToRaise"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("历史沿革", v.getString("history"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("发行数量", v.getString("issueNumber"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("发行价格", v.getString("issuePrice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("发行市盈率", v.getString("ipoRatio"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("发行中签率", v.getString("rate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("上市日期", v.getString("listingDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("实际募资", v.getString("actualRaised"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("成立日期", v.getString("issueDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    addKeyAndValue("首日开盘价", v.getString("openingPrice"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                } else if (k.equalsIgnoreCase("shareStructure")) {
+                    JSONArray arr = v.getJSONArray("dataList");
+                    createTable("时间,总股本,A股总股本,流通A股,限售A股,H股总股本,流通H股,限售H股,变动原因", "pubDate,shareAll,ashareAll,noLimitShare,limitShare,hshareAll,hnoLimitShare,hlimitShare,changeReason", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("预计募资",item.getString("expectedToRaise"),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -1226,10 +1263,11 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                     addKeyAndValue("实际募资",item.getString("actualRaised"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("成立日期",item.getString("issueDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("首日开盘价",item.getString("openingPrice"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("equityChange")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("equityChange")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("时间,变动原因,变动后A股总股本,变动后流通A股,变动后限售A股", "changeDate,changeReason,afterAll,afterNoLimit,afterLimit", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("变动原因",item.getString("changeReason"),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -1237,10 +1275,11 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                     addKeyAndValue("变动日期",item.getString("changeDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("变动后A股总股本(万股)",item.getString("afterAll"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("变动后流通A股(万股)",item.getString("afterNoLimit"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else if(k.equalsIgnoreCase("bonusInfo")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
+                }*/
+                } else if (k.equalsIgnoreCase("bonusInfo")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    createTable("董事会日期,股东大会日期,实施日期,分红方案说明,A股股权登记日,A股股权除息日,A股派息日,方案进度,股利支付率（%）,分红率（%）", "boardDate,shareholderDate,implementationDate,introduction,asharesDate,acuxiDate,adividendDate,progress,payment,dividendRate", arr, document, methodDetailFont);
+                /*for (Object obj:
                         arr) {
                     JSONObject item = JSONObject.parseObject(obj.toString());
                     addKeyAndValue("方案进度",item.getString("progress"),methodDetailFont,methodDetailFontV,blankRow1,document);
@@ -1253,38 +1292,44 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
                     addKeyAndValue("分红率(%)",item.getString("dividendRate"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("董事会日期",item.getString("boardDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
                     addKeyAndValue("分红方案说明",item.getString("introduction"),methodDetailFont,methodDetailFontV,blankRow1,document);
+                }*/
+                } else if (k.equalsIgnoreCase("allotmen")) {
+                    JSONArray arr = v.getJSONArray("items");
+                    for (Object obj :
+                            arr) {
+                        JSONObject item = JSONObject.parseObject(obj.toString());
+                        addKeyAndValue("方案进度", item.getString("progress"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("除权日", item.getString("exDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("实际配股比例", item.getString("proportion"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("实际募集资金净额", item.getString("actualRaise"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("证监会核准公告日", item.getString("pubDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("董事会公告日", item.getString("dDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("股权登记日", item.getString("registerDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("配股上市日", item.getString("issueDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("发审委公告日", item.getString("announceDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("每股配股价格", item.getString("price"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("预案配股比例上限", item.getString("proportionalLimit"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("配股号", item.getString("issueCode"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("配股简称", item.getString("name"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("配股年份", item.getString("year"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("股东大会公告日", item.getString("saDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("缴款起止日", item.getString("sDate"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                        addKeyAndValue("预案募资金额上限", item.getString("raiseCeiling"), methodDetailFont, methodDetailFontV, blankRow1, document);
+                    }
+                } else {
+                    log.info("无对应方法");
                 }
-            }else if(k.equalsIgnoreCase("allotmen")){
-                JSONArray arr = v.getJSONArray("items");
-                for (Object obj:
-                        arr) {
-                    JSONObject item = JSONObject.parseObject(obj.toString());
-                    addKeyAndValue("方案进度",item.getString("progress"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("除权日",item.getString("exDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("实际配股比例",item.getString("proportion"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("实际募集资金净额",item.getString("actualRaise"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("证监会核准公告日",item.getString("pubDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("董事会公告日",item.getString("dDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("股权登记日",item.getString("registerDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("配股上市日",item.getString("issueDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("发审委公告日",item.getString("announceDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("每股配股价格",item.getString("price"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("预案配股比例上限",item.getString("proportionalLimit"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("配股号",item.getString("issueCode"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("配股简称",item.getString("name"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("配股年份",item.getString("year"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("股东大会公告日",item.getString("saDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("缴款起止日",item.getString("sDate"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                    addKeyAndValue("预案募资金额上限",item.getString("raiseCeiling"),methodDetailFont,methodDetailFontV,blankRow1,document);
-                }
-            }else{
-                log.info("无对应方法");
+
             }
-
+            if (exportType.equalsIgnoreCase("word")) {
+                exportType = "doc";
+            }
+            setHeader(request, response,  name+format.format(System.currentTimeMillis())+ "." + exportType);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            document.close();
         }
-
-        document.close();
-
     }
 
     private Map<String, Object> finishParam(Map<String, Object> params) {
@@ -1317,7 +1362,7 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
             return "核心团队";
         } else if (method.equalsIgnoreCase("PRODUCTINFO")) {
             return "企业业务";
-        } else if (method.equalsIgnoreCase("findTzanli")) {
+        } else if (method.equalsIgnoreCase("Tzanli")) {
             return "投资事件";
         } else if (method.equalsIgnoreCase("JINGPIN")) {
             return "竞品信息";
@@ -1455,6 +1500,38 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
             return "二十八、";
         }else if(i==29){
             return "二十九、";
+        }else if(i==30){
+            return "三十、";
+        }else if(i==31){
+            return "三十一、";
+        }else if(i==32){
+            return "三十二、";
+        }else if(i==33){
+            return "三十三、";
+        }else if(i==34){
+            return "三十四、";
+        }else if(i==35){
+            return "三十五、";
+        }else if(i==36){
+            return "三十六、";
+        }else if(i==37){
+            return "三十七、";
+        }else if(i==38){
+            return "三十八、";
+        }else if(i==39){
+            return "三十九、";
+        }else if(i==40){
+            return "四十、";
+        }else if(i==41){
+            return "四十一、";
+        }else if(i==42){
+            return "四十二、";
+        }else if(i==43){
+            return "四十三、";
+        }else if(i==44){
+            return "四十四、";
+        }else if(i==45){
+            return "四十五、";
         }else{
             return "";
         }
@@ -1473,11 +1550,66 @@ public class OpeneyesServiceImpl<T> extends AbstractService<T> implements Openey
         }
     }
 
-    private void createTable() throws Exception {
-        Table table = new Table(5,5);
-        Cell cell = new Cell();
-//        cell.
-//        table.add
+    private void createTable(String titles, String valueK, JSONArray arr, Document document,Font kfont) throws Exception {
+        String[] titleARrr = titles.split(",");
+        String[] valueKArr = valueK.split(",");
+        Table table = new Table(titleARrr.length);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        for (String title:
+                titleARrr) {
+            Cell cell = new Cell(new Phrase(title,kfont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            table.addCell(cell);
+        }
+        arr.forEach(item ->{
+            JSONObject data = JSONObject.parseObject(item.toString());
+            for (String v:
+                    valueKArr) {
+                Cell cell = null;
+                try {
+                    String value = data.getString(v);
+                    if(StringUtil.isEmpty(value)){
+                        value = " ";
+                    }
+                    try{
+                        if(!v.equalsIgnoreCase("certNo")) {
+                            String format1 = format.format(Long.valueOf(value));
+                            if(!format1.equals("1970-01-01"))
+                                value = format1;
+                        }
+                    }catch (Exception e){
+                    }
+                    cell = new Cell(new Phrase(value,kfont));
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                } catch (BadElementException e) {
+                    e.printStackTrace();
+                }
+                table.addCell(cell);
+            }
+        });
 
+        document.add(table);
+    }
+
+    private void setHeader(HttpServletRequest request, HttpServletResponse response, String fileName) {
+        try {
+            if (response != null) {
+                String filename = "";
+                if (StringUtil.isIE(request)) {
+                    filename = new String(fileName);
+                    filename = URLEncoder.encode(filename, "UTF-8");
+                } else {
+                    filename = new String((fileName).getBytes(), "iso-8859-1");
+                }
+                String header = "attachment; filename=\"" + filename + "\"";
+                response.reset();
+                response.setContentType("APPLICATION/OCTET-STREAM");
+                response.setHeader("Content-Disposition", header);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

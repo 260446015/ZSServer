@@ -199,20 +199,20 @@
                         <input class="method" type="checkbox" id="branch2" value="branch">
                         <label for="branch2">分支机构</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="findHistoryRongzi2" value="findHistoryRongzi">
-                        <label for="findHistoryRongzi2">融资历史</label>
+                        <input class="method" type="checkbox" id="HistoryRongzi2" value="HistoryRongzi">
+                        <label for="HistoryRongzi2">融资历史</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="findTeamMember2" value="findTeamMember">
-                        <label for="findTeamMember2">核心团队</label>
+                        <input class="method" type="checkbox" id="TeamMember2" value="TeamMember">
+                        <label for="TeamMember2">核心团队</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="getProductInfo2" value="getProductInfo">
-                        <label for="getProductInfo2">企业业务</label>
+                        <input class="method" type="checkbox" id="ProductInfo2" value="ProductInfo">
+                        <label for="ProductInfo2">企业业务</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="findTzanli2" value="findTzanli">
-                        <label for="findTzanli2">投资事件</label>
+                        <input class="method" type="checkbox" id="Tzanli2" value="Tzanli">
+                        <label for="Tzanli2">投资事件</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="findJingpin2" value="findJingpin">
-                        <label for="findJingpin2">竞品信息</label>
+                        <input class="method" type="checkbox" id="Jingpin2" value="Jingpin">
+                        <label for="Jingpin2">竞品信息</label>
                     </div><div class="checkbox-custom checkbox-default">
                         <input class="method" type="checkbox" id="bids2" value="bids">
                         <label for="bids2">招投标</label>
@@ -223,7 +223,7 @@
                         <input class="method" type="checkbox" id="purchaseLand2" value="purchaseLand">
                         <label for="purchaseLand2">购地信息</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="employments2" value="employments">
+                        <input class="method" type="checkbox" id="employments2" value="employment">
                         <label for="employments2">招聘</label>
                     </div><div class="checkbox-custom checkbox-default">
                         <input class="method" type="checkbox" id="taxCredit2" value="taxCredit">
@@ -250,7 +250,7 @@
                         <input class="method" type="checkbox" id="zhixinginfo2" value="zhixinginfo">
                         <label for="zhixinginfo2">被执行人</label>
                     </div><div class="checkbox-custom checkbox-default">
-                        <input class="method" type="checkbox" id="tm" value="tm2">
+                        <input class="method" type="checkbox" id="tm2" value="tm">
                         <label for="tm2">商标信息</label>
                     </div><div class="checkbox-custom checkbox-default">
                         <input class="method" type="checkbox" id="patents2" value="patents">
@@ -298,8 +298,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">下载PDF</button>
-                <button type="button" class="btn btn-primary">下载WORD</button>
+                <button type="button" class="btn btn-primary" aria-label="Close" data-dismiss="modal">下载PDF</button>
+                <button type="button" class="btn btn-primary" aria-label="Close" data-dismiss="modal">下载WORD</button>
             </div>
         </div>
     </div>

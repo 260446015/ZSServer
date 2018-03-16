@@ -6,6 +6,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ZSServer.entity.dto.OpeneyesDTO;
 import com.huishu.ZSServer.exception.OpeneyesException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author yindawei
  * @date 2017年11月1日下午3:42:50
@@ -398,5 +401,5 @@ public interface OpeneyesService {
      */
     JSONObject getCertificate(OpeneyesDTO dto);
 
-    void downLoad(OpeneyesDTO dto);
+    void downLoad(OpeneyesDTO dto,HttpServletRequest request, HttpServletResponse response);
 }

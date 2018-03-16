@@ -96,11 +96,11 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.28</version>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
 			<version>2.1.7</version>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>itext-rtf</groupId>
 			<artifactId>itext-rtf</artifactId>
