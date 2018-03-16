@@ -18,7 +18,7 @@ import com.alibaba.fastjson.JSONObject;
  * 词库管理平台实体
  */
 @Entity
-@Table(name = "t_key_word")
+@Table(name = "t_word")
 public class ThesaurusEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,17 +33,7 @@ public class ThesaurusEntity implements Serializable {
 	// 关键词类型
 	@Column(name="word_type")
 	private String type;
-	//关联词
-	@Column(name="word_relate")
-	private	String wordRelate;
 	
-	//关联关系
-	@Column(name="related")
-	private String related;
-	
-	//关联id
-	@Column(name="related_id")
-	private Long relateId;
 
 	public Long getId() {
 		return id;
@@ -69,29 +59,7 @@ public class ThesaurusEntity implements Serializable {
 		this.type = type;
 	}
 
-	public String getWordRelate() {
-		return wordRelate;
-	}
-
-	public void setWordRelate(String wordRelate) {
-		this.wordRelate = wordRelate;
-	}
-
-	public String getRelated() {
-		return related;
-	}
-
-	public void setRelated(String related) {
-		this.related = related;
-	}
-
-	public Long getRelateId() {
-		return relateId;
-	}
-
-	public void setRelateId(Long relateId) {
-		this.relateId = relateId;
-	}
+	
 
 	@Override
 	public String toString() {

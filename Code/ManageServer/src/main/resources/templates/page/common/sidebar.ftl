@@ -73,6 +73,15 @@
                             <li id="html_item"><a href="/apis/report/htmlReport.html"><span class="text">h5月报</span></a></li>
                         </ul>
                     </li>
+                    <!-- 词库管理 相关操作 -->
+					<li id="keyword_info" class="nav-parent">
+						  <a> <i class="fa fa-archive"
+					 		aria-hidden="true"></i><span>词库管理平台</span>
+					 	</a>
+					       <ul class="nav nav-children">
+							 <li><a href="/apis/keyInfo/ThesaurusManage.html"><span class="text">词库关键词管理</span></a></li>
+							<!-- <li><a href="/apis/keywordinfo/yqKeyWordManage.html"><span class="text">产业关键词管理</span></a></li>-->
+						   </ul></li>
 				</ul>
 			</nav>
 		</div>
