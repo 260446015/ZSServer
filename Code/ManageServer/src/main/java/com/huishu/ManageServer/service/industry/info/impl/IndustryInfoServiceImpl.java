@@ -102,6 +102,7 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 	 */
 	@SuppressWarnings({ "unused", "unchecked" })
 	private List<AITInfo> getInfo(String str, String ss) {
+		
 		BoolQueryBuilder bq = new BoolQueryBuilder();
 		if (StringUtil.isNotEmpty(ss)) {
 			bq.must(QueryBuilders.termQuery("dimension", ss));
@@ -157,7 +158,9 @@ public class IndustryInfoServiceImpl extends AbstractService  implements Industr
 			}
 			return list;
 		});
+		
 		return li;
+		
 	}
 
 	

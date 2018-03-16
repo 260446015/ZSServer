@@ -32,6 +32,8 @@ public class CompanyTask {
 	//每日更新十家企业信息到精准筛选的表单中
 	//每天晚上十点半更新数据
 	@Scheduled(cron="0 30 22  * * ?")
+	//测试数据，十分钟一次
+	//@Scheduled(fixedDelay =1000*60*5)
 	public void getCompanyInfoTask(){
 		Map<Integer,Enterprise> map= new HashMap<Integer,Enterprise>();
 		List<Enterprise> list =new ArrayList<Enterprise>();
