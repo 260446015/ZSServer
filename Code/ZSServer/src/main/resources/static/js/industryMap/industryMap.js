@@ -466,7 +466,7 @@ var chinaOption = {
 
 	itemStyle: {
 		normal: {
-			opacity: 0.6,
+			opacity: .9,
 		}
 	},
 	tooltip: {
@@ -491,8 +491,7 @@ var chinaOption = {
 		calculable: true,
 		show: false,
 		inRange: {
-			// color: ['rgba(255,255,255,1)','rgba(3,4,5,0.2)','#75f9e4']
-			color: ['#fff','#00BFFF','#0000FF']
+			color: ['#fff','#00BFFF','#81ddfc']
 		}
 	},
 	geo: {
