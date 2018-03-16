@@ -4,7 +4,6 @@ $(function(){
         type:'GET',
         async: false,
         success:function(res){
-            console.log(res)
             var strHtml = "";
             for(var i=0;i<res.data.length;i++){
                     if(res.data[i].companyName!=null){

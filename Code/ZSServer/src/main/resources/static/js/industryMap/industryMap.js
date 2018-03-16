@@ -484,14 +484,15 @@ var chinaOption = {
 	visualMap: {
 		seriesIndex: 0,
 		min: 132,
-		max: 8000,
+		max: 51000,
 		left: 'left',
 		top: 'bottom',
 		text: ['高', '低'],           // 文本，默认为数值文本
 		calculable: true,
 		show: false,
 		inRange: {
-			color: ["#088cd0", "#1886bf", "#97cbe6","#000000"]
+			// color: ['rgba(255,255,255,1)','rgba(3,4,5,0.2)','#75f9e4']
+			color: ['#fff','#00BFFF','#0000FF']
 		}
 	},
 	geo: {
