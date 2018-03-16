@@ -8,15 +8,12 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import com.alibaba.fastjson.JSONArray;
 import com.huishu.ZSServer.common.util.StringUtil;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.PdfTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.rtf.RtfWriter2;
 import org.slf4j.Logger;
