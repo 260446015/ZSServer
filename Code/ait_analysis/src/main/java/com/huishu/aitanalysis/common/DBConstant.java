@@ -26,5 +26,7 @@ public class DBConstant {
         public static final String TYPE = "aitinfo";
         public static final String TYPE1 = "zsinfo";
     }
-
+   
+    	
+    	
 }

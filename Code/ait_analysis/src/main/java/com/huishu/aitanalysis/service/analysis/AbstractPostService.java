@@ -1,6 +1,8 @@
 package com.huishu.aitanalysis.service.analysis;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -10,6 +12,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
 import com.github.pagehelper.util.StringUtil;
+import com.huishu.aitanalysis.common.AcquisitionConstant;
 import com.huishu.aitanalysis.common.SimpleSummariserAlgorithm;
 import com.huishu.aitanalysis.common.analyzer.clean.CleanAlgorithm;
 import com.huishu.aitanalysis.common.analyzer.clean.CleanFactory;
@@ -37,9 +40,9 @@ public abstract class AbstractPostService {
 
 	private Logger log = Logger.getLogger("analysis");
 	private final String abstractkeyword = "网络游戏,智能硬件,移动阅读,网络视听,电子商务,节能环保,新材料,新能源,生物技术,生物医药,生物制药,大数据,人工智能";
+	
 	/**
 	 * 全网采集，根据关键词查找文章内容
-	 * 
 	 * 封装索引需要信息
 	 * TODO 这个多线程调用是否存在问题
 	 * @param jsonObject
@@ -49,363 +52,73 @@ public abstract class AbstractPostService {
 	public synchronized Index getIndex1(JSONObject jsonObject,ParkAnalysisService service){
 		Index index = new Index();
 		try {
-			String url = null == jsonObject.get("id") ? "" : String.valueOf(jsonObject.get("id")); 
-			String id = "";
-			if(StringUtil.isEmpty(url)){
-				byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
-				byte[] hashPassword = Digests.sha1("123456".getBytes(), Digests.hexStringToBytes(Encodes.encodeHex(salt)),
-						Encodes.HASH_INTERATIONS);
-				 id =  Encodes.encodeHex(hashPassword);
-			}
-			
-				
-				//关键词
-				String keyWord = Util.getKeyWord(jsonObject);
-				//根据关键词判断是否是园区
-				boolean info = service.isParkName(keyWord);
-				System.out.println("查询的结果为》》》》》》》"+info);
-				if(info){
-					boolean warning = StringUtils.isWarning(keyWord);
-					System.out.println(warning);
-					if(warning){
-						String park ="";
-						if(keyWord.equals("雄安新区")){
-							 park ="雄安新区";
-							
-						}else{
-							
-							/**根据公司名称获取公司全称mysql*/
-							//园区
-							 park ="天津中新生态城";
-						}
-						
-						String _dimension = "疑似外流";
-						String business = StringUtils.getBusiness(keyWord);
-						//载体
-						String vector = Util.getVector(jsonObject);
-						//网站名称（来源）
-						String source = Util.getSite(jsonObject);
-
-						if(StringUtil.isEmpty( vector)){
-							vector = source;
-						}
-						/*//标题
-						String title = Util.getTitle(jsonObject);*/
-						//原文链接
-						String _articleLink = Util.getArticleLink(jsonObject);
-						//作者
-						String _author = Util.getAuthor(jsonObject);
-						//内容
-						String _content = Util.getContent(jsonObject);
-						//点击数
-						Long _hitCount = Util.getHitCount(jsonObject);
-//						//采集时间
-//						String gatherTime = Util.getGatherTime(jsonObject);
-						//发布时间 (yyyy-MM-dd HH:mm:ss)
-						String publishDate = Util.getPublishDate(jsonObject);
-//						if(StringUtil.isEmpty(publishDate)){
-//							//如果发布时间为空，将采集时间赋值给发布时间
-//							publishDate=gatherTime;
-//						}
-						//发布时间 (yyyy-mm-dd)
-						String publishTime = Util.getPublishTime(publishDate);
-						//发布时间  年份
-						String publishYear = Util.getPublishYear(publishDate);
-						//评论数
-						Long _replyCount = Util.getReplyCount(jsonObject);
-						//来源
-						String _source = Util.getSource(jsonObject);
-						if(_source==null||StringUtil.isEmpty(_source)){
-							_source = source;
-						}
-						//文章摘要
-						String _summary = Util.getSummary(jsonObject);
-						if(StringUtil.isEmpty(_summary)){
-							_summary = SimpleSummariserAlgorithm.summarise(StringUtils.rmHtmlTag(_content), 3);
-					}
-
-						//去除content内容的HTML标签
-						//标题
-						String _title = Util.getTitle(jsonObject);
-						//支持数
-						Long _supportCount = Util.getSupportCount(jsonObject);
-						//采集logo
-						String _logo = Util.getLogo(jsonObject);
-						index.setId(id);
-						index.setEngageState("");
-						index.setIdentity("");
-						index.setRegisterCapital("");
-						index.setRegisterData("");
-						index.setAddress("");
-						index.setEstablishTime("");
-						index.setPark(park);
-						index.setAcreage("");
-						index.setBusiness(business);
-						index.setIndustryType("");
-						index.setUpdateAttribute("");
-						index.setBoss("");
-						index.setBusinessType("");
-						index.setHasWarn(true);
-						index.setLogo(_logo);
-						index.setArea("天津");
-						index.setIndustry("");
-						index.setIndustryLabel("");
-						index.setArticleLink(_articleLink);
-						index.setAuthor(_author);
-						index.setContent(_content);
-						index.setSource(_source);
-						index.setDimension(_dimension);
-						index.setVector(vector);
-						index.setTitle(_title);
-						index.setSummary(_summary);
-						index.setSourceLink(_articleLink);
-						index.setPublishDate(publishDate);
-						index.setPublishTime(publishTime);
-						index.setPublishYear(publishYear);
-						index.setHitCount(_hitCount);
-						index.setReplyCount(_replyCount);
-						index.setSupportCount(_supportCount);
-						index.setIstop(false);
-					}	else {
-						String park ="";
-						if(keyWord.equals("雄安新区")){
-							 park ="雄安新区";
-							
-						}else{
-							
-							/**根据公司名称获取公司全称mysql*/
-							//园区
-							 park =keyWord;
-//							 park ="天津中新生态城";
-						}
-//						String _dimension = "企业动态";
-						String _dimension = "园区动态";
-						
-						//载体
-						String vector = Util.getVector(jsonObject);
-						//网站名称（来源）
-						String source = Util.getSite(jsonObject);
-						
-						if(StringUtil.isEmpty( vector)){
-							vector = source;
-						}
-						/*//标题
-						String title = Util.getTitle(jsonObject);*/
-						//原文链接
-						String _articleLink = Util.getArticleLink(jsonObject);
-						//作者
-						String _author = Util.getAuthor(jsonObject);
-						//内容
-						String _content = Util.getContent(jsonObject);
-						//去除content内容的HTML标签
-						//String content = StringUtils.rmHtmlTag(_content);
-						//点击数
-						Long _hitCount = Util.getHitCount(jsonObject);
-						//采集时间
-//						String gatherTime = Util.getGatherTime(jsonObject);
-						//发布时间 (yyyy-MM-dd HH:mm:ss)
-						String publishDate = Util.getPublishDate(jsonObject);
-//						if(StringUtil.isEmpty(publishDate)){
-//							//如果发布时间为空，将采集时间赋值给发布时间
-//							publishDate=gatherTime;
-//						}
-						//发布时间 (yyyy-mm-dd)
-						String publishTime = Util.getPublishTime(publishDate);
-						//发布时间  年份
-						String publishYear = Util.getPublishYear(publishDate);
-						//评论数
-						Long _replyCount = Util.getReplyCount(jsonObject);
-						//来源
-						String _source = Util.getSource(jsonObject);
-						if(_source==null||StringUtil.isEmpty(_source)){
-							_source = source;
-						}
-						//文章摘要
-						String _summary = Util.getSummary(jsonObject);
-						if(StringUtil.isEmpty(_summary)){
-							String content = StringUtils.rmHtmlTag(_content);
-							//截取内容的前100个字做摘要的内容
-							_summary = content.substring(0, 300);
-						}
-						//标题
-						String _title = Util.getTitle(jsonObject);
-						//支持数
-						Long _supportCount = Util.getSupportCount(jsonObject);
-						//采集logo
-						String _logo = Util.getLogo(jsonObject);
-						index.setId(id);
-						index.setEngageState("");
-						index.setIdentity("");
-						index.setRegisterCapital("");
-						index.setRegisterData("");
-						index.setAddress("");
-						index.setEstablishTime("");
-						index.setPark(park);
-						index.setAcreage("");
-						index.setBusiness(keyWord);
-						index.setIndustryType("");
-						index.setUpdateAttribute("");
-						index.setBoss("");
-						index.setBusinessType("");
-						index.setHasWarn(false);
-						index.setLogo(_logo);
-						index.setArea("");
-						index.setIndustry("");
-						index.setIndustryLabel("");
-						index.setArticleLink(_articleLink);
-						index.setAuthor(_author);
-						index.setContent(_content);
-						index.setSource(_source);
-						index.setDimension(_dimension);
-						index.setVector(vector);
-						index.setTitle(_title);
-						index.setSummary(_summary);
-						index.setSourceLink(_articleLink);
-						index.setPublishDate(publishDate);
-						index.setPublishTime(publishTime);
-						index.setPublishYear(publishYear);
-						index.setHitCount(_hitCount);
-						index.setReplyCount(_replyCount);
-						index.setSupportCount(_supportCount);
-						index.setIstop(false);
-					}
-				}else{
-					//非园区数据，判断是否为产业动态全网搜数据
-					if(abstractkeyword.contains(keyWord)){
-						//包含关键词，进行产业头条数据维护
-						//网站名称
-						String site = Util.getSite(jsonObject);
-						//地域
-						String _area = Util.getArea(jsonObject);
-						//产业标签  -- 关键词
-						JSONObject obje = new JSONObject();
-						JSONArray array = new JSONArray();
-						obje.put("Name", keyWord);
-						array.add(obje);
-						//产业
-						String industry = Util.getIndustryByIndestryLeabl(array);
-						//维度
-						String _dimension = "产业头条";
-						
-						//原文链接
-						String _articleLink = Util.getArticleLink(jsonObject);
-						//作者
-						String _author = Util.getAuthor(jsonObject);
-					
-						//内容
-						String _content = Util.getContent(jsonObject);
-						//去除content内容的HTML标签
-						//String content = StringUtils.rmHtmlTag(_content);
-						
-						//点击数
-						Long _hitCount = Util.getHitCount(jsonObject);
-						
-						//采集时间
-//						String gatherTime = Util.getGatherTime(jsonObject);
-						
-						//发布时间 (yyyy-MM-dd HH:mm:ss)
-						String publishDate = Util.getPublishDate(jsonObject);
-						
-//						if(StringUtil.isEmpty(publishDate)){
-//							//如果发布时间为空，将采集时间赋值给发布时间
-//							publishDate=gatherTime;
-//						}
-						
-						//发布时间 (yyyy-mm-dd)
-						String publishTime = Util.getPublishTime(publishDate);
-						
-						//发布时间  年份
-						String publishYear = Util.getPublishYear(publishDate);
-						//评论数
-						Long _replyCount = Util.getReplyCount(jsonObject);
-						//载体
-						String _vector = Util.getSite(jsonObject);
-						//来源
-						String _source = Util.getSource(jsonObject);
-						if(_source == null){
-							//如果来源不存在，将网站名称赋予
-							_source = site;
-						}
-						//文章摘要
-						String _summary = Util.getSummary(jsonObject);
-						if(StringUtil.isEmpty(_summary)){
-							_summary = SimpleSummariserAlgorithm.summarise(StringUtils.rmHtmlTag(_content), 3);
-					}
-
-						//标题
-						String _title = Util.getTitle(jsonObject);
-						//取出文章标题并将标题中的特殊字符去掉
-//						String cleanTitle = CleanFactory.getAnalysis(CleanAlgorithm.CleanTitleChars).cleaning(_title);
-						if(_area.equals("全国")||_area.equals("")){
-							Set<String> area = Util.getArea(_title, _content);
-							
-							
-							Object[] a= area.toArray();
-							if(a.length>0){
-								_area = a[0].toString();
-							}else{
-								_area="全国";
-							}
-							
-						}
-						
-						//支持数
-						Long _supportCount = Util.getSupportCount(jsonObject);
-						//采集logo
-						String _logo = Util.getLogo(jsonObject);
-						index.setId(id);
-						index.setEngageState("");
-						index.setIdentity("");
-						index.setRegisterCapital("");
-						index.setRegisterData("");
-						index.setAddress("");
-						index.setEstablishTime("");
-						index.setPark("");
-						index.setAcreage("");
-						index.setBusiness("");
-						index.setIndustryType("");
-						index.setUpdateAttribute("");
-						index.setBoss("");
-						index.setBusinessType("");
-						index.setHasWarn(false);
-						index.setLogo(_logo);
-						index.setArea(_area);
-						index.setIndustry(industry);
-						index.setIndustryLabel(keyWord);
-						index.setArticleLink(_articleLink);
-						index.setAuthor(_author);
-						index.setContent(_content);
-						index.setSource(_source);
-						index.setDimension(_dimension);
-						index.setVector(_vector);
-						index.setTitle(_title);
-						index.setSummary(_summary);
-						index.setSourceLink(_articleLink);
-						index.setPublishDate(publishDate);
-						index.setPublishTime(publishTime);
-						index.setPublishYear(publishYear);
-						index.setHitCount(_hitCount);
-						index.setReplyCount(_replyCount);
-						index.setSupportCount(_supportCount);
-						index.setIstop(false);
-						return index;
+			Map<String, Object> map = getIndexInfo(jsonObject);
+			//关键词
+			String keyWord = Util.getKeyWord(jsonObject);
+			//根据关键词判断是否是园区
+			boolean info = service.isParkName(keyWord);
+			if(info){
+				//预警信息
+				boolean warning = StringUtils.isWarning(keyWord);
+				if(warning){
+					String park ="";
+					if(keyWord.equals("雄安新区")){
+						 park ="雄安新区";
 					}else{
-						return null;
+						//**根据公司名称获取公司全称mysql*//*
+						 park ="天津中新生态城";
 					}
-					
+					String _dimension = "疑似外流";
+					//根据关键词返回公司名称
+					String business = StringUtils.getBusiness(keyWord);
+					map.put("dimension", _dimension);
+					map.put("business", business);
+					map.put("park", park);
+				}else{
+					String park ="";
+					if(keyWord.equals("雄安新区")){
+						 park ="雄安新区";
+					}else{
+						/**根据公司名称获取公司全称mysql*/
+						 park = keyWord;
+					}
+					String _dimension = "园区动态";
+					map.put("dimension", _dimension);
+					map.put("business", "");
+					map.put("park", park);
 				}
-				
-				
+			}else{
+				//非园区数据，判断是否为产业动态全网搜数据
+				if(abstractkeyword.contains(keyWord)){
+					//包含关键词，进行产业头条数据维护
+					//维度
+					String _dimension = "产业头条";
+					//产业标签  -- 关键词
+					JSONObject obje = new JSONObject();
+					JSONArray array = new JSONArray();
+					obje.put("Name", keyWord);
+					array.add(obje);
+					//产业
+					String industry = Util.getIndustryByIndestryLeabl(array);
+					
+					map.put("dimension", _dimension);
+					map.put("business", "");
+					map.put("park", "");
+					map.put("industry", industry);
+					map.put("industryLabel", keyWord);
+				}else{
+					return null;
+				}
+			}
+			index = addIndexInfo(map,index);
+			
 		} catch (Exception e) {
-
-//			e.printStackTrace();
-			log.error("AbstractService.getIndex: "+e.getMessage());
+			log.error("AbstractService.getIndex1: "+e.getMessage());
 			return null;
 		}	
-		
-		
 		return index;
 	}
+	
 	
 	/**
 	 * 园区政策，园区动态 分析程序
@@ -418,127 +131,12 @@ public abstract class AbstractPostService {
 	public synchronized Index getIndex2(JSONObject jsonObject){
 		Index index = new Index();
 		try {
-			
-			String url = null == jsonObject.get("id") ? "" : String.valueOf(jsonObject.get("id")); 
-			String id = "";
-			if(StringUtil.isEmpty(url)){
-				byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
-//				System.out.println(Encodes.encodeHex(salt));
-				byte[] hashPassword = Digests.sha1("123456".getBytes(), Digests.hexStringToBytes(Encodes.encodeHex(salt)),
-						Encodes.HASH_INTERATIONS);
-//				System.out.println(Encodes.encodeHex(hashPassword));
-				
-				 id =  Encodes.encodeHex(hashPassword);
-			}
-			String site = Util.getSite(jsonObject);
-			String industryInfo = Util.getIndustryInfo(jsonObject);
-			//地域
-			String _area = Util.getArea(jsonObject);
-			//产业
-			String industry = Util.getIndustry(jsonObject, industryInfo);
-			
-			//产业标签
-			String industryLabel = Util.getIndustryLeabl(jsonObject, industryInfo);
-			//维度
-			String _dimension = Util.getDimension(jsonObject);
-			
-			
-			//原文链接
-			String _articleLink = Util.getArticleLink(jsonObject);
-			//作者
-			String _author = Util.getAuthor(jsonObject);
-		
-			//内容
-			String _content = Util.getContent(jsonObject);
-			//去除content内容的HTML标签
-			//String content = StringUtils.rmHtmlTag(_content);
-			
-			//点击数
-			Long _hitCount = Util.getHitCount(jsonObject);
-			
-			//采集时间
-//			String gatherTime = Util.getGatherTime(jsonObject);
-			
-			//发布时间 (yyyy-MM-dd HH:mm:ss)
-			String publishDate = Util.getPublishDate(jsonObject);
-			
-//			if(StringUtil.isEmpty(publishDate)){
-//				//如果发布时间为空，将采集时间赋值给发布时间
-//				publishDate=gatherTime;
-//			}
-			
-			//发布时间 (yyyy-mm-dd)
-			String publishTime = Util.getPublishTime(publishDate);
-			
-			//发布时间  年份
-			String publishYear = Util.getPublishYear(publishDate);
-			//评论数
-			Long _replyCount = Util.getReplyCount(jsonObject);
-			//载体
-			String _vector = Util.getSite(jsonObject);
-
-			//来源
-			String _source = Util.getSource(jsonObject);
-			if(_source == null){
-				_source = _vector;
-			}
-			//文章摘要
-			String _summary = Util.getSummary(jsonObject);
-			if(StringUtil.isEmpty(_summary)){
-				//截取内容的前100个字做摘要的内容
-				_summary = _content.substring(0, 300);
-			}
-			//标题
-			String _title = Util.getTitle(jsonObject);
-			//取出文章标题并将标题中的特殊字符去掉
-//			String cleanTitle = CleanFactory.getAnalysis(CleanAlgorithm.CleanTitleChars).cleaning(_title);
-			
-			//支持数
-			Long _supportCount = Util.getSupportCount(jsonObject);
-			//采集logo
-			String _logo = Util.getLogo(jsonObject);
-			index.setId(id);
-			index.setEngageState("");
-			index.setIdentity("");
-			index.setRegisterCapital("");
-			index.setRegisterData("");
-			index.setAddress("");
-			index.setEstablishTime("");
-			index.setPark(site);
-			index.setAcreage("");
-			index.setBusiness("");
-			index.setIndustryType("");
-			index.setUpdateAttribute("");
-			index.setBoss("");
-			index.setBusinessType("");
-			index.setHasWarn(false);
-			index.setLogo(_logo);
-			index.setArea(_area);
-			index.setIndustry(industry);
-			index.setIndustryLabel(industryLabel);
-			index.setArticleLink(_articleLink);
-			index.setAuthor(_author);
-			index.setContent(_content);
-			index.setSource(_source);
-			index.setDimension(_dimension);
-			index.setVector(_vector);
-			index.setTitle(_title);
-			index.setSummary(_summary);
-			index.setSourceLink(_articleLink);
-			index.setPublishDate(publishDate);
-			index.setPublishTime(publishTime);
-			index.setPublishYear(publishYear);
-			index.setHitCount(_hitCount);
-			index.setReplyCount(_replyCount);
-			index.setSupportCount(_supportCount);
-			index.setIstop(false);
+			Map<String, Object> map = getIndexInfo(jsonObject);
+			index = addIndexInfo(map, index);
 		} catch (Exception e) {
-//			e.printStackTrace();
-			log.error("AbstractService.getIndex: "+e.getMessage());
+			log.error("AbstractService.getIndex2: "+e.getMessage());
 			return null;
 		}	
-		
-		
 		return index;
 		
 	}
@@ -552,138 +150,12 @@ public abstract class AbstractPostService {
 	public synchronized Index getIndex(JSONObject jsonObject){
 		Index index = new Index();
 		try {
-			
-			String url = null == jsonObject.get("id") ? "" : String.valueOf(jsonObject.get("id")); 
-			String id = "";
-			if(StringUtil.isEmpty(url)){
-				byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
-//				System.out.println(Encodes.encodeHex(salt));
-				byte[] hashPassword = Digests.sha1("123456".getBytes(), Digests.hexStringToBytes(Encodes.encodeHex(salt)),
-						Encodes.HASH_INTERATIONS);
-//				System.out.println(Encodes.encodeHex(hashPassword));
-				
-				 id =  Encodes.encodeHex(hashPassword);
+			Map<String, Object> map = getIndexInfo(jsonObject);
+			index = addIndexInfo(map, index);
+			if(map.get("dimension").equals("园区政策")||map.get("dimension").equals("园区动态")){
+				index.setPark(map.get("site").toString());
 			}
-			
-			//网站名称
-			String site = Util.getSite(jsonObject);
-			String industryInfo = Util.getIndustryInfo(jsonObject);
-			//地域
-			String _area = Util.getArea(jsonObject);
-			//产业
-			String industry = Util.getIndustry(jsonObject, industryInfo);
-			//产业标签
-			String industryLabel = Util.getIndustryLeabl(jsonObject, industryInfo);
-			//维度
-			String _dimension = Util.getDimension(jsonObject);
-			
-			
-			//原文链接
-			String _articleLink = Util.getArticleLink(jsonObject);
-			//作者
-			String _author = Util.getAuthor(jsonObject);
-		
-			//内容
-			String _content = Util.getContent(jsonObject);
-			//去除content内容的HTML标签
-			//String content = StringUtils.rmHtmlTag(_content);
-			
-			//点击数
-			Long _hitCount = Util.getHitCount(jsonObject);
-			
-		/*	//采集时间
-			String gatherTime = Util.getGatherTime(jsonObject);*/
-			
-			//发布时间 (yyyy-MM-dd HH:mm:ss)
-			String publishDate = Util.getPublishDate(jsonObject);
-			
-			/*if(StringUtil.isEmpty(publishDate)){
-				//如果发布时间为空，将采集时间赋值给发布时间
-				publishDate=gatherTime;
-			}*/
-			
-			//发布时间 (yyyy-mm-dd)
-			String publishTime = Util.getPublishTime(publishDate);
-			if(publishTime.compareTo("2016-12-31") <= 0){
-				return null;
-			}
-			
-			//发布时间  年份
-			String publishYear = Util.getPublishYear(publishDate);
-			//评论数
-			Long _replyCount = Util.getReplyCount(jsonObject);
-			//载体
-			String _vector = Util.getSite(jsonObject);
-			//来源
-			String _source = Util.getSource(jsonObject);
-			if(_source == null){
-				//如果来源不存在，将网站名称赋予
-				_source = site;
-			}
-			//文章摘要
-			String _summary = Util.getSummary(jsonObject);
-			if(StringUtil.isEmpty(_summary)){
-				_summary = SimpleSummariserAlgorithm.summarise(StringUtils.rmHtmlTag(_content), 3);
-		}
-
-			//标题
-			String _title = Util.getTitle(jsonObject);
-			//取出文章标题并将标题中的特殊字符去掉
-//			String cleanTitle = CleanFactory.getAnalysis(CleanAlgorithm.CleanTitleChars).cleaning(_title);
-			if(_area.equals("全国")||_area.equals("")){
-				Set<String> area = Util.getArea(_title, _content);
-				
-				
-				Object[] array = area.toArray();
-				if(array.length>0){
-					_area = array[0].toString();
-				}else{
-					_area="全国";
-				}
-				
-			}
-			
-			//支持数
-			Long _supportCount = Util.getSupportCount(jsonObject);
-			//采集logo
-			String _logo = Util.getLogo(jsonObject);
-			index.setId(id);
-			index.setEngageState("");
-			index.setIdentity("");
-			index.setRegisterCapital("");
-			index.setRegisterData("");
-			index.setAddress("");
-			index.setEstablishTime("");
-			index.setPark("");
-			index.setAcreage("");
-			index.setBusiness("");
-			index.setIndustryType("");
-			index.setUpdateAttribute("");
-			index.setBoss("");
-			index.setBusinessType("");
-			index.setHasWarn(false);
-			index.setLogo(_logo);
-			index.setArea(_area);
-			index.setIndustry(industry);
-			index.setIndustryLabel(industryLabel);
-			index.setArticleLink(_articleLink);
-			index.setAuthor(_author);
-			index.setContent(_content);
-			index.setSource(_source);
-			index.setDimension(_dimension);
-			index.setVector(_vector);
-			index.setTitle(_title);
-			index.setSummary(_summary);
-			index.setSourceLink(_articleLink);
-			index.setPublishDate(publishDate);
-			index.setPublishTime(publishTime);
-			index.setPublishYear(publishYear);
-			index.setHitCount(_hitCount);
-			index.setReplyCount(_replyCount);
-			index.setSupportCount(_supportCount);
-			index.setIstop(false);
 		} catch (Exception e) {
-//			e.printStackTrace();
 			log.error("AbstractService.getIndex: "+e.getMessage());
 			return null;
 		}	
@@ -697,286 +169,372 @@ public abstract class AbstractPostService {
 	 * TODO 这个多线程调用是否存在问题
 	 * @param jsonObject
 	 * @return
-	 * 
+	 * 2.0版本峰会信息
 	 */
 	public synchronized Index2 getIndex3(JSONObject jsonObject,IndustryInfoService indusService) {
 		Index2 index2 = new Index2();
 		try {
-			String url = null == jsonObject.get("id") ? "" : String.valueOf(jsonObject.get("id")); 
-			String id = "";
-			if(StringUtil.isEmpty(url)){
-				byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
-//				System.out.println(Encodes.encodeHex(salt));
-				byte[] hashPassword = Digests.sha1("123456".getBytes(), Digests.hexStringToBytes(Encodes.encodeHex(salt)),
-						Encodes.HASH_INTERATIONS);
-//				System.out.println(Encodes.encodeHex(hashPassword));
-				
-				 id =  Encodes.encodeHex(hashPassword);
-			}
-			Long sid = Util.getSiteId(jsonObject);
-			/*if(sid<20209||sid>20268){
-				return null;
-			}*/
-			//地域
-			String area = Util.getArea(jsonObject);
-			//作者
-			String articleLink = Util.getArticleLink(jsonObject);
-			//原文链接
-			String author = Util.getAuthor(jsonObject);
-			//举办地点
-			String adress = Util.getAdress(jsonObject);
-			
-			//涉及行业
-			String bus = Util.getBus(jsonObject);
-			//会展时间
-			String exhibitiontime = Util.getExhibitiontime(jsonObject);
-			//内容
-			String content = Util.getContent(jsonObject);
-			if(StringUtil.isEmpty(area)){
-				Set<String> set = Util.getArea(adress, "");
-				if(set.size()<=0){
-					area = adress;
-				}else{
-					area = set.iterator().next();
-				}
-				
-			}
-			//维度
-			String dimension = Util.getDimension(jsonObject);
-			//点击数
-			Long hitCount = Util.getHitCount(jsonObject);
-			//logo
-			String logo = Util.getLogo(jsonObject);
-			Long replyCount = Util.getReplyCount(jsonObject);
-			Long supportCount = Util.getSupportCount(jsonObject);
-			String source = Util.getSource(jsonObject);
-			String vector = Util.getVector(jsonObject);
-			String site = Util.getSite(jsonObject);
-			if(StringUtil.isEmpty(source)){
-				source = site;
-			}
-			if(StringUtil.isEmpty(vector)||vector.equals("新闻")){
-				vector = site;
-			}
-//			String gatherTime = Util.getGatherTime(jsonObject);
-			String publishDate = Util.getPublishDate(jsonObject);
-			
-			if(StringUtil.isEmpty(publishDate)){
-				//如果发布时间为空，将采集时间赋值给发布时间
-				String[] split = exhibitiontime.split("-");
-				if(split.length!=0){
-					publishDate=split[0];
-				}
-
-			}
-			
-			String publishTime = Util.getPublishTime(publishDate);
-			String publishYear = Util.getPublishYear(publishDate);
-			String title = Util.getTitle(jsonObject);
-			if(StringUtil.isEmpty(area)||area.equals("全国")){
-				Set<String> area2 = Util.getArea(title, content);
-				Object[] array = area2.toArray();
-				if(array.length>0){
-					area = array[0].toString();
-				}else{
-					area="全国";
-				}
-			}
-			List<String> business = Util.getBusiness(title, content);
-			String business1 = Util.getBusiness1(business);
-			String summary = Util.getSummary(jsonObject);
-			if(StringUtil.isEmpty(summary)){
-					summary = SimpleSummariserAlgorithm.summarise(StringUtils.rmHtmlTag(content), 3);
-			}
-			String industryInfo = Util.getIndustryInfo(jsonObject);
-			String industryLeabl = Util.getIndustryLeabl(jsonObject, industryInfo);
-			if(StringUtil.isEmpty(exhibitiontime)&&StringUtil.isEmpty(adress)){
-				return null;
-			}
-			IndustryInfo indus = null;
-			if(StringUtil.isEmpty(industryLeabl)){
-				return null;
-			}else{
-				
-				indus = indusService.getIndusbyIndustryLabel(industryLeabl);
-			}
-			if(indus.getIndustryThree() == null||StringUtil.isEmpty(indus.getIndustryThree())){
-				log.info("查找产业分类信息失败！");
-				return null;
-			}else{
-//				index2.setIdustryThree(indus.getIndustryThree());
-				index2.setIdustryTwice(indus.getIndustryTwo());
-				index2.setIdustryZero(indus.getIndustryOne());
-			}
-			index2.setId(id);
-			index2.setAddress(adress);
-			index2.setArea(area);
-			index2.setArticleLink(articleLink);
-			index2.setAuthor(author);
-			index2.setBus(bus);
-			index2.setBusiness(business1);
-			index2.setContent(content);
-			index2.setDimension(dimension);
-			index2.setEmotion("");
-			index2.setExhibitiontime(exhibitiontime);
-			index2.setHasWarn(false);
-			index2.setHitCount(hitCount);
-			index2.setIdustryThree(industryLeabl);
-			
-			index2.setIstop(false);
-			index2.setLogo(logo);
-			index2.setPublishDate(publishDate);
-			index2.setPublishTime(publishTime);
-			index2.setPublishYear(publishYear);
-			index2.setReplyCount(replyCount);
-			index2.setSource(source);
-			index2.setSummary(summary);
-			index2.setSupportCount(supportCount);
-			index2.setTitle(title);
-			index2.setVector(vector);
-			
+			Map<String, Object> map = getIndexInfo(jsonObject);
+			index2 = addIndex2Info(map,index2, indusService);
 		} catch (Exception e) {
-//			e.printStackTrace();
 			log.error("AbstractService.getIndex: "+e.getMessage());
 			return null;
 		}
 		
 		return index2;
 	}
+	
+	/**
+	 * 获取融资数据
+	 * @param jsonObject
+	 * @param indusService
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public synchronized Index3 getIndex4(JSONObject jsonObject,IndustryInfoService indusService) {
-		
 		Index3 index3 = new Index3();
-		//去重
-		boolean info = indusService.removalInfo(jsonObject);
-		if(!info){
-		}
 		try {
-			String url = null == jsonObject.get("id") ? "" : String.valueOf(jsonObject.get("id")); 
-			String id = "";
-			if(StringUtil.isEmpty(url)){
-				byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
-//				System.out.println(Encodes.encodeHex(salt));
-				byte[] hashPassword = Digests.sha1("123456".getBytes(), Digests.hexStringToBytes(Encodes.encodeHex(salt)),
-						Encodes.HASH_INTERATIONS);
-//				System.out.println(Encodes.encodeHex(hashPassword));
-				
-				 id =  Encodes.encodeHex(hashPassword);
-			}
-//			String gatherTime = Util.getGatherTime(jsonObject);
-			String publishDate = Util.getPublishDate(jsonObject);
-			
-//			if(StringUtil.isEmpty(publishDate)){
-//				//如果发布时间为空，将采集时间赋值给发布时间
-//				publishDate=gatherTime;
-//			}
-			String lamu = Util.getLamu(jsonObject);
-			String publishTime = Util.getPublishTime(publishDate);
-			String logo = Util.getLogo(jsonObject);
-			String title = Util.getTitle(jsonObject);
-			String content = Util.getContent(jsonObject);
-			String dimension = Util.getDimension(jsonObject);
-			String site = Util.getSite(jsonObject);
-			String articleLink = Util.getArticleLink(jsonObject);
-			String articleInfo = Util.getBaseInfo(jsonObject);
-			String industry = Util.getIndustry(jsonObject);
-			
-			String invest = Util.getInvest(jsonObject);
-			String investor = Util.getInvestor(jsonObject);
-			String financiers = Util.getFinanciers(jsonObject);
-			String financingAmount = Util.getFinancingAmount(jsonObject);
-			String financingCompany = Util.getFinancingCompany(jsonObject);
-			String financingDate = Util.getFinancingDate(jsonObject);
-			if(content.length()>4000){
-				content = content.substring(0, 4000);
-			}
-		
+			Map<String, Object> map = getIndexInfo(jsonObject);
+			String industry = map.get("industry").toString();
+			String lamu = map.get("lamu").toString();
+			String site = map.get("site").toString();
+			String financingCompany = map.get("financingCompany").toString();
+			String financiers = map.get("financiers").toString();
+			String title = map.get("title").toString();
 			if(industry.equals("大数据")){
-				industry=industry;
+				map.put("industry", industry);
 			}else{
 				int i = lamu.indexOf("大数据");
 				if(i>=0){
-					industry="大数据";
+					map.put("industry", "大数据");
 				}else{
 					int j = site.indexOf("大数据");
 					if(j>=0){
-						industry="大数据";
+						map.put("industry", "大数据");
 					}else{
 						String config=Util.getConfigName(jsonObject);
 						if(config.indexOf("大数据")>=0){
-							industry="大数据";
+							map.put("industry", "大数据");
 						}
 					}
 				}
 			}
 			if(StringUtil.isEmpty(financiers)&&StringUtil.isEmpty(financingCompany)){
-//				return null;
 			}else if(StringUtil.isEmpty(financiers)){
 				/**
 				 * 如果融资方为空，将所属公司的数据存入
 				 */
-				financiers = financingCompany;
+				map.put("financiers", financingCompany);
 			}else if(StringUtil.isEmpty(financingCompany)){
-				 financingCompany = financiers ;
+				map.put("financingCompany", financiers);
 			}
-			String area = Util.getAreaBy(jsonObject);
-			
-			if(dimension.equals("融资快讯")){
-				String str = "$融资快讯";
-				Long dId = Util.getDimensionId(jsonObject, str);
+		
+			if( map.get("dimendion").toString().equals("融资快讯")){
+				Long dId = Util.getDimensionId(jsonObject, Util.Financial_news);
 				if(35002001<=dId && dId <=35002005){
-					dimension = "融资动态";
+					map.put("dimension", "融资动态");
 				}
 				if(StringUtil.isEmpty(industry)){
 					JSONObject keyword = Analysis.findKeyword(title);
 					if(keyword.getBooleanValue("status")){
 						Set<String> set = (Set<String>) keyword.get("result");
 						if(set.isEmpty()){
-							return null ; 
 						}
-						industry = set.iterator().next();
+						map.put("industry", set.iterator().next());
 					}else{
 						keyword = Analysis.findKeyword(lamu);
 						if(keyword.getBooleanValue("status")){
 							Set<String> set = (Set<String>) keyword.get("result");
-							industry = set.iterator().next();
+							map.put("industry", set.iterator().next());
 						}else{
-							return null;
 						}
 					}
 				} 
 				
 			}
-			
-			index3.setId(id);
-			index3.setPublishDate(publishDate);
-			index3.setPublishTime(publishTime);
-			index3.setLogo(logo);
-			index3.setTitle(title);
-			index3.setContent(content);
-			index3.setDimension(dimension);
-			index3.setVector(site);
-			index3.setArticleInfo(articleInfo);
-			index3.setArticleLink(articleLink);
-			//融资方
-			index3.setFinanciers(financiers);
-			//投资金额
-			index3.setFinancingAmount(financingAmount);
-			//融资公司
-			index3.setFinancingCompany(financingCompany);
-			//融资时间
-			index3.setFinancingDate(financingDate);
-			//投资方
-			index3.setInvestor(investor);
-			//所属产业
-			index3.setIndustry(industry);
-			//融资轮次
-			index3.setInvest(invest);
-			index3.setArea(area);
-			
+			index3 = addIndex4Info(map,index3);
 		} catch (Exception e) {
 			return null;
 		}
+		return index3;
+	}
+	
+
+	public Map<String,Object> getIndexInfo(JSONObject jsonObject){
+		Map<String,Object> map = new HashMap<String,Object>();
+		//生成id
+		String url = null == jsonObject.get("id") ? "" : String.valueOf(jsonObject.get("id")); 
+		String id = "";
+		if(StringUtil.isEmpty(url)){
+			byte[] salt = Digests.generateSalt(Encodes.SALT_SIZE);
+			byte[] hashPassword = Digests.sha1(AcquisitionConstant.PASSWORD.getBytes(), Digests.hexStringToBytes(Encodes.encodeHex(salt)),
+					Encodes.HASH_INTERATIONS);
+			 id =  Encodes.encodeHex(hashPassword);
+		}
+		//网站名称
+		String site = Util.getSite(jsonObject);
+		//产业信息
+		String industryInfo = Util.getIndustryInfo(jsonObject);
+		//地域
+		String _area = Util.getArea(jsonObject);
+		//产业
+		String industry = Util.getIndustry(jsonObject, industryInfo);
+		//产业标签
+		String industryLabel = Util.getIndustryLeabl(jsonObject, industryInfo);
+		//维度
+		String _dimension = Util.getDimension(jsonObject);
+		//原文链接
+		String _articleLink = Util.getArticleLink(jsonObject);
+		//作者
+		String _author = Util.getAuthor(jsonObject);
+		//内容
+		String _content = Util.getContent(jsonObject);
+		//点击数
+		Long _hitCount = Util.getHitCount(jsonObject);
+		//发布时间 (yyyy-MM-dd HH:mm:ss)
+		String publishDate = Util.getPublishDate(jsonObject);
+		//发布时间 (yyyy-mm-dd)
+		String publishTime = Util.getPublishTime(publishDate);
+		//发布时间  年份
+		String publishYear = Util.getPublishYear(publishDate);
+		//评论数
+		Long _replyCount = Util.getReplyCount(jsonObject);
+		//载体
+		String _vector = Util.getSite(jsonObject);
+		//来源
+		String _source = Util.getSource(jsonObject);
+		//文章摘要
+		String _summary = Util.getSummary(jsonObject);
+		//标题
+		String _title = Util.getTitle(jsonObject);		
+		//获取公司名称
+		List<String> business = Util.getBusiness(_title, _content);
+		String business1 = Util.getBusiness1(business);
+		
+		//支持数
+		Long _supportCount = Util.getSupportCount(jsonObject);
+		//采集logo
+		String _logo = Util.getLogo(jsonObject);
+		//举办地点
+		String _adress = Util.getAdress(jsonObject);
+		//涉及行业
+		String _bus = Util.getBus(jsonObject);
+		//会展时间
+		String _exhibitiontime = Util.getExhibitiontime(jsonObject);
+		//栏目
+		String _lamu = Util.getLamu(jsonObject);
+		//轮次
+		String invest = Util.getInvest(jsonObject);
+		//投资方
+		String investor = Util.getInvestor(jsonObject);
+		//融资方
+		String financiers = Util.getFinanciers(jsonObject);
+		//融资额
+		String financingAmount = Util.getFinancingAmount(jsonObject);
+		//所属公司
+		String financingCompany = Util.getFinancingCompany(jsonObject);
+		//融资时间
+		String financingDate = Util.getFinancingDate(jsonObject);
+		//详情信息
+		String _baseInfo = Util.getBaseInfo(jsonObject);
+		if(StringUtil.isEmpty(_source)){
+			_source = site;
+		}
+		if(StringUtil.isEmpty(_vector)||_vector.equals("新闻")){
+			_vector = site;
+		}
+		if(StringUtil.isEmpty(_summary)){
+			//截取内容的前100个字做摘要的内容
+			_summary = SimpleSummariserAlgorithm.summarise(StringUtils.rmHtmlTag(_content), 3);
+		}
+		//文本过长，截取一部分展示
+		if(_content.length()>4000){
+			_content = _content.substring(0, 4000);
+		}
+		if(_area.equals("全国")||_area.equals("")){
+			Set<String> area = null;
+			//高峰论坛
+			if(_dimension.equals(AcquisitionConstant.SUMMIT)){
+				area = Util.getArea(_title+_adress, _content);
+			}else if(_dimension.equals(AcquisitionConstant.FINAACIAL_NEWS)){
+				area = Util.getArea(_title+financingCompany+financiers, _content);
+			}else{
+				area = Util.getArea(_title, _content);
+			}
+			Object[] a= area.toArray();
+			if(a.length>0){
+				_area = a[0].toString();
+			}else{
+				_area="全国";
+			}
+		}
+		map.put("id", id);
+		map.put("site", site);
+		map.put("industryInfo",industryInfo);
+		map.put("area", _area);
+		map.put("industry", industry);
+		map.put("industryLabel", industryLabel);
+		map.put("dimension", _dimension);
+		map.put("articleLink", _articleLink);
+		map.put("sourceLink", _articleLink);
+		map.put("author",  _author);
+		map.put("hitCount", _hitCount);
+		map.put("content", _content);
+		map.put("publishDate", publishDate);
+		map.put("publishTime", publishTime);
+		map.put("publishYear", publishYear);
+		map.put("replyCount", _replyCount);
+		map.put("vector", _vector);
+		map.put("source", _source);
+		map.put("summary", _summary);
+		map.put("title", _title);
+		map.put("supportCount",_supportCount);
+		map.put("address", _adress);
+		map.put("bus", _bus);
+		map.put("exhibitiontime",_exhibitiontime);
+		map.put("lamu", _lamu);
+		map.put("invest", invest);
+		map.put("investor", investor);
+		map.put("financiers", financiers);
+		map.put("financingAmount", financingAmount);
+		map.put("financingCompany", financingCompany);
+		map.put("financingDate", financingDate);
+		map.put("baseInfo", _baseInfo );
+		map.put("logo", _logo );
+		//涉及公司
+		map.put("business",business1);
+		map.put("park","");
+		return map;
+	}
+	/**
+	 * @param map
+	 * @param index
+	 * @return
+	 */
+	private Index addIndexInfo(Map<String, Object> map, Index index) {
+		index.setId(map.get("id").toString());
+		index.setEngageState("");
+		index.setIdentity("");
+		index.setRegisterCapital("");
+		index.setRegisterData("");
+		index.setAddress(map.get("address").toString());
+		index.setEstablishTime("");
+		index.setPark(map.get("park").toString());
+		index.setAcreage("");
+		index.setBusiness(map.get("business").toString());
+		index.setIndustryType("");
+		index.setUpdateAttribute("");
+		index.setBoss("");
+		index.setBusinessType("");
+		index.setHasWarn(true);
+		index.setLogo(map.get("logo").toString());
+		index.setArea(map.get("area").toString());
+		index.setIndustry(map.get("industry").toString());
+		index.setIndustryLabel(map.get("industryLabel").toString());
+		index.setArticleLink(map.get("articleLink").toString());
+		index.setAuthor(map.get("author").toString());
+		index.setContent(map.get("content").toString());
+		index.setSource(map.get("source").toString());
+		index.setDimension(map.get("dimension").toString());
+		index.setVector(map.get("vector").toString());
+		index.setTitle(map.get("title").toString());
+		index.setSummary(map.get("summary").toString());
+		index.setSourceLink(map.get("sourceLink").toString());
+		index.setPublishDate(map.get("publishDate").toString());
+		index.setPublishTime(map.get("publishTime").toString());
+		index.setPublishYear(map.get("publishYear").toString());
+		index.setHitCount((Long) map.get("hitCount"));
+		index.setReplyCount((Long) map.get("replyCount"));
+		index.setSupportCount((Long) map.get("supportCount"));
+		index.setIstop(false);
+		return index;
+	}
+	/**
+	 * @param map
+	 * @param index2
+	 * @return
+	 * 为index2赋值
+	 */
+	private Index2 addIndex2Info(Map<String, Object> map, Index2 index2,IndustryInfoService indusService) {
+		IndustryInfo indus = null;
+		if(StringUtil.isEmpty(map.get("industryLeabl").toString())){
+			return null;
+		}else{
+			if(map.get("industryLeabl").toString().equals("物联网")||map.get("industryLeabl").toString().equals("生物医药")){
+				System.out.println(map.get("industryLeabl").toString());
+			}else{
+				if(StringUtil.isEmpty(map.get("exhibitiontime").toString())&&StringUtil.isEmpty(map.get("adress").toString())){
+					return null;
+				}
+			}
+			indus = indusService.getIndusbyIndustryLabel(map.get("industryLeabl").toString());
+		}
+		if(indus.getIndustryThree() == null||StringUtil.isEmpty(indus.getIndustryThree())){
+			log.info("查找产业分类信息失败！");
+			return null;
+		}else{
+			index2.setIdustryThree(indus.getIndustryThree());
+			index2.setIdustryTwice(indus.getIndustryTwo());
+			index2.setIdustryZero(indus.getIndustryOne());
+		}
+		index2.setId(map.get("id").toString());
+		index2.setAddress(map.get("address").toString());
+		index2.setArea(map.get("area").toString());
+		index2.setArticleLink(map.get("articleLink").toString());
+		index2.setAuthor(map.get("author").toString());
+		index2.setBus(map.get("bus").toString());
+		index2.setBusiness(map.get("business").toString());
+		index2.setContent(map.get("content").toString());
+		index2.setDimension(map.get("dimension").toString());
+		index2.setEmotion("");
+		index2.setExhibitiontime(map.get("exhibitiontime").toString());
+		index2.setHasWarn(false);
+		index2.setHitCount((Long)map.get("hitCount"));
+//		index2.setIdustryThree(industryLeabl);
+		index2.setIstop(false);
+		index2.setLogo(map.get("logo").toString());
+		index2.setPublishDate(map.get("publishDate").toString());
+		index2.setPublishTime(map.get("publishTime").toString());
+		index2.setPublishYear(map.get("publishYear").toString());
+		index2.setReplyCount((Long)map.get("replyCount"));
+		index2.setSource(map.get("source").toString());
+		index2.setSummary(map.get("summary").toString());
+		index2.setSupportCount((Long)map.get("supportCount"));
+		index2.setTitle(map.get("title").toString());
+		index2.setVector(map.get("vector").toString());
+		return index2;
+	}
+	/**
+	 * @param map
+	 * @param index3
+	 * @return
+	 */
+	private Index3 addIndex4Info(Map<String, Object> map, Index3 index3) {
+		index3.setId(map.get("id").toString());
+		index3.setPublishDate(map.get("publishDate").toString());
+		index3.setPublishTime( map.get("publishTime").toString());
+		index3.setLogo( map.get("logo").toString());
+		index3.setTitle( map.get("title").toString());
+		index3.setContent( map.get("content").toString());
+		index3.setDimension( map.get("dimension").toString());
+		index3.setVector( map.get("site").toString());
+		index3.setArticleInfo( map.get("baseInfo").toString());
+		index3.setArticleLink( map.get("articleLink").toString());
+		//融资方
+		index3.setFinanciers( map.get("financiers").toString());
+		//投资金额
+		index3.setFinancingAmount( map.get("financingAmount").toString());
+		//融资公司
+		index3.setFinancingCompany( map.get("financingCompany").toString());
+		//融资时间
+		index3.setFinancingDate( map.get("financingDate").toString());
+		//投资方
+		index3.setInvestor( map.get("investor").toString());
+		//所属产业
+		index3.setIndustry( map.get("industry").toString());
+		//融资轮次
+		index3.setInvest( map.get("invest").toString());
+		index3.setArea(map.get("area").toString());
 		return index3;
 	}
 }
