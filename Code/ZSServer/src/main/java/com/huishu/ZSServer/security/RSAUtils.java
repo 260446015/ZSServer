@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.security;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -21,7 +23,7 @@ public class RSAUtils {
 	public static KeyPair getKeys() {
 		KeyPairGenerator keyPairGen = null;
 		try {
-			keyPairGen = KeyPairGenerator.getInstance("RSA", new org.bouncycastle.jce.provider.BouncyCastleProvider());
+			keyPairGen = KeyPairGenerator.getInstance("RSA", new BouncyCastleProvider());
 		} catch (NoSuchAlgorithmException e) {
 			// ignore
 			e.printStackTrace();
