@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.huishu.ManageServer.common.AjaxResult;
 import com.huishu.ManageServer.common.conf.MsgConstant;
+import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbSecond.CompanyEntity;
+import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
+import com.huishu.ManageServer.entity.dto.IndustrySummitDTO;
+import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
 import com.huishu.ManageServer.service.third.ThesaurusService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -44,12 +48,47 @@ public class ThesaurusController extends BaseController{
 		return "/thesaurus/" + page;
 	}
 	/**
-	 *	获取所有的关键词集合
+	 *	获取关联关系的信息
 	 * @param dto
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "listKeyWord.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/findRelatedInfoById.json", method = RequestMethod.GET,params={"id"})
+	public AjaxResult findRelatedInfoById( String id){
+		try {
+			if(StringUtil.isEmpty(id)){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			JSONObject obj = service.findRelatedById(id);
+			return success(obj);
+		} catch (Exception e) {
+			LOGGER.error("根据id查看关键词以及关联关系!",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+		
+	}
+	/**
+	 *	根据id删除关键词以及关联关系
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteRelatedInfoById.json", method = RequestMethod.GET,params={"id"})
+	public AjaxResult deleteRelatedInfoById( String id){
+		try {
+			if(StringUtil.isEmpty(id)){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			boolean info = service.deleteRelatedById(id);
+			return success(info);
+		} catch (Exception e) {
+			LOGGER.error("根据id删除关键词以及关联关系失败!",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+		
+	}
+	@ResponseBody
+	@RequestMapping(value = "/listKeyWord.do", method = RequestMethod.GET)
 	public AjaxResult listKeyWord(){
 		try {
 			JSONArray obj = service.findAllKeyWord();
@@ -59,5 +98,24 @@ public class ThesaurusController extends BaseController{
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 		
+	}
+	/**
+	 * 关键词列表展示
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/findKeyWordInfo.json", method = RequestMethod.POST)
+	public AjaxResult findKeyWordInfo(@RequestBody TKeyWordDTO dto){
+		try {
+			if(StringUtil.isEmpty(dto.getType())){
+				return error(MsgConstant.ILLEGAL_PARAM);
+				
+			}
+			Page<ThesaurusEntity> page = service.findByPage(dto);
+			return  successPage(page, page.getNumber()+1);
+		} catch (Exception e) {
+			LOGGER.error("获取关键词库列表失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
 	}
 }

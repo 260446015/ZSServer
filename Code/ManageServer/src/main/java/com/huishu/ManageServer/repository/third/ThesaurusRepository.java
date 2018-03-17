@@ -1,5 +1,11 @@
 package com.huishu.ManageServer.repository.third;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +19,16 @@ import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
  * @return 
  */
 @TargetDataSource(name="third")
-public interface ThesaurusRepository extends CrudRepository<ThesaurusEntity,Long> {
+@Repository
+public interface ThesaurusRepository  extends JpaRepository<ThesaurusEntity,Long>,JpaSpecificationExecutor<ThesaurusEntity> {
+
+	/**
+	 * 根据类型查看关键词信息
+	 * @param type
+	 * @param pageNumber
+	 * @return
+	 */
+	Page<ThesaurusEntity> findByType(String type, Pageable page);
+
 
 }
