@@ -1,12 +1,55 @@
 .Precisecircles ul li:nth-child(1){
     position: absolute;
     left: 44%;
-    top: 570%;
+    top: 425%;
     transform: translateY(-50%);
+    animation:myfirst 5s  infinite  ;
+    -moz-animation:myfirst 5s  infinite  ; /* Firefox */
+    -webkit-animation:myfirst 5s  infinite  ; /* Safari and Chrome */
+    -o-animation:myfirst 5s  infinite  ; /* Opera */
+    animation-fill-mode:backwards ;
+}
+
+@keyframes myfirst
+{
+0%{ transform: translate(4px,3px)}
+25%{transform: translate(2px,-1px)}
+50%{transform: translate(2px,-2px)}
+75%{transform: translate(-3px,2px)}
+100%{transform: translate(2px,4px)}
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+    0%{ transform: translate(6px,3px)}
+    25%{transform: translate(2px,-1px)}
+    50%{transform: translate(2px,-2px)}
+    75%{transform: translate(-3px,2px)}
+    100%{transform: translate(2px,4px)}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+    0%{ transform: translate(6px,3px)}
+    25%{transform: translate(2px,-1px)}
+    50%{transform: translate(2px,-2px)}
+    75%{transform: translate(-3px,2px)}
+    100%{transform: translate(2px,4px)}
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+    0%{ transform: translate(5px,3px)}
+    25%{transform: translate(2px,-1px)}
+    50%{transform: translate(2px,-2px)}
+    75%{transform: translate(-3px,2px)}
+    100%{transform: translate(2px,2px)}
 }
 
 .Precisecircles ul li:nth-child(1) div{
     background: -webkit-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
+    background: -moz-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
+    background: -o-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -92,9 +135,53 @@
     position: absolute;
     left: 36%;
     top: 244%;
+    animation:lis2 7s  infinite  ;
+    -moz-animation:lis2 7s  infinite  ; /* Firefox */
+    -webkit-animation:lis2 7s  infinite  ; /* Safari and Chrome */
+    -o-animation:lis2 7s  infinite  ; /* Opera */
+    animation-fill-mode:backwards ;
 }
+
+@keyframes lis2
+{
+0%{ transform: translate(8px,-1px)}
+25%{transform: translate(-2px,1px)}
+50%{transform: translate(2px,2px)}
+75%{transform: translate(-3px,-2px)}
+100%{transform: translate(6px,3px)}
+}
+
+@-moz-keyframes lis2 /* Firefox */
+{
+    0%{ transform: translate(8px,-1px)}
+    25%{transform: translate(-2px,1px)}
+    50%{transform: translate(2px,2px)}
+    75%{transform: translate(-3px,-2px)}
+    100%{transform: translate(6px,3px)}
+}
+
+@-webkit-keyframes lis2 /* Safari and Chrome */
+{
+    0%{ transform: translate(8px,-1px)}
+    25%{transform: translate(-2px,1px)}
+    50%{transform: translate(2px,2px)}
+    75%{transform: translate(-3px,-2px)}
+    100%{transform: translate(6px,3px)}
+}
+
+@-o-keyframes lis2 /* Opera */
+{
+    0%{ transform: translate(8px,-1px)}
+    25%{transform: translate(-2px,1px)}
+    50%{transform: translate(2px,2px)}
+    75%{transform: translate(-3px,-2px)}
+    100%{transform: translate(6px,3px)}
+}
+
 .Precisecircles ul li:nth-child(2) div{
     background: -webkit-linear-gradient(Top,#3b6aa0,#40589e,#47499c);
+    background: -moz-linear-gradient(Top,#3b6aa0,#40589e,#47499c);
+    background: -o-linear-gradient(Top,#3b6aa0,#40589e,#47499c);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -121,11 +208,20 @@
 
 .Precisecircles ul li:nth-child(3){
     position: absolute;
-    left: 24%;
-    top: 409%;
+    left: 19%;
+    top: 492%;
+    animation:gogogo 5s  infinite  ;
+    -moz-animation:gogogo 5s  infinite  ; /* Firefox */
+    -webkit-animation:gogogo 5s  infinite  ; /* Safari and Chrome */
+    -o-animation:gogogo 5s  infinite  ; /* Opera */
+    animation-fill-mode:backwards ;
 }
+
+
 .Precisecircles ul li:nth-child(3) div{
     background: -webkit-linear-gradient(Top,#2a5577,#2f4777,#37387b);
+    background: -moz-linear-gradient(Top,#2a5577,#2f4777,#37387b);
+    background: -o-linear-gradient(Top,#2a5577,#2f4777,#37387b);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -155,9 +251,16 @@
     position: absolute;
     left: 51%;
     top: 202%;
+    animation:lis2 7s  infinite  ;
+    -moz-animation:lis2 7s  infinite  ; /* Firefox */
+    -webkit-animation:lis2 7s  infinite  ; /* Safari and Chrome */
+    -o-animation:lis2 7s  infinite  ; /* Opera */
+    animation-fill-mode:backwards ;
 }
 .Precisecircles ul li:nth-child(4) div{
     background: -webkit-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
+    background: -moz-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
+    background: -o-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -184,11 +287,18 @@
 
 .Precisecircles ul li:nth-child(5){
     position: absolute;
-    left: 79%;
-    top: 393%;
+    left: 74%;
+    top: 474%;
+    animation:myfirst 6s  infinite  ;
+    -moz-animation:myfirst 6s  infinite  ; /* Firefox */
+    -webkit-animation:myfirst 6s  infinite  ; /* Safari and Chrome */
+    -o-animation:myfirst 6s  infinite  ; /* Opera */
+    animation-fill-mode:backwards ;
 }
 .Precisecircles ul li:nth-child(5) div{
     background: -webkit-linear-gradient(Top,#4e8fcf,#4d71c7,#565ec3);
+     background: -moz-linear-gradient(Top,#4e8fcf,#4d71c7,#565ec3);
+      background: -o-linear-gradient(Top,#4e8fcf,#4d71c7,#565ec3);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -214,11 +324,18 @@
 
 .Precisecircles ul li:nth-child(6){
     position: absolute;
-    left: 64%;
-    top: 367%;
+    left: 67%;
+    top: 281%;
+    animation:myfirst 6s  infinite  ;
+    -moz-animation:myfirst 6s  infinite  ; /* Firefox */
+    -webkit-animation:myfirst 6s  infinite  ; /* Safari and Chrome */
+    -o-animation:myfirst 6s  infinite  ; /* Opera */
+    animation-fill-mode:backwards ;
 }
 .Precisecircles ul li:nth-child(6) div{
     background: -webkit-linear-gradient(Top,#4188b6,#4977b5,#5e66b1);
+    background: -moz-linear-gradient(Top,#4188b6,#4977b5,#5e66b1);
+    background: -o-linear-gradient(Top,#4188b6,#4977b5,#5e66b1);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -244,11 +361,18 @@
 
 .Precisecircles ul li:nth-child(7){
     position: absolute;
-    left: 63%;
-    top: 548%;
+    left: 61%;
+    top: 605%;
+    animation:lis2 7s  infinite  ;
+    -moz-animation:lis2 7s  infinite  ; /* Firefox */
+    -webkit-animation:lis2 7s  infinite  ; /* Safari and Chrome */
+    -o-animation:lis2 7s  infinite  ; /* Opera */
+    animation-fill-mode:backwards ;
 }
 .Precisecircles ul li:nth-child(7) div{
     background: -webkit-linear-gradient(Top,#4691ca,#4d77c9,#488ecc);
+    background: -moz-linear-gradient(Top,#4691ca,#4d77c9,#488ecc);
+    background: -o-linear-gradient(Top,#4691ca,#4d77c9,#488ecc);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -275,11 +399,18 @@
 
 .Precisecircles ul li:nth-child(8){
     position: absolute;
-    left: 18%;
-    top: 215%;
+    left: 25%;
+    top: 342%;
+    animation:gogogo 6s  infinite  ;
+    -moz-animation:gogogo 6s  infinite  ; /* Firefox */
+    -webkit-animation:gogogo 6s  infinite  ; /* Safari and Chrome */
+    -o-animation:gogogo 6s  infinite  ; /* Opera */
+    animation-fill-mode:backwards ;
 }
 .Precisecircles ul li:nth-child(8) div{
     background: -webkit-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
+     background: -moz-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
+      background: -o-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -309,9 +440,17 @@
     position: absolute;
     left: 46%;
     top: 710%;
+    animation:myfirst 4s  infinite  ;
+    -moz-animation:myfirst 4s  infinite  ; /* Firefox */
+    -webkit-animation:myfirst 4s  infinite  ; /* Safari and Chrome */
+    -o-animation:myfirst 4s  infinite  ; /* Opera */
+    animation-fill-mode:backwards ;
 }
+
 .Precisecircles ul li:nth-child(9) div{
     background: -webkit-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
+    background: -moz-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
+    background: -o-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -340,9 +479,16 @@
     position: absolute;
     left: 30%;
     top: 649%;
+    animation:lis2 5s  infinite  ;
+    -moz-animation:lis2 5s  infinite  ; /* Firefox */
+    -webkit-animation:lis2 5s  infinite  ; /* Safari and Chrome */
+    -o-animation:lis2 5s  infinite  ; /* Opera */
+    animation-fill-mode:backwards ;
 } 
 .Precisecircles ul li:nth-child(10) div{
     background: -webkit-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
+    background: -moz-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
+    background: -o-linear-gradient(Top,#20c2fe,#3b83a9,#bd62f7);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -415,4 +561,40 @@
 
 .markSure{
     min-height: 600px;
+}
+
+@keyframes gogogo
+{
+0%{ transform: translate(-7px,3px)}
+25%{transform: translate(2px,-1px)}
+50%{transform: translate(6px,2px)}
+75%{transform: translate(-3px,-2px)}
+100%{transform: translate(-5px,6px)}
+}
+
+@-moz-keyframes gogogo /* Firefox */
+{
+    0%{ transform: translate(-7px,3px)}
+    25%{transform: translate(2px,-1px)}
+    50%{transform: translate(6px,2px)}
+    75%{transform: translate(-3px,-2px)}
+    100%{transform: translate(-5px,6px)}
+}
+
+@-webkit-keyframes gogogo /* Safari and Chrome */
+{
+    0%{ transform: translate(-7px,3px)}
+    25%{transform: translate(2px,-1px)}
+    50%{transform: translate(6px,2px)}
+    75%{transform: translate(-3px,-2px)}
+    100%{transform: translate(-5px,6px)}
+}
+
+@-o-keyframes gogogo /* Opera */
+{
+    0%{ transform: translate(-7px,3px)}
+    25%{transform: translate(2px,-1px)}
+    50%{transform: translate(6px,2px)}
+    75%{transform: translate(-3px,-2px)}
+    100%{transform: translate(-5px,6px)}
 }
