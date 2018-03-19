@@ -106,7 +106,7 @@ function pushImg(){
 }
 function pdf_check(feid) { //自己添加的文件后缀名的验证
     var img = document.getElementById("file");
-    if(img.files[0].size<10*1024*1024){
+    if(img.files[0].size<3*1024*1024){
         return true;
     }
     return false;
