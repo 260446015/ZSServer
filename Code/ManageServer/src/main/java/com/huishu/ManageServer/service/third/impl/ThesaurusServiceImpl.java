@@ -130,6 +130,9 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 					});
 					obj.put("relate", arr);
 				}
+				obj.put("desc", one.getDescribe());			
+				obj.put("exp", one.getKeyExplanatory());			
+				obj.put("kbs", one.getKeyBusiness());	
 				obj.put("keyword", one.getKeyword());
 				obj.put("type", one.getType());
 				obj.put("result", true);
