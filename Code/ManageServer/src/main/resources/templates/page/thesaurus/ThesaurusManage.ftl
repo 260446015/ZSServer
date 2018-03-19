@@ -89,7 +89,7 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<div class="bk-margin-bottom-10">
-												<button id="addOneToTable" class="btn btn-info">添加 <i class="fa fa-plus"></i></button>
+												<button id="addKeywordToTable" class="btn btn-info">添加 <i class="fa fa-plus"></i></button>
 											</div>
 										</div>
 									</div>
