@@ -50,6 +50,9 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			Long id = action.getId();
 			String keyword = action.getKeyword();//关键词
 			String type = action.getType();//词类型
+			String desc=action.getDescribe();//描述
+			String exp=action.getKeyExplanatory();//产业解释性关键词
+			String kbs = action.getKeyBusiness();//产业业务性关键词
 			List<KeyWordRelatedEntity> list = krp.findByWordId(id);
 			list.forEach(act->{
 				JSONObject oj = new JSONObject();
@@ -63,6 +66,10 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 					arr.add(oj);
 				}
 			});
+			
+			o.put("desc", desc);			
+			o.put("exp", exp);			
+			o.put("kbs", kbs);			
 			o.put("keyword", keyword);			
 			o.put("type", type);
 			o.put("relate", arr);
