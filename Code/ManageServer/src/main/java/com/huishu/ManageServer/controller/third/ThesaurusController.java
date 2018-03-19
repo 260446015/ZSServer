@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.IndustrySummitDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
+import com.huishu.ManageServer.es.entity.SummitInfo;
 import com.huishu.ManageServer.service.third.ThesaurusService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -44,7 +46,12 @@ public class ThesaurusController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = { "{page}.html" }, method = RequestMethod.GET)
-	public String findYQCompany(@PathVariable String page) {
+	public String findYQCompany(@PathVariable String page,String id ,Model model) {
+		if("ThesaurusRelatedManage".equals(page)){
+			if(StringUtil.isNotEmpty(id)){
+				model.addAttribute("info", id);
+			}
+		}
 		return "/thesaurus/" + page;
 	}
 	/**

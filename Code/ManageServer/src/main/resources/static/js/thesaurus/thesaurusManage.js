@@ -49,6 +49,13 @@ function getType(e){
 	});
 };
 function initPage(){
+	$('#addKeywordToTable').on('click',function(){
+		window.location.href="/apis/keyInfo/ThesaurusRelatedManage.html";
+	});
+	$('.editinfo').on('click',function(){
+		 var _id =  $(this).parents('.gradeX').find('td').eq(0).text();
+		window.location.href="/apis/keyInfo/ThesaurusRelatedManage.html?id="+_id;
+	});
 	$('.btn-default').on('click',function(){
 		 var _id =  $(this).parents('.gradeX').find('td').eq(0).text();
 		 $.ajax({
