@@ -286,6 +286,7 @@ function savaFocus() {
                     layer.close(index);
                     window.location.href="/apis/report/htmlReport.html";
                 }else{
+                    layer.close(index);
                     layer.alert(response.message);
                 }
             }

@@ -80,18 +80,22 @@ function showPage(req) {
 }
 function pushImg(){
     if (pdf_check()) {
+        var index = layer.load();
         $.ajaxFileUpload({
                 url : "/apis/file/pdfUpload.json",
                 fileElementId:'file',
                 success: function(response){
                     var data =jQuery.parseJSON(jQuery(response).text());
                     if(data.success){
+                        layer.close(index);
                         window.location.reload();
                     }else{
+                        layer.close(index);
                         layer.msg(data.message, {icon: 2});
                     }
                 },
                 error:function(data,status,e){
+                    layer.close(index);
                     layer.msg(e, {icon: 2});
                 }
             }
@@ -102,7 +106,7 @@ function pushImg(){
 }
 function pdf_check(feid) { //自己添加的文件后缀名的验证
     var img = document.getElementById("file");
-    if(img.files[0].size<1024*1024){
+    if(img.files[0].size<10*1024*1024){
         return true;
     }
     return false;
