@@ -3,6 +3,7 @@ package com.huishu.ManageServer.service.enterprise;
 import java.util.List;
 
 import com.huishu.ManageServer.entity.dbFirst.Enterprise;
+import com.huishu.ManageServer.entity.dbFirst.IndusCompany;
 
 /**
  * @author hhy
@@ -25,5 +26,22 @@ public interface IndustryCompanyService {
 	 * 保存新的数据
 	 */
 	boolean saveListCompany(List<Enterprise> list);
+
+	/**
+	 * @return
+	 */
+	List<IndusCompany> ListAllInfo();
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	boolean deleteInfoById(String id);
+
+	/**
+	 * @param ent
+	 * @return
+	 */
+	boolean saveOrUpdateInfo(IndusCompany ent);
 
 }

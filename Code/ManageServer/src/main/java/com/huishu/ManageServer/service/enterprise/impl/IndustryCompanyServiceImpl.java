@@ -20,6 +20,7 @@ import com.huishu.ManageServer.service.enterprise.IndustryCompanyService;
  */
 @Service
 public class IndustryCompanyServiceImpl implements IndustryCompanyService {
+	
 	@Autowired
 	private IndusCompanyRepository rep;
 
@@ -55,6 +56,39 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 			rep.save(ll);
 			return true;
 		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public List<IndusCompany> ListAllInfo() {
+		try {
+			return (List<IndusCompany>) rep.findAll();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	
+	@Override
+	public boolean deleteInfoById(String id) {
+		try {
+			Long _id = Long.parseLong(id);
+			rep.delete(_id);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	
+	@Override
+	public boolean saveOrUpdateInfo(IndusCompany ent) {
+		try {
+			 rep.save(ent);
+			return true;
+		} catch (Exception e) {
+
 			return false;
 		}
 	}
