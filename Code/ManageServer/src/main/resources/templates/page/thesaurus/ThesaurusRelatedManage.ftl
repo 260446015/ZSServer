@@ -50,7 +50,7 @@
 					<div class="page-header">
 						<div class="pull-left">
 							<ol class="breadcrumb visible-sm visible-md visible-lg">								
-								<li><a href="index.html"><i class="icon fa fa-home"></i>主页</a></li>
+								<li><a href="/apis/user/userPark.html"><i class="icon fa fa-home"></i>主页</a></li>
 								<li><a href="#"><i class="fa fa-table"></i>表格</a></li>
 								<li class="active"><i class="fa fa-pencil-square-o"></i>词库关联关系管理</li>
 							</ol>						
@@ -74,7 +74,13 @@
 									<div class="row">
 										<!-- 展示内容部分 -->
 											<form id="form-info" class="form-horizontal mb-lg" novalidate="novalidate" >		
-											</form>				
+											</form>
+											<p>
+                              				 <button class="bk-margin-5 btn btn-labeled btn-success" type="button">
+                                    	<span class="btn-label"><i class="fa fa-check"></i></span>保存</button>
+                                			<button class="bk-margin-5 btn btn-labeled btn-danger" type="button">
+                                   	 	<span class="btn-label"><i class="fa fa-times"></i></span>取消</button>
+                            		</p>				
 										<!-- 展示结束 -->
 									</div>
 									

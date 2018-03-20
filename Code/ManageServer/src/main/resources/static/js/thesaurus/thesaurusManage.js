@@ -98,7 +98,10 @@ function ShowInfo(e){
 				'<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+item.id+'"/><td>' 
 				+item.id+ '</td><td>'
 				+item.keyword+ '</td><td>'
-				+item.type + '</td>'
+				+item.type + '</td><td>'
+				+item.describe+ '</td><td>'
+				+item.keyExplanatory+ '</td><td>'
+				+item.keyBusiness+ '</td>'
 				+ '<td class="actions">'
 	            +'<a href="javascript:void(0);" class="on-default editinfo"><i class="fa fa-pencil"></i></a>'
 	            +'<a href="javascript:void(0);" class="on-default removeinfo modal-basic"><i class="fa fa-trash-o"></i></a>'
@@ -147,6 +150,27 @@ function ShowRelatedInfo(e){
 					);
 				}
 			}
+		}else if(index=="desc"){
+			arr.push(
+					'<div class="form-group"><label class="col-sm-3 control-label">关键词描述</label>'
+					+'<div class="col-sm-9">'
+					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
+					+'</div></div>'		
+			);
+		}else if(index=="exp"){
+			arr.push(
+					'<div class="form-group"><label class="col-sm-3 control-label">解释性关键词</label>'
+					+'<div class="col-sm-9">'
+					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
+					+'</div></div>'		
+			);
+		}else if(index=="kbs"){
+			arr.push(
+					'<div class="form-group"><label class="col-sm-3 control-label">业务性关键词</label>'
+					+'<div class="col-sm-9">'
+					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
+					+'</div></div>'		
+			);
 		}
 	});
 	var inner = arr.join('');
