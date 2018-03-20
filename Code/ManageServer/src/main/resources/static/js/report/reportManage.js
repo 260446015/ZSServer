@@ -79,7 +79,7 @@ function showPage(req) {
     });
 }
 function pushImg(){
-    if (pdf_check()) {
+    if (pdf_check('file')) {
         var index = layer.load();
         $.ajaxFileUpload({
                 url : "/apis/file/pdfUpload.json",
@@ -104,8 +104,8 @@ function pushImg(){
         layer.msg("文件超过上传大小");
     }
 }
-function pdf_check(feid) { //自己添加的文件后缀名的验证
-    var img = document.getElementById("file");
+function pdf_check(fileId) { //自己添加的文件后缀名的验证
+    var img = document.getElementById(fileId);
     if(img.files[0].size<3*1024*1024){
         return true;
     }
