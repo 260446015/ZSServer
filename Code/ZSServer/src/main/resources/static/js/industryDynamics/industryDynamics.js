@@ -43,7 +43,7 @@ function getKeyWordCloud(d) {
 				var arr = res.data;
 				echarts.dispose(document.getElementById("scatter"));
 				var scatter = echarts.init(document.getElementById("scatter"));
-				//echartDataInit(arr);
+				echartDataInit(arr);
 				// console.log(arr)
 				// console.log(data1)
 				option.series[0].data = data1;
@@ -65,7 +65,7 @@ $("input[type=radio]").on("ifClicked", function (event) {
 $("input[type=radio]").iCheck({
 	radioClass: 'iradio_square-blue'
 });
-/* function echartDataInit(arr) {
+ function echartDataInit(arr) {
 	data1 = [
 		{
 			value: [50, 50], symbolSize: 140, name: arr[0].name, label: label
@@ -106,7 +106,7 @@ $("input[type=radio]").iCheck({
 	];
 
 	return data1;
-}; */
+}; 
 var label = {
 	normal: {
 		show: true,
