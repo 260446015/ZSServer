@@ -1,6 +1,9 @@
 var _id;
+
+var index=1;
+var length=1;
+var option="";
 function editData(info){
-	console.log(info);
 	_id = info;
 	 $.ajax({
 		 	type:'GET',
@@ -11,90 +14,133 @@ function editData(info){
 					layer.msg(res.message, {icon: 2});
 				}else{
 					if(res.data.result==true){
-						$('#form-info').html(ShowRelatedInfo(res.data));
+						$('input[name="id"]').val(res.data.id);
+						$('input[name="keyword"]').val(res.data.keyword);
+						$('input[name="type"]').val(res.data.type);
+						$('input[name="describe"]').val(res.data.desc);
+						$('#fomr-info').html(ShowRelatedInfo(res.data.relate));
+						
+						var param ={type:"全部",pageSize:100,pageNumber:0};
+						   $.ajax({
+								type:'POST',
+								url:'/apis/keyInfo/findKeyWordInfo.json',
+								asynyc:false,
+								contentType:'application/json',
+								data:JSON.stringify(param),
+								success:function(response){
+						                if(response.success){
+						                    $.each(response.data.dataList,function (i,e) {
+						                        option+="<option value='"+e.id+"'>"+e.keyword+"("+e.type+")</option>";
+						                    });
+						                }else{
+						                    layer.alert(response.message);
+						                }
+						            }
+						   });
+						   //删除原有关联关系事件
+							   
+						   //添加关系事件
+						$(".my_addinfo").on("click",function(){
+						    $("#fomr-info").append('<div class="form-group add_'+index+'">' +
+						        '<label class="col-sm-3 control-label" for="state">关联关系</label>' +
+						        '<div class="col-sm-3">' +
+						        '<select name="dealer_'+index+'" id="dealer_'+index+'" class="selectpicker show-tick form-control"  data-width="98%" data-first-option="false" required data-live-search="true">' +
+						        option +'</select>' +
+						        '</div>' +
+						        '<div class="col-md-3">' +
+						        '<input type="text" name="name_'+index+'" class="form-control" placeholder="请填写关联关系">' +
+						        '</div>' +
+						        '<button class="btn btn-info btn-xs drop_'+index+'">删除 <i class="fa fa-minus"></i></button>' +
+						        '</div>');
+						    $(".selectpicker" ).selectpicker('refresh')
+						    $(".drop_"+index+"").on("click",function () {
+						        var a = $(this).attr('class');
+						        var s =a.substring(25,a.length);
+						        $(".add_"+s+"").remove();
+						        length--;
+						    });
+						    index++;
+						    length++;
+						});
+						
+						
 					}
 				}
 			}
 	 });
 };
-function ShowRelatedInfo(e){
-	var arr = [];
-	/*console.log(e);
-	console.log(e.keyword);
-	console.log(e.type);
-	console.log("词语描述："+e.desc);
-	console.log("词语解释性："+e.exp);
-	console.log("词语业务性："+e.kbs);
-	console.log(e.relate);
-	var array = [];
-	array.push(e.keyword+"("+e.type+")",e.type,e.desc,e.exp,e.kbs,e.relate);
-	console.log(array);
-	*/
-	$.each(e,function(index,item){
-		if(index=="keyword"){
-			arr.push(
-					'<div class="form-group mt-lg"><label class="col-sm-3 control-label">关键词</label>'
-					+'<div class="col-sm-9">'
-					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
-					+'</div></div>'		
-			);
-		}else if(index=="type"){
-			arr.push(
-					'<div class="form-group"><label class="col-sm-3 control-label">词性</label>'
-					+'<div class="col-sm-9">'
-					+'<select id="select" name="select" class="form-control input-lg" size="1">'
-					+'	<option value="0">'+item+'</option>'
-					+'	<option value="1">人名</option>'
-					+'	<option value="2">产业</option>'
-					+'	<option value="3">企业</option>'
-					+'	<option value="3">地域</option>'
-					+'	</select>'
-					+'</div></div>'		
-			);
-		}else if(index=="relate"){
-			if(item==false){
-			}else{
-				for(var i =0;i<item.length;i++){
-					arr.push(
-						'<div class="form-group"><label class="col-sm-3 control-label">关联词</label>'
-						+'<div class="col-sm-9">'
-						+'<input type="text" name="name" class="form-control" placeholder="'+item[i].rkeyword+'" value="'+item[i].rkeyword+'('+item[i].rtype+') " required/>'
-						+'</div>'
-						+'<label class="col-sm-3 control-label">关联关系</label>'
-						+'<div class="col-sm-9">'
-						+'<input type="text" name="name" class="form-control" placeholder="'+item[i].related+'" value="'+item[i].related+'" required/>'
-						+'</div>'
-						+'</div>'	
-						+'</div></div>'	);
-				}
-			}
-		}else if(index=="desc"){
-			arr.push(
-					'<div class="form-group"><label class="col-sm-3 control-label">关键词描述</label>'
-					+'<div class="col-sm-9">'
-					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
-					+'</div></div>'		
-			);
-		}else if(index=="exp"){
-			arr.push(
-					'<div class="form-group"><label class="col-sm-3 control-label">解释性关键词</label>'
-					+'<div class="col-sm-9">'
-					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
-					+'</div></div>'		
-			);
-		}else if(index=="kbs"){
-			arr.push(
-					'<div class="form-group"><label class="col-sm-3 control-label">业务性关键词</label>'
-					+'<div class="col-sm-9">'
-					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
-					+'</div></div>'		
-			);
-		}
-	});
-	var inner = arr.join('');
-	return inner;
-};
-
+var m=1;
+$(function(){
+$('.btn-success').on('click',function(){
+	var keyword = $('input[name="keyword"]').val();
+	var type = $('input[name="type"]').val();
+	var _id = $('input[name="id"]').val();
+	var descrip = $('input[name="describe"]').val();
+	var arr = new Array();
+	var array = new Array();
+    var i=1;
+    var j=1;
+      while (true){
+          var _options=$("#dealer_"+i+" option:selected").val();
+          var _describe = $("input[name='name_"+i+"']").val();
+          if(typeof(_options) != "undefined"){
+              arr.push({
+                  options:_options,
+                  describe:_describe
+              });
+              j++;
+          }
+          i++;
+          if(j==length) break;
+          if(i>50) break;
+      }
+    
+      var n=m;
+        while (true){
+            var _options=$("#dept_"+m+" option:selected").val();
+            var _describe = $("input[name='relate_"+m+"']").val();
+            if(typeof(_options) != "undefined"){
+            	array.push({
+                    options:_options,
+                    describe:_describe
+                });
+                n++;
+            }
+            m++;
+            if(n==length) break;
+            if(m>50) break;
+        }
+        for(var i = 0;i<array.length;i++){
+        	arr.push({
+        		 options:array[i].options,
+                 describe:array[i].describe
+        	})
+        }
+        var param={"id":_id,"name":keyword,"type":type,"descrip":descrip,"msg":arr};
+        $.ajax({
+        	type:'POST',
+        	url:'/apis/keyInfo/addOrUpdateKeyWordData.json',
+        	asynyc:false,
+    		contentType:'application/json',
+    		data:JSON.stringify(param),
+    		success:function(res){
+    			if(res.data==true){
+    				window.location.href="/apis/keyInfo/ThesaurusManage.html";
+    			}else{
+    				window.location.href="/apis/keyInfo/addThesaurus.html";
+    			}
+    		}
+        });
+      console.log({
+    	  id:_id,
+          name:keyword,
+          type:type,
+          descrip:descrip,
+          arr:arr,
+          array:array
+      })
+      layer.msg("请看console");
+});
 $(".btn-danger").on("click",function(){
     layer.confirm('直接离开将会失去修改内容，确认离开？', {
         btn: ['确认','取消'] //按钮
@@ -102,3 +148,26 @@ $(".btn-danger").on("click",function(){
         window.location.href="/apis/keyInfo/ThesaurusManage.html";
     });
 });
+});
+function ShowRelatedInfo(e){
+	var arr = [];
+	if(e!=false){
+		var ar=e;
+		var html ='';
+		m=ar[0].r_id;
+		for(var i = 0;i<ar.length;i++){
+			html +='<div class="form-group '+ar[i].r_id+'"><label class="col-sm-3 control-label">关联关系</label>'
+			html +='<div class="col-md-3">'
+			html +=	'<select name="dept_'+ar[i].r_id+'" id="dept_'+ar[i].r_id+'" class="selectpicker show-tick form-control"  data-width="98%" data-first-option="false" required data-live-search="true">' 
+			html +='<option value="'+ar[i].ralate_id+'">'+ar[i].rkeyword+'('+ar[i].rtype+')</option></select>'
+			html +='</div>'
+			html +='<div class="col-md-3">' 
+			html +='<input type="text" name="relate_'+ar[i].r_id+'"  value="'+ar[i].related+'" class="form-control" placeholder="请填写关联关系" required/>'
+			html +='</div><button class="btn btn-info btn-xs derop_'+ar[i].r_id+'">删除 <i class="fa fa-minus"></i></button> </div>'
+		}
+		arr.push(html);
+		$(".selectpicker" ).selectpicker('refresh')
+	}
+	var inner = arr.join('');
+	return inner;
+};

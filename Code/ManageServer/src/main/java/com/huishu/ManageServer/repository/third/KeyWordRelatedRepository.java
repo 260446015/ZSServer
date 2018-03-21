@@ -34,4 +34,11 @@ public interface KeyWordRelatedRepository extends JpaRepository<KeyWordRelatedEn
 	@Query(value="delete from t_word_related where t_word_id =?1",nativeQuery=true)
 	void  removeInfoByWordId(long _id);
 
+	/**
+	 * @param id
+	 * @param options
+	 * @return
+	 */
+	KeyWordRelatedEntity findByWordIdAndRelateId(Long id, Long options);
+
 }

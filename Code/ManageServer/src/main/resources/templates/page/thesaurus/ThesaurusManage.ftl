@@ -73,6 +73,8 @@
                                 <a href="javascript:void(0);" id="产业" class="search-item">产业</a>
                                 <a href="javascript:void(0);" id="企业" class="search-item">企业</a>
                                 <a href="javascript:void(0);" id="地域" class="search-item">地域</a>
+                                <a href="javascript:void(0);" id="产业解释性关键词" class="search-item">产业解释性关键词</a>
+                                <a href="javascript:void(0);" id="产业业务性关键词" class="search-item">产业业务性关键词</a>
                             </div>
                         </div>      
                     </div>
@@ -100,8 +102,6 @@
 												<th>关键词</th>
 												<th>词性</th>
 												<th>描述</th>
-												<th>解释性关键词</th>
-												<th>业务性关键词</th>
 												<th>操作</th>
 											</tr>
 										</thead>

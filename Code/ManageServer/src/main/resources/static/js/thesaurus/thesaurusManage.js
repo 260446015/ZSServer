@@ -10,24 +10,26 @@ var options={
 };
 $(function(){
 	$('#keyword_info').addClass("active");
-	getType(type);
+	var param ={type:type,pageSize:pageSize,pageNumber:pageNumber};
+	getType(param);
 });
 
 $(".search-box").on("click",".search-item-content>a",function(){
 	$(this).addClass("active").siblings().removeClass("active");
 	var _id = $(this).attr("id");
-	getType(_id);
+	type=_id;
+	var param ={type:type,pageSize:pageSize,pageNumber:pageNumber};
+	getType(param);
 });
 
 function getType(e){
-	console.log(e);
-	var param ={type:e,pageSize:pageSize,pageNumber:pageNumber};
+	
 	$.ajax({
 		type:'POST',
 		url:'/apis/keyInfo/findKeyWordInfo.json',
 		asynyc:false,
 		contentType:'application/json',
-		data:JSON.stringify(param),
+		data:JSON.stringify(e),
 		success:function(res){
 			if(res.message != null){
 				$('#manage_keyword').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
@@ -50,7 +52,7 @@ function getType(e){
 };
 function initPage(){
 	$('#addKeywordToTable').on('click',function(){
-		window.location.href="/apis/keyInfo/ThesaurusRelatedManage.html";
+		window.location.href="/apis/keyInfo/addThesaurus.html";
 	});
 	$('.editinfo').on('click',function(){
 		 var _id =  $(this).parents('.gradeX').find('td').eq(0).text();
@@ -84,6 +86,7 @@ function initPage(){
 					  layer.msg(res.message, {icon: 2});
 				}else{
 					  layer.msg(res.data, {icon: 1});
+					  var param ={type:type,pageSize:pageSize,pageNumber:pageNumber};
 					  getType(type);
 				}
 			}
@@ -99,9 +102,7 @@ function ShowInfo(e){
 				+item.id+ '</td><td>'
 				+item.keyword+ '</td><td>'
 				+item.type + '</td><td>'
-				+item.describe+ '</td><td>'
-				+item.keyExplanatory+ '</td><td>'
-				+item.keyBusiness+ '</td>'
+				+item.describe+ '</td>'
 				+ '<td class="actions">'
 	            +'<a href="javascript:void(0);" class="on-default editinfo"><i class="fa fa-pencil"></i></a>'
 	            +'<a href="javascript:void(0);" class="on-default removeinfo modal-basic"><i class="fa fa-trash-o"></i></a>'
@@ -153,20 +154,6 @@ function ShowRelatedInfo(e){
 		}else if(index=="desc"){
 			arr.push(
 					'<div class="form-group"><label class="col-sm-3 control-label">关键词描述</label>'
-					+'<div class="col-sm-9">'
-					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
-					+'</div></div>'		
-			);
-		}else if(index=="exp"){
-			arr.push(
-					'<div class="form-group"><label class="col-sm-3 control-label">解释性关键词</label>'
-					+'<div class="col-sm-9">'
-					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
-					+'</div></div>'		
-			);
-		}else if(index=="kbs"){
-			arr.push(
-					'<div class="form-group"><label class="col-sm-3 control-label">业务性关键词</label>'
 					+'<div class="col-sm-9">'
 					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
 					+'</div></div>'		

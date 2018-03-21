@@ -5,6 +5,7 @@ $(function () {
     $(".btn-success").on("click",function(){
         var _name = $("input[name='name']").val();
         var _type=$("#select option:selected").val();
+        var _descrip = $("input[name='descrp']").val();
         var arr = new Array();
         var i=1;
         var j=1;
@@ -22,12 +23,21 @@ $(function () {
             if(j==length) break;
             if(i>50) break;
         }
-        console.log({
-            name:_name,
-            type:_type,
-            arr:arr
-        })
-        layer.msg("请看console");
+        var param={"id":0,"name":_name,"type":_type,"descrip":_descrip,"msg":arr};
+        $.ajax({
+        	type:'POST',
+        	url:'/apis/keyInfo/addOrUpdateKeyWordData.json',
+        	asynyc:false,
+    		contentType:'application/json',
+    		data:JSON.stringify(param),
+    		success:function(res){
+    			if(res.data==true){
+    				window.location.href="/apis/keyInfo/ThesaurusManage.html";
+    			}else{
+    				window.location.href="/apis/keyInfo/addThesaurus.html";
+    			}
+    		}
+        });
     });
     $(".btn-danger").on("click",function(){
         layer.confirm('直接离开将会失去修改内容，确认离开？', {
