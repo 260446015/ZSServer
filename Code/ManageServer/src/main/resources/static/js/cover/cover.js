@@ -128,7 +128,6 @@ function industryChain() {
             console.log(res)
             $('.aaa s').each(function(index, el) {
                 for (var i = 0; i < res.data.length; i++) {
-                    console.log(res.data[i].keyWord.indexOf('5G'))
                     if (res.data[i].keyWord.indexOf($(el).text()) >= 0) {
                         $(el).addClass("redaa");
                     }

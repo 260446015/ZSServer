@@ -170,7 +170,7 @@ body {
 
 .bigbox .page1 {
     background: url(../img/bgimg/bgimg.jpg) no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .bigbox .page2 {
@@ -215,7 +215,7 @@ body {
 
 .bigbox .page10 {
     background: url(../img/bgimg/bg4.png) no-repeat center;
-    background-size: 100% 100%;
+    background-size:cover
 }
 
 .page header {
@@ -1155,6 +1155,7 @@ body {
 
 .lightspot2 span:nth-child(7) small {
     background: #0ec3ff;
+    z-index:999;
 }
 
 .lightspot2 span:nth-child(7) b {
@@ -1190,6 +1191,7 @@ body {
 
 .lightspot2 span:nth-child(10) small {
     background: #0ec3ff;
+    z-index: 9999;
 }
 
 .lightspot2 span:nth-child(10) b {
@@ -1717,10 +1719,10 @@ body {
 }
 
 .qrcodeimg {
-    width: 100px;
-    height: 100px;
+    width: 10rem;
+    height: 10rem;
     margin: 0 auto;
-    padding-top: 12rem;
+    margin-top: 12rem;
 }
 
 .qrcodeimg img {
