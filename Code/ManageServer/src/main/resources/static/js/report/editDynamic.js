@@ -24,6 +24,7 @@ function addData(id) {
 	            		$.each(arr,function (_i,v) {
 	            			var j= 1+_i;
 	            			_inner+='<tr id="tr_'+value.id+'_'+j+'"><td><input name="hui_ri_' + value.id + '_' + j + '" value="'+v.date+'"></td>' +
+                            '<td><input name="hui_ming_' + value.id + '_' + j + '" value="'+v.name+'"></td>' +
                             '<td><input name="hui_di_' + value.id + '_' + j + '" value="'+v.place+'"></td>' +
                             '<td><input name="hui_zhu_' + value.id + '_' + j + '" value="'+v.sponsor+'"></td>' +
                             '</tr>';
@@ -43,6 +44,7 @@ function addData(id) {
                             $("#table_" + value.id + "").append('<tr id="tr_'+value.id+'_'+ _data_length +'">' +
                                 '<td><input name="hui_ri_' + value.id + '_' + _data_length + '"></td>' +
                                 '<td><input name="hui_di_' + value.id + '_' + _data_length + '"></td>' +
+                                '<td><input name="hui_ming_' + value.id + '_' + _data_length + '"></td>' +
                                 '<td><input name="hui_zhu_' + value.id + '_' + _data_length + '"></td></tr>');
                         });
                         $(".drop_"+value.id+"").on("click",function () {
@@ -251,6 +253,7 @@ function savaFocus() {
                 for(var n=1;n<=result[j].value;n++){
                     _schedule.push({
                         date:$("input[name='hui_ri_"+result[j].name+"_"+n+"']").val(),
+                        name:$("input[name='hui_ming_"+j+"_"+n+"']").val(),
                         place:$("input[name='hui_di_"+result[j].name+"_"+n+"']").val(),
                         sponsor:$("input[name='hui_zhu_"+result[j].name+"_"+n+"']").val()
                     });
