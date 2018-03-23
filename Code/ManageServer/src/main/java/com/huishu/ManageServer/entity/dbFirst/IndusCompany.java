@@ -47,10 +47,11 @@ public class IndusCompany implements Serializable{
 	//行业标签
 	@Column(name = "t_industry_label")
 	private String industryLabel;
-
+	//创建时间
 	@Column(name = "t_create_time")
 	private String createTime;
 	
+	//更新时间
 	@Column(name = "t_update_time")
 	private String updateTime;
 	

@@ -1,10 +1,14 @@
 package com.huishu.ManageServer.service.third.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,8 +19,11 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.util.StringUtil;
 import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
+import com.huishu.ManageServer.entity.dto.dbThird.Serizal;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
+import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
 import com.huishu.ManageServer.repository.third.KeyWordRelatedRepository;
 import com.huishu.ManageServer.repository.third.ThesaurusRepository;
 import com.huishu.ManageServer.service.third.ThesaurusService;
@@ -30,6 +37,7 @@ import com.huishu.ManageServer.entity.dbThird.KeyWordRelatedEntity;
  * 
  */
 @Service
+@Transactional
 public class ThesaurusServiceImpl implements ThesaurusService {
 	private static final Logger LOGGER = Logger.getLogger(ThesaurusServiceImpl.class);
 	
@@ -50,6 +58,8 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			Long id = action.getId();
 			String keyword = action.getKeyword();//关键词
 			String type = action.getType();//词类型
+			String desc=action.getDescribe();//描述
+		
 			List<KeyWordRelatedEntity> list = krp.findByWordId(id);
 			list.forEach(act->{
 				JSONObject oj = new JSONObject();
@@ -63,6 +73,9 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 					arr.add(oj);
 				}
 			});
+			
+			o.put("desc", desc);			
+					
 			o.put("keyword", keyword);			
 			o.put("type", type);
 			o.put("relate", arr);
@@ -83,7 +96,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			if(dto.getType().equals("全部")){
 				page = rep.findAll(pageable);
 			}else{
-				
 				page = rep.findByType(dto.getType(),pageable); 
 			}
 			
@@ -117,12 +129,17 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 							ThesaurusEntity ent = rep.findOne(action.getRelateId());
 							o.put("rkeyword", ent.getKeyword());
 							o.put("rtype", ent.getType());
+							o.put("ralate_id", action.getRelateId());//关联词id
 						}
+						
+						o.put("r_id", action.getId());//主键id
 						o.put("related", action.getRelated());
 						arr.add(o);
 					});
 					obj.put("relate", arr);
 				}
+				obj.put("id", id);			
+				obj.put("desc", one.getDescribe());			
 				obj.put("keyword", one.getKeyword());
 				obj.put("type", one.getType());
 				obj.put("result", true);
@@ -154,5 +171,44 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			return false;
 		}
 		return true;
+	}
+
+	
+	@Override
+	@TargetDataSource(name="third")
+	public boolean saveOrUpdateInfo(addKeyWordDTO dto) {
+		ThesaurusEntity ent = new ThesaurusEntity();
+		try {
+			if(dto.getId()!=0){
+				ent.setId(dto.getId());
+			}
+			ent.setDescribe(dto.getDescrip());
+			ent.setKeyword(dto.getName());
+			ent.setType(dto.getType());
+			ThesaurusEntity save = rep.save(ent);
+			List<Serizal> msg = dto.getMsg();
+			List<KeyWordRelatedEntity> list = new ArrayList<KeyWordRelatedEntity>();
+			msg.forEach(action->{
+				  KeyWordRelatedEntity en = new KeyWordRelatedEntity();
+				  Long options =action.getOptions();
+				  String describe = action.getDescribe();
+				  en.setRelated(describe);
+				  en.setRelateId(options);
+				  en.setWordId(save.getId());
+				  KeyWordRelatedEntity tit =   krp.findByWordIdAndRelateId(save.getId(),options);
+				  if(tit==null){
+					  list.add(en);
+				  }else{
+					  tit.setRelated(describe);
+					  krp.save(tit);
+				  }
+			  });
+			 krp.save(list);
+			  return true;
+		} catch (Exception e) {
+			LOGGER.error("新增或保存词失败,原因是：",e);
+			return false;
+		}
+		
 	}
 }

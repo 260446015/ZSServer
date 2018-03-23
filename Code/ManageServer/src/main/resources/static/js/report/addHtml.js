@@ -118,7 +118,6 @@ $(function () {
             dynamic:_dynamic,
             industry:_industry
         }
-        console.log(req)
         $.ajax({
             type: 'post',
             url: "/apis/report/addHtmlData.json",
