@@ -15,7 +15,13 @@ function addData(id) {
                 	$.get("/apis/report/getHtmlData.do?id="+ _id+"&type="+ value.id,function (response) {
                 		var _inner="";
                         _data_length=response.data.schedule.length;
-	            		$.each(response.data.schedule,function (_i,v) {
+                        var arr = new Array();
+                        $.each(response.data.schedule,function (i,v) {
+                            $.each(v,function (_i,_v) {
+                                arr.push(_v);
+                            })
+                        })
+	            		$.each(arr,function (_i,v) {
 	            			var j= 1+_i;
 	            			_inner+='<tr id="tr_'+value.id+'_'+j+'"><td><input name="hui_ri_' + value.id + '_' + j + '" value="'+v.date+'"></td>' +
                             '<td><input name="hui_di_' + value.id + '_' + j + '" value="'+v.place+'"></td>' +
@@ -235,9 +241,9 @@ $(".btn-danger").on("click",function(){
     });
 });
 function savaFocus() {
+    var index = layer.load();
     var _data =new Array();
     if(result.length==_size){
-        var index = layer.load();
         for(var j=0;j<result.length;j++){
             var _schedule=null;
             if(result[j].title=="会议日程"){
@@ -283,7 +289,6 @@ function savaFocus() {
             }),
             success: function (response) {
                 if(response.success){
-                    layer.close(index);
                     window.location.href="/apis/report/htmlReport.html";
                 }else{
                     layer.close(index);

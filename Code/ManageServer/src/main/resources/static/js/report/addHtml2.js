@@ -49,6 +49,7 @@ $(".btn-danger").on("click",function(){
     });
 });
 function savaFocus() {
+    var index = layer.load();
     var _data =new Array();
     if(result.length==_size){
         for(var j=0;j<result.length;j++){
@@ -74,6 +75,7 @@ function savaFocus() {
                 if(response.success){
                     window.location.href="/apis/report/addHtml3.html?id="+_id;
                 }else{
+                    layer.close(index);
                     layer.alert(response.message);
                 }
             }
