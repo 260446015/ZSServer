@@ -63,10 +63,12 @@ function initPage(){
         layer.confirm('确认删除该内容？', {
             btn: ['确认','取消'] //按钮
         }, function(){
+            var index = layer.load();
             $.get("/apis/report/dropHtmlData.json?id="+_id,function (response) {
                 if(response.success){
                     window.location.href="/apis/report/htmlReport.html";
                 }else{
+                    layer.close(index);
                     layer.alert(response.message);
                 }
             });

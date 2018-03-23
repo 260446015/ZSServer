@@ -43,7 +43,7 @@ $(function () {
                 }
                 for(var i=1;i<4;i++){
                     $("input[name='h_chain"+i+"']").val(data.chain[i-1].id);
-                    $("input[name='chain"+i+"']").val(data.chain[i-1].text);
+                    $("textarea[name='chain"+i+"']").val(data.chain[i-1].text);
                     var groupCheckbox=$("input[name='inline-checkbox"+i+"']");
                     for(var j=0;j<groupCheckbox.length;j++){
                         var val =groupCheckbox[j].value;
@@ -55,16 +55,15 @@ $(function () {
                     }
                 }
                 $("textarea[name='people_reason']").val(data.recommend.people.reason);
-                $("input[name='people_identity']").val(data.recommend.people.identity);
-                $("input[name='people_name']").val(data.recommend.people.name);
+                $("textarea[name='people_identity']").val(data.recommend.people.identity);
+                $("textarea[name='people_name']").val(data.recommend.people.name);
                 $("input[name='h_people_name']").val(data.recommend.people.id);
-                $("input[name='people_logo']").val(data.recommend.people.logo);
+                $("textarea[name='people_logo']").val(data.recommend.people.logo);
                 for(var i=1;i<5;i++){
                     $("input[name='h_company_name"+i+"']").val(data.recommend.company[i-1].id);
-                    $("input[name='company_name"+i+"']").val(data.recommend.company[i-1].name);
-                    $("input[name='h_company_name"+i+"']").val(data.recommend.company[i-1].id);
+                    $("textarea[name='company_name"+i+"']").val(data.recommend.company[i-1].name);
                     $("textarea[name='company_reason"+i+"']").val(data.recommend.company[i-1].reason);
-                    $("input[name='company_logo"+i+"']").val(data.recommend.company[i-1].logo);
+                    $("textarea[name='company_logo"+i+"']").val(data.recommend.company[i-1].logo);
                 }
                 for(var i=1;i<4;i++){
                     $("input[name='h_industry_name"+i+"']").val(data.industry.faucet[i-1].id);
@@ -120,27 +119,27 @@ $(function () {
             }
             _chain.push({
                 id:$("input[name='h_chain"+i+"']").val(),
-                text:$("input[name='chain"+i+"']").val(),
+                text:$("textarea[name='chain"+i+"']").val(),
                 key:_val
             });
         }
         var _company =new Array();
         for(var i=1;i<5;i++){
             _company.push({
-                name:$("input[name='company_name"+i+"']").val(),
+                name:$("textarea[name='company_name"+i+"']").val(),
                 id:$("input[name='h_company_name"+i+"']").val(),
                 reason:$("textarea[name='company_reason"+i+"']").val(),
-                logo:$("input[name='company_logo"+i+"']").val()
+                logo:$("textarea[name='company_logo"+i+"']").val()
             });
         }
         var _recommend={
             company:_company,
             people:{
                 reason:$("textarea[name='people_reason']").val(),
-                identity:$("input[name='people_identity']").val(),
-                name:$("input[name='people_name']").val(),
+                identity:$("textarea[name='people_identity']").val(),
+                name:$("textarea[name='people_name']").val(),
                 id:$("input[name='h_people_name']").val(),
-                logo:$("input[name='people_logo']").val()
+                logo:$("textarea[name='people_logo']").val()
             }
         };
         var _faucet =new Array();
@@ -195,9 +194,9 @@ $(function () {
             data: JSON.stringify(req),
             success: function (response) {
                 if(response.success){
-                	layer.close(index); 
                     window.location.href="/apis/report/htmlReport.html";
                 }else{
+                    layer.close(index);
                     layer.alert(response.message);
                 }
             }

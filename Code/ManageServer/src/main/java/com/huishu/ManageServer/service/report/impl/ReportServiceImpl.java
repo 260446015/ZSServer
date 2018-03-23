@@ -88,7 +88,7 @@ public class ReportServiceImpl implements ReportService {
 			JSONArray array = new JSONArray();
 			list.forEach(paragraph -> {
 				JSONObject object = new JSONObject();
-				object.put("text",paragraph.getText());
+				object.put("text",paragraph.getText().replaceAll("<br/>","\n"));
 				object.put("id",paragraph.getId());
 				String keyWord = paragraph.getKeyWord();
 				String[] split = keyWord.split("、");
@@ -405,6 +405,7 @@ public class ReportServiceImpl implements ReportService {
 					Schedule schedule = new Schedule();
 					schedule.setParagraphId(save.getId());
 					schedule.setDate(s.getInteger("date"));
+					schedule.setName(s.getString("name"));
 					schedule.setPlace(s.getString("place"));
 					schedule.setSponsor(s.getString("sponsor"));
 					scheduleRepository.save(schedule);
@@ -437,7 +438,7 @@ public class ReportServiceImpl implements ReportService {
 			Paragraph paragraph = new Paragraph();
 			paragraph.setId(objs[i].getLong("id"));
 			paragraph.setKeyWord(objs[i].getString("key"));
-			paragraph.setText(objs[i].getString("text"));
+			paragraph.setText(objs[i].getString("text").replaceAll("\n","<br/>"));
 			paragraph.setReportId(reportId);
 			paragraph.setHeadlinesId(headlinesId);
 			paragraphRepository.save(paragraph);

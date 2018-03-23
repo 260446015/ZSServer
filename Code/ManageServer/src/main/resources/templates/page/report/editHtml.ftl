@@ -19,6 +19,12 @@
 <body>
 <!-- Start: Header -->
 <#include "/common/header.ftl">
+<style type="text/css">
+    textarea{
+        height:100px;
+        width:100%;
+    }
+</style>
 <!-- End: Header -->
 <!-- Start: Content -->
 <div class="container-fluid content">
@@ -39,13 +45,6 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="panel panel-default bk-bg-white">
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="bk-margin-bottom-10">
-                                        <a class="btn btn-info" href="javascript:history.go(-1)">返回上一页</a>
-                                    </div>
-                                </div>
-                            </div>
                             <form action="javascript:void(0)" method="post" class="form-horizontal ">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="text-input">月报名字</label>
@@ -109,7 +108,7 @@
                                             <label>人工智能产业</label>
                                         </div>
                                         <input type="hidden" name="h_chain1">
-                                        <input type="text" name="chain1" class="form-control" placeholder="">
+                                        <textarea name="chain1" ></textarea>
                                         <div class="checkbox-custom checkbox-inline">
                                             <input type="checkbox" name="inline-checkbox2" value="软件">
                                             <label> 软件</label>
@@ -163,7 +162,7 @@
                                             <label> 工业机器人</label>
                                         </div>
                                         <input type="hidden" name="h_chain2">
-                                        <input type="text" name="chain2" class="form-control" placeholder="">
+                                        <textarea name="chain2" ></textarea>
                                         <div class="checkbox-custom checkbox-inline">
                                             <input type="checkbox" name="inline-checkbox3" value="大数据">
                                             <label> 大数据</label>
@@ -192,8 +191,16 @@
                                             <input type="checkbox" name="inline-checkbox3" value="传感器 ">
                                             <label> 传感器</label>
                                         </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" name="inline-checkbox3" value="5G ">
+                                            <label> 5G</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" name="inline-checkbox3" value="区块链 ">
+                                            <label> 区块链</label>
+                                        </div>
                                         <input type="hidden" name="h_chain3">
-                                        <input type="text" name="chain3" class="form-control" placeholder="">
+                                        <textarea name="chain3" ></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -219,10 +226,10 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input type="hidden" name="h_people_name"><input name="people_name"></td>
-                                                        <td><input name="people_identity"></td>
-                                                        <td><input name="people_logo"></td>
-                                                        <td><textarea name="people_reason"></textarea></td>
+                                                        <td><input type="hidden" name="h_people_name"><textarea name="people_name"></textarea></td>
+                                                        <td><textarea name="people_identity"></textarea></td>
+                                                        <td><textarea name="people_logo"></textarea></td>
+                                                        <td><textarea name="people_reason"></textarea></textarea></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -241,23 +248,23 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input type="hidden" name="h_company_name1"><input name="company_name1"></td>
-                                                        <td><input name="company_logo1"></td>
+                                                        <td><input type="hidden" name="h_company_name1"><textarea name="company_name1"></textarea></td>
+                                                        <td><textarea name="company_logo1"></textarea></td>
                                                         <td><textarea name="company_reason1"></textarea></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input type="hidden" name="h_company_name2"><input name="company_name2"></td>
-                                                        <td><input name="company_logo2"></td>
+                                                        <td><input type="hidden" name="h_company_name2"><textarea name="company_name2"></textarea></td>
+                                                        <td><textarea name="company_logo2"></textarea></td>
                                                         <td><textarea name="company_reason2"></textarea></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input type="hidden" name="h_company_name3"><input name="company_name3"></td>
-                                                        <td><input name="company_logo3"></td>
+                                                        <td><input type="hidden" name="h_company_name3"><textarea name="company_name3"></textarea></td>
+                                                        <td><textarea name="company_logo3"></textarea></td>
                                                         <td><textarea name="company_reason3"></textarea></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input type="hidden" name="h_company_name4"><input name="company_name4"></td>
-                                                        <td><input name="company_logo4"></td>
+                                                        <td><input type="hidden" name="h_company_name4"><textarea name="company_name4"></textarea></td>
+                                                        <td><textarea name="company_logo4"></textarea></td>
                                                         <td><textarea name="company_reason4"></textarea></td>
                                                     </tr>
                                                     </tbody>

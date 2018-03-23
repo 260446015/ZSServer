@@ -55,9 +55,9 @@ $(".btn-danger").on("click",function(){
     });
 });
 function savaFocus() {
+    var index = layer.load();
     var _data =new Array();
     if(result.length==_size){
-    	var index = layer.load();
     	for(var j=0;j<result.length;j++){
             for(var i=1;i<=result[j].value;i++){
                 _data.push({
@@ -80,7 +80,6 @@ function savaFocus() {
             }),
             success: function (response) {
                 if(response.success){
-                	layer.close(index); 
                 	window.location.href="/apis/report/htmlReport.html";
                 }else{
                     layer.close(index);
