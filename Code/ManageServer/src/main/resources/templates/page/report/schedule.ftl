@@ -34,14 +34,18 @@
             success: function(res) {
                 console.log(res)
                 $.each(res.data.schedule, function(index, item) {
+                   for(var i=0;i<item.length;i++){
                     $('#myId').append(
                         '<div class="added-event" ' +
-                        'data-date="' + item.date + '/' + month + '/' + year + '"' +
+                        'data-date="' + item[i].date + '/' + month + '/' + year + '"' +
+                        'data-name="会议名称:"'+
+                        'data-name-val="'+item[i].name+'"'+
                         ' data-place="会议地点："' +
-                        'data-place-val="' + item.place + '"' +
+                        'data-place-val="' + item[i].place + '"' +
                         'data-sponsor="会议主办方："' +
-                        'data-sponsor-val="' + item.sponsor + '"></div>'
+                        'data-sponsor-val="' + item[i].sponsor + '"></div>'
                     )
+                   }
                 })
                 $('#myId').jalendar({
                     customDay: nextDate(), // Format: Year/Month/Day

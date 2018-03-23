@@ -416,6 +416,22 @@
 
                                         <b></b>
                                     </span>
+                                    <span>
+                                        <i class="aaa">
+                                            <s>5G</s>
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
+                                     <span>
+                                        <i class="aaa">
+                                            <s>区块链</s>
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
                                 </div>
                                  <div class="industrybottom box3">
                                 <ul>

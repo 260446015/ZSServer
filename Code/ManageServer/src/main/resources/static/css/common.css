@@ -1532,6 +1532,39 @@ body {
     transform: skew(3deg);
 }
 
+.lightspot3 span:nth-child(10) {
+    left: 15rem;
+    top: 14rem;
+}
+
+.lightspot3 span:nth-child(10) b{
+    width: 2rem;
+    height: 5.3rem;
+    display: block;
+    border-left: 1px solid #11335b;
+    position: absolute;
+    left: -6%;
+    top: -259%;
+    transform: skew(14deg);
+}
+
+
+.lightspot3 span:nth-child(11) {
+   left: 18rem;
+   top: 4rem;
+}
+
+.lightspot3 span:nth-child(11) b{
+    width: 2rem;
+    height: 4rem;
+    display: block;
+    border-left: 1px solid #11335b;
+    position: absolute;
+    left: -24%;
+    top: 117%;
+    transform: skew(-50deg);
+}
+
 .emptycircle {
     width: 100%;
     display: flex;
@@ -1623,8 +1656,8 @@ body {
 }
 
 .container .starmanimg ul li:nth-child(1) {
-    width: 120px;
-    height: 170px;
+    width: 150px;
+    height: 150px;
     margin: 0 auto;
     padding: 20px;
 }

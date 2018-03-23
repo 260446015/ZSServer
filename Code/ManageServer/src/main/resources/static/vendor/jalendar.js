@@ -1,7 +1,7 @@
+var sum=1;
 $(function() {
     (function($) {
         $.fn.jalendar = function(options) {
-
             var settings = $.extend({
                 customDay: new Date(),
                 color: '#65c2c0',
@@ -106,11 +106,11 @@ $(function() {
                     startDay++;
                     $this.find('.day').eq(startDay - 1).addClass('this-month').attr('data-date', i + '/' + (month + 1) + '/' + year).html('').append(div('span', '').html(i));
                 }
-
-                $this.find('.added-event').each(function(i) {
+               $this.find('.added-event').each(function(i) {
                     $(this).attr('data-id', i);
                     $this.find('.this-month[data-date="' + $(this).attr('data-date') + '"]').append(
                         div('div', 'event-single').attr('data-id', i).append(
+                            div('p', '').text($(this).attr('data-name') + $(this).attr('data-name-val')),
                             div('p', '').text($(this).attr('data-place') + $(this).attr('data-place-val')),
                             div('p', '').text($(this).attr('data-sponsor') + $(this).attr('data-sponsor-val')),
                             div('em', '')
@@ -154,9 +154,24 @@ $(function() {
                     $(this).find('.event-single').css({ 'left': 'initial', 'transform': 'translateX(-' + (width - right - 18) + 'px)' })
                     $(this).find('em').css({ 'left': 'initial', 'right': right - 14 + 'px' });
                 }
+               
                 $(this).find('span').addClass('selected').css({ 'background-color': '#00C0FF', 'color': '#fff' });
                 $this.find('.event-single').hide();
                 $(this).find('.event-single').show();
+                var arr_width = [],max_width = 0, x_max_width = 0;
+                if(eventSingle){
+                    eventSingle.each(function(index,item) {
+                        arr_width.push(item.clientWidth);
+                    });
+                    max_width = Math.max.apply(null, arr_width);
+                }
+                x_max_width = $(window).width() - 18;
+                if(eventSingle && eventSingle.length>1){
+                    var _this = $(this);
+                    eventSingle.each(function(i){
+                        $(_this.find('.event-single')[i]).css({'top' : 62 + 85*i + 'px','width' : max_width + 'px','max-width' : x_max_width + 'px'});
+                    });
+                }
                 $(document).on('click', function() {
                     $('.event-single').hide()
                 })
