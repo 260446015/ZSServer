@@ -103,7 +103,7 @@
                                         <img src="/img/icon/icon6.png" alt="">
                                     </span>
                                     <span class="ticolor">
-                                        优质产业
+                                        优质企业
                                     </span>
                                 </a>
                             </li>

@@ -32,6 +32,7 @@
             type: 'GET',
             async: false,
             success: function(res) {
+                console.log(res)
                 $.each(res.data.schedule, function(index, item) {
                     $('#myId').append(
                         '<div class="added-event" ' +
