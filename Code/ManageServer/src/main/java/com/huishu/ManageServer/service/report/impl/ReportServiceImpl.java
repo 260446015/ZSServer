@@ -154,6 +154,7 @@ public class ReportServiceImpl implements ReportService {
                 for (Schedule schedule:list) {
                     if(map.get(schedule.getDate())==null){
                         List<Schedule> value = new ArrayList<Schedule>();
+                        value.add(schedule);
                         map.put(schedule.getDate(),value);
                     }else{
                         List<Schedule> value=map.get(schedule.getDate());
