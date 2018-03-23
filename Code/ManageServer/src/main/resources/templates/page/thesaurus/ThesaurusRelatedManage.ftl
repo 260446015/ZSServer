@@ -15,6 +15,7 @@
 		<!-- Favicon and touch icons -->
 		<#include "/common/link.ftl">
 		
+        <link href="/assets/vendor/bootstrap/css/bootstrap-select.css" rel="stylesheet" />
 		<!-- end: CSS file-->	
 	    
 		
@@ -73,8 +74,29 @@
 								<div class="panel-body">
 									<div class="row">
 										<!-- 展示内容部分 -->
-											<form id="form-info" class="form-horizontal mb-lg" novalidate="novalidate" >		
+											<form  class="form-horizontal mb-lg" action="javascript:void(0)" novalidate="novalidate" >		
+												<input type="hidden" name="id" value="${info}"/>
+												<div class="form-group mt-lg">
+												<label class="col-sm-3 control-label">关键词</label>
+												<div class="col-md-3">
+													<input type="text" name="keyword" class="form-control" placeholder="请输入关键词" value="请输入关键词" required/>
+													</div></div>
+													<div class="form-group">
+													<label class="col-sm-3 control-label">词性</label>
+														<div class="col-md-3">
+														<input type="text" name="type" class="form-control" placeholder="请输入词性" value="请输入词性" required/>
+													</div></div>
+													<div class="form-group">
+														<label class="col-sm-3 control-label">关键词描述</label>
+															<div class="col-md-3">
+														<input type="text" name="describe" class="form-control" placeholder="请填写关键词的描述" value="请填写关键词的描述" required/>
+													</div>
+													</div>
+												</form>
+											<form id="fomr-info" class="form-horizontal mb-lg" action="javascript:void(0)" novalidate="novalidate" >		
 											</form>
+											<div class="form-group" style="padding-left: 30%">
+											 <button class="btn btn-info btn-xs my_addinfo">添加关系 <i class="fa fa-plus"></i></button></div>
 											<p>
                               				 <button class="bk-margin-5 btn btn-labeled btn-success" type="button">
                                     	<span class="btn-label"><i class="fa fa-check"></i></span>保存</button>
@@ -107,13 +129,15 @@
 		
 		<!-- Vendor JS-->				
 		<#include "/common/script.ftl">
+	
+        <script src="/assets/vendor/bootstrap/js/bootstrap-select.js"></script>
+        
 		<script src="/js/thesaurus/thesaurusRelatedManage.js"></script>
-		<!-- end: JavaScript-->
-		<script>
-			<#if info??>
+		<script >
 				editData(${info});
-			</#if>
 		</script>
+		<!-- end: JavaScript-->
+		
 	</body>
 	
 </html>

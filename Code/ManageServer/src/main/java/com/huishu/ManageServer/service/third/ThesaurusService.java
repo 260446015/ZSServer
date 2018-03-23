@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
+import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
 
 /**
  * @author hhy
@@ -39,5 +40,11 @@ public interface ThesaurusService {
 	 * 根据id删除关联关系
 	 */
 	boolean deleteRelatedById(String id);
+
+	/**
+	 * @param dto
+	 * @return
+	 */
+	boolean saveOrUpdateInfo(addKeyWordDTO dto);
 
 }

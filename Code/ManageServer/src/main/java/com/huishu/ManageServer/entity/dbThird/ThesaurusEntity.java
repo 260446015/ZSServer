@@ -36,12 +36,7 @@ public class ThesaurusEntity implements Serializable {
 	//词汇描述
 	@Column(name="t_key_describe")
 	private String describe;
-	//产业解释性关键词
-	@Column(name="t_key_explanatory")
-	private String keyExplanatory;
-	//产业业务性关键词
-	@Column(name="t_key_business")
-	private String keyBusiness;
+	
 	public Long getId() {
 		return id;
 	}
@@ -66,13 +61,7 @@ public class ThesaurusEntity implements Serializable {
 		this.type = type;
 	}
 	
-	public String getKeyExplanatory() {
-		return keyExplanatory;
-	}
-
-	public void setKeyExplanatory(String keyExplanatory) {
-		this.keyExplanatory = keyExplanatory;
-	}
+	
 	
 	public String getDescribe() {
 		return describe;
@@ -82,13 +71,7 @@ public class ThesaurusEntity implements Serializable {
 		this.describe = describe;
 	}
 
-	public String getKeyBusiness() {
-		return keyBusiness;
-	}
-
-	public void setKeyBusiness(String keyBusiness) {
-		this.keyBusiness = keyBusiness;
-	}
+	
 
 	@Override
 	public String toString() {

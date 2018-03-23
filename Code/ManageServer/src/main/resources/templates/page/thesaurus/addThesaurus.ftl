@@ -78,6 +78,12 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="text-input">关键词描述</label>
+                                            <div class="col-md-9">
+                                                <input type="text" name="descrp" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
                                     </form>
                                     <div class="form-group" style="padding-left: 30%">
                                         <button class="btn btn-info btn-xs my_add">添加关系 <i class="fa fa-plus"></i></button>
