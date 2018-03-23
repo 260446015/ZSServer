@@ -1,7 +1,9 @@
 package com.huishu.ManageServer.service.third.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,10 +27,12 @@ import com.huishu.ManageServer.entity.dto.dbThird.Serizal;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
 import com.huishu.ManageServer.repository.third.KeyWordRelatedRepository;
+import com.huishu.ManageServer.repository.third.LogRepository;
 import com.huishu.ManageServer.repository.third.ThesaurusRepository;
 import com.huishu.ManageServer.service.third.ThesaurusService;
 import com.huishu.ManageServer.config.TargetDataSource;
 import com.huishu.ManageServer.entity.dbThird.KeyWordRelatedEntity;
+import com.huishu.ManageServer.entity.dbThird.Log;
 /**
  * @author hhy
  * @date 2018年3月16日
@@ -46,6 +50,9 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	
 	@Resource
 	private KeyWordRelatedRepository krp;
+
+	@Resource
+	private LogRepository lrp;
 	
 	@TargetDataSource(name="third")
 	@Override
@@ -210,5 +217,44 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			return false;
 		}
 		
+	}
+
+	
+	@Override
+	@TargetDataSource(name="third")
+	public boolean deleteRelatedInfoById(String id) {
+		try {
+			long _id = Long.parseLong(id);
+			krp.delete(_id);
+			return true;
+		} catch (Exception e) {
+			LOGGER.error("根据id删除关联关系失败,原因是：",e);
+			return false;
+		}
+	}
+
+	@Override
+	@TargetDataSource(name="third")
+	public boolean printLog(String originalFilename, String message) {
+		Log log = new Log();
+		Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createdate = sdf.format(date);
+		log.setCreateTime(createdate);
+		log.setMessage(message);
+		log.setName(originalFilename);
+		Log save = lrp.save(log);
+		if (save == null) {
+			return false;
+		}
+		return true;
+	}
+
+	
+	@Override
+	@TargetDataSource(name="third")
+	public boolean addDataInfo(String value) {
+		
+		return false;
 	}
 }

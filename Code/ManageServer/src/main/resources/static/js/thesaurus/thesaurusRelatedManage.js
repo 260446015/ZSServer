@@ -3,6 +3,7 @@ var _id;
 var index=1;
 var length=1;
 var option="";
+var ind ;
 function editData(info){
 	_id = info;
 	 $.ajax({
@@ -19,7 +20,7 @@ function editData(info){
 						$('input[name="type"]').val(res.data.type);
 						$('input[name="describe"]').val(res.data.desc);
 						$('#fomr-info').html(ShowRelatedInfo(res.data.relate));
-						
+						$(".selectpicker" ).selectpicker('refresh');
 						var param ={type:"全部",pageSize:100,pageNumber:0};
 						   $.ajax({
 								type:'POST',
@@ -37,8 +38,6 @@ function editData(info){
 						                }
 						            }
 						   });
-						   //删除原有关联关系事件
-							   
 						   //添加关系事件
 						$(".my_addinfo").on("click",function(){
 						    $("#fomr-info").append('<div class="form-group add_'+index+'">' +
@@ -71,6 +70,7 @@ function editData(info){
 };
 var m=1;
 $(function(){
+	
 $('.btn-success').on('click',function(){
 	var keyword = $('input[name="keyword"]').val();
 	var type = $('input[name="type"]').val();
@@ -131,15 +131,7 @@ $('.btn-success').on('click',function(){
     			}
     		}
         });
-      console.log({
-    	  id:_id,
-          name:keyword,
-          type:type,
-          descrip:descrip,
-          arr:arr,
-          array:array
-      })
-      layer.msg("请看console");
+     
 });
 $(".btn-danger").on("click",function(){
     layer.confirm('直接离开将会失去修改内容，确认离开？', {
@@ -149,6 +141,7 @@ $(".btn-danger").on("click",function(){
     });
 });
 });
+$()
 function ShowRelatedInfo(e){
 	var arr = [];
 	if(e!=false){
@@ -163,11 +156,25 @@ function ShowRelatedInfo(e){
 			html +='</div>'
 			html +='<div class="col-md-3">' 
 			html +='<input type="text" name="relate_'+ar[i].r_id+'"  value="'+ar[i].related+'" class="form-control" placeholder="请填写关联关系" required/>'
-			html +='</div><button class="btn btn-info btn-xs derop_'+ar[i].r_id+'">删除 <i class="fa fa-minus"></i></button> </div>'
+			html +='</div><button class="btn btn-info btn-xs derop_'+ar[i].r_id+' " onclick=derop('+ar[i].r_id+')>删除 <i class="fa fa-minus"></i></button> </div>'
 		}
-		arr.push(html);
-		$(".selectpicker" ).selectpicker('refresh')
+		arr.push(html);	
 	}
 	var inner = arr.join('');
 	return inner;
-};
+};	
+function derop(e){
+	$.ajax({
+		type:'GET',
+		url:'/apis/keyInfo/deleteRelateById.json?id='+e,
+		asynyc:false,
+		success:function(res){
+			if(res.data!=null){
+				window.location.href='/apis/keyInfo/ThesaurusRelatedManage.html?id='+_id;
+			}else{
+				layer.msg(res.message, {icon: 2});
+			}
+			
+		}
+	});
+}

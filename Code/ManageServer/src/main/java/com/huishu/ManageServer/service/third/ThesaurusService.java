@@ -47,4 +47,22 @@ public interface ThesaurusService {
 	 */
 	boolean saveOrUpdateInfo(addKeyWordDTO dto);
 
+	/**
+	 * @param id
+	 * @return
+	 * 根据id删除关联关系
+	 */
+	boolean deleteRelatedInfoById(String id);
+
+	/**
+	 * @param originalFilename
+	 * @param string
+	 */
+	boolean printLog(String originalFilename, String message);
+
+	/**
+	 * @param value
+	 */
+	boolean addDataInfo(String value);
+
 }

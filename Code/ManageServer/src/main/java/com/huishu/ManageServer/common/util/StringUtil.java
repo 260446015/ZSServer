@@ -337,6 +337,24 @@ public class StringUtil {
 		}
 		return json;
 	}
+
+	/**
+	 * @param string
+	 */
+	public static boolean checkString(String header) {
+		String[] split = header.split("---");
+		if(split.length!=14){
+			return false;
+		}
+		if(split[0].equals("模块")&&split[1].equals("标题")&&split[2].equals("情感")
+				&&split[3].equals("载体")&&split[4].equals("作者")&&split[5].equals("时间")
+				&&split[6].equals("来源")&&split[7].equals("原文网址")&&split[8].equals("内容")
+				&&split[9].equals("产业")&&split[10].equals("产业标签")&&split[11].equals("涉及公司")
+				&&split[12].equals("涉及园区")&&split[13].equals("地域")){
+			return true;
+		}
+		return false;
+	}
     	 
      
 	

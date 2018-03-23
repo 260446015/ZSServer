@@ -32,9 +32,9 @@ public class CompanyTask {
 	private static final Logger log = LoggerFactory.getLogger(CompanyTask.class);
 	//每日更新十家企业信息到精准筛选的表单中
 	//每天晚上十点半更新数据
-	//@Scheduled(cron="0 30 22  * * ?")
+	@Scheduled(cron="0 30 22  * * ?")
 	//测试数据，十分钟一次
-	@Scheduled(fixedDelay =1000*60*20)
+//	@Scheduled(fixedDelay =1000*60*20)
 	public void getCompanyInfoTask(){
 		Map<Integer,Enterprise> map= new HashMap<Integer,Enterprise>();
 		List<Enterprise> list =new ArrayList<Enterprise>();

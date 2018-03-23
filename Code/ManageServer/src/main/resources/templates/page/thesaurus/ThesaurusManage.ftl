@@ -92,9 +92,12 @@
 										<div class="col-sm-6">
 											<div class="bk-margin-bottom-10">
 												<button id="addKeywordToTable" class="btn btn-info">添加 <i class="fa fa-plus"></i></button>
+												<button id="addKeyword" class="btn btn-info">批量添加 <i class="fa fa-plus"></i></button>
 											</div>
 										</div>
+										
 									</div>
+								
 									<table class="table table-bordered table-striped mb-none" id="">
 										<thead>
 											<tr>

@@ -12,8 +12,26 @@ $(function(){
 	$('#keyword_info').addClass("active");
 	var param ={type:type,pageSize:pageSize,pageNumber:pageNumber};
 	getType(param);
+	$('#addKeyword').after('<input type="file" id="load_xls" name="file" style="display:none" onchange ="uploadFile()">');
+	$('#addKeyword').on('click',function(){
+		$('#load_xls').click();
+	});
 });
-
+function uploadFile(){
+	 var myform = new FormData();
+     myform.append('file',$('#load_xls')[0].files[0]);
+     console.log(myform);
+     $.ajax({
+    	 url: "/apis/keyInfo/ExcelDataUpload.json",
+         type: "POST",
+         data: myform,
+         contentType: false,
+         processData: false,
+         success:function(res){
+        	 console.log(res.data);
+         }
+     });
+};
 $(".search-box").on("click",".search-item-content>a",function(){
 	$(this).addClass("active").siblings().removeClass("active");
 	var _id = $(this).attr("id");
@@ -34,7 +52,6 @@ function getType(e){
 			if(res.message != null){
 				$('#manage_keyword').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
 			}else{
-				console.log(res.data);
 				$('#manage_keyword').html(ShowInfo(res.data.dataList));
 				if(res.data.totalPage>1){
 					page.init(res.data.totalNumber,res.data.pageNumber,options);
@@ -87,7 +104,7 @@ function initPage(){
 				}else{
 					  layer.msg(res.data, {icon: 1});
 					  var param ={type:type,pageSize:pageSize,pageNumber:pageNumber};
-					  getType(type);
+					  getType(param);
 				}
 			}
 		});
