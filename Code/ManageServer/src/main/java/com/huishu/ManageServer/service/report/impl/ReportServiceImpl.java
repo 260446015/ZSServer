@@ -149,13 +149,24 @@ public class ReportServiceImpl implements ReportService {
 				return array;
 			}else if("会议日程".equals(one.getName())){
 				Paragraph paragraph = paragraphRepository.findByHeadlinesId(Long.valueOf(type)).get(0);
-				JSONObject obj = new JSONObject();
+                List<Schedule> list = scheduleRepository.findByParagraphId(paragraph.getId());
+                HashMap<Integer, List<Schedule>> map = new HashMap<>();
+                for (Schedule schedule:list) {
+                    if(map.get(schedule.getDate())==null){
+                        List<Schedule> value = new ArrayList<Schedule>();
+                        map.put(schedule.getDate(),value);
+                    }else{
+                        List<Schedule> value=map.get(schedule.getDate());
+                        value.add(schedule);
+                    }
+                }
+                JSONObject obj = new JSONObject();
 				obj.put("id", paragraph.getId());
 				obj.put("place",paragraph.getTime());
 				obj.put("total",paragraph.getMoney());
 				obj.put("industry",paragraph.getText());
 				obj.put("advise",paragraph.getKeyWord());
-				obj.put("schedule",scheduleRepository.findByParagraphId(paragraph.getId()));
+				obj.put("schedule",map);
 				return obj;
 			}else if("投融速递".equals(one.getName())){
 				List<Paragraph> paragraph = paragraphRepository.findByHeadlinesId(Long.valueOf(type));
