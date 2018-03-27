@@ -36,6 +36,9 @@ public class ThesaurusEntity implements Serializable {
 	//词汇描述
 	@Column(name="t_key_describe")
 	private String describe;
+	//获取类型id
+	@Column(name="t_type_id")
+	private Long typeId;
 	
 	public Long getId() {
 		return id;
@@ -71,7 +74,14 @@ public class ThesaurusEntity implements Serializable {
 		this.describe = describe;
 	}
 
-	
+
+	public Long getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
 
 	@Override
 	public String toString() {

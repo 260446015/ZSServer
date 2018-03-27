@@ -30,5 +30,31 @@ public interface ThesaurusRepository  extends JpaRepository<ThesaurusEntity,Long
 	 */
 	Page<ThesaurusEntity> findByType(String type, Pageable page);
 
+	/**
+	 * @param type
+	 * @return
+	 */
+	@Query(value="select count(*) from t_word where t_word_type =?1",nativeQuery = true)
+	int countByType(String type);
+
+	/**
+	 * @return
+	 */
+	@Query(value="select max(id) from (select id from t_word GROUP BY t_word_type ORDER BY id DESC ) t ",nativeQuery = true)
+	int getKeyWordId();
+	
+	@Query(value="select max(id) from (select id from t_word where t_word_type = ?1  ORDER BY id DESC ) t ",nativeQuery = true)
+	Long getMaxKeyWordIdByType(String type);
+	
+	@Query(value="select t_type_id from t_word where t_word_type = ?1 GROUP BY t_type_id",nativeQuery = true)
+	Long getTypeIdByType(String type);
+	
+	@Query(value="select max(id) from t_word ",nativeQuery = true)
+	Long getMaxId();
+
+	/**
+	 * @param keyword
+	 */
+	ThesaurusEntity findByKeyword(String keyword);
 
 }

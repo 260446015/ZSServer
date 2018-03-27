@@ -28,7 +28,13 @@ function uploadFile(){
          contentType: false,
          processData: false,
          success:function(res){
-        	 console.log(res.data);
+        	 if(res.data != null){
+        		 layer.msg(res.data, {icon: 1});
+        	 }else{
+        		 layer.msg(res.message, {icon: 2});
+        	 }
+        	 var param ={type:type,pageSize:pageSize,pageNumber:pageNumber};
+			  getType(param);
          }
      });
 };

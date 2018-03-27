@@ -219,8 +219,8 @@ public class ThesaurusController extends BaseController{
 							
 						ReadExcelUtil util = new ReadExcelUtil();
 						List<String> map = util.readExcel("e:/excel/" + newname, newname);
-						List<String> listPage = map.subList(0, 1);
-						if(StringUtil.checkString(listPage.get(0))){
+//						List<String> listPage = map.subList(0, 1);
+//						if(StringUtil.checkString(listPage.get(0))){
 							map.subList(0, 1).clear();
 							//遍历数据
 							for(String value:map){
@@ -228,15 +228,15 @@ public class ThesaurusController extends BaseController{
 								service.addDataInfo(value);
 							}
 							service.printLog(OriginalFilename,"数据存库完成");
-						}else{
+						/*}else{
 							LOGGER.error(OriginalFilename+"表格格式错误！");
 							service.printLog(OriginalFilename,"表格格式错误！");
-						}
+						}*/
 						} catch (Exception e) {
 							LOGGER.error("存储数据失败！", e);
 							service.printLog(OriginalFilename,e.toString());
 						}
-					
+						
 					}
 				}).start();;
 				return success("上传成功");

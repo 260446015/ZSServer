@@ -26,11 +26,13 @@ import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 import com.huishu.ManageServer.entity.dto.dbThird.Serizal;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
+import com.huishu.ManageServer.repository.third.AttributeRepository;
 import com.huishu.ManageServer.repository.third.KeyWordRelatedRepository;
 import com.huishu.ManageServer.repository.third.LogRepository;
 import com.huishu.ManageServer.repository.third.ThesaurusRepository;
 import com.huishu.ManageServer.service.third.ThesaurusService;
 import com.huishu.ManageServer.config.TargetDataSource;
+import com.huishu.ManageServer.entity.dbThird.AttributeEntity;
 import com.huishu.ManageServer.entity.dbThird.KeyWordRelatedEntity;
 import com.huishu.ManageServer.entity.dbThird.Log;
 /**
@@ -53,6 +55,9 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 
 	@Resource
 	private LogRepository lrp;
+	
+	@Resource
+	private AttributeRepository arp;
 	
 	@TargetDataSource(name="third")
 	@Override
@@ -254,7 +259,67 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	@Override
 	@TargetDataSource(name="third")
 	public boolean addDataInfo(String value) {
+		ThesaurusEntity ent = null;
+		ThesaurusEntity save =  null;
+		Long wordId = null;
+		try {
+			String[] split = value.split("---");
+			String keyword = split[1];
+			String type = split[2];
+			String describe = split[3];
+			int count = rep.countByType(type);
+			ent = new ThesaurusEntity();
+			ent.setDescribe(describe);
+			ent.setKeyword(keyword);
+			ent.setType(type);
+			//如果count==0,说明此类型词没有出现，进行添加
+			if( count == 0){
+				//获取产业的最大值id
+				int _id = rep.getKeyWordId();
+				Long id = (long) (_id+1);
+				ent.setId(id);
+				ent.setTypeId(id);
+			}else{
+				//获取typeid
+				Long typeId = rep.getTypeIdByType(type);
+				ent.setTypeId(typeId);
+				Long mid = rep.getMaxId();
+				//如果mid处于0~20之间，说明产业数据太小，需要扩大
+				if(mid>0&&mid<20){
+					ent.setId((long) 20);
+				}else{
+					ent.setId(mid+1);
+				}
+			}
+			//判断关键词是否存在
+			save = rep.findByKeyword(keyword);
+			//如果通过关键词查找为空，则进行新增
+			if(save == null){
+				save = rep.save(ent);
+				wordId = save.getId();
+			}else{
+				//如果不为空，则直接获取数据
+				wordId = save.getId();
+			}
+			List<AttributeEntity> list = new ArrayList<AttributeEntity>();
+			for(int i=4;i<split.length;i++){
+				String info = split[i];
+				int i1 = info.indexOf("(");
+				int i2 = info.indexOf(")");
+				String name = info.substring(0, i1);
+				String val = info.substring(i1+1, i2);
+				AttributeEntity ant = new AttributeEntity();
+				ant.setWordId(wordId);
+				ant.setAttributeName(name);
+				ant.setAttributeValue(val);
+				list.add(ant);
+			}
+			arp.save(list);
+			return true;
+		} catch (Exception e) {
+			LOGGER.error("添加一个实体数据失败,原因是：",e);
+			return false;
+		}
 		
-		return false;
 	}
 }
