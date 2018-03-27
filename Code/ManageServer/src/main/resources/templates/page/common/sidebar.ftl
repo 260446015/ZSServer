@@ -80,7 +80,7 @@
 					 	</a>
 					       <ul class="nav nav-children">
 							 <li><a href="/apis/keyInfo/ThesaurusManage.html"><span class="text">词库关键词管理</span></a></li>
-							<!-- <li><a href="/apis/keywordinfo/yqKeyWordManage.html"><span class="text">产业关键词管理</span></a></li>-->
+							<li><a href="/apis/keyInfo/DemonstrationManage.html"><span class="text">演示关系</span></a></li>
 						   </ul></li>
 				</ul>
 			</nav>
