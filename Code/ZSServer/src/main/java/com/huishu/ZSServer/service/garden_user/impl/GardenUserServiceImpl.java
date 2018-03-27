@@ -132,8 +132,8 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 	}
 
 	@Override
-	public List<String> getGardenAttainArea() {
-		return gardenUserRepository.findArea();
+	public List<String> getGardenAttainArea(Long userId) {
+		return gardenUserRepository.findArea(userId);
 	}
 
 	@Override
@@ -167,7 +167,7 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 	}
 
 	@Override
-	public boolean scanGarden(Long gardenId) {
+	public boolean scanGarden(Long gardenId,Long userId) {
 		ScanGarden sg = scanGardenRepository.findByGardenId(gardenId);
 		GardenData garden = gardenRepository.findOne(gardenId);
 		if (sg == null) {
@@ -188,6 +188,7 @@ public class GardenUserServiceImpl extends AbstractService<GardenUser> implement
 					String name = list2.get(i).getCompanyName();
 					LOGGER.info("搜索接口触发，当前搜索企业名称为:" + name);
 					dto.setCname(name);
+					dto.setUserId(userId);
 					try {
 						openeyesService.getBaseInfo(dto);
 					} catch (Exception e) {

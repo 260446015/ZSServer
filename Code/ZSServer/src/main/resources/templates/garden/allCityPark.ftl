@@ -39,6 +39,9 @@
                             </div>
                             <div class="search-item-content" id="gardenIndustry">
                             	<a href="javascript:void(0);" class="search-item active">全部</a>
+                                <#list industryList as industry>
+                                    <a href="javascript:void(0);" class="search-item">${industry.industryOne}</a>
+                                </#list>
                             </div>
                         </div>
                         <div class="search-group">
@@ -47,6 +50,9 @@
                             </div>
                             <div class="search-item-content" id="gardenArea">
                             	<a href="javascript:void(0);" class="search-item active">全部</a>
+                                <#list areas as area>
+                                    <a href="javascript:void(0);" class="search-item">${area}</a>
+                                </#list>
                             </div>
                         </div>
                         <div class="search-group">

@@ -17,8 +17,8 @@ public interface GardenUserRepository extends CrudRepository<GardenUser, Long>, 
 
 	GardenUser findByGardenNameAndUserId(String gardenName, Long userId);
 
-	@Query(value = "select province from t_user_garden_attention where user_id = 1 GROUP BY province", nativeQuery = true)
-	List<String> findArea();
+	@Query(value = "select province from t_user_garden_attention where user_id = ? GROUP BY province", nativeQuery = true)
+	List<String> findArea(Long userId);
 
 	Page<GardenUser> findByProvinceLikeAndIndustryTypeLike(String province, String industry, Pageable page);
 

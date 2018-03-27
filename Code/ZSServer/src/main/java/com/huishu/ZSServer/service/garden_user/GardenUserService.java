@@ -29,7 +29,7 @@ public interface GardenUserService {
 	 * 
 	 * @return
 	 */
-	List<String> getGardenAttainArea();
+	List<String> getGardenAttainArea(Long userId);
 
 	/**
 	 * 园区对比
@@ -41,6 +41,6 @@ public interface GardenUserService {
 	 * 扫描园区
 	 * @param gardenId
 	 */
-	boolean scanGarden(Long gardenId);
+	boolean scanGarden(Long gardenId,Long userId);
 
 }

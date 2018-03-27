@@ -246,7 +246,16 @@ public class GardenController extends BaseController {
 	 * 访问链接
 	 */
 	@RequestMapping(value = { "/garden/{page}" })
-	public String gardenMap(@PathVariable String page,Model model) {
+	public String gardenMap(@PathVariable String page,Model model,String name) {
+		if(!StringUtil.isEmpty(name))
+			model.addAttribute("gardenInfo",gardenService.findGarden(name,getUserId()));
+		if(page.equalsIgnoreCase("followPark")){
+			model.addAttribute("industryList",gardenService.getGardenIndustry());
+			model.addAttribute("areas",gardenUserService.getGardenAttainArea(getUserId()));
+		}else if(page.equalsIgnoreCase("allCityPark")){
+			model.addAttribute("industryList",gardenService.getGardenIndustry());
+			model.addAttribute("areas",gardenService.getGardenArea());
+		}
 		return "garden/" + page;
 	}
 
@@ -274,35 +283,6 @@ public class GardenController extends BaseController {
 		return success(gardenService.getIndustryByProvince(dto));
 	}
 
-	/**
-	 * 查询园区产业分类
-	 *
-	 * @return
-	 */
-	@RequestMapping(value = "/getGardenIndustry.json", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult getGardenIndustry() {
-		List<GardenIndustry> list = gardenService.getGardenIndustry();
-		return success(list);
-	}
-
-	/**
-	 * 查询园区地域分类
-	 */
-	@RequestMapping(value = "getGardenArea.json", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult getGardenArea() {
-		return success(gardenService.getGardenArea());
-	}
-
-	/**
-	 * 查询园区关注地域分类
-	 */
-	@RequestMapping(value = "getGardenAttainArea.json", method = RequestMethod.GET)
-	@ResponseBody
-	public AjaxResult getGardenAttainArea() {
-		return success(gardenUserService.getGardenAttainArea());
-	}
 
 	/**
 	 * 园区对比
@@ -322,7 +302,6 @@ public class GardenController extends BaseController {
 	 *
 	 * @param gardenId
 	 *            园区id
-	 * @param flag
 	 *            true关注，false取消关注
 	 * @return
 	 */
@@ -334,7 +313,7 @@ public class GardenController extends BaseController {
 			error(MsgConstant.ILLEGAL_PARAM);
 		}
 		try {
-			gardenUserService.scanGarden(gardenId);
+			gardenUserService.scanGarden(gardenId,getUserId());
 		} catch (Exception e) {
 			LOGGER.error("扫描园区企业失败", e);
 			return error("扫描园区企业失败");

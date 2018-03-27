@@ -4,8 +4,6 @@
 $(function () {
 	$("#gardenMap").addClass("active");
 	$("#follow").addClass("active");
-	showGardenindustry();
-    showGardenAttainArea();
     showGardenAttainList(sortType,pageNumber,pageSize);
     $(".search-box").on("click",".search-item-content>a",function(){
 		$(this).addClass("active").siblings().removeClass("active");
@@ -109,39 +107,7 @@ $(function () {
 });
 var pageNumber = 0;
 var pageSize = 6;
-function showGardenindustry(){//获取园区产业
-	$.ajax({
-		type:'get',
-		url:'/apis/area/getGardenIndustry.json',
-		success:function(res){
-			if(res.success){
-				var arr = res.data;
-				var html = '';
-				for(var i=0;i<arr.length;i++){
-					html += '<a href="javascript:void(0);" class="search-item">'+arr[i].industryOne+'</a>';
-				}
-				$("#gardenIndustry").append(html);
-			}
-		}
-	});
-}
-function showGardenAttainArea(){
-	$.ajax({
-		type:'get',
-		url:'/apis/area/getGardenAttainArea.json',
-		success:function(res){
-			if(res.success){
-				var arr = res.data;
-				var html = '';
-				for(var i=0;i<arr.length;i++){
-					html += '<a href="javascript:void(0);" class="search-item">'+arr[i]+'</a>';
-				}
-				$("#gardenArea").children().eq(0).siblings().remove();
-				$("#gardenArea").append(html);
-			}
-		}
-	});
-}
+
 var sortType = 'desc';
 var gardenAttList;//定义全局变量初始化关注园区数据
 function showGardenAttainList(d,e,f){
@@ -158,6 +124,7 @@ function showGardenAttainList(d,e,f){
 		data:JSON.stringify(req),
 		contentType:'application/json',
 		success:function(res){
+			console.log(res.data);
 			if(res.success){
 				var arr = res.data.content;
 				var html = "";
@@ -223,7 +190,6 @@ function attation(event){
 			}
 		}
 	});
-	showGardenAttainArea();
 }
 var option = {
         tooltip: {
