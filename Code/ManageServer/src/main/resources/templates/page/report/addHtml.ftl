@@ -18,6 +18,12 @@
 <body>
 <!-- Start: Header -->
 <#include "/common/header.ftl">
+<style type="text/css">
+    textarea{
+        height:100px;
+        width:100%;
+    }
+</style>
 <!-- End: Header -->
 <!-- Start: Content -->
 <div class="container-fluid content">
@@ -35,7 +41,7 @@
             </div>
             <!-- End Page Header -->
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-22 col-sm-12 col-xs-12">
                     <div class="panel panel-default bk-bg-white">
                         <div class="panel-body">
                             <div class="row">
@@ -47,19 +53,19 @@
                             </div>
                             <form action="javascript:void(0)" method="post" class="form-horizontal ">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">月报名字</label>
+                                    <label class="col-md-2 control-label" for="text-input">月报名字</label>
                                     <div class="col-md-9">
                                         <input type="text" name="name" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">月报时间段</label>
+                                    <label class="col-md-2 control-label" for="text-input">月报时间段</label>
                                     <div class="col-md-9">
                                         <input type="text" name="time" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">月关键词</label>
+                                    <label class="col-md-2 control-label" for="text-input">月关键词</label>
                                     <div class="col-md-9">
                                         <input type="text" name="key1" class="form-control" placeholder="">
                                         关键词：<span id="key1"></span><button class="btn btn-info btn-xs add_word">添加关键词 <i class="fa fa-plus"></i></button>
@@ -70,7 +76,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">产业链高亮</label>
+                                    <label class="col-md-2 control-label" for="text-input">产业链高亮</label>
                                     <div class="col-md-9">
                                         <div class="checkbox-custom checkbox-inline">
                                             <input type="checkbox" name="inline-checkbox1" value="自动无人技术">
@@ -104,7 +110,7 @@
                                             <input type="checkbox" name="inline-checkbox1" value="人工智能产业">
                                             <label>人工智能产业</label>
                                         </div>
-                                        <input type="text" name="chain1" class="form-control" placeholder="">
+                                        <textarea name="chain1" ></textarea>
                                         <div class="checkbox-custom checkbox-inline">
                                             <input type="checkbox" name="inline-checkbox2" value="软件">
                                             <label> 软件</label>
@@ -157,7 +163,7 @@
                                             <input type="checkbox" name="inline-checkbox2" value="工业机器人">
                                             <label> 工业机器人</label>
                                         </div>
-                                        <input type="text" name="chain2" class="form-control" placeholder="">
+                                        <textarea name="chain2" ></textarea>
                                         <div class="checkbox-custom checkbox-inline">
                                             <input type="checkbox" name="inline-checkbox3" value="大数据">
                                             <label> 大数据</label>
@@ -183,14 +189,22 @@
                                             <label> 硬件</label>
                                         </div>
                                         <div class="checkbox-custom checkbox-inline">
-                                            <input type="checkbox" name="inline-checkbox3" value="传感器 ">
+                                            <input type="checkbox" name="inline-checkbox3" value="传感器">
                                             <label> 传感器</label>
                                         </div>
-                                        <input type="text" name="chain3" class="form-control" placeholder="">
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" name="inline-checkbox3" value="5G">
+                                            <label> 5G</label>
+                                        </div>
+                                        <div class="checkbox-custom checkbox-inline">
+                                            <input type="checkbox" name="inline-checkbox3" value="区块链">
+                                            <label> 区块链</label>
+                                        </div>
+                                        <textarea name="chain3" ></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">本月焦点</label>
+                                    <label class="col-md-2 control-label" for="text-input">本月焦点</label>
                                     <div class="col-md-9">
                                         <div class="checkbox-custom checkbox-inline">
                                             <input type="checkbox" name="inline-checkbox4" value="政策焦点">
@@ -219,7 +233,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">明星推荐</label>
+                                    <label class="col-md-2 control-label" for="text-input">明星推荐</label>
                                     <div class="col-md-9">
                                         <label class="col-md-2 control-label" for="text-input">人物</label>
                                         <div class="col-md-9">
@@ -235,9 +249,9 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input name="people_name"></td>
-                                                        <td><input name="people_identity"></td>
-                                                        <td><input name="people_logo"></td>
+                                                        <td><textarea name="people_name"></textarea></td>
+                                                        <td><textarea name="people_identity"></textarea></td>
+                                                        <td><textarea name="people_logo"></textarea></td>
                                                         <td><textarea name="people_reason"></textarea></td>
                                                     </tr>
                                                     </tbody>
@@ -257,23 +271,23 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input name="company_name1"></td>
-                                                        <td><input name="company_logo1"></td>
+                                                        <td><textarea name="company_name1"></textarea></td>
+                                                        <td><textarea name="company_logo1"></textarea></td>
                                                         <td><textarea name="company_reason1"></textarea></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="company_name2"></td>
-                                                        <td><input name="company_logo2"></td>
+                                                        <td><textarea name="company_name2"></textarea></td>
+                                                        <td><textarea name="company_logo2"></textarea></td>
                                                         <td><textarea name="company_reason2"></textarea></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="company_name3"></td>
-                                                        <td><input name="company_logo3"></td>
+                                                        <td><textarea name="company_name3"></textarea></td>
+                                                        <td><textarea name="company_logo3"></textarea></td>
                                                         <td><textarea name="company_reason3"></textarea></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input name="company_name4"></td>
-                                                        <td><input name="company_logo4"></td>
+                                                        <td><textarea name="company_name4"></textarea></td>
+                                                        <td><textarea name="company_logo4"></textarea></td>
                                                         <td><textarea name="company_reason4"></textarea></td>
                                                     </tr>
                                                     </tbody>
@@ -284,7 +298,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">行业动态</label>
+                                    <label class="col-md-2 control-label" for="text-input">行业动态</label>
                                     <div class="col-md-9">
                                         <div class="checkbox-custom checkbox-inline">
                                             <input type="checkbox" name="inline-checkbox5" value="各地新闻">
@@ -313,7 +327,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="text-input">优质企业</label>
+                                    <label class="col-md-2 control-label" for="text-input">优质企业</label>
                                     <div class="col-md-9">
                                         <label class="col-md-2 control-label" for="text-input">龙头企业</label>
                                         <div class="col-md-9">

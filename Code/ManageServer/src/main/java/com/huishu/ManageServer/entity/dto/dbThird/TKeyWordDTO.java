@@ -1,4 +1,4 @@
-package com.huishu.ManageServer.entity.dto;
+package com.huishu.ManageServer.entity.dto.dbThird;
 
 import java.io.Serializable;
 
@@ -7,18 +7,16 @@ import com.huishu.ManageServer.common.util.ConcersUtils;
 
 /**
  * @author hhy
- * @date 2017年11月24日
+ * @date 2018年3月16日
  * @Parem
  * @return 
- * 产业峰会抽象实体
+ * 
  */
-public class IndustrySummitDTO  implements Serializable {
+public class TKeyWordDTO implements Serializable{
 
-	private static final long serialVersionUID = 7690765158755358983L;
-	private String [] msg;
-	private String industry;
-	private String area;
-	private String sort;
+	private static final long serialVersionUID = 1L;
+	
+	private String type;
 	/**
 	 * 分页中每页大小
 	 */
@@ -55,35 +53,17 @@ public class IndustrySummitDTO  implements Serializable {
 			setPageNumber(ConcersUtils.ES_MAX_PAGENUMBER);
 		this.pageNumber = pageNumber;
 	}
-	public String[] getMsg() {
-		return msg;
-	}
-	public void setMsg(String[] msg) {
-		this.msg = msg;
-	}
-	public String getIndustry() {
-		return industry;
-	}
-	public void setIndustry(String industry) {
-		this.industry = industry;
-	}
-	public String getArea() {
-		return area;
-	}
-	public void setAreas(String area) {
-		this.area = area;
-	}
-	public String getSort() {
-		return sort;
-	}
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
 	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		return JSONObject.toJSONString(this);
 	}
-	
-	
 }

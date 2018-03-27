@@ -30,7 +30,7 @@
 					</a>
 						<ul class="nav nav-children">
 							<li id="enterprise_item"><a href="/apis/enterprise/enterpriseManage.html"><span class="text">企业库</span></a></li>
-							<!--<li><a href="/apis/accurate/accurateScreen.html"><span class="text">企业产业</span></a></li>-->
+							<li id="insutryCompany_item"><a href="/apis/inds/IndustryCompanyManage.html"><span class="text">智能推荐</span></a></li>
 							<!--<li><a href="javascript:void(0)"><span class="text">？？？</span></a></li>-->
 						</ul></li>
 					<li id="garden" class="nav-parent"><a> <i class="fa fa-user"
@@ -80,7 +80,7 @@
 					 	</a>
 					       <ul class="nav nav-children">
 							 <li><a href="/apis/keyInfo/ThesaurusManage.html"><span class="text">词库关键词管理</span></a></li>
-							<!-- <li><a href="/apis/keywordinfo/yqKeyWordManage.html"><span class="text">产业关键词管理</span></a></li>-->
+							<li><a href="/apis/keyInfo/DemonstrationManage.html"><span class="text">演示关系</span></a></li>
 						   </ul></li>
 				</ul>
 			</nav>

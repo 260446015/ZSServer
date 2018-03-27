@@ -15,6 +15,7 @@ $(function () {
         });
     });
     $(".btn-success").on("click",function(){
+        var index = layer.load();
         var _name = $("input[name='name']").val();
         var _time = $("input[name='time']").val();
         var _keyWord = new Array();
@@ -39,7 +40,7 @@ $(function () {
                 }
             }
             _chain.push({
-                text:$("input[name='chain"+i+"']").val(),
+                text:$("textarea[name='chain"+i+"']").val(),
                 key:_val
             });
         }
@@ -54,18 +55,18 @@ $(function () {
         var _company =new Array();
         for(var i=1;i<5;i++){
             _company.push({
-                name:$("input[name='company_name"+i+"']").val(),
+                name:$("textarea[name='company_name"+i+"']").val(),
                 reason:$("textarea[name='company_reason"+i+"']").val(),
-                logo:$("input[name='company_logo"+i+"']").val()
+                logo:$("textarea[name='company_logo"+i+"']").val()
             });
         }
         var _recommend={
             company:_company,
             people:{
                 reason:$("textarea[name='people_reason']").val(),
-                identity:$("input[name='people_identity']").val(),
-                name:$("input[name='people_name']").val(),
-                logo:$("input[name='people_logo']").val()
+                identity:$("textarea[name='people_identity']").val(),
+                name:$("textarea[name='people_name']").val(),
+                logo:$("textarea[name='people_logo']").val()
             }
         };
         var _dynamic = new Array();
@@ -118,7 +119,6 @@ $(function () {
             dynamic:_dynamic,
             industry:_industry
         }
-        console.log(req)
         $.ajax({
             type: 'post',
             url: "/apis/report/addHtmlData.json",
@@ -129,6 +129,7 @@ $(function () {
                 if(response.success){
                     window.location.href="/apis/report/addHtml2.html?id="+response.data;
                 }else{
+                    layer.close(index);
                     layer.alert(response.message);
                 }
             }

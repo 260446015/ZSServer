@@ -17,7 +17,8 @@
 		
 		<!-- end: CSS file-->	
 	    
-		
+		<!-- end: CSS file-->	
+	    <link href="/assets/css/public.css" rel="stylesheet" /> 
 		<!-- Head Libs -->
 		<script src="/assets/plugins/modernizr/js/modernizr.js"></script>
 		
@@ -61,6 +62,22 @@
 					</div>
 					<!-- End Page Header -->
 					<div class="row">
+					 <div class="search-box">
+                        <div class="search-group">
+                            <div class="search-item-title">
+                            	词性
+                            </div>
+                            <div class="search-item-content">
+                                <a href="javascript:void(0);" id="全部" class="search-item active">全部</a>
+                                <a href="javascript:void(0);" id="人名"  class="search-item">人名</a>
+                                <a href="javascript:void(0);" id="产业" class="search-item">产业</a>
+                                <a href="javascript:void(0);" id="企业" class="search-item">企业</a>
+                                <a href="javascript:void(0);" id="地域" class="search-item">地域</a>
+                                <a href="javascript:void(0);" id="产业解释性关键词" class="search-item">产业解释性关键词</a>
+                                <a href="javascript:void(0);" id="产业业务性关键词" class="search-item">产业业务性关键词</a>
+                            </div>
+                        </div>      
+                    </div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="panel panel-default bk-bg-white">
 								<div class="panel-heading bk-bg-white">
@@ -74,20 +91,65 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<div class="bk-margin-bottom-10">
-												<button id="addOneToTable" class="btn btn-info">添加 <i class="fa fa-plus"></i></button>
+												<button id="addKeywordToTable" class="btn btn-info">添加 <i class="fa fa-plus"></i></button>
+												<button id="addKeyword" class="btn btn-info">批量添加 <i class="fa fa-plus"></i></button>
 											</div>
 										</div>
+										
 									</div>
 								
+									<table class="table table-bordered table-striped mb-none" id="">
+										<thead>
+											<tr>
+												<th>主键</th>
+												<th>关键词</th>
+												<th>词性</th>
+												<th>描述</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody id="manage_keyword">
+										</tbody>
+									</table>
+									<div class="page-box clearfix">
+        								<ul class="page pull-right" id="page"></ul>
+            						</div>
 								</div>
 							</div>
 						</div>
-					</div>					   
+					</div>	
+				<!-- model -->
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="foothide">
+					    <div class="panel panel-default bk-bg-white">
+								<div class="panel-body">	
+								<!-- Modal Form -->
+									<div class="modal fade" id="myModal">
+  											<div class="modal-dialog">
+    											<div class="modal-content">
+      											<div class="modal-header">
+      											  <button type="button" class="close" data-dismiss="modal">
+      										     <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+      											  </button>
+    												    <h4 class="modal-title">关联关系</h4>
+    													  </div>
+      												<div class="modal-body">
+    											   		<form id="demo-form" class="form-horizontal mb-lg" novalidate="novalidate" >
+												</form>
+    											  </div>
+   											 </div><!-- /.modal-content -->
+  												</div><!-- /.modal-dialog -->
+									</div><!-- /.modal -->
+							</div>
+						</div>	
+					</div>									   
+				<!-- Modal Form -->
+				<!-- model -->
 				</div>
 				<!-- End Main Page -->	
-		
+									
+			
 				<!-- Footer -->
-				<#include "/common/footer.ftl">
+				
 				<!-- End Footer -->
 
 			
@@ -103,6 +165,7 @@
 		<!-- Vendor JS-->				
 		<#include "/common/script.ftl">
 		<script src="/js/thesaurus/thesaurusManage.js"></script>
+		<script src="/assets/js/pages/ui-modals.js"></script>
 		<!-- end: JavaScript-->
 		
 	</body>

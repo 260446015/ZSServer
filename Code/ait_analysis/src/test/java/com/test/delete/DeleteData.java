@@ -1,15 +1,17 @@
 package com.test.delete;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.huishu.aitanalysis.App;
+import com.huishu.aitanalysis.common.DBConstant.EsConfig;
+import com.huishu.aitanalysis.es.entity.Index;
+import com.huishu.aitanalysis.es.repository.IndexElasticsearch;
+import com.test.util.DeleteManager;
+import com.test.util.ESTools;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Test;
@@ -17,14 +19,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.huishu.aitanalysis.App;
-import com.huishu.aitanalysis.common.DBConstant.EsConfig;
-import com.huishu.aitanalysis.es.entity.Index;
-import com.huishu.aitanalysis.es.repository.IndexElasticsearch;
-import com.test.util.DeleteManager;
-import com.test.util.ESTools;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //这是Spring Boot注解，为了进行集成测试，需要通过这个注解加载和配置Spring应用上下

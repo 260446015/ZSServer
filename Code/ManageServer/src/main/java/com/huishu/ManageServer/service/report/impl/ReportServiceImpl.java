@@ -88,7 +88,7 @@ public class ReportServiceImpl implements ReportService {
 			JSONArray array = new JSONArray();
 			list.forEach(paragraph -> {
 				JSONObject object = new JSONObject();
-				object.put("text",paragraph.getText());
+				object.put("text",paragraph.getText().replaceAll("<br/>","\n"));
 				object.put("id",paragraph.getId());
 				String keyWord = paragraph.getKeyWord();
 				String[] split = keyWord.split("、");
@@ -149,13 +149,25 @@ public class ReportServiceImpl implements ReportService {
 				return array;
 			}else if("会议日程".equals(one.getName())){
 				Paragraph paragraph = paragraphRepository.findByHeadlinesId(Long.valueOf(type)).get(0);
-				JSONObject obj = new JSONObject();
+                List<Schedule> list = scheduleRepository.findByParagraphId(paragraph.getId());
+                HashMap<Integer, List<Schedule>> map = new HashMap<>();
+                for (Schedule schedule:list) {
+                    if(map.get(schedule.getDate())==null){
+                        List<Schedule> value = new ArrayList<Schedule>();
+                        value.add(schedule);
+                        map.put(schedule.getDate(),value);
+                    }else{
+                        List<Schedule> value=map.get(schedule.getDate());
+                        value.add(schedule);
+                    }
+                }
+                JSONObject obj = new JSONObject();
 				obj.put("id", paragraph.getId());
 				obj.put("place",paragraph.getTime());
 				obj.put("total",paragraph.getMoney());
 				obj.put("industry",paragraph.getText());
 				obj.put("advise",paragraph.getKeyWord());
-				obj.put("schedule",scheduleRepository.findByParagraphId(paragraph.getId()));
+				obj.put("schedule",map);
 				return obj;
 			}else if("投融速递".equals(one.getName())){
 				List<Paragraph> paragraph = paragraphRepository.findByHeadlinesId(Long.valueOf(type));
@@ -393,6 +405,7 @@ public class ReportServiceImpl implements ReportService {
 					Schedule schedule = new Schedule();
 					schedule.setParagraphId(save.getId());
 					schedule.setDate(s.getInteger("date"));
+					schedule.setName(s.getString("name"));
 					schedule.setPlace(s.getString("place"));
 					schedule.setSponsor(s.getString("sponsor"));
 					scheduleRepository.save(schedule);
@@ -425,7 +438,7 @@ public class ReportServiceImpl implements ReportService {
 			Paragraph paragraph = new Paragraph();
 			paragraph.setId(objs[i].getLong("id"));
 			paragraph.setKeyWord(objs[i].getString("key"));
-			paragraph.setText(objs[i].getString("text"));
+			paragraph.setText(objs[i].getString("text").replaceAll("\n","<br/>"));
 			paragraph.setReportId(reportId);
 			paragraph.setHeadlinesId(headlinesId);
 			paragraphRepository.save(paragraph);

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.entity.dbFirst.Enterprise;
 import com.huishu.ManageServer.service.enterprise.EnterpriseService;
 import com.huishu.ManageServer.service.enterprise.IndustryCompanyService;
@@ -33,7 +34,7 @@ public class CompanyTask {
 	//每天晚上十点半更新数据
 	@Scheduled(cron="0 30 22  * * ?")
 	//测试数据，十分钟一次
-	//@Scheduled(fixedDelay =1000*60*5)
+//	@Scheduled(fixedDelay =1000*60*20)
 	public void getCompanyInfoTask(){
 		Map<Integer,Enterprise> map= new HashMap<Integer,Enterprise>();
 		List<Enterprise> list =new ArrayList<Enterprise>();
@@ -59,15 +60,21 @@ public class CompanyTask {
 	}
 	private void findCompanyInfo(Map<Integer, Enterprise> map, List<Enterprise> list) {
 		Enterprise ent = eps.findCompany();
-		int i = ent.getCompany().hashCode();
-		//第二步判断数据的可使用度
-		if(map.containsKey(i)){
-			//第三步不可用，重新获取数据
-			findCompanyInfo(map,list);
-		}else{
-			//第四步，可用，数据进行
-			map.put(i, ent);
-			list.add(ent);
+		String industry = ent.getIndustry();
+		if(!StringUtil.isEmpty(industry)){
+			if(industry.equals("人工智能")||industry.equals("大数据")||industry.equals("物联网")||industry.equals("生物技术")){
+				int i = ent.getCompany().hashCode();
+				//第二步判断数据的可使用度
+				if(map.containsKey(i)){
+					//第三步不可用，重新获取数据
+					findCompanyInfo(map,list);
+				}else{
+					//第四步，可用，数据进行
+					map.put(i, ent);
+					list.add(ent);
+				}
+			}
 		}
+		
 	}
 }

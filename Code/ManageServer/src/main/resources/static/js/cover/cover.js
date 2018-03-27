@@ -125,6 +125,7 @@ function industryChain() {
         type: 'GET',
         async: false,
         success: function(res) {
+            console.log(res)
             $('.aaa s').each(function(index, el) {
                 for (var i = 0; i < res.data.length; i++) {
                     if (res.data[i].keyWord.indexOf($(el).text()) >= 0) {
@@ -218,6 +219,7 @@ function company() {
         type: 'GET',
         async: false,
         success: function(res) {
+            // console.log(res)
             var strHtml = "";
             for (var i = 0; i < res.data.company.length; i++) {
                 strHtml += "<div><dl><dt>"

@@ -19,6 +19,8 @@ public class Schedule implements Serializable {
 	private Long id;
 	/** 日期 */
 	private Integer date;
+	/** 日期 */
+	private String name;
 	/** 地点 */
 	private String place;
 	/** 主办方 */
@@ -27,7 +29,15 @@ public class Schedule implements Serializable {
 	@Column(name="paragraph_id")
 	private Long paragraphId;
 
-	public Long getParagraphId() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getParagraphId() {
 		return paragraphId;
 	}
 

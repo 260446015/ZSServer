@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Cache-Control" content="no-cache" />
+    <title>慧数招商人工智能行业月度报告</title>
     <meta name="description" content="中科点击·慧数招商">
     <meta name="keywords" content="慧数招商人工智能行业月度报告">
     <meta name="author" content="慧数科技，中科点击">
     <meta name="application-name" content="慧数招商">
-    <title>慧数招商人工智能行业月度报告</title>
     <link rel="stylesheet" href="/vendor/base.css">
     <link rel="stylesheet" href="/vendor/swiper/swiper-4.1.6.min.css">
     <link rel="stylesheet" href="/vendor/fullPage/jquery.fullPage.css">
@@ -103,7 +103,7 @@
                                         <img src="/img/icon/icon6.png" alt="">
                                     </span>
                                     <span class="ticolor">
-                                        优质产业
+                                        优质企业
                                     </span>
                                 </a>
                             </li>
@@ -411,6 +411,22 @@
                                     <span>
                                         <i class="aaa">
                                             <s>算法结构</s>
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
+                                    <span>
+                                        <i class="aaa">
+                                            <s>5G</s>
+                                            <small></small>
+                                        </i>
+
+                                        <b></b>
+                                    </span>
+                                     <span>
+                                        <i class="aaa">
+                                            <s>区块链</s>
                                             <small></small>
                                         </i>
 
