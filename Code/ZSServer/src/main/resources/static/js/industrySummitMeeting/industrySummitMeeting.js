@@ -23,6 +23,7 @@ function Click(a,b){
 		updateAreaInfo(industry);
 	}else if(a==2){
 		area= b;
+		$('#2-'+area).addClass("active").siblings().removeClass("active");
 	}else if(a== 3){
 		sort = b;
 	}
