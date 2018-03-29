@@ -1,11 +1,14 @@
 package com.huishu.ManageServer.entity.dbThird;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.alibaba.fastjson.JSONObject;
@@ -40,6 +43,7 @@ public class ThesaurusEntity implements Serializable {
 	@Column(name="t_type_id")
 	private Long typeId;
 	
+
 	public Long getId() {
 		return id;
 	}

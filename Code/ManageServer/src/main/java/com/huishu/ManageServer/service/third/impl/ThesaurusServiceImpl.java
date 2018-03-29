@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,8 +24,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
+import com.huishu.ManageServer.entity.dto.dbThird.AttributeInfo;
 import com.huishu.ManageServer.entity.dto.dbThird.Serizal;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
+import com.huishu.ManageServer.entity.dto.dbThird.WordDataDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
 import com.huishu.ManageServer.repository.third.AttributeRepository;
 import com.huishu.ManageServer.repository.third.KeyWordRelatedRepository;
@@ -58,6 +61,7 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	
 	@Resource
 	private AttributeRepository arp;
+	
 	
 	@TargetDataSource(name="third")
 	@Override
@@ -101,20 +105,43 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 */
 	@Override
 	@TargetDataSource(name="third")
-	public Page<ThesaurusEntity> findByPage(TKeyWordDTO dto) {
-		Page<ThesaurusEntity> page = null;
+	public Page<WordDataDTO> findByPage(TKeyWordDTO dto) {
+		Page<WordDataDTO> page = null;
+		List<ThesaurusEntity> list  = null;
+		List<WordDataDTO> alist = new ArrayList<WordDataDTO>();
+		Long count = null;
 		try {
+			Long number = (long) (dto.getPageNumber()*(dto.getPageSize()));
 			Pageable pageable = new PageRequest(dto.getPageNumber() ,dto.getPageSize());
+			//获取相应的总数，
 			if(dto.getType().equals("全部")){
-				page = rep.findAll(pageable);
+				list  = rep.getKeyInfoList(number,dto.getPageSize());
+				count = rep.count();
 			}else{
-				page = rep.findByType(dto.getType(),pageable); 
+				list  = rep.getKeyWordListByType(dto.getType(),number,dto.getPageSize());
+				count = (long) rep.countByType(dto.getType());
 			}
-			
+			list.forEach(action->{
+				Long wordId = action.getId();
+				List<AttributeEntity> arr = arp.getByWordId(wordId);
+				List<AttributeInfo> array = new ArrayList<AttributeInfo>();
+				arr.forEach(act->{
+					AttributeInfo info = new AttributeInfo();
+					info.setAttributeName(act.getAttributeName());
+					info.setAttributeValue(act.getAttributeValue());
+					array.add(info);
+				});
+				WordDataDTO data = new WordDataDTO();
+				data.setEntntity(action);
+				data.setInfo(array);
+				alist.add(data);
+			});
+			 page = new PageImpl<>(alist, pageable, count);
+			 return page;
 		} catch (Exception e) {
 			LOGGER.debug("列表查看词库关键词失败！原因是：",e);
+			return null;
 		}
-		return page;
 	}
 
 	/**
@@ -264,57 +291,75 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 		Long wordId = null;
 		try {
 			String[] split = value.split("---");
-			String keyword = split[1];
-			String type = split[2];
-			String describe = split[3];
-			int count = rep.countByType(type);
-			ent = new ThesaurusEntity();
-			ent.setDescribe(describe);
-			ent.setKeyword(keyword);
-			ent.setType(type);
-			//如果count==0,说明此类型词没有出现，进行添加
-			if( count == 0){
-				//获取产业的最大值id
-				int _id = rep.getKeyWordId();
-				Long id = (long) (_id+1);
-				ent.setId(id);
-				ent.setTypeId(id);
-			}else{
-				//获取typeid
-				Long typeId = rep.getTypeIdByType(type);
-				ent.setTypeId(typeId);
-				Long mid = rep.getMaxId();
-				//如果mid处于0~20之间，说明产业数据太小，需要扩大
-				if(mid>0&&mid<20){
-					ent.setId((long) 20);
+			String keyword = split[0];
+			String type = split[1];
+			if(split.length<=2){
+				int count = rep.countByType(type);
+				Long typeId = null;
+				if(count==0){
+					Long keyWordId = rep.getKeyWordId();
+					typeId = keyWordId+1;
 				}else{
-					ent.setId(mid+1);
+					typeId = rep.getTypeIdByType(type);
 				}
-			}
-			//判断关键词是否存在
-			save = rep.findByKeyword(keyword);
-			//如果通过关键词查找为空，则进行新增
-			if(save == null){
-				save = rep.save(ent);
-				wordId = save.getId();
+				ent =new ThesaurusEntity();
+				ent.setKeyword(keyword);
+				ent.setType(type);
+				ent.setTypeId(typeId);
+				rep.save(ent);
 			}else{
-				//如果不为空，则直接获取数据
-				wordId = save.getId();
+				String describe = split[2];
+				int count = rep.countByType(type);
+				ent = new ThesaurusEntity();
+				ent.setDescribe(describe);
+				ent.setKeyword(keyword);
+				ent.setType(type);
+				//如果count==0,说明此类型词没有出现，进行添加
+				if( count == 0){
+					//获取产业的最大值id
+					Long _id = rep.getKeyWordId();
+					Long id = _id+1;
+					ent.setId(id);
+					ent.setTypeId(id);
+				}else{
+					//获取typeid
+					Long typeId = rep.getTypeIdByType(type);
+					ent.setTypeId(typeId);
+					Long mid = rep.getMaxId();
+					//如果mid处于0~20之间，说明产业数据太小，需要扩大
+					if(mid>0&&mid<20){
+						ent.setId((long) 20);
+					}else{
+						ent.setId(mid+1);
+					}
+				}
+				//判断关键词是否存在
+				save = rep.findByKeyword(keyword);
+				//如果通过关键词查找为空，则进行新增
+				if(save == null){
+					save = rep.save(ent);
+					wordId = save.getId();
+				}else{
+					//如果不为空，则直接获取数据
+					wordId = save.getId();
+				}
+				List<AttributeEntity> list = new ArrayList<AttributeEntity>();
+				for(int i=3;i<split.length;i++){
+					String info = split[i];
+					int i1 = info.indexOf("(");
+					int i2 = info.indexOf(")");
+					String name = info.substring(0, i1);
+					String val = info.substring(i1+1, i2);
+					AttributeEntity ant = new AttributeEntity();
+//					ant.setEntity(save);
+					ant.setWordId(wordId);
+					ant.setAttributeName(name);
+					ant.setAttributeValue(val);
+					list.add(ant);
+				}
+				arp.save(list);
 			}
-			List<AttributeEntity> list = new ArrayList<AttributeEntity>();
-			for(int i=4;i<split.length;i++){
-				String info = split[i];
-				int i1 = info.indexOf("(");
-				int i2 = info.indexOf(")");
-				String name = info.substring(0, i1);
-				String val = info.substring(i1+1, i2);
-				AttributeEntity ant = new AttributeEntity();
-				ant.setWordId(wordId);
-				ant.setAttributeName(name);
-				ant.setAttributeValue(val);
-				list.add(ant);
-			}
-			arp.save(list);
+			
 			return true;
 		} catch (Exception e) {
 			LOGGER.error("添加一个实体数据失败,原因是：",e);

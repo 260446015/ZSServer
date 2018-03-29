@@ -101,10 +101,10 @@
 									<table class="table table-bordered table-striped mb-none" id="">
 										<thead>
 											<tr>
-												<th>主键</th>
 												<th>关键词</th>
 												<th>词性</th>
 												<th>描述</th>
+												<th>属性</th>
 												<th>操作</th>
 											</tr>
 										</thead>

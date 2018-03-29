@@ -1,5 +1,7 @@
 package com.huishu.ManageServer.repository.third;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +43,7 @@ public interface ThesaurusRepository  extends JpaRepository<ThesaurusEntity,Long
 	 * @return
 	 */
 	@Query(value="select max(id) from (select id from t_word GROUP BY t_word_type ORDER BY id DESC ) t ",nativeQuery = true)
-	int getKeyWordId();
+	Long getKeyWordId();
 	
 	@Query(value="select max(id) from (select id from t_word where t_word_type = ?1  ORDER BY id DESC ) t ",nativeQuery = true)
 	Long getMaxKeyWordIdByType(String type);
@@ -56,5 +58,22 @@ public interface ThesaurusRepository  extends JpaRepository<ThesaurusEntity,Long
 	 * @param keyword
 	 */
 	ThesaurusEntity findByKeyword(String keyword);
+
+	/**
+	 * 获取数据
+	 * @param number
+	 * @param pageSize
+	 */
+	@Query(value="select * from t_word  LIMIT ?1,?2",nativeQuery = true)
+	List<ThesaurusEntity> getKeyInfoList(Long number, Integer pageSize);
+
+	/**
+	 * 根据类型获取数据
+	 * @param type
+	 * @param number
+	 * @param pageSize
+	 */
+	@Query(value="select * from t_word WHERE t_word_type = ?1 LIMIT ?2,?3",nativeQuery = true)
+	List<ThesaurusEntity> getKeyWordListByType(String type, Long number, Integer pageSize);
 
 }

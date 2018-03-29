@@ -4,8 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.alibaba.fastjson.JSONObject;
@@ -27,7 +30,7 @@ public class AttributeEntity implements Serializable {
 	@Column(name = "id", nullable = false)
 	private Long id;
 	//关联词id
-	@Column(name="t_word_id")
+	@Column(name="t_word_id",insertable=true ,updatable=true)
 	private Long wordId;
 	
 	@Column(name="t_attribute_name")
@@ -55,6 +58,7 @@ public class AttributeEntity implements Serializable {
 	public String getAttributeName() {
 		return attributeName;
 	}
+
 
 	public void setAttributeName(String attributeName) {
 		this.attributeName = attributeName;

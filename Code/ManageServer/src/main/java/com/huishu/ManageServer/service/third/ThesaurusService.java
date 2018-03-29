@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
+import com.huishu.ManageServer.entity.dto.dbThird.WordDataDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
 
 /**
@@ -25,7 +26,8 @@ public interface ThesaurusService {
 	 * @param dto
 	 * @return
 	 */
-	Page<ThesaurusEntity> findByPage(TKeyWordDTO dto);
+//	Page<ThesaurusEntity> findByPage(TKeyWordDTO dto);
+	Page<WordDataDTO> findByPage(TKeyWordDTO dto);
 
 	/**
 	 * @param id

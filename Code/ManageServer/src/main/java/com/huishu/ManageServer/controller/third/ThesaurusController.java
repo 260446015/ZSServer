@@ -31,6 +31,7 @@ import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.IndustrySummitDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
+import com.huishu.ManageServer.entity.dto.dbThird.WordDataDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
 import com.huishu.ManageServer.es.entity.SummitInfo;
 import com.huishu.ManageServer.service.third.ThesaurusService;
@@ -106,6 +107,7 @@ public class ThesaurusController extends BaseController{
 		}
 		
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/listKeyWord.do", method = RequestMethod.GET)
 	public AjaxResult listKeyWord(){
@@ -118,6 +120,8 @@ public class ThesaurusController extends BaseController{
 		}
 		
 	}
+	
+	
 	/**
 	 * 关键词列表展示
 	 * @return
@@ -129,13 +133,14 @@ public class ThesaurusController extends BaseController{
 			if(StringUtil.isEmpty(dto.getType())){
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
-			Page<ThesaurusEntity> page = service.findByPage(dto);
+			Page<WordDataDTO> page = service.findByPage(dto);
 			return  successPage(page, page.getNumber()+1);
 		} catch (Exception e) {
 			LOGGER.error("获取关键词库列表失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
+	
 	/**
 	 * 新增或者修改词
 	 * @param dto
@@ -219,8 +224,6 @@ public class ThesaurusController extends BaseController{
 							
 						ReadExcelUtil util = new ReadExcelUtil();
 						List<String> map = util.readExcel("e:/excel/" + newname, newname);
-//						List<String> listPage = map.subList(0, 1);
-//						if(StringUtil.checkString(listPage.get(0))){
 							map.subList(0, 1).clear();
 							//遍历数据
 							for(String value:map){
@@ -228,10 +231,7 @@ public class ThesaurusController extends BaseController{
 								service.addDataInfo(value);
 							}
 							service.printLog(OriginalFilename,"数据存库完成");
-						/*}else{
-							LOGGER.error(OriginalFilename+"表格格式错误！");
-							service.printLog(OriginalFilename,"表格格式错误！");
-						}*/
+						
 						} catch (Exception e) {
 							LOGGER.error("存储数据失败！", e);
 							service.printLog(OriginalFilename,e.toString());
