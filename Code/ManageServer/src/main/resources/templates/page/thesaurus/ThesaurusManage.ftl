@@ -67,16 +67,42 @@
                             <div class="search-item-title">
                             	词性
                             </div>
-                            <div class="search-item-content">
-                                <a href="javascript:void(0);" id="全部" class="search-item active">全部</a>
+                            <div class="search-item-content" id="labelInfo">
+                               <!-- <a href="javascript:void(0);" id="全部" class="search-item active">全部</a>
                                 <a href="javascript:void(0);" id="人名"  class="search-item">人名</a>
                                 <a href="javascript:void(0);" id="产业" class="search-item">产业</a>
                                 <a href="javascript:void(0);" id="企业" class="search-item">企业</a>
                                 <a href="javascript:void(0);" id="地域" class="search-item">地域</a>
-                                <a href="javascript:void(0);" id="产业解释性关键词" class="search-item">产业解释性关键词</a>
-                                <a href="javascript:void(0);" id="产业业务性关键词" class="search-item">产业业务性关键词</a>
+                                <a href="javascript:void(0);" id="描述性" class="search-item">产业解释性关键词</a>
+                                <a href="javascript:void(0);" id="业务性" class="search-item">产业业务性关键词</a>
+                            	-->
                             </div>
-                        </div>      
+                             <div class="form-group" >
+                             	<div class="col-md-3">
+                            	 <button class="btn btn-info btn-xs ">新增分类<i class="fa fa-plus"></i></button>
+                             	</div>
+                             </div>
+                        </div>   
+                        <!-- 选择框  -->  
+                         <div class="form-group">
+                           <label class="col-sm-3 control-label">排序：</label>
+							<div class="col-md-3">
+								<div class="col-sm-3">
+						      	  <select name="dealer"  class="selectpicker show-tick form-control"  data-width="98%" data-first-option="false" required data-live-search="true">
+						       		<option value="1">添加时间倒序</option> 
+						       		<option value="2">添加时间顺序</option> 
+						       		<option value="3">词性热度</option> 
+						       		<option value="4">词性复杂度</option> 
+						       		<option value="5">词性关系复杂度</option> 
+						       		</select>
+						        </div>
+						    </div>
+                        <!-- 搜索功能  -->    
+                        	<div class="col-md-3">
+                        		<input type="text" name="keyword_name" class="form-control" placeholder="请填写产业关键词"/>
+                        		<button class="btn btn-info btn-xs ">搜索 <i class="fa fa-search"></i></button>
+                       	 	</div>
+                        </div>  
                     </div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="panel panel-default bk-bg-white">
@@ -101,10 +127,11 @@
 									<table class="table table-bordered table-striped mb-none" id="">
 										<thead>
 											<tr>
-												<th>关键词</th>
+												<th>编号</th>
+												<th>词名</th>
 												<th>词性</th>
-												<th>描述</th>
-												<th>属性</th>
+												<th>词属性</th>
+												<th>词关系</th>
 												<th>操作</th>
 											</tr>
 										</thead>
@@ -164,7 +191,7 @@
 		
 		<!-- Vendor JS-->				
 		<#include "/common/script.ftl">
-		<script src="/js/thesaurus/thesaurusManage.js"></script>
+		<script src="/js/thesaurus/thesaurusManage2.js"></script>
 		<script src="/assets/js/pages/ui-modals.js"></script>
 		<!-- end: JavaScript-->
 		
