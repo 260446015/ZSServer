@@ -71,26 +71,7 @@ public class ThesaurusController extends BaseController{
 		return "/thesaurus/" + page;
 	}
 	
-	/**
-	 *	根据id获取关联关系的信息
-	 * @param dto
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/findRelatedInfoById.json", method = RequestMethod.GET,params={"id"})
-	public AjaxResult findRelatedInfoById( String id){
-		try {
-			if(StringUtil.isEmpty(id)){
-				return error(MsgConstant.ILLEGAL_PARAM);
-			}
-			JSONObject obj = service.findRelatedById(id);
-			return success(obj);
-		} catch (Exception e) {
-			LOGGER.error("根据id查看关键词以及关联关系!",e);
-			return error(MsgConstant.SYSTEM_ERROR);
-		}
-		
-	}
+	
 	/**
 	 *	新增词性分类信息
 	 * @param dto
@@ -106,65 +87,69 @@ public class ThesaurusController extends BaseController{
 			boolean info= service.updateTypeWord(typeWord);
 			return success(info);
 		} catch (Exception e) {
-			LOGGER.error("根据id查看关键词以及关联关系!",e);
+			LOGGER.error("新增词性分类信息失败!原因是：",e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 		
 	}
+
 	/**
-	 *	根据id获取属性的信息
+	 *	获取所有的关系词信息
 	 * @param dto
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/findAttributeInfoById.json", method = RequestMethod.GET,params={"id"})
-	public AjaxResult findAttributeInfoById( String id){
+	@RequestMapping(value = "/getAllRelated.json", method = RequestMethod.GET)
+	public AjaxResult getAllRelated(){
 		try {
-			if(StringUtil.isEmpty(id)){
-				return error(MsgConstant.ILLEGAL_PARAM);
-			}
-			JSONObject obj = service.findAttributeInfoById(id);
-			return success(obj);
+			return success( service.getAllRelatedInfo());
 		} catch (Exception e) {
-			LOGGER.error("根据id查看关键词以及关联关系!",e);
+			LOGGER.error("获取所有关系词信息失败，原因是:",e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 		
 	}
 	/**
-	 *	根据id删除关键词以及关联关系
+	 *	新增关系词信息
 	 * @param dto
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/deleteRelatedInfoById.json", method = RequestMethod.GET,params={"id"})
-	public AjaxResult deleteRelatedInfoById( String id){
+	@RequestMapping(value = "/updateRelated.json", method = RequestMethod.GET,params={"relatedWord"})
+	public AjaxResult updateRelated( String relatedWord){
 		try {
-			if(StringUtil.isEmpty(id)){
+			if(StringUtil.isEmpty(relatedWord)){
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
-			boolean info = service.deleteRelatedById(id);
+			boolean info= service.updateRelatedWord(relatedWord);
+			
 			return success(info);
 		} catch (Exception e) {
-			LOGGER.error("根据id删除关键词以及关联关系失败!",e);
+			LOGGER.error("新增关系词信息失败!原因是：",e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 		
 	}
-	
+	/**
+	 *	根据类型词获取关键词的信息
+	 * @param dto
+	 * @return
+	 */
 	@ResponseBody
-	@RequestMapping(value = "/listKeyWord.do", method = RequestMethod.GET)
-	public AjaxResult listKeyWord(){
+	@RequestMapping(value = "/findWordByType.json", method = RequestMethod.GET,params={"typeWord"})
+	public AjaxResult findWordByType( String typeWord){
 		try {
-			JSONArray obj = service.findAllKeyWord();
+			if(StringUtil.isEmpty(typeWord)){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			List<ThesaurusEntity> obj = service.findKeyWordByType(typeWord);
 			return success(obj);
 		} catch (Exception e) {
-			LOGGER.error("列表查看舆情公司数据失败!",e);
+			LOGGER.error("根据类型词获取关键词的信息失败!原因是",e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 		
 	}
-	
 	
 	/**
 	 * 关键词列表展示
@@ -203,45 +188,6 @@ public class ThesaurusController extends BaseController{
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 		
-	}
-	/**
-	 * 新增或者修改词
-	 * @param dto
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value="/addOrUpdateKeyWordData.json",method=RequestMethod.POST)
-	public AjaxResult addOrUpdateKeyWordData(@RequestBody addKeyWordDTO dto){
-		try {
-			if(StringUtil.isEmpty(dto.getName())||StringUtil.isEmpty(dto.getType())){
-				return error(MsgConstant.ILLEGAL_PARAM);
-			}
-			boolean info = service.saveOrUpdateInfo(dto);
-			return success(info);
-		} catch (Exception e) {
-			LOGGER.error("新增或者更新词失败：", e);
-			return error(MsgConstant.SYSTEM_ERROR);
-		}
-		
-	}
-	/**
-	 * 根据id删除关联关系
-	 * @param id
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value="/deleteRelateById.json",method=RequestMethod.GET,params={"id"})
-	public AjaxResult deleteRelateById(String id ){
-		if(StringUtil.isEmpty(id)){
-			return error(MsgConstant.ILLEGAL_PARAM);
-		}
-		try {
-			boolean info = service.deleteRelatedInfoById(id);
-			return success(info);
-		} catch (Exception e) {
-			LOGGER.error("根据id删除关联关系失败：", e);
-			return error(MsgConstant.SYSTEM_ERROR);
-		}
 	}
 	
 	/**
@@ -321,5 +267,97 @@ public class ThesaurusController extends BaseController{
 	public AjaxResult getLabelInfo(){
 		List<KeywordTypeEntity> list = service.getLableInfo();
 		return success(list);
+	}
+	/**
+	 *	根据id获取属性的信息
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/findAttributeInfoById.json", method = RequestMethod.GET,params={"id"})
+	public AjaxResult findAttributeInfoById( String id){
+		try {
+			if(StringUtil.isEmpty(id)){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			JSONObject obj = service.findAttributeInfoById(id);
+			return success(obj);
+		} catch (Exception e) {
+			LOGGER.error("根据id查看关键词以及关联关系!",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+		
+	}
+	/**
+	 *	根据id获取关联关系的信息
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/findRelatedInfoById.json", method = RequestMethod.GET,params={"id"})
+	public AjaxResult findRelatedInfoById( String id){
+		try {
+			if(StringUtil.isEmpty(id)){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			JSONObject obj = service.findRelatedById(id);
+			return success(obj);
+		} catch (Exception e) {
+			LOGGER.error("根据id查看关键词以及关联关系!",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+		
+	}
+	/**
+	 *	根据id删除关键词以及关联关系
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteRelatedInfoById.json", method = RequestMethod.GET,params={"id"})
+	public AjaxResult deleteRelatedInfoById( String id){
+		try {
+			if(StringUtil.isEmpty(id)){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			boolean info = service.deleteRelatedById(id);
+			return success(info);
+		} catch (Exception e) {
+			LOGGER.error("根据id删除关键词以及关联关系失败!",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+		
+	}
+	/**
+	 * 根据id删除关联关系
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/deleteRelateById.json",method=RequestMethod.GET,params={"id"})
+	public AjaxResult deleteRelateById(String id ){
+		if(StringUtil.isEmpty(id)){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			boolean info = service.deleteRelatedInfoById(id);
+			return success(info);
+		} catch (Exception e) {
+			LOGGER.error("根据id删除关联关系失败：", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/listKeyWord.do", method = RequestMethod.GET)
+	public AjaxResult listKeyWord(){
+		try {
+			JSONArray obj = service.findAllKeyWord();
+			return success(obj);
+		} catch (Exception e) {
+			LOGGER.error("列表查看舆情公司数据失败!",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+		
 	}
 }

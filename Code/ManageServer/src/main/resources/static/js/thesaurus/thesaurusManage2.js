@@ -21,12 +21,52 @@ $(function(){
 	$('#addKeyword').on('click',function(){
 		$('#load_xls').click();
 	});
+//	selChanceInfo();
+//	getAllRelated();
 });
+//获取所有的关系选项
+function getAllRelated(){
+	var label='';
+	$.ajax({
+		url:'/apis/keyInfo/getAllRelated.json',
+		type:'GET',
+		asynyc:false,
+		success:function(res){
+			//为词赋值
+			$.each(res.data,function (i,e){
+				label +='<input type="checkbox" name="langinfo" value="'+e.id+'"><span>'+e.relatetion+'</span><br />';
+			});
+			$('#related_info').html(label);
+		}
+	});
+	
+};
+
+function selChanceInfo(){
+	//第一,根据的默认值更新词的内容
+	var _type = $("#select1").options;
+	console.log(_type);
+	var label ='';
+	/*$.ajax({
+		url:'/apis/keyInfo/findWordByType.json?typeWord'+_type,
+		type:'GET',
+		asynyc:false,
+		success:function(res){
+			//为词赋值
+			$.each(res.data,function (i,e){
+				label='<input type="checkbox" name="lang" value="'+e.id+'"><span>'+e.keyword+'</span><br />';
+			});
+		}
+	});
+	$('#word_info').append(label);*/
+	//第二,select1的选项变了，词的内容也要变
+	
+}
 //文件批量上传
 function uploadFile(){
 	 var myform = new FormData();
     myform.append('file',$('#load_xls')[0].files[0]);
-    $.ajax({
+   /* $.ajax({
    	 url: "/apis/keyInfo/ExcelDataUpload.json",
         type: "POST",
         data: myform,
@@ -38,10 +78,10 @@ function uploadFile(){
        	 }else{
        		 layer.msg(res.message, {icon: 2});
        	 }
-       	 /*var param ={type:type,pageSize:pageSize,pageNumber:pageNumber};
-			  getType(param);*/
+       	 var param ={type:type,pageSize:pageSize,pageNumber:pageNumber};
+			  getType(param);
         }
-    });
+    });*/
 };
 //模态框的回显
 $('#addKeywordToTable').on('click',function(){
@@ -75,7 +115,7 @@ $('#addKeywordToTable').on('click',function(){
 
 //下一页  跳转下一页，同时保存信息
 $('.my_nextadd').on('click',function(){
-	//属性值
+	/*//属性值
 	var arr = new Array();
 	var i=1;
     var j=1;
@@ -85,8 +125,8 @@ $('.my_nextadd').on('click',function(){
     	 	//属性值
     	 	var _attributeValue = $("input[name='value_"+i+"']").val();
     	 	 arr.push({
-    	 		 attributeNames:_attributeName,
-    	 		 attributeValues:_attributeValue
+    	 		attributeName:_attributeName,
+    	 		attributeValue:_attributeValue
              });
              j++;
              i++;
@@ -99,26 +139,41 @@ $('.my_nextadd').on('click',function(){
 	console.log(_type);
 	if(_type==0){
 		_typeWord=$("input[name=TypeWord]" ).val();
-	}
-	var _keyword=$("input[name=keyword]" ).val();
-	var _describe=$("input[name=describe]" ).val();
-	var param={typeId:_type,keyword:_keyword,describe:_describe,typeWord:_typeWord,msg:arr};
-	$.ajax({
-		url:'/apis/keyInfo/addOrUpAttributeDTO.json',
-		type:'POST',
-		data:JSON.stringify(param),
-		asynyc:false,
-		contentType:'application/json',
-		success:function(res){
-			if(res.data==true){
-				$('#myModal').modal('hide');
-				$('#secondModal').modal('show');	
-			}
+		if(_typeWord==null){
+			layer.msg("新增词为空，不能进行操作", {icon: 2});
+		}else{
+			var _keyword=$("input[name=keyword]" ).val();
+			var _describe=$("input[name=describe]" ).val();
+			var param={typeId:_type,keyword:_keyword,describe:_describe,typeWord:_typeWord,msg:arr};
+			$.ajax({
+				url:'/apis/keyInfo/addOrUpAttributeDTO.json',
+				type:'POST',
+				data:JSON.stringify(param),
+				asynyc:false,
+				contentType:'application/json',
+				success:function(res){
+					
+				}
+			});
 		}
-	});
+	}else{
+		var _keyword=$("input[name=keyword]" ).val();
+		var _describe=$("input[name=describe]" ).val();
+		var param={typeId:_type,keyword:_keyword,describe:_describe,typeWord:_typeWord,msg:arr};
+		$.ajax({
+			url:'/apis/keyInfo/addOrUpAttributeDTO.json',
+			type:'POST',
+			data:JSON.stringify(param),
+			asynyc:false,
+			contentType:'application/json',
+			success:function(res){
+				
+			}
+		});
+	}*/
+	$('#myModal').modal('hide');
 	
-	
-	
+	$('#secondModal').modal('show');
 	
 });
 //新增分类
@@ -143,6 +198,27 @@ $('#new_add').on('click',function(){
 		});
 	});
 });
+$('#my_relatedadd').on('click',function(){
+	$('#form3').append(
+			'<div class="form-group"><label class="col-md-3 control-label" for="text-input">新增新关系项</label>'
+					+'<div class="col-md-9">'
+					+'<input type="text" name="addRelatedInfo"  class="form-control" ></div></div>'
+	);
+	$('#thirdModal').modal('show');
+	$('.my_fireadd').on('click',function(){
+		var addInfo = $("input[name='addRelatedInfo']").val();
+		console.log(addInfo);
+		$.ajax({
+			url:'/apis/keyInfo/updateRelated.json.json?relatedWord='+addInfo,
+			type:'GET',
+			asynyc:false,
+			success:function(res){
+				getLabel();
+				$('#thirdModal').modal('hide');
+			}
+		});
+	});
+});
 //获取分类信息
 function getLabel(){
 	$.ajax({
@@ -150,7 +226,6 @@ function getLabel(){
 		type:'GET',
 		asynyc:false,
 		success:function(res){
-			console.log(res.data);
 			if(res.data==null){
 				 layer.msg(res.message, {icon: 2});
 			}else{
@@ -159,13 +234,14 @@ function getLabel(){
 				$.each(res.data,function (i,e){
 						label +='<a href="javascript:void(0);" id="'+e.id+'" class="search-item">'+e.typeWord+'</a>';
 						option +='<option value="'+e.id+'">'+e.typeWord+'</option>';		                  
-				})
+				});
+				
+				$('#select1').append(option);
 				option +='<option value="'+0+'">新增类别</option>';
 				$('#labelInfo').html(label);
 			}
 		}
 	});
 };
-
 
 

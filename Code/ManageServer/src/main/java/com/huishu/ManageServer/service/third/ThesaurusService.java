@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.entity.dbThird.KeywordTypeEntity;
+import com.huishu.ManageServer.entity.dbThird.RelatedWordEntity;
+import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 import com.huishu.ManageServer.entity.dto.dbThird.AttributeDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.WordDataDTO;
@@ -91,5 +93,21 @@ public interface ThesaurusService {
 	 * @return
 	 */
 	boolean saveOrUpAttributeData(AttributeDTO dto);
+
+	/**
+	 * @param typeWord
+	 */
+	List<ThesaurusEntity> findKeyWordByType(String typeWord);
+
+	/**
+	 * @param relatedWord
+	 * @return
+	 */
+	boolean updateRelatedWord(String relatedWord);
+
+	/**
+	 * @return
+	 */
+	List<RelatedWordEntity> getAllRelatedInfo();
 
 }

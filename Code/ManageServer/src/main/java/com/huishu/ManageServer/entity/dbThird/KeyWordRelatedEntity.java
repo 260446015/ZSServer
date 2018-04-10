@@ -28,9 +28,9 @@ public class KeyWordRelatedEntity implements Serializable {
 		@Column(name = "id", nullable = false)
 		private Long id;
 		
-		//关联关系
+		//关联词id
 		@Column(name="t_word_related")
-		private String related;
+		private Long relateWordId;
 		
 		//关联id
 		@Column(name="t_related_word_id")
@@ -56,13 +56,14 @@ public class KeyWordRelatedEntity implements Serializable {
 			this.wordId = wordId;
 		}
 
-		public String getRelated() {
-			return related;
+		public Long getRelateWordId() {
+			return relateWordId;
 		}
 
-		public void setRelated(String related) {
-			this.related = related;
+		public void setRelateWordId(Long relateWordId) {
+			this.relateWordId = relateWordId;
 		}
+
 
 		public Long getRelateId() {
 			return relateId;

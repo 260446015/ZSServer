@@ -31,7 +31,7 @@ public class StringUtil {
 	private final static String[] LC_FIRSTLETTER = { "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n",
 			"o", "p", "q", "r", "s", "t", "w", "x", "y", "z" };
 	
-	private final static String[] LC_FIRST = { "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N",
+	public final static String[] LC_FIRST = { "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N",
 			"O", "P", "Q", "R", "S", "T", "W", "X", "Y", "Z" };
 	
 	/**
