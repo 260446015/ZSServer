@@ -46,7 +46,6 @@ $(".search-box").on("click",".search-item-content>a",function(){
 });
 
 function getType(e){
-	
 	$.ajax({
 		type:'POST',
 		url:'/apis/keyInfo/findKeyWordInfo.json',
@@ -80,23 +79,6 @@ function initPage(){
 		 var _id =  $(this).parents('.gradeX').find('td').eq(0).text();
 		window.location.href="/apis/keyInfo/ThesaurusRelatedManage.html?id="+_id;
 	});
-	$('.btn-default').on('click',function(){
-		 var _id =  $(this).parents('.gradeX').find('td').eq(0).text();
-		 $.ajax({
-			 	type:'GET',
-				url:'/apis/keyInfo/findRelatedInfoById.json?id='+_id,
-				asynyc:false,
-				success:function(res){
-					if(res.message!=null){
-						layer.msg(res.message, {icon: 2});
-					}else{
-						if(res.data.result==true){
-							$('#demo-form').html(ShowRelatedInfo(res.data));
-							$('#myModal').modal("show");
-						}
-					}
-				}
-		 });});
 	$('.removeinfo').on('click',function(){
 		var _id =  $(this).parents('.gradeX').find('td').eq(0).text();
 		$.ajax({
@@ -120,8 +102,8 @@ function ShowInfo(e){
 	var arr =e;
 	var html='';
 	for(var i =0;i<	arr.length;i++){
-		console.log(arr);
 		html += '<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+arr[i].entntity.id+'"/><td>';
+		html += arr[i].entntity.id+ '</td><td>';
 		html += arr[i].entntity.keyword+ '</td><td>';
 		html +=  arr[i].entntity.type + '</td><td>';
 		html +=  arr[i].entntity.describe + '</td><td>';
@@ -131,84 +113,14 @@ function ShowInfo(e){
 			var a = arr[i].info;
 			var hh='<div>';
 			for(var j =0;j<a.length;j++){
-				console.log(a[j]);
 				hh += '<p><span>'+a[j].attributeName+'</span><input type="text" name="name"  placeholder="'+a[j].attributeValue+'" value="'+a[j].attributeValue+'" required/></p>'
 			}
-			 
 			html += hh+'</div></td>';
 		}
 		html += '<td class="actions">';
 		html +='<a href="javascript:void(0);" class="on-default editinfo"><i class="fa fa-pencil"></i></a>';
 		html +='<a href="javascript:void(0);" class="on-default removeinfo modal-basic"><i class="fa fa-trash-o"></i></a>';
-		html +='<a class="bk-margin-top-10 bk-margin-bottom-10 modal-with-form btn btn-default" href="#modalForm">查看</a>';	            
 		html +='</td></tr>';
 	}
 	return html;
-	/*var arr=[];
-	$.each(e,function(index,item){
-		arr.push(
-				'<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+item.id+'"/><td>' 
-				+item.id+ '</td><td>'
-				+item.keyword+ '</td><td>'
-				+item.type + '</td><td>'
-				+item.describe+ '</td>'
-				+ '<td class="actions">'
-	            +'<a href="javascript:void(0);" class="on-default editinfo"><i class="fa fa-pencil"></i></a>'
-	            +'<a href="javascript:void(0);" class="on-default removeinfo modal-basic"><i class="fa fa-trash-o"></i></a>'
-	            +'<a class="bk-margin-top-10 bk-margin-bottom-10 modal-with-form btn btn-default" href="#modalForm">查看</a>'	            
-	            +'</td></tr>'
-		);
-		
-	});
-	var inner = arr.join('');
-	return inner;*/
-};
-function ShowRelatedInfo(e){
-	var arr = [];
-	$.each(e,function(index,item){
-		if(index=="keyword"){
-			arr.push(
-					'<div class="form-group mt-lg"><label class="col-sm-3 control-label">关键词</label>'
-					+'<div class="col-sm-9">'
-					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
-					+'</div></div>'		
-			);
-		}else if(index=="type"){
-			arr.push(
-					'<div class="form-group"><label class="col-sm-3 control-label">词性</label>'
-					+'<div class="col-sm-9">'
-					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
-					+'</div></div>'		
-			);
-		}else if(index=="relate"){
-			if(item==false){
-			}else{
-				for(var i =0;i<item.length;i++){
-					arr.push(
-						'<div class="form-group"><label class="col-sm-3 control-label">关联词</label>'
-						+'<div class="col-sm-9">'
-						+'<input type="text" name="name" class="form-control" placeholder="'+item[i].rkeyword+'" value="'+item[i].rkeyword+'" required/>'
-						+'</div></div>'	
-						+'<div class="form-group"><label class="col-sm-3 control-label">关联关系</label>'
-						+'<div class="col-sm-9">'
-						+'<input type="text" name="name" class="form-control" placeholder="'+item[i].related+'" value="'+item[i].related+'" required/>'
-						+'</div></div>'	
-						+'<div class="form-group"><label class="col-sm-3 control-label">关联词词性</label>'
-						+'<div class="col-sm-9">'
-						+'<input type="text" name="name" class="form-control" placeholder="'+item[i].rtype+'" value="'+item[i].rtype+'" required/>'
-						+'</div></div>'	
-					);
-				}
-			}
-		}else if(index=="desc"){
-			arr.push(
-					'<div class="form-group"><label class="col-sm-3 control-label">关键词描述</label>'
-					+'<div class="col-sm-9">'
-					+'<input type="text" name="name" class="form-control" placeholder="'+item+'" value="'+item+'" required/>'
-					+'</div></div>'		
-			);
-		}
-	});
-	var inner = arr.join('');
-	return inner;
 };

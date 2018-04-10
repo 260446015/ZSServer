@@ -56,7 +56,8 @@ $(function () {
 		success:function(response){
                 if(response.success){
                     $.each(response.data.dataList,function (i,e) {
-                        option+="<option value='"+e.id+"'>"+e.keyword+"("+e.type+")</option>";
+                    	
+                        option+="<option value='"+e.entntity.id+"'>"+e.entntity.keyword+"("+e.entntity.type+")</option>";
                     });
                 }else{
                     layer.alert(response.message);

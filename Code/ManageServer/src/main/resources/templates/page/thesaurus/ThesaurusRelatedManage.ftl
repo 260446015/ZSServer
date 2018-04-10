@@ -91,6 +91,7 @@
 															<div class="col-md-3">
 														<input type="text" name="describe" class="form-control" placeholder="请填写关键词的描述" value="请填写关键词的描述" required/>
 													</div>
+													<div class="form-group" id="attributeInfo">
 													</div>
 												</form>
 											<form id="fomr-info" class="form-horizontal mb-lg" action="javascript:void(0)" novalidate="novalidate" >		

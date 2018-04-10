@@ -27,9 +27,11 @@ import com.huishu.ManageServer.common.util.ReadExcelUtil;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbSecond.CompanyEntity;
+import com.huishu.ManageServer.entity.dbThird.KeywordTypeEntity;
 import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.IndustrySummitDTO;
+import com.huishu.ManageServer.entity.dto.dbThird.AttributeDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.WordDataDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
@@ -50,6 +52,7 @@ import com.alibaba.fastjson.JSONObject;
 @RequestMapping("/apis/keyInfo")
 public class ThesaurusController extends BaseController{
 	private static final Logger LOGGER = Logger.getLogger(ThesaurusController.class);
+	
 	@Autowired
 	private ThesaurusService service;
 	
@@ -67,6 +70,7 @@ public class ThesaurusController extends BaseController{
 		}
 		return "/thesaurus/" + page;
 	}
+	
 	/**
 	 *	根据id获取关联关系的信息
 	 * @param dto
@@ -80,6 +84,46 @@ public class ThesaurusController extends BaseController{
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
 			JSONObject obj = service.findRelatedById(id);
+			return success(obj);
+		} catch (Exception e) {
+			LOGGER.error("根据id查看关键词以及关联关系!",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+		
+	}
+	/**
+	 *	新增词性分类信息
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updateLabel.json", method = RequestMethod.GET,params={"typeWord"})
+	public AjaxResult updateLabel( String typeWord){
+		try {
+			if(StringUtil.isEmpty(typeWord)){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			boolean info= service.updateTypeWord(typeWord);
+			return success(info);
+		} catch (Exception e) {
+			LOGGER.error("根据id查看关键词以及关联关系!",e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+		
+	}
+	/**
+	 *	根据id获取属性的信息
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/findAttributeInfoById.json", method = RequestMethod.GET,params={"id"})
+	public AjaxResult findAttributeInfoById( String id){
+		try {
+			if(StringUtil.isEmpty(id)){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			JSONObject obj = service.findAttributeInfoById(id);
 			return success(obj);
 		} catch (Exception e) {
 			LOGGER.error("根据id查看关键词以及关联关系!",e);
@@ -130,7 +174,7 @@ public class ThesaurusController extends BaseController{
 	@RequestMapping(value = "/findKeyWordInfo.json", method = RequestMethod.POST)
 	public AjaxResult findKeyWordInfo(@RequestBody TKeyWordDTO dto){
 		try {
-			if(StringUtil.isEmpty(dto.getType())){
+			if(StringUtil.isEmpty(dto.getType())||StringUtil.isEmpty(dto.getSort())){
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
 			Page<WordDataDTO> page = service.findByPage(dto);
@@ -140,7 +184,26 @@ public class ThesaurusController extends BaseController{
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
-	
+	/**
+	 * 新增或者修改词
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/addOrUpAttributeDTO.json",method=RequestMethod.POST)
+	public AjaxResult addOrUpAttributeDTO(@RequestBody AttributeDTO dto){
+		try {
+			if(StringUtil.isEmpty(dto.getKeyword())){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			boolean info = service.saveOrUpAttributeData(dto);
+			return success(info);
+		} catch (Exception e) {
+			LOGGER.error("新增或者更新词失败：", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+		
+	}
 	/**
 	 * 新增或者修改词
 	 * @param dto
@@ -247,5 +310,16 @@ public class ThesaurusController extends BaseController{
 		}else{
 			return error("文件没有上传");
 		}
+	}
+	
+	/**
+	 * 获取标签属性
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getLabelInfo.json",method=RequestMethod.GET)
+	public AjaxResult getLabelInfo(){
+		List<KeywordTypeEntity> list = service.getLableInfo();
+		return success(list);
 	}
 }

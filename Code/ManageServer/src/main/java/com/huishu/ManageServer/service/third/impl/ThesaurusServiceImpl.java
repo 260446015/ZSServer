@@ -2,7 +2,6 @@ package com.huishu.ManageServer.service.third.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -10,33 +9,33 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.formula.functions.T;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.util.StringUtil;
 import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
-import com.huishu.ManageServer.entity.dto.dbThird.AttributeInfo;
+import com.huishu.ManageServer.entity.dto.dbThird.AttributeDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.Serizal;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.WordDataDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
 import com.huishu.ManageServer.repository.third.AttributeRepository;
+import com.huishu.ManageServer.repository.third.KeyWordInfoRepository;
 import com.huishu.ManageServer.repository.third.KeyWordRelatedRepository;
+import com.huishu.ManageServer.repository.third.KeywordTypeRepository;
 import com.huishu.ManageServer.repository.third.LogRepository;
 import com.huishu.ManageServer.repository.third.ThesaurusRepository;
 import com.huishu.ManageServer.service.third.ThesaurusService;
+import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.config.TargetDataSource;
 import com.huishu.ManageServer.entity.dbThird.AttributeEntity;
 import com.huishu.ManageServer.entity.dbThird.KeyWordRelatedEntity;
+import com.huishu.ManageServer.entity.dbThird.KeywordInfoEntity;
+import com.huishu.ManageServer.entity.dbThird.KeywordTypeEntity;
 import com.huishu.ManageServer.entity.dbThird.Log;
 /**
  * @author hhy
@@ -62,6 +61,12 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	@Resource
 	private AttributeRepository arp;
 	
+	@Resource
+	private KeywordTypeRepository ktp;
+
+	@Resource
+	private KeyWordInfoRepository kip;
+	
 	
 	@TargetDataSource(name="third")
 	@Override
@@ -73,7 +78,7 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			JSONArray arr = new JSONArray();
 			Long id = action.getId();
 			String keyword = action.getKeyword();//关键词
-			String type = action.getType();//词类型
+			String type = null;//词类型
 			String desc=action.getDescribe();//描述
 		
 			List<KeyWordRelatedEntity> list = krp.findByWordId(id);
@@ -85,7 +90,7 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 					ThesaurusEntity one = rep.findOne(wordId);
 					oj.put("keyName", one.getKeyword());
 					oj.put("relatedName",related );
-					oj.put("keyType", one.getType());
+					oj.put("keyType",null);
 					arr.add(oj);
 				}
 			});
@@ -101,7 +106,7 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	}
 
 	/**
-	 * 查看关键词信息
+	 * 查看关键词信息--列表查看
 	 */
 	@Override
 	@TargetDataSource(name="third")
@@ -113,28 +118,91 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 		try {
 			Long number = (long) (dto.getPageNumber()*(dto.getPageSize()));
 			Pageable pageable = new PageRequest(dto.getPageNumber() ,dto.getPageSize());
-			//获取相应的总数，
 			if(dto.getType().equals("全部")){
-				list  = rep.getKeyInfoList(number,dto.getPageSize());
-				count = rep.count();
+				switch(dto.getSort()){
+					case("1"):
+						//按照添加时间倒序
+						list = rep.getKeyWordListDESC(number,dto.getPageSize());
+						//获取相应的总数，
+						count = rep.count();
+					  break;
+					case("2"):
+						//按照添加时间顺序
+						list = rep.getKeyInfoList(number,dto.getPageSize());
+						//获取相应的总数，
+//						count = rep.countByType(dto.getType());
+					  break;
+					case("3"):
+						//按照词性热度
+						//需要配合调试
+					  break;
+					case("4"):
+						//按照词性复杂度
+						//先获取所有属性复杂度高的关键词id
+						List<Long> ids = arp.getKeyWordId(number,dto.getPageSize());
+						//根据关键词id集合查询所有数据
+						list = rep.findAll(ids);
+						count = arp.getKeyWordIdCount();
+					   break;
+					default :
+						//词性关系复杂度
+						List<Long> all = krp.getKeyWordIdDESC(number, dto.getPageSize());
+						//根据关键词id集合查询所有数据
+						list = rep.findAll(all);
+						count = arp.getKeyWordIdCount();
+						break;
+				};
+				
 			}else{
-				list  = rep.getKeyWordListByType(dto.getType(),number,dto.getPageSize());
-				count = (long) rep.countByType(dto.getType());
+				Long typeId = 	Long.parseLong(dto.getType());
+				switch(dto.getSort()){
+				case("1"):
+					//按照添加时间倒序
+					//list = rep.getKeyWordListDESC(number,dto.getPageSize());
+					List<Long> _ids = kip.getKeyWordListDESCByType(typeId , number, dto.getPageSize());
+					list = rep.findAll(_ids);
+					//获取相应的总数，
+					 count = kip.getCount(typeId);
+					 break;
+				case("2"):
+					//按照添加时间顺序
+					List<Long> ids = kip.getKeyWordListByType(typeId , number, dto.getPageSize());
+					list = rep.findAll(ids);
+					//获取相应的总数，
+					count = kip.getCount(typeId);
+				  break;
+				case("3"):
+					//按照词性热度
+					//需要配合调试
+				  break;
+				case("4"):
+					//按照词性复杂度
+					
+					//先获取所有的id
+					List<Long> ll = kip.getWordIdByTypeId(typeId);
+					
+					//先获取所有属性复杂度高的关键词id
+					
+					//根据关键词id集合查询所有数据
+					
+				   break;
+				default :
+					//词性关系复杂度
+				
+					//根据关键词id集合查询所有数据
+				
+				  break;
+			}
+				
 			}
 			list.forEach(action->{
-				Long wordId = action.getId();
-				List<AttributeEntity> arr = arp.getByWordId(wordId);
-				List<AttributeInfo> array = new ArrayList<AttributeInfo>();
-				arr.forEach(act->{
-					AttributeInfo info = new AttributeInfo();
-					info.setAttributeName(act.getAttributeName());
-					info.setAttributeValue(act.getAttributeValue());
-					array.add(info);
-				});
-				WordDataDTO data = new WordDataDTO();
-				data.setEntntity(action);
-				data.setInfo(array);
-				alist.add(data);
+				WordDataDTO dtp = new WordDataDTO();
+				dtp.setEntntity(action);
+				KeywordInfoEntity ent = kip.findByWordId(action.getId());
+				KeywordTypeEntity one = ktp.findOne(ent.getTypeId());
+				dtp.setKeywordNumber(ent.getWordNumber());
+				dtp.setTypeWord(one.getTypeWord());
+				alist.add(dtp);
 			});
 			 page = new PageImpl<>(alist, pageable, count);
 			 return page;
@@ -158,6 +226,7 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			if(one==null){
 				obj.put("result", false);
 			}else{
+				//获取关联关系
 				List<KeyWordRelatedEntity> list = krp.findByWordId(_id);
 				if(list.size()==0){
 					obj.put("relate", false);
@@ -167,7 +236,7 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 						if(action.getRelateId()!=0){
 							ThesaurusEntity ent = rep.findOne(action.getRelateId());
 							o.put("rkeyword", ent.getKeyword());
-							o.put("rtype", ent.getType());
+							o.put("rtype", null);
 							o.put("ralate_id", action.getRelateId());//关联词id
 						}
 						
@@ -177,10 +246,18 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 					});
 					obj.put("relate", arr);
 				}
+				//获取属性值
+				List<AttributeEntity> alist = arp.findByWordId(_id);
+				
+				if(alist.size()==0){
+					obj.put("attribute", false);
+				}else{
+					obj.put("attribute", alist);
+				}
 				obj.put("id", id);			
 				obj.put("desc", one.getDescribe());			
 				obj.put("keyword", one.getKeyword());
-				obj.put("type", one.getType());
+				obj.put("type", null);
 				obj.put("result", true);
 			}
 		} catch (Exception e) {
@@ -223,7 +300,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			}
 			ent.setDescribe(dto.getDescrip());
 			ent.setKeyword(dto.getName());
-			ent.setType(dto.getType());
 			ThesaurusEntity save = rep.save(ent);
 			List<Serizal> msg = dto.getMsg();
 			List<KeyWordRelatedEntity> list = new ArrayList<KeyWordRelatedEntity>();
@@ -289,42 +365,38 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 		ThesaurusEntity ent = null;
 		ThesaurusEntity save =  null;
 		Long wordId = null;
+		Long count = (long) 0;
 		try {
 			String[] split = value.split("---");
 			String keyword = split[0];
 			String type = split[1];
 			if(split.length<=2){
-				int count = rep.countByType(type);
+//				 rep.countByType(type);
 				Long typeId = null;
 				if(count==0){
 					Long keyWordId = rep.getKeyWordId();
 					typeId = keyWordId+1;
 				}else{
-					typeId = rep.getTypeIdByType(type);
+//					typeId = rep.getTypeIdByType(type);
 				}
 				ent =new ThesaurusEntity();
 				ent.setKeyword(keyword);
-				ent.setType(type);
-				ent.setTypeId(typeId);
 				rep.save(ent);
 			}else{
 				String describe = split[2];
-				int count = rep.countByType(type);
+//				Long count = rep.countByType(type);
 				ent = new ThesaurusEntity();
 				ent.setDescribe(describe);
 				ent.setKeyword(keyword);
-				ent.setType(type);
 				//如果count==0,说明此类型词没有出现，进行添加
 				if( count == 0){
 					//获取产业的最大值id
 					Long _id = rep.getKeyWordId();
 					Long id = _id+1;
 					ent.setId(id);
-					ent.setTypeId(id);
 				}else{
 					//获取typeid
-					Long typeId = rep.getTypeIdByType(type);
-					ent.setTypeId(typeId);
+//					Long typeId = rep.getTypeIdByType(type);
 					Long mid = rep.getMaxId();
 					//如果mid处于0~20之间，说明产业数据太小，需要扩大
 					if(mid>0&&mid<20){
@@ -366,5 +438,78 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			return false;
 		}
 		
+	}
+
+	/**
+	 * 获取词性分类标签信息
+	 */
+	@Override
+	@TargetDataSource(name="third")
+	public List<KeywordTypeEntity> getLableInfo() {
+		return (List<KeywordTypeEntity>) ktp.findAll();
+	}
+
+	/**
+	 * 根据id获取词的属性信息
+	 * @param id
+	 * @return
+	 */
+	@Override
+	@TargetDataSource(name="third")
+	public JSONObject findAttributeInfoById(String id) {
+		try {
+			long _id = Long.parseLong(id);
+			
+			return null;
+		} catch (Exception e) {
+			LOGGER.error("根据id查看词属性失败,原因是：",e);
+			return null;
+		}
+	}
+
+	/**
+	 * 更新词性信息
+	 */
+	@Override
+	@TargetDataSource(name="third")
+	public boolean updateTypeWord(String typeWord) {
+		try {
+			KeywordTypeEntity ent = new KeywordTypeEntity();
+			ent.setTypeWord(typeWord);
+			ktp.save(ent);
+			return true;
+		} catch (Exception e) {
+			LOGGER.error("添加词性失败,原因是：",e);
+			return  false;
+		}
+	}
+	/**
+	 * 保存第一页数据
+	 */
+	@Override
+	public boolean saveOrUpAttributeData(AttributeDTO dto) {
+		Long typeId = dto.getTypeId();
+		if(typeId==0){
+			String typeWord = dto.getTypeWord();
+			if(StringUtil.isEmpty(typeWord)){
+				return false;
+			}
+			
+			KeywordTypeEntity ent = new KeywordTypeEntity();
+			ent.setTypeWord(typeWord);
+			KeywordTypeEntity save = ktp.save(ent);
+			
+			//根据类型id,判断分类编号属于A,B,C,D,E。。。。。等
+			if(save.getId()>26){
+				//随机取两个值进行pi'dui
+			}else{
+				
+			}
+			//查询info数据库，判断当前类型数据的数量值，
+		}else{
+			//不是新增类型，则一定存在，只需获取数量值就行
+			
+		}
+		return false;
 	}
 }

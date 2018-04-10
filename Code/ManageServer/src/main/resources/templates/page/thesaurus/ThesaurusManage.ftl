@@ -79,7 +79,7 @@
                             </div>
                              <div class="form-group" >
                              	<div class="col-md-3">
-                            	 <button class="btn btn-info btn-xs ">新增分类<i class="fa fa-plus"></i></button>
+                            	 <button class="btn btn-info btn-xs " id="new_add">新增分类<i class="fa fa-plus"></i></button>
                              	</div>
                              </div>
                         </div>   
@@ -155,17 +155,98 @@
     											<div class="modal-content">
       											<div class="modal-header">
       											  <button type="button" class="close" data-dismiss="modal">
-      										     <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-      											  </button>
-    												    <h4 class="modal-title">关联关系</h4>
-    													  </div>
-      												<div class="modal-body">
+      										     	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+      											  	</button>
+    											 </div>
+      												<div class="modal-body" >
     											   		<form id="demo-form" class="form-horizontal mb-lg" novalidate="novalidate" >
-												</form>
+															<div class="form-group">
+                                          					  <label class="col-md-3 control-label" for="text-input">选择添加类型:</label>
+                                           						 <div class="col-md-9">
+                                             			 		  <select id="select" name="select" class="form-control input-lg" size="1">'
+                                                					</select>
+                                          					  	</div>
+                                          					  	<div class="col-md-9" >
+                                          					  		<input type="text" name="TypeWord"  class="form-control" placeholder="类型名">
+                                          					  	</div>
+                                       						 </div>		
+                                       						 <div class="form-group">
+                                          					  <label class="col-md-3 control-label" for="text-input">词名称:</label>
+                                          					  	<div class="col-md-9" >
+                                          					  		<input type="text" name="keyword"  class="form-control" placeholder="词名称">
+                                          					  	</div>
+                                       						 </div>		
+                                       						  <div class="form-group">
+                                          					  <label class="col-md-3 control-label" for="text-input">词相关内容:</label>
+                                          					  	<div class="col-md-9" >
+                                          					  		<h4>词说明</h4>
+                                          					  		<input type="text" name="describe"  class="form-control" placeholder="词说明">
+                                          					  	</div>
+                                          					  	<!--<div class="col-md-9" >
+                                          					  		<h4>产业分类</h4>
+                                          					  		<input type="text" name="industry"  class="form-control" placeholder="产业分类">
+                                          					  	</div>-->
+                                       						 </div>																
+														</form>
+														<div class="form-group" style="padding-left: 30%">
+                                       						 <button class="btn btn-info btn-xs my_add">添加属性<i class="fa fa-plus"></i></button>
+                                    					</div>
+                                    					<div class="form-group" style="padding-left: 30%">
+                                       						 <button class="btn btn-info btn-xs my_nextadd">下一步</button>
+                                    					</div>
     											  </div>
    											 </div><!-- /.modal-content -->
   												</div><!-- /.modal-dialog -->
-									</div><!-- /.modal -->
+									</div>
+									<!-- /.modal -->
+									<!-- Modal Form -->
+									<div class="modal fade" id="secondModal">
+  											<div class="modal-dialog">
+    											<div class="modal-content">
+      											<div class="modal-header">
+      											  <button type="button" class="close" data-dismiss="modal">
+      										     	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+      											  	</button>
+    											 </div>
+      												<div class="modal-body">
+      												
+    											   		<form id="form2" class="form-horizontal mb-lg" novalidate="novalidate" >
+																										
+														</form>
+														
+                                    					<div class="form-group" style="padding-left: 30%">
+                                       						 <button class="btn btn-info btn-xs my_firstadd">上一步</button>
+                                       						 <button class="btn btn-info btn-xs my_secondadd">下一步</button>
+                                    					</div>
+    											  </div>
+   											 </div><!-- /.modal-content -->
+  												</div><!-- /.modal-dialog -->
+									</div>
+									
+									<!-- /.modal -->
+									
+										<!-- Modal Form -->
+									<div class="modal fade" id="thirdModal">
+  											<div class="modal-dialog">
+    											<div class="modal-content">
+      											<div class="modal-header">
+      											  <button type="button" class="close" data-dismiss="modal">
+      										     	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+      											  	</button>
+    											 </div>
+      												<div class="modal-body">
+    											   		<form id="form3" class="form-horizontal mb-lg" novalidate="novalidate" >
+																										
+														</form>
+														<div class="form-group" style="padding-left: 30%">
+                                       						 <button class="btn btn-info btn-xs my_fireadd">确认添加</button>
+                                    					</div>
+    											  </div>
+   											 </div><!-- /.modal-content -->
+  												</div><!-- /.modal-dialog -->
+									</div>
+									
+									<!-- /.modal -->
 							</div>
 						</div>	
 					</div>									   

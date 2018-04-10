@@ -1,10 +1,13 @@
 package com.huishu.ManageServer.service.third;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
+import com.huishu.ManageServer.entity.dbThird.KeywordTypeEntity;
+import com.huishu.ManageServer.entity.dto.dbThird.AttributeDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.WordDataDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
@@ -26,7 +29,6 @@ public interface ThesaurusService {
 	 * @param dto
 	 * @return
 	 */
-//	Page<ThesaurusEntity> findByPage(TKeyWordDTO dto);
 	Page<WordDataDTO> findByPage(TKeyWordDTO dto);
 
 	/**
@@ -66,5 +68,28 @@ public interface ThesaurusService {
 	 * @param value
 	 */
 	boolean addDataInfo(String value);
+
+	/**
+	 * @return
+	 */
+	List<KeywordTypeEntity> getLableInfo();
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	JSONObject findAttributeInfoById(String id);
+
+	/**
+	 * @param typeWord
+	 * @return
+	 */
+	boolean updateTypeWord(String typeWord);
+
+	/**
+	 * @param dto
+	 * @return
+	 */
+	boolean saveOrUpAttributeData(AttributeDTO dto);
 
 }

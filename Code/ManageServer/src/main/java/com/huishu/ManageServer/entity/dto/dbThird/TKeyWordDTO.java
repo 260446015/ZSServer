@@ -17,6 +17,7 @@ public class TKeyWordDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String type;
+	private String sort;
 	/**
 	 * 分页中每页大小
 	 */
@@ -60,6 +61,14 @@ public class TKeyWordDTO implements Serializable{
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 
 	@Override

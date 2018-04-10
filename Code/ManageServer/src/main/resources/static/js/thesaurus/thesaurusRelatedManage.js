@@ -19,6 +19,16 @@ function editData(info){
 						$('input[name="keyword"]').val(res.data.keyword);
 						$('input[name="type"]').val(res.data.type);
 						$('input[name="describe"]').val(res.data.desc);
+						if(res.data.attribute==false){
+							$('#attributeInfo').html(
+									'<label class="col-sm-3 control-label">属性</label><div class="col-md-3">'+
+								'<input type="text" name="attribute1" class="form-control" placeholder="请填写关键词的描述" value="无" required/></div>'
+							)
+						}else{
+							$('#attributeInfo').html(
+									
+							);
+						}
 						$('#fomr-info').html(ShowRelatedInfo(res.data.relate));
 						$(".selectpicker" ).selectpicker('refresh');
 						var param ={type:"全部",pageSize:100,pageNumber:0};
@@ -31,7 +41,7 @@ function editData(info){
 								success:function(response){
 						                if(response.success){
 						                    $.each(response.data.dataList,function (i,e) {
-						                        option+="<option value='"+e.id+"'>"+e.keyword+"("+e.type+")</option>";
+						                        option+="<option value='"+e.entntity.id+"'>"+e.entntity.keyword+"("+e.entntity.type+")</option>";
 						                    });
 						                }else{
 						                    layer.alert(response.message);

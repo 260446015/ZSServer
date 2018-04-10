@@ -13,8 +13,8 @@ import java.util.List;
  * @author yindq
  * @since 2018-04-03
  */
-@TargetDataSource(name="third")
 @Repository
+@TargetDataSource(name="third")
 public interface SearchEngineKeywordRepository extends JpaRepository<SearchEngineKeyword,Long> {
 	/**
 	 * 获得所有的关键词

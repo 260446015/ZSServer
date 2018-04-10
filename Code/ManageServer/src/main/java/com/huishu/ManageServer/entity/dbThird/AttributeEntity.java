@@ -1,15 +1,15 @@
 package com.huishu.ManageServer.entity.dbThird;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -18,10 +18,10 @@ import com.alibaba.fastjson.JSONObject;
  * @date 2018年3月27日
  * @Parem
  * @return 
- * 
+ * 词库平台属性值实体
  */
 @Entity
-@Table(name = "t_attribute")
+@Table(name = "t_word_attribute")
 public class AttributeEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -35,9 +35,43 @@ public class AttributeEntity implements Serializable {
 	
 	@Column(name="t_attribute_name")
 	private String attributeName;
-	
-	@Column(name="t_attribute_value")
+	//string的字段内容
+	@Column(name="t_attribute_first")
 	private String attributeValue;
+	
+	@Column(name="t_attribute_second")
+	private Long attributeLong;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@Column(name="t_attribute_third")
+	private Date  attributeDate;
+	
+	@Column(name="t_attribute_four")
+	private Double attributeDouble;
+	
+	public Long getAttributeLong() {
+		return attributeLong;
+	}
+
+	public void setAttributeLong(Long attributeLong) {
+		this.attributeLong = attributeLong;
+	}
+
+	public Date getAttributeDate() {
+		return attributeDate;
+	}
+
+	public void setAttributeDate(Date attributeDate) {
+		this.attributeDate = attributeDate;
+	}
+
+	public Double getAttributeDouble() {
+		return attributeDouble;
+	}
+
+	public void setAttributeDouble(Double attributeDouble) {
+		this.attributeDouble = attributeDouble;
+	}
 
 	public Long getId() {
 		return id;

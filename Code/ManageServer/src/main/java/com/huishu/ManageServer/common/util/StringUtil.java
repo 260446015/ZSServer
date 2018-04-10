@@ -30,7 +30,10 @@ public class StringUtil {
 			3472, 3635, 3722, 3730, 3858, 4027, 4086, 4390, 4558, 4684, 4925, 5249, 5590 };
 	private final static String[] LC_FIRSTLETTER = { "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n",
 			"o", "p", "q", "r", "s", "t", "w", "x", "y", "z" };
-
+	
+	private final static String[] LC_FIRST = { "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N",
+			"O", "P", "Q", "R", "S", "T", "W", "X", "Y", "Z" };
+	
 	/**
 	 * 取得给定汉字的首字母,即声母
 	 * 

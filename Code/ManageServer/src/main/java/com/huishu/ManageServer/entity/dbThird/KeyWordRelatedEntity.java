@@ -15,7 +15,7 @@ import com.alibaba.fastjson.JSONObject;
  * @date 2018年3月16日
  * @Parem
  * @return 
- * 
+ * 关联关系属性实体
  */
 @Entity
 @Table(name = "t_word_related")

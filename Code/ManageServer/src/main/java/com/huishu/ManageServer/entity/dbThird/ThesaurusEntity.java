@@ -1,15 +1,15 @@
 package com.huishu.ManageServer.entity.dbThird;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSONObject;
  * 词库管理平台实体
  */
 @Entity
-@Table(name = "t_word")
+@Table(name ="t_word")
 public class ThesaurusEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,17 +33,15 @@ public class ThesaurusEntity implements Serializable {
 	// 关键词
 	@Column(name="t_key_word")
 	private String keyword;
-	// 关键词类型
-	@Column(name="t_word_type")
-	private String type;
+	
 	//词汇描述
 	@Column(name="t_key_describe")
 	private String describe;
-	//获取类型id
-	@Column(name="t_type_id")
-	private Long typeId;
 	
-
+	//添加时间
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@Column(name="t_insert_time")
+	private Date insertTime;
 	public Long getId() {
 		return id;
 	}
@@ -60,16 +58,14 @@ public class ThesaurusEntity implements Serializable {
 		this.keyword = keyword;
 	}
 
-	public String getType() {
-		return type;
+	public Date getInsertTime() {
+		return insertTime;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setInsertTime(Date insertTime) {
+		this.insertTime = insertTime;
 	}
-	
-	
-	
+
 	public String getDescribe() {
 		return describe;
 	}
@@ -78,14 +74,6 @@ public class ThesaurusEntity implements Serializable {
 		this.describe = describe;
 	}
 
-
-	public Long getTypeId() {
-		return typeId;
-	}
-
-	public void setTypeId(Long typeId) {
-		this.typeId = typeId;
-	}
 
 	@Override
 	public String toString() {
