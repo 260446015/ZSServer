@@ -14,7 +14,7 @@
 	
 		<!-- Favicon and touch icons -->
 		<#include "/common/link.ftl">
-		
+		<link href="/css/thru.css" rel="stylesheet" />
 		<!-- end: CSS file-->	
 	    
 		<!-- end: CSS file-->	
@@ -77,16 +77,16 @@
                                 <a href="javascript:void(0);" id="业务性" class="search-item">产业业务性关键词</a>
                             	-->
                             </div>
-                             <div class="form-group" >
-                             	<div class="col-md-3">
+                             <div class="search-item-content" >
+                             	<div>
                             	 <button class="btn btn-info btn-xs " id="new_add">新增分类<i class="fa fa-plus"></i></button>
                              	</div>
                              </div>
                         </div>   
                         <!-- 选择框  -->  
                          <div class="form-group">
-                           <label class="col-sm-3 control-label">排序：</label>
-							<div class="col-md-3">
+                           <label class="col-sm-1 control-label sort">排序：</label>
+							<div>
 								<div class="col-sm-3">
 						      	  <select name="dealer"  class="selectpicker show-tick form-control"  data-width="98%" data-first-option="false" required data-live-search="true">
 						       		<option value="1">添加时间倒序</option> 
@@ -98,9 +98,13 @@
 						        </div>
 						    </div>
                         <!-- 搜索功能  -->    
-                        	<div class="col-md-3">
-                        		<input type="text" name="keyword_name" class="form-control" placeholder="请填写产业关键词"/>
-                        		<button class="btn btn-info btn-xs ">搜索 <i class="fa fa-search"></i></button>
+                        	<div class="col-md-8">
+                        		<div class='col-md-5'>
+                        			<input type="text" name="keyword_name" class="form-control" placeholder="请填写产业关键词"/>
+                        		</div>
+                        		<div class='col-md-3'>
+                        			<button class="btn btn-info btn-xs btns">搜索 <i class="fa fa-search"></i></button>
+                        		</div>
                        	 	</div>
                         </div>  
                     </div>
@@ -166,7 +170,7 @@
                                              			 		  <select id="select" name="select" class="form-control input-lg" size="1">'
                                                 					</select>
                                           					  	</div>
-                                          					  	<div class="col-md-9" >
+                                          					  	<div class="col-md-9 list" >
                                           					  		<input type="text" name="TypeWord"  class="form-control" placeholder="类型名">
                                           					  	</div>
                                        						 </div>		
@@ -190,10 +194,9 @@
 														</form>
 														<div class="form-group" style="padding-left: 30%">
                                        						 <button class="btn btn-info btn-xs my_add">添加属性<i class="fa fa-plus"></i></button>
+                                       						 <button class="btn btn-info btn-xs my_nextadd" style="margin-left: 30%">下一步</button>
                                     					</div>
-                                    					<div class="form-group" style="padding-left: 30%">
-                                       						 <button class="btn btn-info btn-xs my_nextadd">下一步</button>
-                                    					</div>
+   
     											  </div>
    											 </div><!-- /.modal-content -->
   												</div><!-- /.modal-dialog -->
