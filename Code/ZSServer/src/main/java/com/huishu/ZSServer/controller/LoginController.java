@@ -55,6 +55,18 @@ public class LoginController extends BaseController {
 	 * 未登录
 	 * @param response
 	 */
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String login2(HttpServletResponse response) {
+		if(getCurrentShiroUser()==null){
+			return "login";
+		}
+		return "/indusMap/industryMap";
+	}
+	
+	/**
+	 * 未登录
+	 * @param response
+	 */
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login(HttpServletResponse response) {
 		if(getCurrentShiroUser()==null){
