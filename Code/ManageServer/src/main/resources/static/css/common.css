@@ -8,6 +8,7 @@ body {
     background: #101029;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+     -webkit-touch-callout: none;
 }
 
 .catalog {
@@ -786,7 +787,7 @@ body {
 
 .lightspot1 {
     width: 30rem;
-    height: 22rem;
+    height: 18rem;
     position: relative;
     margin: 0 auto;
 }
@@ -990,7 +991,7 @@ body {
 
 .lightspot2 {
     width: 31rem;
-    height: 22rem;
+    height: 18rem;
     position: relative;
     margin: 0 auto;
 }
@@ -1339,7 +1340,7 @@ body {
 
 .lightspot3 {
     width: 30rem;
-    height: 22rem;
+    height: 18rem;
     position: relative;
     margin: 0 auto;
 }

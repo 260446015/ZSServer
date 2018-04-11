@@ -219,7 +219,6 @@ function company() {
         type: 'GET',
         async: false,
         success: function(res) {
-            // console.log(res)
             var strHtml = "";
             for (var i = 0; i < res.data.company.length; i++) {
                 strHtml += "<div><dl><dt>"

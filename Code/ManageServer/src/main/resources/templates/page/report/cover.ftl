@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="msapplication-tap-highlight" content="no">
     <title>慧数招商人工智能行业月度报告</title>
     <meta name="description" content="中科点击·慧数招商">
     <meta name="keywords" content="慧数招商人工智能行业月度报告">

@@ -222,24 +222,34 @@
                                           					  	</div>
                                        						 </div>	
                                        						 <div class="form-group">
-                                          					 	 <label class="col-md-3 control-label" for="text-input">选择词:</label>
-                                           						 <div class="col-md-9">
+                                          					 	 <label class="col-md-3 control-label mt10" for="text-input">选择词:</label>
+                                           						 <div class="col-md-9 mt10">
                                            						   <div style="color:#99BBE8;background:#fafafa;padding:5px;" >
                                            						    <input type="text" name="test"  placeholder="输入词名"/>
                                            						   </div>
-                                             			 			 <div style="padding:5px" id="word_info">
+                                             			 			 <div style="padding:5px;" id="word_info" class='texteara'>
                                              			 			 <input type="checkbox" name="lang" value="01"><span>天天挖坑</span><br />
             															<input type="checkbox" name="lang" value="02"><span>爱游戏</span><br />
            																<input type="checkbox" name="lang" value="03"><span>沃商店</span><br />
-           																 <input type="checkbox" name="lang" value="04"><span>咪咕</span>
+           																 <input type="checkbox" name="lang" value="04"><span>咪咕</span>	<br/>	
+           																 <input type="checkbox" name="lang" value="02"><span>爱游戏</span><br />
+           																<input type="checkbox" name="lang" value="03"><span>沃商店</span><br />
+           																 <input type="checkbox" name="lang" value="04"><span>咪咕</span>	<br/>
+           																 <input type="checkbox" name="lang" value="02"><span>爱游戏</span><br />
+           																<input type="checkbox" name="lang" value="03"><span>沃商店</span><br />
+           																 <input type="checkbox" name="lang" value="04"><span>咪咕</span>	<br/>
+           																 <input type="checkbox" name="lang" value="02"><span>爱游戏</span><br />
+           																<input type="checkbox" name="lang" value="03"><span>沃商店</span><br />
+           																 <input type="checkbox" name="lang" value="04"><span>咪咕</span>	<br/>
+           																 	 
       																</div>
                                           					  	</div>
                                        						 </div>	
                                        						 
                                        						 <div class="form-group">
-                                          					 	 <label class="col-md-3 control-label" for="text-input">选择关系项:</label>
-                                           						 <div class="col-md-9">
-                                             			 		 	<div style="padding:5px" id="related_info">
+                                          					 	 <label class="col-md-3 control-label mt10" for="text-input">选择关系项:</label>
+                                           						 <div class="col-md-9 mt10">
+                                             			 		 	<div style="padding:5px" id="related_info" class='texteara'>
             															<input type="checkbox" name="lang" value="01"><span>天天挖坑</span><br />
             															<input type="checkbox" name="lang" value="02"><span>爱游戏</span><br />
            																<input type="checkbox" name="lang" value="03"><span>沃商店</span><br />
