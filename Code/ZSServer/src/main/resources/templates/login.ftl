@@ -47,7 +47,6 @@
             </form>
         </div>
     </div>
-    <#include  "/common/footer.ftl"/>
 	<#include  "/common/script.ftl"/>
 	<script type="text/javascript" src="/vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="/vendor/security.js"></script>
