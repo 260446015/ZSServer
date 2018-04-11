@@ -2,10 +2,8 @@ package com.huishu.ManageServer.repository.third;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.huishu.ManageServer.config.TargetDataSource;
@@ -20,7 +18,7 @@ import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 
 @TargetDataSource(name="third")
 @Repository
-public interface ThesaurusRepository  extends JpaRepository<ThesaurusEntity,Long>{
+public interface ThesaurusRepository  extends CrudRepository<ThesaurusEntity,Long>{
 
 	
 
