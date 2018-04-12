@@ -20,6 +20,17 @@
 	border:1px solid #ccc;
 	overflow-x:hidden
 }
+.hei{
+	height:135px;
+}
 .mt10{
 	margin-top:10px;
+}
+.claer{
+	float:left;
+}
+.addrelation{
+	line-height:200px;
+	text-align:center;
+	
 }
