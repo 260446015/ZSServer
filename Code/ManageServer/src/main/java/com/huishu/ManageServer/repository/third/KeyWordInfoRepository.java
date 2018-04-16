@@ -28,10 +28,10 @@ public interface KeyWordInfoRepository extends CrudRepository<KeywordInfoEntity,
 	 * @return
 	 */
 	@Query(value="select t_word_id  from t_word_info  WHERE t_type_id = ?1  ORDER BY t_insert_time desc  limit ?2,?3 ",nativeQuery = true)
-	List<Long> getKeyWordListDESCByType(Long typeId, Long number, Integer pageSize);
+	List<Integer> getKeyWordListDESCByType(Long typeId, Long number, Integer pageSize);
 
 	@Query(value="select t_word_id  from t_word_info  WHERE t_type_id = ?1  ORDER BY t_insert_time limit ?2,?3 ",nativeQuery = true)
-	List<Long> getKeyWordListByType(Long typeId, Long number, Integer pageSize);
+	List<Integer> getKeyWordListByType(Long typeId, Long number, Integer pageSize);
 
 	/**
 	 * 获取计数id
@@ -61,5 +61,21 @@ public interface KeyWordInfoRepository extends CrudRepository<KeywordInfoEntity,
 	 * @param id
 	 */
 	KeywordInfoEntity findByWordId(Long wordId);
+
+	/**
+	 * @param number
+	 * @param pageSize
+	 * @return
+	 */
+	@Query(value="select t_word_id  from t_word_info  ORDER BY t_insert_time desc  limit ?1,?2 ",nativeQuery = true)
+	List<Integer> getKeyWordListDESCByTime(Long number, Integer pageSize);
+
+	/**
+	 * @param number
+	 * @param pageSize
+	 * @return
+	 */
+	@Query(value="select t_word_id  from t_word_info  ORDER BY t_insert_time  limit ?1,?2 ",nativeQuery = true)
+	List<Integer> getKeyWordListByInsertTime(Long number, Integer pageSize);
 	
 }

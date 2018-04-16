@@ -32,6 +32,7 @@ import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.IndustrySummitDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.AttributeDTO;
+import com.huishu.ManageServer.entity.dto.dbThird.RelatedDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.WordDataDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
@@ -156,8 +157,8 @@ public class ThesaurusController extends BaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/findKeyWordInfo.json", method = RequestMethod.POST)
-	public AjaxResult findKeyWordInfo(@RequestBody TKeyWordDTO dto){
+	@RequestMapping(value = "/findKeyWordInfoList.json", method = RequestMethod.POST)
+	public AjaxResult findKeyWordInfoList(@RequestBody TKeyWordDTO dto){
 		try {
 			if(StringUtil.isEmpty(dto.getType())||StringUtil.isEmpty(dto.getSort())){
 				return error(MsgConstant.ILLEGAL_PARAM);
@@ -170,7 +171,7 @@ public class ThesaurusController extends BaseController{
 		}
 	}
 	/**
-	 * 新增或者修改词
+	 * 新增或者修改词-属性
 	 * @param dto
 	 * @return
 	 */
@@ -182,6 +183,26 @@ public class ThesaurusController extends BaseController{
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
 			boolean info = service.saveOrUpAttributeData(dto);
+			return success(info);
+		} catch (Exception e) {
+			LOGGER.error("新增或者更新词失败：", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+		
+	}
+	/**
+	 * 新增或者修改词-关系
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/addOrUpAttributeRelatedDTO.json",method=RequestMethod.POST)
+	public AjaxResult addOrUpAttributeRelatedDTO(@RequestBody RelatedDTO dto){
+		try {
+			if(StringUtil.isEmpty(dto.getKeyword())){
+				return error(MsgConstant.ILLEGAL_PARAM);
+			}
+			JSONArray info = service.addOrUpdate(dto);
 			return success(info);
 		} catch (Exception e) {
 			LOGGER.error("新增或者更新词失败：", e);
@@ -268,6 +289,7 @@ public class ThesaurusController extends BaseController{
 		List<KeywordTypeEntity> list = service.getLableInfo();
 		return success(list);
 	}
+	
 	/**
 	 *	根据id获取属性的信息
 	 * @param dto
@@ -275,7 +297,7 @@ public class ThesaurusController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/findAttributeInfoById.json", method = RequestMethod.GET,params={"id"})
-	public AjaxResult findAttributeInfoById( String id){
+	public AjaxResult findAttributeInfoById(String id){
 		try {
 			if(StringUtil.isEmpty(id)){
 				return error(MsgConstant.ILLEGAL_PARAM);

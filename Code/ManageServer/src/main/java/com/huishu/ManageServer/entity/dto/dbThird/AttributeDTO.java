@@ -16,8 +16,7 @@ public class AttributeDTO {
 	private Long typeId;
 	//关键词
 	private String keyword;
-	//描述
-	private String describe;
+	
 	//新增类型值
 	private String typeWord;
 	//属性值	
@@ -34,12 +33,7 @@ public class AttributeDTO {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	public String getDescribe() {
-		return describe;
-	}
-	public void setDescribe(String describe) {
-		this.describe = describe;
-	}
+	
 	public String getTypeWord() {
 		return typeWord;
 	}

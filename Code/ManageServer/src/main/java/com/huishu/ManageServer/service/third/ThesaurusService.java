@@ -10,6 +10,7 @@ import com.huishu.ManageServer.entity.dbThird.KeywordTypeEntity;
 import com.huishu.ManageServer.entity.dbThird.RelatedWordEntity;
 import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 import com.huishu.ManageServer.entity.dto.dbThird.AttributeDTO;
+import com.huishu.ManageServer.entity.dto.dbThird.RelatedDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.TKeyWordDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.WordDataDTO;
 import com.huishu.ManageServer.entity.dto.dbThird.addKeyWordDTO;
@@ -109,5 +110,14 @@ public interface ThesaurusService {
 	 * @return
 	 */
 	List<RelatedWordEntity> getAllRelatedInfo();
+
+	/**
+	 * @param dto
+	 * @return
+	 */
+	JSONArray addOrUpdate(RelatedDTO dto);
+	
+	//保存词与词之间的关系
+	boolean saveOrUpdateData(JSONArray jsonArray);
 
 }

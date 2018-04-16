@@ -2,6 +2,7 @@ package com.huishu.ManageServer.repository.third;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,7 @@ import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
 
 @TargetDataSource(name="third")
 @Repository
-public interface ThesaurusRepository  extends CrudRepository<ThesaurusEntity,Long>{
+public interface ThesaurusRepository  extends JpaRepository<ThesaurusEntity,Long>{
 
 	
 
@@ -45,14 +46,6 @@ public interface ThesaurusRepository  extends CrudRepository<ThesaurusEntity,Lon
 	@Query(value="select * from t_word ORDER BY t_insert_time LIMIT ?1,?2",nativeQuery = true)
 	List<ThesaurusEntity> getKeyInfoList(Long number, Integer pageSize);
 
-	/**
-	 * 根据类型获取数据
-	 * @param type
-	 * @param number
-	 * @param pageSize
-	 */
-	/*@Query(value="select * from t_word WHERE t_word_type = ?1 LIMIT ?2,?3",nativeQuery = true)
-	List<ThesaurusEntity> getKeyWordListByType(String type, Long number, Integer pageSize);*/
 
 	/**
 	 * 根据添加时间倒序
@@ -62,5 +55,17 @@ public interface ThesaurusRepository  extends CrudRepository<ThesaurusEntity,Lon
 	 */
 	@Query(value="select * from t_word ORDER BY t_insert_time  desc   LIMIT ?1,?2",nativeQuery = true)
 	List<ThesaurusEntity> getKeyWordListDESC(Long number, Integer pageSize);
+
+
+	/**
+	 * @param ll 
+	 * @param i
+	 * @param it
+	 * @return
+	 */
+	@Query(value="select * from t_word  where id not in(?1) LIMIT ?2,?3",nativeQuery = true)
+	List<ThesaurusEntity> getKeyInfoList(List<Integer> ll, int i, int it);
+
+
 
 }
