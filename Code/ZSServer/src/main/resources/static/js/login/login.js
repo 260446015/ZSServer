@@ -23,9 +23,17 @@ function doLogin() {
                             new Loading({isfullscreen:true}).hide();
                             new Alert({flag:false,text:response.message,timer:1500}).show();
                         }
+                    },
+                    error: function () {
+                        new Loading({isfullscreen:true}).hide();
+                        new Alert({flag:false,text:"服务异常，请稍后重试！",timer:1500}).show();
                     }
                 });
             }
+        },
+        error: function () {
+            new Loading({isfullscreen:true}).hide();
+            new Alert({flag:false,text:"服务异常，请稍后重试！",timer:1500}).show();
         }
     });
 }
