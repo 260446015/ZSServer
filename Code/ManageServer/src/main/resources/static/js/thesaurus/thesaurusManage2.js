@@ -5,6 +5,7 @@ var sort = '1';
 var option='';
 var index=1;
 var length=1;
+var typeWord='';
 var options={
 		"id":"page",//显示页码的元素
 		"data":null,//显示数据
@@ -12,6 +13,7 @@ var options={
 	    "pagelistcount":8,//每页显示数据个数
 	    "callBack":function(){}
 };
+var a =0;
 $(function(){
 	$('#keyword_info').addClass("active");
 	//获取所有label
@@ -21,9 +23,30 @@ $(function(){
 	$('#addKeyword').on('click',function(){
 		$('#load_xls').click();
 	});
-//	selChanceInfo();
-//	getAllRelated();
+	getAllRelated();
+	
+	
 });
+function getCheckBox(){
+	var _type =typeWord;
+	console.log(_type);
+	var chk_value =[]; 
+	
+	$('input[name="lang"]:checked').each(function(){ 
+		chk_value.push($(this).val()); 
+		console.log($(this).val());
+	});
+	
+	a = 1;
+	var b = $("input[name='radio']:checked").val();
+	if( b != 0){
+		a=2;
+		console.log(b);
+	}
+	var param ={typeWord:_type , array:chk_value,test:b};
+	console.log(param);
+	
+}
 //获取所有的关系选项
 function getAllRelated(){
 	var label='';
@@ -34,7 +57,7 @@ function getAllRelated(){
 		success:function(res){
 			//为词赋值
 			$.each(res.data,function (i,e){
-				label +='<input type="checkbox" name="langinfo" value="'+e.id+'"><span>'+e.relatetion+'</span><br />';
+				label +='<input type="radio" name="langinfo" value="'+e.id+'"><span>'+e.relatetion+'</span><br />';
 			});
 			$('#related_info').html(label);
 		}
@@ -42,26 +65,30 @@ function getAllRelated(){
 	
 };
 
-function selChanceInfo(){
+function selChanceInfo(e){
 	//第一,根据的默认值更新词的内容
-	var _type = $("#select1").options;
-	console.log(_type);
 	var label ='';
-	/*$.ajax({
-		url:'/apis/keyInfo/findWordByType.json?typeWord'+_type,
+	$.ajax({
+		url:'/apis/keyInfo/findWordByType.json?typeWord='+e,
 		type:'GET',
 		asynyc:false,
 		success:function(res){
 			//为词赋值
 			$.each(res.data,function (i,e){
-				label='<input type="checkbox" name="lang" value="'+e.id+'"><span>'+e.keyword+'</span><br />';
+				label +='<input type="checkbox" name="lang" value="'+e.id+'"><span>'+e.keyword+'</span><br />';
 			});
+			$('#word_info').append(label);
 		}
 	});
-	$('#word_info').append(label);*/
-	//第二,select1的选项变了，词的内容也要变
-	
-}
+};
+
+//第二,select1的选项变了，词的内容也要变
+function changeWord(){
+	var _type=$("#select1 option:selected").val();
+	$('#word_info').html('');
+	selChanceInfo(_type);
+	typeWord = _type;
+};
 //文件批量上传
 function uploadFile(){
 	 var myform = new FormData();
@@ -82,6 +109,7 @@ function uploadFile(){
 			  getType(param);
         }
     });*/
+    
 };
 //模态框的回显
 $('#addKeywordToTable').on('click',function(){
@@ -172,8 +200,9 @@ $('.my_nextadd').on('click',function(){
 		});
 	}*/
 	$('#myModal').modal('hide');
-	
 	$('#secondModal').modal('show');
+	/*//添加CheckBox点击事件
+	getCheckBox();*/
 	
 });
 //新增分类
@@ -198,7 +227,8 @@ $('#new_add').on('click',function(){
 		});
 	});
 });
-$('#my_relatedadd').on('click',function(){
+//新增关系分类
+$('.my_relatedadd').on('click',function(){
 	$('#form3').append(
 			'<div class="form-group"><label class="col-md-3 control-label" for="text-input">新增新关系项</label>'
 					+'<div class="col-md-9">'
@@ -209,11 +239,12 @@ $('#my_relatedadd').on('click',function(){
 		var addInfo = $("input[name='addRelatedInfo']").val();
 		console.log(addInfo);
 		$.ajax({
-			url:'/apis/keyInfo/updateRelated.json.json?relatedWord='+addInfo,
+			url:'/apis/keyInfo/updateRelated.json?relatedWord='+addInfo,
 			type:'GET',
 			asynyc:false,
 			success:function(res){
 				getLabel();
+				getAllRelated();
 				$('#thirdModal').modal('hide');
 			}
 		});
@@ -229,16 +260,19 @@ function getLabel(){
 			if(res.data==null){
 				 layer.msg(res.message, {icon: 2});
 			}else{
+				var info ='';
 				var label ='';
 					label +='<a href="javascript:void(0);" id="0" class="search-item active">全部</a>';
 				$.each(res.data,function (i,e){
 						label +='<a href="javascript:void(0);" id="'+e.id+'" class="search-item">'+e.typeWord+'</a>';
 						option +='<option value="'+e.id+'">'+e.typeWord+'</option>';		                  
+						info +='<option value="'+e.id+'">'+e.typeWord+'</option>';		                  
 				});
-				
-				$('#select1').append(option);
-				option +='<option value="'+0+'">新增类别</option>';
 				$('#labelInfo').html(label);
+				selChanceInfo(res.data[0].id);
+				$('#select1').append(info);
+				option +='<option value="'+0+'">新增类别</option>';
+				$('#select').append(option);
 			}
 		}
 	});

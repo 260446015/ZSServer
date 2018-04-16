@@ -3,6 +3,7 @@ package com.huishu.ManageServer.service.third.impl;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -119,14 +120,14 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 						//先获取所有属性复杂度高的关键词id
 						List<Long> ids = arp.getKeyWordId(number,dto.getPageSize());
 						//根据关键词id集合查询所有数据
-						list = rep.findAll(ids);
-						count = arp.getKeyWordIdCount();
+						/*list = rep.findAll(ids);
+						count = arp.getKeyWordIdCount();*/
 					   break;
 					default :
 						//词性关系复杂度
 						List<Long> all = krp.getKeyWordIdDESC(number, dto.getPageSize());
 						//根据关键词id集合查询所有数据
-						list = rep.findAll(all);
+//						list = rep.findAll(all);
 						count = arp.getKeyWordIdCount();
 						break;
 				};
@@ -138,14 +139,14 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 					//按照添加时间倒序
 					//list = rep.getKeyWordListDESC(number,dto.getPageSize());
 					List<Long> _ids = kip.getKeyWordListDESCByType(typeId , number, dto.getPageSize());
-					list = rep.findAll(_ids);
+//					list = rep.findAll(_ids);
 					//获取相应的总数，
 					 count = kip.getCount(typeId);
 					 break;
 				case("2"):
 					//按照添加时间顺序
 					List<Long> ids = kip.getKeyWordListByType(typeId , number, dto.getPageSize());
-					list = rep.findAll(ids);
+//					list = rep.findAll(ids);
 					//获取相应的总数，
 					count = kip.getCount(typeId);
 				  break;
@@ -157,7 +158,7 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 					//按照词性复杂度
 					
 					//先获取所有的id
-					List<Long> ll = kip.getWordIdByTypeId(typeId);
+					List<Integer> ll = kip.getWordIdByTypeId(typeId);
 					
 					//先获取所有属性复杂度高的关键词id
 					
@@ -477,8 +478,13 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	public List<ThesaurusEntity> findKeyWordByType(String typeWord) {
 		try {
 			long _typeId = Long.parseLong(typeWord);
-			List<Long> _ids = kip.getWordIdByTypeId(_typeId);
-			List<ThesaurusEntity> list = rep.findAll(_ids);
+			List<Integer> _ids = kip.getWordIdByTypeId(_typeId);
+			List<ThesaurusEntity> list = new ArrayList<ThesaurusEntity>();
+			_ids.forEach(action->{
+				System.out.println("action的值>>>>>>>>>>>>>>>>"+action.longValue());
+				ThesaurusEntity one = rep.findOne(action.longValue());
+				list.add(one);
+			});
 			return list;
 		} catch (Exception e) {
 			LOGGER.error("根据类型词获取所有的关键词失败,原因是：",e);

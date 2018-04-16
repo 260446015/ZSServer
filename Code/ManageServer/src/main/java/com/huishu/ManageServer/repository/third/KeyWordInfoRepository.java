@@ -47,7 +47,7 @@ public interface KeyWordInfoRepository extends CrudRepository<KeywordInfoEntity,
 	 */
 	
 	@Query(value="select t_word_id from t_word_info  WHERE t_type_id = ?1",nativeQuery = true)
-	List<Long> getWordIdByTypeId(Long typeId);
+	List<Integer> getWordIdByTypeId(Long typeId);
 
 	/**
 	 * @param id

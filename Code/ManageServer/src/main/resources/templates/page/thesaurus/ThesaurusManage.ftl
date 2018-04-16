@@ -204,74 +204,107 @@
 									<!-- /.modal -->
 									
 									<!-- Modal Form -->
-									<div class="modal fade" id="secondModal">
-  											<div class="modal-dialog">
-    											<div class="modal-content">
-      											<div class="modal-header">
-      											  <button type="button" class="close" data-dismiss="modal">
-      										     	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-      											  	</button>
-    											 </div>
-      												<div class="modal-body">
-      												
-															<div class="form-group">
-                                          					 	 <label class="col-md-3 control-label" for="text-input">选择词性:</label>
-                                           						 <div class="col-md-9">
-                                             			 		  <select id="select1" name="select" class="form-control input-lg" size="1">'
-                                                					</select>
-                                          					  	</div>
-                                       						 </div>	
-                                       						 <div class="form-group">
-                                          					 	 <label class="col-md-3 control-label mt10" for="text-input">选择词:</label>
-                                           						 <div class="col-md-9 mt10">
-                                           						   <div style="color:#99BBE8;background:#fafafa;padding:5px;" >
-                                           						    <input type="text" name="test"  placeholder="输入词名"/>
-                                           						   </div>
-                                             			 			 <div style="padding:5px;" id="word_info" class='texteara'>
-                                             			 			 <input type="checkbox" name="lang" value="01"><span>天天挖坑</span><br />
-            															<input type="checkbox" name="lang" value="02"><span>爱游戏</span><br />
-           																<input type="checkbox" name="lang" value="03"><span>沃商店</span><br />
-           																 <input type="checkbox" name="lang" value="04"><span>咪咕</span>	<br/>	
-           																 <input type="checkbox" name="lang" value="02"><span>爱游戏</span><br />
-           																<input type="checkbox" name="lang" value="03"><span>沃商店</span><br />
-           																 <input type="checkbox" name="lang" value="04"><span>咪咕</span>	<br/>
-           																 <input type="checkbox" name="lang" value="02"><span>爱游戏</span><br />
-           																<input type="checkbox" name="lang" value="03"><span>沃商店</span><br />
-           																 <input type="checkbox" name="lang" value="04"><span>咪咕</span>	<br/>
-           																 <input type="checkbox" name="lang" value="02"><span>爱游戏</span><br />
-           																<input type="checkbox" name="lang" value="03"><span>沃商店</span><br />
-           																 <input type="checkbox" name="lang" value="04"><span>咪咕</span>	<br/>
-           																 	 
-      																</div>
-                                          					  	</div>
-                                       						 </div>	
-                                       						 
-                                       						 <div class="form-group">
-                                          					 	 <label class="col-md-3 control-label mt10" for="text-input">选择关系项:</label>
-                                           						 <div class="col-md-9 mt10">
-                                             			 		 	<div style="padding:5px" id="related_info" class='texteara'>
-            															<input type="checkbox" name="lang" value="01"><span>天天挖坑</span><br />
-            															<input type="checkbox" name="lang" value="02"><span>爱游戏</span><br />
-           																<input type="checkbox" name="lang" value="03"><span>沃商店</span><br />
-           																 <input type="checkbox" name="lang" value="04"><span>咪咕</span>
-      																</div>
-                                          					  	</div>
-                                          					  	<div class="col-md-9">
-                                          					  	 	<button class="btn btn-info btn-xs my_relatedadd">添加关系项<i class="fa fa-plus"></i></button>
-                                          					  	</div>
-                                       						 </div>										
-    											   		<form id="form2" class="form-horizontal mb-lg" novalidate="novalidate" >
-														
-														</form>
-														
-                                    					<div class="form-group" style="padding-left: 30%">
-                                       						 <button class="btn btn-info btn-xs my_firstadd">上一步</button>
-                                       						 <button class="btn btn-info btn-xs my_secondadd">下一步</button>
-                                    					</div>
-    											  </div>
-   											 </div><!-- /.modal-content -->
-  												</div><!-- /.modal-dialog -->
+									<div class="modal afde bs-example-modal-lg" id="secondModal">
+									 <div class="modal-dialog  modal-lg">
+										 <div class="modal-content">
+										    <div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+													&times;
+												</button>
+											</div>
+											<div class="modal-body">
+											   <div class="form-group col-md-3 mt10">
+                              					 	<div>
+                              					 		 <label class="control-label" for="text-input">选择词性:</label>
+                              					 	</div>
+                               						 <div>
+                                 			 		  <select id="select1" name="select" class="form-control" size="1" onchange="changeWord()">'
+                                    					</select>
+                              					  	</div>
+                           						 </div>	
+                           						<div class="form-group col-md-3">
+                           						<div>
+                           							 <label class="control-label mt10" for="text-input">选择词:</label>
+                           						</div>
+                           						<div>
+	                           						   <div style="color:#99BBE8;">
+	                           						    <input type="text" name="test" class="form-control" placeholder="输入词名"/>
+	                           						   </div>
+	                             			 			 <div style="padding:5px;" id="word_info" class='texteara'>
+														</div>
+	                          					  	</div>
+                           						</div>
+                           						<div class="form-group col-md-3">
+                           						<div>
+                           							 <label class="control-label mt10" for="text-input">选择关系项:</label>
+                           							 <button class="btn btn-info btn-xs my_relatedadd">添加关系项<i class="fa fa-plus"></i></button>
+                           						</div>
+                           						<div>
+	                             			 			 <div style="padding:5px;" id="related_info" class='texteara hei'>
+														</div>
+	                          					  	</div>
+                           						</div>
+                           						<div class="form-group col-md-3 addrelation">
+                           						   <div>
+	                             			 			<button class="btn btn-info btn-sm my_relatedaddinto">添加<i class="fa fa-plus"></i></button>
+	                          					  	</div>
+                           						</div>
+                           						<div class="form-group">
+                           						
+                           						   <div>
+	                           						  <table border="1" width ="30px" class="table table-bordered">
+											 			<thead>
+											 			 <tr>
+															<th>关系编号</th>
+															<th>词编号</th>
+															<th>词名</th>
+															<th>关系项</th>
+															<th>编辑</th>
+														 </tr>
+														 </thead>
+														 <tbody id="related_info2">
+														 <tr>
+															<td>关系编号</td>
+															<td>词编号</td>
+															<td>词名</td>
+															<td>关系项</td>
+															<td>编辑</td>
+														 </tr>
+														 <tr>
+															<td>关系编号</td>
+															<td>词编号</td>
+															<td>词名</td>
+															<td>关系项</td>
+															<td>编辑</td>
+														 </tr>
+														 <tr>
+															<td>关系编号</td>
+															<td>词编号</td>
+															<td>词名</td>
+															<td>关系项</td>
+															<td>编辑</td>
+														 </tr>
+														 <tr>
+															<td>关系编号</td>
+															<td>词编号</td>
+															<td>词名</td>
+															<td>关系项</td>
+															<td>编辑</td>
+														 </tr>
+														</tbody>
+											 			</table>
+	                          					  	</div>
+                           						</div>
+                           						<div class="form-group" style="padding-left: 30%">
+                                       						 <button class="btn btn-info btn-sm my_firstadd">上一步</button>
+                                       						 <button class="btn btn-info btn-sm my_secondadd" style="margin-left:30%">下一步</button>
+                                    			</div>
+											</div>
+										 </div><!-- /.modal-content -->
+									 </div>
 									</div>
+									</div><!-- /.modal-dialog -->
+									</div>-->
 									
 									<!-- /.modal -->
 									
