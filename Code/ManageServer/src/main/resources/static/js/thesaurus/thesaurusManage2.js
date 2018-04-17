@@ -111,6 +111,7 @@ $('.my_firstadd').on('click',function(){
 });
 //下一页--查看新增的数据
 $('.my_secondadd').on('click',function(){
+
 	//获取新增关键词的内容
 	var _type =$("input[name='keyword']").val();//获取输入框的值
 	console.log("获取新增词的内容"+_type);
@@ -124,26 +125,26 @@ $('.my_secondadd').on('click',function(){
 			}else{
 				var label ='';
 				//新增词
-				label += '<div class="form-group"><label class="col-md-3 control-label" for="text-input">新增词</label>';
+				label += '<div class="form-group"><label class="col-md-3 control-label" for="text-input">新增词:</label>';
 				label += '<div class="col-md-9"><input type="text" name="name"  class="form-control" value='+res.data.keyword+' ></div></div>';
 				//词类型
-				label += '<div class="form-group"><label class="col-md-3 control-label" for="text-input">词类型</label>';
+				label += '<div class="form-group"><label class="col-md-3 control-label" for="text-input">词类型:</label>';
 				label += '<div class="col-md-9"><input type="text" name="name"  class="form-control" value='+res.data.wordtype+' ></div></div>';
 				//词属性
 				res.data.info;
 				if(res.data.info.length==0){
-					label += '<div class="form-group"><label class="col-md-3 control-label" for="text-input">词属性：</label>';
-					label += '<div class="col-md-9"><h4>无</h4></div></div>';
+					label += '<div class="form-group"><label class="col-md-3 control-label" for="text-input">词属性:</label>';
+					label += '<div class="col-md-3"><h4>无</h4></div></div>';
 				}else{
-					label += '<div class="form-group"><label class="col-md-3 control-label" for="text-input">词属性：</label>';
+					label += '<div class="form-group"><label class="col-md-3 control-label" for="text-input">词属性:</label>';
 					$.each(res.data.info,function(i,e){
 						if(i==0){
-							label +='<div class="col-md-9">';
+							label +='<div class="col-md-3">';
 							label +='<h4>'+e.attributeName+'</h4>';
       					  	label +='<input type="text" name="dddd" value="'+e.attributeValue+'" class="form-control" placeholder="">';
 							label +='</div>';
 						}else{
-							label +='<div class="col-md-9 list">'
+							label +='<div class="col-md-3 list">'
 							label +='<h4>'+e.attributeName+'</h4>';
       					  	label +='<input type="text" name="dddd" value="'+e.attributeValue+'" class="form-control" placeholder="">';
 							label +='</div>';
@@ -154,10 +155,10 @@ $('.my_secondadd').on('click',function(){
 				//词关系
 				 console.log(res.data.relatetion);
 				if(res.data.relatetion.length==0){
-					label += '<div class="form-group"><label class="col-md-3 control-label" for="text-input">词关系：</label>';
+					label += '<div class="form-group" style="clear:both"><label class="col-md-3 control-label" for="text-input">词关系:</label>';
 					label += '<div class="col-md-9"><h4>无</h4></div></div>';
 				}else{
-					label += '<div class="form-group"><label class="col-md-3 control-label" for="text-input">词关系：</label>';
+					label += '<div class="form-group" style="clear:both"><label class="col-md-3 control-label" for="text-input">词关系:</label>';
 					label += '<div class="col-md-9">';
 					label +='<table class="table table-bordered table-striped mb-none" id="">';
 				    label +='<thead><tr><th>编号</th><th>词名称</th><th>关系项</th></tr></thead>';
@@ -177,6 +178,7 @@ $('.my_secondadd').on('click',function(){
 				$('#secondModal').modal('hide');
 				$('#fourModal').modal('show');
 				$('.my_fouradd').on('click',function(){
+					
 					$('#fourModal').modal('hide');
 					$('#secondModal').modal('show');
 				});
@@ -541,7 +543,7 @@ function initPage(){
 					label +='<form id="form4" class="form-horizontal mb-lg" novalidate="novalidate" >'
 					label +='<div class="form-group"><label class="col-md-3 control-label" for="text-input">'+_keyword+'词属性</label>'
 					if(res.data.attr.length==0){
-						label +='<div class="col-md-9">';
+						label +='<div class="col-md-3">';
 						label +='<h4>无</h4>';
 						label +='</div>';
 					}else{
