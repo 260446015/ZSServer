@@ -88,10 +88,10 @@
                            <label class="col-sm-1 control-label sort">排序：</label>
 							<div>
 								<div class="col-sm-3">
-						      	  <select name="dealer"  class="selectpicker show-tick form-control"  data-width="98%" data-first-option="false" required data-live-search="true">
+						      	  <select name="dealer" onchange="findBySort()" class="selectpicker show-tick form-control"  data-width="98%" data-first-option="false" required data-live-search="true">
 						       		<option value="1">添加时间倒序</option> 
 						       		<option value="2">添加时间顺序</option> 
-						       		<option value="3">词性热度</option> 
+						       		<!--<option value="3">词性热度</option> -->
 						       		<option value="4">词性复杂度</option> 
 						       		<option value="5">词性关系复杂度</option> 
 						       		</select>
@@ -177,7 +177,7 @@
                                        						 <div class="form-group">
                                           					  <label class="col-md-3 control-label" for="text-input">词名称:</label>
                                           					  	<div class="col-md-9" >
-                                          					  		<input type="text" name="keyword"  class="form-control" placeholder="词名称">
+                                          					  		<input type="text" name="keyword" value='testsss'  class="form-control" placeholder="词名称">
                                           					  	</div>
                                        						 </div>		
                                        						  <div class="form-group">
@@ -186,10 +186,10 @@
                                           					  		<h4>词说明</h4>
                                           					  		<input type="text" name="describe"  class="form-control" placeholder="词说明">
                                           					  	</div>
-                                          					  	<!--<div class="col-md-9" >
-                                          					  		<h4>产业分类</h4>
+                                          					  	<div  class="col-md-9 list" >
+                                          					  		<h5>产业分类</h5>
                                           					  		<input type="text" name="industry"  class="form-control" placeholder="产业分类">
-                                          					  	</div>-->
+                                          					  	</div>
                                        						 </div>																
 														</form>
 														<div class="form-group" style="padding-left: 30%">
@@ -252,7 +252,7 @@
                            						<div class="form-group">
                            						
                            						   <div>
-	                           						  <table border="1" width ="30px" class="table table-bordered">
+	                           						   <table border="1" width ="30px" class="table table-bordered">
 											 			<thead>
 											 			 <tr>
 															<th>关系编号</th>
@@ -263,7 +263,7 @@
 														 </tr>
 														 </thead>
 														 <tbody id="related_info2">
-														 <tr>
+														<!-- <tr>
 															<td>关系编号</td>
 															<td>词编号</td>
 															<td>词名</td>
@@ -290,7 +290,7 @@
 															<td>词名</td>
 															<td>关系项</td>
 															<td>编辑</td>
-														 </tr>
+														 </tr>-->
 														</tbody>
 											 			</table>
 	                          					  	</div>
@@ -304,7 +304,7 @@
 									 </div>
 									</div>
 									</div><!-- /.modal-dialog -->
-									</div>-->
+									</div>
 									
 									<!-- /.modal -->
 									
@@ -324,6 +324,23 @@
 														<div class="form-group" style="padding-left: 30%">
                                        						 <button class="btn btn-info btn-xs my_fireadd">确认添加</button>
                                     					</div>
+    											  </div>
+   											 </div><!-- /.modal-content -->
+  												</div><!-- /.modal-dialog -->
+									</div>
+									
+									<!-- /.modal -->
+									<!-- Modal Form -->
+									<div class="modal fade" id="fourModal">
+  											<div class="modal-dialog">
+    											<div class="modal-content">
+      											<div class="modal-header">
+      											  <button type="button" class="close" data-dismiss="modal">
+      										     	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+      											  	</button>
+    											 </div>
+      												<div class="modal-body" id="dynamicData">
+    											   		
     											  </div>
    											 </div><!-- /.modal-content -->
   												</div><!-- /.modal-dialog -->

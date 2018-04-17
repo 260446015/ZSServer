@@ -29,11 +29,11 @@ public class KeyWordRelatedEntity implements Serializable {
 		private Long id;
 		
 		//关联词id
-		@Column(name="t_word_related")
+		@Column(name="t_related_word_id")
 		private Long relateWordId;
 		
 		//关联id
-		@Column(name="t_related_word_id")
+		@Column(name="t_word_related")
 		private Long relateId;
 		
 		//词id

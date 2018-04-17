@@ -160,7 +160,7 @@ public class ThesaurusController extends BaseController{
 	@RequestMapping(value = "/findKeyWordInfoList.json", method = RequestMethod.POST)
 	public AjaxResult findKeyWordInfoList(@RequestBody TKeyWordDTO dto){
 		try {
-			if(StringUtil.isEmpty(dto.getType())||StringUtil.isEmpty(dto.getSort())){
+ 			if(StringUtil.isEmpty(dto.getType())||StringUtil.isEmpty(dto.getSort())){
 				return error(MsgConstant.ILLEGAL_PARAM);
 			}
 			Page<WordDataDTO> page = service.findByPage(dto);
@@ -331,7 +331,7 @@ public class ThesaurusController extends BaseController{
 		
 	}
 	/**
-	 *	根据id删除关键词以及关联关系
+	 *	根据id删除词
 	 * @param dto
 	 * @return
 	 */
@@ -369,7 +369,25 @@ public class ThesaurusController extends BaseController{
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
 	}
-	
+	/**
+	 * 根据新增词获取新增数据
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findInfoByKeyword.json",method=RequestMethod.GET,params={"keyword"})
+	public AjaxResult findInfoByKeyword(String keyword ){
+		if(StringUtil.isEmpty(keyword)){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			JSONObject info = service.findAllInfoByKeyWord(keyword);
+			return success(info);
+		} catch (Exception e) {
+			LOGGER.error("根据新增词获取新增数据失败：", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
 	@ResponseBody
 	@RequestMapping(value = "/listKeyWord.do", method = RequestMethod.GET)
 	public AjaxResult listKeyWord(){

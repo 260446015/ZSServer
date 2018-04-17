@@ -249,7 +249,20 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	public JSONObject findRelatedById(String id) {
 		JSONObject obj = new JSONObject();
 		try{
-			
+			//词语id
+			Long _id = Long.parseLong(id);
+			JSONArray arr = new JSONArray();
+			 krp.findByWordId(_id).forEach(action->{
+				 JSONObject ent = new JSONObject();
+				 RelatedWordEntity findOne = kwp.findOne(action.getRelateId());
+				 ThesaurusEntity findOne2 = rep.findOne( action.getRelateWordId());
+				 KeywordInfoEntity findOne3 = kip.findByWordId(action.getRelateWordId());
+				 ent.put("related", findOne.getRelatetion());//关联关系
+				 ent.put("relate_keyword", findOne2.getKeyword());//关键词
+				 ent.put("relate_keyword_id", findOne3.getWordNumber());
+				 arr.add(ent);
+			});
+			 obj.put("result", arr);
 		} catch (Exception e) {
 			LOGGER.debug("根据id查看关联关系失败！原因是：",e);
 			obj.put("result", "false");
@@ -258,12 +271,25 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	}
 
 	/**
-	 * 删除关联关系
+	 * 删除词信息
 	 */
 	@Override
 	@TargetDataSource(name="third")
 	public boolean deleteRelatedById(String id) {
 		try {
+			Long _id = Long.parseLong(id);
+			//根据id删除所有信息
+			//删除关键词的关联关系信息
+			kip.delete(kip.findByWordId(_id));
+			//删除关键词属性
+			arp.delete(arp.findByWordId(_id));
+			KeywordInfoEntity ent = kip.findByWordId(_id);
+			if(ent!=null){
+				//删除关键词信息
+				kip.delete(ent);
+			}
+			//删除关键词
+			rep.delete(_id);
 		} catch (Exception e) {
 			LOGGER.debug("根据id删除关联关系失败！原因是：",e);
 			return false;
@@ -413,9 +439,11 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	@TargetDataSource(name="third")
 	public JSONObject findAttributeInfoById(String id) {
 		try {
+			JSONObject obj = new JSONObject();
 			long _id = Long.parseLong(id);
-			
-			return null;
+			List<AttributeEntity> list = arp.findByWordId(_id);
+			obj.put("attr",list);
+			return obj;
 		} catch (Exception e) {
 			LOGGER.error("根据id查看词属性失败,原因是：",e);
 			return null;
@@ -617,6 +645,7 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			}
 			return arr;
 		} catch (Exception e) {
+			LOGGER.error("新增词的关系属性失败,原因是：",e);
 			return null;
 		}
 		
@@ -662,10 +691,57 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 				});
 				return true;
 			} catch (Exception e) {
+				LOGGER.error("更新关系实体信息失败,原因是：",e);
 				return false;
 			}
 			
 		}
+	}
+
+	/**
+	 * 获取所有关键词
+	 */
+	@Override
+	@TargetDataSource(name="third")
+	public JSONObject findAllInfoByKeyWord(String keyword) {
+			JSONObject obj = new JSONObject();
+		try {
+			ThesaurusEntity ent = rep.findByKeyword(keyword);
+			if(ent==null){
+				return null;
+			}else{
+				obj.put("keyword", ent.getKeyword());
+				Long wordId = ent.getId();//获取关键词id
+				//词类型
+				KeywordInfoEntity tity = kip.findByWordId(wordId);
+				KeywordTypeEntity one = ktp.findOne(tity.getTypeId());
+				obj.put("wordtype", one.getTypeWord());//词类型
+				//词属性
+				List<AttributeEntity> list = arp.findByWordId(wordId);
+				obj.put("info", list);
+				//词关系
+				JSONArray arr = new JSONArray();
+				List<KeyWordRelatedEntity> list2 = krp.findByWordId(wordId);
+				if(list2.size()==0){
+					 obj.put("relatetion", null);
+				}else{
+					list2.forEach(action->{
+						 JSONObject obje = new JSONObject();
+						 obje.put("relateword", rep.findOne( action.getRelateWordId()).getKeyword());
+						 obje.put("number", kip.findByWordId(action.getRelateWordId()).getWordNumber());
+						 obje.put("related",kwp.findOne(action.getRelateId()).getRelatetion());
+						 arr.add(obje);
+					});
+					
+					obj.put("relatetion", arr);
+				}
+			}
+			return obj;
+		} catch (Exception e) {
+			LOGGER.error("获取新增词的全部信息失败,原因是：",e);
+			return null;
+		}
+		
 	}	
 	
 	

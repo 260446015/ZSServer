@@ -120,4 +120,11 @@ public interface ThesaurusService {
 	//保存词与词之间的关系
 	boolean saveOrUpdateData(JSONArray jsonArray);
 
+	/**
+	 * 根据新增词获取新增的所有数据
+	 * @param keyword
+	 * @return
+	 */
+	JSONObject findAllInfoByKeyWord(String keyword);
+
 }
