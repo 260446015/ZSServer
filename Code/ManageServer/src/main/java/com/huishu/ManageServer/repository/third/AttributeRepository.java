@@ -33,6 +33,7 @@ public interface AttributeRepository extends CrudRepository<AttributeEntity, Lon
 	 * @param number 
 	 * @return
 	 */
+	
 	@Query(value="select t_word_id  from  t_word_attribute  GROUP BY t_word_id ORDER BY count(t_word_id) desc limit ?1,?2",nativeQuery=true)
 	List<Integer> getKeyWordId(Long number, Integer integer);
 

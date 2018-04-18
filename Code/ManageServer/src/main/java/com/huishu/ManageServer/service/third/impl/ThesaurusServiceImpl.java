@@ -54,25 +54,18 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	
 	@Resource  
 	private  ThesaurusRepository rep;
-	
 	@Resource
 	private KeyWordRelatedRepository krp;
-
 	@Resource
 	private LogRepository lrp;
-	
 	@Resource
 	private AttributeRepository arp;
-	
 	@Resource
 	private KeywordTypeRepository ktp;
-
 	@Resource
 	private KeyWordInfoRepository kip;
-	
 	@Resource
 	private KeyWordRelatetionRepository kwp;
-	
 	
 	@TargetDataSource(name="third")
 	@Override
@@ -742,6 +735,48 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			return null;
 		}
 		
+	}
+
+	
+	@Override
+	@TargetDataSource(name="third")
+	public boolean saveOrUpdateData(String keyword, String typeWord) {
+		try {
+			ThesaurusEntity ent = rep.findByKeyword(keyword);
+			if(ent == null){
+				ThesaurusEntity one = new ThesaurusEntity();
+				one.setKeyword(keyword);
+				rep.save(one);
+			}
+			//获取词性id
+			KeywordTypeEntity tity = ktp.findByTypeWord(typeWord);
+			if(tity==null){
+				KeywordTypeEntity enti = new KeywordTypeEntity();
+				enti.setTypeWord(typeWord);
+				tity = ktp.save(enti);
+			}
+			Long count = kip.getCount(tity.getId());//查看当前类型的数量
+			String _wordNumber ="";
+			if(tity.getId()>26){
+				//随机取两个值进行匹对
+				String ss = StringUtil.LC_FIRST[(tity.getId().intValue()-1)/10];//取整
+				String s = StringUtil.LC_FIRST[(tity.getId().intValue()-1)%10];//取余
+				_wordNumber = ss+ s+(count+1);
+			}else{
+				String ss = StringUtil.LC_FIRST[(tity.getId().intValue()-1)];
+				_wordNumber = ss+(count+1);
+			}
+			KeywordInfoEntity entity = new KeywordInfoEntity();
+			entity.setInsertTime(new Date());
+			entity.setTypeId(tity.getId());
+			entity.setWordNumber(_wordNumber);
+			entity.setWordId(ent.getId());
+			kip.save(entity);
+			return true;
+		} catch (Exception e) {
+			LOGGER.error("保存词信息失败,原因是：",e);
+			return false;
+		}
 	}	
 	
 	

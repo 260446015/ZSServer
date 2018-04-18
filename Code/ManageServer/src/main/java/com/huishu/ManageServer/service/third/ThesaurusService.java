@@ -119,6 +119,7 @@ public interface ThesaurusService {
 	
 	//保存词与词之间的关系
 	boolean saveOrUpdateData(JSONArray jsonArray);
+	boolean saveOrUpdateData(String keyword,String typeWord);
 
 	/**
 	 * 根据新增词获取新增的所有数据
@@ -126,5 +127,4 @@ public interface ThesaurusService {
 	 * @return
 	 */
 	JSONObject findAllInfoByKeyWord(String keyword);
-
 }

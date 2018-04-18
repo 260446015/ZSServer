@@ -247,7 +247,7 @@ public class ThesaurusController extends BaseController{
 				    new File(url).mkdirs();
 				}
 				file.transferTo(saveFile);
-				new Thread(new Runnable() {
+				/*new Thread(new Runnable() {
 					@Override
 					public void run() {
 						try {
@@ -268,7 +268,7 @@ public class ThesaurusController extends BaseController{
 						}
 						
 					}
-				}).start();;
+				}).start();;*/
 				return success("上传成功");
 			}catch(Exception e){
 				LOGGER.error("文件上传失败：",e);
