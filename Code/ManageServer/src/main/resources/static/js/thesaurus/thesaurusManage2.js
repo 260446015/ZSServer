@@ -255,7 +255,7 @@ function changeWord(){
 function uploadFile(){
 	 var myform = new FormData();
     myform.append('file',$('#load_xls')[0].files[0]);
-   /* $.ajax({
+    $.ajax({
    	 url: "/apis/keyInfo/ExcelDataUpload.json",
         type: "POST",
         data: myform,
@@ -270,7 +270,7 @@ function uploadFile(){
        	 var param ={type:type,pageSize:pageSize,pageNumber:pageNumber};
 			  getType(param);
         }
-    });*/
+    });
     
 };
 //模态框的回显
@@ -304,7 +304,7 @@ $('#addKeywordToTable').on('click',function(){
 
 //下一页  跳转下一页，同时保存信息
 $('.my_nextadd').on('click',function(){
-	/*//属性值
+	//属性值
 	var arr = new Array();
 	var i=1;
     var j=1;
@@ -386,13 +386,16 @@ $('.my_nextadd').on('click',function(){
 			}
 		});
 	}
-	*/
+	
 	$('#myModal').modal('hide');
 	$('#secondModal').modal('show');
 	
 });
 $('.close').on('click',function(){
-	window.location.href="/apis/keyInfo/ThesaurusManage.html";
+	$('#myModal').html('');
+	$('#secondModal').html('');
+	$('#thirdModal').html('');
+	$('#fourModal').html('');
 });
 //新增分类
 $('#new_add').on('click',function(){
@@ -509,6 +512,20 @@ function getInfoList(e){
 };
 function initPage(){
 	var label ='';
+	//编辑数据功能
+	$('.editinfo').on('click',function(){
+		var _keyword =  $(this).parents('.gradeX').find('td').eq(1).text();
+		console.log(_keyword);
+		//ajax获取结果
+		$.ajax({
+			url:'/apis/keyInfo/findInfoByKeyword.json?keyword='+_keyword,
+			type:'GET',
+			asynyc:false,
+			success:function(res){
+				console.log("根据词语获取所有关键词的信息如下："+res.data);
+			}
+		});
+	});
 	$('.removeinfo').on('click',function(){
 		var _id =  $(this).parents('.gradeX').find('.input-block').val();
 		console.log('删除关键词根据id：》》》'+_id);
