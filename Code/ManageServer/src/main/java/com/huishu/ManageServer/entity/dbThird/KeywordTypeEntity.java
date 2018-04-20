@@ -29,7 +29,7 @@ public class KeywordTypeEntity implements Serializable {
 	private Long id;
 	
 	@Column(name = "t_type_word")
-	private String TypeWord;
+	private String typeWord;
 
 	public Long getId() {
 		return id;
@@ -40,11 +40,11 @@ public class KeywordTypeEntity implements Serializable {
 	}
 
 	public String getTypeWord() {
-		return TypeWord;
+		return typeWord;
 	}
 
 	public void setTypeWord(String typeWord) {
-		TypeWord = typeWord;
+		typeWord = typeWord;
 	}
 
 	@Override

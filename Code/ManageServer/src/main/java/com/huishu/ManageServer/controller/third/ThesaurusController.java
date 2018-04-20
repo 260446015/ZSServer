@@ -223,13 +223,12 @@ public class ThesaurusController extends BaseController{
 	public AjaxResult ExcelDataUpload(@RequestParam("file") MultipartFile file,HttpServletRequest request, HttpServletResponse response){
 		LOGGER.info("file name is :" + file.getOriginalFilename());
 		if(!file.isEmpty()){
-			String 	OriginalFilename = file.getOriginalFilename();
+			String 	OriginalFilename = file.getOriginalFilename();//文件名称
 			String fileSuffix = OriginalFilename.substring(OriginalFilename.lastIndexOf(".") + 1).toLowerCase();
 			if(!ServletFileUpload.isMultipartContent(request)){
 				return error("文件没有上传");
 			}
-			System.out.println(OriginalFilename);
-			System.out.println(file.getName());
+			
 			File uploadDir = new File("images");
 			if (!uploadDir.isDirectory()) {
 				if (!uploadDir.mkdir()) {
@@ -239,6 +238,8 @@ public class ThesaurusController extends BaseController{
 			if (!uploadDir.canWrite()) {
 				return error("上传目录没有写权限");
 			}
+			String subSequence = OriginalFilename.substring(0,OriginalFilename.lastIndexOf(".") );
+			
 			String newname = UUID.randomUUID() + "." + fileSuffix;
 			try {
 				String url = "e:/excel";
@@ -247,19 +248,29 @@ public class ThesaurusController extends BaseController{
 				    new File(url).mkdirs();
 				}
 				file.transferTo(saveFile);
-				/*new Thread(new Runnable() {
+				new Thread(new Runnable() {
 					@Override
 					public void run() {
 						try {
-							
 						ReadExcelUtil util = new ReadExcelUtil();
 						List<String> map = util.readExcel("e:/excel/" + newname, newname);
-							map.subList(0, 1).clear();
+						//获取文件名OriginalFilename
+						if(subSequence.indexOf("属性")<=0){
+							map.subList(0, 1).clear();//不是属性表，需要把第一行清除
+							//遍历数据
+							for(String value:map){
+								service.addDataInfo(value);//保存数据
+							}
+						}else{
+							List<String> subList = map.subList(0, 1);//属性表，需要进行属性的动态添加与删除
+//							map.subList(0, 1).clear();
 							//遍历数据
 							for(String value:map){
 								//保存数据
-								service.addDataInfo(value);
+								service.addDataInfo(subList,value);
 							}
+						}
+						
 							service.printLog(OriginalFilename,"数据存库完成");
 						
 						} catch (Exception e) {
@@ -268,7 +279,7 @@ public class ThesaurusController extends BaseController{
 						}
 						
 					}
-				}).start();;*/
+				}).start();;
 				return success("上传成功");
 			}catch(Exception e){
 				LOGGER.error("文件上传失败：",e);

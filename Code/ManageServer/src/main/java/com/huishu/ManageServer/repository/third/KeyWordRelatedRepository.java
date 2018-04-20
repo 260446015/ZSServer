@@ -64,4 +64,11 @@ public interface KeyWordRelatedRepository extends JpaRepository<KeyWordRelatedEn
 	 */
 	@Query(value="SELECT count(t.t_word_id) from (select count(*),t_word_id  from  t_word_related  GROUP BY t_word_id ) t ",nativeQuery=true)
 	List<Integer> getKeyWordIdByTypeId(List<Integer> info);
+
+	/**
+	 * @param id
+	 * @param id2
+	 * @return
+	 */
+	KeyWordRelatedEntity findByWordIdAndRelateWordId(Long id, Long id2);
 }

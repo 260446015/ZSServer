@@ -337,81 +337,19 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	}
 
 	
-	@SuppressWarnings("unused")
 	@Override
 	@TargetDataSource(name="third")
 	public boolean addDataInfo(String value) {
-		ThesaurusEntity ent = null;
-		ThesaurusEntity save =  null;
-		Long wordId = null;
-		Long count = (long) 0;
 		try {
 			String[] split = value.split("---");
 			String keyword = split[0];
 			String type = split[1];
-			if(split.length<=2){
-				Long typeId = null;
-				if(count==0){
-					Long keyWordId = rep.getKeyWordId();
-					typeId = keyWordId+1;
-				}else{
-				}
-				ent =new ThesaurusEntity();
-				ent.setKeyword(keyword);
-				rep.save(ent);
-			}else{
-				String describe = split[2];
-				ent = new ThesaurusEntity();
-//				ent.setDescribe(describe);
-				ent.setKeyword(keyword);
-				//如果count==0,说明此类型词没有出现，进行添加
-				if( count == 0){
-					//获取产业的最大值id
-					Long _id = rep.getKeyWordId();
-					Long id = _id+1;
-					ent.setId(id);
-				}else{
-					//获取typeid
-					Long mid = rep.getMaxId();
-					//如果mid处于0~20之间，说明产业数据太小，需要扩大
-					if(mid>0&&mid<20){
-						ent.setId((long) 20);
-					}else{
-						ent.setId(mid+1);
-					}
-				}
-				//判断关键词是否存在
-				save = rep.findByKeyword(keyword);
-				//如果通过关键词查找为空，则进行新增
-				if(save == null){
-					save = rep.save(ent);
-					wordId = save.getId();
-				}else{
-					//如果不为空，则直接获取数据
-					wordId = save.getId();
-				}
-				List<AttributeEntity> list = new ArrayList<AttributeEntity>();
-				for(int i=3;i<split.length;i++){
-					String info = split[i];
-					int i1 = info.indexOf("(");
-					int i2 = info.indexOf(")");
-					String name = info.substring(0, i1);
-					String val = info.substring(i1+1, i2);
-					AttributeEntity ant = new AttributeEntity();
-					ant.setWordId(wordId);
-					ant.setAttributeName(name);
-					ant.setAttributeValue(val);
-					list.add(ant);
-				}
-				arp.save(list);
-			}
-			
-			return true;
+			boolean info = saveOrUpdateData(keyword, type);
+			return info;
 		} catch (Exception e) {
 			LOGGER.error("添加一个实体数据失败,原因是：",e);
 			return false;
 		}
-		
 	}
 
 	/**
@@ -777,6 +715,89 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			LOGGER.error("保存词信息失败,原因是：",e);
 			return false;
 		}
+	}
+
+	/**
+	 * 添加属性表
+	 */
+	@Override
+	@TargetDataSource(name="third")
+	public boolean addDataInfo(List<String> subList, String value) {
+		try {
+			//获取每一行的属性值
+			String[] split = subList.get(0).split("---");
+			
+			String[] split2 = value.split("---");
+			for(int i=0;i<split.length;i++){
+				String ss = split[i];
+				String s2 = split2[i];
+//				System.out.println("表名1：》》》"+ss+"\n属性2：》》》"+s2);
+				if(ss != s2){
+					//获取词
+					if(ss.equals("关键词")){
+						//获取公司名录
+						String companyName = split2[3];
+						if(!companyName.equals("企业名称")){
+							System.out.println("关键词:>>>>"+ss+"\n公司名录：>>>>>"+companyName);
+							//将企业词与产业词入库，
+							//关键词表
+							//产业词
+							ThesaurusEntity one = rep.findByKeyword(s2);
+							if(one == null){
+								one = new ThesaurusEntity();
+								one.setKeyword(ss);
+								one = rep.saveAndFlush(one);
+							}
+							//企业词
+							ThesaurusEntity two = rep.findByKeyword(companyName);
+							if(two == null){
+								two = new ThesaurusEntity();
+								two.setKeyword(companyName);
+								two = rep.saveAndFlush(two);
+							}
+							Long typeId = (long) 4;
+							KeywordInfoEntity ent = kip.findByWordId(two.getId());
+							if(ent == null){
+								 ent = new KeywordInfoEntity();
+								 ent.setTypeId(typeId);
+									ent.setInsertTime(new Date());
+									ent.setWordId(two.getId());
+									Long count = kip.getCount(typeId);
+									String num = StringUtil.LC_FIRST[(typeId.intValue()-1)];
+									String _wordNumber = num+(count+1);
+									ent.setWordNumber(_wordNumber);
+									//编号表
+									kip.save(ent);
+							}
+							
+							//关系表
+							KeyWordRelatedEntity tity =	krp.findByWordIdAndRelateWordId(two.getId(),one.getId());
+							if(tity ==null){
+								tity = new KeyWordRelatedEntity();
+								tity.setRelateId((long) 2);
+								tity.setWordId(one.getId());
+								tity.setRelateWordId(two.getId());
+								krp.save(tity);
+							}else{
+								tity.setRelateWordId(two.getId());
+								tity.setWordId(one.getId());
+								krp.save(tity);
+							}
+							
+							}
+						}
+					}
+				}
+			//获取每一行的值
+			//获取公司名称,
+			//获取类型词
+			//
+			return true;
+		} catch (Exception e) {
+			LOGGER.error("保存属性词失败,原因是：",e);
+			return false;
+		}
+		
 	}	
 	
 	

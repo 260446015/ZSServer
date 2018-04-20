@@ -127,4 +127,10 @@ public interface ThesaurusService {
 	 * @return
 	 */
 	JSONObject findAllInfoByKeyWord(String keyword);
+
+	/**
+	 * @param subList
+	 * @param value
+	 */
+	boolean addDataInfo(List<String> subList, String value);
 }
