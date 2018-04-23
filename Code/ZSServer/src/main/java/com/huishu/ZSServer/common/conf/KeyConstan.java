@@ -18,7 +18,7 @@ public class KeyConstan {
 	public static final String ZHAO_SHANG_BAO_GAO = "招商报告";
 	public static final String YUANQUZHENGCE = "园区政策";
 	/**天眼查调用地址*/
-	public static final String OPEN_URL = "http://58.16.181.24:10002/openeyes/search.json";
+	public static final String OPEN_URL = "http://58.16.181.24:11002/openeyes/search.json";
 	/**
 	 * local
 	 */
