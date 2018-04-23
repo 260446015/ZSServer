@@ -1,0 +1,111 @@
+.e-split-5{height:5px;}
+
+html,body{
+    position: relative;
+    background: transparent;
+    height:100%;
+}
+
+/*内容*/
+.tp-container {
+    height:100%;padding: 0px;
+}
+.tp-container #main{
+    width:100%;height:100%;
+}
+.load_data {
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    position: absolute;
+    margin-top: 280px;
+    text-align: center;
+    display: none;
+}
+
+/*筛选*/
+.tp-sel{
+    width:370px;height:580px;background:white;box-shadow: #ccc 0px 0px 5px;
+    position: absolute;top:100px;right:60px;display: none;
+}
+.tp-sel-close{height:48px;width:100%;}
+.tp-sel-close span{display: inline-block;float: right;font-size:27px;color:#128BED;cursor:pointer;}
+.tp-list{ height: 300px;  overflow-y: scroll;}
+.tp-list input{position: relative;top:3px;}
+#inputRange {
+    margin-top: 8px;
+    margin-bottom: 25px;
+    width: 92% !important;
+    padding: 0px;
+    border-radius: 10px;
+    height: 6px;
+    -webkit-appearance: none;
+    background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;
+    background-size: 0% 100%;
+}
+#RangeLabel{
+    position: relative;top:-14px;
+}
+#RangeLabel div{color:#666;font-size:12px;}
+.tp-sel a.active{
+    /*background:#128BED !important;color:white !important;border:white 1px solid !important;*/
+    background:white !important;color:#128bed !important;border:#128bed 1px solid !important;
+}
+
+/*详情*/
+.tp-detail{
+    display: none;
+    width:300px;main-height:500px;background:white;box-shadow: #ccc 0px 0px 5px;
+    position: absolute;top:200px;left:40px;
+}
+.tp-detail-close{height:48px;width:100%;}
+.tp-detail-close span{display: inline-block;float: right;font-size:27px;color:#128BED;cursor:pointer;}
+#d-title{font-size:18px;color:#128bed;}
+.d-tableWrap{max-height:300px;overflow-y: scroll;}
+
+/*页脚*/
+.tp-foot {
+    width: 100%;
+    height: 30px;
+    position: relative;
+    bottom: 0px;
+    border-top: #ccc 1px solid;
+}
+.tp-foot div > div{
+    display: inline-block;
+    margin-left:30px;
+}
+
+/*侧栏*/
+.tp-right{width:50px;box-shadow: 0px 0px 5px #ccc;cursor:pointer;background:white;
+    position: fixed;right:0px;bottom:200px;}
+.tp-right div{width:50px;height:60px;}
+.tp-right div label{width:100%;text-align: center;cursor:pointer;height:20px;
+    position:relative;top:-6px;left:0px;
+    font-size:10px;color:#666;}
+.tp-right div.active{background:#128BED;}
+.tp-right div.active label{color:white;}
+.tp-right div:hover label{color:white;}
+.tp-right div:hover{background:#128BED;}
+.tp-right span{display: inline-block;width:30px;height:30px;position:relative;top:5px;left:10px;background:url("./images/icon-right.png")}
+.tp-right #TrSel span{background-position: 0px 0px;}
+.tp-right div.active#TrSel span{background-position: 0px 30px;}
+.tp-right div:hover#TrSel span{background-position: 0px 30px;}
+.tp-right #TrTxt span{background-position: -30px 0px;}
+.tp-right div.active#TrTxt span{background-position: -30px 30px;}
+.tp-right div:hover#TrTxt span{background-position: -30px 30px;}
+.tp-right #TrEnlarge span{background-position: -210px 0px;}
+.tp-right div.active#TrEnlarge span{background-position: -210px 30px;}
+.tp-right div:hover#TrEnlarge span{background-position: -210px 30px;}
+.tp-right #TrReduce span{background-position: -241px 0px;}
+.tp-right div.active#TrReduce span{background-position: -241px 30px;}
+.tp-right div:hover#TrReduce span{background-position: -241px 30px;}
+.tp-right #TrFullScreen span{background-position: -151px 0px;}
+.tp-right div.active#TrFullScreen span{background-position: -151px 30px;}
+.tp-right div:hover#TrFullScreen span{background-position: -151px 30px;}
+.tp-right #TrRefresh span{background-position: -121px 0px;}
+.tp-right div.active#TrRefresh span{background-position: -121px 30px;}
+.tp-right div:hover#TrRefresh span{background-position: -121px 30px;}
+.tp-right #TrSave span{background-position: -271px 0px;}
+.tp-right div.active#TrSave span{background-position: -271px 30px;}
+.tp-right div:hover#TrSave span{background-position: -271px 30px;}
