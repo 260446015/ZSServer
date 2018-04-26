@@ -20,6 +20,8 @@ import com.huishu.ZSServer.security.MyFormAuthenticationFilter;
 import com.huishu.ZSServer.security.MySessionManager;
 import com.huishu.ZSServer.security.MyUserFilter;
 import com.huishu.ZSServer.security.ShiroDbRealm;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
  * shiro的配置
@@ -47,9 +49,10 @@ public class ShiroConfiguration {
 
 		filterChainDefinitionMap.put("/login.html", "anon");
 		filterChainDefinitionMap.put("/apis/openeyes/*.json", "authc,perms[search]");
-		
+		filterChainDefinitionMap.put("/atlas/getAtlasAndResponse.json", "anon");
+
 		filterChainDefinitionMap.put("/**/*.html", "authc");
-		filterChainDefinitionMap.put("/**/*.json", "authc");
+		filterChainDefinitionMap.put("/**/*.json", "anon");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
@@ -184,5 +187,5 @@ public class ShiroConfiguration {
 		dao.setCacheManager(getEhCacheManager());
 		return dao;
 	}
-	 
+
 }

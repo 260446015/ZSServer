@@ -107,16 +107,15 @@ $(function () {
     
     echarts1.on("click", function (req) {
         $(".content-show").hide()
-        var url = '/atlas/atlas';
+        var url = '/apis/atlas/atlas';
         $(".atlasbox").show();
         var subject = req.name;
-        console.log(subject);
+        $(".atlasbox iframe").attr("src","")
         $.ajax({
-            url:'http://localhost:8095/apis/atlas/keyNo.json?name='+req.name,
+            url:'/apis/atlas/keyNo.json?name='+req.name,
             dataType: 'json',
             success:function(res){
                var keyno=res.data;
-               console.log(req.name)
                url = url + "?keyno="+keyno+"&name="+subject;
                $(".atlasbox iframe").attr("src",url)  
             }
@@ -208,19 +207,20 @@ $(function () {
     echarts2.setOption(echarts2option);
     echarts2.on("click", function (req) {
         $(".content-show").hide()
-        var url = '/atlas/atlasPage';
+        var url = '/apis/atlas/atlas';
         $(".atlasbox").show();
+        var subject = req.name;
+        $(".atlasbox iframe").attr("src","")
         $.ajax({
-            url:'/atlas/keyNo.json?name='+req.name,
+            url:'/apis/atlas/keyNo.json?name='+req.name,
             dataType: 'json',
-            success:function(req){
-               var keyno=req.data;
-               url = url + "?keyno="+keyno;
+            success:function(res){
+               var keyno=res.data;
+               url = url + "?keyno="+keyno+"&name="+subject;
                $(".atlasbox iframe").attr("src",url)  
             }
         })   
     });
-  
     var echarts3 = echarts.init(document.getElementById("echarts3"));
     echarts3option = {
         series: [{
@@ -348,19 +348,20 @@ $(function () {
     echarts3.setOption(echarts3option);
     echarts3.on("click", function (req) {
         $(".content-show").hide()
-        var url = '/atlas/atlasPage';
+        var url = '/apis/atlas/atlas';
         $(".atlasbox").show();
+        var subject = req.name;
+        $(".atlasbox iframe").attr("src","")
         $.ajax({
-            url:'/atlas/keyNo.json?name='+req.name,
+            url:'/apis/atlas/keyNo.json?name='+req.name,
             dataType: 'json',
-            success:function(req){
-               var keyno=req.data;
-               url = url + "?keyno="+keyno;
+            success:function(res){
+               var keyno=res.data;
+               url = url + "?keyno="+keyno+"&name="+subject;
                $(".atlasbox iframe").attr("src",url)  
             }
         })   
     });
-
     var echarts4 = echarts.init(document.getElementById("echarts4"));
     echarts4option = {
         series: [{
@@ -529,14 +530,16 @@ $(function () {
     echarts4.setOption(echarts4option);
     echarts4.on("click", function (req) {
         $(".content-show").hide()
-        var url = '/atlas/atlasPage';
+        var url = '/apis/atlas/atlas';
         $(".atlasbox").show();
+        var subject = req.name;
+        $(".atlasbox iframe").attr("src","")
         $.ajax({
-            url:'/atlas/keyNo.json?name='+req.name,
+            url:'/apis/atlas/keyNo.json?name='+req.name,
             dataType: 'json',
-            success:function(req){
-               var keyno=req.data;
-               url = url + "?keyno="+keyno;
+            success:function(res){
+               var keyno=res.data;
+               url = url + "?keyno="+keyno+"&name="+subject;
                $(".atlasbox iframe").attr("src",url)  
             }
         })   

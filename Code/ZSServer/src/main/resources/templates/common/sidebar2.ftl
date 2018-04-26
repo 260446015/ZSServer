@@ -16,6 +16,9 @@
                         <li id="industrySummit">
                             <a href="/summit/industrySummitMeeting.html">产业峰会</a>
                         </li>
+                        <li id="atlas">
+                            <a href="/apis/atlas/chain.html">知识图谱</a>
+                        </li>
                     </ul>
                 </li>
                 <li id="gardenMap">

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +8,11 @@
     <meta name="author" content="leslie">
     <title>知识图谱</title>
     <link rel="icon" href="">
-    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/icon.css" type="text/css" />
-    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/font.css" type="text/css" />
-    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/app.css?time=201801051" type="text/css" />
+    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/font-awesome.min.css" type="text/css"/>
+    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/icon.css" type="text/css"/>
+    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/font.css" type="text/css"/>
+    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/app.css?time=201801051" type="text/css"/>
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.js"></script>
@@ -21,7 +20,7 @@
     <script type="text/javascript" src="/js/siteconfig.js"></script>
     <script src="/theme/chacha/cms/v2/js/jquery.min.js"></script>
     <script src="/theme/chacha/cms/v2/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/toastr.css" />
+    <link rel="stylesheet" href="/theme/chacha/cms/v2/css/toastr.css"/>
     <script src="/theme/chacha/cms/v2/js/custom.js?time=201801051"></script>
 
 </head>
@@ -29,13 +28,13 @@
 <script type="text/javascript" src="/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/js/jquery.form.min.js"></script>
-<link rel="stylesheet" href="/theme/chacha/cms/v2/css/companyDetail.css?time=1515295315" type="text/css" />
+<link rel="stylesheet" href="/theme/chacha/cms/v2/css/companyDetail.css?time=1515295315" type="text/css"/>
 <style>
     html, body {
         height: 100%;
         background-color: #fff;
     }
-    
+
     .nodetext {
         font-size: 12px;
         fill: #fff;
@@ -199,17 +198,32 @@
         top: 300px;
     }
     #MainCy{
-        margin: 0 auto;
+        margin:-20px;
+    }
+    .tp-detail{
+        display:none;
+    }
+    .tp-name li{
+        color:#00ffe4;
+        font-size:16px;
     }
 </style>
 <div class="mao-nodata" id="no_data">
-    <p class="noface"> <img src="/theme/chacha/cms/v2/images/nodata.png" /> </p>
+    <p class="noface"><img src="/theme/chacha/cms/v2/images/nodata.png"/></p>
     小查还没找到企业关系
 </div>
-    <div class="load_data" id="load_data"> <img src="/theme/chacha/cms/v2/images/preloader.gif"> </div>
- <div id="MainCy" style=" width: 100%;height:100%;"></div>  
-<div id="MainD3" scale="1" class="no-padding tp-container"> <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"> </svg> </div>
-<link rel="stylesheet" href="/plugins/tupu/tupu1.css?time=1515295315" type="text/css" />
+<div class="load_data" id="load_data"><img src="/theme/chacha/cms/v2/images/preloader.gif"></div>
+<div id="MainCy" style=" width: 100%;height:100%;"></div>
+<div id="MainD3" scale="1" class="no-padding tp-container">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"> </svg>
+</div>
+<link rel="stylesheet" href="/plugins/tupu/tupu1.css?time=1515295315" type="text/css"/>
+<div class="tp-detail">
+    <div class="tp-detail-close"><span>X</span></div>
+    <ul class="tp-name">
+
+    </ul>
+</div>
 <script src="/plugins/tupu/cytoscape.js"></script>
 <script src="/plugins/tupu/d3.v4.js"></script>
 <script src="/plugins/tupu/tupu.min.js"></script>

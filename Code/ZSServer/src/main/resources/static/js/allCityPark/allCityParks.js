@@ -7,7 +7,6 @@ $(function(){
     $("#report").removeClass("active");
     $("#all").addClass("active");
     area = GetQueryString("area");
-    showGardenindustry();
     showGardenArea();
     $("#gardenArea a").each(function(){
     	if($(this).html() == area){
@@ -39,22 +38,6 @@ function GetQueryString(key) {//获取地址栏中的name
     var result = url.substr(1).match(reg);
     // 返回参数值
     return result ? decodeURIComponent(result[2]) : null;
-}
-function showGardenindustry(){//获取园区产业
-    $.ajax({
-        type:'get',
-        url:'/apis/area/getGardenIndustry.json',
-        success:function(res){
-            if(res.success){
-                var arr = res.data;
-                var html = '';
-                for(var i=0;i<arr.length;i++){
-                    html += '<a href="javascript:void(0);" class="search-item">'+arr[i].industryOne+'</a>';
-                }
-                $("#gardenIndustry").append(html);
-            }
-        }
-    });
 }
 function showGardenArea(){//获取园区地域分组
     $.ajax({

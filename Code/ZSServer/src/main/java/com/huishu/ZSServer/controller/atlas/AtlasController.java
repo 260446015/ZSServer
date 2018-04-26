@@ -1,21 +1,46 @@
 package com.huishu.ZSServer.controller.atlas;
 
+import com.huishu.ZSServer.common.AjaxResult;
+import com.huishu.ZSServer.controller.BaseController;
+import com.huishu.ZSServer.service.atlas.AtlasService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping(value = "/atlas")
-public class AtlasController {
+@RequestMapping(value = "/apis/atlas")
+public class AtlasController extends BaseController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AtlasController.class);
+
+    @Autowired
+    private AtlasService atlasService;
+
+
+    @GetMapping(value = "/getAtlasAndResponse.json")
+    @ResponseBody
+    public AjaxResult getAtlasAndResponse(String subject){
+        return success(atlasService.getAtlasAndResponse(subject));
+    }
+
+    @GetMapping(value = "/keyNo.json",params = {"name"})
+    @ResponseBody
+    public AjaxResult getKeyNo(String name){
+        return success(atlasService.getKeyNo(name));
+    }
+
+    @GetMapping(value = "/getAtlasCompany.json")
+    @ResponseBody
+    public AjaxResult getAtlasCompany(String name){
+        return success(atlasService.getAtlasCompany(name));
+    }
 
     @GetMapping(value = "{page}")
-    public ModelAndView pageMapping(@PathVariable String page,ModelAndView modelAndView,String name){
-        if(page.equals("atlas")){
-            modelAndView.addObject("name",name);
-        }
-        modelAndView.setViewName("/atlas/"+page);
-        return modelAndView;
+    public String pageMapping(@PathVariable String page){
+        return "/atlas/"+page;
     }
 }
