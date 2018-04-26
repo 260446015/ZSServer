@@ -20,12 +20,10 @@ import com.huishu.ZSServer.security.MyFormAuthenticationFilter;
 import com.huishu.ZSServer.security.MySessionManager;
 import com.huishu.ZSServer.security.MyUserFilter;
 import com.huishu.ZSServer.security.ShiroDbRealm;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
  * shiro的配置
- * 
+ *
  * @author yindq
  * @date 2017年12月13日
  */
@@ -37,7 +35,7 @@ public class ShiroConfiguration {
 
 	/**
 	 * ShiroFilter
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean(name = "shiroFilter")
@@ -49,19 +47,18 @@ public class ShiroConfiguration {
 
 		filterChainDefinitionMap.put("/login.html", "anon");
 		filterChainDefinitionMap.put("/apis/openeyes/*.json", "authc,perms[search]");
-		filterChainDefinitionMap.put("/atlas/getAtlasAndResponse.json", "anon");
 
 		filterChainDefinitionMap.put("/**/*.html", "authc");
-		filterChainDefinitionMap.put("/**/*.json", "anon");
+		filterChainDefinitionMap.put("/**/*.json", "authc");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
 		filters.put("ajaxSessionFilter", getMyUserFilter());
 		filters.put("authc", getMyFormAuthenticationFilter());
-		
+
 		shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
 		shiroFilterFactoryBean.setLoginUrl("/login.do");//测试使用
-	//	shiroFilterFactoryBean.setLoginUrl("http://zhaoshang.huishu.com.cn:9323/login.do");//线上使用
+		//	shiroFilterFactoryBean.setLoginUrl("http://zhaoshang.huishu.com.cn:9323/login.do");//线上使用
 		shiroFilterFactoryBean.setSuccessUrl("/");
 		shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized.do");
 		shiroFilterFactoryBean.setFilters(filters);
@@ -70,7 +67,7 @@ public class ShiroConfiguration {
 
 	/**
 	 * 配置核心安全事务管理器
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean(name = "securityManager")
@@ -84,7 +81,7 @@ public class ShiroConfiguration {
 
 	/**
 	 * 配置自定义的权限登录器 (这个需要自己写，账号密码校验；权限等)
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean(name = "shiroDbRealm")
@@ -101,7 +98,7 @@ public class ShiroConfiguration {
 
 	/**
 	 * 配置EhCache 缓存
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean
@@ -110,7 +107,7 @@ public class ShiroConfiguration {
 		em.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
 		return em;
 	}
-	
+
 	@Bean(name = "lifecycleBeanPostProcessor")
 	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
 		return new LifecycleBeanPostProcessor();
@@ -118,17 +115,17 @@ public class ShiroConfiguration {
 
 	/**
 	 * 处理session超时
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean(name = "myUserFilter")
 	public MyUserFilter getMyUserFilter() {
 		return new MyUserFilter();
 	}
-	
+
 	/**
 	 * 开启shiro aop注解支持.
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean(name = "authorizationAttributeSourceAdvisor")
@@ -140,7 +137,7 @@ public class ShiroConfiguration {
 
 	/**
 	 * FormAuthenticationFilter
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean(name = "loginFormAuthenticationFilter")
@@ -150,7 +147,7 @@ public class ShiroConfiguration {
 
 	/**
 	 * DefaultWebSessionManager
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean(name = "defaultWebSessionManager")
@@ -167,7 +164,7 @@ public class ShiroConfiguration {
 
 	/**
 	 * 自定义校验密码
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean(name = "customCredentialsMatcher")
@@ -178,7 +175,7 @@ public class ShiroConfiguration {
 
 	/**
 	 * SessionDAO
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean(name = "enterpriseCacheSessionDAO")
