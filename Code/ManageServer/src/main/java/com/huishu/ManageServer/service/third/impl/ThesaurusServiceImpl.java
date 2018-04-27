@@ -67,7 +67,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	@Resource
 	private KeyWordRelatetionRepository kwp;
 	
-	@TargetDataSource(name="third")
 	@Override
 	public JSONArray findAllKeyWord() {
 		JSONArray obj = new JSONArray();
@@ -79,7 +78,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * 查看关键词信息--列表查看
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public Page<WordDataDTO> findByPage(TKeyWordDTO dto) {
 		Page<WordDataDTO> page = null;
 		List<ThesaurusEntity> list = new ArrayList<ThesaurusEntity>();
@@ -213,7 +211,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	}
 	
 	
-	@TargetDataSource(name="third")
 	private Pageable addOrUpdata(TKeyWordDTO dto, List<ThesaurusEntity> list, Pageable pageable, List<Integer> ll) {
 		//先获取所有的id
 		if(list.size()<dto.getPageSize()){
@@ -227,7 +224,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 		return pageable;
 	}
 	
-	@TargetDataSource(name="third")
 	private void ListRepInfo(List<ThesaurusEntity> list, List<Integer> ids) {
 		for(int i =0;i<ids.size();i++){
 			list.add(rep.findOne(ids.get(i).longValue()));
@@ -238,7 +234,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * 获取关联关系
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public JSONObject findRelatedById(String id) {
 		JSONObject obj = new JSONObject();
 		try{
@@ -267,7 +262,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * 删除词信息
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public boolean deleteRelatedById(String id) {
 		try {
 			Long _id = Long.parseLong(id);
@@ -293,7 +287,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	
 	@SuppressWarnings("unused")
 	@Override
-	@TargetDataSource(name="third")
 	public boolean saveOrUpdateInfo(addKeyWordDTO dto) {
 		ThesaurusEntity ent = new ThesaurusEntity();
 		try {
@@ -307,7 +300,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 
 	
 	@Override
-	@TargetDataSource(name="third")
 	public boolean deleteRelatedInfoById(String id) {
 		try {
 			long _id = Long.parseLong(id);
@@ -320,7 +312,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	}
 
 	@Override
-	@TargetDataSource(name="third")
 	public boolean printLog(String originalFilename, String message) {
 		Log log = new Log();
 		Date date = new Date();
@@ -338,7 +329,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 
 	
 	@Override
-	@TargetDataSource(name="third")
 	public boolean addDataInfo(String value) {
 		try {
 			String[] split = value.split("---");
@@ -356,7 +346,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * 获取词性分类标签信息
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public List<KeywordTypeEntity> getLableInfo() {
 		return (List<KeywordTypeEntity>) ktp.findAll();
 	}
@@ -367,7 +356,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * @return
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public JSONObject findAttributeInfoById(String id) {
 		try {
 			JSONObject obj = new JSONObject();
@@ -385,7 +373,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * 更新词性信息
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public boolean updateTypeWord(String typeWord) {
 		try {
 			KeywordTypeEntity ent = new KeywordTypeEntity();
@@ -401,7 +388,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * 保存第一页数据
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public boolean saveOrUpAttributeData(AttributeDTO dto) {
 		Long typeId = dto.getTypeId();
 		String 	_wordNumber ="";
@@ -429,7 +415,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 		}
 	}
 	
-	@TargetDataSource(name="third")
 	private void updateDataSave(AttributeDTO dto,Long typeId,String  _wordNumber) {
 		//根据类型id获取当前类型的数量
 		Long count = kip.getCount(typeId);
@@ -480,7 +465,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * @param typeWord
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public List<ThesaurusEntity> findKeyWordByType(String typeWord) {
 		try {
 			long _typeId = Long.parseLong(typeWord);
@@ -501,7 +485,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * 新增关系词
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public boolean updateRelatedWord(String relatedWord) {
 		RelatedWordEntity ent = new RelatedWordEntity();
 		ent.setRelatetion(relatedWord);
@@ -522,7 +505,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * 获取所有的关系词
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public List<RelatedWordEntity> getAllRelatedInfo() {
 		try {
 			Iterable<RelatedWordEntity> findAll = kwp.findAll();
@@ -537,7 +519,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	/**
 	 * 新增词的关系属性
 	 */
-	@TargetDataSource(name="third")
 	@Override
 	public JSONArray addOrUpdate(RelatedDTO dto) {
 		try {
@@ -584,13 +565,52 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 
 	
 	@Override
-	@TargetDataSource(name="third")
+	@Transactional(value = Transactional.TxType.NOT_SUPPORTED)
 	public boolean saveOrUpdateData(JSONArray jsonArray) {
 		if(jsonArray.size()==0){
 			return false;
 		}else{
 			try {
-				jsonArray.forEach(action->{
+				for (int i = 0; i <jsonArray.size() ; i++) {
+					ThesaurusEntity one = null;
+					JSONObject json = (JSONObject) JSONObject.toJSON(jsonArray.get(i));
+					String subject  =   json.getString("subject");//实体
+					String object 	=   json.getString("object"); //关系实体
+					String relation =   json.getString("relation");//关系
+					one = rep.findByKeyword(subject);
+					if(one==null){
+						ThesaurusEntity ent = new ThesaurusEntity();
+						ent.setKeyword(subject);
+						one = rep.save(ent);
+					}
+					ThesaurusEntity save = rep.findByKeyword(object);
+					if(save == null){
+						ThesaurusEntity ent = new ThesaurusEntity();
+						ent.setKeyword(object);
+						save = rep.save(ent);
+					}
+					RelatedWordEntity rel = null;
+					try {
+						rel = kwp.findByRelatetion(relation);
+					} catch (Exception e) {
+						throw new Exception("当前对象是:"+i+relation);
+					}
+					if(rel == null){
+						RelatedWordEntity ent = new RelatedWordEntity();
+						ent.setRelatetion(relation);
+						rel = kwp.save(ent);
+					}
+					KeyWordRelatedEntity findOne = new  KeyWordRelatedEntity();
+					findOne.setRelateId( rel.getId());
+					findOne.setWordId(one.getId());
+					findOne.setRelateWordId(save.getId());
+					try {
+						krp.save(findOne);
+					} catch (Exception e) {
+						LOGGER.debug("t_word_related already having"+findOne);
+					}
+				}
+				/*jsonArray.forEach(action->{
 					ThesaurusEntity one = null;
 					JSONObject json = (JSONObject) JSONObject.toJSON(action);
 					String subject  =   json.getString("subject");//实体
@@ -608,7 +628,7 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 						 ent.setKeyword(object);
 						 save = rep.save(ent);
 					 }
-					 RelatedWordEntity rel = kwp.findByRelatetion(relation);  
+					 RelatedWordEntity rel = kwp.findByRelatetion(relation);
 					 if(rel == null){
 						 RelatedWordEntity ent = new RelatedWordEntity();
 						 ent.setRelatetion(relation);
@@ -619,10 +639,10 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 					 findOne.setWordId(one.getId());
 					 findOne.setRelateWordId(save.getId());
 					 krp.save(findOne);
-				});
+				});*/
 				return true;
 			} catch (Exception e) {
-				LOGGER.error("更新关系实体信息失败,原因是：",e);
+				LOGGER.error("更新关系实体信息失败,原因是："+e.getMessage(),e);
 				return false;
 			}
 			

@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.huishu.ManageServer.common.AjaxResult;
 import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.controller.BaseController;
-import com.huishu.ManageServer.controller.report.ReportController;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -13,15 +12,10 @@ import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * PDF文件上传
@@ -97,5 +91,10 @@ public class FileController extends BaseController {
 			//释放连接
 			postMethod.releaseConnection();
 		}
+	}
+
+	@GetMapping("uploadPage")
+	public String pageMapping(){
+		return "/upload/uploadPage";
 	}
 }

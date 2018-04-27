@@ -1,6 +1,7 @@
 package com.huishu.ManageServer.repository.third;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -28,6 +29,8 @@ public interface KeyWordRelatedRepository extends JpaRepository<KeyWordRelatedEn
 	 */
 	List<KeyWordRelatedEntity> findByWordId(Long id);
 
+	@Query(value="select * from t_word_related where t_word_id= ?1  and t_word_related != 2",nativeQuery=true)
+	Set<KeyWordRelatedEntity> getByWordId(Long id);
 	/**
 	 * @param _id
 	 */
@@ -39,7 +42,7 @@ public interface KeyWordRelatedRepository extends JpaRepository<KeyWordRelatedEn
 	 * @param options
 	 * @return
 	 */
-	KeyWordRelatedEntity findByWordIdAndRelateId(Long id, Long options);
+	List<KeyWordRelatedEntity> findByWordIdAndRelateId(Long id, Long options);
 	
 
 	/**
