@@ -392,10 +392,12 @@ $('.my_nextadd').on('click',function(){
 	
 });
 $('.close').on('click',function(){
+	
 	$('#myModal').html('');
 	$('#secondModal').html('');
 	$('#thirdModal').html('');
 	$('#fourModal').html('');
+	console.log("关闭按钮的作用是：》》》"+$(this).find('parents'));
 });
 //新增分类
 $('#new_add').on('click',function(){
