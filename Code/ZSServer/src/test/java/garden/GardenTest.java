@@ -6,6 +6,8 @@ import java.util.*;
 
 import javax.annotation.Resource;
 
+import com.huishu.ZSServer.entity.atlas.KeyWordRelatedEntity;
+import com.huishu.ZSServer.repository.atlas.KeyWordRelatedRepository;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -51,8 +53,8 @@ import com.huishu.ZSServer.service.garden.GardenService;
 import com.huishu.ZSServer.service.garden_user.GardenUserService;
 import com.huishu.ZSServer.service.openeyes.OpeneyesService;
 
-//@SpringBootTest(classes = Application.class)
-//@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = Application.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public class GardenTest {
 
     @Autowired
@@ -719,27 +721,12 @@ public class GardenTest {
         }
 //        util.writeExceXlsx(array);
     }
+    @Autowired
+    private KeyWordRelatedRepository keyWordRelatedRepository;
+
+
     @Test
-    public void testSubXls() throws Exception {
-        WpsUtilsTest util = new WpsUtilsTest();
-        InputStream is = new FileInputStream("C:\\Users\\yindawei\\Documents\\Tencent Files\\260446015\\FileRecv\\百度百科-百度百科.xls");
-        Map<Integer, String> integerStringMap = util.readExcelContentXls(is, "&");
-        JSONArray arr = new JSONArray();
-        List<Map<Integer,String>> list = new ArrayList<>();
-        integerStringMap.forEach((k,v) ->{
-            Map<Integer,String> data = new LinkedHashMap<>();
-            JSONObject obj = new JSONObject();
-            String[] split = v.split("&");
-            data.put(0,split[0]);
-            String context =  split[1];
-            if(context.contains("中文名")){
-                context = context.substring(0,context.indexOf("中文名"));
-            }
-            data.put(1,context);
-            arr.add(obj);
-            list.add(data);
-        });
-        util.writeExceXlsx(list,new String[]{"标题","内容"},"D:\\输出.xls");
+    public void testExport(){
 
     }
 }

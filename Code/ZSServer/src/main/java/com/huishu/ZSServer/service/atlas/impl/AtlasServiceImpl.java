@@ -30,6 +30,7 @@ public class AtlasServiceImpl implements AtlasService {
     private KeyWordInfoRepository keyWordInfoRepository;
     @Autowired
     private ExecutorService executorService;
+    private static final int MAX_ALTAS_COUNT = 25;
 
     @Override
     public JSONObject getAtlasAndResponse(String subject) {
@@ -65,8 +66,8 @@ public class AtlasServiceImpl implements AtlasService {
 
     private JSONArray getD3RelationShipsData(JSONArray encyclopedia) {
         JSONArray relationships = new JSONArray();
-        for (Object obj : encyclopedia) {
-            JSONObject jsonObject = JSONObject.parseObject(obj.toString());
+        for (int i = 1;i<=encyclopedia.size();i++) {
+            JSONObject jsonObject = JSONObject.parseObject(encyclopedia.get(i-1).toString());
 //            try {
 //                if(jsonObject.getString("subject").equals(jsonObject.getJSONObject("properties").getString("name"))){
 //                    continue;
@@ -76,7 +77,7 @@ public class AtlasServiceImpl implements AtlasService {
 //            }
             JSONObject relation = new JSONObject();
             relation.put("type", exchange(jsonObject.getString("relation")));
-            relation.put("id", new Random().nextInt(300));
+            relation.put("id", i);
             relation.put("startNode", jsonObject.getString("subject").hashCode());
             JSONObject propertiesObj = new JSONObject();
             propertiesObj.put("role", jsonObject.getString("relation"));
@@ -135,22 +136,19 @@ public class AtlasServiceImpl implements AtlasService {
         Set<KeyWordRelatedEntity> byWordId = keyWordRelatedRepository.getByWordId(id);
         JSONArray encyclopedia = new JSONArray();
         try {
-
-            int count = 0;
             Random random = new Random();
-            Set<KeyWordRelatedEntity> collect = new HashSet<>();
+            Set<KeyWordRelatedEntity> collect;
             Integer countDown = 0;
-            if(byWordId.size() > 20){
-                collect = byWordId.stream().skip(random.nextInt(byWordId.size() - 20)).limit(20). collect(Collectors.toSet());
-                countDown = 20;
+            if(byWordId.size() > MAX_ALTAS_COUNT){
+                collect = byWordId.stream().skip(random.nextInt(byWordId.size() - MAX_ALTAS_COUNT)).limit(MAX_ALTAS_COUNT). collect(Collectors.toSet());
+                countDown = MAX_ALTAS_COUNT;
             }else{
+                collect = byWordId;
                 countDown = byWordId.size();
             }
             CountDownLatch countDownLatch = new CountDownLatch(countDown);
             for (KeyWordRelatedEntity relate : collect) {
-                if (++count > 20) {
-                    break;
-                }
+
                 executorService.submit(new Runnable() {
                     @Override
                     public void run() {
@@ -172,7 +170,6 @@ public class AtlasServiceImpl implements AtlasService {
                         relateObj.put("subject", subject);
                         relateObj.put("object", relationEntity.getKeyword());
                         relateObj.put("relation", relatetion);
-//            encyclopedia.add(relateObj);
                         encyclopedia.add(relateObj);
                         countDownLatch.countDown();
                     }
