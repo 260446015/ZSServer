@@ -34,3 +34,13 @@
 	text-align:center;
 	
 }
+.my_form{
+	text-align: center;
+}
+.set{
+	line-height: 30px;
+	float: right;
+	cursor: pointer;;
+	color: #5bc0de;
+	margin-right: 30px;
+}

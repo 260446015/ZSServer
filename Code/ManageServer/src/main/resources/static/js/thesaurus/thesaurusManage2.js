@@ -33,7 +33,6 @@ $(".search-box").on("click",".search-item-content>a",function(){
 	$(this).addClass("active").siblings().removeClass("active");
 	var _id = $(this).attr("id");
 	var param ={type:_id,sort:sort,pageSize:pageSize,pageNumber:pageNumber};
-	console.log(_id);
 	getInfoList(param);
 	type=_id;
 });
@@ -304,7 +303,7 @@ $('#addKeywordToTable').on('click',function(){
 
 //下一页  跳转下一页，同时保存信息
 $('.my_nextadd').on('click',function(){
-	//属性值
+/*	//属性值
 	var arr = new Array();
 	var i=1;
     var j=1;
@@ -385,20 +384,16 @@ $('.my_nextadd').on('click',function(){
 				}
 			}
 		});
-	}
+	}*/
 	
 	$('#myModal').modal('hide');
 	$('#secondModal').modal('show');
 	
 });
-$('.close').on('click',function(){
-	
-	$('#myModal').html('');
-	$('#secondModal').html('');
-	$('#thirdModal').html('');
-	$('#fourModal').html('');
-	console.log("关闭按钮的作用是：》》》"+$(this).find('parents'));
-});
+// $("#myModal").on("hidden.bs.modal", function() {
+// 	$(this).removeData("bs.modal");
+// 	$(".modal-content").children().remove();
+// });
 //新增分类
 $('#new_add').on('click',function(){
 	$('#form3').append(
@@ -484,7 +479,6 @@ function getInfoList(e){
 				$('#manage_keyword').html('<div class="not-data"><img src="/images/notData.png" /><p class="tips-text">暂无数据</p></div>');
 			}else{
 				var label='';
-				console.log(res.data);
 				$.each(res.data.dataList,function (i,e){
 					label +='<tr class="gradeX"><input type="hidden" class="form-control input-block" value="'+e.entntity.id+'"/><td>';
 					label += e.keywordNumber+ '</td><td>';
@@ -551,7 +545,8 @@ function initPage(){
 		var _id =  $(this).parents('.gradeX').find('.input-block').val();
 		var _keyword =  $(this).parents('.gradeX').find('td').eq(1).text();
 		console.log('查看关系值属性的两个重要属性'+_id+_keyword);
-		
+		var label ="";
+		$('#dynamicData').html("");
 		$.ajax({
 			 url:'/apis/keyInfo/findAttributeInfoById.json?id='+_id,
 			 type:'GET',
@@ -560,33 +555,31 @@ function initPage(){
 				 if(res.data!=null){
 					console.log(res.data);
 					label +='<form id="form4" class="form-horizontal mb-lg" novalidate="novalidate" >'
-					label +='<div class="form-group"><label class="col-md-3 control-label" for="text-input">'+_keyword+'词属性</label>'
+					label +='<div class="form-group my_form"><label class="col-md-6 control-label" for="text-input">'+_keyword+'词属性</label>'
 					if(res.data.attr.length==0){
-						label +='<div class="col-md-3">';
-						label +='<h4>无</h4>';
+						label +='<div class="col-md-6">';
+						label +='<h6>无</h6>';
 						label +='</div>';
 					}else{
 					$.each(res.data.attr,function(i,e){
 						if(i==0){
 							label +='<div class="col-md-9">';
-							label +='<h4>'+e.attributeName+'</h4>';
+							label +='<h6>'+e.attributeName+'</h6>';
       					  	label +='<input type="text" name="dddd" value="'+e.attributeValue+'" class="form-control" placeholder="">';
 							label +='</div>';
 						}else{
-							label +='<div class="col-md-9 list">'
-							label +='<h4>'+e.attributeName+'</h4>';
+							label +='<div class="col-md-9">'
+							label +='<h6>'+e.attributeName+'</h6>';
       					  	label +='<input type="text" name="dddd" value="'+e.attributeValue+'" class="form-control" placeholder="">';
 							label +='</div>';
 							}	
 						});
 					}	
 						label +='</form>';
-						label +='<div class="form-group" style="padding-left: 30%"><button class="btn btn-info btn-xs my_attribute_info">确认</button></div>'
+						label +='<div class="form-group" style="padding-left: 30%;float:left;"><button class="btn btn-info btn-sm my_attribute_info">确认</button></div>'
 					$('#dynamicData').append(label);
 					$('#fourModal').modal('show');
-					 $('.my_attribute_info').on('clik',function(){
-						 window.location.href="/apis/keyInfo/ThesaurusManage.html";
-					 });
+		
 				 }else{
 					 layer.msg("查看属性信息失败", {icon: 2});
 				 }
@@ -599,6 +592,8 @@ function initPage(){
 		var _id =  $(this).parents('.gradeX').find('.input-block').val();
 		var _keyword =  $(this).parents('.gradeX').find('td').eq(1).text();
 		console.log('查看关系值'+_id+_keyword);
+		var label ="";
+		$('#dynamicData').html("");
 		$.ajax({
 			 url:'/apis/keyInfo/findRelatedInfoById.json?id='+_id,
 			 type:'GET',
@@ -606,15 +601,14 @@ function initPage(){
 			 success:function(res){
 				 if(res.data!=null){
 					 console.log(res.data);
-					 $('#dynamicData').append();
-					 label +='<form id="form4" class="form-horizontal mb-lg" novalidate="novalidate" >'
-					 label +='<div class="form-group"><label class="col-md-3 control-label" for="text-input">'+_keyword+'词关系</label>'
+					 label +='<form id="form4" class="form-horizontal mb-lg form4" novalidate="novalidate" >'
+					 label +='<div class="form-group"><label class="col-md-6 control-label" for="text-input">'+_keyword+'词关系</label>'
 					 if(res.data.result.length==0){
-						label +='<div class="col-md-9">'
-							label +='<h4>无</h4>';
-						label +='</div></div>';
+						label +='<div class="col-md-6">'
+							label +='<h6>无</h6>';
+						label +='</div><span class="set">设置</span></div>';
 					}else{
-						label +='<div class="col-md-9">';
+						label +='<div class="col-md-9" style="margin-top:10px"><span class="set">设置</span>';
 					    label +='<table class="table table-bordered table-striped mb-none" id="">';
 					    label +='<thead><tr><th>编号</th><th>词名称</th><th>关系项</th><th>操作</th></tr></thead>';
 					    label +='<tbody>';
@@ -628,9 +622,9 @@ function initPage(){
 					    label +='</tbody></table></div></div>';
 					}
 					 	label +='</form>';
-					 	label +='<div class="form-group" style="padding-left: 30%"><button class="btn btn-info btn-xs my_relatetion_info">确认</button></div>'
+					 	label +='<div class="form-group" style="padding-left: 30%"><button class="btn btn-info btn-sm my_relatetion_info">确认</button></div>'
 					 		$('#dynamicData').append(label);
-					 	$('.my_relatetion_info').on('clik',function(){
+					 	$('.my_relatetion_info').on('click',function(){
 					 		window.location.href="/apis/keyInfo/ThesaurusManage.html";
 					 	});
 					 $('#fourModal').modal('show');
@@ -640,6 +634,24 @@ function initPage(){
 			 }
 		});
 	});
+
+	// 词关系设置
 	label='';
 };
+
+// 设置按钮 
+ $(document).one("click", ".set",function(){
+	var label ="";
+	    getLabel();
+		label +="<div class='form-group col-md-4 mt10'><div><label class='control-label' for='text-input'>选择词性:</label></div>"
+		label +=" <div><select id='select1' name='select' class='form-control' size='1' onchange='changeWord()'>'</select></div></div>"
+		label +=" <div class='form-group col-md-4'><div><label class='control-label mt10' for='text-input'>选择词:</label></div>"
+		label += "<div><div style='color:#99BBE8;'><input type='text' name='test' class='form-control' placeholder='输入词名'/></div>"
+		label +="<div style='padding:5px;' id='word_info' class='texteara'></div></div></div>"
+		label +="<div class='form-group col-md-4'><div><label class='control-label mt10' for='text-input'>选择关系项:</label></div>";
+		label +="<div><div style='padding:5px;' id='related_info' class='texteara hei'></div></div></div>";
+	$(".form4").after(label)
+
+});
+
 type='0';
