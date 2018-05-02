@@ -40,11 +40,13 @@
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"> </svg>
 </div>
 <link rel="stylesheet" href="/plugins/tupu/tupu1.css?time=1515295315" type="text/css"/>
-<div class="tp-detail">
-    <div class="tp-detail-close"><span>X</span></div>
-    <div class="">
+<div class="tp-detail box">
+    <img class="lay lay-top" src="/images/lay_top.png" alt="">
+    <img class="lay lay-right" src="/images/lay_right.png" alt="">
+    <img class="lay lay-bottom" src="/images/lay_bottom.png" alt="">
+    <h3 class="box-title tp-detail-close"><span>X</span></h3>
+    <div class="box-body">
         <ul class="tp-name">
-
         </ul>
     </div>
 </div>

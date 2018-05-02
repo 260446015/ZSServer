@@ -2838,7 +2838,7 @@ a.search-item.active {
 }
 
 .content-show {
-    width: 650px;
+    width: 800px;
     height: 500px;
     overflow: hidden;
 }
@@ -2911,7 +2911,6 @@ a.search-item.active {
     font-size: 20px;
     text-align: center;
     cursor: pointer;
-}
 }
 .fl{
     float:left;
@@ -3090,7 +3089,7 @@ a.search-item.active {
 }
 .tp-name li{
     color:#00ffe4;
-    font-size:16px;
+    font-size:14px;
     line-height: 25px;
 }
 .tp-detail-close{
