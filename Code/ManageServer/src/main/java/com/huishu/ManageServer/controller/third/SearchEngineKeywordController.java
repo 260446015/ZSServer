@@ -1,3 +1,4 @@
+/*
 package com.huishu.ManageServer.controller.third;
 
 import com.huishu.ManageServer.common.AjaxResult;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+*/
 /**
  * @author yindq
  * @since 2018-04-036
- */
+ *//*
+
 @Controller
 @RequestMapping("/apis/searchEngine")
 public class SearchEngineKeywordController extends BaseController {
@@ -24,10 +27,12 @@ public class SearchEngineKeywordController extends BaseController {
 	@Autowired
 	public SearchEngineKeywordService keywordService;
 
-	/**
+	*/
+/**
 	 * 获得所有的关键词
 	 * @return
-	 */
+	 *//*
+
 	@ResponseBody
 	@RequestMapping(value = "/findAllKeyWorld.json")
 	public AjaxResult findAllKeyWorld(){
@@ -40,11 +45,13 @@ public class SearchEngineKeywordController extends BaseController {
 
 	}
 
-	/**
+	*/
+/**
 	 * 根据关键词搜索数据
 	 * @param keyWorld
 	 * @return
-	 */
+	 *//*
+
 	@ResponseBody
 	@RequestMapping(value = "/findByKeyWorld.json")
 	public AjaxResult findByKeyWorld(String keyWorld){
@@ -58,11 +65,13 @@ public class SearchEngineKeywordController extends BaseController {
 
 	}
 
-	/**
+	*/
+/**
 	 * 添加关键词，其他属性默认
 	 * @param keyWorld
 	 * @return
-	 */
+	 *//*
+
 	@ResponseBody
 	@RequestMapping(value = "/addKeyWorld.json")
 	public AjaxResult addKeyWorld(String keyWorld){
@@ -79,3 +88,4 @@ public class SearchEngineKeywordController extends BaseController {
 
 	}
 }
+*/

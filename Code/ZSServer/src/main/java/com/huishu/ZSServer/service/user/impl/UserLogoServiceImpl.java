@@ -3,6 +3,8 @@ package com.huishu.ZSServer.service.user.impl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.huishu.ZSServer.entity.user.UserBase;
+import com.huishu.ZSServer.repository.user.UserBaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,9 @@ public class UserLogoServiceImpl implements UserLogoService{
 	
 	@Autowired
 	private UserLogoRepository userLogoRepository;
-	
+
+	@Autowired
+	private UserBaseRepository userBaseRepository;
 	@Override
 	public Boolean addLoginLogo(long userId) {
 		UserLogo one = new UserLogo();

@@ -3,7 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.huishu</groupId>
-	<artifactId>ZSServer</artifactId>
+	<!-- <artifactId>ZSServer</artifactId> -->
+	<artifactId>ROOT</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>ZSServer Maven Plugin</name>
@@ -34,6 +35,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
+			<!--<scope>compile</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -216,7 +218,8 @@
 
 	<build>
 
-		<finalName>zsserver</finalName>
+		<!--  <finalName>zsserver</finalName>-->
+		<finalName>ROOT</finalName>
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/webapp</directory>

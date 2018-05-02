@@ -3,7 +3,7 @@
  */
 var industry = "全部";
 var area = "全部";
-var sort = "按热度";
+var sort = "按时间";
 var pageSize = 8;
 var pageNumber = 0;
 var options={
@@ -127,7 +127,9 @@ function updateAreaInfo(e){
 					$(".search-group").eq(1).show();
 					$(".search-group").eq(2).show();
 					for(var i = 0;i<arr.length;i++){
-						html += '<a href="javascript:void(0);" id="2-'+arr[i]+'" class="search-item">'+arr[i]+'</a>';
+						if(arr[i] != '全国'){
+							html += '<a href="javascript:void(0);" id="2-'+arr[i]+'" class="search-item">'+arr[i]+'</a>';
+						}
 					}
 					$(".search-item-content").eq(1).html(html);
 				}else{

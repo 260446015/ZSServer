@@ -79,7 +79,6 @@ public class AccurateController extends BaseController{
 		Iterable<IndusCompanyDTO> list = service.listCompany();
 		return success(list);
 	}
-	
 	/**
 	 * 模糊查询企业列表
 	 * @param companyName

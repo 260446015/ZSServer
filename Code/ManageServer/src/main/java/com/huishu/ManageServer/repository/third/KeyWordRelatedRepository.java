@@ -20,7 +20,6 @@ import com.huishu.ManageServer.entity.dbThird.KeyWordRelatedEntity;
  * 词库之间关联关系
  */
 @Repository
-@TargetDataSource(name="third")
 public interface KeyWordRelatedRepository extends JpaRepository<KeyWordRelatedEntity,Long> ,JpaSpecificationExecutor<KeyWordRelatedEntity>{
 
 	/**

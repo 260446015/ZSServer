@@ -1,3 +1,4 @@
+/*
 package com.huishu.ManageServer.service.third.impl;
 
 import com.huishu.ManageServer.config.TargetDataSource;
@@ -14,10 +15,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+*/
 /**
  * @author yindq
  * @since 2018-04-03
- */
+ *//*
+
 @Service
 public class SearchEngineKeywordServiceImpl implements SearchEngineKeywordService {
 
@@ -47,3 +50,4 @@ public class SearchEngineKeywordServiceImpl implements SearchEngineKeywordServic
 		return true;
 	}
 }
+*/

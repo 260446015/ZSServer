@@ -29,7 +29,6 @@ import com.huishu.ManageServer.repository.third.KeyWordInfoRepository;
 import com.huishu.ManageServer.repository.third.KeyWordRelatedRepository;
 import com.huishu.ManageServer.repository.third.KeyWordRelatetionRepository;
 import com.huishu.ManageServer.repository.third.KeywordTypeRepository;
-import com.huishu.ManageServer.repository.third.LogRepository;
 import com.huishu.ManageServer.repository.third.ThesaurusRepository;
 import com.huishu.ManageServer.service.third.ThesaurusService;
 import com.huishu.ManageServer.common.util.StringUtil;
@@ -56,8 +55,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	private  ThesaurusRepository rep;
 	@Resource
 	private KeyWordRelatedRepository krp;
-	@Resource
-	private LogRepository lrp;
 	@Resource
 	private AttributeRepository arp;
 	@Resource
@@ -311,21 +308,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 		}
 	}
 
-	@Override
-	public boolean printLog(String originalFilename, String message) {
-		Log log = new Log();
-		Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String createdate = sdf.format(date);
-		log.setCreateTime(createdate);
-		log.setMessage(message);
-		log.setName(originalFilename);
-		Log save = lrp.save(log);
-		if (save == null) {
-			return false;
-		}
-		return true;
-	}
 
 	
 	@Override
@@ -653,7 +635,7 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * 获取所有关键词
 	 */
 	@Override
-	@TargetDataSource(name="third")
+	
 	public JSONObject findAllInfoByKeyWord(String keyword) {
 			JSONObject obj = new JSONObject();
 		try {
@@ -697,7 +679,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 
 	
 	@Override
-	@TargetDataSource(name="third")
 	public boolean saveOrUpdateData(String keyword, String typeWord) {
 		try {
 			ThesaurusEntity ent = rep.findByKeyword(keyword);
@@ -741,7 +722,6 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 	 * 添加属性表
 	 */
 	@Override
-	@TargetDataSource(name="third")
 	public boolean addDataInfo(List<String> subList, String value) {
 		try {
 			//获取每一行的属性值
@@ -751,21 +731,20 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 			for(int i=0;i<split.length;i++){
 				String ss = split[i];
 				String s2 = split2[i];
-//				System.out.println("表名1：》》》"+ss+"\n属性2：》》》"+s2);
 				if(ss != s2){
 					//获取词
 					if(ss.equals("关键词")){
 						//获取公司名录
 						String companyName = split2[3];
 						if(!companyName.equals("企业名称")){
-							System.out.println("关键词:>>>>"+ss+"\n公司名录：>>>>>"+companyName);
+							System.out.println("关键词:>>>>"+s2+"\n公司名录：>>>>>"+companyName);
 							//将企业词与产业词入库，
 							//关键词表
 							//产业词
 							ThesaurusEntity one = rep.findByKeyword(s2);
 							if(one == null){
 								one = new ThesaurusEntity();
-								one.setKeyword(ss);
+								one.setKeyword(s2);
 								one = rep.saveAndFlush(one);
 							}
 							//企业词
@@ -791,18 +770,14 @@ public class ThesaurusServiceImpl implements ThesaurusService {
 							}
 							
 							//关系表
-							KeyWordRelatedEntity tity =	krp.findByWordIdAndRelateWordId(two.getId(),one.getId());
+							KeyWordRelatedEntity tity =	krp.findByWordIdAndRelateWordId(one.getId(),two.getId());
 							if(tity ==null){
 								tity = new KeyWordRelatedEntity();
 								tity.setRelateId((long) 2);
 								tity.setWordId(one.getId());
 								tity.setRelateWordId(two.getId());
 								krp.save(tity);
-							}else{
-								tity.setRelateWordId(two.getId());
-								tity.setWordId(one.getId());
-								krp.save(tity);
-							}
+								}
 							
 							}
 						}

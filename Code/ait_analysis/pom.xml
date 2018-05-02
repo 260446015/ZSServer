@@ -195,7 +195,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.huishu.eduanalysis.App</mainClass>
+					<mainClass>com.huishu.aitanalysis.App</mainClass>
 				</configuration>
 			</plugin>
             <plugin>

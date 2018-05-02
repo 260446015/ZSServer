@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com</groupId>
-    <artifactId>ManageServer</artifactId>
+    <artifactId>ROOT</artifactId>
     <version>2.0</version>
     <parent>
 		<groupId>org.springframework.boot</groupId>
@@ -24,6 +24,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<!-- 这里指定打包的时候不再需要tomcat相关的包 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+			<!--<scope>compile</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -66,7 +73,7 @@
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		<!-- 文件上传插件 -->
+	<!-- 文件上传插件 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -194,7 +201,7 @@
   </dependencies>
    <build>
 
-    		<finalName>ManageServer</finalName>
+    		<finalName>ROOT</finalName>
     		<resources>
 			<resource>
 				<directory>${basedir}/src/main/webapp</directory>

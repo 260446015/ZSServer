@@ -86,7 +86,7 @@
                                 </#list>
                             </div>
                         </div>
-                        <div class="search-group">
+                        <!-- <div class="search-group">
                             <div class="search-item-title">
                                 排序
                             </div>
@@ -94,7 +94,7 @@
                                 <a href="javascript:void(0);" id="3-按热度" class="search-item active">按热度</a>
                                 <a href="javascript:void(0);" id="3-按时间" class="search-item">按时间</a>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="model-body">
                         <div class="row img-list-box" id="summit-list">
