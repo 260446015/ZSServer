@@ -61,11 +61,6 @@ public interface ThesaurusService {
 	 */
 	boolean deleteRelatedInfoById(String id);
 
-	/**
-	 * @param originalFilename
-	 * @param string
-	 */
-	boolean printLog(String originalFilename, String message);
 
 	/**
 	 * @param value

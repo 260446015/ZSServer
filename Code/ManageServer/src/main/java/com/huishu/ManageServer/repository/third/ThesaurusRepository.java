@@ -17,7 +17,6 @@ import com.huishu.ManageServer.entity.dbThird.ThesaurusEntity;
  * @return 
  */
 
-@TargetDataSource(name="third")
 @Repository
 public interface ThesaurusRepository  extends JpaRepository<ThesaurusEntity,Long>{
 

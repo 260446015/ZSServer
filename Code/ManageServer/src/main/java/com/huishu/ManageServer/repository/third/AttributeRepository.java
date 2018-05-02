@@ -18,7 +18,6 @@ import com.huishu.ManageServer.entity.dto.dbThird.AttributeInfo;
  * 
  */
 @Repository
-@TargetDataSource(name="third")
 public interface AttributeRepository extends CrudRepository<AttributeEntity, Long> {
 
 	/**

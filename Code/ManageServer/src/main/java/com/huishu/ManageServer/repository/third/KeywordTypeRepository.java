@@ -14,7 +14,6 @@ import com.huishu.ManageServer.entity.dbThird.KeywordTypeEntity;
  * 
  */
 @Repository
-@TargetDataSource(name="third")
 public interface KeywordTypeRepository extends CrudRepository<KeywordTypeEntity, Long> {
 
 	/**

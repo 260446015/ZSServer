@@ -271,11 +271,8 @@ public class ThesaurusController extends BaseController{
 							}
 						}
 						
-							service.printLog(OriginalFilename,"数据存库完成");
-						
 						} catch (Exception e) {
-							LOGGER.error("存储数据失败！", e);
-							service.printLog(OriginalFilename,e.toString());
+							LOGGER.error("批量导入数据存储数据失败！", e);
 						}
 						
 					}

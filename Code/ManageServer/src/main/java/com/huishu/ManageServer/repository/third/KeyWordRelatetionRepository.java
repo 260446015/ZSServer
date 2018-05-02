@@ -14,7 +14,6 @@ import com.huishu.ManageServer.entity.dbThird.RelatedWordEntity;
  * 
  */
 @Repository
-@TargetDataSource(name="third")
 public interface KeyWordRelatetionRepository extends CrudRepository<RelatedWordEntity, Long> {
 
 	/**

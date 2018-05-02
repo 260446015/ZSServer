@@ -17,7 +17,6 @@ import com.huishu.ManageServer.entity.dbThird.KeywordInfoEntity;
  * 
  */
 @Repository
-@TargetDataSource(name="third")
 public interface KeyWordInfoRepository extends CrudRepository<KeywordInfoEntity, Long> {
 
 	/**
