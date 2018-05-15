@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -14,8 +13,6 @@ import com.forget.analysis.Analysis;
 import com.github.pagehelper.util.StringUtil;
 import com.huishu.aitanalysis.common.AcquisitionConstant;
 import com.huishu.aitanalysis.common.SimpleSummariserAlgorithm;
-import com.huishu.aitanalysis.common.analyzer.clean.CleanAlgorithm;
-import com.huishu.aitanalysis.common.analyzer.clean.CleanFactory;
 import com.huishu.aitanalysis.entity.IndustryInfo;
 import com.huishu.aitanalysis.es.entity.Index;
 import com.huishu.aitanalysis.es.entity.Index2;
@@ -24,7 +21,6 @@ import com.huishu.aitanalysis.service.indus.IndustryInfoService;
 import com.huishu.aitanalysis.service.park.ParkAnalysisService;
 import com.huishu.aitanalysis.util.Digests;
 import com.huishu.aitanalysis.util.Encodes;
-import com.huishu.aitanalysis.util.MD5Util;
 import com.huishu.aitanalysis.util.StringUtils;
 import com.huishu.aitanalysis.util.Util;
 
@@ -460,11 +456,11 @@ public abstract class AbstractPostService {
 		if(StringUtil.isEmpty(map.get("industryLeabl").toString())){
 			return null;
 		}else{
-			if(map.get("industryLeabl").toString().equals("物联网")||map.get("industryLeabl").toString().equals("生物医药")){
-				System.out.println(map.get("industryLeabl").toString());
+			if(map.get("industryLeabl").toString().equals("物联网")||map.get("industryLeabl").toString().equals("生物医药")||map.get("industryLeabl").toString().equals("生物技术")){
+				log.info("产业维度获取物联网和生物医药的信息:"+map.get("industryLeabl").toString());
 			}else{
 				if(StringUtil.isEmpty(map.get("exhibitiontime").toString())&&StringUtil.isEmpty(map.get("adress").toString())){
-					return null;
+//					return null;
 				}
 			}
 			indus = indusService.getIndusbyIndustryLabel(map.get("industryLeabl").toString());

@@ -1,4 +1,4 @@
-var initialType = "season";
+var initialType = "month";
 var initialYear = "";
 var options = {
 	"id": "page",//显示页码的元素

@@ -43,8 +43,8 @@
                             类型
                         </div>
                         <div class="search-item-content">
-                            <a href="javascript:void(0);" class="search-item active">按季度</a>
-                            <a href="javascript:void(0);" class="search-item">按月份</a>
+                           <!-- <a href="javascript:void(0);" class="search-item active">按季度</a>-->
+                            <a href="javascript:void(0);" class="search-item active">按月份</a>
                         </div>
                     </div>
                 </div>

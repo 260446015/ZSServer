@@ -1,15 +1,19 @@
 package com.huishu.ZSServer.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.huishu.ZSServer.common.AjaxResult;
 import com.huishu.ZSServer.common.conf.MsgConstant;
 import com.huishu.ZSServer.common.util.ShiroUtil;
+import com.huishu.ZSServer.entity.user.UserBase;
 import com.huishu.ZSServer.exception.AccountExpiredException;
 import com.huishu.ZSServer.exception.AccountStartException;
+import com.huishu.ZSServer.security.CaptchaUsernamePasswordToken;
 import com.huishu.ZSServer.security.RSAUtils;
 import com.huishu.ZSServer.service.user.impl.UserLogoServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.slf4j.Logger;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -153,5 +158,51 @@ public class LoginController extends BaseController {
 		result.setSuccess(true).setData(keys);
 		return result;
 	}
-	
+	/**
+	 * 免登陆接口
+	 * @param user    账号
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value = "/apis/temporaryDemo.do", method = RequestMethod.GET)
+	public void temporaryDemo(String user,HttpServletRequest request, HttpServletResponse response) {
+		try {
+			KeyPair keyPair = RSAUtils.getKeys();
+			RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+			RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+			String modulus = publicKey.getModulus().toString();
+			String public_exponent = publicKey.getPublicExponent().toString();
+			String private_exponent = privateKey.getPrivateExponent().toString();
+			// 使用模和指数生成公钥和私钥
+			RSAPublicKey pubKey = RSAUtils.getPublicKey(modulus, public_exponent);
+			RSAPrivateKey priKey = RSAUtils.getPrivateKey(modulus, private_exponent);
+			request.getSession().setAttribute("privateKey", priKey);
+			// 加密后的密文
+			String mi = RSAUtils.encryptByPublicKey(new StringBuffer("123456").reverse().toString(), pubKey);
+			UsernamePasswordToken token = new CaptchaUsernamePasswordToken(user, mi.toCharArray(), false, "",
+					"user");
+			Subject currentUser = SecurityUtils.getSubject();
+			currentUser.login(token);
+			String ip = request.getHeader("x-forwarded-for");
+			if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+				ip = request.getHeader("Proxy-Client-IP");
+			}
+			if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+				ip = request.getHeader("WL-Proxy-Client-IP");
+			}
+			if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+				ip = request.getRemoteAddr();
+			}
+			if (getCurrentShiroUser() == null) {
+				response.setContentType("application/json");
+				OutputStream outputStream = response.getOutputStream();
+				outputStream.write(JSON.toJSONString("免登陆失败，请联系管理员").getBytes("UTF-8"));
+				outputStream.flush();
+				outputStream.close();
+			}
+			response.sendRedirect("http://zhaoshang.huishu.com.cn/indusMap/industryMap.html");
+		} catch (Exception e) {
+			LOGGER.error("免登陆失败！", e);
+		}
+	}
 }

@@ -1,5 +1,7 @@
 package com.huishu.ZSServer.service.user;
 
+import com.huishu.ZSServer.entity.user.UserBase;
+
 /**
  * 用户日志service
  * 
@@ -10,16 +12,16 @@ public interface UserLogoService {
 	
 	/**
 	 * 添加用户登录日志
-	 * @param id
-	 * @param dto
+	 * @param userId
 	 * @return
 	 */
 	Boolean addLoginLogo(long userId);
 	/**
 	 * 添加用户操作日志
-	 * @param id
-	 * @param dto
+	 * @param userId
 	 * @return
 	 */
 	Boolean addOperationLogo(long userId,String search);
+
 }
+
