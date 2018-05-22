@@ -1,0 +1,92 @@
+.box1 .box-body .search-box {
+	border: none;
+}
+.search-box+.border-box {
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 0;
+}
+
+.search-box+.border-box .row>.border-bottom:last-child {
+	border-bottom: none;
+}
+
+.search-box+.border-box .scatter-content {
+	margin-bottom: 20px;
+}
+
+.search-box {
+	display: table;
+	width: 100%;
+	border: 1px solid #10274a;
+	margin-bottom: 30px;
+}
+.search-box .search-group {
+	display: table-row;
+	/* border-bottom: 1px dotted #10274a; */
+}
+.detail{
+	cursor: pointer;
+}
+.mark-box {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+.mark-box>li {
+	position: relative;
+	display: inline-block;
+	padding-left: 15px;
+	padding-right: 15px;
+	text-align: center;
+}
+
+.mark-box>li>a {
+	display: inline-block;
+	width: 142px;
+	height: 43px;
+	line-height: 43px;
+	font-size: 16px;
+	color: #bccae4;
+	background-image: url("../images/icon_group_map.png");
+	background-size: 141px 650px;
+	background-repeat: no-repeat;
+	background-position: 0 -75px;
+	text-decoration: none;
+}
+
+.mark-box>li.active>a, .mark-box>li>a:hover {
+	color: #00ffe4;
+	background-position: 1px 1px;
+}
+
+.mark-box .mark-menu {
+	position: absolute;
+	top: 42px;
+	left: 16px;
+	right: 16px;
+	display: none;
+	max-height: 200px;
+	border: 1px solid #156b9c;
+	border-top: none;
+	background-color: #102033;
+	background-color: rgba(16, 32, 51, .68);
+	overflow-y: auto;
+	z-index: 9;
+}
+
+.mark-box>li.active .mark-menu {
+	display: block;
+}
+
+.mark-box .mark-menu>li>a {
+	display: block;
+	padding: 5px 10px;
+	color: #bccae4;
+	text-decoration: none;
+}
+
+.mark-box .mark-menu>li>a:hover, .mark-box .mark-menu>li.active>a {
+	color: #00ffe4;
+}

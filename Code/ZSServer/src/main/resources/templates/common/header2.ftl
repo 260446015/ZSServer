@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand hidden-sm" href="javascript:void(0)">
-            <img height="32" width="159" src="/images/logo.png" />
+            <img height="35" width="275" src="/images/logo.png" />
             
         </a>
     </div>

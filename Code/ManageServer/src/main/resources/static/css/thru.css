@@ -1,0 +1,46 @@
+.btn i{
+	margin-left:5px;
+}
+.modal-header{
+	padding-bottom:25px;
+}
+.sort{
+	line-height:30px;
+}
+.btns{
+	line-height:30px;
+}
+.list{
+	float:right;
+	margin-top:1px;
+}
+.texteara{
+	overflow-y:scroll;
+	height:100px;
+	border:1px solid #ccc;
+	overflow-x:hidden
+}
+.hei{
+	height:135px;
+}
+.mt10{
+	margin-top:10px;
+}
+.claer{
+	float:left;
+}
+.addrelation{
+	line-height:200px;
+	text-align:center;
+	
+}
+.my_form{
+	text-align: center;
+}
+.set{
+	line-height: 30px;
+	float: right;
+	cursor: pointer;;
+	color: #5bc0de;
+	margin-right: 30px;
+}
