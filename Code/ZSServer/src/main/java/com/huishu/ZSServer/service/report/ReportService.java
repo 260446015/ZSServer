@@ -57,4 +57,11 @@ public interface ReportService {
 	 * @return
 	 */
 	void addReportRecord(Long userId,Long id);
+	/**
+	 * 获取h5报告数据
+	 * @param id
+	 * @param type
+	 * @return
+	 */
+	Object getHtmlData(Long id,String type);
 }
