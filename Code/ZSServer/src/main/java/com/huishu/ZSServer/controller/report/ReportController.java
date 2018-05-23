@@ -51,7 +51,39 @@ public class ReportController extends BaseController {
 		}
 		return "/report/"+page;
 	}
-	
+	/**
+	 * 直接跳转页面
+	 * @param page
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = {"/{page}.htm"}, method = RequestMethod.GET)
+	public String showPage(@PathVariable String page,String id,String type,Model model) {
+		model.addAttribute("id",id);
+		model.addAttribute("type",type);
+		return "/report/"+page;
+	}
+
+	/**
+	 * 获取h5报告数据
+	 * @param type
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "getHtmlData.do", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult getHtmlData(Long id,String type) {
+		if(id==null){
+			return error(MsgConstant.ILLEGAL_PARAM);
+		}
+		try {
+			return success(reportService.getHtmlData(id,type));
+		}catch (Exception e){
+			LOGGER.error("获取h5报告数据失败!", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+	}
 	/**
 	 * 获取报告筛选项
 	 * @return
