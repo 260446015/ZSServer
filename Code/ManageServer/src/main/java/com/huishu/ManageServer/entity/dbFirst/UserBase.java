@@ -1,23 +1,16 @@
 package com.huishu.ManageServer.entity.dbFirst;
 
+import com.alibaba.fastjson.JSONObject;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.alibaba.fastjson.JSONObject;
 
 /**
  * 用户实体类
  * 
  * @author yindq
- * @date 2018/1/4
+ * @date 2017年8月8日
  */
 @Entity
 @Table(name = "t_user_base")
@@ -102,10 +95,26 @@ public class UserBase implements Serializable {
 	/** 是否单点登录(0:单点,1:多点) */
 	@Column(name = "is_single")
 	private Integer isSingle;
-
+	/**所在城市*/
+	private String area;
+	/**主要发展单位*/
+	@Column(name = "user_comp")
+	private String userComp;
 	/** 用户权限，不存数据库 */
 	@Transient
 	private List<Long> permissions;
+
+	@ManyToOne
+	@JoinColumn(name= "role_id")
+	private Role role;
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	public Integer getIsSingle() {
 		return isSingle;
@@ -265,6 +274,22 @@ public class UserBase implements Serializable {
 
 	public void setUserLevel(Integer userLevel) {
 		this.userLevel = userLevel;
+	}
+	
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getUserComp() {
+		return userComp;
+	}
+
+	public void setUserComp(String userComp) {
+		this.userComp = userComp;
 	}
 
 	@Override
