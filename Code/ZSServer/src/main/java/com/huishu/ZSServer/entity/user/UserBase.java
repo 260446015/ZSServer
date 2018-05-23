@@ -3,13 +3,7 @@ package com.huishu.ZSServer.entity.user;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -110,6 +104,17 @@ public class UserBase implements Serializable {
 	/** 用户权限，不存数据库 */
 	@Transient
 	private List<Long> permissions;
+
+	@ManyToOne
+	private Role role;
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	public Integer getIsSingle() {
 		return isSingle;

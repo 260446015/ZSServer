@@ -1,15 +1,12 @@
 package com.huishu.ZSServer.entity.user;
 
 import java.io.Serializable;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 会员等级所对应权限
@@ -30,12 +27,30 @@ public class UserPermission implements Serializable {
 	private Long id;
 
 	/** 会员等级 */
-	@Column(name = "user_level", nullable = false)
-	private Integer userLevel;
+//	@Column(name = "user_level", nullable = false)
+//	private Integer userLevel;
 
-	/** 权限id */
-	@Column(name = "permission_id", nullable = false)
-	private Long permissionId;
+	private String permissionName;
+
+	public String getPermissionName() {
+		return permissionName;
+	}
+
+	public void setPermissionName(String permissionName) {
+		this.permissionName = permissionName;
+	}
+
+	@ManyToMany(mappedBy = "permissions",fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<Role> roles;
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
 	public Long getId() {
 		return id;
@@ -45,21 +60,13 @@ public class UserPermission implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getUserLevel() {
-		return userLevel;
-	}
+//	public Integer getUserLevel() {
+//		return userLevel;
+//	}
 
-	public void setUserLevel(Integer userLevel) {
-		this.userLevel = userLevel;
-	}
-
-	public Long getPermissionId() {
-		return permissionId;
-	}
-
-	public void setPermissionId(Long permissionId) {
-		this.permissionId = permissionId;
-	}
+//	public void setUserLevel(Integer userLevel) {
+//		this.userLevel = userLevel;
+//	}
 
 	@Override
 	public String toString() {

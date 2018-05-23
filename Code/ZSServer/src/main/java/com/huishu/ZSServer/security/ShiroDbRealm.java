@@ -5,7 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.huishu.ZSServer.entity.user.*;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,7 +16,9 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.authz.permission.AllPermission;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -22,8 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.huishu.ZSServer.entity.user.UserBase;
-import com.huishu.ZSServer.entity.user.UserLogo;
 import com.huishu.ZSServer.exception.AccountExpiredException;
 import com.huishu.ZSServer.exception.AccountStartException;
 import com.huishu.ZSServer.repository.user.UserBaseRepository;
@@ -53,13 +56,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		LOGGER.info("===============进行权限配置================");
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		ShiroUser user = (ShiroUser) principals.getPrimaryPrincipal();
-		if("trial".equals(user.getUserType())){
-			List<UserLogo> list = userLogoRepository.findByUserId(user.getId());
-			if(list!=null&&list.size()<50){
-				authorizationInfo.addStringPermission("search");
-			}
-		}else{
-			authorizationInfo.addStringPermission("search");
+		if(null != user.getRole()){
+			Role role = user.getRole();
+			Set<UserPermission> permissionSet = role.getPermissions();
+			Set<String> permissions = permissionSet.stream().map(UserPermission::getPermissionName).collect(Collectors.toSet());
+			authorizationInfo.addStringPermissions(permissions);
 		}
 		return authorizationInfo;
 	}
@@ -85,9 +86,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			LOGGER.debug("user {} be overdue.", myToken.getUsername());
 			throw new AccountExpiredException();
 		}
+		ShiroUser shiroUser = new ShiroUser(user.getId(), user.getUserAccount(), user.getRealName(), user.getUserType(),user.getRole());
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-				new ShiroUser(user.getId(), user.getUserAccount(), user.getRealName(), user.getUserType()),
-				user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());
+				shiroUser ,user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());
 		return authenticationInfo;
 	}
 
@@ -127,13 +128,15 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		private String loginName;
 		private String name;
 		private String userType;
+		private Role role;
 
-		public ShiroUser(Long id, String loginName, String name, String userType) {
+		public ShiroUser(Long id, String loginName, String name, String userType,Role role) {
 			super();
 			this.id = id;
 			this.loginName = loginName;
 			this.name = name;
 			this.userType = userType;
+			this.role = role;
 		}
 
 		public String getUserType() {
@@ -166,6 +169,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
 		public void setId(Long id) {
 			this.id = id;
+		}
+
+		public Role getRole() {
+			return role;
+		}
+
+		public void setRole(Role role) {
+			this.role = role;
 		}
 
 		/**
