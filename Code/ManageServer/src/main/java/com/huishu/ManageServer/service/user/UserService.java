@@ -1,5 +1,6 @@
 package com.huishu.ManageServer.service.user;
 
+import com.huishu.ManageServer.entity.dbFirst.RolePermission;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.AccountDTO;
@@ -81,5 +82,20 @@ public interface UserService {
 	 */
 	Boolean modifyIsCheck(Long id);
 
+	/**
+	 *账号查询
+	 * @param id
+	 * @return
+	 */
+
     List<UserBase> getAccountByName(String id);
+	/**
+	 *添加/修改用户权限信息
+	 * @param
+	 * @return
+	 */
+	Boolean saveUserRolePermission(RolePermission rolePermission);
+
+
+
 }

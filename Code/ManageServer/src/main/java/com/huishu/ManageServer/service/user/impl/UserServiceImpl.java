@@ -2,6 +2,7 @@ package com.huishu.ManageServer.service.user.impl;
 
 import com.huishu.ManageServer.common.conf.KeyConstan;
 import com.huishu.ManageServer.common.conf.MsgConstant;
+import com.huishu.ManageServer.entity.dbFirst.RolePermission;
 import com.huishu.ManageServer.entity.dbFirst.SearchCount;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dbFirst.UserPark;
@@ -9,6 +10,7 @@ import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.AccountDTO;
 import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
 import com.huishu.ManageServer.entity.dto.UserBaseDTO;
+import com.huishu.ManageServer.repository.first.RolePermissionRepository;
 import com.huishu.ManageServer.repository.first.SearchCountRepository;
 import com.huishu.ManageServer.repository.first.UserParkRepository;
 import com.huishu.ManageServer.repository.first.UserRepository;
@@ -44,6 +46,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	private SearchCountRepository searchCountRepository;
 	@Autowired
 	private UserParkRepository userParkRepository;
+	@Autowired
+	private RolePermissionRepository rolePermissionRepository;
 
 	@Override
 	public Page<UserBase> listUserBase(AbstractDTO dto) {
@@ -338,5 +342,16 @@ public class UserServiceImpl extends AbstractService implements UserService {
 		List<UserBase> list=userRepository.findByUserPark(one.getName());
 		return list;
 	}
+
+
+	@Override
+	public Boolean saveUserRolePermission(RolePermission rolePermission) {
+		RolePermission rolePer=rolePermissionRepository.save(rolePermission);
+		if(rolePer==null){
+			return false;
+		}
+		return true;
+	}
+
 
 }

@@ -78,4 +78,5 @@ public interface UserParkRepository extends CrudRepository<UserPark, Long> {
 	@Query(value = "SELECT * from t_user_base where user_park =? and is_check=1", nativeQuery = true)
 	List<UserBase> findParkAccount(String park);
 
+
 }
