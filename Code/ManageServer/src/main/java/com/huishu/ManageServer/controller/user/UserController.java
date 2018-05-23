@@ -4,6 +4,7 @@ import com.huishu.ManageServer.common.AjaxResult;
 import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
+import com.huishu.ManageServer.entity.dbFirst.RolePermission;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.AccountDTO;
@@ -279,16 +280,49 @@ public class UserController extends BaseController{
 		}
 	}
 
-	@RequestMapping(value = "/getPackUser.json", method = RequestMethod.GET)
+    /**
+     * 账号查找
+     * @param id
+     * @return
+     */
+	@RequestMapping(value = "/getParkUser.json", method = RequestMethod.GET)
 	@ResponseBody
 	public AjaxResult findParkAccount(String id){
 		List<UserBase> out = null;
 		try{
 			out = userService.getAccountByName(id);
 		}catch(Exception e){
-			LOGGER.info("查询失败");
-			return error(MsgConstant.OPERATION_ERROR);
+			LOGGER.info("查询失败",e);
+			return error(e.getMessage());
 		}
 		return success(out);
 	}
+
+
+	/**
+	 * 权限修改/添加
+	 * @param
+	 * @return
+	 */
+
+	@RequestMapping(value="/saveUserRolePer.json", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult UserRolePermission(@RequestBody RolePermission rolePermission) {
+
+		try {
+			Boolean flag = userService.saveUserRolePermission(rolePermission);
+			if (flag) {
+				return success(MsgConstant.OPERATION_SUCCESS);
+			} else {
+				return error(MsgConstant.OPERATION_ERROR);
+			}
+		} catch (Exception e) {
+			LOGGER.error("用户权限添加失败！", e);
+			return error(MsgConstant.SYSTEM_ERROR);
+		}
+
+	}
+
+
+
 }
