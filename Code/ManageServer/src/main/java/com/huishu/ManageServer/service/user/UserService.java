@@ -1,14 +1,13 @@
 package com.huishu.ManageServer.service.user;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dto.AbstractDTO;
 import com.huishu.ManageServer.entity.dto.AccountDTO;
 import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
 import com.huishu.ManageServer.entity.dto.UserBaseDTO;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /**
  * 用户管理service
@@ -81,4 +80,6 @@ public interface UserService {
 	 * @return
 	 */
 	Boolean modifyIsCheck(Long id);
+
+    List<UserBase> getAccountByName(String id);
 }

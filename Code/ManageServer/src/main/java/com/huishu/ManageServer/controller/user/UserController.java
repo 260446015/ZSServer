@@ -1,18 +1,5 @@
 package com.huishu.ManageServer.controller.user;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.huishu.ManageServer.common.AjaxResult;
 import com.huishu.ManageServer.common.conf.MsgConstant;
 import com.huishu.ManageServer.common.util.StringUtil;
@@ -23,6 +10,14 @@ import com.huishu.ManageServer.entity.dto.AccountDTO;
 import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
 import com.huishu.ManageServer.entity.dto.UserBaseDTO;
 import com.huishu.ManageServer.service.user.UserService;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 用户管理模块
@@ -282,5 +277,18 @@ public class UserController extends BaseController{
 			LOGGER.error("账号审核失败!", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
+	}
+
+	@RequestMapping(value = "/getPackUser.json", method = RequestMethod.GET)
+	@ResponseBody
+	public AjaxResult findParkAccount(String id){
+		List<UserBase> out = null;
+		try{
+			out = userService.getAccountByName(id);
+		}catch(Exception e){
+			LOGGER.info("查询失败");
+			return error(MsgConstant.OPERATION_ERROR);
+		}
+		return success(out);
 	}
 }

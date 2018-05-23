@@ -1,33 +1,32 @@
 package com.huishu.ManageServer.service.user.impl;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
+import com.huishu.ManageServer.common.conf.KeyConstan;
+import com.huishu.ManageServer.common.conf.MsgConstant;
+import com.huishu.ManageServer.entity.dbFirst.SearchCount;
+import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dbFirst.UserPark;
+import com.huishu.ManageServer.entity.dto.AbstractDTO;
+import com.huishu.ManageServer.entity.dto.AccountDTO;
+import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
+import com.huishu.ManageServer.entity.dto.UserBaseDTO;
+import com.huishu.ManageServer.repository.first.SearchCountRepository;
 import com.huishu.ManageServer.repository.first.UserParkRepository;
+import com.huishu.ManageServer.repository.first.UserRepository;
+import com.huishu.ManageServer.security.Digests;
+import com.huishu.ManageServer.security.Encodes;
+import com.huishu.ManageServer.service.AbstractService;
+import com.huishu.ManageServer.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.huishu.ManageServer.common.conf.KeyConstan;
-import com.huishu.ManageServer.common.conf.MsgConstant;
-import com.huishu.ManageServer.entity.dbFirst.SearchCount;
-import com.huishu.ManageServer.entity.dbFirst.UserBase;
-import com.huishu.ManageServer.entity.dto.AbstractDTO;
-import com.huishu.ManageServer.entity.dto.AccountDTO;
-import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
-import com.huishu.ManageServer.entity.dto.UserBaseDTO;
-import com.huishu.ManageServer.repository.first.SearchCountRepository;
-import com.huishu.ManageServer.repository.first.UserRepository;
-import com.huishu.ManageServer.security.Digests;
-import com.huishu.ManageServer.security.Encodes;
-import com.huishu.ManageServer.service.AbstractService;
-import com.huishu.ManageServer.service.user.UserService;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * 用户管理实现类
@@ -332,4 +331,12 @@ public class UserServiceImpl extends AbstractService implements UserService {
 		}
 		return true;
 	}
+
+	@Override
+	public List<UserBase> getAccountByName(String id) {
+		UserPark one = userParkRepository.findOne(Long.parseLong(id));
+		List<UserBase> list=userRepository.findByUserPark(one.getName());
+		return list;
+	}
+
 }
