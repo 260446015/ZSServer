@@ -1,10 +1,14 @@
 package com.huishu.ManageServer.service.enterprise.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.huishu.ManageServer.common.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import com.huishu.ManageServer.entity.dbFirst.Enterprise;
@@ -40,6 +44,7 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 	
 	@Override
 	public boolean saveListCompany(List<Enterprise> list,Long userId) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		List<IndusCompany> ll = new ArrayList<IndusCompany>();
 		list.forEach(action->{
 			IndusCompany ent = new IndusCompany();
@@ -49,8 +54,17 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 			ent.setIndustry(action.getIndustry());
 			ent.setIndustryLabel(action.getIndustryLabel());
 			ent.setInduszero(action.getIndustryZero());
-			ent.setCreateTime(action.getCreateTime());
-			ent.setUpdateTime(action.getUpdateTime());
+			if( StringUtil.isEmpty(action.getCreateTime())){
+				ent.setCreateTime(df.format(new Date()));
+			}else{
+				ent.setCreateTime(action.getCreateTime());
+			}
+			if(StringUtil.isEmpty(action.getUpdateTime())){
+				ent.setUpdateTime(df.format(new Date()));
+			}else{
+				ent.setUpdateTime(action.getUpdateTime());
+			}
+
 			ent.setUserId(userId);
 			ll.add(ent);
 		});

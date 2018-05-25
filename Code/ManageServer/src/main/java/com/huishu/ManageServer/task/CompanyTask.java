@@ -61,20 +61,8 @@ public class CompanyTask {
                                 while(list.size()<10){
                                     findCompanyInfo(map, list);
                                 }
-                                //清空原本智能推荐的数据
-                                boolean flag = ics.deleteAll(action.longValue());
-                                if(flag){
-                                    //保存新的数据
-                                    boolean info = ics.saveListCompany(list,action.longValue());
-                                    if(info){
-                                        log.info("更新精准筛选数据时：保存数据时成功"+info);
-                                    }else{
-                                        log.info("更新精准筛选数据时：保存数据时报错"+info);
-                                    }
-                                }else{
-                                    //删除数据报错，无法进行
-                                    log.debug("更新精准筛选数据时：删除数据报错，无法进行");
-                                }
+                                //清空原本智能推荐的数据，然后保存
+                                updateAndInsertData(list);
 							}else{
                                 //第三步：根据用户的企业搜索记录，选取当前类型下比较优质的企业信息；
                                 List<Enterprise> list =new ArrayList<Enterprise>();
@@ -85,18 +73,30 @@ public class CompanyTask {
                                     if(ent == null){
                                         //如果为空，则需要查询基础信息baseInfo，并进行入库
                                         //根据天眼查接口获取企业信息
-
                                     }else {
 //                                        map.put(ent.getCompany().hashCode(),ent);
                                         list.add(ent);
                                     }
                                 });
+                                //清空原本智能推荐的数据，然后保存
+                                updateAndInsertData(list);
+
+                            }
+                        }
+                        private void updateAndInsertData(List<Enterprise> list) {
+                            //清空原本智能推荐的数据
+                            boolean flag = ics.deleteAll(action.longValue());
+                            if(flag){
+                                //保存新的数据
                                 boolean info = ics.saveListCompany(list,action.longValue());
                                 if(info){
                                     log.info("更新精准筛选数据时：保存数据时成功"+info);
                                 }else{
                                     log.info("更新精准筛选数据时：保存数据时报错"+info);
                                 }
+                            }else{
+                                //删除数据报错，无法进行
+                                log.debug("更新精准筛选数据时：删除数据报错，无法进行");
                             }
                         }
                     }
