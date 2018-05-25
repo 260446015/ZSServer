@@ -18,14 +18,14 @@ public interface IndustryCompanyService {
 	 * @return
 	 * 删除精准筛选中的数据
 	 */
-	boolean deleteAll();
+	boolean deleteAll(Long userId);
 
 	/**
 	 * @param list
 	 * @return
 	 * 保存新的数据
 	 */
-	boolean saveListCompany(List<Enterprise> list);
+	boolean saveListCompany(List<Enterprise> list,Long userId);
 
 	/**
 	 * @return

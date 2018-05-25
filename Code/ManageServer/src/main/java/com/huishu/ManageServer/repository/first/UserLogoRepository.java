@@ -21,4 +21,6 @@ public interface UserLogoRepository extends CrudRepository<UserLogo, Long> {
 	List<Object[]> findPage(Integer logoType,Integer pageFrom , Integer pageSize);
 
 	Integer countByLogoType(Integer logoType);
+	@Query(value="select * from t_user_logo t where t.user_id= ?1 and t.search_company is not null   ORDER BY  t.search_count desc limit 0,10",nativeQuery = true)
+	List <UserLogo> findListUserLog(Long userId);
 }

@@ -112,6 +112,11 @@ public class EnterpriseServiceImpl implements EnterpriseService{
 		}
 	}
 
+	@Override
+	public Enterprise findByCompanyName(String companyName) {
+		return enterPriseRepository.findByCompany(companyName);
+	}
+
 	private Enterprise findEnterInfo(Long id ) {
 		//第二步：随机抽取一个id值
 		Long fid = (long) (Math.random()*id+1);

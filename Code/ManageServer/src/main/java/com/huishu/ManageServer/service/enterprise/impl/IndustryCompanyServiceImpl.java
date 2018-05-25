@@ -26,8 +26,8 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 
 	//删除原本的数据
 	@Override
-	public boolean deleteAll() {
-				Iterable<IndusCompany> list = rep.findAll();
+	public boolean deleteAll(Long userId) {
+				List<IndusCompany> list = rep.findByUserId(userId);
 				try {
 					rep.delete(list);
 					return true;
@@ -38,7 +38,7 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 	}
 	
 	@Override
-	public boolean saveListCompany(List<Enterprise> list) {
+	public boolean saveListCompany(List<Enterprise> list,Long userId) {
 		List<IndusCompany> ll = new ArrayList<IndusCompany>();
 		list.forEach(action->{
 			IndusCompany ent = new IndusCompany();
@@ -50,6 +50,7 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 			ent.setInduszero(action.getIndustryZero());
 			ent.setCreateTime(action.getCreateTime());
 			ent.setUpdateTime(action.getUpdateTime());
+			ent.setUserId(userId);
 			ll.add(ent);
 		});
 		try {
