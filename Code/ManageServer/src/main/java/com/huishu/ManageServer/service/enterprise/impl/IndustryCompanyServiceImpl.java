@@ -3,6 +3,7 @@ package com.huishu.ManageServer.service.enterprise.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,7 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 			rep.save(ll);
 			return true;
 		} catch (Exception e) {
+			e.getStackTrace();
 			return false;
 		}
 	}

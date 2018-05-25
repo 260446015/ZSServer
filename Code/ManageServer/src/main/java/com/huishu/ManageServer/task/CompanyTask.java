@@ -39,32 +39,33 @@ public class CompanyTask {
 	private static final Logger log = LoggerFactory.getLogger(CompanyTask.class);
 	//每日更新十家企业信息到精准筛选的表单中
 	//每天晚上十点半更新数据
-	@Scheduled(cron="0 30 22  * * ?")
+    //@Scheduled(cron="0 30 22  * * ?")
 	//测试数据，十分钟一次
-//	@Scheduled(fixedDelay =1000*60*20)
+	@Scheduled(fixedDelay =1000*60*30)
 	public void getCompanyInfoTask(){
 		Map<Integer,Enterprise> map= new HashMap<Integer,Enterprise>();
-		List<Enterprise> list =new ArrayList<Enterprise>();
+
 		//第一步：获取所有的用户id;每一个用户放到一个线程中
-		List<Long> list2 = repository.findAllUserIds();
+		List<Integer> list2 = repository.findAllUserIds();
 		list2.forEach(action->{
 		    new Thread(
                     new Runnable() {
                         @Override
                         public void run() {
                             //第二步：获取用户每天的企业搜索记录（后期补充）
-							List<UserLogo> alist = logoRepository.findListUserLog(action);
+							List<UserLogo> alist = logoRepository.findListUserLog(action.longValue());
                             //第四步：如果搜索记录为空，则推送现有的优质企业
 							if(alist.size()<=9){
                                 //第五步：获取十家企业
+                                List<Enterprise> list =new ArrayList<Enterprise>();
                                 while(list.size()<10){
                                     findCompanyInfo(map, list);
                                 }
                                 //清空原本智能推荐的数据
-                                boolean flag = ics.deleteAll(action);
+                                boolean flag = ics.deleteAll(action.longValue());
                                 if(flag){
                                     //保存新的数据
-                                    boolean info = ics.saveListCompany(list,action);
+                                    boolean info = ics.saveListCompany(list,action.longValue());
                                     if(info){
                                         log.info("更新精准筛选数据时：保存数据时成功"+info);
                                     }else{
@@ -76,6 +77,7 @@ public class CompanyTask {
                                 }
 							}else{
                                 //第三步：根据用户的企业搜索记录，选取当前类型下比较优质的企业信息；
+                                List<Enterprise> list =new ArrayList<Enterprise>();
                                 alist.forEach(act->{
                                     String companyName = act.getSearchCompany();
                                     Long userId = act.getUserId();
@@ -89,7 +91,7 @@ public class CompanyTask {
                                         list.add(ent);
                                     }
                                 });
-                                boolean info = ics.saveListCompany(list,action);
+                                boolean info = ics.saveListCompany(list,action.longValue());
                                 if(info){
                                     log.info("更新精准筛选数据时：保存数据时成功"+info);
                                 }else{

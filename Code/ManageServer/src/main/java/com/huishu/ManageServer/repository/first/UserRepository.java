@@ -35,5 +35,5 @@ public interface UserRepository extends CrudRepository<UserBase, Long> {
 	Integer countCheckPage(String userType, String time1, String time2);
 
 	@Query(value="select id from t_user_base",nativeQuery=true)
-	List<Long> findAllUserIds();
+	List<Integer> findAllUserIds();
 }
