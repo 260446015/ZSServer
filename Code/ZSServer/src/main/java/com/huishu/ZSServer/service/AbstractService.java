@@ -8,17 +8,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
@@ -36,7 +33,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.jpa.domain.Specification;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.forget.analysis.Analysis;
@@ -404,7 +400,7 @@ public class AbstractService<T> {
 
 	/**
 	 * 将拼音简写地域转化成汉字
-	 * @param list
+	 * @param string
 	 * @return
 	 */
 	protected String conversionArea(String string) {
@@ -500,7 +496,7 @@ public class AbstractService<T> {
 
 	/**
 	 * 将汉字地域转化成拼音简写
-	 * @param list
+	 * @param string
 	 * @return
 	 */
 	protected String conversionAreaTwo(String string) {

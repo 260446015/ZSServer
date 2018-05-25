@@ -17,6 +17,6 @@ public interface IndustryCompanyService {
 	 * @return
 	 * 获取智推的企业
 	 */
-	List<IndusCompany> listCompany();
+	List<IndusCompany> listCompany(Long userId);
 
 }

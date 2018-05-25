@@ -22,8 +22,9 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 	private IndustryCompanyRepository rep;
 	
 	@Override
-	public List<IndusCompany> listCompany() {
-		return (List<IndusCompany>) rep.findAll();
+	public List<IndusCompany> listCompany(Long userId) {
+
+		return  rep.findByUserId(userId);
 	}
 
 }

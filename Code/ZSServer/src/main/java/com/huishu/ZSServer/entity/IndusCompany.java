@@ -52,7 +52,17 @@ public class IndusCompany implements Serializable{
 	
 	@Column(name = "t_update_time")
 	private String updateTime;
-	
+	@Column(name = "t_user_id")
+	private Long userId;
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 	public String getInduszero() {
 		return induszero;
 	}

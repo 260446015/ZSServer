@@ -58,7 +58,8 @@ public class IntelligentPushController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/list.json",method=RequestMethod.GET)
 	public AjaxResult getInteList(){
-		List<IndusCompany> list = service.listCompany();
+		Long userId = getUserId();
+		List<IndusCompany> list = service.listCompany(userId);
 		JSONArray arr = new JSONArray();
 		list.forEach(action->{
 			JSONObject obj = new JSONObject();
