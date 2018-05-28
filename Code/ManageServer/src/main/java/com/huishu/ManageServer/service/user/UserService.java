@@ -1,11 +1,9 @@
 package com.huishu.ManageServer.service.user;
 
-import com.huishu.ManageServer.entity.dbFirst.RolePermission;
+import com.huishu.ManageServer.entity.dbFirst.Role;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
-import com.huishu.ManageServer.entity.dto.AbstractDTO;
-import com.huishu.ManageServer.entity.dto.AccountDTO;
-import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
-import com.huishu.ManageServer.entity.dto.UserBaseDTO;
+import com.huishu.ManageServer.entity.dbFirst.UserPermission;
+import com.huishu.ManageServer.entity.dto.*;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -89,13 +87,17 @@ public interface UserService {
 	 */
 
     List<UserBase> getAccountByName(String id);
+
+    List<Role> findRole();
+
+    List<UserPermission> findPermission();
 	/**
 	 *添加/修改用户权限信息
 	 * @param
 	 * @return
 	 */
-	Boolean saveUserRolePermission(RolePermission rolePermission);
+	Boolean saveUserRolePermission(List<RolePermissionDto> rolePermission);
 
 
-
+	boolean updateUserRole(List<RolePermissionDto> dto);
 }

@@ -6,10 +6,7 @@ import com.huishu.ManageServer.common.util.StringUtil;
 import com.huishu.ManageServer.controller.BaseController;
 import com.huishu.ManageServer.entity.dbFirst.RolePermission;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
-import com.huishu.ManageServer.entity.dto.AbstractDTO;
-import com.huishu.ManageServer.entity.dto.AccountDTO;
-import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
-import com.huishu.ManageServer.entity.dto.UserBaseDTO;
+import com.huishu.ManageServer.entity.dto.*;
 import com.huishu.ManageServer.service.user.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +40,20 @@ public class UserController extends BaseController{
 		System.out.println("page的值是：---" + page);
 		if("findParkInformation".equals(page)||"addUserBase".equals(page)){
 			model.addAttribute("id",id);
-		}else if("editUserBase".equals(page)||"userBase".equals(page)){
+		}else if("editUserBase".equals(page)||"userBase".equals(page) || "accountDetail".equals(page)){
 			model.addAttribute("id",id);
 			model.addAttribute("parkId",parkId);
+			if("accountDetail".equals(page)){
+				model.addAttribute("roleList",userService.findRole());
+				model.addAttribute("permissionList",userService.findPermission());
+				List<UserBase> out = null;
+				try{
+					out = userService.getAccountByName(id);
+				}catch(Exception e){
+					LOGGER.info("查询失败");
+				}
+				model.addAttribute("userList",out);
+			}
 		}
 		return "/user/" + page;
 	}
@@ -307,8 +315,9 @@ public class UserController extends BaseController{
 
 	@RequestMapping(value="/saveUserRolePer.json", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult UserRolePermission(@RequestBody RolePermission rolePermission) {
+	public AjaxResult UserRolePermission(@RequestBody List<RolePermissionDto> rolePermission) {
 
+		System.out.println(rolePermission);
 		try {
 			Boolean flag = userService.saveUserRolePermission(rolePermission);
 			if (flag) {
@@ -320,9 +329,12 @@ public class UserController extends BaseController{
 			LOGGER.error("用户权限添加失败！", e);
 			return error(MsgConstant.SYSTEM_ERROR);
 		}
-
 	}
 
-
+	@PostMapping(value = "updateUserRole")
+	@ResponseBody
+	public AjaxResult updateUserRole(@RequestBody List<RolePermissionDto> dto){
+		return 	success(userService.updateUserRole(dto));
+	}
 
 }

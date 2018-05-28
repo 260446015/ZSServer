@@ -6,14 +6,13 @@ import com.huishu.ManageServer.entity.dbFirst.RolePermission;
 import com.huishu.ManageServer.entity.dbFirst.SearchCount;
 import com.huishu.ManageServer.entity.dbFirst.UserBase;
 import com.huishu.ManageServer.entity.dbFirst.UserPark;
-import com.huishu.ManageServer.entity.dto.AbstractDTO;
-import com.huishu.ManageServer.entity.dto.AccountDTO;
-import com.huishu.ManageServer.entity.dto.AccountSearchDTO;
-import com.huishu.ManageServer.entity.dto.UserBaseDTO;
+import com.huishu.ManageServer.entity.dbFirst.*;
+import com.huishu.ManageServer.entity.dto.*;
 import com.huishu.ManageServer.repository.first.RolePermissionRepository;
 import com.huishu.ManageServer.repository.first.SearchCountRepository;
 import com.huishu.ManageServer.repository.first.UserParkRepository;
 import com.huishu.ManageServer.repository.first.UserRepository;
+import com.huishu.ManageServer.repository.first.*;
 import com.huishu.ManageServer.security.Digests;
 import com.huishu.ManageServer.security.Encodes;
 import com.huishu.ManageServer.service.AbstractService;
@@ -24,6 +23,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ import java.util.List;
  * @date 2018/1/4
  */
 @Service
-//@Transactional("firstTransactionManager")
+@Transactional
 public class UserServiceImpl extends AbstractService implements UserService {
 
 	@Autowired
@@ -46,6 +46,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	private SearchCountRepository searchCountRepository;
 	@Autowired
 	private UserParkRepository userParkRepository;
+	@Autowired
+	private RoleRepository roleRepository;
+	@Autowired
+	private UserPermissionRepository userPermissionRepository;
 	@Autowired
 	private RolePermissionRepository rolePermissionRepository;
 
@@ -345,13 +349,57 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
 
 	@Override
-	public Boolean saveUserRolePermission(RolePermission rolePermission) {
-		RolePermission rolePer=rolePermissionRepository.save(rolePermission);
-		if(rolePer==null){
+	@Transactional
+	public Boolean saveUserRolePermission(List<RolePermissionDto> rolePermission) {
+		List<RolePermission> saveList = new ArrayList<>();
+		Role roleId = null;
+		for (int i = 0; i < rolePermission.size(); i++) {
+			RolePermissionDto dto = rolePermission.get(i);
+			RolePermission rp = new RolePermission();
+			UserPermission userPermissionRepositoryOne = userPermissionRepository.findOne(dto.getPermissionId());
+			Role roleRepositoryOne = roleRepository.findOne(dto.getRoleId());
+			if(i == 0){
+				roleId = roleRepositoryOne;
+			}
+			if(userPermissionRepositoryOne != null && roleRepositoryOne != null) {
+				rp.setPermission(userPermissionRepositoryOne);
+				rp.setRoleId(roleRepositoryOne);
+				saveList.add(rp);
+			}
+		}
+		rolePermissionRepository.deleteByRoleId(roleId);
+		List<RolePermission> save = (List<RolePermission>)rolePermissionRepository.save(saveList);
+		if(save.size() == 0){
 			return false;
 		}
 		return true;
 	}
 
 
+	@Override
+	public List<Role> findRole() {
+		return (List<Role>) roleRepository.findAll();
+	}
+
+	@Override
+	public List<UserPermission> findPermission() {
+		return (List<UserPermission>) userPermissionRepository.findAll();
+	}
+
+	@Override
+	public boolean updateUserRole(List<RolePermissionDto> dto) {
+		List<UserBase> saveList = new ArrayList<>();
+		dto.forEach(element ->{
+			UserBase userRepositoryOne = userRepository.findOne(element.getUserId());
+			Role roleRepositoryOne = roleRepository.findOne(element.getRoleId());
+			userRepositoryOne.setRole(roleRepositoryOne);
+			saveList.add(userRepositoryOne);
+		});
+		try {
+			userRepository.save(saveList);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
 }

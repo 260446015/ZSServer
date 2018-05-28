@@ -18,6 +18,7 @@
                             <li id="user_park_item"><a href="/apis/user/userPark.html"><span class="text">账户园区</span></a></li>
 							<li id="examine_item"><a href="/apis/user/userExamine.html"><span class="text">账号审核</span></a></li>
                             <li id="login_item"><a href="/apis/user/userLogin.html"><span class="text">账号登录</span></a></li>
+                            <li id="login_item"><a href="/apis/user/userAuthorization.html"><span class="text">账号授权</span></a></li>
 						</ul></li>
                     <li id="monitor_item" class="nav-parent"><a> <i class="fa fa-video-camera" aria-hidden="true"></i><span>账户监控</span>
                     </a>
