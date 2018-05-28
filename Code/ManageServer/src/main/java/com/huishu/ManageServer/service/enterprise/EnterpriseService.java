@@ -54,4 +54,5 @@ public interface EnterpriseService {
 	 */
 	Enterprise findCompany();
 
+	Enterprise findByCompanyName(String companyName);
 }

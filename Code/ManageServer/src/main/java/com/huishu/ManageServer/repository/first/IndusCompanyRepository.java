@@ -34,5 +34,5 @@ public interface IndusCompanyRepository extends CrudRepository<IndusCompany, Lon
 	
 	IndusCompany findByCompany(String name);
 	
-	
+	List<IndusCompany> findByUserId(Long userId);
 }

@@ -5,6 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.huishu.ZSServer.entity.IndusCompany;
 
+import java.util.List;
+
 
 /**
  * @author hhy
@@ -15,4 +17,5 @@ import com.huishu.ZSServer.entity.IndusCompany;
  */
 public interface IndustryCompanyRepository extends CrudRepository<IndusCompany,Long>,JpaSpecificationExecutor<IndusCompany> {
 
+    List<IndusCompany> findByUserId(Long userId);
 }

@@ -34,4 +34,6 @@ public interface UserRepository extends CrudRepository<UserBase, Long> {
 	@Query(value="select count(1) from t_user_base where user_type=?1 and create_time between ?2 and ?3 and is_check=0",nativeQuery=true)
 	Integer countCheckPage(String userType, String time1, String time2);
 
+	@Query(value="select id from t_user_base",nativeQuery=true)
+	List<Integer> findAllUserIds();
 }

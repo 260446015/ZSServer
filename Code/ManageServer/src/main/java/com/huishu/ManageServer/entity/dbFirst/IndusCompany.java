@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.Data;
 
 /**
  * @author hhy
@@ -54,21 +55,12 @@ public class IndusCompany implements Serializable{
 	//更新时间
 	@Column(name = "t_update_time")
 	private String updateTime;
-	
-	public String getInduszero() {
-		return induszero;
-	}
+	//更新时间
+	@Column(name = "t_user_id")
+	private Long userId;
 
-	public void setInduszero(String induszero) {
-		this.induszero = induszero;
-	}
-
-	public String getIndustryLabel() {
-		return industryLabel;
-	}
-
-	public void setIndustryLabel(String industryLabel) {
-		this.industryLabel = industryLabel;
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
 	public Long getId() {
@@ -102,7 +94,23 @@ public class IndusCompany implements Serializable{
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	
+
+	public String getInduszero() {
+		return induszero;
+	}
+
+	public void setInduszero(String induszero) {
+		this.induszero = induszero;
+	}
+
+	public String getIndustryLabel() {
+		return industryLabel;
+	}
+
+	public void setIndustryLabel(String industryLabel) {
+		this.industryLabel = industryLabel;
+	}
+
 	public String getCreateTime() {
 		return createTime;
 	}
@@ -117,6 +125,14 @@ public class IndusCompany implements Serializable{
 
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	@Override
